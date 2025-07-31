@@ -1,0 +1,29 @@
+{
+    "name": "@wraith13/web-media-player",
+    "version": "1.0.0",
+    "description": "Web Media Player",
+    "scripts": {
+        "build all": "node ./build.js ../build.json all",
+        "build locale script": "tsc -p ./locale/tsconfig.json",
+        "build locale": "node ./locale/index.js",
+        "build web.manifest": "node ./build.js ../build.json web.manifest",
+        "build style": "sass --no-charset style/index.scss style/index.css",
+        "build script": "tsc -p ./script/tsconfig.json",
+        "build html": "node ./build.js ../build.json html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wraith13/web-media-player.git"
+    },
+    "author": "wraith13",
+    "license": "BSL-1.0",
+    "bugs": {
+        "url": "https://github.com/wraith13/web-media-player/issues"
+    },
+    "homepage": "https://github.com/wraith13/web-media-player/#readme",
+    "devDependencies": {
+        "@types/node": "^24.0.1",
+        "sass": "^1.69.5",
+        "typescript": "^5.3.3"
+    }
+}

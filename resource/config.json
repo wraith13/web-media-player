@@ -1,0 +1,66 @@
+{
+    "applicationTitle": "Kaleidoscope Web Screensaver",
+    "repositoryUrl": "https://github.com/wraith13/kaleidoscope/",
+    "canonicalUrl": "https://wraith13.github.io/kaleidoscope/",
+    "googleSiteVerification": "8oVkEdixbPXy2SZ14pt0gKvdFXfFlcAYyD1HxCxJvnw",
+    "log": {
+        "mousemove": false,
+        "ToggleClassForWhileTimer.Timeout": false
+    },
+    "colors": {
+        "monochrome": [
+            "#000000",
+            "#FFFFFF"
+        ],
+        "primaryColors": [
+            "#FF0000",
+            "#00FF00",
+            "#0000FF"
+        ],
+        "phiColors": {
+            "saturation": 0.8,
+            "lightness": 0.6
+        }
+    },
+    "intervalSize": {
+        "minRate": 0.03,
+        "maxRate": 0.6
+    },
+    "informations": [
+        "informationFuseFps"
+    ],
+    "maximumFractionDigits": 2,
+    "startWait": 750,
+    "fullscreenAdditionalWait": 750,
+    "benchmark": {
+        "startWait": 1750,
+        "stableWait": 1750,
+        "adjustLayersWait": 300,
+        "nextPatternWait": 1500,
+        "screenResolutionWait": 1000,
+        "refreshRateWait": 1750,
+        "endWait": 1000,
+        "pixelUnit": 2073600,
+        "colorDepthUnit": 24,
+        "fpsUnit": 60,
+        "decimalDigits": 2
+    },
+    "clock":
+    {
+        "alternate":
+        {
+            "span": 47000
+        },
+        "dateFormat": {
+            "weekday": "long",
+            "year": "numeric",
+            "month": "long",
+            "day": "numeric"
+        },
+        "timeFormat": {
+            "hour": "2-digit",
+            "minute": "2-digit",
+            "second": "2-digit"
+        }
+    }
+}

@@ -1,0 +1,1874 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  line-height: 120%;
+  color: inherit;
+  outline: 0;
+  vertical-align: baseline;
+}
+
+html {
+  -webkit-text-size-adjust: auto;
+  height: 100%;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding-block-start: env(safe-area-inset-top);
+  padding-block-end: env(safe-area-inset-bottom);
+  padding-inline-start: env(safe-area-inset-left);
+  padding-inline-end: env(safe-area-inset-right);
+  overflow: hidden;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  height: auto;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding-block-start: env(safe-area-inset-top);
+  padding-block-end: env(safe-area-inset-bottom);
+  padding-inline-start: env(safe-area-inset-left);
+  padding-inline-end: env(safe-area-inset-right);
+  background-color: black;
+}
+
+button {
+  cursor: pointer;
+}
+
+#noscript *[lang] {
+  opacity: 0;
+  animation: noscript-langs-fade 94.5s infinite;
+}
+#noscript *[lang=ar] {
+  animation-delay: 1s;
+}
+#noscript *[lang=de] {
+  animation-delay: 5.5s;
+}
+#noscript *[lang=el] {
+  animation-delay: 10s;
+}
+#noscript *[lang=en] {
+  animation-delay: 14.5s;
+}
+#noscript *[lang=es] {
+  animation-delay: 19s;
+}
+#noscript *[lang=fa] {
+  animation-delay: 23.5s;
+}
+#noscript *[lang=fr] {
+  animation-delay: 28s;
+}
+#noscript *[lang=hi] {
+  animation-delay: 32.5s;
+}
+#noscript *[lang=id] {
+  animation-delay: 37s;
+}
+#noscript *[lang=it] {
+  animation-delay: 41.5s;
+}
+#noscript *[lang=ja] {
+  animation-delay: 46s;
+}
+#noscript *[lang=ko] {
+  animation-delay: 50.5s;
+}
+#noscript *[lang=nl] {
+  animation-delay: 55s;
+}
+#noscript *[lang=pl] {
+  animation-delay: 59.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 64s;
+}
+#noscript *[lang=ru] {
+  animation-delay: 68.5s;
+}
+#noscript *[lang=th] {
+  animation-delay: 73s;
+}
+#noscript *[lang=tr] {
+  animation-delay: 77.5s;
+}
+#noscript *[lang=vi] {
+  animation-delay: 82s;
+}
+#noscript *[lang=zh-cn] {
+  animation-delay: 86.5s;
+}
+#noscript *[lang=zh-tw] {
+  animation-delay: 91s;
+}
+
+@keyframes noscript-langs-fade {
+  0% {
+    opacity: 0;
+  }
+  0.9523809523809524% {
+    opacity: 1;
+  }
+  4.761904761904762% {
+    opacity: 1;
+  }
+  5.714285714285714% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#noscript {
+  position: fixed;
+  z-index: 9999;
+  color: white;
+  background-color: black;
+  top: 3rem;
+  top: calc(env(safe-area-inset-top) + 3rem);
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 1rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+#noscript .panel {
+  animation-name: noscript-fadein;
+  animation-direction: normal;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  max-width: 100%;
+  width: 48rem;
+  position: relative;
+}
+#noscript .panel *[lang] {
+  position: absolute;
+}
+#noscript .panel .section h2 + div {
+  white-space: pre-wrap;
+}
+#noscript .panel .section + .section {
+  margin-top: 4.5rem;
+}
+
+@keyframes noscript-fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#screen-header {
+  transition: transform 500ms;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.8);
+  padding: 0px;
+  padding-block-start: env(safe-area-inset-top);
+  position: fixed;
+  z-index: 100;
+}
+body.immersive #screen-header:not(.show) {
+  transform: translate(0px, -100%);
+}
+
+body.hide-ui #screen-header:not(.show) {
+  transform: translate(0px, -100%);
+}
+
+#screen-header a {
+  color: rgb(230, 237, 243);
+}
+#screen-header .segment {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-header .segment {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-header .segment {
+    font-size: 1rem;
+  }
+}
+#screen-header .segment {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-header .segment {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+  overflow-x: hidden;
+  transform: skewX(150deg);
+  text-decoration: none !important;
+  min-width: 2.25rem;
+  white-space: nowrap;
+}
+#screen-header .segment:first-child {
+  padding-inline-start: 1.75rem;
+  margin-inline-start: -0.75rem;
+}
+#screen-header .segment + .segment {
+  margin-inline-start: 0rem;
+  border-inline-start-style: solid;
+  border-inline-start-width: 1px;
+  border-inline-start-color: rgba(230, 237, 243, 0.7) !important;
+}
+#screen-header .segment > * {
+  transform: skewX(-150deg);
+}
+@media (max-width: 496px) {
+  #screen-header .segment:not(:last-child) {
+    display: none;
+  }
+  #screen-header .segment + .segment {
+    border-inline-start-style: none;
+  }
+}
+@media (hover: hover) {
+  #screen-header .segment[href]:hover {
+    background-color: rgba(32, 28, 38, 0.95);
+  }
+}
+
+[dir=rtl] #screen-header .segment {
+  transform: skewX(-150deg);
+}
+
+[dir=rtl] #screen-header .segment > * {
+  transform: skewX(150deg);
+}
+
+#screen-body {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: black;
+}
+body.immersive:not(.mousemove) #screen-body {
+  cursor: none;
+}
+
+body.immersive.mousemove #screen-body {
+  cursor: pointer;
+}
+
+#screen-body #canvas, #screen-body #benchmark-canvas {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  position: absolute;
+}
+#screen-body #canvas .layer, #screen-body #benchmark-canvas .layer {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: absolute;
+  mix-blend-mode: difference;
+  will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
+}
+#screen-body #canvas {
+  transition: opacity 750ms, filter 750ms;
+}
+body.benchmark-rendering #screen-body #canvas:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.benchmark-rendering #screen-body #canvas:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#screen-body.black #canvas {
+  display: none;
+}
+#screen-body #benchmark-canvas {
+  transition: opacity 750ms, filter 750ms;
+}
+body:not(.benchmark-rendering) #screen-body #benchmark-canvas:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.benchmark-rendering) #screen-body #benchmark-canvas:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.benchmark-rendering) #screen-body #benchmark-canvas {
+  width: 0px;
+  height: 0px;
+}
+body:not(.benchmark-rendering) #screen-body #benchmark-canvas .layer {
+  display: none;
+}
+
+body.benchmark-rendering #screen-body #benchmark-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#option-panel {
+  transition: opacity 750ms, filter 750ms;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #option-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #option-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #option-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #option-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #option-panel {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #option-panel {
+    font-size: 1rem;
+  }
+}
+#option-panel {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#option-panel {
+  position: absolute;
+  z-index: 80;
+  inset-block-start: 3.25rem;
+  inset-block-start: calc(3.25rem + env(safe-area-inset-top));
+  inset-inline-start: 0.75rem;
+  inset-inline-start: calc(0.75rem + env(safe-area-inset-left));
+  overflow: visible;
+  max-height: 70vh;
+}
+#option-panel label {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding-block: 0.125rem;
+  padding-inline: 0.5rem;
+  margin-block-end: 1px;
+  background-color: rgba(32, 28, 38, 0.6);
+  border-radius: 0.25rem;
+  height: 1.5rem;
+  flex-grow: 1;
+}
+@media (hover: hover) {
+  #option-panel label:hover {
+    background-color: rgba(32, 28, 38, 0.95);
+  }
+}
+#option-panel label * {
+  user-select: none;
+  cursor: pointer;
+}
+#option-panel label input {
+  margin: 0.5rem;
+  padding: 0px;
+}
+#option-panel label select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #option-panel label select {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #option-panel label select {
+    font-size: 1rem;
+  }
+}
+#option-panel label select {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#option-panel label select {
+  color: rgb(230, 237, 243);
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.25rem;
+  text-align: end;
+  text-align-last: end;
+}
+#option-panel label select option {
+  background-color: rgb(32, 28, 38);
+  text-align: end;
+}
+#option-panel label .load-status {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  position: absolute;
+  inset-inline-start: calc(100% + 0.25rem);
+  padding-block: 0.125rem;
+  padding-inline: 0.5rem;
+  border-radius: 1rem;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+#option-panel label .load-status:empty {
+  display: none;
+}
+#option-panel label[for=url]:not(:hover) {
+  background-color: rgba(32, 28, 38, 0.4);
+}
+#option-panel label[for=url]:not(:hover) a {
+  width: 100%;
+}
+
+#fps {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #fps {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #fps {
+    font-size: 1rem;
+  }
+}
+#fps {
+  font-family: monospace;
+}
+#fps {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-block-start: calc(0.5rem + env(safe-area-inset-top));
+  inset-inline-end: 0.5rem;
+  inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
+  border-radius: 0.5rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  text-align: end;
+  white-space: pre;
+  will-change: contents opacity filter;
+  transition: opacity 750ms, filter 750ms;
+}
+body:not(.animation) #fps:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.animation) #fps:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#fps.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#fps.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#benchmark-panel {
+  transition: opacity 750ms, filter 750ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: end;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #benchmark-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #benchmark-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #benchmark-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #benchmark-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-panel {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-panel {
+    font-size: 1rem;
+  }
+}
+#benchmark-panel {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-panel {
+  position: absolute;
+  z-index: 75;
+  inset-block-start: 3.25rem;
+  inset-block-start: calc(3.25rem + env(safe-area-inset-top));
+  inset-inline-end: 0.5rem;
+  inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
+}
+#benchmark-panel button {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  margin-block-end: 1px;
+  background-color: rgba(32, 28, 38, 0.6);
+}
+#benchmark-panel button svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-inline-end: 0.5rem;
+}
+@media (hover: hover) {
+  #benchmark-panel button:hover {
+    background-color: rgba(32, 28, 38, 0.95);
+  }
+}
+#benchmark-panel button * {
+  user-select: none;
+  cursor: pointer;
+}
+@media (max-width: 300px) or (max-height: 300px) {
+  #benchmark-panel #run-benchmark {
+    display: none;
+  }
+}
+#benchmark-panel #introduction-button {
+  display: none;
+}
+@media (max-width: 1400px) or (max-height: 1024px) {
+  #benchmark-panel #introduction-button {
+    display: flex;
+  }
+}
+
+#background-introduction-panel {
+  transition: opacity 750ms, filter 750ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #background-introduction-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #background-introduction-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #background-introduction-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #background-introduction-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #background-introduction-panel {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #background-introduction-panel {
+    font-size: 1rem;
+  }
+}
+#background-introduction-panel {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#background-introduction-panel {
+  position: absolute;
+  z-index: 10;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 50%;
+  padding: 1rem;
+  transition: opacity 1000ms;
+}
+#background-introduction-panel .section {
+  max-width: 100%;
+  width: 48rem;
+}
+#background-introduction-panel .section p {
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+@media (max-width: 1400px) or (max-height: 1024px) {
+  #background-introduction-panel {
+    opacity: 0;
+  }
+}
+
+#popup-introduction-panel {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #popup-introduction-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #popup-introduction-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #popup-introduction-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #popup-introduction-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #popup-introduction-panel {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #popup-introduction-panel {
+    font-size: 1rem;
+  }
+}
+#popup-introduction-panel {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#popup-introduction-panel {
+  position: fixed;
+  z-index: 10;
+  transition: opacity 1000ms;
+  opacity: 0;
+}
+#popup-introduction-panel .section {
+  max-width: 100%;
+  width: 48rem;
+}
+#popup-introduction-panel .section p {
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+@media (max-width: 1400px) or (max-height: 1024px) {
+  #popup-introduction-panel {
+    user-select: none;
+    pointer-events: none;
+    z-index: 9999;
+    padding: 1rem;
+  }
+  #popup-introduction-panel.force-show {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+#play-button {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  transition: opacity 750ms, filter 750ms;
+}
+body.animation:not(.mousemove) #play-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.animation:not(.mousemove) #play-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.benchmark #play-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.benchmark #play-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.benchmark-result #play-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.benchmark-result #play-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #play-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #play-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#play-button {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(230, 237, 243, 0.7);
+  border-radius: 1.5rem;
+  padding-block: 1.5rem;
+  padding-inline: 1.5rem;
+  transition: opacity 750ms, filter 750ms;
+  width: 11rem;
+  height: 11rem;
+  position: fixed;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+#play-button svg {
+  color: rgba(230, 237, 243, 0.7);
+  fill: rgba(230, 237, 243, 0.7);
+  width: 100%;
+  height: 100%;
+}
+@media (hover: hover) {
+  #play-button:hover {
+    border-color: white-color;
+    background-color: rgba(32, 28, 38, 0.95);
+  }
+  #play-button:hover svg {
+    color: rgb(230, 237, 243);
+    fill: rgb(230, 237, 243);
+  }
+}
+body.immersive #play-button #play-icon {
+  display: none;
+}
+
+body:not(.immersive) #play-button #pause-icon {
+  display: none;
+}
+
+[dir=rtl] #play-button {
+  transform: translate(50%, -50%);
+}
+
+#clock-panel {
+  transition: opacity 750ms, filter 750ms;
+}
+body:not(.animation) #clock-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.animation) #clock-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#clock-panel.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#clock-panel.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#clock-panel {
+  position: fixed;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+}
+#clock-panel span {
+  display: block;
+  text-align: center;
+  transition: color 3000ms, text-shadow 3000ms;
+}
+#clock-panel.blend {
+  mix-blend-mode: difference;
+}
+#clock-panel.blend span {
+  color: white;
+}
+#clock-panel.white span {
+  color: white;
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+}
+#clock-panel.black span {
+  color: black;
+  text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+}
+@media (prefers-color-scheme: light) {
+  #clock-panel.system span {
+    color: white;
+    text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  #clock-panel.system span {
+    color: black;
+    text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+  }
+}
+#clock-panel.rainbow span {
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+}
+#clock-panel #time {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #clock-panel #time {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #clock-panel #time {
+    font-size: 1rem;
+  }
+}
+#clock-panel #time {
+  font-family: monospace;
+}
+#clock-panel #time {
+  font-size: 13.5vw;
+  white-space: nowrap;
+}
+#clock-panel #date {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #clock-panel #date {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #clock-panel #date {
+    font-size: 1rem;
+  }
+}
+#clock-panel #date {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#clock-panel #date {
+  font-size: 3vw;
+  white-space: nowrap;
+}
+
+[dir=rtl] #clock-panel {
+  transform: translate(50%, -50%);
+}
+
+#benchmark-popup {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 750ms, filter 750ms;
+}
+body:not(.benchmark) #benchmark-popup:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.benchmark) #benchmark-popup:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.benchmark-result #benchmark-popup:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.benchmark-result #benchmark-popup:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #benchmark-popup:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #benchmark-popup:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#benchmark-popup {
+  padding-block: 1.5rem;
+  padding-inline: 1.5rem;
+  transition: opacity 750ms, filter 750ms;
+  position: fixed;
+  inset-block-start: 50%;
+  width: 100%;
+  transform: translate(0%, -50%);
+  max-height: calc(100vh - 5rem);
+  z-index: 50;
+  gap: 1rem;
+}
+#benchmark-popup #benchmark-popup-description {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-popup #benchmark-popup-description {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-popup #benchmark-popup-description {
+    font-size: 1rem;
+  }
+}
+#benchmark-popup #benchmark-popup-description {
+  font-family: monospace;
+}
+#benchmark-popup #benchmark-popup-description {
+  flex-wrap: wrap;
+}
+#benchmark-popup #benchmark-popup-description #benchmark-popup-label {
+  font-size: 1.5rem;
+}
+#benchmark-popup #benchmark-popup-description #benchmark-popup-value {
+  font-size: 1.5rem;
+  flex-grow: 1;
+  margin-inline-start: 1rem;
+  text-align: end;
+}
+#benchmark-popup button#benchmark-abort-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  color: rgba(32, 28, 38, 0.9);
+  background-color: rgba(230, 237, 243, 0.7);
+  width: 12rem;
+}
+#benchmark-popup button#benchmark-abort-button span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-popup button#benchmark-abort-button span {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-popup button#benchmark-abort-button span {
+    font-size: 1rem;
+  }
+}
+#benchmark-popup button#benchmark-abort-button span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-popup button#benchmark-abort-button span {
+  font-size: 1rem;
+}
+@media (hover: hover) {
+  #benchmark-popup button#benchmark-abort-button:hover {
+    background-color: rgba(230, 237, 243, 0.9);
+  }
+}
+#benchmark-popup #benchmark-progress-bar {
+  margin: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  transition: transform 500ms;
+  gap: 0.25rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.25rem;
+  position: fixed;
+  z-index: 100;
+}
+body:not(.benchmark) #benchmark-popup #benchmark-progress-bar:not(.show) {
+  transform: translate(0px, -100%);
+}
+
+#benchmark-popup #benchmark-progress-bar .progress-block {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  flex-grow: 1;
+  height: 0.5rem;
+}
+#benchmark-popup #benchmark-progress-bar .progress-block.on {
+  background-color: rgba(51, 204, 102, 0.6666666667);
+}
+#benchmark-popup #benchmark-progress-bar .progress-block.now {
+  background-color: rgba(68, 238, 136, 0.9333333333);
+}
+
+#benchmark-result {
+  transition: opacity 750ms, filter 750ms;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+body:not(.benchmark-result) #benchmark-result:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.benchmark-result) #benchmark-result:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#benchmark-result {
+  position: fixed;
+  z-index: 50;
+  padding-block-end: env(safe-area-inset-bottom);
+  overflow: auto;
+  gap: 1rem;
+}
+#benchmark-result h2 {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-result h2 {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-result h2 {
+    font-size: 1rem;
+  }
+}
+#benchmark-result h2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-result h2 {
+  font-size: 1.125rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  padding-block-start: calc(0.5rem + env(safe-area-inset-top));
+  width: 100%;
+  text-align: center;
+  background-color: rgba(32, 28, 38, 0.4);
+}
+#benchmark-result #benchmark-result-score-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  padding-block: 0rem;
+  padding-inline: 1rem;
+  gap: 0.75rem;
+  max-width: 32rem;
+  width: 100%;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
+    font-size: 1rem;
+  }
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
+  font-size: 1rem;
+  opacity: 0.75;
+  overflow-y: visible;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
+  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+    font-size: 1rem;
+  }
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+  font-family: monospace;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+  flex-grow: 1;
+  margin-inline-start: 1rem;
+  text-align: end;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child {
+  font-size: 5rem;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child {
+  font-size: 2.5rem;
+}
+#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
+  font-size: 1.125rem;
+  opacity: 0.75;
+}
+#benchmark-result button#benchmark-result-close-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  color: rgba(32, 28, 38, 0.9);
+  background-color: rgba(230, 237, 243, 0.7);
+  width: 12rem;
+}
+#benchmark-result button#benchmark-result-close-button span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-result button#benchmark-result-close-button span {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-result button#benchmark-result-close-button span {
+    font-size: 1rem;
+  }
+}
+#benchmark-result button#benchmark-result-close-button span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-result button#benchmark-result-close-button span {
+  font-size: 1rem;
+}
+@media (hover: hover) {
+  #benchmark-result button#benchmark-result-close-button:hover {
+    background-color: rgba(230, 237, 243, 0.9);
+  }
+}
+#benchmark-result #benchmark-description-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+#benchmark-result #benchmark-description-panel ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+  padding-block: 0rem;
+  padding-inline: 1rem;
+  padding-block-end: 2rem;
+  padding-inline-start: 1.75rem;
+  opacity: 0.5;
+  max-width: 64rem;
+}
+#benchmark-result #benchmark-description-panel ul li,
+#benchmark-result #benchmark-description-panel ul span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #benchmark-result #benchmark-description-panel ul li,
+  #benchmark-result #benchmark-description-panel ul span {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #benchmark-result #benchmark-description-panel ul li,
+  #benchmark-result #benchmark-description-panel ul span {
+    font-size: 1rem;
+  }
+}
+#benchmark-result #benchmark-description-panel ul li,
+#benchmark-result #benchmark-description-panel ul span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#benchmark-result #benchmark-description-panel ul li,
+#benchmark-result #benchmark-description-panel ul span {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+#screen-footer {
+  margin: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+}
+#screen-footer #supplementary-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+#screen-footer #supplementary-line #keyboard-shortcut {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #screen-footer #supplementary-line #keyboard-shortcut:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #screen-footer #supplementary-line #keyboard-shortcut:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-footer #supplementary-line #keyboard-shortcut {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-footer #supplementary-line #keyboard-shortcut {
+    font-size: 1rem;
+  }
+}
+#screen-footer #supplementary-line #keyboard-shortcut {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-footer #supplementary-line #keyboard-shortcut {
+  margin-block: 0.5rem;
+  margin-inline: 0.5rem;
+  margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
+  border-radius: 0.5rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, max-content);
+  gap: 0.5rem 0.5rem;
+  align-items: center;
+  pointer-events: initial;
+}
+#screen-footer #supplementary-line #keyboard-shortcut span {
+  white-space: nowrap;
+}
+#screen-footer #supplementary-line #keyboard-shortcut span:nth-child(2n+1) {
+  justify-self: end;
+}
+#screen-footer #supplementary-line #keyboard-shortcut span kbd {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-footer #supplementary-line #keyboard-shortcut span kbd {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-footer #supplementary-line #keyboard-shortcut span kbd {
+    font-size: 1rem;
+  }
+}
+#screen-footer #supplementary-line #keyboard-shortcut span kbd {
+  font-family: monospace;
+}
+#screen-footer #supplementary-line #keyboard-shortcut span kbd {
+  display: inline-block;
+  contain: paint;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  padding-block: 1px;
+  padding-inline: 4px;
+  margin-block: 2px;
+  margin-inline: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+#screen-footer #supplementary-line #keyboard-shortcut span .separator {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-footer #supplementary-line #keyboard-shortcut span .separator {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-footer #supplementary-line #keyboard-shortcut span .separator {
+    font-size: 1rem;
+  }
+}
+#screen-footer #supplementary-line #keyboard-shortcut span .separator {
+  font-family: monospace;
+}
+#screen-footer #supplementary-line #keyboard-shortcut span .separator {
+  display: inline-block;
+  padding-block: 1px;
+  padding-inline: 4px;
+  margin-block: 2px;
+  margin-inline: 2px;
+}
+@media (max-width: 760px) or (max-height: 840px) {
+  #screen-footer #supplementary-line #keyboard-shortcut {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}
+#screen-footer #supplementary-line #powered-by {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+body.immersive #screen-footer #supplementary-line #powered-by:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.immersive #screen-footer #supplementary-line #powered-by:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.hide-ui #screen-footer #supplementary-line #powered-by:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.hide-ui #screen-footer #supplementary-line #powered-by:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-footer #supplementary-line #powered-by {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-footer #supplementary-line #powered-by {
+    font-size: 1rem;
+  }
+}
+#screen-footer #supplementary-line #powered-by {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-footer #supplementary-line #powered-by {
+  margin-block: 0.5rem;
+  margin-inline: 0.5rem;
+  margin-inline-end: calc(0.5rem + env(safe-area-inset-right));
+  border-radius: 0.5rem;
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  display: block;
+  direction: ltr;
+  text-align: start;
+  pointer-events: initial;
+}
+#screen-footer #supplementary-line #powered-by .title {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+}
+#screen-footer #supplementary-line #powered-by ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  padding-inline-start: 1rem;
+}
+#screen-footer #supplementary-line #powered-by ul li {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+}
+#screen-footer #supplementary-line #powered-by ul li a {
+  color: rgba(230, 237, 243, 0.7);
+  cursor: pointer;
+}
+@media (hover: hover) {
+  #screen-footer #supplementary-line #powered-by ul li a:hover {
+    color: rgb(230, 237, 243);
+  }
+}
+#screen-footer #information-line {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.8);
+  transition: transform 500ms;
+  padding-block-end: env(safe-area-inset-bottom);
+  pointer-events: initial;
+}
+body.immersive #screen-footer #information-line:not(.show) {
+  transform: translate(0px, 100%);
+}
+
+body.hide-ui #screen-footer #information-line:not(.show) {
+  transform: translate(0px, 100%);
+}
+
+#screen-footer #information-line #information {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-footer #information-line #information {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-footer #information-line #information {
+    font-size: 1rem;
+  }
+}
+#screen-footer #information-line #information {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-footer #information-line #information {
+  color: rgb(230, 237, 243);
+}
+#screen-footer #information-line #information ul {
+  display: inline-block;
+  margin: 0px;
+  padding: 0.5rem;
+  list-style: none;
+}
+#screen-footer #information-line #information ul li {
+  margin: 0px;
+  padding-block: 0.25rem;
+  padding-inline: 0rem;
+}
+
+/*# sourceMappingURL=index.css.map */

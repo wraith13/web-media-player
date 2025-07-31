@@ -1,0 +1,181 @@
+@use "sass:string";
+@use "./params" as *;
+@mixin apply-transition-effect($modes...)
+{
+    @each $mode in $modes
+    {
+        $is-body: 1 == string.index($mode, "body.") or 1 == string.index($mode, "body:");
+        @if $is-body
+        {
+            @at-root #{$mode} &:not(.show)
+            {
+                @content;
+            }
+        }
+        @else
+        {
+            #{$mode}:not(.show)
+            {
+                @content;
+            }
+        }
+    }
+}
+@mixin slide-up-transition($modes...)
+{
+    transition: transform 500ms;
+    @include apply-transition-effect($modes...)
+    {
+        transform: translate(0px, -100%);
+    }
+}
+@mixin slide-down-transition($modes...)
+{
+    transition: transform 500ms;
+    @include apply-transition-effect($modes...)
+    {
+        transform: translate(0px, 100%);
+    }
+}
+@mixin fade-transition($modes...)
+{
+    transition: opacity 750ms, filter 750ms;
+    @include apply-transition-effect($modes...)
+    {
+        opacity: 0;
+        cursor: none;
+        pointer-events: none;
+        filter: blur(1.0em);
+        &::before
+        {
+            content: "";
+            position: absolute;
+            top: -1em;
+            left: -1em;
+            right: -1em;
+            bottom: -1em;
+            background: inherit;
+            filter: blur(1.0em);
+            z-index: -1;
+            transition: filter 750ms;
+        }
+    }
+}
+@mixin flex($flex-direction: row, $justify-content: start, $align-items: center)
+{
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+@mixin solid-box()
+{
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    border: 0;
+}
+@mixin full-stretch-box()
+{
+    margin: 0px;
+    inset-block-start: 0px;
+    inset-block-end: 0px;
+    inset-inline-start: 0px;
+    inset-inline-end: 0px;
+}
+@mixin top-stretch-box()
+{
+    margin: 0px;
+    inset-block-start: 0px;
+    inset-inline-start: 0px;
+    inset-inline-end: 0px;
+}
+@mixin bottom-stretch-box()
+{
+    margin: 0px;
+    inset-block-end: 0px;
+    inset-inline-start: 0px;
+    inset-inline-end: 0px;
+}
+@mixin reset-appearance()
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+@mixin black-panel-style-base()
+{
+    backdrop-filter: blur(0.5rem);
+    color: $white-color;
+}
+@mixin black-line-panel-style()
+{
+    @include black-panel-style-base();
+    background-color: black-color(0.8);
+}
+@mixin black-pop-panel-style()
+{
+    @include black-panel-style-base();
+    background-color: black-color(0.6);
+}
+@mixin font-size($font-size)
+{
+    font-size: $font-size;
+}
+@mixin font-base()
+{
+    @include font-size(0.75rem);
+    font-weight: 400;
+    @media (min-width: 1024px) and (max-width: 1599px)
+    {
+        @include font-size(0.9rem);
+    }
+    @media (min-width: 1600px)
+    {
+        @include font-size(1.0rem);
+    }
+}
+@mixin font()
+{
+    @include font-base();
+    &
+    {
+        font-family: $default-font;
+    }
+}
+@mixin monospace-font()
+{
+    @include font-base();
+    &
+    {
+        font-family: $monospace-font;
+    }
+}
+@mixin svg-color($color)
+{
+    color: $color;
+    fill: $color;
+}
+@mixin default-button
+{
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    color: black-color(0.9);
+    background-color: white-color(0.7);
+    width: 12rem;
+    span
+    {
+        @include font();
+        &
+        {
+            @include font-size(1rem);
+        }
+    }
+    @media (hover: hover)
+    {
+        &:hover
+        {
+            background-color: white-color(0.9);
+        }
+    }
+}

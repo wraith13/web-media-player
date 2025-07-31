@@ -1,0 +1,232 @@
+{
+    "colorspace": {
+        "id": "colorspace",
+        "enum": [
+            "sRGB",
+            "Display P3",
+            "Rec. 2020"
+        ],
+        "default": "sRGB"
+    },
+    "coloring": {
+        "id": "coloring",
+        "enum": [
+            "monochrome",
+            "primary-colors",
+            "phi-colors"
+        ],
+        "default": "phi-colors"
+    },
+    "pattern": {
+        "id": "pattern",
+        "enum": [
+            "lines",
+            "spots",
+            "both"
+        ],
+        "default": "both"
+    },
+    "canvasSize": {
+        "id": "canvas-size",
+        "enum": [
+            100,
+            75,
+            50,
+            30,
+            25,
+            20,
+            15,
+            10,
+            5,
+            3,
+            2,
+            1
+        ],
+        "default": 100
+    },
+    "layers": {
+        "id": "layers",
+        "enum": [
+            97,
+            89,
+            83,
+            79,
+            73,
+            71,
+            67,
+            61,
+            59,
+            53,
+            47,
+            43,
+            41,
+            37,
+            31,
+            29,
+            23,
+            19,
+            17,
+            13,
+            11,
+            7,
+            5,
+            3,
+            2,
+            1
+        ],
+        "default": 7
+    },
+    "spotsLayers": {
+        "id": "spotsLayers",
+        "enum": [
+            100,
+            95,
+            90,
+            85,
+            80,
+            75,
+            70,
+            65,
+            60,
+            55,
+            50,
+            45,
+            40,
+            35,
+            30,
+            25,
+            20,
+            15,
+            10,
+            5
+        ],
+        "default": 30
+    },
+    "cycleSpan": {
+        "id": "cycle-span",
+        "enum": [
+            3600000,
+            1800000,
+            900000,
+            750000,
+            600000,
+            450000,
+            300000,
+            180000,
+            90000,
+            60000,
+            45000,
+            30000,
+            18000,
+            12500,
+            10000,
+            7500,
+            5000,
+            4000,
+            3000,
+            2500,
+            2000,
+            1500,
+            1000
+        ],
+        "default": 7500
+    },
+    "fuseFps": {
+        "id": "fuse-fps",
+        "enum": [
+            25,
+            20,
+            15,
+            12.5,
+            10,
+            7.5,
+            5,
+            3
+        ],
+        "default": 7.5
+    },
+    "frameDelay": {
+        "id": "frame-delay",
+        "enum": [
+            0,
+            25,
+            50,
+            75,
+            100,
+            125,
+            150,
+            200,
+            250,
+            300,
+            350,
+            500,
+            750,
+            1000,
+            1250,
+            1500
+        ],
+        "default": 0
+    },
+    "lowLoadMode": {
+        "id": "low-load-mode",
+        "default": false
+    },
+    "easing": {
+        "id": "easing",
+        "default": true
+    },
+    "withFullscreen": {
+        "id": "with-fullscreen",
+        "default": false
+    },
+    "showFps": {
+        "id": "show-fps",
+        "default": false
+    },
+    "clock": {
+        "id": "clock",
+        "enum": [
+            "hide",
+            "blend",
+            "white",
+            "black",
+            "system",
+            "alternate",
+            "rainbow"
+        ],
+        "default": "hide"
+    },
+    "brightness": {
+        "id": "brightness",
+        "enum": [
+            100,
+            95,
+            90,
+            85,
+            80,
+            75,
+            70,
+            65,
+            60,
+            55,
+            50,
+            45,
+            40,
+            35,
+            30,
+            25,
+            20,
+            15,
+            10,
+            5
+        ],
+        "default": 100
+    },
+    "language": {
+        "id": "language",
+        "enum": [
+            "Auto"
+        ],
+        "default": "Auto"
+    }
+}

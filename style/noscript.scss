@@ -1,0 +1,50 @@
+@use "./traits" as *;
+@use "../locale/generated/langs.scss" as *;
+#noscript
+{
+    position: fixed;
+    z-index: 9999;
+    color: white;
+    background-color: black;
+    top: 3rem;
+    top: calc(env(safe-area-inset-top) + 3rem);
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    overflow: auto;
+    @include flex(column, start, center);
+    .panel
+    {
+        animation-name: noscript-fadein;
+        animation-direction: normal;
+        animation-delay: 1s;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        max-width: 100%;
+        width: 48rem;
+        position: relative;
+        *[lang]
+        {
+            position: absolute;
+        }
+        .section
+        {
+            h2 + div
+            {
+                white-space: pre-wrap;
+            }
+        }
+        .section + .section
+        {
+            margin-top: 4.5rem;
+        }
+    }
+}
+@keyframes noscript-fadein
+{
+    0% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}

@@ -1,0 +1,53 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "module": "amd",
+        "moduleResolution": "node",
+        "strict": true,
+        "declaration": true,
+        "target": "es5",
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "traceResolution": false,
+        "listFiles": false,
+        "stripInternal": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": false,
+        "pretty": false,
+        "noEmitOnError": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "outFile": "index.js",
+        "paths": {
+            "@resource/*": [ "../resource/*" ],
+            "@locale-master": [ "../locale/generated/master" ],
+            "@library": [ "./library" ],
+            "@library/*": [ "./library/*" ],
+            "@tools": [ "./tools" ],
+            "@tools/*": [ "./tools/*" ],
+            "@features": [ "./features" ],
+            "@features/*": [ "./features/*" ],
+            "@controller": [ "./controller" ],
+            "@controller/*": [ "./controller/*" ],
+            "@script/*": [ "../script/*" ]
+        }
+    },
+    "files": [
+        "index.ts"
+    ],
+    "exclude": [
+    ]
+}
