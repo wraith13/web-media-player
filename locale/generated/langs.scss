@@ -1,0 +1,18 @@
+#noscript
+{
+    *[lang]
+    {
+        opacity: 0;
+        animation: noscript-langs-fade 9s infinite;
+    }
+    *[lang="en"] { animation-delay: 1s; }
+    *[lang="ja"] { animation-delay: 5.5s; }
+}
+@keyframes noscript-langs-fade
+{
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    50% { opacity: 1; }
+    60% { opacity: 0; }
+    100% { opacity: 0; }
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Web Media Play",
+    "short_name": "Web Media Play",
+    "start_url": "https://wraith13.github.io/web-media-player/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#CC4488",
+    "description": "Web ブラウザ上で動作するメディアプレイヤー",
+    "icons": [{
+        "src": "https://wraith13.github.io/web-media-player/image/appicon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+    }],
+    "lang": "ja",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "scope": "/",
+    "offline_access": true
+}

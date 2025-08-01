@@ -41,83 +41,26 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 94.5s infinite;
-}
-#noscript *[lang=ar] {
-  animation-delay: 1s;
-}
-#noscript *[lang=de] {
-  animation-delay: 5.5s;
-}
-#noscript *[lang=el] {
-  animation-delay: 10s;
+  animation: noscript-langs-fade 9s infinite;
 }
 #noscript *[lang=en] {
-  animation-delay: 14.5s;
-}
-#noscript *[lang=es] {
-  animation-delay: 19s;
-}
-#noscript *[lang=fa] {
-  animation-delay: 23.5s;
-}
-#noscript *[lang=fr] {
-  animation-delay: 28s;
-}
-#noscript *[lang=hi] {
-  animation-delay: 32.5s;
-}
-#noscript *[lang=id] {
-  animation-delay: 37s;
-}
-#noscript *[lang=it] {
-  animation-delay: 41.5s;
+  animation-delay: 1s;
 }
 #noscript *[lang=ja] {
-  animation-delay: 46s;
-}
-#noscript *[lang=ko] {
-  animation-delay: 50.5s;
-}
-#noscript *[lang=nl] {
-  animation-delay: 55s;
-}
-#noscript *[lang=pl] {
-  animation-delay: 59.5s;
-}
-#noscript *[lang=pt] {
-  animation-delay: 64s;
-}
-#noscript *[lang=ru] {
-  animation-delay: 68.5s;
-}
-#noscript *[lang=th] {
-  animation-delay: 73s;
-}
-#noscript *[lang=tr] {
-  animation-delay: 77.5s;
-}
-#noscript *[lang=vi] {
-  animation-delay: 82s;
-}
-#noscript *[lang=zh-cn] {
-  animation-delay: 86.5s;
-}
-#noscript *[lang=zh-tw] {
-  animation-delay: 91s;
+  animation-delay: 5.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  0.9523809523809524% {
+  10% {
     opacity: 1;
   }
-  4.761904761904762% {
+  50% {
     opacity: 1;
   }
-  5.714285714285714% {
+  60% {
     opacity: 0;
   }
   100% {
@@ -135,6 +78,7 @@ button {
   right: 0px;
   bottom: 0px;
   padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
   overflow: auto;
   display: flex;
   flex-direction: column;

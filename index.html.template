@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--
+    __BUILD_MESSAGE__
+    build options: __BUILD_OPTIONS__
+    build at: __BUILD_TIMESTAMP__
+    repository: __REPOSITORY_URL__
+-->
+<!-- license:
+__LICENSE__-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>__APPLICATION_TITLE__</title>
+<link id="favicon" rel="shortcut icon" href="./image/favicon.png">
+<link rel="canonical" href="__CANONICAL_URL__">
+<link rel="apple-touch-icon" href="./image/favicon.png">
+<meta name="theme-color" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+__DESCRIPTION__
+<link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
+<meta name="apple-mobile-web-app-title" content="__APPLICATION_TITLE__">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@wraith13">
+<!-- meta name="twitter:creator" content="@wraith13" -->
+<meta name="twitter:title" content="__APPLICATION_TITLE__">
+__TWITTER_DESCRIPTION__
+<meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
+<style>
+__STYLE__
+DUMMYSTYLE
+{
+    color: inherit;
+}
+</style>
+</head>
+<body>
+<h1 id="screen-header">
+    <a class="segment" href="https://github.com/"><span>GitHub</span></a>
+    <a class="segment" href="https://github.com/wraith13"><span>wraith13</span></a>
+    <a class="segment" href="https://wraith13.github.io/"><span>wraith13.github.io</span></a>
+    <a class="segment" href="__REPOSITORY_URL__"><span>__APPLICATION_TITLE__</span></a>
+</h1>
+<div id="noscript">
+    <div class="panel">
+        <noscript class="section">
+            <h2>NOSCRIPT</h2>
+            __NOSCRIPT_MESSAGE__
+        </noscript>
+        <div class="section">
+            __NOSCRIPT_INTRODUCTION__
+        </div>
+    </div>
+</div>
+<div id="screen-body">
+    <div id="canvas">
+        <div class="layer"></div>
+    </div>
+    <div id="benchmark-canvas">
+        <div class="layer"></div>
+    </div>
+</div>
+<div id="option-panel">
+    <label for="colorspace">
+        <span data-lang-key="colorspace-label"></span>
+        <select id="colorspace"></select>
+        <span class="load-status" id="colorspace-load-status"></span>
+    </label>
+    <label for="coloring">
+        <span data-lang-key="coloring-label"></span>
+        <select id="coloring"></select>
+        <span class="load-status" id="coloring-load-status"></span>
+    </label>
+    <label for="pattern">
+        <span data-lang-key="pattern-label"></span>
+        <select id="pattern"></select>
+        <span class="load-status" id="pattern-load-status"></span>
+    </label>
+    <label for="canvas-size">
+        <span data-lang-key="canvas-size-label"></span>
+        <select id="canvas-size"></select>
+        <span class="load-status" id="canvas-size-load-status"></span>
+    </label>
+    <label for="layers">
+        <span data-lang-key="layers-label"></span>
+        <select id="layers"></select>
+        <span class="load-status" id="layers-load-status"></span>
+    </label>
+    <label for="spotsLayers">
+        <span data-lang-key="spots-layers-label"></span>
+        <select id="spotsLayers"></select>
+        <span class="load-status" id="spots-layers-load-status"></span>
+    </label>
+    <label for="cycle-span">
+        <span data-lang-key="cycle-span-label"></span>
+        <select id="cycle-span"></select>
+        <span class="load-status" id="cycle-span-load-status"></span>
+    </label>
+    <label for="fuse-fps">
+        <span data-lang-key="fuse-fps-label"></span>
+        <select id="fuse-fps"></select>
+        <span class="load-status" id="fuse-fps-load-status"></span>
+    </label>
+    <label for="frame-delay">
+        <span data-lang-key="frame-delay-label"></span>
+        <select id="frame-delay"></select>
+        <span class="load-status" id="frame-delay-load-status"></span>
+    </label>
+    <label for="easing">
+        <span data-lang-key="easing-label"></span>
+        <input id="easing" type="checkbox" />
+        <span class="load-status" id="easing-load-status"></span>
+    </label>
+    <label for="with-fullscreen">
+        <span data-lang-key="with-fullscreen-label"></span>
+        <input id="with-fullscreen" type="checkbox" />
+        <span class="load-status" id="with-fullscreen-load-status"></span>
+    </label>
+    <label for="show-fps">
+        <span data-lang-key="show-fps-label"></span>
+        <input id="show-fps" type="checkbox" />
+        <span class="load-status" id="show-fps-load-status"></span>
+    </label>
+    <label for="clock">
+        <span data-lang-key="clock-label"></span>
+        <select id="clock"></select>
+        <span class="load-status" id="clock-load-status"></span>
+    </label>
+    <label for="brightness">
+        <span data-lang-key="brightness-label"></span>
+        <select id="brightness"></select>
+        <span class="load-status" id="brightness-load-status"></span>
+    </label>
+    <label for="language">
+        <span data-lang-key="language-label"></span>
+        <select id="language"></select>
+        <span class="load-status" id="language-load-status"></span>
+    </label>
+    <label for="url">
+        <a id="url" href="?"><span data-lang-key="url-label"></span></a>
+    </label>
+</div>
+<div id="fps"></div>
+<div id="benchmark-panel">
+    <button id="run-benchmark">
+        __ELAPSED_ICON__
+        <span data-lang-key="run-benchmark-label"></span>
+    </button>
+    <button id="introduction-button">
+        __INFORMATION_ICON__
+        <span data-lang-key="noscript-introduction-title"></span>
+    </button>
+</div>
+<div id="clock-panel">
+    <span id="time"></span>
+    <span id="date"></span>
+</div>
+<div id="background-introduction-panel">
+    <div class="section">
+        <h2><span data-lang-key="noscript-introduction-title"></span></h2>
+        <p><span data-lang-key="noscript-introduction-description"></span></p>
+    </div>
+</div>
+<div id="popup-introduction-panel">
+    <div class="section">
+        <h2><span data-lang-key="noscript-introduction-title"></span></h2>
+        <p><span data-lang-key="noscript-introduction-description"></span></p>
+    </div>
+</div>
+<button id="play-button">
+    __IMAGES__
+</button>
+<div id="benchmark-popup">
+    <div id="benchmark-popup-description">
+        <span id="benchmark-popup-label"></span>
+        <span id="benchmark-popup-value"></span>
+    </div>
+    <button id="benchmark-abort-button"><span data-lang-key="benchmark-abort"></span></button>
+    <div id="benchmark-progress-bar"></div>
+</div>
+<div id="benchmark-result">
+    <h2><span data-lang-key="benchmark-report-label"></span></h2>
+    <div id="benchmark-result-score-list">
+        <div class="benchmark-main-score">
+            <span data-lang-key="benchmark-total-score"></span>
+            <span id="benchmark-total-score"></span>
+        </div>
+        <div class="benchmark-sub-score">
+            <span data-lang-key="benchmark-score-per-fullhd"></span>
+            <span id="benchmark-score-per-fullhd"></span>
+        </div>
+        <div class="benchmark-sub-score">
+            <span data-lang-key="benchmark-calculation-score"></span>
+            <span id="benchmark-calculation-score"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-lines-calculation-score"></span>
+            <span id="benchmark-lines-calculation-score"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-spots-calculation-score"></span>
+            <span id="benchmark-spots-calculation-score"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-lines-rendering-score"></span>
+            <span id="benchmark-lines-rendering-score"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-spots-rendering-score"></span>
+            <span id="benchmark-spots-rendering-score"></span>
+        </div>
+        <div class="benchmark-main-score">
+            <span data-lang-key="benchmark-display-score"></span>
+            <span id="benchmark-display-score"></span>
+        </div>
+        <div class="benchmark-sub-score">
+            <span data-lang-key="benchmark-fps-score"></span>
+            <span id="benchmark-fps-score"></span>
+        </div>
+        <div class="benchmark-sub-score">
+            <span data-lang-key="benchmark-screen-resolution-score"></span>
+            <span id="benchmark-screen-resolution-score"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-screen-width"></span>
+            <span id="benchmark-screen-width"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-screen-height"></span>
+            <span id="benchmark-screen-height"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-device-pixel-ratio"></span>
+            <span id="benchmark-device-pixel-ratio"></span>
+        </div>
+        <div class="benchmark-score-item">
+            <span data-lang-key="benchmark-screen-color-depth"></span>
+            <span id="benchmark-screen-color-depth"></span>
+        </div>
+    </div>
+    <button id="benchmark-result-close-button"><span data-lang-key="benchmark-close"></span></button>
+    <div id="benchmark-description-panel">
+        <ul>
+            <li><span data-lang-key="benchmark-description-device-pixel-ratio"></span></li>
+            <li><span data-lang-key="benchmark-description-machine-web-browser"></span></li>
+            <li><span data-lang-key="benchmark-description-score-unit"></span></li>
+            <li><span data-lang-key="benchmark-description-total-score"></span></li>
+            <li><span data-lang-key="benchmark-description-calculation-score"></span></li>
+            <li><span data-lang-key="benchmark-description-rendering-score"></span></li>
+            <li><span data-lang-key="benchmark-description-display-score"></span></li>
+            <li><span data-lang-key="benchmark-description-screen-resolution-score"></span></li>
+        </ul>
+    </div>
+</div>
+<div id="screen-footer">
+    <div id="supplementary-line">
+        <div id="keyboard-shortcut">
+        </div>
+        <div id="powered-by">
+            <span class="title"></span>
+            <ul></ul>
+        </div>
+    </div>
+    <div id="information-line">
+        <div id="information">
+            <ul id="information-list">
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+const build =
+{
+    at: "__BUILD_TIMESTAMP__",
+    tick: __BUILD_TIMESTAMP_TICK__
+};
+const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
+__EVIL_COMMONJS_CONFIG__;
+const evilTimerConfig = // "./resource/evil-timer.js.config.json"
+__EVIL_TIMER_CONFIG__;
+__EVIL_COMMONJS__
+__EVIL_TIMER__
+__SCRIPT__
+</script>
+</html>

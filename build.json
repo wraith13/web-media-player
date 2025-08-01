@@ -77,20 +77,6 @@
                         "text": "sourceMappingURL=evil-timer.js/index.js.map"
                     }
                 },
-                "__FLOUNDER_STYLE_JS__": {
-                    "path": "./flounder.style.js/index.js",
-                    "replace": {
-                        "match": "sourceMappingURL=index.js.map",
-                        "text": "sourceMappingURL=flounder.style.js/index.js.map"
-                    }
-                },
-                "__PHI_COLORS__": {
-                    "path": "./phi-colors/library/source/index.js",
-                    "replace": {
-                        "match": "sourceMappingURL=index.js.map",
-                        "text": "sourceMappingURL=phi-colors/library/source/index.js.map"
-                    }
-                },
                 "__SCRIPT__": {
                     "path": "./script/index.js",
                     "replace": {
@@ -112,10 +98,6 @@
                 },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
-                },
-                "__GOOGLE_SITE_VERIFICATION__": {
-                    "json": "./resource/config.json",
-                    "value": "googleSiteVerification"
                 }
             }
         },

@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Kaleidoscope Web Screensaver",
+    "short_name": "Kaleidoscope Web Screensaver",
+    "start_url": "https://wraith13.github.io/kaleidoscope/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#CC4488",
+    "description": "Kaleidoskop Web Screensaver",
+    "icons": [{
+        "src": "https://wraith13.github.io/kaleidoscope/image/appicon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+    }],
+    "lang": "id",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "scope": "/",
+    "offline_access": true
+}
