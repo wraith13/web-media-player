@@ -144,33 +144,6 @@ export namespace UI
             .forEach(i => updateLabel(i));
         Library.UI.replaceChildren
         (
-            UI.keyboardShortcut,
-            Library.Shortcuts.getDisplayList().map
-            (
-                i =>
-                [
-                    {
-                        tag: "span",
-                        children: i.keyss
-                            .map(j => j.map(key => ({ tag: "kbd", text: key })))
-                            .reduce
-                            (
-                                (accumulator, item, i) =>
-                                [
-                                    ...accumulator,
-                                    ...(0 < i ? [{ tag: "span", className: "separator" , text: "/", }]: []),
-                                    ...item,
-                                ],
-                                [] as Library.UI.ElementSource[]
-                            ),
-                    } as const,
-                    { tag: "span", text: Library.Locale.map(i.description as Library.Locale.Label), } as const
-                ]
-            )
-            .reduce((a, b) => a.concat(b), [])
-        );
-        Library.UI.replaceChildren
-        (
             Library.UI.getElementById("ul", "information-list"),
             config.informations.map(i => ({ tag: "li", text: Library.Locale.map(<Library.Locale.Label>i), }))
         );

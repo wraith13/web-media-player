@@ -148,10 +148,6 @@ DUMMYSTYLE
         __ELAPSED_ICON__
         <span data-lang-key="run-benchmark-label"></span>
     </button>
-    <button id="introduction-button">
-        __INFORMATION_ICON__
-        <span data-lang-key="noscript-introduction-title"></span>
-    </button>
 </div>
 <div id="clock-panel">
     <span id="time"></span>

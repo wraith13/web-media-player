@@ -90,12 +90,6 @@
                 "__EVIL_TIMER_CONFIG__": {
                     "path": "./resource/evil-timer.js.config.json"
                 },
-                "__INFORMATION_ICON__": {
-                    "path": "./image/information.1024.svg"
-                },
-                "__ELAPSED_ICON__": {
-                    "path": "./image/elapsed.1024.svg"
-                },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
                 }
