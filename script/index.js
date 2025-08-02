@@ -1222,8 +1222,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
-        UI.runBenchmarkButton = new _library_2.Library.Control.Button({ id: "run-benchmark", });
-        UI.introductionButton = new _library_2.Library.Control.Button({ id: "introduction-button", });
         UI.colorspaceSelect = new _library_2.Library.Control.Select(control_json_1.default.colorspace);
         UI.coloringSelect = new _library_2.Library.Control.Select(control_json_1.default.coloring);
         UI.patternSelect = new _library_2.Library.Control.Select(control_json_1.default.pattern, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -1255,27 +1253,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.clockDisplay = _library_2.Library.UI.getElementById("div", "clock-panel");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
         UI.time = _library_2.Library.UI.getElementById("span", "time");
-        UI.benchmarkProgressBar = _library_2.Library.UI.getElementById("div", "benchmark-progress-bar");
-        UI.benchmarkCanvas = _library_2.Library.UI.getElementById("div", "benchmark-canvas");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
-        UI.benchmarkTotalScore = _library_2.Library.UI.getElementById("span", "benchmark-total-score");
-        UI.benchmarkScorePerFullHD = _library_2.Library.UI.getElementById("span", "benchmark-score-per-fullhd");
-        UI.benchmarkCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-calculation-score");
-        UI.benchmarkLinesCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-lines-calculation-score");
-        UI.benchmarkSpotsCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-spots-calculation-score");
-        UI.benchmarkLinesRenderingScore = _library_2.Library.UI.getElementById("span", "benchmark-lines-rendering-score");
-        UI.benchmarkSpotsRenderingScore = _library_2.Library.UI.getElementById("span", "benchmark-spots-rendering-score");
-        UI.benchmarkDisplayScore = _library_2.Library.UI.getElementById("span", "benchmark-display-score");
-        UI.benchmarkFpsScore = _library_2.Library.UI.getElementById("span", "benchmark-fps-score");
-        UI.benchmarkScreenResolutionScore = _library_2.Library.UI.getElementById("span", "benchmark-screen-resolution-score");
-        UI.benchmarkScreenWidth = _library_2.Library.UI.getElementById("span", "benchmark-screen-width");
-        UI.benchmarkScreenHeight = _library_2.Library.UI.getElementById("span", "benchmark-screen-height");
-        UI.benchmarkDevicePixelRatio = _library_2.Library.UI.getElementById("span", "benchmark-device-pixel-ratio");
-        UI.benchmarkScreenColorDepth = _library_2.Library.UI.getElementById("span", "benchmark-screen-color-depth");
-        UI.benchmarkPopupLabel = _library_2.Library.UI.getElementById("span", "benchmark-popup-label");
-        UI.benchmarkPopupValue = _library_2.Library.UI.getElementById("span", "benchmark-popup-value");
-        UI.benchmarkAbortButton = new _library_2.Library.Control.Button({ id: "benchmark-abort-button", });
-        UI.benchmarkResultCloseButton = new _library_2.Library.Control.Button({ id: "benchmark-result-close-button", });
         UI.updateLanguage = function () {
             _library_2.Library.Locale.setLocale(UI.languageSelect.get());
             var lang = _library_2.Library.Locale.getLocale();
@@ -1440,11 +1418,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 button.dom.blur();
                 //Controller.toggleAnimation();
             };
-            ui_3.UI.introductionButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_3.UI.introductionPanel.classList.toggle("force-show", true);
-            };
             ui_3.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
                 ui_3.UI.introductionPanel.classList.toggle("force-show", false);
@@ -1455,13 +1428,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_3.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
             ui_3.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
             ui_3.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_3.UI.updateLanguage);
-            ui_3.UI.benchmarkResultCloseButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                //Controller.Benchmark.runBenchmark();
-                document.body.classList.toggle("immersive", false);
-                document.body.classList.toggle("benchmark-result", false);
-            };
             var mouseMoveTimer = new _library_3.Library.UI.ToggleClassForWhileTimer();
             ui_3.UI.screenBody.addEventListener("mousemove", function (_event) {
                 if (config_json_5.default.log.mousemove && !mouseMoveTimer.isOn()) {

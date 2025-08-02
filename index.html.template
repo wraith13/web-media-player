@@ -58,9 +58,6 @@ DUMMYSTYLE
     <div id="canvas">
         <div class="layer"></div>
     </div>
-    <div id="benchmark-canvas">
-        <div class="layer"></div>
-    </div>
 </div>
 <div id="option-panel">
     <label for="colorspace">
@@ -143,12 +140,6 @@ DUMMYSTYLE
     </label>
 </div>
 <div id="fps"></div>
-<div id="benchmark-panel">
-    <button id="run-benchmark">
-        __ELAPSED_ICON__
-        <span data-lang-key="run-benchmark-label"></span>
-    </button>
-</div>
 <div id="clock-panel">
     <span id="time"></span>
     <span id="date"></span>
@@ -168,88 +159,6 @@ DUMMYSTYLE
 <button id="play-button">
     __IMAGES__
 </button>
-<div id="benchmark-popup">
-    <div id="benchmark-popup-description">
-        <span id="benchmark-popup-label"></span>
-        <span id="benchmark-popup-value"></span>
-    </div>
-    <button id="benchmark-abort-button"><span data-lang-key="benchmark-abort"></span></button>
-    <div id="benchmark-progress-bar"></div>
-</div>
-<div id="benchmark-result">
-    <h2><span data-lang-key="benchmark-report-label"></span></h2>
-    <div id="benchmark-result-score-list">
-        <div class="benchmark-main-score">
-            <span data-lang-key="benchmark-total-score"></span>
-            <span id="benchmark-total-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-score-per-fullhd"></span>
-            <span id="benchmark-score-per-fullhd"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-calculation-score"></span>
-            <span id="benchmark-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-lines-calculation-score"></span>
-            <span id="benchmark-lines-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-spots-calculation-score"></span>
-            <span id="benchmark-spots-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-lines-rendering-score"></span>
-            <span id="benchmark-lines-rendering-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-spots-rendering-score"></span>
-            <span id="benchmark-spots-rendering-score"></span>
-        </div>
-        <div class="benchmark-main-score">
-            <span data-lang-key="benchmark-display-score"></span>
-            <span id="benchmark-display-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-fps-score"></span>
-            <span id="benchmark-fps-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-screen-resolution-score"></span>
-            <span id="benchmark-screen-resolution-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-width"></span>
-            <span id="benchmark-screen-width"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-height"></span>
-            <span id="benchmark-screen-height"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-device-pixel-ratio"></span>
-            <span id="benchmark-device-pixel-ratio"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-color-depth"></span>
-            <span id="benchmark-screen-color-depth"></span>
-        </div>
-    </div>
-    <button id="benchmark-result-close-button"><span data-lang-key="benchmark-close"></span></button>
-    <div id="benchmark-description-panel">
-        <ul>
-            <li><span data-lang-key="benchmark-description-device-pixel-ratio"></span></li>
-            <li><span data-lang-key="benchmark-description-machine-web-browser"></span></li>
-            <li><span data-lang-key="benchmark-description-score-unit"></span></li>
-            <li><span data-lang-key="benchmark-description-total-score"></span></li>
-            <li><span data-lang-key="benchmark-description-calculation-score"></span></li>
-            <li><span data-lang-key="benchmark-description-rendering-score"></span></li>
-            <li><span data-lang-key="benchmark-description-display-score"></span></li>
-            <li><span data-lang-key="benchmark-description-screen-resolution-score"></span></li>
-        </ul>
-    </div>
-</div>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">

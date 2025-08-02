@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Aug 01 2025 22:19:05 GMT+0900 (日本標準時)
+    build at: Sat Aug 02 2025 15:26:23 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1915,9 +1915,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     <div id="canvas">
         <div class="layer"></div>
     </div>
-    <div id="benchmark-canvas">
-        <div class="layer"></div>
-    </div>
 </div>
 <div id="option-panel">
     <label for="colorspace">
@@ -2000,12 +1997,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </label>
 </div>
 <div id="fps"></div>
-<div id="benchmark-panel">
-    <button id="run-benchmark">
-        __ELAPSED_ICON__
-        <span data-lang-key="run-benchmark-label"></span>
-    </button>
-</div>
 <div id="clock-panel">
     <span id="time"></span>
     <span id="date"></span>
@@ -2035,88 +2026,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </div>
 </button>
-<div id="benchmark-popup">
-    <div id="benchmark-popup-description">
-        <span id="benchmark-popup-label"></span>
-        <span id="benchmark-popup-value"></span>
-    </div>
-    <button id="benchmark-abort-button"><span data-lang-key="benchmark-abort"></span></button>
-    <div id="benchmark-progress-bar"></div>
-</div>
-<div id="benchmark-result">
-    <h2><span data-lang-key="benchmark-report-label"></span></h2>
-    <div id="benchmark-result-score-list">
-        <div class="benchmark-main-score">
-            <span data-lang-key="benchmark-total-score"></span>
-            <span id="benchmark-total-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-score-per-fullhd"></span>
-            <span id="benchmark-score-per-fullhd"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-calculation-score"></span>
-            <span id="benchmark-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-lines-calculation-score"></span>
-            <span id="benchmark-lines-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-spots-calculation-score"></span>
-            <span id="benchmark-spots-calculation-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-lines-rendering-score"></span>
-            <span id="benchmark-lines-rendering-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-spots-rendering-score"></span>
-            <span id="benchmark-spots-rendering-score"></span>
-        </div>
-        <div class="benchmark-main-score">
-            <span data-lang-key="benchmark-display-score"></span>
-            <span id="benchmark-display-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-fps-score"></span>
-            <span id="benchmark-fps-score"></span>
-        </div>
-        <div class="benchmark-sub-score">
-            <span data-lang-key="benchmark-screen-resolution-score"></span>
-            <span id="benchmark-screen-resolution-score"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-width"></span>
-            <span id="benchmark-screen-width"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-height"></span>
-            <span id="benchmark-screen-height"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-device-pixel-ratio"></span>
-            <span id="benchmark-device-pixel-ratio"></span>
-        </div>
-        <div class="benchmark-score-item">
-            <span data-lang-key="benchmark-screen-color-depth"></span>
-            <span id="benchmark-screen-color-depth"></span>
-        </div>
-    </div>
-    <button id="benchmark-result-close-button"><span data-lang-key="benchmark-close"></span></button>
-    <div id="benchmark-description-panel">
-        <ul>
-            <li><span data-lang-key="benchmark-description-device-pixel-ratio"></span></li>
-            <li><span data-lang-key="benchmark-description-machine-web-browser"></span></li>
-            <li><span data-lang-key="benchmark-description-score-unit"></span></li>
-            <li><span data-lang-key="benchmark-description-total-score"></span></li>
-            <li><span data-lang-key="benchmark-description-calculation-score"></span></li>
-            <li><span data-lang-key="benchmark-description-rendering-score"></span></li>
-            <li><span data-lang-key="benchmark-description-display-score"></span></li>
-            <li><span data-lang-key="benchmark-description-screen-resolution-score"></span></li>
-        </ul>
-    </div>
-</div>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">
@@ -2137,8 +2046,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Aug 01 2025 22:19:05 GMT+0900 (日本標準時)",
-    tick: 1754054345930
+    at: "Sat Aug 02 2025 15:26:23 GMT+0900 (日本標準時)",
+    tick: 1754115983081
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4924,8 +4833,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
-        UI.runBenchmarkButton = new _library_2.Library.Control.Button({ id: "run-benchmark", });
-        UI.introductionButton = new _library_2.Library.Control.Button({ id: "introduction-button", });
         UI.colorspaceSelect = new _library_2.Library.Control.Select(control_json_1.default.colorspace);
         UI.coloringSelect = new _library_2.Library.Control.Select(control_json_1.default.coloring);
         UI.patternSelect = new _library_2.Library.Control.Select(control_json_1.default.pattern, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -4957,27 +4864,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.clockDisplay = _library_2.Library.UI.getElementById("div", "clock-panel");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
         UI.time = _library_2.Library.UI.getElementById("span", "time");
-        UI.benchmarkProgressBar = _library_2.Library.UI.getElementById("div", "benchmark-progress-bar");
-        UI.benchmarkCanvas = _library_2.Library.UI.getElementById("div", "benchmark-canvas");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
-        UI.benchmarkTotalScore = _library_2.Library.UI.getElementById("span", "benchmark-total-score");
-        UI.benchmarkScorePerFullHD = _library_2.Library.UI.getElementById("span", "benchmark-score-per-fullhd");
-        UI.benchmarkCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-calculation-score");
-        UI.benchmarkLinesCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-lines-calculation-score");
-        UI.benchmarkSpotsCalculationScore = _library_2.Library.UI.getElementById("span", "benchmark-spots-calculation-score");
-        UI.benchmarkLinesRenderingScore = _library_2.Library.UI.getElementById("span", "benchmark-lines-rendering-score");
-        UI.benchmarkSpotsRenderingScore = _library_2.Library.UI.getElementById("span", "benchmark-spots-rendering-score");
-        UI.benchmarkDisplayScore = _library_2.Library.UI.getElementById("span", "benchmark-display-score");
-        UI.benchmarkFpsScore = _library_2.Library.UI.getElementById("span", "benchmark-fps-score");
-        UI.benchmarkScreenResolutionScore = _library_2.Library.UI.getElementById("span", "benchmark-screen-resolution-score");
-        UI.benchmarkScreenWidth = _library_2.Library.UI.getElementById("span", "benchmark-screen-width");
-        UI.benchmarkScreenHeight = _library_2.Library.UI.getElementById("span", "benchmark-screen-height");
-        UI.benchmarkDevicePixelRatio = _library_2.Library.UI.getElementById("span", "benchmark-device-pixel-ratio");
-        UI.benchmarkScreenColorDepth = _library_2.Library.UI.getElementById("span", "benchmark-screen-color-depth");
-        UI.benchmarkPopupLabel = _library_2.Library.UI.getElementById("span", "benchmark-popup-label");
-        UI.benchmarkPopupValue = _library_2.Library.UI.getElementById("span", "benchmark-popup-value");
-        UI.benchmarkAbortButton = new _library_2.Library.Control.Button({ id: "benchmark-abort-button", });
-        UI.benchmarkResultCloseButton = new _library_2.Library.Control.Button({ id: "benchmark-result-close-button", });
         UI.updateLanguage = function () {
             _library_2.Library.Locale.setLocale(UI.languageSelect.get());
             var lang = _library_2.Library.Locale.getLocale();
@@ -5142,11 +5029,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 button.dom.blur();
                 //Controller.toggleAnimation();
             };
-            ui_3.UI.introductionButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_3.UI.introductionPanel.classList.toggle("force-show", true);
-            };
             ui_3.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
                 ui_3.UI.introductionPanel.classList.toggle("force-show", false);
@@ -5157,13 +5039,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_3.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
             ui_3.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
             ui_3.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_3.UI.updateLanguage);
-            ui_3.UI.benchmarkResultCloseButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                //Controller.Benchmark.runBenchmark();
-                document.body.classList.toggle("immersive", false);
-                document.body.classList.toggle("benchmark-result", false);
-            };
             var mouseMoveTimer = new _library_3.Library.UI.ToggleClassForWhileTimer();
             ui_3.UI.screenBody.addEventListener("mousemove", function (_event) {
                 if (config_json_5.default.log.mousemove && !mouseMoveTimer.isOn()) {

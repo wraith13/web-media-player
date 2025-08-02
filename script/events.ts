@@ -34,12 +34,6 @@ export namespace Events
             button.dom.blur();
             //Controller.toggleAnimation();
         };
-        UI.introductionButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            UI.introductionPanel.classList.toggle("force-show", true);
-        };
         UI.introductionPanel.addEventListener
         (
             "click",
@@ -59,14 +53,6 @@ export namespace Events
         UI.showFps.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
-        UI.benchmarkResultCloseButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            //Controller.Benchmark.runBenchmark();
-            document.body.classList.toggle("immersive", false);
-            document.body.classList.toggle("benchmark-result", false);
-        };
         const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
         UI.screenBody.addEventListener
         (

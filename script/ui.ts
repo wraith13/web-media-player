@@ -15,10 +15,6 @@ export namespace UI
         Library.UI.getElementById("div", "canvas");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
-    export const runBenchmarkButton =
-        new Library.Control.Button({ id: "run-benchmark", });
-    export const introductionButton =
-        new Library.Control.Button({ id: "introduction-button", });
     export const colorspaceSelect =
         new Library.Control.Select(control.colorspace);
     export const coloringSelect =
@@ -81,48 +77,8 @@ export namespace UI
         Library.UI.getElementById("span", "date");
     export const time =
         Library.UI.getElementById("span", "time");
-    export const benchmarkProgressBar =
-        Library.UI.getElementById("div", "benchmark-progress-bar");
-    export const benchmarkCanvas =
-        Library.UI.getElementById("div", "benchmark-canvas");
     export const keyboardShortcut =
         Library.UI.getElementById("div", "keyboard-shortcut");
-    export const benchmarkTotalScore =
-        Library.UI.getElementById("span", "benchmark-total-score");
-    export const benchmarkScorePerFullHD =
-        Library.UI.getElementById("span", "benchmark-score-per-fullhd");
-    export const benchmarkCalculationScore =
-        Library.UI.getElementById("span", "benchmark-calculation-score");
-    export const benchmarkLinesCalculationScore =
-        Library.UI.getElementById("span", "benchmark-lines-calculation-score");
-    export const benchmarkSpotsCalculationScore =
-        Library.UI.getElementById("span", "benchmark-spots-calculation-score");
-    export const benchmarkLinesRenderingScore =
-        Library.UI.getElementById("span", "benchmark-lines-rendering-score");
-    export const benchmarkSpotsRenderingScore =
-        Library.UI.getElementById("span", "benchmark-spots-rendering-score");
-    export const benchmarkDisplayScore =
-        Library.UI.getElementById("span", "benchmark-display-score");
-    export const benchmarkFpsScore =
-        Library.UI.getElementById("span", "benchmark-fps-score");
-    export const benchmarkScreenResolutionScore =
-        Library.UI.getElementById("span", "benchmark-screen-resolution-score");
-    export const benchmarkScreenWidth =
-        Library.UI.getElementById("span", "benchmark-screen-width");
-    export const benchmarkScreenHeight =
-        Library.UI.getElementById("span", "benchmark-screen-height");
-    export const benchmarkDevicePixelRatio =
-        Library.UI.getElementById("span", "benchmark-device-pixel-ratio");
-    export const benchmarkScreenColorDepth =
-        Library.UI.getElementById("span", "benchmark-screen-color-depth");
-    export const benchmarkPopupLabel =
-        Library.UI.getElementById("span", "benchmark-popup-label");
-    export const benchmarkPopupValue =
-        Library.UI.getElementById("span", "benchmark-popup-value");
-    export const benchmarkAbortButton =
-        new Library.Control.Button({ id: "benchmark-abort-button", });
-    export const benchmarkResultCloseButton =
-        new Library.Control.Button({ id: "benchmark-result-close-button", });
     export const updateLanguage = () =>
     {
         Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
