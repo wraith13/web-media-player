@@ -156,9 +156,11 @@ DUMMYSTYLE
         <p><span data-lang-key="noscript-introduction-description"></span></p>
     </div>
 </div>
-<button id="play-button">
-    __IMAGES__
-</button>
+<div id="control-panel">
+    <button id="play-button">
+        __IMAGES__
+    </button>
+</div>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">

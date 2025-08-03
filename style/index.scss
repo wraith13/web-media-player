@@ -377,57 +377,58 @@
         }
     }
 }
-#play-button
+#control-panel
 {
     @include black-pop-panel-style();
     @include fade-transition("body.animation:not(.mousemove)", "body.benchmark", "body.benchmark-result", "body.hide-ui");
     &
     {
-        border-style: solid;
-        border-width: 1px;
-        border-color: white-color(0.7);
-        border-radius: 1.5rem;
-        padding-block: 1.5rem;
-        padding-inline: 1.5rem;
-        transition: opacity 750ms, filter 750ms;
-        width: 11rem;
-        height: 11rem;
-        position: fixed;
+        border-radius: 4.5rem;
         inset-block-start: 50%;
         inset-inline-start: 50%;
         transform: translate(-50%, -50%);
+        position: fixed;
         z-index: 50;
-    }
-    svg
-    {
-        @include svg-color(white-color(0.7));
-        width: 100%;
-        height: 100%;
-    }
-    @media (hover: hover)
-    {
-        &:hover
+        padding: 1.0rem;
+        #play-button
         {
-            border-color: white-color;
-            background-color: $hover-black-color;
+            @include black-pop-panel-style();
+            &
+            {
+                border-style: solid;
+                border-width: 1px;
+                border-color: $white-color;
+                border-radius: 2.25rem;
+                padding-block: 1.0rem;
+                padding-inline: 1.0rem;
+                transition: opacity 750ms, filter 125ms;
+                width: 4.5rem;
+                height: 4.5rem;
+                background-color: black-color(0.9);
+            }
+            svg
+            {
+                @include svg-color($white-color);
+                width: 100%;
+                height: 100%;
+            }
+            @media (hover: hover)
+            {
+                &:hover
+                {
+                    filter: drop-shadow($white-color 0px 0px 0.5rem);
+                }
+            }
+            @at-root body.immersive & #play-icon
+            {
+                display: none;
+            }
+            @at-root body:not(.immersive) & #pause-icon
+            {
+                display: none;
+            }
         }
-        &:hover svg
-        {
-            @include svg-color($white-color);
-        }
     }
-    @at-root body.immersive & #play-icon
-    {
-        display: none;
-    }
-    @at-root body:not(.immersive) & #pause-icon
-    {
-        display: none;
-    }
-}
-[dir="rtl"] #play-button
-{
-    transform: translate(50%, -50%);
 }
 #clock-panel
 {
