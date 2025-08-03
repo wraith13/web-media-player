@@ -90,8 +90,17 @@
                 "__EVIL_TIMER_CONFIG__": {
                     "path": "./resource/evil-timer.js.config.json"
                 },
+                "__ADD_ICON__": {
+                    "path": "./image/add.svg"
+                },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
+                },
+                "__COG_ICON__": {
+                    "path": "./image/cog.svg"
+                },
+                "__ASPECT_ICON__": {
+                    "path": "./image/aspect.svg"
                 }
             }
         },

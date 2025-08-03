@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
-    build options: ../build.json html
-    build at: Sat Aug 02 2025 23:47:38 GMT+0900 (日本標準時)
+    build options: ../build.json all
+    build at: Sun Aug 03 2025 18:51:06 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -188,11 +188,7 @@ button {
   position: fixed;
   z-index: 100;
 }
-body.immersive #screen-header:not(.show) {
-  transform: translate(0px, -100%);
-}
-
-body.hide-ui #screen-header:not(.show) {
+body.play #screen-header:not(.show) {
   transform: translate(0px, -100%);
 }
 
@@ -278,22 +274,42 @@ body.hide-ui #screen-header:not(.show) {
   position: fixed;
   background-color: black;
 }
-body.immersive:not(.mousemove) #screen-body {
+body.play:not(.mousemove) #screen-body {
   cursor: none;
 }
 
-body.immersive.mousemove #screen-body {
+body.play.mousemove #screen-body {
   cursor: pointer;
 }
 
-#screen-body #canvas, #screen-body #benchmark-canvas {
+#screen-body #canvas {
+  transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
   border: 0;
   position: absolute;
 }
-#screen-body #canvas .layer, #screen-body #benchmark-canvas .layer {
+body.list #screen-body #canvas:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.list #screen-body #canvas:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#screen-body #canvas .layer {
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -303,16 +319,37 @@ body.immersive.mousemove #screen-body {
   mix-blend-mode: difference;
   will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
 }
-#screen-body #canvas {
+#screen-body #media-list {
   transition: opacity 750ms, filter 750ms;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  inset-block-start: 2.75rem;
+  inset-block-start: calc(2.75rem + env(safe-area-inset-top));
+  inset-inline-start: 0rem;
+  inset-inline-start: calc(0rem + env(safe-area-inset-left));
+  position: absolute;
+  counter-reset: item-num;
 }
-body.benchmark-rendering #screen-body #canvas:not(.show) {
+body.play #screen-body #media-list:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.benchmark-rendering #screen-body #canvas:not(.show)::before {
+body.play #screen-body #media-list:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -325,87 +362,60 @@ body.benchmark-rendering #screen-body #canvas:not(.show)::before {
   transition: filter 750ms;
 }
 
+#screen-body #media-list .item {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  counter-increment: item-num;
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: rgba(32, 28, 38, 0.6);
+  color: rgb(230, 237, 243);
+  font-size: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 300ms, transform 300ms;
+}
+#screen-body #media-list .item:not(.add)::before {
+  content: counter(item-num);
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 1rem;
+  color: rgb(230, 237, 243);
+  opacity: 0.7;
+}
+@media (hover: hover) {
+  #screen-body #media-list .item:hover {
+    background-color: rgba(32, 28, 38, 0.95);
+    transform: scale(1.05);
+  }
+}
+#screen-body #media-list .item.add {
+  background-color: rgba(32, 28, 38, 0.4);
+}
+#screen-body #media-list .item.add svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: rgb(230, 237, 243);
+}
 #screen-body.black #canvas {
   display: none;
 }
-#screen-body #benchmark-canvas {
-  transition: opacity 750ms, filter 750ms;
-}
-body:not(.benchmark-rendering) #screen-body #benchmark-canvas:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.benchmark-rendering) #screen-body #benchmark-canvas:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.benchmark-rendering) #screen-body #benchmark-canvas {
-  width: 0px;
-  height: 0px;
-}
-body:not(.benchmark-rendering) #screen-body #benchmark-canvas .layer {
-  display: none;
-}
-
-body.benchmark-rendering #screen-body #benchmark-canvas {
-  width: 100%;
-  height: 100%;
-}
 
 #option-panel {
-  transition: opacity 750ms, filter 750ms;
+  display: none;
   font-size: 0.75rem;
   font-weight: 400;
 }
-body.immersive #option-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.immersive #option-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #option-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #option-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
 @media (min-width: 1024px) and (max-width: 1599px) {
   #option-panel {
     font-size: 0.9rem;
@@ -592,119 +602,6 @@ body:not(.animation) #fps:not(.show)::before {
   transition: filter 750ms;
 }
 
-#benchmark-panel {
-  transition: opacity 750ms, filter 750ms;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: end;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-body.immersive #benchmark-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.immersive #benchmark-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #benchmark-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #benchmark-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-panel {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-panel {
-    font-size: 1rem;
-  }
-}
-#benchmark-panel {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-panel {
-  position: absolute;
-  z-index: 75;
-  inset-block-start: 3.25rem;
-  inset-block-start: calc(3.25rem + env(safe-area-inset-top));
-  inset-inline-end: 0.5rem;
-  inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
-}
-#benchmark-panel button {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  border-radius: 0.75rem;
-  cursor: pointer;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  margin-block-end: 1px;
-  background-color: rgba(32, 28, 38, 0.6);
-}
-#benchmark-panel button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-inline-end: 0.5rem;
-}
-@media (hover: hover) {
-  #benchmark-panel button:hover {
-    background-color: rgba(32, 28, 38, 0.95);
-  }
-}
-#benchmark-panel button * {
-  user-select: none;
-  cursor: pointer;
-}
-@media (max-width: 300px) or (max-height: 300px) {
-  #benchmark-panel #run-benchmark {
-    display: none;
-  }
-}
-#benchmark-panel #introduction-button {
-  display: none;
-}
-@media (max-width: 1400px) or (max-height: 1024px) {
-  #benchmark-panel #introduction-button {
-    display: flex;
-  }
-}
-
 #background-introduction-panel {
   transition: opacity 750ms, filter 750ms;
   display: flex;
@@ -714,32 +611,13 @@ body.hide-ui #benchmark-panel:not(.show)::before {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body.immersive #background-introduction-panel:not(.show) {
+body.play #background-introduction-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.immersive #background-introduction-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #background-introduction-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #background-introduction-panel:not(.show)::before {
+body.play #background-introduction-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -806,32 +684,13 @@ body.hide-ui #background-introduction-panel:not(.show)::before {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body.immersive #popup-introduction-panel:not(.show) {
+body.play #popup-introduction-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.immersive #popup-introduction-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #popup-introduction-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #popup-introduction-panel:not(.show)::before {
+body.play #popup-introduction-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -889,71 +748,18 @@ body.hide-ui #popup-introduction-panel:not(.show)::before {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
   transition: opacity 750ms, filter 750ms;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-body.animation:not(.mousemove) #control-panel:not(.show) {
+body.play:not(.mousemove) #control-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.animation:not(.mousemove) #control-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.benchmark #control-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.benchmark #control-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.benchmark-result #control-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.benchmark-result #control-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #control-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #control-panel:not(.show)::before {
+body.play:not(.mousemove) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -973,41 +779,55 @@ body.hide-ui #control-panel:not(.show)::before {
   transform: translate(-50%, -50%);
   position: fixed;
   z-index: 50;
-  padding: 1rem;
+  padding: 0.25rem 0.5rem;
+  gap: 0.5rem;
 }
-#control-panel #play-button {
+#control-panel button {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-#control-panel #play-button {
+#control-panel button {
   border-style: solid;
-  border-width: 1px;
+  border-width: 0px;
   border-color: rgb(230, 237, 243);
-  border-radius: 2.25rem;
-  padding-block: 1rem;
-  padding-inline: 1rem;
+  border-radius: 1rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.5rem;
   transition: opacity 750ms, filter 125ms;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 2rem;
+  height: 2rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
-#control-panel #play-button svg {
+#control-panel button.on {
+  border-width: 1px;
+}
+#control-panel button svg {
   color: rgb(230, 237, 243);
   fill: rgb(230, 237, 243);
   width: 100%;
   height: 100%;
 }
 @media (hover: hover) {
-  #control-panel #play-button:hover {
+  #control-panel button:hover {
     filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
   }
 }
-body.immersive #control-panel #play-button #play-icon {
+#control-panel #play-button {
+  border-width: 1px;
+  border-radius: 2.25rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-top: -1.125rem;
+  margin-bottom: -1.125rem;
+}
+body.play #control-panel #play-button #play-icon {
   display: none;
 }
 
-body:not(.immersive) #control-panel #play-button #pause-icon {
+body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
@@ -1140,429 +960,6 @@ body:not(.animation) #clock-panel:not(.show)::before {
   transform: translate(50%, -50%);
 }
 
-#benchmark-popup {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 750ms, filter 750ms;
-}
-body:not(.benchmark) #benchmark-popup:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.benchmark) #benchmark-popup:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.benchmark-result #benchmark-popup:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.benchmark-result #benchmark-popup:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #benchmark-popup:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #benchmark-popup:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#benchmark-popup {
-  padding-block: 1.5rem;
-  padding-inline: 1.5rem;
-  transition: opacity 750ms, filter 750ms;
-  position: fixed;
-  inset-block-start: 50%;
-  width: 100%;
-  transform: translate(0%, -50%);
-  max-height: calc(100vh - 5rem);
-  z-index: 50;
-  gap: 1rem;
-}
-#benchmark-popup #benchmark-popup-description {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-popup #benchmark-popup-description {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-popup #benchmark-popup-description {
-    font-size: 1rem;
-  }
-}
-#benchmark-popup #benchmark-popup-description {
-  font-family: monospace;
-}
-#benchmark-popup #benchmark-popup-description {
-  flex-wrap: wrap;
-}
-#benchmark-popup #benchmark-popup-description #benchmark-popup-label {
-  font-size: 1.5rem;
-}
-#benchmark-popup #benchmark-popup-description #benchmark-popup-value {
-  font-size: 1.5rem;
-  flex-grow: 1;
-  margin-inline-start: 1rem;
-  text-align: end;
-}
-#benchmark-popup button#benchmark-abort-button {
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  color: rgba(32, 28, 38, 0.9);
-  background-color: rgba(230, 237, 243, 0.7);
-  width: 12rem;
-}
-#benchmark-popup button#benchmark-abort-button span {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-popup button#benchmark-abort-button span {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-popup button#benchmark-abort-button span {
-    font-size: 1rem;
-  }
-}
-#benchmark-popup button#benchmark-abort-button span {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-popup button#benchmark-abort-button span {
-  font-size: 1rem;
-}
-@media (hover: hover) {
-  #benchmark-popup button#benchmark-abort-button:hover {
-    background-color: rgba(230, 237, 243, 0.9);
-  }
-}
-#benchmark-popup #benchmark-progress-bar {
-  margin: 0px;
-  inset-block-end: 0px;
-  inset-inline-start: 0px;
-  inset-inline-end: 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-  align-items: center;
-  transition: transform 500ms;
-  gap: 0.25rem;
-  padding-block: 0.25rem;
-  padding-inline: 0.25rem;
-  position: fixed;
-  z-index: 100;
-}
-body:not(.benchmark) #benchmark-popup #benchmark-progress-bar:not(.show) {
-  transform: translate(0px, -100%);
-}
-
-#benchmark-popup #benchmark-progress-bar .progress-block {
-  display: block;
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-  flex-grow: 1;
-  height: 0.5rem;
-}
-#benchmark-popup #benchmark-progress-bar .progress-block.on {
-  background-color: rgba(51, 204, 102, 0.6666666667);
-}
-#benchmark-popup #benchmark-progress-bar .progress-block.now {
-  background-color: rgba(68, 238, 136, 0.9333333333);
-}
-
-#benchmark-result {
-  transition: opacity 750ms, filter 750ms;
-  margin: 0px;
-  inset-block-start: 0px;
-  inset-block-end: 0px;
-  inset-inline-start: 0px;
-  inset-inline-end: 0px;
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  display: block;
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-}
-body:not(.benchmark-result) #benchmark-result:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.benchmark-result) #benchmark-result:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#benchmark-result {
-  position: fixed;
-  z-index: 50;
-  padding-block-end: env(safe-area-inset-bottom);
-  overflow: auto;
-  gap: 1rem;
-}
-#benchmark-result h2 {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-result h2 {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-result h2 {
-    font-size: 1rem;
-  }
-}
-#benchmark-result h2 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-result h2 {
-  font-size: 1.125rem;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  padding-block-start: calc(0.5rem + env(safe-area-inset-top));
-  width: 100%;
-  text-align: center;
-  background-color: rgba(32, 28, 38, 0.4);
-}
-#benchmark-result #benchmark-result-score-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: stretch;
-  padding-block: 0rem;
-  padding-inline: 1rem;
-  gap: 0.75rem;
-  max-width: 32rem;
-  width: 100%;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
-    font-size: 1rem;
-  }
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:first-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:first-child {
-  font-size: 1rem;
-  opacity: 0.75;
-  overflow-y: visible;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
-  #benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-    font-size: 1rem;
-  }
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-  font-family: monospace;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child,
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-  flex-grow: 1;
-  margin-inline-start: 1rem;
-  text-align: end;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-main-score span:last-child {
-  font-size: 5rem;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-sub-score span:last-child {
-  font-size: 2.5rem;
-}
-#benchmark-result #benchmark-result-score-list .benchmark-score-item span:last-child {
-  font-size: 1.125rem;
-  opacity: 0.75;
-}
-#benchmark-result button#benchmark-result-close-button {
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  color: rgba(32, 28, 38, 0.9);
-  background-color: rgba(230, 237, 243, 0.7);
-  width: 12rem;
-}
-#benchmark-result button#benchmark-result-close-button span {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-result button#benchmark-result-close-button span {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-result button#benchmark-result-close-button span {
-    font-size: 1rem;
-  }
-}
-#benchmark-result button#benchmark-result-close-button span {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-result button#benchmark-result-close-button span {
-  font-size: 1rem;
-}
-@media (hover: hover) {
-  #benchmark-result button#benchmark-result-close-button:hover {
-    background-color: rgba(230, 237, 243, 0.9);
-  }
-}
-#benchmark-result #benchmark-description-panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-#benchmark-result #benchmark-description-panel ul {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  gap: 1rem;
-  padding-block: 0rem;
-  padding-inline: 1rem;
-  padding-block-end: 2rem;
-  padding-inline-start: 1.75rem;
-  opacity: 0.5;
-  max-width: 64rem;
-}
-#benchmark-result #benchmark-description-panel ul li,
-#benchmark-result #benchmark-description-panel ul span {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #benchmark-result #benchmark-description-panel ul li,
-  #benchmark-result #benchmark-description-panel ul span {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #benchmark-result #benchmark-description-panel ul li,
-  #benchmark-result #benchmark-description-panel ul span {
-    font-size: 1rem;
-  }
-}
-#benchmark-result #benchmark-description-panel ul li,
-#benchmark-result #benchmark-description-panel ul span {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#benchmark-result #benchmark-description-panel ul li,
-#benchmark-result #benchmark-description-panel ul span {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
 #screen-footer {
   margin: 0px;
   inset-block-end: 0px;
@@ -1590,32 +987,13 @@ body:not(.benchmark-result) #benchmark-result:not(.show)::before {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body.immersive #screen-footer #supplementary-line #keyboard-shortcut:not(.show) {
+body.play #screen-footer #supplementary-line #keyboard-shortcut:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.immersive #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #screen-footer #supplementary-line #keyboard-shortcut:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::before {
+body.play #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1729,32 +1107,13 @@ body.hide-ui #screen-footer #supplementary-line #keyboard-shortcut:not(.show)::b
   font-size: 0.75rem;
   font-weight: 400;
 }
-body.immersive #screen-footer #supplementary-line #powered-by:not(.show) {
+body.play #screen-footer #supplementary-line #powered-by:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.immersive #screen-footer #supplementary-line #powered-by:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.hide-ui #screen-footer #supplementary-line #powered-by:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.hide-ui #screen-footer #supplementary-line #powered-by:not(.show)::before {
+body.play #screen-footer #supplementary-line #powered-by:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1828,11 +1187,7 @@ body.hide-ui #screen-footer #supplementary-line #powered-by:not(.show)::before {
   padding-block-end: env(safe-area-inset-bottom);
   pointer-events: initial;
 }
-body.immersive #screen-footer #information-line:not(.show) {
-  transform: translate(0px, 100%);
-}
-
-body.hide-ui #screen-footer #information-line:not(.show) {
+body.play #screen-footer #information-line:not(.show) {
   transform: translate(0px, 100%);
 }
 
@@ -1915,6 +1270,20 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <div id="screen-body">
     <div id="canvas">
         <div class="layer"></div>
+    </div>
+    <div id="media-list">
+        <div class="item">media</div>
+        <div class="item">media</div>
+        <div class="item add">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2.4647,0,0,2.46901,-1528.77,-1533.04)">
+        <path d="M828,664C918.514,664 992,737.486 992,828C992,918.514 918.514,992 828,992C737.486,992 664,918.514 664,828C664,737.486 737.486,664 828,664ZM806.133,806.458L729.534,806.458C717.502,806.458 707.733,816.209 707.733,828.221L707.733,828.352C707.733,840.363 717.502,850.115 729.534,850.115L806.133,850.115L806.133,926.58C806.133,938.591 815.902,948.343 827.934,948.343L828.066,948.343C840.098,948.343 849.867,938.591 849.867,926.58L849.867,850.115L926.466,850.115C938.498,850.115 948.267,840.363 948.267,828.352L948.267,828.221C948.267,816.209 938.498,806.458 926.466,806.458L849.867,806.458L849.867,729.992C849.867,717.981 840.098,708.229 828.066,708.229L827.934,708.229C815.902,708.229 806.133,717.981 806.133,729.992L806.133,806.458Z"/>
+    </g>
+</svg>
+
+        </div>
     </div>
 </div>
 <div id="option-panel">
@@ -2028,6 +1397,25 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </div>
     </button>
+    <button id="setting-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path d="M579.681,101.543C534.863,94.152 489.137,94.152 444.319,101.543L422.868,255.329C390.367,266.615 360.306,283.97 334.282,306.473L190.374,248.158C161.565,283.276 138.702,322.876 122.693,365.385L245.15,460.855C238.674,494.644 238.674,529.356 245.15,563.145L122.693,658.615C138.702,701.124 161.565,740.724 190.374,775.842L334.282,717.527C360.306,740.03 390.367,757.385 422.868,768.671L444.319,922.457C489.137,929.848 534.863,929.848 579.681,922.457L601.132,768.671C633.633,757.385 663.694,740.03 689.718,717.527L833.626,775.842C862.435,740.724 885.298,701.124 901.307,658.615L778.85,563.145C785.326,529.356 785.326,494.644 778.85,460.855L901.307,365.385C885.298,322.876 862.435,283.276 833.626,248.158L689.718,306.473C663.694,283.97 633.633,266.615 601.132,255.329L579.681,101.543ZM512,350.491C601.139,350.491 673.509,422.861 673.509,512C673.509,601.139 601.139,673.509 512,673.509C422.861,673.509 350.491,601.139 350.491,512C350.491,422.861 422.861,350.491 512,350.491Z"/>
+</svg>
+</button>
+    <button id="aspect-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="copy">
+    </g>
+    <g transform="matrix(1.71429,0,0,0.87395,-664,192.134)">
+        <path d="M537.833,604L482.783,604C463.586,604 448,573.428 448,535.773L448,196.227C448,158.572 463.586,128 482.783,128L537.833,128L537.833,201.231L497.141,201.231C490.624,201.231 485.333,211.609 485.333,224.393L485.333,507.623C485.333,520.407 490.624,530.785 497.141,530.785L537.833,530.785L537.833,604ZM834.167,128L889.217,128C908.414,128 924,158.572 924,196.227L924,535.773C924,573.428 908.414,604 889.217,604L834.167,604L834.167,530.785L874.859,530.785C881.376,530.785 886.667,520.407 886.667,507.623L886.667,224.393C886.667,211.609 881.376,201.231 874.859,201.231L834.167,201.231L834.167,128Z"/>
+    </g>
+    <g transform="matrix(0.87395,0,0,1.71429,-87.5294,-115.429)">
+        <path d="M924,162.783L924,569.217C924,588.414 893.428,604 855.773,604L516.227,604C478.572,604 448,588.414 448,569.217L448,162.783C448,143.586 478.572,128 516.227,128L855.773,128C893.428,128 924,143.586 924,162.783ZM850.769,177.141C850.769,170.624 840.391,165.333 827.608,165.333L544.392,165.333C531.609,165.333 521.231,170.624 521.231,177.141L521.231,554.859C521.231,561.376 531.609,566.667 544.392,566.667L827.608,566.667C840.391,566.667 850.769,561.376 850.769,554.859L850.769,177.141Z"/>
+    </g>
+</svg>
+</button>
 </div>
 <div id="screen-footer">
     <div id="supplementary-line">
@@ -2049,8 +1437,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Aug 02 2025 23:47:38 GMT+0900 (日本標準時)",
-    tick: 1754146058725
+    at: "Sun Aug 03 2025 18:51:06 GMT+0900 (日本標準時)",
+    tick: 1754214666561
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5023,6 +4411,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             return ui_3.UI.urlAnchor.href = url_1.Url.make(params);
         };
         Events.initialize = function () {
+            document.body.className = "list";
             var applyParam = function (key, value) {
                 url_1.Url.addParameter(url_1.Url.params, key, value);
                 updateUrlAnchor(url_1.Url.params);

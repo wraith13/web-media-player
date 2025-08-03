@@ -1409,6 +1409,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             return ui_3.UI.urlAnchor.href = url_1.Url.make(params);
         };
         Events.initialize = function () {
+            document.body.className = "list";
             var applyParam = function (key, value) {
                 url_1.Url.addParameter(url_1.Url.params, key, value);
                 updateUrlAnchor(url_1.Url.params);

@@ -58,6 +58,13 @@ DUMMYSTYLE
     <div id="canvas">
         <div class="layer"></div>
     </div>
+    <div id="media-list">
+        <div class="item">media</div>
+        <div class="item">media</div>
+        <div class="item add">
+        __ADD_ICON__
+        </div>
+    </div>
 </div>
 <div id="option-panel">
     <label for="colorspace">
@@ -160,6 +167,8 @@ DUMMYSTYLE
     <button id="play-button">
         __IMAGES__
     </button>
+    <button id="setting-button">__COG_ICON__</button>
+    <button id="aspect-button">__ASPECT_ICON__</button>
 </div>
 <div id="screen-footer">
     <div id="supplementary-line">

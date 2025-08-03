@@ -23,6 +23,7 @@ export namespace Events
         UI.urlAnchor.href = Url.make(params);
     export const initialize = () =>
     {
+        document.body.className = "list";
         const applyParam = (key: string, value: string) =>
         {
             Url.addParameter(Url.params, key, value);
