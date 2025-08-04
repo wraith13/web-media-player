@@ -164,6 +164,7 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="control-panel">
+    <button id="repeat-button">__REPEAT_ICON__</button>
     <button id="play-button">
         __IMAGES__
     </button>

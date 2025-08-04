@@ -280,8 +280,8 @@ body.list #screen-body #canvas:not(.show)::before {
   align-items: start;
   flex-wrap: wrap;
   align-content: flex-start;
-  inset-block-start: 2.75rem;
-  inset-block-start: calc(2.75rem + env(safe-area-inset-top));
+  inset-block-start: 2.5rem;
+  inset-block-start: calc(2.5rem + env(safe-area-inset-top));
   inset-inline-start: 0rem;
   inset-inline-start: calc(0rem + env(safe-area-inset-left));
   position: absolute;
@@ -735,12 +735,12 @@ body.play:not(.mousemove) #control-panel:not(.show)::before {
   border-style: solid;
   border-width: 0px;
   border-color: rgb(230, 237, 243);
-  border-radius: 1rem;
-  padding-block: 0.5rem;
-  padding-inline: 0.5rem;
+  border-radius: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
   transition: opacity 750ms, filter 125ms;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
 #control-panel button.on {

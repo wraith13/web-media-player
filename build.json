@@ -93,6 +93,9 @@
                 "__ADD_ICON__": {
                     "path": "./image/add.svg"
                 },
+                "__REPEAT_ICON__": {
+                    "path": "./image/repeat.svg"
+                },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
                 },

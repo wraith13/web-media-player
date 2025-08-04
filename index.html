@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Aug 03 2025 18:51:06 GMT+0900 (日本標準時)
+    build at: Mon Aug 04 2025 01:29:10 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -336,8 +336,8 @@ body.list #screen-body #canvas:not(.show)::before {
   align-items: start;
   flex-wrap: wrap;
   align-content: flex-start;
-  inset-block-start: 2.75rem;
-  inset-block-start: calc(2.75rem + env(safe-area-inset-top));
+  inset-block-start: 2.5rem;
+  inset-block-start: calc(2.5rem + env(safe-area-inset-top));
   inset-inline-start: 0rem;
   inset-inline-start: calc(0rem + env(safe-area-inset-left));
   position: absolute;
@@ -791,12 +791,12 @@ body.play:not(.mousemove) #control-panel:not(.show)::before {
   border-style: solid;
   border-width: 0px;
   border-color: rgb(230, 237, 243);
-  border-radius: 1rem;
-  padding-block: 0.5rem;
-  padding-inline: 0.5rem;
+  border-radius: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
   transition: opacity 750ms, filter 125ms;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
 #control-panel button.on {
@@ -1384,6 +1384,14 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </div>
 </div>
 <div id="control-panel">
+    <button id="repeat-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2.78261,0,0,2.78261,-317.217,-317.217)">
+        <path d="M390,298.106C390,298.071 390,298.035 390,298C390,247.224 348.776,206 298,206C266.006,206 237.804,222.367 221.318,247.178L195.945,205.148C221.193,177.416 257.579,160 298,160C374.164,160 436,221.836 436,298C436,298.035 436,298.071 436,298.106L459,298.106L413,374.373L367,298.106L390,298.106ZM160,298.106L137,298.106L183,221.733L229,298.106L206,298.106C206.058,348.834 247.259,390 298,390C329.972,390 358.157,373.655 374.648,348.873L400.017,390.895C374.77,418.601 338.401,436 298,436C221.871,436 160.058,374.222 160,298.106Z"/>
+    </g>
+</svg>
+</button>
     <button id="play-button">
         <div id="play-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-20.52,-0.152764)">
@@ -1437,8 +1445,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Aug 03 2025 18:51:06 GMT+0900 (日本標準時)",
-    tick: 1754214666561
+    at: "Mon Aug 04 2025 01:29:10 GMT+0900 (日本標準時)",
+    tick: 1754238550978
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {

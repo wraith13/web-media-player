@@ -110,8 +110,8 @@
         @include flex(row, start, start);
         flex-wrap: wrap;
         align-content: flex-start;
-        inset-block-start: 2.75rem;
-        inset-block-start: calc(2.75rem + env(safe-area-inset-top));
+        inset-block-start: 2.5rem;
+        inset-block-start: calc(2.5rem + env(safe-area-inset-top));
         inset-inline-start: 0rem;
         inset-inline-start: calc(0rem + env(safe-area-inset-left));
         position: absolute;
@@ -384,12 +384,12 @@
                     border-width: 1px;
                 }
                 border-color: $white-color;
-                border-radius: 1.0rem;
-                padding-block: 0.5rem;
-                padding-inline: 0.5rem;
+                border-radius: 1.5rem;
+                padding-block: 0.75rem;
+                padding-inline: 0.75rem;
                 transition: opacity 750ms, filter 125ms;
-                width: 2.0rem;
-                height: 2.0rem;
+                width: 3.0rem;
+                height: 3.0rem;
                 background-color: black-color(0.9);
             }
             svg
