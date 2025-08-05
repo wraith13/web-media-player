@@ -61,7 +61,9 @@
             {
                 &[href]:hover
                 {
+                    z-index: 100;;
                     background-color: $hover-black-color;
+                    filter: drop-shadow($white-color 0px 0px 0.5rem);
                 }
             }
         }
@@ -108,6 +110,7 @@
         @include solid-box();
         @include full-stretch-box();
         @include flex(row, start, start);
+        z-index: 30;
         flex-wrap: wrap;
         align-content: flex-start;
         inset-block-start: 2.75rem;
@@ -146,7 +149,9 @@
             {
                 &:hover
                 {
+                    z-index: 100;;
                     background-color: $hover-black-color;
+                    filter: drop-shadow($white-color 0px 0px 0.5rem);
                     transform: scale(1.05);
                 }
             }
@@ -158,6 +163,10 @@
                     width: 2.5rem;
                     height: 2.5rem;
                     fill: $white-color;
+                }
+                #add-file
+                {
+                    display: none;
                 }
             }
         }
@@ -290,6 +299,7 @@
     @include font();
     &
     {
+        display: none; // 🔥
         position: absolute;
         z-index: 10;
         //color: white;
@@ -324,6 +334,7 @@
     @include font();
     &
     {
+        display: none; // 🔥
         position: fixed;
         z-index: 10;
         transition: opacity 1000ms;

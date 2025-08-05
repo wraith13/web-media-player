@@ -1222,6 +1222,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+        UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.colorspaceSelect = new _library_2.Library.Control.Select(control_json_1.default.colorspace);
         UI.coloringSelect = new _library_2.Library.Control.Select(control_json_1.default.coloring);
         UI.patternSelect = new _library_2.Library.Control.Select(control_json_1.default.pattern, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -1418,6 +1419,14 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 //Controller.toggleAnimation();
+            };
+            ui_3.UI.addMediaButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                var input = _library_3.Library.UI.getElementById("input", "add-file");
+                if (input) {
+                    input.click();
+                }
             };
             ui_3.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();

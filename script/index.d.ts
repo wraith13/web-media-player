@@ -493,6 +493,7 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const canvas: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
+        const addMediaButton: Library.Control.Button<HTMLElement>;
         const colorspaceSelect: Library.Control.Select<string>;
         const coloringSelect: Library.Control.Select<string>;
         const patternSelect: Library.Control.Select<string>;

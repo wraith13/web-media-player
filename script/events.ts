@@ -35,6 +35,16 @@ export namespace Events
             button.dom.blur();
             //Controller.toggleAnimation();
         };
+        UI.addMediaButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            const input = Library.UI.getElementById("input", "add-file");
+            if (input)
+            {
+                input.click();
+            }
+        };
         UI.introductionPanel.addEventListener
         (
             "click",
