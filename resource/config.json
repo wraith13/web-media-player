@@ -25,9 +25,6 @@
         "minRate": 0.03,
         "maxRate": 0.6
     },
-    "informations": [
-        "informationFuseFps"
-    ],
     "maximumFractionDigits": 2,
     "startWait": 750,
     "fullscreenAdditionalWait": 750,

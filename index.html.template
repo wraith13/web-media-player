@@ -182,12 +182,6 @@ DUMMYSTYLE
             <ul></ul>
         </div>
     </div>
-    <div id="information-line">
-        <div id="information">
-            <ul id="information-list">
-            </ul>
-        </div>
-    </div>
 </div>
 </body>
 <script type="text/javascript">

@@ -320,9 +320,6 @@ define("resource/config", [], {
         "minRate": 0.03,
         "maxRate": 0.6
     },
-    "informations": [
-        "informationFuseFps"
-    ],
     "maximumFractionDigits": 2,
     "startWait": 750,
     "fullscreenAdditionalWait": 750,
@@ -1208,11 +1205,10 @@ define("resource/powered-by", [], {
     "evil-commonjs": "https://github.com/wraith13/evil-commonjs",
     "evil-timer.js": "https://github.com/wraith13/evil-timer.js"
 });
-define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/config", "resource/control", "resource/powered-by"], function (require, exports, _tools_2, _library_2, config_json_2, control_json_1, powered_by_json_1) {
+define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, powered_by_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
-    config_json_2 = __importDefault(config_json_2);
     control_json_1 = __importDefault(control_json_1);
     powered_by_json_1 = __importDefault(powered_by_json_1);
     var UI;
@@ -1273,7 +1269,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.languageSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
                 .forEach(function (i) { return UI.updateLabel(i); });
-            _library_2.Library.UI.replaceChildren(_library_2.Library.UI.getElementById("ul", "information-list"), config_json_2.default.informations.map(function (i) { return ({ tag: "li", text: _library_2.Library.Locale.map(i), }); }));
         };
         UI.initialize = function () {
             UI.noscript.style.setProperty("display", "none");
@@ -1301,18 +1296,18 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/clock", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, library_1, ui_2, config_json_3) {
+define("script/features/clock", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, library_1, ui_2, config_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Clock = void 0;
-    config_json_3 = __importDefault(config_json_3);
+    config_json_2 = __importDefault(config_json_2);
     var Clock;
     (function (Clock) {
         Clock.makeDate = function (local) {
-            return new Date().toLocaleDateString(local, config_json_3.default.clock.dateFormat);
+            return new Date().toLocaleDateString(local, config_json_2.default.clock.dateFormat);
         };
         Clock.makeTime = function (local) {
-            return new Date().toLocaleTimeString(local, config_json_3.default.clock.timeFormat);
+            return new Date().toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
         Clock.update = function (local) {
             library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.makeDate(local));
@@ -1353,11 +1348,11 @@ define("resource/images", [], {
     "play-icon": "./image/play.svg",
     "pause-icon": "./image/pause.svg"
 });
-define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_4) {
+define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Url = void 0;
-    config_json_4 = __importDefault(config_json_4);
+    config_json_3 = __importDefault(config_json_3);
     var Url;
     (function (Url) {
         Url.parseParameter = function (url) {
@@ -1368,7 +1363,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
             return result;
         };
         Url.make = function (params) {
-            var url = new URL(config_json_4.default.canonicalUrl || window.location.href);
+            var url = new URL(config_json_3.default.canonicalUrl || window.location.href);
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -1389,11 +1384,11 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_3, _features_1, ui_3, url_1, config_json_5, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_3, _features_1, ui_3, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_5 = __importDefault(config_json_5);
+    config_json_4 = __importDefault(config_json_4);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -1440,7 +1435,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_3.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_3.UI.updateLanguage);
             var mouseMoveTimer = new _library_3.Library.UI.ToggleClassForWhileTimer();
             ui_3.UI.screenBody.addEventListener("mousemove", function (_event) {
-                if (config_json_5.default.log.mousemove && !mouseMoveTimer.isOn()) {
+                if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
                     console.log("🖱️ MouseMove:", event, ui_3.UI.screenBody);
                 }
                 mouseMoveTimer.start(document.body, "mousemove", 1000);
@@ -1501,10 +1496,10 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_4, _features_2, config_json_6, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_4, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_4, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_4, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_6 = __importDefault(config_json_6);
+    config_json_5 = __importDefault(config_json_5);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -1516,7 +1511,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_4.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_6.default,
+        config: config_json_5.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,

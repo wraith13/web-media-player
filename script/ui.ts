@@ -1,6 +1,5 @@
 import { Tools } from "@tools";
 import { Library } from "@library";
-import config from "@resource/config.json";
 import control from "@resource/control.json";
 import poweredBy from "@resource/powered-by.json";
 export namespace UI
@@ -100,11 +99,6 @@ export namespace UI
         UI.languageSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));
-        Library.UI.replaceChildren
-        (
-            Library.UI.getElementById("ul", "information-list"),
-            config.informations.map(i => ({ tag: "li", text: Library.Locale.map(<Library.Locale.Label>i), }))
-        );
     }
     export const initialize = () =>
     {
