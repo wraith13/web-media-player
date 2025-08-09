@@ -63,7 +63,7 @@ DUMMYSTYLE
         <div class="item">media</div>
         <div class="item add" id="add-media">
             __ADD_ICON__
-            <input id="add-file" type="file" accept="image/*,audio/*,video/*">
+            <input id="add-file" type="file" accept="image/*,audio/*,video/*" multiple>
         </div>
     </div>
 </div>

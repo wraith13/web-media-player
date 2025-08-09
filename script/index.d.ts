@@ -493,7 +493,9 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const canvas: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
+        const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
+        const inputFile: HTMLInputElement;
         const colorspaceSelect: Library.Control.Select<string>;
         const coloringSelect: Library.Control.Select<string>;
         const patternSelect: Library.Control.Select<string>;
@@ -533,12 +535,34 @@ declare module "script/features/clock" {
         const setColor: (color: string | undefined) => void;
     }
 }
+declare module "script/features/media" {
+    export namespace Media {
+        interface Entry {
+            file: File;
+            type: MediaType;
+            name: string;
+            thumbnail: string;
+            duration: number | null;
+        }
+        const mediaList: Entry[];
+        type MediaType = "image" | "audio" | "video";
+        const getMediaType: (file: File) => MediaType | null;
+        const isMediaFile: (file: File) => boolean;
+        const getName: (file: File) => string;
+        const getThumbnail: (file: File) => Promise<string>;
+        const getDuration: (file: File) => Promise<number | null>;
+        const addMedia: (file: File) => Promise<void>;
+        const updateMediaListDisplay: () => void;
+    }
+}
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
+    import * as ImportedMedia from "script/features/media";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
+        export import Media = ImportedMedia.Media;
     }
 }
 declare module "script/url" {

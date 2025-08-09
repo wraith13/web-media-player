@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Aug 05 2025 22:03:32 GMT+0900 (日本標準時)
+    build at: Sat Aug 09 2025 19:59:18 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -385,6 +385,7 @@ body.play #screen-body #media-list:not(.show)::before {
   font-size: 1.25rem;
   text-align: center;
   cursor: pointer;
+  overflow: hidden;
   transition: background-color 300ms, transform 300ms;
 }
 #screen-body #media-list .item:not(.add)::before {
@@ -1254,7 +1255,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </g>
 </svg>
 
-            <input id="add-file" type="file" accept="image/*,audio/*,video/*">
+            <input id="add-file" type="file" accept="image/*,audio/*,video/*" multiple>
         </div>
     </div>
 </div>
@@ -1419,8 +1420,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Aug 05 2025 22:03:32 GMT+0900 (日本標準時)",
-    tick: 1754399012042
+    at: "Sat Aug 09 2025 19:59:18 GMT+0900 (日本標準時)",
+    tick: 1754737158953
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -3038,6 +3039,42 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 define("script/tools/type-guards", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -4202,7 +4239,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+        UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
+        UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         UI.colorspaceSelect = new _library_2.Library.Control.Select(control_json_1.default.colorspace);
         UI.coloringSelect = new _library_2.Library.Control.Select(control_json_1.default.coloring);
         UI.patternSelect = new _library_2.Library.Control.Select(control_json_1.default.pattern, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -4303,16 +4342,168 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock"], function (require, exports, ImportedFps, ImportedClock) {
+define("script/features/media", ["require", "exports", "script/ui", "script/tools/index"], function (require, exports, ui_3, tools_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Media = void 0;
+    var Media;
+    (function (Media) {
+        var _this = this;
+        ;
+        Media.mediaList = [];
+        Media.getMediaType = function (file) {
+            if (file && file.type) {
+                switch (true) {
+                    case file.type.startsWith("image/"):
+                        return "image";
+                    case file.type.startsWith("audio/"):
+                        return "audio";
+                    case file.type.startsWith("video/"):
+                        return "video";
+                    default:
+                        console.warn("🚫 Unsupported media type:", file.type);
+                        return null;
+                }
+            }
+            else {
+                console.warn("🚫 Invalid file or file type:", file);
+                return null;
+            }
+        };
+        Media.isMediaFile = function (file) {
+            return null !== Media.getMediaType(file);
+        };
+        Media.getName = function (file) {
+            return file.name || "Unknown File";
+        };
+        Media.getThumbnail = function (file) { return __awaiter(_this, void 0, void 0, function () {
+            var mediaType;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        mediaType = Media.getMediaType(file);
+                        if (mediaType === "image") {
+                            return [2 /*return*/, URL.createObjectURL(file)];
+                        }
+                        if (mediaType === "audio") {
+                            return [2 /*return*/, "SVG:audio"];
+                        }
+                        if (!(mediaType === "video")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, getVideoThumbnail(file)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2: return [2 /*return*/, "SVG:error"];
+                }
+            });
+        }); };
+        var getVideoThumbnail = function (file) {
+            return new Promise(function (resolve) {
+                var url = URL.createObjectURL(file);
+                var video = document.createElement("video");
+                video.src = url;
+                video.currentTime = 0.1;
+                video.muted = true;
+                video.playsInline = true;
+                video.addEventListener("loadeddata", function () {
+                    var canvas = document.createElement("canvas");
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    var ctx = canvas.getContext("2d");
+                    if (ctx) {
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL("image/png"));
+                    }
+                    else {
+                        resolve("SVG:error");
+                    }
+                    URL.revokeObjectURL(url);
+                });
+                video.addEventListener("error", function () {
+                    resolve("SVG:error");
+                    URL.revokeObjectURL(url);
+                });
+            });
+        };
+        Media.getDuration = function (file) {
+            return new Promise(function (resolve) {
+                var mediaType = Media.getMediaType(file);
+                if (mediaType === "audio" || mediaType === "video") {
+                    var url_1 = URL.createObjectURL(file);
+                    var media_1 = document.createElement(mediaType);
+                    media_1.src = url_1;
+                    media_1.addEventListener("loadedmetadata", function () {
+                        resolve(media_1.duration);
+                        URL.revokeObjectURL(url_1);
+                    });
+                    media_1.addEventListener("error", function () {
+                        resolve(null);
+                        URL.revokeObjectURL(url_1);
+                    });
+                }
+                else {
+                    resolve(null);
+                }
+            });
+        };
+        Media.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
+            var type, _a, _b;
+            var _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        console.log("📂 Adding media:", file);
+                        type = Media.getMediaType(file);
+                        if (!(null !== type)) return [3 /*break*/, 3];
+                        console.log("✅ Valid media file:", file);
+                        _b = (_a = Media.mediaList).push;
+                        _c = {
+                            file: file,
+                            type: type,
+                            name: Media.getName(file)
+                        };
+                        return [4 /*yield*/, Media.getThumbnail(file)];
+                    case 1:
+                        _c.thumbnail = _d.sent();
+                        return [4 /*yield*/, Media.getDuration(file)];
+                    case 2:
+                        _b.apply(_a, [(_c.duration = _d.sent(),
+                                _c)]);
+                        console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        console.warn("🚫 Invalid media file:", file);
+                        _d.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); };
+        Media.updateMediaListDisplay = function () {
+            Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
+                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
+                    child.remove();
+                }
+            });
+            Media.mediaList.forEach(function (entry) {
+                console.log("📂 Media rendering:", entry);
+                var item = document.createElement("div");
+                item.classList.add("item");
+                item.innerHTML = "\n                    <img src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toDisplayString(entry.duration * 1000) : "Unknown", "</span>\n                ");
+                ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
+            });
+        };
+    })(Media || (exports.Media = Media = {}));
+});
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
     ImportedClock = __importStar(ImportedClock);
+    ImportedMedia = __importStar(ImportedMedia);
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
         Features.Clock = ImportedClock.Clock;
+        Features.Media = ImportedMedia.Media;
     })(Features || (exports.Features = Features = {}));
 });
 define("resource/evil-commonjs.config", [], {
@@ -4368,7 +4559,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_3, _features_1, ui_3, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_3, _features_1, ui_4, url_2, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -4376,111 +4567,178 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
+        var _this = this;
         var updateFuseFps = function () {
-            return _features_1.Features.Fps.fuseFps = parseFloat(ui_3.UI.fuseFpsSelect.get());
+            return _features_1.Features.Fps.fuseFps = parseFloat(ui_4.UI.fuseFpsSelect.get());
         };
         var updateShowFps = function () {
-            ui_3.UI.fpsDisplay.classList.toggle("hide", !ui_3.UI.showFps.get());
+            ui_4.UI.fpsDisplay.classList.toggle("hide", !ui_4.UI.showFps.get());
         };
         var updateClock = function () {
-            control_json_2.default.clock.enum.forEach(function (i) { return ui_3.UI.clockDisplay.classList.toggle(i, i === ui_3.UI.clockSelect.get()); });
+            control_json_2.default.clock.enum.forEach(function (i) { return ui_4.UI.clockDisplay.classList.toggle(i, i === ui_4.UI.clockSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_3.UI.urlAnchor.href = url_1.Url.make(params);
+            return ui_4.UI.urlAnchor.href = url_2.Url.make(params);
         };
         Events.initialize = function () {
             document.body.className = "list";
             var applyParam = function (key, value) {
-                url_1.Url.addParameter(url_1.Url.params, key, value);
-                updateUrlAnchor(url_1.Url.params);
+                url_2.Url.addParameter(url_2.Url.params, key, value);
+                updateUrlAnchor(url_2.Url.params);
             };
-            ui_3.UI.playButton.data.click = function (event, button) {
+            ui_4.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 //Controller.toggleAnimation();
             };
-            ui_3.UI.addMediaButton.data.click = function (event, button) {
+            ui_4.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                var input = _library_3.Library.UI.getElementById("input", "add-file");
-                if (input) {
-                    input.click();
-                }
+                ui_4.UI.inputFile.click();
             };
-            ui_3.UI.introductionPanel.addEventListener("click", function (event) {
-                event.stopPropagation();
-                ui_3.UI.introductionPanel.classList.toggle("force-show", false);
+            ui_4.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+                var _i, _a, file;
+                var _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            _i = 0, _a = Array.from((_b = ui_4.UI.inputFile.files) !== null && _b !== void 0 ? _b : []);
+                            _c.label = 1;
+                        case 1:
+                            if (!(_i < _a.length)) return [3 /*break*/, 4];
+                            file = _a[_i];
+                            console.log("📂 File selected:", file);
+                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
+                        case 2:
+                            _c.sent();
+                            _c.label = 3;
+                        case 3:
+                            _i++;
+                            return [3 /*break*/, 1];
+                        case 4:
+                            _features_1.Features.Media.updateMediaListDisplay();
+                            ui_4.UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            ui_4.UI.addMediaButton.dom.addEventListener("dragover", function (event) {
+                var _a;
+                var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
+                if (files && 0 < files.length) {
+                    var hasMedia = Array.from(files).some(function (file) { return _features_1.Features.Media.isMediaFile(file); });
+                    if (hasMedia) {
+                        event.preventDefault();
+                        event.dataTransfer.dropEffect = "copy";
+                        ui_4.UI.addMediaButton.dom.classList.add("dragover");
+                    }
+                    else {
+                        event.dataTransfer.dropEffect = "none";
+                    }
+                }
             });
-            ui_3.UI.introductionPanel.classList.toggle("force-show", true);
-            setTimeout(function () { return ui_3.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            ui_3.UI.fuseFpsSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateFuseFps);
-            ui_3.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
-            ui_3.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
-            ui_3.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_3.UI.updateLanguage);
+            ui_4.UI.addMediaButton.dom.addEventListener("drop", function (event) { return __awaiter(_this, void 0, void 0, function () {
+                var _i, _a, file;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            event.preventDefault();
+                            event.stopPropagation();
+                            if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
+                            _i = 0, _a = Array.from(event.dataTransfer.files);
+                            _b.label = 1;
+                        case 1:
+                            if (!(_i < _a.length)) return [3 /*break*/, 4];
+                            file = _a[_i];
+                            console.log("📂 File dropped:", file);
+                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
+                        case 2:
+                            _b.sent();
+                            _b.label = 3;
+                        case 3:
+                            _i++;
+                            return [3 /*break*/, 1];
+                        case 4:
+                            _features_1.Features.Media.updateMediaListDisplay();
+                            _b.label = 5;
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }); });
+            ui_4.UI.introductionPanel.addEventListener("click", function (event) {
+                event.stopPropagation();
+                ui_4.UI.introductionPanel.classList.toggle("force-show", false);
+            });
+            ui_4.UI.introductionPanel.classList.toggle("force-show", true);
+            setTimeout(function () { return ui_4.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            ui_4.UI.fuseFpsSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateFuseFps);
+            ui_4.UI.showFps.loadParameter(url_2.Url.params, applyParam).setChange(updateShowFps);
+            ui_4.UI.clockSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateClock);
+            ui_4.UI.languageSelect.loadParameter(url_2.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
             var mouseMoveTimer = new _library_3.Library.UI.ToggleClassForWhileTimer();
-            ui_3.UI.screenBody.addEventListener("mousemove", function (_event) {
+            ui_4.UI.screenBody.addEventListener("mousemove", function (_event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
-                    console.log("🖱️ MouseMove:", event, ui_3.UI.screenBody);
+                    console.log("🖱️ MouseMove:", event, ui_4.UI.screenBody);
                 }
                 mouseMoveTimer.start(document.body, "mousemove", 1000);
             });
             _library_3.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_3.Library.UI.showPickerOnLabel(label); });
             [
-                ui_3.UI.colorspaceSelect,
-                ui_3.UI.coloringSelect,
-                ui_3.UI.patternSelect,
-                ui_3.UI.canvasSizeSelect,
-                ui_3.UI.layersSelect,
-                ui_3.UI.spotslayersSelect,
-                ui_3.UI.cycleSpanSelect,
-                ui_3.UI.fuseFpsSelect,
-                ui_3.UI.easingCheckbox,
+                ui_4.UI.colorspaceSelect,
+                ui_4.UI.coloringSelect,
+                ui_4.UI.patternSelect,
+                ui_4.UI.canvasSizeSelect,
+                ui_4.UI.layersSelect,
+                ui_4.UI.spotslayersSelect,
+                ui_4.UI.cycleSpanSelect,
+                ui_4.UI.fuseFpsSelect,
+                ui_4.UI.easingCheckbox,
                 // UI.withFullscreen,
-                ui_3.UI.showFps,
+                ui_4.UI.showFps,
             ].forEach(function (i) { return i.fire(); });
             document.addEventListener("visibilitychange", function () {
                 console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
                 _features_1.Features.Fps.reset();
             });
             updateClock();
-            ui_3.UI.updateLanguage();
-            updateUrlAnchor(url_1.Url.params);
+            ui_4.UI.updateLanguage();
+            updateUrlAnchor(url_2.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_3.UI.colorspaceSelect,
-                        ui_3.UI.coloringSelect,
-                        ui_3.UI.patternSelect,
-                        ui_3.UI.canvasSizeSelect,
-                        ui_3.UI.layersSelect,
-                        ui_3.UI.spotslayersSelect,
-                        ui_3.UI.cycleSpanSelect,
-                        ui_3.UI.fuseFpsSelect,
-                        ui_3.UI.frameDelaySelect,
-                        ui_3.UI.easingCheckbox,
-                        ui_3.UI.withFullscreen,
-                        ui_3.UI.showFps,
-                        ui_3.UI.clockSelect,
-                        ui_3.UI.brightnessSelect,
-                        ui_3.UI.languageSelect,
+                        ui_4.UI.colorspaceSelect,
+                        ui_4.UI.coloringSelect,
+                        ui_4.UI.patternSelect,
+                        ui_4.UI.canvasSizeSelect,
+                        ui_4.UI.layersSelect,
+                        ui_4.UI.spotslayersSelect,
+                        ui_4.UI.cycleSpanSelect,
+                        ui_4.UI.fuseFpsSelect,
+                        ui_4.UI.frameDelaySelect,
+                        ui_4.UI.easingCheckbox,
+                        ui_4.UI.withFullscreen,
+                        ui_4.UI.showFps,
+                        ui_4.UI.clockSelect,
+                        ui_4.UI.brightnessSelect,
+                        ui_4.UI.languageSelect,
                     ]
-                        .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
+                        .forEach(function (i) { return i.catchUpRestore(url_2.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 var old = _library_3.Library.Locale.getLocale();
-                _library_3.Library.Locale.setLocale(ui_3.UI.languageSelect.get());
+                _library_3.Library.Locale.setLocale(ui_4.UI.languageSelect.get());
                 if (old !== _library_3.Library.Locale.getLocale()) {
-                    ui_3.UI.updateLanguage();
+                    ui_4.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_4, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_4, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_4, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -4489,8 +4747,8 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
-    url_2.Url.initialize();
-    ui_4.UI.initialize();
+    url_3.Url.initialize();
+    ui_5.UI.initialize();
     events_1.Events.initialize();
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_4.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
@@ -4507,8 +4765,8 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Tools: _tools_3.Tools,
         Library: _library_4.Library,
         Features: _features_2.Features,
-        Url: url_2.Url,
-        UI: ui_4.UI,
+        Url: url_3.Url,
+        UI: ui_5.UI,
         Events: events_1.Events,
         Resource: Resource
     };

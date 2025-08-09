@@ -39,12 +39,62 @@ export namespace Events
         {
             event?.stopPropagation();
             button.dom.blur();
-            const input = Library.UI.getElementById("input", "add-file");
-            if (input)
-            {
-                input.click();
-            }
+            UI.inputFile.click();
         };
+        UI.inputFile.addEventListener
+        (
+            "change",
+            async () =>
+            {
+                for (const file of Array.from(UI.inputFile.files ?? []))
+                {
+                    console.log("📂 File selected:", file);
+                    await Features.Media.addMedia(file);
+                }
+                Features.Media.updateMediaListDisplay();
+                UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
+            }
+        );
+        UI.addMediaButton.dom.addEventListener
+        (
+            "dragover",
+            event =>
+            {
+                const files = event.dataTransfer?.files;
+                if (files && 0 < files.length)
+                {
+                    const hasMedia = Array.from(files).some(file => Features.Media.isMediaFile(file));
+                    if (hasMedia)
+                    {
+                        event.preventDefault();
+                        event.dataTransfer.dropEffect = "copy";
+                        UI.addMediaButton.dom.classList.add("dragover");
+                    }
+                    else
+                    {
+                        event.dataTransfer.dropEffect = "none";
+                    }
+                }
+            }
+        );
+        UI.addMediaButton.dom.addEventListener
+        (
+            "drop",
+            async event =>
+            {
+                event.preventDefault();
+                event.stopPropagation();
+                if (event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)
+                {
+                    for (const file of Array.from(event.dataTransfer.files))
+                    {
+                        console.log("📂 File dropped:", file);
+                        await Features.Media.addMedia(file);
+                    }
+                    Features.Media.updateMediaListDisplay();
+                }
+            }
+        );
         UI.introductionPanel.addEventListener
         (
             "click",

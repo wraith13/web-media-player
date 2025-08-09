@@ -134,6 +134,7 @@
             font-size: 1.25rem;
             text-align: center;
             cursor: pointer;
+            overflow: hidden;
             transition: background-color 300ms, transform 300ms;
             &:not(.add)::before
             {

@@ -329,6 +329,7 @@ body.play #screen-body #media-list:not(.show)::before {
   font-size: 1.25rem;
   text-align: center;
   cursor: pointer;
+  overflow: hidden;
   transition: background-color 300ms, transform 300ms;
 }
 #screen-body #media-list .item:not(.add)::before {
