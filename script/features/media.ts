@@ -159,9 +159,10 @@ export namespace Media
                 const item = document.createElement("div");
                 item.classList.add("item");
                 item.innerHTML = `
-                    <img src="${entry.thumbnail}" alt="${entry.name}" />
+                    <img class="thumbnail" src="${entry.thumbnail}" alt="${entry.name}" />
                     <span class="name">${entry.name}</span>
-                    <span class="duration">${entry.duration !== null ? Tools.Timespan.toDisplayString(entry.duration * 1000) : "Unknown"}</span>
+                    <span class="type">${entry.type}</span>
+                    <span class="duration">${entry.duration !== null ? Tools.Timespan.toMediaTimeString(entry.duration * 1000) : ""}</span>
                 `;
                 UI.mediaList.insertBefore(item, UI.addMediaButton.dom);
             }

@@ -808,6 +808,18 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                         value < 24 * 60 * 60 * 1000 ? "".concat(number_1.Number.toString(value / (60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
                             "".concat(number_1.Number.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
         };
+        Timespan.toMediaTimeString = function (value) {
+            var seconds = Math.floor(value / 1000);
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            var secs = seconds % 60;
+            if (hours === 0) {
+                return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            }
+            {
+                return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            }
+        };
     })(Timespan || (exports.Timespan = Timespan = {}));
 });
 define("script/tools/hash", ["require", "exports"], function (require, exports) {
@@ -1254,6 +1266,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+        UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
+        UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
@@ -1501,7 +1515,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/tool
                 console.log("📂 Media rendering:", entry);
                 var item = document.createElement("div");
                 item.classList.add("item");
-                item.innerHTML = "\n                    <img src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toDisplayString(entry.duration * 1000) : "Unknown", "</span>\n                ");
+                item.innerHTML = "\n                    <img class=\"thumbnail\" src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"type\">").concat(entry.type, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", "</span>\n                ");
                 ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
             });
         };
@@ -1595,7 +1609,54 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         var updateUrlAnchor = function (params) {
             return ui_4.UI.urlAnchor.href = url_2.Url.make(params);
         };
+        var dragover = function (event) {
+            var _a;
+            var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
+            if (files && 0 < files.length) {
+                var hasMedia = Array.from(files).some(function (file) { return _features_1.Features.Media.isMediaFile(file); });
+                if (hasMedia) {
+                    event.preventDefault();
+                    event.dataTransfer.dropEffect = "copy";
+                    ui_4.UI.addMediaButton.dom.classList.add("dragover");
+                }
+                else {
+                    event.dataTransfer.dropEffect = "none";
+                }
+            }
+        };
+        var drop = function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var _i, _a, file;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
+                        _i = 0, _a = Array.from(event.dataTransfer.files);
+                        _b.label = 1;
+                    case 1:
+                        if (!(_i < _a.length)) return [3 /*break*/, 4];
+                        file = _a[_i];
+                        console.log("📂 File dropped:", file);
+                        return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
+                    case 2:
+                        _b.sent();
+                        _b.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 4:
+                        _features_1.Features.Media.updateMediaListDisplay();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        }); };
         Events.initialize = function () {
+            window.addEventListener("dragover", function (event) { return event.preventDefault(); });
+            window.addEventListener("drop", function (event) { return event.preventDefault(); });
+            document.body.addEventListener("dragover", dragover);
+            document.body.addEventListener("drop", drop);
             document.body.className = "list";
             var applyParam = function (key, value) {
                 url_2.Url.addParameter(url_2.Url.params, key, value);
@@ -1605,6 +1666,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 //Controller.toggleAnimation();
+            };
+            ui_4.UI.shuffleButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.shuffleButton.dom.classList.toggle("on");
+            };
+            ui_4.UI.repeatButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.repeatButton.dom.classList.toggle("on");
             };
             ui_4.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -1634,49 +1705,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                             _features_1.Features.Media.updateMediaListDisplay();
                             ui_4.UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
                             return [2 /*return*/];
-                    }
-                });
-            }); });
-            ui_4.UI.addMediaButton.dom.addEventListener("dragover", function (event) {
-                var _a;
-                var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
-                if (files && 0 < files.length) {
-                    var hasMedia = Array.from(files).some(function (file) { return _features_1.Features.Media.isMediaFile(file); });
-                    if (hasMedia) {
-                        event.preventDefault();
-                        event.dataTransfer.dropEffect = "copy";
-                        ui_4.UI.addMediaButton.dom.classList.add("dragover");
-                    }
-                    else {
-                        event.dataTransfer.dropEffect = "none";
-                    }
-                }
-            });
-            ui_4.UI.addMediaButton.dom.addEventListener("drop", function (event) { return __awaiter(_this, void 0, void 0, function () {
-                var _i, _a, file;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            event.preventDefault();
-                            event.stopPropagation();
-                            if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
-                            _i = 0, _a = Array.from(event.dataTransfer.files);
-                            _b.label = 1;
-                        case 1:
-                            if (!(_i < _a.length)) return [3 /*break*/, 4];
-                            file = _a[_i];
-                            console.log("📂 File dropped:", file);
-                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                        case 2:
-                            _b.sent();
-                            _b.label = 3;
-                        case 3:
-                            _i++;
-                            return [3 /*break*/, 1];
-                        case 4:
-                            _features_1.Features.Media.updateMediaListDisplay();
-                            _b.label = 5;
-                        case 5: return [2 /*return*/];
                     }
                 });
             }); });

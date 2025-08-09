@@ -110,13 +110,19 @@
         @include solid-box();
         @include full-stretch-box();
         @include flex(row, start, start);
+        overflow-y: auto;
         z-index: 30;
         flex-wrap: wrap;
         align-content: flex-start;
-        inset-block-start: 2.75rem;
-        inset-block-start: calc(2.75rem + env(safe-area-inset-top));
-        inset-inline-start: 0.25rem;
-        inset-inline-start: calc(0.25rem + env(safe-area-inset-left));
+        top: 2.75rem;
+        top: calc(2.75rem + env(safe-area-inset-top));
+        left: 0.25rem;
+        left: calc(0.25rem + env(safe-area-inset-left));
+        right: 0.25rem;
+        right: calc(0.25rem + env(safe-area-inset-right));
+        bottom: 0.25rem;
+        bottom: calc(0.25rem + env(safe-area-inset-bottom));
+        padding-bottom: 6rem;
         position: absolute;
         counter-reset: item-num;
         .item
@@ -125,8 +131,9 @@
             @include flex(column, center, center);
             counter-increment: item-num;
             position: relative;
-            width: 10rem;
-            height: 10rem;
+            min-width: 15rem;
+            flex-grow: 1;
+            height: 5rem;
             margin: 0.25rem;
             border-radius: 0.5rem;
             background-color: black-color(0.6);
@@ -138,13 +145,90 @@
             transition: background-color 300ms, transform 300ms;
             &:not(.add)::before
             {
-                content: counter(item-num);
+                @include monospace-font();
+                &
+                {
+                    content: counter(item-num);
+                    position: absolute;
+                    top: 0.125rem;
+                    left: 0.125rem;
+                    font-size: 1rem;
+                    color: $white-color;
+                    background-color: black-color(0.6);
+                    z-index: 50;
+                    padding: 0.25rem;
+                    border-radius: 1.5rem;
+                    min-width: 1.5rem;
+                    text-align: center;
+                }
+            }
+            & > img.thumbnail
+            {
+                @include full-stretch-box();
+                object-fit: cover;
+                object-position: center;
+                border-radius: 0.5rem;
                 position: absolute;
-                top: 0.5rem;
-                left: 0.5rem;
-                font-size: 1rem;
-                color: $white-color;
-                opacity: 0.7;
+                z-index: 10;
+                width: 100%;
+                height: 100%;
+            }
+            & > span.name
+            {
+                @include font();
+                &
+                {
+                    font-size: 1.25rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 100%;
+                    padding: 0.5rem;
+                    text-align: center;
+                    color: $white-color;
+                    text-shadow: 0px 0px 0.25rem black;
+                    z-index: 100;
+                }
+            }
+            & > span.type
+            {
+                @include font();
+                &
+                {
+                    font-size: 1rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 100%;
+                    padding: 0.25rem;
+                    text-align: left;
+                    color: $white-color;
+                    text-shadow: 0px 0px 0.25rem black;
+                    z-index: 100;
+                    position: absolute;
+                    left: 0rem;
+                    bottom: 0rem;
+                }
+            }
+            & > span.duration
+            {
+                @include font();
+                &
+                {
+                    font-size: 1rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    width: 100%;
+                    padding: 0.25rem;
+                    text-align: right;
+                    color: $white-color;
+                    text-shadow: 0px 0px 0.25rem black;
+                    z-index: 100;
+                    position: absolute;
+                    right: 0rem;
+                    bottom: 0rem;
+                }
             }
             @media (hover: hover)
             {

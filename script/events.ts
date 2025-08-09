@@ -21,8 +21,44 @@ export namespace Events
     };
     const updateUrlAnchor = (params: Record<string, string>) =>
         UI.urlAnchor.href = Url.make(params);
+    const dragover = (event: DragEvent): void =>
+    {
+        const files = event.dataTransfer?.files;
+        if (files && 0 < files.length)
+        {
+            const hasMedia = Array.from(files).some(file => Features.Media.isMediaFile(file));
+            if (hasMedia)
+            {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "copy";
+                UI.addMediaButton.dom.classList.add("dragover");
+            }
+            else
+            {
+                event.dataTransfer.dropEffect = "none";
+            }
+        }
+    };
+    const drop = async (event: DragEvent): Promise<void> =>
+    {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)
+        {
+            for (const file of Array.from(event.dataTransfer.files))
+            {
+                console.log("📂 File dropped:", file);
+                await Features.Media.addMedia(file);
+            }
+            Features.Media.updateMediaListDisplay();
+        }
+    };
     export const initialize = () =>
     {
+        window.addEventListener("dragover", event => event.preventDefault());
+        window.addEventListener("drop", event => event.preventDefault());
+        document.body.addEventListener("dragover", dragover);
+        document.body.addEventListener("drop", drop);
         document.body.className = "list";
         const applyParam = (key: string, value: string) =>
         {
@@ -34,6 +70,18 @@ export namespace Events
             event?.stopPropagation();
             button.dom.blur();
             //Controller.toggleAnimation();
+        };
+        UI.shuffleButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            UI.shuffleButton.dom.classList.toggle("on");
+        };
+        UI.repeatButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            UI.repeatButton.dom.classList.toggle("on");
         };
         UI.addMediaButton.data.click = (event, button) =>
         {
@@ -53,46 +101,6 @@ export namespace Events
                 }
                 Features.Media.updateMediaListDisplay();
                 UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
-            }
-        );
-        UI.addMediaButton.dom.addEventListener
-        (
-            "dragover",
-            event =>
-            {
-                const files = event.dataTransfer?.files;
-                if (files && 0 < files.length)
-                {
-                    const hasMedia = Array.from(files).some(file => Features.Media.isMediaFile(file));
-                    if (hasMedia)
-                    {
-                        event.preventDefault();
-                        event.dataTransfer.dropEffect = "copy";
-                        UI.addMediaButton.dom.classList.add("dragover");
-                    }
-                    else
-                    {
-                        event.dataTransfer.dropEffect = "none";
-                    }
-                }
-            }
-        );
-        UI.addMediaButton.dom.addEventListener
-        (
-            "drop",
-            async event =>
-            {
-                event.preventDefault();
-                event.stopPropagation();
-                if (event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)
-                {
-                    for (const file of Array.from(event.dataTransfer.files))
-                    {
-                        console.log("📂 File dropped:", file);
-                        await Features.Media.addMedia(file);
-                    }
-                    Features.Media.updateMediaListDisplay();
-                }
             }
         );
         UI.introductionPanel.addEventListener

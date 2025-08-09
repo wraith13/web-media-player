@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Aug 09 2025 19:59:18 GMT+0900 (日本標準時)
+    build at: Sun Aug 10 2025 04:44:47 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -336,13 +336,19 @@ body.list #screen-body #canvas:not(.show)::before {
   flex-direction: row;
   justify-content: start;
   align-items: start;
+  overflow-y: auto;
   z-index: 30;
   flex-wrap: wrap;
   align-content: flex-start;
-  inset-block-start: 2.75rem;
-  inset-block-start: calc(2.75rem + env(safe-area-inset-top));
-  inset-inline-start: 0.25rem;
-  inset-inline-start: calc(0.25rem + env(safe-area-inset-left));
+  top: 2.75rem;
+  top: calc(2.75rem + env(safe-area-inset-top));
+  left: 0.25rem;
+  left: calc(0.25rem + env(safe-area-inset-left));
+  right: 0.25rem;
+  right: calc(0.25rem + env(safe-area-inset-right));
+  bottom: 0.25rem;
+  bottom: calc(0.25rem + env(safe-area-inset-bottom));
+  padding-bottom: 6rem;
   position: absolute;
   counter-reset: item-num;
 }
@@ -376,8 +382,9 @@ body.play #screen-body #media-list:not(.show)::before {
   align-items: center;
   counter-increment: item-num;
   position: relative;
-  width: 10rem;
-  height: 10rem;
+  min-width: 15rem;
+  flex-grow: 1;
+  height: 5rem;
   margin: 0.25rem;
   border-radius: 0.5rem;
   background-color: rgba(32, 28, 38, 0.6);
@@ -389,13 +396,142 @@ body.play #screen-body #media-list:not(.show)::before {
   transition: background-color 300ms, transform 300ms;
 }
 #screen-body #media-list .item:not(.add)::before {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item:not(.add)::before {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item:not(.add)::before {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item:not(.add)::before {
+  font-family: monospace;
+}
+#screen-body #media-list .item:not(.add)::before {
   content: counter(item-num);
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
+  top: 0.125rem;
+  left: 0.125rem;
   font-size: 1rem;
   color: rgb(230, 237, 243);
-  opacity: 0.7;
+  background-color: rgba(32, 28, 38, 0.6);
+  z-index: 50;
+  padding: 0.25rem;
+  border-radius: 1.5rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+#screen-body #media-list .item > img.thumbnail {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5rem;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+#screen-body #media-list .item > span.name {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item > span.name {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item > span.name {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item > span.name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #media-list .item > span.name {
+  font-size: 1.25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  color: rgb(230, 237, 243);
+  text-shadow: 0px 0px 0.25rem black;
+  z-index: 100;
+}
+#screen-body #media-list .item > span.type {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item > span.type {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item > span.type {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item > span.type {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #media-list .item > span.type {
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0.25rem;
+  text-align: left;
+  color: rgb(230, 237, 243);
+  text-shadow: 0px 0px 0.25rem black;
+  z-index: 100;
+  position: absolute;
+  left: 0rem;
+  bottom: 0rem;
+}
+#screen-body #media-list .item > span.duration {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item > span.duration {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item > span.duration {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item > span.duration {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #media-list .item > span.duration {
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0.25rem;
+  text-align: right;
+  color: rgb(230, 237, 243);
+  text-shadow: 0px 0px 0.25rem black;
+  z-index: 100;
+  position: absolute;
+  right: 0rem;
+  bottom: 0rem;
 }
 @media (hover: hover) {
   #screen-body #media-list .item:hover {
@@ -1244,8 +1380,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         <div class="layer"></div>
     </div>
     <div id="media-list">
-        <div class="item">media</div>
-        <div class="item">media</div>
         <div class="item add" id="add-media">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1420,8 +1554,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Aug 09 2025 19:59:18 GMT+0900 (日本標準時)",
-    tick: 1754737158953
+    at: "Sun Aug 10 2025 04:44:47 GMT+0900 (日本標準時)",
+    tick: 1754768687429
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -3793,6 +3927,18 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                         value < 24 * 60 * 60 * 1000 ? "".concat(number_1.Number.toString(value / (60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
                             "".concat(number_1.Number.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
         };
+        Timespan.toMediaTimeString = function (value) {
+            var seconds = Math.floor(value / 1000);
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            var secs = seconds % 60;
+            if (hours === 0) {
+                return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            }
+            {
+                return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            }
+        };
     })(Timespan || (exports.Timespan = Timespan = {}));
 });
 define("script/tools/hash", ["require", "exports"], function (require, exports) {
@@ -4239,6 +4385,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+        UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
+        UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
@@ -4486,7 +4634,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/tool
                 console.log("📂 Media rendering:", entry);
                 var item = document.createElement("div");
                 item.classList.add("item");
-                item.innerHTML = "\n                    <img src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toDisplayString(entry.duration * 1000) : "Unknown", "</span>\n                ");
+                item.innerHTML = "\n                    <img class=\"thumbnail\" src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"type\">").concat(entry.type, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", "</span>\n                ");
                 ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
             });
         };
@@ -4580,7 +4728,54 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         var updateUrlAnchor = function (params) {
             return ui_4.UI.urlAnchor.href = url_2.Url.make(params);
         };
+        var dragover = function (event) {
+            var _a;
+            var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
+            if (files && 0 < files.length) {
+                var hasMedia = Array.from(files).some(function (file) { return _features_1.Features.Media.isMediaFile(file); });
+                if (hasMedia) {
+                    event.preventDefault();
+                    event.dataTransfer.dropEffect = "copy";
+                    ui_4.UI.addMediaButton.dom.classList.add("dragover");
+                }
+                else {
+                    event.dataTransfer.dropEffect = "none";
+                }
+            }
+        };
+        var drop = function (event) { return __awaiter(_this, void 0, void 0, function () {
+            var _i, _a, file;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
+                        _i = 0, _a = Array.from(event.dataTransfer.files);
+                        _b.label = 1;
+                    case 1:
+                        if (!(_i < _a.length)) return [3 /*break*/, 4];
+                        file = _a[_i];
+                        console.log("📂 File dropped:", file);
+                        return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
+                    case 2:
+                        _b.sent();
+                        _b.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 4:
+                        _features_1.Features.Media.updateMediaListDisplay();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        }); };
         Events.initialize = function () {
+            window.addEventListener("dragover", function (event) { return event.preventDefault(); });
+            window.addEventListener("drop", function (event) { return event.preventDefault(); });
+            document.body.addEventListener("dragover", dragover);
+            document.body.addEventListener("drop", drop);
             document.body.className = "list";
             var applyParam = function (key, value) {
                 url_2.Url.addParameter(url_2.Url.params, key, value);
@@ -4590,6 +4785,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 //Controller.toggleAnimation();
+            };
+            ui_4.UI.shuffleButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.shuffleButton.dom.classList.toggle("on");
+            };
+            ui_4.UI.repeatButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.repeatButton.dom.classList.toggle("on");
             };
             ui_4.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -4619,49 +4824,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                             _features_1.Features.Media.updateMediaListDisplay();
                             ui_4.UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
                             return [2 /*return*/];
-                    }
-                });
-            }); });
-            ui_4.UI.addMediaButton.dom.addEventListener("dragover", function (event) {
-                var _a;
-                var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
-                if (files && 0 < files.length) {
-                    var hasMedia = Array.from(files).some(function (file) { return _features_1.Features.Media.isMediaFile(file); });
-                    if (hasMedia) {
-                        event.preventDefault();
-                        event.dataTransfer.dropEffect = "copy";
-                        ui_4.UI.addMediaButton.dom.classList.add("dragover");
-                    }
-                    else {
-                        event.dataTransfer.dropEffect = "none";
-                    }
-                }
-            });
-            ui_4.UI.addMediaButton.dom.addEventListener("drop", function (event) { return __awaiter(_this, void 0, void 0, function () {
-                var _i, _a, file;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            event.preventDefault();
-                            event.stopPropagation();
-                            if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
-                            _i = 0, _a = Array.from(event.dataTransfer.files);
-                            _b.label = 1;
-                        case 1:
-                            if (!(_i < _a.length)) return [3 /*break*/, 4];
-                            file = _a[_i];
-                            console.log("📂 File dropped:", file);
-                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                        case 2:
-                            _b.sent();
-                            _b.label = 3;
-                        case 3:
-                            _i++;
-                            return [3 /*break*/, 1];
-                        case 4:
-                            _features_1.Features.Media.updateMediaListDisplay();
-                            _b.label = 5;
-                        case 5: return [2 /*return*/];
                     }
                 });
             }); });

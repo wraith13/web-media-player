@@ -411,6 +411,7 @@ declare module "script/library/index" {
 declare module "script/tools/timespan" {
     export namespace Timespan {
         const toDisplayString: (value: number, maximumFractionDigits?: number) => string;
+        const toMediaTimeString: (value: number) => string;
     }
 }
 declare module "script/tools/hash" {
@@ -493,6 +494,8 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const canvas: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
+        const shuffleButton: Library.Control.Button<HTMLElement>;
+        const repeatButton: Library.Control.Button<HTMLElement>;
         const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;

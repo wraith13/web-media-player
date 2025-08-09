@@ -14,6 +14,10 @@ export namespace UI
         Library.UI.getElementById("div", "canvas");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
+    export const shuffleButton =
+        new Library.Control.Button({ id: "shuffle-button", });
+    export const repeatButton =
+        new Library.Control.Button({ id: "repeat-button", });
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
     export const addMediaButton =
