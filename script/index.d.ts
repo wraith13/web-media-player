@@ -555,7 +555,7 @@ declare module "script/features/media" {
         const getThumbnail: (file: File) => Promise<string>;
         const getDuration: (file: File) => Promise<number | null>;
         const addMedia: (file: File) => Promise<void>;
-        const updateMediaListDisplay: () => void;
+        const updateMediaListDisplay: (isDragging?: "isDragging") => void;
     }
 }
 declare module "script/features/index" {

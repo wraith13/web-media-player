@@ -1371,7 +1371,7 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
-define("script/features/media", ["require", "exports", "script/ui", "script/tools/index"], function (require, exports, ui_3, tools_1) {
+define("script/features/media", ["require", "exports", "script/ui", "script/library/index", "script/tools/index"], function (require, exports, ui_3, _library_3, tools_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Media = void 0;
@@ -1505,17 +1505,88 @@ define("script/features/media", ["require", "exports", "script/ui", "script/tool
                 }
             });
         }); };
-        Media.updateMediaListDisplay = function () {
+        //let draggingEntry: Entry | null = null;
+        var draggingIndex = null;
+        var previewOrder = null;
+        Media.updateMediaListDisplay = function (isDragging) {
             Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
-                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
+                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child)
                     child.remove();
-                }
             });
-            Media.mediaList.forEach(function (entry) {
-                console.log("📂 Media rendering:", entry);
-                var item = document.createElement("div");
-                item.classList.add("item");
-                item.innerHTML = "\n                    <img class=\"thumbnail\" src=\"".concat(entry.thumbnail, "\" alt=\"").concat(entry.name, "\" />\n                    <span class=\"name\">").concat(entry.name, "</span>\n                    <span class=\"type\">").concat(entry.type, "</span>\n                    <span class=\"duration\">").concat(entry.duration !== null ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", "</span>\n                ");
+            // 並び順を決定
+            var order = previewOrder !== null && previewOrder !== void 0 ? previewOrder : Media.mediaList.map(function (_, i) { return i; });
+            order.forEach(function (mediaIdx) {
+                var entry = Media.mediaList[mediaIdx];
+                var item = _library_3.Library.UI.createElement({
+                    tag: "div",
+                    className: "item",
+                    attributes: { draggable: "true", "data-index": mediaIdx },
+                    children: [
+                        { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
+                        { tag: "span", className: "name", text: entry.name, },
+                        { tag: "span", className: "type", text: entry.type, },
+                        { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
+                    ]
+                });
+                item.addEventListener("dragstart", function (e) {
+                    var _a;
+                    if (!isDragging) {
+                        //draggingEntry = entry;
+                        draggingIndex = mediaIdx;
+                        previewOrder = null;
+                    }
+                    ui_3.UI.mediaList.classList.add("dragging");
+                    item.classList.add("dragging");
+                    (_a = e.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(mediaIdx));
+                });
+                item.addEventListener("dragend", function () {
+                    if (!isDragging) {
+                        //draggingEntry = null;
+                        draggingIndex = null;
+                        previewOrder = null;
+                    }
+                    ui_3.UI.mediaList.classList.remove("dragging");
+                    item.classList.remove("dragging");
+                    Media.updateMediaListDisplay();
+                });
+                item.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                    if (null !== draggingIndex) {
+                        if (mediaIdx !== draggingIndex) 
+                        //if (null !== draggingIndex && entry !== draggingEntry && mediaIdx !== draggingIndex)
+                        {
+                            // 仮の並び順を作成
+                            var tempOrder = Media.mediaList.map(function (_, i) { return i; });
+                            var moved = tempOrder.splice(draggingIndex, 1)[0];
+                            tempOrder.splice(mediaIdx, 0, moved);
+                            previewOrder = tempOrder;
+                            Media.updateMediaListDisplay("isDragging");
+                        }
+                        else if (previewOrder) {
+                            if (previewOrder[draggingIndex] !== mediaIdx) {
+                                previewOrder = Media.mediaList.map(function (_, i) { return i; });
+                                Media.updateMediaListDisplay("isDragging");
+                            }
+                        }
+                    }
+                    item.classList.add("drag-over");
+                });
+                item.addEventListener("dragleave", function () {
+                    item.classList.remove("drag-over");
+                });
+                item.addEventListener("drop", function (e) {
+                    e.preventDefault();
+                    item.classList.remove("drag-over");
+                    var fromIndex = draggingIndex;
+                    var toIndex = mediaIdx;
+                    if (fromIndex !== null && fromIndex !== toIndex) {
+                        var moved = Media.mediaList.splice(fromIndex, 1)[0];
+                        Media.mediaList.splice(toIndex, 0, moved);
+                    }
+                    draggingIndex = null;
+                    previewOrder = null;
+                    Media.updateMediaListDisplay();
+                });
                 ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
             });
         };
@@ -1588,7 +1659,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_3, _features_1, ui_4, url_2, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_4, _features_1, ui_4, url_2, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -1718,15 +1789,15 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_4.UI.showFps.loadParameter(url_2.Url.params, applyParam).setChange(updateShowFps);
             ui_4.UI.clockSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateClock);
             ui_4.UI.languageSelect.loadParameter(url_2.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
-            var mouseMoveTimer = new _library_3.Library.UI.ToggleClassForWhileTimer();
+            var mouseMoveTimer = new _library_4.Library.UI.ToggleClassForWhileTimer();
             ui_4.UI.screenBody.addEventListener("mousemove", function (_event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
                     console.log("🖱️ MouseMove:", event, ui_4.UI.screenBody);
                 }
                 mouseMoveTimer.start(document.body, "mousemove", 1000);
             });
-            _library_3.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
-                .forEach(function (label) { return _library_3.Library.UI.showPickerOnLabel(label); });
+            _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
+                .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
             [
                 ui_4.UI.colorspaceSelect,
                 ui_4.UI.coloringSelect,
@@ -1772,16 +1843,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
-                var old = _library_3.Library.Locale.getLocale();
-                _library_3.Library.Locale.setLocale(ui_4.UI.languageSelect.get());
-                if (old !== _library_3.Library.Locale.getLocale()) {
+                var old = _library_4.Library.Locale.getLocale();
+                _library_4.Library.Locale.setLocale(ui_4.UI.languageSelect.get());
+                if (old !== _library_4.Library.Locale.getLocale()) {
                     ui_4.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_4, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -1793,7 +1864,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_3.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_4.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -1801,12 +1872,12 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_4.Library.Locale.master,
+        locale: _library_5.Library.Locale.master,
         poweredBy: powered_by_json_2.default
     };
     var modules = {
         Tools: _tools_3.Tools,
-        Library: _library_4.Library,
+        Library: _library_5.Library,
         Features: _features_2.Features,
         Url: url_3.Url,
         UI: ui_5.UI,

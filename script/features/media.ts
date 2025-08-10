@@ -1,4 +1,5 @@
 import { UI } from "../ui";
+import { Library } from "@library";
 import { Tools } from "../tools";
 export namespace Media
 {
@@ -66,28 +67,34 @@ export namespace Media
             video.currentTime = 0.1;
             video.muted = true;
             video.playsInline = true;
-            video.addEventListener("loadeddata", () =>
-            {
-                const canvas = document.createElement("canvas");
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext("2d");
-                if (ctx)
+            video.addEventListener
+            (
+                "loadeddata", () =>
                 {
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    resolve(canvas.toDataURL("image/png"));
+                    const canvas = document.createElement("canvas");
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    const ctx = canvas.getContext("2d");
+                    if (ctx)
+                    {
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL("image/png"));
+                    }
+                    else
+                    {
+                        resolve("SVG:error");
+                    }
+                    URL.revokeObjectURL(url);
                 }
-                else
+            );
+            video.addEventListener
+            (
+                "error", () =>
                 {
                     resolve("SVG:error");
+                    URL.revokeObjectURL(url);
                 }
-                URL.revokeObjectURL(url);
-            });
-            video.addEventListener("error", () =>
-            {
-                resolve("SVG:error");
-                URL.revokeObjectURL(url);
-            });
+            );
         });
     };
     export const getDuration = (file: File): Promise<number | null> =>
@@ -100,16 +107,22 @@ export namespace Media
                 const url = URL.createObjectURL(file);
                 const media = document.createElement(mediaType);
                 media.src = url;
-                media.addEventListener("loadedmetadata", () =>
-                {
-                    resolve(media.duration);
-                    URL.revokeObjectURL(url);
-                });
-                media.addEventListener("error", () =>
-                {
-                    resolve(null);
-                    URL.revokeObjectURL(url);
-                });
+                media.addEventListener
+                (
+                    "loadedmetadata", () =>
+                    {
+                        resolve(media.duration);
+                        URL.revokeObjectURL(url);
+                    }
+                );
+                media.addEventListener
+                (
+                    "error", () =>
+                    {
+                        resolve(null);
+                        URL.revokeObjectURL(url);
+                    }
+                );
             }
             else
             {
@@ -139,31 +152,110 @@ export namespace Media
             console.warn("🚫 Invalid media file:", file);
         }
     };
-    export const updateMediaListDisplay = (): void =>
+    //let draggingEntry: Entry | null = null;
+    let draggingIndex: number | null = null;
+    let previewOrder: number[] | null = null;
+
+    export const updateMediaListDisplay = (isDragging?: "isDragging"): void =>
     {
-        Array.from(UI.mediaList.children).forEach
+        Array.from(UI.mediaList.children).forEach(child => {
+            if (child instanceof HTMLDivElement && UI.addMediaButton.dom !== child) child.remove();
+        });
+
+        // 並び順を決定
+        const order = previewOrder ?? mediaList.map((_, i) => i);
+
+        order.forEach
         (
-            child =>
+            mediaIdx =>
             {
-                if (child instanceof HTMLDivElement && UI.addMediaButton.dom !== child)
-                {
-                    child.remove();
-                }
-            }
-        );
-        mediaList.forEach
-        (
-            entry =>
-            {
-                console.log("📂 Media rendering:", entry);
-                const item = document.createElement("div");
-                item.classList.add("item");
-                item.innerHTML = `
-                    <img class="thumbnail" src="${entry.thumbnail}" alt="${entry.name}" />
-                    <span class="name">${entry.name}</span>
-                    <span class="type">${entry.type}</span>
-                    <span class="duration">${entry.duration !== null ? Tools.Timespan.toMediaTimeString(entry.duration * 1000) : ""}</span>
-                `;
+                const entry = mediaList[mediaIdx];
+                const item = Library.UI.createElement({
+                    tag: "div",
+                    className: "item",
+                    attributes: { draggable: "true", "data-index": mediaIdx },
+                    children: [
+                        { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
+                        { tag: "span", className: "name", text: entry.name, },
+                        { tag: "span", className: "type", text: entry.type, },
+                        { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
+                    ]
+                }) as HTMLDivElement;
+
+                item.addEventListener("dragstart", (e: DragEvent) => {
+                    if ( ! isDragging)
+                    {
+                        //draggingEntry = entry;
+                        draggingIndex = mediaIdx;
+                        previewOrder = null;
+                    }
+                    UI.mediaList.classList.add("dragging");
+                    item.classList.add("dragging");
+                    e.dataTransfer?.setData("text/plain", String(mediaIdx));
+                });
+
+                item.addEventListener
+                (
+                    "dragend",
+                    () =>
+                    {
+                        if ( ! isDragging)
+                        {
+                            //draggingEntry = null;
+                            draggingIndex = null;
+                            previewOrder = null;
+                        }
+                        UI.mediaList.classList.remove("dragging");
+                        item.classList.remove("dragging");
+                        updateMediaListDisplay();
+                    }
+                );
+
+                item.addEventListener("dragover", (e: DragEvent) => {
+                    e.preventDefault();
+                    if (null !== draggingIndex)
+                    {
+                        if (mediaIdx !== draggingIndex)
+                        //if (null !== draggingIndex && entry !== draggingEntry && mediaIdx !== draggingIndex)
+                        {
+                            // 仮の並び順を作成
+                            const tempOrder = mediaList.map((_, i) => i);
+                            const moved = tempOrder.splice(draggingIndex, 1)[0];
+                            tempOrder.splice(mediaIdx, 0, moved);
+                            previewOrder = tempOrder;
+                            updateMediaListDisplay("isDragging");
+                        }
+                        else
+                        if (previewOrder)
+                        {
+                            if (previewOrder[draggingIndex] !== mediaIdx)
+                            {
+                                previewOrder = mediaList.map((_, i) => i);
+                                updateMediaListDisplay("isDragging");
+                            }
+                        }
+                    }
+                    item.classList.add("drag-over");
+                });
+
+                item.addEventListener("dragleave", () => {
+                    item.classList.remove("drag-over");
+                });
+
+                item.addEventListener("drop", (e: DragEvent) => {
+                    e.preventDefault();
+                    item.classList.remove("drag-over");
+                    const fromIndex = draggingIndex;
+                    const toIndex = mediaIdx;
+                    if (fromIndex !== null && fromIndex !== toIndex) {
+                        const moved = mediaList.splice(fromIndex, 1)[0];
+                        mediaList.splice(toIndex, 0, moved);
+                    }
+                    draggingIndex = null;
+                    previewOrder = null;
+                    updateMediaListDisplay();
+                });
+
                 UI.mediaList.insertBefore(item, UI.addMediaButton.dom);
             }
         );
