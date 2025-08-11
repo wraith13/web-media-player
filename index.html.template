@@ -115,7 +115,8 @@ DUMMYSTYLE
     <button id="shuffle-button">__SHUFFLE_ICON__</button>
     <button id="repeat-button">__REPEAT_ICON__</button>
     <button id="play-button">
-        __IMAGES__
+        <div id="play-icon">__PLAY_ICON__<div>
+        <div id="pause-icon">__PAUSE_ICON__<div>
     </button>
     <button id="aspect-button">__ASPECT_ICON__</button>
     <button id="setting-button">__COG_ICON__</button>
@@ -130,6 +131,7 @@ DUMMYSTYLE
         </div>
     </div>
 </div>
+<div id="images" style="display: none;">__IMAGES__</div>
 </body>
 <script type="text/javascript">
 const build =

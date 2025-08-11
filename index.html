@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Aug 11 2025 14:39:56 GMT+0900 (日本標準時)
+    build at: Tue Aug 12 2025 03:54:24 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -54,6 +54,11 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <style>
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -380,8 +385,10 @@ body.play #screen-body #media-list:not(.show)::before {
   align-items: center;
   counter-increment: item-num;
   position: relative;
-  min-width: 15rem;
   flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 20rem;
+  min-width: 20rem;
   height: 5rem;
   margin: 0.25rem;
   border-radius: 0.5rem;
@@ -393,39 +400,7 @@ body.play #screen-body #media-list:not(.show)::before {
   overflow: hidden;
   transition: background-color 300ms, transform 300ms;
 }
-#screen-body #media-list .item:not(.add)::before {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-body #media-list .item:not(.add)::before {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #screen-body #media-list .item:not(.add)::before {
-    font-size: 1rem;
-  }
-}
-#screen-body #media-list .item:not(.add)::before {
-  font-family: monospace;
-}
-#screen-body #media-list .item:not(.add)::before {
-  content: counter(item-num);
-  position: absolute;
-  top: 0.125rem;
-  left: 0.125rem;
-  font-size: 1rem;
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  z-index: 50;
-  padding: 0.25rem;
-  border-radius: 1.5rem;
-  min-width: 1.5rem;
-  text-align: center;
-  user-select: none;
-}
-#screen-body #media-list .item > img.thumbnail {
+#screen-body #media-list .item > .thumbnail {
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -438,6 +413,7 @@ body.play #screen-body #media-list:not(.show)::before {
   z-index: 10;
   width: 100%;
   height: 100%;
+  fill: rgba(230, 237, 243, 0.3);
 }
 #screen-body #media-list .item > span.name {
   font-size: 0.75rem;
@@ -497,8 +473,8 @@ body.play #screen-body #media-list:not(.show)::before {
   text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
   position: absolute;
+  top: 0rem;
   left: 0rem;
-  bottom: 0rem;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 0.75rem;
@@ -532,12 +508,48 @@ body.play #screen-body #media-list:not(.show)::before {
   right: 0rem;
   bottom: 0rem;
 }
+#screen-body #media-list .item > button.remove-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#screen-body #media-list .item > button.remove-button {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  font-size: 1.25rem;
+  background-color: rgba(32, 28, 38, 0.3);
+  z-index: 150;
+  border-radius: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+}
+#screen-body #media-list .item > button.remove-button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: rgba(230, 237, 243, 0.7);
+}
+@media (hover: hover) {
+  #screen-body #media-list .item > button.remove-button:hover {
+    background-color: rgba(32, 28, 38, 0.9);
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+  #screen-body #media-list .item > button.remove-button:hover svg {
+    fill: rgba(230, 237, 243, 0.9);
+  }
+}
 @media (hover: hover) {
   #screen-body #media-list .item:hover {
     z-index: 100;
     background-color: rgba(32, 28, 38, 0.95);
     filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
-    transform: scale(1.025);
+  }
+}
+@media (min-width: 3000px) {
+  #screen-body #media-list .item {
+    flex-basis: 9vw;
+    min-width: 9vw;
   }
 }
 #screen-body #media-list .item.add svg {
@@ -1471,17 +1483,22 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </button>
     <button id="play-button">
-        <div id="play-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+        <div id="play-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-20.52,-0.152764)">
         <path d="M277.128,192.306L277.129,192C277.294,169.198 295.857,150.737 318.698,150.737C326.626,150.737 334.038,152.961 340.345,156.819L893.467,476.149L893.46,476.161C906.034,483.312 914.523,496.833 914.523,512.321C914.523,529.423 904.173,544.126 889.4,550.504L340.335,867.492C339.741,867.855 339.138,868.203 338.526,868.537L336.016,869.985L335.929,869.834C330.678,872.232 324.842,873.568 318.697,873.568C295.755,873.568 277.128,854.942 277.128,832L277.128,192.306Z"/>
     </g>
 </svg>
-</div><div id="pause-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<div>
+        <div id="pause-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1.17021,0,0,1.125,-75.5745,-64)">
         <path d="M444,291.176L444,732.824C444,752.238 428.847,768 410.183,768L289.817,768C271.153,768 256,752.238 256,732.824L256,291.176C256,271.762 271.153,256 289.817,256L410.183,256C428.847,256 444,271.762 444,291.176ZM748.218,291.176L748.218,732.824C748.218,752.238 733.065,768 714.401,768L594.035,768C575.371,768 560.218,752.238 560.218,732.824L560.218,291.176C560.218,271.762 575.371,256 594.035,256L714.401,256C733.065,256 748.218,271.762 748.218,291.176Z"/>
     </g>
 </svg>
-</div>
+<div>
     </button>
     <button id="aspect-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1513,12 +1530,34 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         </div>
     </div>
 </div>
+<div id="images" style="display: none;"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path d="M512,96C741.597,96 928,282.403 928,512C928,741.597 741.597,928 512,928C282.403,928 96,741.597 96,512C96,282.403 282.403,96 512,96ZM254.314,322.332L701.824,769.571C648.693,808.805 583.034,832 512,832C335.387,832 192,688.613 192,512C192,441.037 215.149,375.438 254.314,322.332ZM769.686,701.668L322.176,254.429C375.307,215.195 440.966,192 512,192C688.613,192 832,335.387 832,512C832,582.963 808.851,648.562 769.686,701.668Z"/>
+</svg>
+</div><div id="audio-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.615385,0,0,1.31214,198.093,-113.044)">
+        <path d="M552.975,673.328C565.759,710.263 487.164,750.272 372.016,764.184C252.296,778.648 138.108,759.458 117.18,721.358C96.252,683.258 176.46,640.582 296.18,626.118C360.209,618.382 422.655,620.273 470.098,629.534L470.098,326.276C468.46,308.327 470.098,254.989 470.098,254.989L470.098,187.454C470.098,176.728 488.666,168.02 511.537,168.02C531.671,168.02 548.471,174.769 552.202,183.702C559.934,199.301 562.08,211.729 582.098,221.222C613.748,236.23 688.707,256.279 742.098,273.749C799.432,292.509 884.765,313.769 926.098,333.78C959.29,349.848 988.809,371.447 990.098,393.811C991.432,416.948 962.084,448.226 934.098,472.601C896.765,505.118 766.098,588.911 766.098,588.911C766.098,588.911 876.765,484.482 902.098,450.09C917.868,428.681 942.433,402.12 918.098,382.555C890.098,360.043 791.432,328.777 734.098,315.02C685.678,303.402 618.098,298.136 574.098,300.012C565.992,300.358 559.178,301.671 552.975,303.538L552.975,673.328Z"/>
+    </g>
+</svg>
+</div><div id="cross-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g>
+        <g transform="matrix(1.98154,1.97826,-0.471014,0.471795,490.164,-389.858)">
+            <path d="M384,863.716C384,828.55 377.202,800 368.829,800L79.171,800C70.798,800 64,828.55 64,863.716L64,928.284C64,963.45 70.798,992 79.171,992L368.829,992C377.202,992 384,963.45 384,928.284L384,863.716Z"/>
+        </g>
+        <g transform="matrix(1.97826,-1.98154,0.471795,0.471014,-353.858,497.836)">
+            <path d="M384,863.716C384,828.55 377.202,800 368.829,800L79.171,800C70.798,800 64,828.55 64,863.716L64,928.284C64,963.45 70.798,992 79.171,992L368.829,992C377.202,992 384,963.45 384,928.284L384,863.716Z"/>
+        </g>
+    </g>
+    <g transform="matrix(1.98154,1.97826,-0.471014,0.471795,490.164,-389.858)">
+        <path d="M201.143,800L201.143,287.716C201.143,252.55 207.941,224 216.313,224L231.687,224C240.059,224 246.857,252.55 246.857,287.716L246.857,800L368.829,800C377.202,800 384,828.55 384,863.716L384,928.284C384,963.45 377.202,992 368.829,992L246.857,992L246.857,1504.28C246.857,1539.45 240.059,1568 231.687,1568L216.313,1568C207.941,1568 201.143,1539.45 201.143,1504.28L201.143,992L79.171,992C70.798,992 64,963.45 64,928.284L64,863.716C64,828.55 70.798,800 79.171,800L201.143,800Z"/>
+    </g>
+</svg>
+</div></div>
 </body>
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Aug 11 2025 14:39:56 GMT+0900 (日本標準時)",
-    tick: 1754890796548
+    at: "Tue Aug 12 2025 03:54:24 GMT+0900 (日本標準時)",
+    tick: 1754938464972
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -3419,6 +3458,11 @@ define("resource/config", [], {
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "thumbnail": {
+        "maxSize": 320,
+        "type": "image/jpeg",
+        "quality": 0.7
+    },
     "colors": {
         "monochrome": [
             "#000000",
@@ -3863,18 +3907,82 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
         Control.Checkbox = Checkbox;
     })(Control || (exports.Control = Control = {}));
 });
-define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl) {
+define("resource/images", [], {
+    "error-icon": "./image/forbidden.svg",
+    "audio-icon": "./image/audio.svg",
+    "cross-icon": "./image/cross.svg"
+});
+define("script/library/svg", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Svg = void 0;
+    var Svg;
+    (function (Svg) {
+        var _this = this;
+        Svg.isEmbeddedImage = function (url) {
+            return ["SVG:error", "SVG:audio"].includes(url);
+        };
+        Svg.getSvg = function (url) { return __awaiter(_this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = url;
+                        switch (_a) {
+                            case "SVG:error": return [3 /*break*/, 1];
+                            case "SVG:audio": return [3 /*break*/, 3];
+                            case "SVG:close": return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 7];
+                    case 1: return [4 /*yield*/, Svg.loadSvg("error-icon")];
+                    case 2: return [2 /*return*/, _b.sent()];
+                    case 3: return [4 /*yield*/, Svg.loadSvg("audio-icon")];
+                    case 4: return [2 /*return*/, _b.sent()];
+                    case 5: return [4 /*yield*/, Svg.loadSvg("cross-icon")];
+                    case 6: return [2 /*return*/, _b.sent()];
+                    case 7:
+                        console.error("\uD83D\uDEAB Unsupported embedded image URL: ".concat(url));
+                        return [4 /*yield*/, Svg.loadSvg("error-icon")];
+                    case 8: return [2 /*return*/, _b.sent()];
+                }
+            });
+        }); };
+        Svg.loadSvg = function (key) { return __awaiter(_this, void 0, void 0, function () {
+            var dom;
+            return __generator(this, function (_a) {
+                try {
+                    dom = document.getElementById(key);
+                    if (dom) {
+                        return [2 /*return*/, new DOMParser().parseFromString(dom.innerHTML, "image/svg+xml").documentElement];
+                    }
+                    else {
+                        console.error("\uD83D\uDEAB SVG element with id \"".concat(key, "\" not found in the DOM."));
+                        return [2 /*return*/, null];
+                    }
+                }
+                catch (error) {
+                    console.error("\uD83D\uDEAB Error loading SVG with key \"".concat(key, "\":"), error);
+                    throw error;
+                }
+                return [2 /*return*/];
+            });
+        }); };
+    })(Svg || (exports.Svg = Svg = {}));
+});
+define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control", "script/library/svg"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl, ImportedSvg) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Library = void 0;
     ImportedLocale = __importStar(ImportedLocale);
     ImportedUI = __importStar(ImportedUI);
     ImportedControl = __importStar(ImportedControl);
+    ImportedSvg = __importStar(ImportedSvg);
     var Library;
     (function (Library) {
         Library.Locale = ImportedLocale.Locale;
         Library.UI = ImportedUI.UI;
         Library.Control = ImportedControl.Control;
+        Library.Svg = ImportedSvg.Svg;
     })(Library || (exports.Library = Library = {}));
 });
 define("script/tools/timespan", ["require", "exports", "script/library/index", "script/tools/number"], function (require, exports, _library_1, number_1) {
@@ -4258,16 +4366,17 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
-define("script/features/media", ["require", "exports", "script/ui", "script/library/index", "script/tools/index"], function (require, exports, ui_3, _library_3, tools_1) {
+define("script/features/media", ["require", "exports", "script/ui", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, ui_3, _library_3, tools_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Media = void 0;
+    Config = __importStar(Config);
     var Media;
     (function (Media) {
         var _this = this;
         ;
         Media.mediaList = [];
-        Media.getMediaType = function (file) {
+        Media.getMediaCategory = function (file) {
             if (file && file.type) {
                 switch (true) {
                     case file.type.startsWith("image/"):
@@ -4287,7 +4396,10 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             }
         };
         Media.isMediaFile = function (file) {
-            return null !== Media.getMediaType(file);
+            return null !== Media.getMediaCategory(file);
+        };
+        Media.getUrl = function (file) {
+            return URL.createObjectURL(file);
         };
         Media.getName = function (file) {
             return file.name || "Unknown File";
@@ -4296,46 +4408,59 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (mediaType === "image") {
-                            return [2 /*return*/, url];
-                        }
+                        if (!(mediaType === "image")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, getImageThumbnail(url)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2:
                         if (mediaType === "audio") {
                             return [2 /*return*/, "SVG:audio"];
                         }
-                        if (!(mediaType === "video")) return [3 /*break*/, 2];
+                        if (!(mediaType === "video")) return [3 /*break*/, 4];
                         return [4 /*yield*/, getVideoThumbnail(url)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                    case 2: return [2 /*return*/, "SVG:error"];
+                    case 3: return [2 /*return*/, _a.sent()];
+                    case 4: return [2 /*return*/, "SVG:error"];
                 }
             });
         }); };
-        var getVideoThumbnail = function (url) {
-            return new Promise(function (resolve) {
-                var video = document.createElement("video");
-                video.src = url;
-                video.currentTime = 0.1;
-                video.muted = true;
-                video.playsInline = true;
-                video.addEventListener("loadeddata", function () {
-                    var canvas = document.createElement("canvas");
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    var ctx = canvas.getContext("2d");
-                    if (ctx) {
-                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL("image/png"));
-                    }
-                    else {
-                        resolve("SVG:error");
-                    }
-                    URL.revokeObjectURL(url);
-                });
-                video.addEventListener("error", function () {
-                    resolve("SVG:error");
-                    URL.revokeObjectURL(url);
-                });
-            });
+        var canvasImageSourceToDataUrl = function (canvasImageSource, width, height) {
+            var maxSize = Config.thumbnail.maxSize;
+            if (width > maxSize || height > maxSize) {
+                var scale = Math.min(maxSize / width, maxSize / height);
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+            }
+            else {
+                if (canvasImageSource instanceof HTMLImageElement) {
+                    return canvasImageSource.src;
+                }
+            }
+            var canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            if (ctx) {
+                ctx.drawImage(canvasImageSource, 0, 0, width, height);
+                return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
+            }
+            else {
+                return "SVG:error";
+            }
         };
+        var getImageThumbnail = function (url) { return new Promise(function (resolve) {
+            var img = new Image();
+            img.onload = function () { return resolve(canvasImageSourceToDataUrl(img, img.width, img.height)); };
+            img.onerror = function () { return resolve("SVG:error"); };
+            img.src = url;
+        }); };
+        var getVideoThumbnail = function (url) { return new Promise(function (resolve) {
+            var video = document.createElement("video");
+            video.src = url;
+            video.currentTime = 0.1;
+            video.muted = true;
+            video.playsInline = true;
+            video.onloadeddata = function () { return resolve(canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight)); };
+            video.onerror = function () { return resolve("SVG:error"); };
+        }); };
         Media.getDuration = function (mediaType, url) {
             return new Promise(function (resolve) {
                 if (mediaType === "audio" || mediaType === "video") {
@@ -4356,91 +4481,227 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             });
         };
         Media.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
-            var type, url, _a, _b;
+            var category, url, entry, _a, _b;
             var _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
                         console.log("📂 Adding media:", file);
-                        type = Media.getMediaType(file);
-                        if (!(null !== type)) return [3 /*break*/, 3];
+                        category = Media.getMediaCategory(file);
+                        if (!(null !== category)) return [3 /*break*/, 4];
                         console.log("✅ Valid media file:", file);
-                        url = URL.createObjectURL(file);
-                        _b = (_a = Media.mediaList).push;
+                        url = Media.getUrl(file);
                         _c = {
                             file: file,
                             url: url,
-                            type: type,
+                            type: file.type,
+                            category: category,
                             name: Media.getName(file)
                         };
-                        return [4 /*yield*/, Media.getThumbnail(type, url)];
+                        return [4 /*yield*/, Media.getThumbnail(category, url)];
                     case 1:
                         _c.thumbnail = _d.sent();
-                        return [4 /*yield*/, Media.getDuration(type, url)];
+                        return [4 /*yield*/, Media.getDuration(category, url)];
                     case 2:
-                        _b.apply(_a, [(_c.duration = _d.sent(),
-                                _c)]);
-                        console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
-                        return [3 /*break*/, 4];
+                        entry = (_c.duration = _d.sent(),
+                            _c);
+                        Media.mediaList.push(entry);
+                        _b = (_a = ui_3.UI.mediaList).insertBefore;
+                        return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 3:
+                        _b.apply(_a, [_d.sent(), ui_3.UI.addMediaButton.dom]);
+                        console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
+                        return [3 /*break*/, 5];
+                    case 4:
                         console.warn("🚫 Invalid media file:", file);
-                        _d.label = 4;
+                        _d.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        }); };
+        var addMediaQueue = Promise.resolve();
+        Media.addMediaSerial = function (file) {
+            addMediaQueue = addMediaQueue.then(function () { return Media.addMedia(file); });
+        };
+        Media.isPixelatedImage = function (entry) {
+            return ["image/png", "image/gif"].includes(entry.type);
+        };
+        Media.isThumbnailPixelatedImage = function (entry) {
+            return Media.isPixelatedImage(entry) && entry.url === entry.thumbnail;
+        };
+        Media.makeThumbnailElement = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var svg, img;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!_library_3.Library.Svg.isEmbeddedImage(entry.thumbnail)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _library_3.Library.Svg.getSvg(entry.thumbnail)];
+                    case 1:
+                        svg = _a.sent();
+                        svg.classList.add("thumbnail");
+                        svg.setAttribute("alt", entry.name);
+                        return [2 /*return*/, svg];
+                    case 2:
+                        img = {
+                            tag: "img",
+                            className: "thumbnail" + (Media.isThumbnailPixelatedImage(entry) ? " pixelated" : ""),
+                            attributes: {
+                                src: entry.thumbnail,
+                                alt: entry.name,
+                            },
+                        };
+                        return [2 /*return*/, img];
+                }
+            });
+        }); };
+        Media.removeButton = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var _a;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = {
+                            tag: "button",
+                            className: "remove-button"
+                        };
+                        return [4 /*yield*/, _library_3.Library.Svg.getSvg("SVG:close")];
+                    case 1: return [2 /*return*/, (_a.children = [
+                            _b.sent()
+                        ],
+                            _a.events = {
+                                "click": function (event) { return __awaiter(_this, void 0, void 0, function () {
+                                    var index;
+                                    var _a;
+                                    return __generator(this, function (_b) {
+                                        switch (_b.label) {
+                                            case 0:
+                                                event.stopPropagation();
+                                                (_a = event.target) === null || _a === void 0 ? void 0 : _a.blur();
+                                                index = Media.mediaList.indexOf(entry);
+                                                if (!(0 <= index && index < Media.mediaList.length)) return [3 /*break*/, 2];
+                                                console.log("🗑️ Removing media:", Media.mediaList[index]);
+                                                URL.revokeObjectURL(Media.mediaList[index].url);
+                                                Media.mediaList.splice(index, 1);
+                                                return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                            case 1:
+                                                _b.sent();
+                                                _b.label = 2;
+                                            case 2: return [2 /*return*/];
+                                        }
+                                    });
+                                }); }
+                            },
+                            _a)];
+                }
+            });
+        }); };
+        Media.makeMediaEntryDom = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var ix, item, _a, _b, _c;
+            var _d;
+            var _this = this;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
+                    case 0:
+                        ix = Media.mediaList.indexOf(entry);
+                        _b = (_a = _library_3.Library.UI).createElement;
+                        _d = {
+                            tag: "div",
+                            className: "item",
+                            attributes: { draggable: "true", "data-index": ix }
+                        };
+                        return [4 /*yield*/, Media.makeThumbnailElement(entry)];
+                    case 1:
+                        _c = [
+                            _e.sent(),
+                            { tag: "span", className: "name", text: entry.name, },
+                            { tag: "span", className: "type", text: entry.category, },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                        ];
+                        return [4 /*yield*/, Media.removeButton(entry)];
+                    case 2:
+                        item = _b.apply(_a, [(_d.children = _c.concat([
+                                _e.sent()
+                            ]),
+                                _d)]);
+                        item.addEventListener("dragstart", function (event) {
+                            var _a;
+                            ui_3.UI.mediaList.classList.add("dragging");
+                            item.classList.add("dragging");
+                            (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
+                        });
+                        item.addEventListener("dragend", function () { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        ui_3.UI.mediaList.classList.remove("dragging");
+                                        item.classList.remove("dragging");
+                                        return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        item.addEventListener("dragover", function (event) {
+                            event.preventDefault();
+                            item.classList.add("drag-over");
+                        });
+                        item.addEventListener("dragleave", function () {
+                            item.classList.remove("drag-over");
+                        });
+                        item.addEventListener("drop", function (event) { return __awaiter(_this, void 0, void 0, function () {
+                            var fromIndex, toIndex, moved;
+                            var _a;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        event.preventDefault();
+                                        item.classList.remove("drag-over");
+                                        fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
+                                        toIndex = ix;
+                                        if (fromIndex !== null && fromIndex !== toIndex) {
+                                            moved = Media.mediaList.splice(fromIndex, 1)[0];
+                                            Media.mediaList.splice(toIndex, 0, moved);
+                                        }
+                                        return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                    case 1:
+                                        _b.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/, item];
+                }
+            });
+        }); };
+        Media.updateMediaListDisplay = function () { return __awaiter(_this, void 0, void 0, function () {
+            var _i, mediaList_1, entry, _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
+                            if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
+                                child.remove();
+                            }
+                            ;
+                        });
+                        _i = 0, mediaList_1 = Media.mediaList;
+                        _c.label = 1;
+                    case 1:
+                        if (!(_i < mediaList_1.length)) return [3 /*break*/, 4];
+                        entry = mediaList_1[_i];
+                        _b = (_a = ui_3.UI.mediaList).insertBefore;
+                        return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
+                    case 2:
+                        _b.apply(_a, [_c.sent(), ui_3.UI.addMediaButton.dom]);
+                        _c.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
                     case 4: return [2 /*return*/];
                 }
             });
         }); };
-        Media.updateMediaListDisplay = function () {
-            Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
-                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
-                    child.remove();
-                }
-                ;
-            });
-            Media.mediaList.forEach(function (entry, ix) {
-                var item = _library_3.Library.UI.createElement({
-                    tag: "div",
-                    className: "item",
-                    attributes: { draggable: "true", "data-index": ix },
-                    children: [
-                        { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
-                        { tag: "span", className: "name", text: entry.name, },
-                        { tag: "span", className: "type", text: entry.type, },
-                        { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", },
-                    ]
-                });
-                item.addEventListener("dragstart", function (event) {
-                    var _a;
-                    ui_3.UI.mediaList.classList.add("dragging");
-                    item.classList.add("dragging");
-                    (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
-                });
-                item.addEventListener("dragend", function () {
-                    ui_3.UI.mediaList.classList.remove("dragging");
-                    item.classList.remove("dragging");
-                    Media.updateMediaListDisplay();
-                });
-                item.addEventListener("dragover", function (event) {
-                    event.preventDefault();
-                    item.classList.add("drag-over");
-                });
-                item.addEventListener("dragleave", function () {
-                    item.classList.remove("drag-over");
-                });
-                item.addEventListener("drop", function (event) {
-                    var _a;
-                    event.preventDefault();
-                    item.classList.remove("drag-over");
-                    var fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
-                    var toIndex = ix;
-                    if (fromIndex !== null && fromIndex !== toIndex) {
-                        var moved = Media.mediaList.splice(fromIndex, 1)[0];
-                        Media.mediaList.splice(toIndex, 0, moved);
-                    }
-                    Media.updateMediaListDisplay();
-                });
-                ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
-            });
-        };
     })(Media || (exports.Media = Media = {}));
 });
 define("script/features/player", ["require", "exports"], function (require, exports) {
@@ -4473,10 +4734,6 @@ define("resource/evil-commonjs.config", [], {
 });
 define("resource/evil-timer.js.config", [], {
     "debug": true
-});
-define("resource/images", [], {
-    "play-icon": "./image/play.svg",
-    "pause-icon": "./image/pause.svg"
 });
 define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
     "use strict";
@@ -4550,29 +4807,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         var drop = function (event) { return __awaiter(_this, void 0, void 0, function () {
             var _i, _a, file;
             return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        event.preventDefault();
-                        event.stopPropagation();
-                        if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
-                        _i = 0, _a = Array.from(event.dataTransfer.files);
-                        _b.label = 1;
-                    case 1:
-                        if (!(_i < _a.length)) return [3 /*break*/, 4];
+                event.preventDefault();
+                event.stopPropagation();
+                if (event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length) {
+                    for (_i = 0, _a = Array.from(event.dataTransfer.files); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File dropped:", file);
-                        return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                    case 2:
-                        _b.sent();
-                        _b.label = 3;
-                    case 3:
-                        _i++;
-                        return [3 /*break*/, 1];
-                    case 4:
-                        _features_1.Features.Media.updateMediaListDisplay();
-                        _b.label = 5;
-                    case 5: return [2 /*return*/];
+                        _features_1.Features.Media.addMediaSerial(file);
+                    }
                 }
+                return [2 /*return*/];
             });
         }); };
         Events.initialize = function () {
@@ -4606,29 +4850,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 ui_4.UI.inputFile.click();
             };
             ui_4.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
-                var _i, _a, file;
-                var _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
-                        case 0:
-                            _i = 0, _a = Array.from((_b = ui_4.UI.inputFile.files) !== null && _b !== void 0 ? _b : []);
-                            _c.label = 1;
-                        case 1:
-                            if (!(_i < _a.length)) return [3 /*break*/, 4];
-                            file = _a[_i];
-                            console.log("📂 File selected:", file);
-                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                        case 2:
-                            _c.sent();
-                            _c.label = 3;
-                        case 3:
-                            _i++;
-                            return [3 /*break*/, 1];
-                        case 4:
-                            _features_1.Features.Media.updateMediaListDisplay();
-                            ui_4.UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
-                            return [2 /*return*/];
+                var files, _i, _a, file;
+                return __generator(this, function (_b) {
+                    files = ui_4.UI.inputFile.files;
+                    for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
+                        file = _a[_i];
+                        console.log("📂 File selected:", file);
+                        _features_1.Features.Media.addMediaSerial(file);
                     }
+                    ui_4.UI.inputFile.value = "";
+                    return [2 /*return*/];
                 });
             }); });
             ui_4.UI.introductionPanel.addEventListener("click", function (event) {

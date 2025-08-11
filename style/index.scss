@@ -131,8 +131,10 @@
             @include flex(column, center, center);
             counter-increment: item-num;
             position: relative;
-            min-width: 15rem;
             flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: 20rem;
+            min-width: 20rem;
             height: 5rem;
             margin: 0.25rem;
             border-radius: 0.5rem;
@@ -143,27 +145,27 @@
             cursor: pointer;
             overflow: hidden;
             transition: background-color 300ms, transform 300ms;
-            &:not(.add)::before
-            {
-                @include monospace-font();
-                &
-                {
-                    content: counter(item-num);
-                    position: absolute;
-                    top: 0.125rem;
-                    left: 0.125rem;
-                    font-size: 1rem;
-                    color: $white-color;
-                    background-color: black-color(0.6);
-                    z-index: 50;
-                    padding: 0.25rem;
-                    border-radius: 1.5rem;
-                    min-width: 1.5rem;
-                    text-align: center;
-                    user-select: none;
-                }
-            }
-            & > img.thumbnail
+            // &:not(.add)::before
+            // {
+            //     @include monospace-font();
+            //     &
+            //     {
+            //         content: counter(item-num);
+            //         position: absolute;
+            //         top: 0.125rem;
+            //         left: 0.125rem;
+            //         font-size: 1rem;
+            //         color: $white-color;
+            //         background-color: black-color(0.6);
+            //         z-index: 50;
+            //         padding: 0.25rem;
+            //         border-radius: 1.5rem;
+            //         min-width: 1.5rem;
+            //         text-align: center;
+            //         user-select: none;
+            //     }
+            // }
+            & > .thumbnail
             {
                 @include full-stretch-box();
                 object-fit: cover;
@@ -173,6 +175,7 @@
                 z-index: 10;
                 width: 100%;
                 height: 100%;
+                fill: white-color(0.3);
             }
             & > span.name
             {
@@ -208,8 +211,10 @@
                     text-shadow: 0px 0px 0.25rem black;
                     z-index: 100;
                     position: absolute;
+                    top: 0rem;
                     left: 0rem;
-                    bottom: 0rem;
+                    // left: 0rem;
+                    // bottom: 0rem;
                     //user-select: none;
                 }
             }
@@ -234,6 +239,40 @@
                     //user-select: none;
                 }
             }
+            & > button.remove-button
+            {
+                @include flex(row, center, center);
+                &
+                {
+                    position: absolute;
+                    top: 0.125rem;
+                    right: 0.125rem;
+                    font-size: 1.25rem;
+                    background-color: black-color(0.3);
+                    z-index: 150;
+                    border-radius: 1.5rem;
+                    height: 2rem;
+                    width: 2rem;
+                    svg
+                    {
+                        height: 1.25rem;
+                        width: 1.25rem;
+                        fill: white-color(0.7);
+                    }
+                }
+                @media (hover: hover)
+                {
+                    &:hover
+                    {
+                        background-color: black-color(0.9);
+                        filter: drop-shadow($white-color 0px 0px 0.5rem);
+                        svg
+                        {
+                            fill: white-color(0.9);
+                        }
+                    }
+                }
+            }
             @media (hover: hover)
             {
                 &:hover
@@ -241,8 +280,12 @@
                     z-index: 100;;
                     background-color: $hover-black-color;
                     filter: drop-shadow($white-color 0px 0px 0.5rem);
-                    transform: scale(1.025);
                 }
+            }
+            @media (min-width: 3000px)
+            {
+                flex-basis: 9vw;
+                min-width: 9vw;
             }
             &.add
             {

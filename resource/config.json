@@ -6,6 +6,11 @@
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "thumbnail": {
+        "maxSize": 320,
+        "type": "image/jpeg",
+        "quality": 0.7
+    },
     "colors": {
         "monochrome": [
             "#000000",

@@ -398,14 +398,26 @@ declare module "script/library/control" {
         }
     }
 }
+declare module "script/library/svg" {
+    import resource from "resource/images";
+    export namespace Svg {
+        type embeddedImage = "SVG:error" | "SVG:audio" | "SVG:close";
+        const isEmbeddedImage: (url: string) => url is embeddedImage;
+        const getSvg: (url: embeddedImage) => Promise<SVGElement>;
+        type KeyType = keyof typeof resource;
+        const loadSvg: (key: KeyType) => Promise<SVGElement>;
+    }
+}
 declare module "script/library/index" {
     import * as ImportedLocale from "script/library/locale";
     import * as ImportedUI from "script/library/ui";
     import * as ImportedControl from "script/library/control";
+    import * as ImportedSvg from "script/library/svg";
     export namespace Library {
         export import Locale = ImportedLocale.Locale;
         export import UI = ImportedUI.UI;
         export import Control = ImportedControl.Control;
+        export import Svg = ImportedSvg.Svg;
     }
 }
 declare module "script/tools/timespan" {
@@ -528,24 +540,33 @@ declare module "script/features/clock" {
     }
 }
 declare module "script/features/media" {
+    import { Library } from "script/library/index";
     export namespace Media {
         interface Entry {
             file: File;
             url: string;
-            type: MediaType;
+            type: string;
+            category: Category;
             name: string;
             thumbnail: string;
             duration: number | null;
         }
         const mediaList: Entry[];
-        type MediaType = "image" | "audio" | "video";
-        const getMediaType: (file: File) => MediaType | null;
+        type Category = "image" | "audio" | "video";
+        const getMediaCategory: (file: File) => Category | null;
         const isMediaFile: (file: File) => boolean;
+        const getUrl: (file: File) => string;
         const getName: (file: File) => string;
-        const getThumbnail: (mediaType: MediaType, url: string) => Promise<string>;
-        const getDuration: (mediaType: MediaType, url: string) => Promise<number | null>;
+        const getThumbnail: (mediaType: Category, url: string) => Promise<string>;
+        const getDuration: (mediaType: Category, url: string) => Promise<number | null>;
         const addMedia: (file: File) => Promise<void>;
-        const updateMediaListDisplay: () => void;
+        const addMediaSerial: (file: File) => void;
+        const isPixelatedImage: (entry: Entry) => boolean;
+        const isThumbnailPixelatedImage: (entry: Entry) => boolean;
+        const makeThumbnailElement: (entry: Entry) => Promise<Library.UI.ElementSource<"img"> | SVGElement>;
+        const removeButton: (entry: Entry) => Promise<Library.UI.ElementSource<"button">>;
+        const makeMediaEntryDom: (entry: Entry) => Promise<HTMLDivElement>;
+        const updateMediaListDisplay: () => Promise<void>;
     }
 }
 declare module "script/features/player" {

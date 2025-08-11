@@ -46,9 +46,8 @@ export namespace Events
             for (const file of Array.from(event.dataTransfer.files))
             {
                 console.log("📂 File dropped:", file);
-                await Features.Media.addMedia(file);
+                Features.Media.addMediaSerial(file);
             }
-            Features.Media.updateMediaListDisplay();
         }
     };
     export const initialize = () =>
@@ -92,13 +91,13 @@ export namespace Events
             "change",
             async () =>
             {
-                for (const file of Array.from(UI.inputFile.files ?? []))
+                const files = UI.inputFile.files;
+                for (const file of Array.from(files ?? []))
                 {
                     console.log("📂 File selected:", file);
-                    await Features.Media.addMedia(file);
+                    Features.Media.addMediaSerial(file);
                 }
-                Features.Media.updateMediaListDisplay();
-                UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
+                UI.inputFile.value = "";
             }
         );
         UI.introductionPanel.addEventListener

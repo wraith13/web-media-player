@@ -99,6 +99,12 @@
                 "__REPEAT_ICON__": {
                     "path": "./image/repeat.svg"
                 },
+                "__PLAY_ICON__": {
+                    "path": "./image/play.svg"
+                },
+                "__PAUSE_ICON__": {
+                    "path": "./image/pause.svg"
+                },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
                 },

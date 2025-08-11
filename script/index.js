@@ -337,6 +337,11 @@ define("resource/config", [], {
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "thumbnail": {
+        "maxSize": 320,
+        "type": "image/jpeg",
+        "quality": 0.7
+    },
     "colors": {
         "monochrome": [
             "#000000",
@@ -781,18 +786,82 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
         Control.Checkbox = Checkbox;
     })(Control || (exports.Control = Control = {}));
 });
-define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl) {
+define("resource/images", [], {
+    "error-icon": "./image/forbidden.svg",
+    "audio-icon": "./image/audio.svg",
+    "cross-icon": "./image/cross.svg"
+});
+define("script/library/svg", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Svg = void 0;
+    var Svg;
+    (function (Svg) {
+        var _this = this;
+        Svg.isEmbeddedImage = function (url) {
+            return ["SVG:error", "SVG:audio"].includes(url);
+        };
+        Svg.getSvg = function (url) { return __awaiter(_this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = url;
+                        switch (_a) {
+                            case "SVG:error": return [3 /*break*/, 1];
+                            case "SVG:audio": return [3 /*break*/, 3];
+                            case "SVG:close": return [3 /*break*/, 5];
+                        }
+                        return [3 /*break*/, 7];
+                    case 1: return [4 /*yield*/, Svg.loadSvg("error-icon")];
+                    case 2: return [2 /*return*/, _b.sent()];
+                    case 3: return [4 /*yield*/, Svg.loadSvg("audio-icon")];
+                    case 4: return [2 /*return*/, _b.sent()];
+                    case 5: return [4 /*yield*/, Svg.loadSvg("cross-icon")];
+                    case 6: return [2 /*return*/, _b.sent()];
+                    case 7:
+                        console.error("\uD83D\uDEAB Unsupported embedded image URL: ".concat(url));
+                        return [4 /*yield*/, Svg.loadSvg("error-icon")];
+                    case 8: return [2 /*return*/, _b.sent()];
+                }
+            });
+        }); };
+        Svg.loadSvg = function (key) { return __awaiter(_this, void 0, void 0, function () {
+            var dom;
+            return __generator(this, function (_a) {
+                try {
+                    dom = document.getElementById(key);
+                    if (dom) {
+                        return [2 /*return*/, new DOMParser().parseFromString(dom.innerHTML, "image/svg+xml").documentElement];
+                    }
+                    else {
+                        console.error("\uD83D\uDEAB SVG element with id \"".concat(key, "\" not found in the DOM."));
+                        return [2 /*return*/, null];
+                    }
+                }
+                catch (error) {
+                    console.error("\uD83D\uDEAB Error loading SVG with key \"".concat(key, "\":"), error);
+                    throw error;
+                }
+                return [2 /*return*/];
+            });
+        }); };
+    })(Svg || (exports.Svg = Svg = {}));
+});
+define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control", "script/library/svg"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl, ImportedSvg) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Library = void 0;
     ImportedLocale = __importStar(ImportedLocale);
     ImportedUI = __importStar(ImportedUI);
     ImportedControl = __importStar(ImportedControl);
+    ImportedSvg = __importStar(ImportedSvg);
     var Library;
     (function (Library) {
         Library.Locale = ImportedLocale.Locale;
         Library.UI = ImportedUI.UI;
         Library.Control = ImportedControl.Control;
+        Library.Svg = ImportedSvg.Svg;
     })(Library || (exports.Library = Library = {}));
 });
 define("script/tools/timespan", ["require", "exports", "script/library/index", "script/tools/number"], function (require, exports, _library_1, number_1) {
@@ -1176,16 +1245,17 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
-define("script/features/media", ["require", "exports", "script/ui", "script/library/index", "script/tools/index"], function (require, exports, ui_3, _library_3, tools_1) {
+define("script/features/media", ["require", "exports", "script/ui", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, ui_3, _library_3, tools_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Media = void 0;
+    Config = __importStar(Config);
     var Media;
     (function (Media) {
         var _this = this;
         ;
         Media.mediaList = [];
-        Media.getMediaType = function (file) {
+        Media.getMediaCategory = function (file) {
             if (file && file.type) {
                 switch (true) {
                     case file.type.startsWith("image/"):
@@ -1205,7 +1275,10 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             }
         };
         Media.isMediaFile = function (file) {
-            return null !== Media.getMediaType(file);
+            return null !== Media.getMediaCategory(file);
+        };
+        Media.getUrl = function (file) {
+            return URL.createObjectURL(file);
         };
         Media.getName = function (file) {
             return file.name || "Unknown File";
@@ -1214,46 +1287,59 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (mediaType === "image") {
-                            return [2 /*return*/, url];
-                        }
+                        if (!(mediaType === "image")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, getImageThumbnail(url)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2:
                         if (mediaType === "audio") {
                             return [2 /*return*/, "SVG:audio"];
                         }
-                        if (!(mediaType === "video")) return [3 /*break*/, 2];
+                        if (!(mediaType === "video")) return [3 /*break*/, 4];
                         return [4 /*yield*/, getVideoThumbnail(url)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                    case 2: return [2 /*return*/, "SVG:error"];
+                    case 3: return [2 /*return*/, _a.sent()];
+                    case 4: return [2 /*return*/, "SVG:error"];
                 }
             });
         }); };
-        var getVideoThumbnail = function (url) {
-            return new Promise(function (resolve) {
-                var video = document.createElement("video");
-                video.src = url;
-                video.currentTime = 0.1;
-                video.muted = true;
-                video.playsInline = true;
-                video.addEventListener("loadeddata", function () {
-                    var canvas = document.createElement("canvas");
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    var ctx = canvas.getContext("2d");
-                    if (ctx) {
-                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL("image/png"));
-                    }
-                    else {
-                        resolve("SVG:error");
-                    }
-                    URL.revokeObjectURL(url);
-                });
-                video.addEventListener("error", function () {
-                    resolve("SVG:error");
-                    URL.revokeObjectURL(url);
-                });
-            });
+        var canvasImageSourceToDataUrl = function (canvasImageSource, width, height) {
+            var maxSize = Config.thumbnail.maxSize;
+            if (width > maxSize || height > maxSize) {
+                var scale = Math.min(maxSize / width, maxSize / height);
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+            }
+            else {
+                if (canvasImageSource instanceof HTMLImageElement) {
+                    return canvasImageSource.src;
+                }
+            }
+            var canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            if (ctx) {
+                ctx.drawImage(canvasImageSource, 0, 0, width, height);
+                return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
+            }
+            else {
+                return "SVG:error";
+            }
         };
+        var getImageThumbnail = function (url) { return new Promise(function (resolve) {
+            var img = new Image();
+            img.onload = function () { return resolve(canvasImageSourceToDataUrl(img, img.width, img.height)); };
+            img.onerror = function () { return resolve("SVG:error"); };
+            img.src = url;
+        }); };
+        var getVideoThumbnail = function (url) { return new Promise(function (resolve) {
+            var video = document.createElement("video");
+            video.src = url;
+            video.currentTime = 0.1;
+            video.muted = true;
+            video.playsInline = true;
+            video.onloadeddata = function () { return resolve(canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight)); };
+            video.onerror = function () { return resolve("SVG:error"); };
+        }); };
         Media.getDuration = function (mediaType, url) {
             return new Promise(function (resolve) {
                 if (mediaType === "audio" || mediaType === "video") {
@@ -1274,91 +1360,227 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             });
         };
         Media.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
-            var type, url, _a, _b;
+            var category, url, entry, _a, _b;
             var _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
                         console.log("📂 Adding media:", file);
-                        type = Media.getMediaType(file);
-                        if (!(null !== type)) return [3 /*break*/, 3];
+                        category = Media.getMediaCategory(file);
+                        if (!(null !== category)) return [3 /*break*/, 4];
                         console.log("✅ Valid media file:", file);
-                        url = URL.createObjectURL(file);
-                        _b = (_a = Media.mediaList).push;
+                        url = Media.getUrl(file);
                         _c = {
                             file: file,
                             url: url,
-                            type: type,
+                            type: file.type,
+                            category: category,
                             name: Media.getName(file)
                         };
-                        return [4 /*yield*/, Media.getThumbnail(type, url)];
+                        return [4 /*yield*/, Media.getThumbnail(category, url)];
                     case 1:
                         _c.thumbnail = _d.sent();
-                        return [4 /*yield*/, Media.getDuration(type, url)];
+                        return [4 /*yield*/, Media.getDuration(category, url)];
                     case 2:
-                        _b.apply(_a, [(_c.duration = _d.sent(),
-                                _c)]);
-                        console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
-                        return [3 /*break*/, 4];
+                        entry = (_c.duration = _d.sent(),
+                            _c);
+                        Media.mediaList.push(entry);
+                        _b = (_a = ui_3.UI.mediaList).insertBefore;
+                        return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 3:
+                        _b.apply(_a, [_d.sent(), ui_3.UI.addMediaButton.dom]);
+                        console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
+                        return [3 /*break*/, 5];
+                    case 4:
                         console.warn("🚫 Invalid media file:", file);
-                        _d.label = 4;
+                        _d.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        }); };
+        var addMediaQueue = Promise.resolve();
+        Media.addMediaSerial = function (file) {
+            addMediaQueue = addMediaQueue.then(function () { return Media.addMedia(file); });
+        };
+        Media.isPixelatedImage = function (entry) {
+            return ["image/png", "image/gif"].includes(entry.type);
+        };
+        Media.isThumbnailPixelatedImage = function (entry) {
+            return Media.isPixelatedImage(entry) && entry.url === entry.thumbnail;
+        };
+        Media.makeThumbnailElement = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var svg, img;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!_library_3.Library.Svg.isEmbeddedImage(entry.thumbnail)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _library_3.Library.Svg.getSvg(entry.thumbnail)];
+                    case 1:
+                        svg = _a.sent();
+                        svg.classList.add("thumbnail");
+                        svg.setAttribute("alt", entry.name);
+                        return [2 /*return*/, svg];
+                    case 2:
+                        img = {
+                            tag: "img",
+                            className: "thumbnail" + (Media.isThumbnailPixelatedImage(entry) ? " pixelated" : ""),
+                            attributes: {
+                                src: entry.thumbnail,
+                                alt: entry.name,
+                            },
+                        };
+                        return [2 /*return*/, img];
+                }
+            });
+        }); };
+        Media.removeButton = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var _a;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = {
+                            tag: "button",
+                            className: "remove-button"
+                        };
+                        return [4 /*yield*/, _library_3.Library.Svg.getSvg("SVG:close")];
+                    case 1: return [2 /*return*/, (_a.children = [
+                            _b.sent()
+                        ],
+                            _a.events = {
+                                "click": function (event) { return __awaiter(_this, void 0, void 0, function () {
+                                    var index;
+                                    var _a;
+                                    return __generator(this, function (_b) {
+                                        switch (_b.label) {
+                                            case 0:
+                                                event.stopPropagation();
+                                                (_a = event.target) === null || _a === void 0 ? void 0 : _a.blur();
+                                                index = Media.mediaList.indexOf(entry);
+                                                if (!(0 <= index && index < Media.mediaList.length)) return [3 /*break*/, 2];
+                                                console.log("🗑️ Removing media:", Media.mediaList[index]);
+                                                URL.revokeObjectURL(Media.mediaList[index].url);
+                                                Media.mediaList.splice(index, 1);
+                                                return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                            case 1:
+                                                _b.sent();
+                                                _b.label = 2;
+                                            case 2: return [2 /*return*/];
+                                        }
+                                    });
+                                }); }
+                            },
+                            _a)];
+                }
+            });
+        }); };
+        Media.makeMediaEntryDom = function (entry) { return __awaiter(_this, void 0, void 0, function () {
+            var ix, item, _a, _b, _c;
+            var _d;
+            var _this = this;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
+                    case 0:
+                        ix = Media.mediaList.indexOf(entry);
+                        _b = (_a = _library_3.Library.UI).createElement;
+                        _d = {
+                            tag: "div",
+                            className: "item",
+                            attributes: { draggable: "true", "data-index": ix }
+                        };
+                        return [4 /*yield*/, Media.makeThumbnailElement(entry)];
+                    case 1:
+                        _c = [
+                            _e.sent(),
+                            { tag: "span", className: "name", text: entry.name, },
+                            { tag: "span", className: "type", text: entry.category, },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                        ];
+                        return [4 /*yield*/, Media.removeButton(entry)];
+                    case 2:
+                        item = _b.apply(_a, [(_d.children = _c.concat([
+                                _e.sent()
+                            ]),
+                                _d)]);
+                        item.addEventListener("dragstart", function (event) {
+                            var _a;
+                            ui_3.UI.mediaList.classList.add("dragging");
+                            item.classList.add("dragging");
+                            (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
+                        });
+                        item.addEventListener("dragend", function () { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        ui_3.UI.mediaList.classList.remove("dragging");
+                                        item.classList.remove("dragging");
+                                        return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                    case 1:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        item.addEventListener("dragover", function (event) {
+                            event.preventDefault();
+                            item.classList.add("drag-over");
+                        });
+                        item.addEventListener("dragleave", function () {
+                            item.classList.remove("drag-over");
+                        });
+                        item.addEventListener("drop", function (event) { return __awaiter(_this, void 0, void 0, function () {
+                            var fromIndex, toIndex, moved;
+                            var _a;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        event.preventDefault();
+                                        item.classList.remove("drag-over");
+                                        fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
+                                        toIndex = ix;
+                                        if (fromIndex !== null && fromIndex !== toIndex) {
+                                            moved = Media.mediaList.splice(fromIndex, 1)[0];
+                                            Media.mediaList.splice(toIndex, 0, moved);
+                                        }
+                                        return [4 /*yield*/, Media.updateMediaListDisplay()];
+                                    case 1:
+                                        _b.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/, item];
+                }
+            });
+        }); };
+        Media.updateMediaListDisplay = function () { return __awaiter(_this, void 0, void 0, function () {
+            var _i, mediaList_1, entry, _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
+                            if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
+                                child.remove();
+                            }
+                            ;
+                        });
+                        _i = 0, mediaList_1 = Media.mediaList;
+                        _c.label = 1;
+                    case 1:
+                        if (!(_i < mediaList_1.length)) return [3 /*break*/, 4];
+                        entry = mediaList_1[_i];
+                        _b = (_a = ui_3.UI.mediaList).insertBefore;
+                        return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
+                    case 2:
+                        _b.apply(_a, [_c.sent(), ui_3.UI.addMediaButton.dom]);
+                        _c.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
                     case 4: return [2 /*return*/];
                 }
             });
         }); };
-        Media.updateMediaListDisplay = function () {
-            Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
-                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
-                    child.remove();
-                }
-                ;
-            });
-            Media.mediaList.forEach(function (entry, ix) {
-                var item = _library_3.Library.UI.createElement({
-                    tag: "div",
-                    className: "item",
-                    attributes: { draggable: "true", "data-index": ix },
-                    children: [
-                        { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
-                        { tag: "span", className: "name", text: entry.name, },
-                        { tag: "span", className: "type", text: entry.type, },
-                        { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", },
-                    ]
-                });
-                item.addEventListener("dragstart", function (event) {
-                    var _a;
-                    ui_3.UI.mediaList.classList.add("dragging");
-                    item.classList.add("dragging");
-                    (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
-                });
-                item.addEventListener("dragend", function () {
-                    ui_3.UI.mediaList.classList.remove("dragging");
-                    item.classList.remove("dragging");
-                    Media.updateMediaListDisplay();
-                });
-                item.addEventListener("dragover", function (event) {
-                    event.preventDefault();
-                    item.classList.add("drag-over");
-                });
-                item.addEventListener("dragleave", function () {
-                    item.classList.remove("drag-over");
-                });
-                item.addEventListener("drop", function (event) {
-                    var _a;
-                    event.preventDefault();
-                    item.classList.remove("drag-over");
-                    var fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
-                    var toIndex = ix;
-                    if (fromIndex !== null && fromIndex !== toIndex) {
-                        var moved = Media.mediaList.splice(fromIndex, 1)[0];
-                        Media.mediaList.splice(toIndex, 0, moved);
-                    }
-                    Media.updateMediaListDisplay();
-                });
-                ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
-            });
-        };
     })(Media || (exports.Media = Media = {}));
 });
 define("script/features/player", ["require", "exports"], function (require, exports) {
@@ -1391,10 +1613,6 @@ define("resource/evil-commonjs.config", [], {
 });
 define("resource/evil-timer.js.config", [], {
     "debug": true
-});
-define("resource/images", [], {
-    "play-icon": "./image/play.svg",
-    "pause-icon": "./image/pause.svg"
 });
 define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
     "use strict";
@@ -1468,29 +1686,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         var drop = function (event) { return __awaiter(_this, void 0, void 0, function () {
             var _i, _a, file;
             return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        event.preventDefault();
-                        event.stopPropagation();
-                        if (!(event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length)) return [3 /*break*/, 5];
-                        _i = 0, _a = Array.from(event.dataTransfer.files);
-                        _b.label = 1;
-                    case 1:
-                        if (!(_i < _a.length)) return [3 /*break*/, 4];
+                event.preventDefault();
+                event.stopPropagation();
+                if (event.dataTransfer && event.dataTransfer.files && 0 < event.dataTransfer.files.length) {
+                    for (_i = 0, _a = Array.from(event.dataTransfer.files); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File dropped:", file);
-                        return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                    case 2:
-                        _b.sent();
-                        _b.label = 3;
-                    case 3:
-                        _i++;
-                        return [3 /*break*/, 1];
-                    case 4:
-                        _features_1.Features.Media.updateMediaListDisplay();
-                        _b.label = 5;
-                    case 5: return [2 /*return*/];
+                        _features_1.Features.Media.addMediaSerial(file);
+                    }
                 }
+                return [2 /*return*/];
             });
         }); };
         Events.initialize = function () {
@@ -1524,29 +1729,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 ui_4.UI.inputFile.click();
             };
             ui_4.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
-                var _i, _a, file;
-                var _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
-                        case 0:
-                            _i = 0, _a = Array.from((_b = ui_4.UI.inputFile.files) !== null && _b !== void 0 ? _b : []);
-                            _c.label = 1;
-                        case 1:
-                            if (!(_i < _a.length)) return [3 /*break*/, 4];
-                            file = _a[_i];
-                            console.log("📂 File selected:", file);
-                            return [4 /*yield*/, _features_1.Features.Media.addMedia(file)];
-                        case 2:
-                            _c.sent();
-                            _c.label = 3;
-                        case 3:
-                            _i++;
-                            return [3 /*break*/, 1];
-                        case 4:
-                            _features_1.Features.Media.updateMediaListDisplay();
-                            ui_4.UI.inputFile.value = ""; // Reset input value to allow re-selection of the same file
-                            return [2 /*return*/];
+                var files, _i, _a, file;
+                return __generator(this, function (_b) {
+                    files = ui_4.UI.inputFile.files;
+                    for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
+                        file = _a[_i];
+                        console.log("📂 File selected:", file);
+                        _features_1.Features.Media.addMediaSerial(file);
                     }
+                    ui_4.UI.inputFile.value = "";
+                    return [2 /*return*/];
                 });
             }); });
             ui_4.UI.introductionPanel.addEventListener("click", function (event) {

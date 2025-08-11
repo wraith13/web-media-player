@@ -1,4 +1,5 @@
 {
-    "play-icon": "./image/play.svg",
-    "pause-icon": "./image/pause.svg"
+    "error-icon": "./image/forbidden.svg",
+    "audio-icon": "./image/audio.svg",
+    "cross-icon": "./image/cross.svg"
 }
