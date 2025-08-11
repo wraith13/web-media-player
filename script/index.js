@@ -1017,182 +1017,6 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
     })(Fps || (exports.Fps = Fps = {}));
 });
 define("resource/control", [], {
-    "colorspace": {
-        "id": "colorspace",
-        "enum": [
-            "sRGB",
-            "Display P3",
-            "Rec. 2020"
-        ],
-        "default": "sRGB"
-    },
-    "coloring": {
-        "id": "coloring",
-        "enum": [
-            "monochrome",
-            "primary-colors",
-            "phi-colors"
-        ],
-        "default": "phi-colors"
-    },
-    "pattern": {
-        "id": "pattern",
-        "enum": [
-            "lines",
-            "spots",
-            "both"
-        ],
-        "default": "both"
-    },
-    "canvasSize": {
-        "id": "canvas-size",
-        "enum": [
-            100,
-            75,
-            50,
-            30,
-            25,
-            20,
-            15,
-            10,
-            5,
-            3,
-            2,
-            1
-        ],
-        "default": 100
-    },
-    "layers": {
-        "id": "layers",
-        "enum": [
-            97,
-            89,
-            83,
-            79,
-            73,
-            71,
-            67,
-            61,
-            59,
-            53,
-            47,
-            43,
-            41,
-            37,
-            31,
-            29,
-            23,
-            19,
-            17,
-            13,
-            11,
-            7,
-            5,
-            3,
-            2,
-            1
-        ],
-        "default": 7
-    },
-    "spotsLayers": {
-        "id": "spotsLayers",
-        "enum": [
-            100,
-            95,
-            90,
-            85,
-            80,
-            75,
-            70,
-            65,
-            60,
-            55,
-            50,
-            45,
-            40,
-            35,
-            30,
-            25,
-            20,
-            15,
-            10,
-            5
-        ],
-        "default": 30
-    },
-    "cycleSpan": {
-        "id": "cycle-span",
-        "enum": [
-            3600000,
-            1800000,
-            900000,
-            750000,
-            600000,
-            450000,
-            300000,
-            180000,
-            90000,
-            60000,
-            45000,
-            30000,
-            18000,
-            12500,
-            10000,
-            7500,
-            5000,
-            4000,
-            3000,
-            2500,
-            2000,
-            1500,
-            1000
-        ],
-        "default": 7500
-    },
-    "fuseFps": {
-        "id": "fuse-fps",
-        "enum": [
-            25,
-            20,
-            15,
-            12.5,
-            10,
-            7.5,
-            5,
-            3
-        ],
-        "default": 7.5
-    },
-    "frameDelay": {
-        "id": "frame-delay",
-        "enum": [
-            0,
-            25,
-            50,
-            75,
-            100,
-            125,
-            150,
-            200,
-            250,
-            300,
-            350,
-            500,
-            750,
-            1000,
-            1250,
-            1500
-        ],
-        "default": 0
-    },
-    "lowLoadMode": {
-        "id": "low-load-mode",
-        "default": false
-    },
-    "easing": {
-        "id": "easing",
-        "default": true
-    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -1253,7 +1077,7 @@ define("resource/powered-by", [], {
     "evil-commonjs": "https://github.com/wraith13/evil-commonjs",
     "evil-timer.js": "https://github.com/wraith13/evil-timer.js"
 });
-define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, powered_by_json_1) {
+define("script/ui", ["require", "exports", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _library_2, control_json_1, powered_by_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
@@ -1271,17 +1095,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
-        UI.colorspaceSelect = new _library_2.Library.Control.Select(control_json_1.default.colorspace);
-        UI.coloringSelect = new _library_2.Library.Control.Select(control_json_1.default.coloring);
-        UI.patternSelect = new _library_2.Library.Control.Select(control_json_1.default.pattern, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.canvasSizeSelect = new _library_2.Library.Control.Select(control_json_1.default.canvasSize, { makeLabel: function (i) { return "".concat(i, " %"); } });
-        UI.layersSelect = new _library_2.Library.Control.Select(control_json_1.default.layers);
-        UI.spotslayersSelect = new _library_2.Library.Control.Select(control_json_1.default.spotsLayers, { makeLabel: function (i) { return "".concat(i, " %"); } });
-        UI.cycleSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.cycleSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
-        UI.fuseFpsSelect = new _library_2.Library.Control.Select(control_json_1.default.fuseFps);
-        UI.getFrameDelayLabel = function (i) { return _tools_2.Tools.Timespan.toDisplayString(i); };
-        UI.frameDelaySelect = new _library_2.Library.Control.Select(control_json_1.default.frameDelay, { makeLabel: UI.getFrameDelayLabel });
-        UI.easingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.easing);
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -1309,14 +1122,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             document.documentElement.setAttribute("lang", lang);
             document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
-            UI.colorspaceSelect.reloadOptions();
-            UI.coloringSelect.reloadOptions();
-            UI.patternSelect.reloadOptions();
-            UI.canvasSizeSelect.reloadOptions();
-            UI.layersSelect.reloadOptions();
-            UI.cycleSpanSelect.reloadOptions();
-            UI.fuseFpsSelect.reloadOptions();
-            UI.frameDelaySelect.reloadOptions();
             UI.clockSelect.reloadOptions();
             UI.languageSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
@@ -1505,22 +1310,18 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                 }
             });
         }); };
-        //let draggingEntry: Entry | null = null;
-        var draggingIndex = null;
-        var previewOrder = null;
-        Media.updateMediaListDisplay = function (isDragging) {
+        Media.updateMediaListDisplay = function () {
             Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
-                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child)
+                if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
                     child.remove();
+                }
+                ;
             });
-            // 並び順を決定
-            var order = previewOrder !== null && previewOrder !== void 0 ? previewOrder : Media.mediaList.map(function (_, i) { return i; });
-            order.forEach(function (mediaIdx) {
-                var entry = Media.mediaList[mediaIdx];
+            Media.mediaList.forEach(function (entry, ix) {
                 var item = _library_3.Library.UI.createElement({
                     tag: "div",
                     className: "item",
-                    attributes: { draggable: "true", "data-index": mediaIdx },
+                    attributes: { draggable: "true", "data-index": ix },
                     children: [
                         { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
                         { tag: "span", className: "name", text: entry.name, },
@@ -1528,63 +1329,34 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
                     ]
                 });
-                item.addEventListener("dragstart", function (e) {
+                item.addEventListener("dragstart", function (event) {
                     var _a;
-                    if (!isDragging) {
-                        //draggingEntry = entry;
-                        draggingIndex = mediaIdx;
-                        previewOrder = null;
-                    }
                     ui_3.UI.mediaList.classList.add("dragging");
                     item.classList.add("dragging");
-                    (_a = e.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(mediaIdx));
+                    (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
                 });
                 item.addEventListener("dragend", function () {
-                    if (!isDragging) {
-                        //draggingEntry = null;
-                        draggingIndex = null;
-                        previewOrder = null;
-                    }
                     ui_3.UI.mediaList.classList.remove("dragging");
                     item.classList.remove("dragging");
                     Media.updateMediaListDisplay();
                 });
-                item.addEventListener("dragover", function (e) {
-                    e.preventDefault();
-                    if (null !== draggingIndex) {
-                        if (mediaIdx !== draggingIndex) 
-                        //if (null !== draggingIndex && entry !== draggingEntry && mediaIdx !== draggingIndex)
-                        {
-                            // 仮の並び順を作成
-                            var tempOrder = Media.mediaList.map(function (_, i) { return i; });
-                            var moved = tempOrder.splice(draggingIndex, 1)[0];
-                            tempOrder.splice(mediaIdx, 0, moved);
-                            previewOrder = tempOrder;
-                            Media.updateMediaListDisplay("isDragging");
-                        }
-                        else if (previewOrder) {
-                            if (previewOrder[draggingIndex] !== mediaIdx) {
-                                previewOrder = Media.mediaList.map(function (_, i) { return i; });
-                                Media.updateMediaListDisplay("isDragging");
-                            }
-                        }
-                    }
+                item.addEventListener("dragover", function (event) {
+                    event.preventDefault();
                     item.classList.add("drag-over");
                 });
                 item.addEventListener("dragleave", function () {
                     item.classList.remove("drag-over");
                 });
-                item.addEventListener("drop", function (e) {
-                    e.preventDefault();
+                item.addEventListener("drop", function (event) {
+                    var _a;
+                    event.preventDefault();
                     item.classList.remove("drag-over");
-                    var fromIndex = draggingIndex;
-                    var toIndex = mediaIdx;
+                    var fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
+                    var toIndex = ix;
                     if (fromIndex !== null && fromIndex !== toIndex) {
                         var moved = Media.mediaList.splice(fromIndex, 1)[0];
                         Media.mediaList.splice(toIndex, 0, moved);
                     }
-                    draggingIndex = null;
-                    previewOrder = null;
                     Media.updateMediaListDisplay();
                 });
                 ui_3.UI.mediaList.insertBefore(item, ui_3.UI.addMediaButton.dom);
@@ -1668,9 +1440,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
     var Events;
     (function (Events) {
         var _this = this;
-        var updateFuseFps = function () {
-            return _features_1.Features.Fps.fuseFps = parseFloat(ui_4.UI.fuseFpsSelect.get());
-        };
         var updateShowFps = function () {
             ui_4.UI.fpsDisplay.classList.toggle("hide", !ui_4.UI.showFps.get());
         };
@@ -1785,7 +1554,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
             ui_4.UI.introductionPanel.classList.toggle("force-show", true);
             setTimeout(function () { return ui_4.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            ui_4.UI.fuseFpsSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateFuseFps);
             ui_4.UI.showFps.loadParameter(url_2.Url.params, applyParam).setChange(updateShowFps);
             ui_4.UI.clockSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateClock);
             ui_4.UI.languageSelect.loadParameter(url_2.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
@@ -1799,15 +1567,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
             [
-                ui_4.UI.colorspaceSelect,
-                ui_4.UI.coloringSelect,
-                ui_4.UI.patternSelect,
-                ui_4.UI.canvasSizeSelect,
-                ui_4.UI.layersSelect,
-                ui_4.UI.spotslayersSelect,
-                ui_4.UI.cycleSpanSelect,
-                ui_4.UI.fuseFpsSelect,
-                ui_4.UI.easingCheckbox,
                 // UI.withFullscreen,
                 ui_4.UI.showFps,
             ].forEach(function (i) { return i.fire(); });
@@ -1822,16 +1581,6 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_4.UI.colorspaceSelect,
-                        ui_4.UI.coloringSelect,
-                        ui_4.UI.patternSelect,
-                        ui_4.UI.canvasSizeSelect,
-                        ui_4.UI.layersSelect,
-                        ui_4.UI.spotslayersSelect,
-                        ui_4.UI.cycleSpanSelect,
-                        ui_4.UI.fuseFpsSelect,
-                        ui_4.UI.frameDelaySelect,
-                        ui_4.UI.easingCheckbox,
                         ui_4.UI.withFullscreen,
                         ui_4.UI.showFps,
                         ui_4.UI.clockSelect,
@@ -1852,7 +1601,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_2, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -1864,7 +1613,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_3.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_2.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -1876,7 +1625,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_3.Tools,
+        Tools: _tools_2.Tools,
         Library: _library_5.Library,
         Features: _features_2.Features,
         Url: url_3.Url,

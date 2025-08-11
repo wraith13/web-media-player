@@ -6,8 +6,6 @@ import config from "@resource/config.json";
 import control from "@resource/control.json";
 export namespace Events
 {
-    const updateFuseFps = (): number =>
-        Features.Fps.fuseFps = parseFloat(UI.fuseFpsSelect.get());
     const updateShowFps = () =>
     {
         UI.fpsDisplay.classList.toggle("hide", ! UI.showFps.get());
@@ -118,7 +116,6 @@ export namespace Events
             () => UI.introductionPanel.classList.toggle("force-show", false),
             15000
         );
-        UI.fuseFpsSelect.loadParameter(Url.params, applyParam).setChange(updateFuseFps);
         UI.showFps.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
@@ -138,15 +135,6 @@ export namespace Events
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])
             .forEach(label => Library.UI.showPickerOnLabel(label));
         [
-            UI.colorspaceSelect,
-            UI.coloringSelect,
-            UI.patternSelect,
-            UI.canvasSizeSelect,
-            UI.layersSelect,
-            UI.spotslayersSelect,
-            UI.cycleSpanSelect,
-            UI.fuseFpsSelect,
-            UI.easingCheckbox,
             // UI.withFullscreen,
             UI.showFps,
         ].forEach(i => i.fire());
@@ -171,16 +159,6 @@ export namespace Events
                 (
                     () =>
                     [
-                        UI.colorspaceSelect,
-                        UI.coloringSelect,
-                        UI.patternSelect,
-                        UI.canvasSizeSelect,
-                        UI.layersSelect,
-                        UI.spotslayersSelect,
-                        UI.cycleSpanSelect,
-                        UI.fuseFpsSelect,
-                        UI.frameDelaySelect,
-                        UI.easingCheckbox,
                         UI.withFullscreen,
                         UI.showFps,
                         UI.clockSelect,

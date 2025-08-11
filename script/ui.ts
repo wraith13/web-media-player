@@ -1,4 +1,3 @@
-import { Tools } from "@tools";
 import { Library } from "@library";
 import control from "@resource/control.json";
 import poweredBy from "@resource/powered-by.json";
@@ -24,27 +23,6 @@ export namespace UI
         new Library.Control.Button({ id: "add-media", });
     export const inputFile =
         Library.UI.getElementById("input", "add-file");
-    export const colorspaceSelect =
-        new Library.Control.Select(control.colorspace);
-    export const coloringSelect =
-        new Library.Control.Select(control.coloring);
-    export const patternSelect =
-        new Library.Control.Select(control.pattern, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const canvasSizeSelect =
-        new Library.Control.Select(control.canvasSize, { makeLabel: i => `${i} %` });
-    export const layersSelect =
-        new Library.Control.Select(control.layers);
-    export const spotslayersSelect =
-        new Library.Control.Select(control.spotsLayers, { makeLabel: i => `${i} %` });
-    export const cycleSpanSelect =
-        new Library.Control.Select(control.cycleSpan, { makeLabel: Tools.Timespan.toDisplayString });
-    export const fuseFpsSelect =
-        new Library.Control.Select(control.fuseFps);
-    export const getFrameDelayLabel = (i: number) => Tools.Timespan.toDisplayString(i);
-    export const frameDelaySelect =
-        new Library.Control.Select(control.frameDelay, { makeLabel: getFrameDelayLabel });
-    export const easingCheckbox =
-        new Library.Control.Checkbox(control.easing);
     export const withFullscreen =
         new Library.Control.Checkbox(control.withFullscreen);
     export const showFps =
@@ -95,14 +73,6 @@ export namespace UI
         document.documentElement.setAttribute("lang", lang);
         document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
-        UI.colorspaceSelect.reloadOptions();
-        UI.coloringSelect.reloadOptions();
-        UI.patternSelect.reloadOptions();
-        UI.canvasSizeSelect.reloadOptions();
-        UI.layersSelect.reloadOptions();
-        UI.cycleSpanSelect.reloadOptions();
-        UI.fuseFpsSelect.reloadOptions();
-        UI.frameDelaySelect.reloadOptions();
         UI.clockSelect.reloadOptions();
         UI.languageSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])

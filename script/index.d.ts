@@ -499,17 +499,6 @@ declare module "script/ui" {
         const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;
-        const colorspaceSelect: Library.Control.Select<string>;
-        const coloringSelect: Library.Control.Select<string>;
-        const patternSelect: Library.Control.Select<string>;
-        const canvasSizeSelect: Library.Control.Select<number>;
-        const layersSelect: Library.Control.Select<number>;
-        const spotslayersSelect: Library.Control.Select<number>;
-        const cycleSpanSelect: Library.Control.Select<number>;
-        const fuseFpsSelect: Library.Control.Select<number>;
-        const getFrameDelayLabel: (i: number) => string;
-        const frameDelaySelect: Library.Control.Select<number>;
-        const easingCheckbox: Library.Control.Checkbox;
         const withFullscreen: Library.Control.Checkbox;
         const showFps: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
@@ -555,7 +544,7 @@ declare module "script/features/media" {
         const getThumbnail: (file: File) => Promise<string>;
         const getDuration: (file: File) => Promise<number | null>;
         const addMedia: (file: File) => Promise<void>;
-        const updateMediaListDisplay: (isDragging?: "isDragging") => void;
+        const updateMediaListDisplay: () => void;
     }
 }
 declare module "script/features/index" {

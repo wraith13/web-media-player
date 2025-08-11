@@ -66,56 +66,6 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="option-panel">
-    <label for="colorspace">
-        <span data-lang-key="colorspace-label"></span>
-        <select id="colorspace"></select>
-        <span class="load-status" id="colorspace-load-status"></span>
-    </label>
-    <label for="coloring">
-        <span data-lang-key="coloring-label"></span>
-        <select id="coloring"></select>
-        <span class="load-status" id="coloring-load-status"></span>
-    </label>
-    <label for="pattern">
-        <span data-lang-key="pattern-label"></span>
-        <select id="pattern"></select>
-        <span class="load-status" id="pattern-load-status"></span>
-    </label>
-    <label for="canvas-size">
-        <span data-lang-key="canvas-size-label"></span>
-        <select id="canvas-size"></select>
-        <span class="load-status" id="canvas-size-load-status"></span>
-    </label>
-    <label for="layers">
-        <span data-lang-key="layers-label"></span>
-        <select id="layers"></select>
-        <span class="load-status" id="layers-load-status"></span>
-    </label>
-    <label for="spotsLayers">
-        <span data-lang-key="spots-layers-label"></span>
-        <select id="spotsLayers"></select>
-        <span class="load-status" id="spots-layers-load-status"></span>
-    </label>
-    <label for="cycle-span">
-        <span data-lang-key="cycle-span-label"></span>
-        <select id="cycle-span"></select>
-        <span class="load-status" id="cycle-span-load-status"></span>
-    </label>
-    <label for="fuse-fps">
-        <span data-lang-key="fuse-fps-label"></span>
-        <select id="fuse-fps"></select>
-        <span class="load-status" id="fuse-fps-load-status"></span>
-    </label>
-    <label for="frame-delay">
-        <span data-lang-key="frame-delay-label"></span>
-        <select id="frame-delay"></select>
-        <span class="load-status" id="frame-delay-load-status"></span>
-    </label>
-    <label for="easing">
-        <span data-lang-key="easing-label"></span>
-        <input id="easing" type="checkbox" />
-        <span class="load-status" id="easing-load-status"></span>
-    </label>
     <label for="with-fullscreen">
         <span data-lang-key="with-fullscreen-label"></span>
         <input id="with-fullscreen" type="checkbox" />
@@ -168,8 +118,8 @@ DUMMYSTYLE
     <button id="play-button">
         __IMAGES__
     </button>
-    <button id="setting-button">__COG_ICON__</button>
     <button id="aspect-button">__ASPECT_ICON__</button>
+    <button id="setting-button">__COG_ICON__</button>
 </div>
 <div id="screen-footer">
     <div id="supplementary-line">

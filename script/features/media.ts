@@ -35,7 +35,7 @@ export namespace Media
             console.warn("🚫 Invalid file or file type:", file);
             return null;
         }
-    }
+    };
     export const isMediaFile = (file: File): boolean =>
         null !== getMediaType(file);
     export const getName = (file: File): string =>
@@ -129,7 +129,7 @@ export namespace Media
                 resolve(null);
             }
         });
-    }
+    };
     export const addMedia = async (file: File): Promise<void> =>
     {
         console.log("📂 Adding media:", file);
@@ -152,112 +152,91 @@ export namespace Media
             console.warn("🚫 Invalid media file:", file);
         }
     };
-    //let draggingEntry: Entry | null = null;
-    let draggingIndex: number | null = null;
-    let previewOrder: number[] | null = null;
-
-    export const updateMediaListDisplay = (isDragging?: "isDragging"): void =>
+    export const updateMediaListDisplay = (): void =>
     {
-        Array.from(UI.mediaList.children).forEach(child => {
-            if (child instanceof HTMLDivElement && UI.addMediaButton.dom !== child) child.remove();
-        });
-
-        // 並び順を決定
-        const order = previewOrder ?? mediaList.map((_, i) => i);
-
-        order.forEach
+        Array.from(UI.mediaList.children).forEach
         (
-            mediaIdx =>
+            child =>
             {
-                const entry = mediaList[mediaIdx];
-                const item = Library.UI.createElement({
+                if (child instanceof HTMLDivElement && UI.addMediaButton.dom !== child)
+                {
+                    child.remove();
+                };
+            }
+        );
+        mediaList.forEach
+        (
+            (entry, ix) =>
+            {
+                const item = Library.UI.createElement
+                ({
                     tag: "div",
                     className: "item",
-                    attributes: { draggable: "true", "data-index": mediaIdx },
-                    children: [
+                    attributes: { draggable: "true", "data-index": ix },
+                    children:
+                    [
                         { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
                         { tag: "span", className: "name", text: entry.name, },
                         { tag: "span", className: "type", text: entry.type, },
                         { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
                     ]
                 }) as HTMLDivElement;
-
-                item.addEventListener("dragstart", (e: DragEvent) => {
-                    if ( ! isDragging)
+                item.addEventListener
+                (
+                    "dragstart",
+                    (event: DragEvent) =>
                     {
-                        //draggingEntry = entry;
-                        draggingIndex = mediaIdx;
-                        previewOrder = null;
+                        UI.mediaList.classList.add("dragging");
+                        item.classList.add("dragging");
+                        event.dataTransfer?.setData("text/plain", String(ix));
                     }
-                    UI.mediaList.classList.add("dragging");
-                    item.classList.add("dragging");
-                    e.dataTransfer?.setData("text/plain", String(mediaIdx));
-                });
-
+                );
                 item.addEventListener
                 (
                     "dragend",
                     () =>
                     {
-                        if ( ! isDragging)
-                        {
-                            //draggingEntry = null;
-                            draggingIndex = null;
-                            previewOrder = null;
-                        }
                         UI.mediaList.classList.remove("dragging");
                         item.classList.remove("dragging");
                         updateMediaListDisplay();
                     }
                 );
-
-                item.addEventListener("dragover", (e: DragEvent) => {
-                    e.preventDefault();
-                    if (null !== draggingIndex)
+                item.addEventListener
+                (
+                    "dragover",
+                    (event: DragEvent) =>
                     {
-                        if (mediaIdx !== draggingIndex)
-                        //if (null !== draggingIndex && entry !== draggingEntry && mediaIdx !== draggingIndex)
-                        {
-                            // 仮の並び順を作成
-                            const tempOrder = mediaList.map((_, i) => i);
-                            const moved = tempOrder.splice(draggingIndex, 1)[0];
-                            tempOrder.splice(mediaIdx, 0, moved);
-                            previewOrder = tempOrder;
-                            updateMediaListDisplay("isDragging");
-                        }
-                        else
-                        if (previewOrder)
-                        {
-                            if (previewOrder[draggingIndex] !== mediaIdx)
-                            {
-                                previewOrder = mediaList.map((_, i) => i);
-                                updateMediaListDisplay("isDragging");
-                            }
-                        }
+                        event.preventDefault();
+                        item.classList.add("drag-over");
                     }
-                    item.classList.add("drag-over");
-                });
-
-                item.addEventListener("dragleave", () => {
-                    item.classList.remove("drag-over");
-                });
-
-                item.addEventListener("drop", (e: DragEvent) => {
-                    e.preventDefault();
-                    item.classList.remove("drag-over");
-                    const fromIndex = draggingIndex;
-                    const toIndex = mediaIdx;
-                    if (fromIndex !== null && fromIndex !== toIndex) {
-                        const moved = mediaList.splice(fromIndex, 1)[0];
-                        mediaList.splice(toIndex, 0, moved);
+                );
+                item.addEventListener
+                (
+                    "dragleave",
+                    () =>
+                    {
+                        item.classList.remove("drag-over");
                     }
-                    draggingIndex = null;
-                    previewOrder = null;
-                    updateMediaListDisplay();
-                });
-
+                );
+                item.addEventListener
+                (
+                    "drop",
+                    (event: DragEvent) =>
+                    {
+                        event.preventDefault();
+                        item.classList.remove("drag-over");
+                        const fromIndex = Number(event.dataTransfer?.getData("text/plain"));
+                        const toIndex = ix;
+                        if (fromIndex !== null && fromIndex !== toIndex)
+                        {
+                            const moved = mediaList.splice(fromIndex, 1)[0];
+                            mediaList.splice(toIndex, 0, moved);
+                        }
+                        updateMediaListDisplay();
+                    }
+                );
                 UI.mediaList.insertBefore(item, UI.addMediaButton.dom);
             }
         );
-    }
+    };
 }
