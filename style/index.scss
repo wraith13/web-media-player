@@ -91,7 +91,7 @@
     {
         cursor: pointer;
     }
-    #canvas
+    #media-screen
     {
         @include fade-transition("body.list");
         @include solid-box();
@@ -100,8 +100,8 @@
         {
             @include full-stretch-box();
             position: absolute;
-            mix-blend-mode: difference;
-            will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
+            // mix-blend-mode: difference;
+            // will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
         }
     }
     #media-list

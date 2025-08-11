@@ -55,8 +55,7 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="screen-body">
-    <div id="canvas">
-        <div class="layer"></div>
+    <div id="media-screen">
     </div>
     <div id="media-list">
         <div class="item add" id="add-media">

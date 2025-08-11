@@ -1210,28 +1210,25 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
         Media.getName = function (file) {
             return file.name || "Unknown File";
         };
-        Media.getThumbnail = function (file) { return __awaiter(_this, void 0, void 0, function () {
-            var mediaType;
+        Media.getThumbnail = function (mediaType, url) { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        mediaType = Media.getMediaType(file);
                         if (mediaType === "image") {
-                            return [2 /*return*/, URL.createObjectURL(file)];
+                            return [2 /*return*/, url];
                         }
                         if (mediaType === "audio") {
                             return [2 /*return*/, "SVG:audio"];
                         }
                         if (!(mediaType === "video")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, getVideoThumbnail(file)];
+                        return [4 /*yield*/, getVideoThumbnail(url)];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2: return [2 /*return*/, "SVG:error"];
                 }
             });
         }); };
-        var getVideoThumbnail = function (file) {
+        var getVideoThumbnail = function (url) {
             return new Promise(function (resolve) {
-                var url = URL.createObjectURL(file);
                 var video = document.createElement("video");
                 video.src = url;
                 video.currentTime = 0.1;
@@ -1257,20 +1254,18 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                 });
             });
         };
-        Media.getDuration = function (file) {
+        Media.getDuration = function (mediaType, url) {
             return new Promise(function (resolve) {
-                var mediaType = Media.getMediaType(file);
                 if (mediaType === "audio" || mediaType === "video") {
-                    var url_1 = URL.createObjectURL(file);
                     var media_1 = document.createElement(mediaType);
-                    media_1.src = url_1;
+                    media_1.src = url;
                     media_1.addEventListener("loadedmetadata", function () {
-                        resolve(media_1.duration);
-                        URL.revokeObjectURL(url_1);
+                        resolve(media_1.duration * 1000);
+                        URL.revokeObjectURL(url);
                     });
                     media_1.addEventListener("error", function () {
                         resolve(null);
-                        URL.revokeObjectURL(url_1);
+                        URL.revokeObjectURL(url);
                     });
                 }
                 else {
@@ -1279,7 +1274,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             });
         };
         Media.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
-            var type, _a, _b;
+            var type, url, _a, _b;
             var _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
@@ -1288,16 +1283,18 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         type = Media.getMediaType(file);
                         if (!(null !== type)) return [3 /*break*/, 3];
                         console.log("✅ Valid media file:", file);
+                        url = URL.createObjectURL(file);
                         _b = (_a = Media.mediaList).push;
                         _c = {
                             file: file,
+                            url: url,
                             type: type,
                             name: Media.getName(file)
                         };
-                        return [4 /*yield*/, Media.getThumbnail(file)];
+                        return [4 /*yield*/, Media.getThumbnail(type, url)];
                     case 1:
                         _c.thumbnail = _d.sent();
-                        return [4 /*yield*/, Media.getDuration(file)];
+                        return [4 /*yield*/, Media.getDuration(type, url)];
                     case 2:
                         _b.apply(_a, [(_c.duration = _d.sent(),
                                 _c)]);
@@ -1326,7 +1323,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
                         { tag: "span", className: "name", text: entry.name, },
                         { tag: "span", className: "type", text: entry.type, },
-                        { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
+                        { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", },
                     ]
                 });
                 item.addEventListener("dragstart", function (event) {
@@ -1363,6 +1360,10 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
             });
         };
     })(Media || (exports.Media = Media = {}));
+});
+define("script/features/player", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
 });
 define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia) {
     "use strict";
@@ -1431,7 +1432,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_4, _features_1, ui_4, url_2, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_4, _features_1, ui_4, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -1447,7 +1448,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             control_json_2.default.clock.enum.forEach(function (i) { return ui_4.UI.clockDisplay.classList.toggle(i, i === ui_4.UI.clockSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_4.UI.urlAnchor.href = url_2.Url.make(params);
+            return ui_4.UI.urlAnchor.href = url_1.Url.make(params);
         };
         var dragover = function (event) {
             var _a;
@@ -1499,8 +1500,8 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             document.body.addEventListener("drop", drop);
             document.body.className = "list";
             var applyParam = function (key, value) {
-                url_2.Url.addParameter(url_2.Url.params, key, value);
-                updateUrlAnchor(url_2.Url.params);
+                url_1.Url.addParameter(url_1.Url.params, key, value);
+                updateUrlAnchor(url_1.Url.params);
             };
             ui_4.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -1554,9 +1555,9 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
             ui_4.UI.introductionPanel.classList.toggle("force-show", true);
             setTimeout(function () { return ui_4.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            ui_4.UI.showFps.loadParameter(url_2.Url.params, applyParam).setChange(updateShowFps);
-            ui_4.UI.clockSelect.loadParameter(url_2.Url.params, applyParam).setChange(updateClock);
-            ui_4.UI.languageSelect.loadParameter(url_2.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
+            ui_4.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
+            ui_4.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
+            ui_4.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
             var mouseMoveTimer = new _library_4.Library.UI.ToggleClassForWhileTimer();
             ui_4.UI.screenBody.addEventListener("mousemove", function (_event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
@@ -1576,7 +1577,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
             updateClock();
             ui_4.UI.updateLanguage();
-            updateUrlAnchor(url_2.Url.params);
+            updateUrlAnchor(url_1.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
@@ -1587,7 +1588,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                         ui_4.UI.brightnessSelect,
                         ui_4.UI.languageSelect,
                     ]
-                        .forEach(function (i) { return i.catchUpRestore(url_2.Url.params); });
+                        .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
@@ -1601,7 +1602,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_2, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_3, ui_5, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_2, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_5, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -1610,7 +1611,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
-    url_3.Url.initialize();
+    url_2.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_2.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
@@ -1628,7 +1629,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Tools: _tools_2.Tools,
         Library: _library_5.Library,
         Features: _features_2.Features,
-        Url: url_3.Url,
+        Url: url_2.Url,
         UI: ui_5.UI,
         Events: events_1.Events,
         Resource: Resource

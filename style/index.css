@@ -228,7 +228,7 @@ body.play.mousemove #screen-body {
   cursor: pointer;
 }
 
-#screen-body #canvas {
+#screen-body #media-screen {
   transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
@@ -236,13 +236,13 @@ body.play.mousemove #screen-body {
   border: 0;
   position: absolute;
 }
-body.list #screen-body #canvas:not(.show) {
+body.list #screen-body #media-screen:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.list #screen-body #canvas:not(.show)::before {
+body.list #screen-body #media-screen:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -255,15 +255,13 @@ body.list #screen-body #canvas:not(.show)::before {
   transition: filter 750ms;
 }
 
-#screen-body #canvas .layer {
+#screen-body #media-screen .layer {
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
   inset-inline-start: 0px;
   inset-inline-end: 0px;
   position: absolute;
-  mix-blend-mode: difference;
-  will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
 }
 #screen-body #media-list {
   transition: opacity 750ms, filter 750ms;

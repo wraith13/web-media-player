@@ -531,6 +531,7 @@ declare module "script/features/media" {
     export namespace Media {
         interface Entry {
             file: File;
+            url: string;
             type: MediaType;
             name: string;
             thumbnail: string;
@@ -541,20 +542,26 @@ declare module "script/features/media" {
         const getMediaType: (file: File) => MediaType | null;
         const isMediaFile: (file: File) => boolean;
         const getName: (file: File) => string;
-        const getThumbnail: (file: File) => Promise<string>;
-        const getDuration: (file: File) => Promise<number | null>;
+        const getThumbnail: (mediaType: MediaType, url: string) => Promise<string>;
+        const getDuration: (mediaType: MediaType, url: string) => Promise<number | null>;
         const addMedia: (file: File) => Promise<void>;
         const updateMediaListDisplay: () => void;
+    }
+}
+declare module "script/features/player" {
+    export namespace Player {
     }
 }
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
     import * as ImportedMedia from "script/features/media";
+    import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
         export import Media = ImportedMedia.Media;
+        export import Player = ImportedPlayer.Player;
     }
 }
 declare module "script/url" {

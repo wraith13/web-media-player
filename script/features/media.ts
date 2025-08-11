@@ -6,6 +6,7 @@ export namespace Media
     export interface Entry
     {
         file: File;
+        url: string;
         type: MediaType;
         name: string;
         thumbnail: string;
@@ -38,14 +39,15 @@ export namespace Media
     };
     export const isMediaFile = (file: File): boolean =>
         null !== getMediaType(file);
+    export const getUrl = (file: File): string =>
+        URL.createObjectURL(file);
     export const getName = (file: File): string =>
         file.name || "Unknown File";
-    export const getThumbnail = async (file: File): Promise<string> =>
+    export const getThumbnail = async (mediaType: MediaType, url: string): Promise<string> =>
     {
-        const mediaType = getMediaType(file);
         if (mediaType === "image")
         {
-            return URL.createObjectURL(file);
+            return url;
         }
         if (mediaType === "audio")
         {
@@ -53,15 +55,14 @@ export namespace Media
         }
         if (mediaType === "video")
         {
-            return await getVideoThumbnail(file);
+            return await getVideoThumbnail(url);
         }
         return "SVG:error";
     };
-    const getVideoThumbnail = (file: File): Promise<string> =>
+    const getVideoThumbnail = (url: string): Promise<string> =>
     {
         return new Promise((resolve) =>
         {
-            const url = URL.createObjectURL(file);
             const video = document.createElement("video");
             video.src = url;
             video.currentTime = 0.1;
@@ -97,21 +98,19 @@ export namespace Media
             );
         });
     };
-    export const getDuration = (file: File): Promise<number | null> =>
+    export const getDuration = (mediaType: MediaType, url: string): Promise<number | null> =>
     {
         return new Promise((resolve) =>
         {
-            const mediaType = getMediaType(file);
             if (mediaType === "audio" || mediaType === "video")
             {
-                const url = URL.createObjectURL(file);
                 const media = document.createElement(mediaType);
                 media.src = url;
                 media.addEventListener
                 (
                     "loadedmetadata", () =>
                     {
-                        resolve(media.duration);
+                        resolve(media.duration *1000);
                         URL.revokeObjectURL(url);
                     }
                 );
@@ -137,19 +136,53 @@ export namespace Media
         if (null !== type)
         {
             console.log("✅ Valid media file:", file);
+            const url = getUrl(file);
             mediaList.push
             ({
                 file,
+                url,
                 type,
                 name: getName(file),
-                thumbnail: await getThumbnail(file),
-                duration: await getDuration(file),
+                thumbnail: await getThumbnail(type, url),
+                duration: await getDuration(type, url),
             });
             console.log("📂 Media added:", mediaList[mediaList.length - 1]);
         }
         else
         {
             console.warn("🚫 Invalid media file:", file);
+        }
+    };
+    export const makeThumbnailElement = (entry: Entry): Library.UI.ElementSource<"img"> | SVGAElement => 
+    {
+        if (entry.thumbnail.startsWith("SVG:"))
+        {
+            // 🔥仮実装: HTML 内に埋め込んだ SVG をコピーしてくる実装にする
+            const result: Library.UI.ElementSource<"img"> =
+            {
+                tag: "img",
+                className: "thumbnail",
+                attributes:
+                {
+                    src: entry.thumbnail,
+                    alt: entry.name,
+                },
+            };
+            return result;
+        }
+        else
+        {
+            const result: Library.UI.ElementSource<"img"> =
+            {
+                tag: "img",
+                className: "thumbnail",
+                attributes:
+                {
+                    src: entry.thumbnail,
+                    alt: entry.name,
+                },
+            };
+            return result;
         }
     };
     export const updateMediaListDisplay = (): void =>
@@ -175,10 +208,10 @@ export namespace Media
                     attributes: { draggable: "true", "data-index": ix },
                     children:
                     [
-                        { tag: "img", className: "thumbnail", attributes: { src: entry.thumbnail, alt: entry.name, }, },
+                        makeThumbnailElement(entry),
                         { tag: "span", className: "name", text: entry.name, },
                         { tag: "span", className: "type", text: entry.type, },
-                        { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration * 1000) : "", },
+                        { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration) : "", },
                     ]
                 }) as HTMLDivElement;
                 item.addEventListener
