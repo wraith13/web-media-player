@@ -80,6 +80,12 @@ export namespace Events
             button.dom.blur();
             UI.repeatButton.dom.classList.toggle("on");
         };
+        UI.settingButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            UI.settingButton.dom.classList.toggle("on");
+        }
         UI.addMediaButton.data.click = (event, button) =>
         {
             event?.stopPropagation();

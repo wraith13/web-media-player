@@ -173,7 +173,6 @@ export namespace Media
         }
     };
     let addMediaQueue: Promise<void> = Promise.resolve();
-
     export const addMediaSerial = (file: File): void =>
     {
         addMediaQueue = addMediaQueue.then(() => addMedia(file));

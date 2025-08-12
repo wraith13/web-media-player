@@ -508,6 +508,7 @@ declare module "script/ui" {
         const playButton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
         const repeatButton: Library.Control.Button<HTMLElement>;
+        const settingButton: Library.Control.Button<HTMLElement>;
         const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;

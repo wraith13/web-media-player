@@ -17,6 +17,8 @@ export namespace UI
         new Library.Control.Button({ id: "shuffle-button", });
     export const repeatButton =
         new Library.Control.Button({ id: "repeat-button", });
+    export const settingButton =
+        new Library.Control.Button({ id: "setting-button", });
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
     export const addMediaButton =

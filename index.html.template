@@ -65,34 +65,6 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="option-panel">
-    <label for="with-fullscreen">
-        <span data-lang-key="with-fullscreen-label"></span>
-        <input id="with-fullscreen" type="checkbox" />
-        <span class="load-status" id="with-fullscreen-load-status"></span>
-    </label>
-    <label for="show-fps">
-        <span data-lang-key="show-fps-label"></span>
-        <input id="show-fps" type="checkbox" />
-        <span class="load-status" id="show-fps-load-status"></span>
-    </label>
-    <label for="clock">
-        <span data-lang-key="clock-label"></span>
-        <select id="clock"></select>
-        <span class="load-status" id="clock-load-status"></span>
-    </label>
-    <label for="brightness">
-        <span data-lang-key="brightness-label"></span>
-        <select id="brightness"></select>
-        <span class="load-status" id="brightness-load-status"></span>
-    </label>
-    <label for="language">
-        <span data-lang-key="language-label"></span>
-        <select id="language"></select>
-        <span class="load-status" id="language-load-status"></span>
-    </label>
-    <label for="url">
-        <a id="url" href="?"><span data-lang-key="url-label"></span></a>
-    </label>
 </div>
 <div id="fps"></div>
 <div id="clock-panel">
@@ -120,6 +92,40 @@ DUMMYSTYLE
     </button>
     <button id="aspect-button">__ASPECT_ICON__</button>
     <button id="setting-button">__COG_ICON__</button>
+    <div id="setting-panel">
+        <label for="with-fullscreen">
+            <span data-lang-key="with-fullscreen-label"></span>
+            <input id="with-fullscreen" type="checkbox" />
+            <span class="load-status" id="with-fullscreen-load-status"></span>
+        </label>
+        <label for="show-fps">
+            <span data-lang-key="show-fps-label"></span>
+            <input id="show-fps" type="checkbox" />
+            <span class="load-status" id="show-fps-load-status"></span>
+        </label>
+        <label for="clock">
+            <span data-lang-key="clock-label"></span>
+            <select id="clock"></select>
+            <span class="load-status" id="clock-load-status"></span>
+        </label>
+        <label for="brightness">
+            <span data-lang-key="brightness-label"></span>
+            <select id="brightness"></select>
+            <span class="load-status" id="brightness-load-status"></span>
+        </label>
+        <label for="stretch">
+            <span data-lang-key-x="stretch-label">ストレッチ:</span>
+            <input id="stretch" type="range" />
+        </label>
+        <label for="language">
+            <span data-lang-key="language-label"></span>
+            <select id="language"></select>
+            <span class="load-status" id="language-load-status"></span>
+        </label>
+        <label for="url">
+            <a id="url" href="?"><span data-lang-key="url-label"></span></a>
+        </label>
+    </div>
 </div>
 <div id="screen-footer">
     <div id="supplementary-line">
