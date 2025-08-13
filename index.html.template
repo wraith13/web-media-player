@@ -90,7 +90,8 @@ DUMMYSTYLE
         <div id="play-icon">__PLAY_ICON__<div>
         <div id="pause-icon">__PAUSE_ICON__<div>
     </button>
-    <button id="aspect-button">__ASPECT_ICON__</button>
+    <button id="volume-button">__SPEAKER_ICON__</button>
+    <input id="volume" type="range" />
     <button id="setting-button">__COG_ICON__</button>
     <div id="setting-panel">
         <label for="with-fullscreen">
@@ -110,7 +111,7 @@ DUMMYSTYLE
         </label>
         <label for="brightness">
             <span data-lang-key="brightness-label"></span>
-            <select id="brightness"></select>
+            <input id="brightness" type="range" />
             <span class="load-status" id="brightness-load-status"></span>
         </label>
         <label for="stretch">

@@ -111,8 +111,8 @@
                 "__COG_ICON__": {
                     "path": "./image/cog.svg"
                 },
-                "__ASPECT_ICON__": {
-                    "path": "./image/aspect.svg"
+                "__SPEAKER_ICON__": {
+                    "path": "./image/speaker.svg"
                 }
             }
         },

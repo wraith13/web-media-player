@@ -359,22 +359,26 @@ body.play #screen-body #media-list:not(.show)::before {
   height: 100%;
   fill: rgba(230, 237, 243, 0.3);
 }
-#screen-body #media-list .item > span.name {
+#screen-body #media-list .item > span {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-body #media-list .item > span.name {
+  #screen-body #media-list .item > span {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #screen-body #media-list .item > span.name {
+  #screen-body #media-list .item > span {
     font-size: 1rem;
   }
 }
-#screen-body #media-list .item > span.name {
+#screen-body #media-list .item > span {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #media-list .item > span {
+  color: rgb(230, 237, 243);
+  text-shadow: 0px 0px 0.25rem black;
 }
 #screen-body #media-list .item > span.name {
   font-size: 1.25rem;
@@ -384,42 +388,44 @@ body.play #screen-body #media-list:not(.show)::before {
   width: 100%;
   padding: 0.5rem;
   text-align: center;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
 }
 #screen-body #media-list .item > span.type {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-body #media-list .item > span.type {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #screen-body #media-list .item > span.type {
-    font-size: 1rem;
-  }
-}
-#screen-body #media-list .item > span.type {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#screen-body #media-list .item > span.type {
   font-size: 1rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   width: 100%;
   padding: 0.25rem;
   text-align: left;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
   position: absolute;
   top: 0rem;
   left: 0rem;
 }
+#screen-body #media-list .item > span.size {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item > span.size {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item > span.size {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item > span.size {
+  font-family: monospace;
+}
+#screen-body #media-list .item > span.size {
+  font-size: 1rem;
+  padding: 0.25rem;
+  text-align: left;
+  z-index: 100;
+  position: absolute;
+  left: 0rem;
+  bottom: 0rem;
+}
 #screen-body #media-list .item > span.duration {
   font-size: 0.75rem;
   font-weight: 400;
@@ -435,18 +441,13 @@ body.play #screen-body #media-list:not(.show)::before {
   }
 }
 #screen-body #media-list .item > span.duration {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: monospace;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 1rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   width: 100%;
   padding: 0.25rem;
   text-align: right;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
   position: absolute;
   right: 0rem;
@@ -947,6 +948,38 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
+#volume {
+  transition: opacity 750ms, filter 750ms;
+}
+body #volume-button:not(.on) + #volume:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #volume-button:not(.on) + #volume:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#volume {
+  border-radius: 0.5rem;
+  inset-block-end: 7.5rem;
+  inset-block-end: calc(7.5rem + env(safe-area-inset-bottom));
+  inset-inline-end: calc(50% - 8.5rem);
+  transform: rotate(-90deg);
+  position: fixed;
+  z-index: 50;
+  padding: 0.25rem 0.5rem;
+}
+
 #setting-panel {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
@@ -973,7 +1006,7 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   transform: translate(0px, 100%);
 }
 #setting-panel {
-  transition: transform 500ms, opacity 750ms, filter 750ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));

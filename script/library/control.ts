@@ -269,4 +269,80 @@ export namespace Control
             return this;
         }
     }
+    export interface RangeArgumentsBase
+    {
+        min?: number;
+        max?: number;
+        step?: number;
+        default?: number;
+    }
+    export interface RangeOptions
+    {
+        change?: (event: Event | null, range: Range) => unknown;
+        preventOnChangeWhenNew?: boolean;
+    }
+    export type RangeArguments = ArgumentsBase<HTMLInputElement> & RangeArgumentsBase;
+    export class Range
+    {
+        public dom: HTMLInputElement;
+        public saveParameter?: (key: string, value: string) => unknown;
+        constructor(public data: RangeArguments, public options?: RangeOptions)
+        {
+            this.dom = getDom(data);
+            if ( ! (this.dom instanceof HTMLInputElement) || "range" !== this.dom.type.toLowerCase())
+            {
+                console.error("🦋 FIXME: Contorl.Range.InvalidDom", data, this.dom);
+            }
+            this.dom.min = `${this.data.min ?? 0}`;
+            this.dom.max = `${this.data.max ?? 100}`;
+            this.dom.step = `${this.data.step ?? 1}`;
+            if (undefined !== this.data.default)
+            {
+                this.set(this.data.default, [preventOnChange][false !== this.options?.preventOnChangeWhenNew ? 0: 1]);
+            }
+            this.dom.addEventListener
+            (
+                "change",
+                event =>
+                {
+                    eventLog({ control: this, event, message: "👆 Range.Change:", value: this.get() });
+                    this.options?.change?.(event, this);
+                    this.saveParameter?.(this.getId() as string, `${this.get()}`);
+                }
+            );
+        }
+        catchUpRestore = (params?: Record<string, string>) =>
+        {
+            const urlParam = params?.[this.dom.id];
+            if (undefined !== urlParam && urlParam !== `${this.get()}`)
+            {
+                eventLog({ control: this, event: "catchUpRestore", message: "👆 Range.Change:", value: this.get() });
+                this.options?.change?.(null, this);
+                this.saveParameter?.(this.getId() as string, `${this.get()}`);
+            }
+        };
+        getId = () => getDomId(this.data);
+        setChange = (change: (event: Event | null, range: Range) => unknown) =>
+            this.options = { ...this.options, change };
+        set = (value: number, preventOnChange?: "preventOnChange") =>
+        {
+            this.dom.value = `${value}`;
+            if (undefined === preventOnChange)
+            {
+                this.options?.change?.(null, this);
+            }
+        };
+        get = () => parseFloat(this.dom.value);
+        fire = () => this.options?.change?.(null, this);
+        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        {
+            const value = params[this.dom.id];
+            if (undefined !== value)
+            {
+                this.set(parseFloat(value));
+            }
+            this.saveParameter = saveParameter;
+            return this;
+        }
+    }
 }

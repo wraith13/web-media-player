@@ -177,61 +177,65 @@
                 height: 100%;
                 fill: white-color(0.3);
             }
-            & > span.name
+            & > span
             {
                 @include font();
                 &
                 {
-                    font-size: 1.25rem;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    width: 100%;
-                    padding: 0.5rem;
-                    text-align: center;
                     color: $white-color;
                     text-shadow: 0px 0px 0.25rem black;
-                    z-index: 100;
-                    //user-select: none;
                 }
+            }
+            & > span.name
+            {
+                font-size: 1.25rem;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 100%;
+                padding: 0.5rem;
+                text-align: center;
+                z-index: 100;
+                //user-select: none;
             }
             & > span.type
             {
-                @include font();
+                font-size: 1rem;
+                width: 100%;
+                padding: 0.25rem;
+                text-align: left;
+                z-index: 100;
+                position: absolute;
+                top: 0rem;
+                left: 0rem;
+                // left: 0rem;
+                // bottom: 0rem;
+                //user-select: none;
+            }
+            & > span.size
+            {
+                @include monospace-font();
                 &
                 {
                     font-size: 1rem;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    width: 100%;
                     padding: 0.25rem;
                     text-align: left;
-                    color: $white-color;
-                    text-shadow: 0px 0px 0.25rem black;
                     z-index: 100;
                     position: absolute;
-                    top: 0rem;
                     left: 0rem;
-                    // left: 0rem;
-                    // bottom: 0rem;
+                    bottom: 0rem;
                     //user-select: none;
                 }
             }
             & > span.duration
             {
-                @include font();
+                @include monospace-font();
                 &
                 {
                     font-size: 1rem;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
                     width: 100%;
                     padding: 0.25rem;
                     text-align: right;
-                    color: $white-color;
-                    text-shadow: 0px 0px 0.25rem black;
                     z-index: 100;
                     position: absolute;
                     right: 0rem;
@@ -599,6 +603,24 @@
 // {
 //     display: none;
 // }
+#volume
+{
+    @include fade-transition("body #volume-button:not(.on) + &");
+    //@include slide-down-transition("body #volume-button:not(.on) + &");
+    &
+    {
+        //transition: transform 500ms, opacity 500ms, filter 500ms;
+        border-radius: 0.5rem;
+        inset-block-end: 7.5rem;
+        inset-block-end: calc(7.5rem + env(safe-area-inset-bottom));
+        inset-inline-end: calc(50% - 8.5rem);
+        //transform: translate(-50%, 0%);
+        transform: rotate(-90deg);
+        position: fixed;
+        z-index: 50;
+        padding: 0.25rem 0.5rem;
+    }
+}
 #setting-panel
 {
     //@include black-pop-panel-style();
@@ -607,7 +629,7 @@
     //@include flex(column);
     &
     {
-        transition: transform 500ms, opacity 750ms, filter 750ms;
+        transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
         inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));

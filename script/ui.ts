@@ -17,6 +17,10 @@ export namespace UI
         new Library.Control.Button({ id: "shuffle-button", });
     export const repeatButton =
         new Library.Control.Button({ id: "repeat-button", });
+    export const volumeButton =
+        new Library.Control.Button({ id: "volume-button", });
+    export const volumeRange =
+        new Library.Control.Range(control.volume);
     export const settingButton =
         new Library.Control.Button({ id: "setting-button", });
     export const mediaList =
@@ -31,8 +35,8 @@ export namespace UI
         new Library.Control.Checkbox(control.showFps);
     export const clockSelect =
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const brightnessSelect =
-        new Library.Control.Select(control.brightness, { makeLabel: i => `${i} %` });
+    export const brightnessRange =
+        new Library.Control.Range(control.brightness);
     export const languageSelect =
         new Library.Control.Select
         (

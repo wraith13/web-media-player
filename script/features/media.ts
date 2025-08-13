@@ -12,6 +12,7 @@ export namespace Media
         category: Category;
         name: string;
         thumbnail: string;
+        size: number;
         duration: number | null;
     };
     export const mediaList: Entry[] = [];
@@ -161,6 +162,7 @@ export namespace Media
                 category,
                 name: getName(file),
                 thumbnail: await getThumbnail(category, url),
+                size: file.size,
                 duration: await getDuration(category, url),
             };
             mediaList.push(entry);
@@ -243,6 +245,7 @@ export namespace Media
                 await makeThumbnailElement(entry),
                 { tag: "span", className: "name", text: entry.name, },
                 { tag: "span", className: "type", text: entry.category, },
+                { tag: "span", className: "size", text: Tools.Byte.toDisplayString(entry.size, 3), },
                 { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration) : "", },
                 await removeButton(entry),
             ]

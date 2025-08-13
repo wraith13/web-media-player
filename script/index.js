@@ -117,6 +117,9 @@ define("script/tools/number", ["require", "exports"], function (require, exports
     exports.Number = void 0;
     var Number;
     (function (Number) {
+        Number.getIntegralDigits = function (value) {
+            return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
+        };
         Number.toString = function (value, maximumFractionDigits) {
             return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
@@ -330,7 +333,7 @@ define("script/library/locale", ["require", "exports", "script/tools/array", "lo
     })(Locale || (exports.Locale = Locale = {}));
 });
 define("resource/config", [], {
-    "applicationTitle": "Web Media Play",
+    "applicationTitle": "Web Media Player",
     "repositoryUrl": "https://github.com/wraith13/web-media-player/",
     "canonicalUrl": "https://wraith13.github.io/web-media-player/",
     "log": {
@@ -784,6 +787,62 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             return Checkbox;
         }());
         Control.Checkbox = Checkbox;
+        var Range = /** @class */ (function () {
+            function Range(data, options) {
+                var _this = this;
+                var _a, _b, _c, _d;
+                this.data = data;
+                this.options = options;
+                this.catchUpRestore = function (params) {
+                    var _a, _b, _c;
+                    var urlParam = params === null || params === void 0 ? void 0 : params[_this.dom.id];
+                    if (undefined !== urlParam && urlParam !== "".concat(_this.get())) {
+                        Control.eventLog({ control: _this, event: "catchUpRestore", message: "👆 Range.Change:", value: _this.get() });
+                        (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                        (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
+                    }
+                };
+                this.getId = function () { return Control.getDomId(_this.data); };
+                this.setChange = function (change) {
+                    return _this.options = __assign(__assign({}, _this.options), { change: change });
+                };
+                this.set = function (value, preventOnChange) {
+                    var _a, _b;
+                    _this.dom.value = "".concat(value);
+                    if (undefined === preventOnChange) {
+                        (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                    }
+                };
+                this.get = function () { return parseFloat(_this.dom.value); };
+                this.fire = function () { var _a, _b; return (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this); };
+                this.loadParameter = function (params, saveParameter) {
+                    var value = params[_this.dom.id];
+                    if (undefined !== value) {
+                        _this.set(parseFloat(value));
+                    }
+                    _this.saveParameter = saveParameter;
+                    return _this;
+                };
+                this.dom = Control.getDom(data);
+                if (!(this.dom instanceof HTMLInputElement) || "range" !== this.dom.type.toLowerCase()) {
+                    console.error("🦋 FIXME: Contorl.Range.InvalidDom", data, this.dom);
+                }
+                this.dom.min = "".concat((_a = this.data.min) !== null && _a !== void 0 ? _a : 0);
+                this.dom.max = "".concat((_b = this.data.max) !== null && _b !== void 0 ? _b : 100);
+                this.dom.step = "".concat((_c = this.data.step) !== null && _c !== void 0 ? _c : 1);
+                if (undefined !== this.data.default) {
+                    this.set(this.data.default, [Control.preventOnChange][false !== ((_d = this.options) === null || _d === void 0 ? void 0 : _d.preventOnChangeWhenNew) ? 0 : 1]);
+                }
+                this.dom.addEventListener("change", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 Range.Change:", value: _this.get() });
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
+                });
+            }
+            return Range;
+        }());
+        Control.Range = Range;
     })(Control || (exports.Control = Control = {}));
 });
 define("resource/images", [], {
@@ -950,7 +1009,28 @@ define("script/tools/random", ["require", "exports", "script/tools/hash"], funct
         Random.IndexedRandom = IndexedRandom;
     })(Random || (exports.Random = Random = {}));
 });
-define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash) {
+define("script/tools/byte", ["require", "exports", "script/tools/number"], function (require, exports, number_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Byte = void 0;
+    var Byte;
+    (function (Byte) {
+        var toString = function (value, maximumDigits) {
+            return value.toLocaleString(undefined, {
+                maximumFractionDigits: undefined === maximumDigits ? undefined :
+                    Math.max(0, maximumDigits - number_2.Number.getIntegralDigits(value)),
+            });
+        };
+        Byte.toDisplayString = function (value, maximumDigits) {
+            return value < 1024 ? "".concat(toString(value, maximumDigits), " B") :
+                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits), " KiB") :
+                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits), " MiB") :
+                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits), " GiB") :
+                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits), " TiB");
+        };
+    })(Byte || (exports.Byte = Byte = {}));
+});
+define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Tools = void 0;
@@ -961,6 +1041,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
     ImportedRandom = __importStar(ImportedRandom);
     ImportedArray = __importStar(ImportedArray);
     ImportedHash = __importStar(ImportedHash);
+    ImportedByte = __importStar(ImportedByte);
     var Tools;
     (function (Tools) {
         Tools.TypeGuards = ImportedTypeGuards.TypeGuards;
@@ -970,6 +1051,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
         Tools.Random = ImportedRandom.Random;
         Tools.Array = ImportedArray.Array;
         Tools.Hash = ImportedHash.Hash;
+        Tools.Byte = ImportedByte.Byte;
     })(Tools || (exports.Tools = Tools = {}));
 });
 define("script/features/fps", ["require", "exports", "script/tools/index"], function (require, exports, _tools_1) {
@@ -1086,6 +1168,13 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
     })(Fps || (exports.Fps = Fps = {}));
 });
 define("resource/control", [], {
+    "volume": {
+        "id": "volume",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -1109,28 +1198,9 @@ define("resource/control", [], {
     },
     "brightness": {
         "id": "brightness",
-        "enum": [
-            100,
-            95,
-            90,
-            85,
-            80,
-            75,
-            70,
-            65,
-            60,
-            55,
-            50,
-            45,
-            40,
-            35,
-            30,
-            25,
-            20,
-            15,
-            10,
-            5
-        ],
+        "min": 0,
+        "max": 100,
+        "step": 1,
         "default": 100
     },
     "language": {
@@ -1161,6 +1231,8 @@ define("script/ui", ["require", "exports", "script/library/index", "resource/con
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
+        UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
+        UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
@@ -1168,7 +1240,7 @@ define("script/ui", ["require", "exports", "script/library/index", "resource/con
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.brightnessSelect = new _library_2.Library.Control.Select(control_json_1.default.brightness, { makeLabel: function (i) { return "".concat(i, " %"); } });
+        UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -1380,7 +1452,8 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         };
                         return [4 /*yield*/, Media.getThumbnail(category, url)];
                     case 1:
-                        _c.thumbnail = _d.sent();
+                        _c.thumbnail = _d.sent(),
+                            _c.size = file.size;
                         return [4 /*yield*/, Media.getDuration(category, url)];
                     case 2:
                         entry = (_c.duration = _d.sent(),
@@ -1495,6 +1568,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
+                            { tag: "span", className: "size", text: tools_1.Tools.Byte.toDisplayString(entry.size, 3), },
                             { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
                         ];
                         return [4 /*yield*/, Media.removeButton(entry)];
@@ -1724,10 +1798,17 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 button.dom.blur();
                 ui_4.UI.repeatButton.dom.classList.toggle("on");
             };
+            ui_4.UI.volumeButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.volumeButton.dom.classList.toggle("on");
+                ui_4.UI.settingButton.dom.classList.toggle("on", false);
+            };
             ui_4.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_4.UI.settingButton.dom.classList.toggle("on");
+                ui_4.UI.volumeButton.dom.classList.toggle("on", false);
             };
             ui_4.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -1783,7 +1864,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                         ui_4.UI.withFullscreen,
                         ui_4.UI.showFps,
                         ui_4.UI.clockSelect,
-                        ui_4.UI.brightnessSelect,
+                        ui_4.UI.brightnessRange,
                         ui_4.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });

@@ -80,12 +80,20 @@ export namespace Events
             button.dom.blur();
             UI.repeatButton.dom.classList.toggle("on");
         };
+        UI.volumeButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            UI.volumeButton.dom.classList.toggle("on");
+            UI.settingButton.dom.classList.toggle("on", false);
+        };
         UI.settingButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             UI.settingButton.dom.classList.toggle("on");
-        }
+            UI.volumeButton.dom.classList.toggle("on", false);
+        };
         UI.addMediaButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -167,7 +175,7 @@ export namespace Events
                         UI.withFullscreen,
                         UI.showFps,
                         UI.clockSelect,
-                        UI.brightnessSelect,
+                        UI.brightnessRange,
                         UI.languageSelect,
                     ]
                     .forEach(i => i.catchUpRestore(Url.params)),

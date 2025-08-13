@@ -1,4 +1,11 @@
 {
+    "volume": {
+        "id": "volume",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -22,28 +29,9 @@
     },
     "brightness": {
         "id": "brightness",
-        "enum": [
-            100,
-            95,
-            90,
-            85,
-            80,
-            75,
-            70,
-            65,
-            60,
-            55,
-            50,
-            45,
-            40,
-            35,
-            30,
-            25,
-            20,
-            15,
-            10,
-            5
-        ],
+        "min": 0,
+        "max": 100,
+        "step": 1,
         "default": 100
     },
     "language": {

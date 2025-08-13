@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Aug 12 2025 09:50:31 GMT+0900 (日本標準時)
+    build at: Wed Aug 13 2025 00:13:31 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -33,7 +33,7 @@ DEALINGS IN THE SOFTWARE.
 <html>
 <head>
 <meta charset="utf-8">
-<title>Web Media Play</title>
+<title>Web Media Player</title>
 <link id="favicon" rel="shortcut icon" href="./image/favicon.png">
 <link rel="canonical" href="https://wraith13.github.io/web-media-player/">
 <link rel="apple-touch-icon" href="./image/favicon.png">
@@ -42,14 +42,14 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
-<meta name="apple-mobile-web-app-title" content="Web Media Play">
+<meta name="apple-mobile-web-app-title" content="Web Media Player">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@wraith13">
 <!-- meta name="twitter:creator" content="@wraith13" -->
-<meta name="twitter:title" content="Web Media Play">
+<meta name="twitter:title" content="Web Media Player">
 <meta name="twitter:description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
@@ -415,22 +415,26 @@ body.play #screen-body #media-list:not(.show)::before {
   height: 100%;
   fill: rgba(230, 237, 243, 0.3);
 }
-#screen-body #media-list .item > span.name {
+#screen-body #media-list .item > span {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-body #media-list .item > span.name {
+  #screen-body #media-list .item > span {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #screen-body #media-list .item > span.name {
+  #screen-body #media-list .item > span {
     font-size: 1rem;
   }
 }
-#screen-body #media-list .item > span.name {
+#screen-body #media-list .item > span {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #media-list .item > span {
+  color: rgb(230, 237, 243);
+  text-shadow: 0px 0px 0.25rem black;
 }
 #screen-body #media-list .item > span.name {
   font-size: 1.25rem;
@@ -440,42 +444,44 @@ body.play #screen-body #media-list:not(.show)::before {
   width: 100%;
   padding: 0.5rem;
   text-align: center;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
 }
 #screen-body #media-list .item > span.type {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-body #media-list .item > span.type {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #screen-body #media-list .item > span.type {
-    font-size: 1rem;
-  }
-}
-#screen-body #media-list .item > span.type {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#screen-body #media-list .item > span.type {
   font-size: 1rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   width: 100%;
   padding: 0.25rem;
   text-align: left;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
   position: absolute;
   top: 0rem;
   left: 0rem;
 }
+#screen-body #media-list .item > span.size {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item > span.size {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item > span.size {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item > span.size {
+  font-family: monospace;
+}
+#screen-body #media-list .item > span.size {
+  font-size: 1rem;
+  padding: 0.25rem;
+  text-align: left;
+  z-index: 100;
+  position: absolute;
+  left: 0rem;
+  bottom: 0rem;
+}
 #screen-body #media-list .item > span.duration {
   font-size: 0.75rem;
   font-weight: 400;
@@ -491,18 +497,13 @@ body.play #screen-body #media-list:not(.show)::before {
   }
 }
 #screen-body #media-list .item > span.duration {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: monospace;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 1rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
   width: 100%;
   padding: 0.25rem;
   text-align: right;
-  color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
   z-index: 100;
   position: absolute;
   right: 0rem;
@@ -1003,6 +1004,38 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
+#volume {
+  transition: opacity 750ms, filter 750ms;
+}
+body #volume-button:not(.on) + #volume:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #volume-button:not(.on) + #volume:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#volume {
+  border-radius: 0.5rem;
+  inset-block-end: 7.5rem;
+  inset-block-end: calc(7.5rem + env(safe-area-inset-bottom));
+  inset-inline-end: calc(50% - 8.5rem);
+  transform: rotate(-90deg);
+  position: fixed;
+  z-index: 50;
+  padding: 0.25rem 0.5rem;
+}
+
 #setting-panel {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
@@ -1029,7 +1062,7 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   transform: translate(0px, 100%);
 }
 #setting-panel {
-  transition: transform 500ms, opacity 750ms, filter 750ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
@@ -1532,7 +1565,7 @@ DUMMYSTYLE
     <a class="segment" href="https://github.com/"><span>GitHub</span></a>
     <a class="segment" href="https://github.com/wraith13"><span>wraith13</span></a>
     <a class="segment" href="https://wraith13.github.io/"><span>wraith13.github.io</span></a>
-    <a class="segment" href="https://github.com/wraith13/web-media-player/"><span>Web Media Play</span></a>
+    <a class="segment" href="https://github.com/wraith13/web-media-player/"><span>Web Media Player</span></a>
 </h1>
 <div id="noscript">
     <div class="panel">
@@ -1630,19 +1663,15 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 <div>
     </button>
-    <button id="aspect-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <button id="volume-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="copy">
-    </g>
-    <g transform="matrix(1.71429,0,0,0.87395,-664,192.134)">
-        <path d="M537.833,604L482.783,604C463.586,604 448,573.428 448,535.773L448,196.227C448,158.572 463.586,128 482.783,128L537.833,128L537.833,201.231L497.141,201.231C490.624,201.231 485.333,211.609 485.333,224.393L485.333,507.623C485.333,520.407 490.624,530.785 497.141,530.785L537.833,530.785L537.833,604ZM834.167,128L889.217,128C908.414,128 924,158.572 924,196.227L924,535.773C924,573.428 908.414,604 889.217,604L834.167,604L834.167,530.785L874.859,530.785C881.376,530.785 886.667,520.407 886.667,507.623L886.667,224.393C886.667,211.609 881.376,201.231 874.859,201.231L834.167,201.231L834.167,128Z"/>
-    </g>
-    <g transform="matrix(0.87395,0,0,1.71429,-87.5294,-115.429)">
-        <path d="M924,162.783L924,569.217C924,588.414 893.428,604 855.773,604L516.227,604C478.572,604 448,588.414 448,569.217L448,162.783C448,143.586 478.572,128 516.227,128L855.773,128C893.428,128 924,143.586 924,162.783ZM850.769,177.141C850.769,170.624 840.391,165.333 827.608,165.333L544.392,165.333C531.609,165.333 521.231,170.624 521.231,177.141L521.231,554.859C521.231,561.376 531.609,566.667 544.392,566.667L827.608,566.667C840.391,566.667 850.769,561.376 850.769,554.859L850.769,177.141Z"/>
+    <g transform="matrix(0.000597996,-1.66393,1.0857,0.000390188,423.847,937.766)">
+        <path d="M192.136,-165.756L192.121,-232.073C192.118,-244.273 198.579,-254.182 206.539,-254.187L305.101,-254.241C313.062,-254.245 319.527,-244.344 319.53,-232.143L319.546,-165.827L192.136,-165.756ZM418.912,328.322C422.278,323.879 426.657,321.191 431.444,321.188C442.058,321.183 450.678,334.385 450.682,350.652C450.684,360.234 447.697,368.755 443.071,374.142L443.091,374.182C391.241,435.227 326.363,471.546 255.991,471.585C185.607,471.624 120.702,435.364 68.82,374.359L68.84,374.32C64.226,368.937 61.244,360.431 61.242,350.866C61.238,334.599 69.853,321.388 80.467,321.382C85.253,321.379 89.634,324.062 93.002,328.501C138.266,381.315 194.752,412.671 255.977,412.637C317.201,412.603 373.673,381.185 418.912,328.322ZM372.075,234.814C375.452,230.302 379.867,227.567 384.695,227.564C395.309,227.558 403.93,240.76 403.934,257.028C403.936,266.637 400.931,275.18 396.282,280.565L396.307,280.614C357.417,326.411 308.751,353.66 255.963,353.689C203.757,353.718 155.571,327.12 116.876,282.277C111.832,276.964 108.521,268.06 108.518,257.979C108.514,241.712 117.129,228.501 127.743,228.495C131.935,228.492 135.816,230.55 138.978,234.044L138.996,234.008C171.418,272.116 211.972,294.765 255.949,294.741C299.565,294.717 339.805,272.394 372.075,234.814ZM326.139,140.278C329.348,136.594 333.332,134.41 337.646,134.408C348.26,134.402 356.88,147.604 356.884,163.872C356.887,173.805 353.675,182.599 348.758,187.943C322.955,217.951 290.793,235.773 255.935,235.793C221.466,235.812 189.626,218.419 163.957,189.044C163.548,188.608 163.151,188.149 162.766,187.667L162.388,187.224L162.401,187.198C158.293,181.793 155.688,173.779 155.686,164.839C155.683,148.572 164.297,135.36 174.911,135.355C178.933,135.352 182.668,137.246 185.758,140.485L185.78,140.44C205.228,163.284 229.549,176.859 255.921,176.844C282.333,176.83 306.68,163.188 326.131,140.263L326.139,140.278ZM329.619,-132.674L459.069,80.942L52.729,80.942L182.129,-132.593L329.619,-132.674Z"/>
     </g>
 </svg>
 </button>
+    <input id="volume" type="range" />
     <button id="setting-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -1667,7 +1696,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         </label>
         <label for="brightness">
             <span data-lang-key="brightness-label"></span>
-            <select id="brightness"></select>
+            <input id="brightness" type="range" />
             <span class="load-status" id="brightness-load-status"></span>
         </label>
         <label for="stretch">
@@ -1720,8 +1749,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Aug 12 2025 09:50:31 GMT+0900 (日本標準時)",
-    tick: 1754959831964
+    at: "Wed Aug 13 2025 00:13:31 GMT+0900 (日本標準時)",
+    tick: 1755011611061
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -3402,6 +3431,9 @@ define("script/tools/number", ["require", "exports"], function (require, exports
     exports.Number = void 0;
     var Number;
     (function (Number) {
+        Number.getIntegralDigits = function (value) {
+            return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
+        };
         Number.toString = function (value, maximumFractionDigits) {
             return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
@@ -3615,7 +3647,7 @@ define("script/library/locale", ["require", "exports", "script/tools/array", "lo
     })(Locale || (exports.Locale = Locale = {}));
 });
 define("resource/config", [], {
-    "applicationTitle": "Web Media Play",
+    "applicationTitle": "Web Media Player",
     "repositoryUrl": "https://github.com/wraith13/web-media-player/",
     "canonicalUrl": "https://wraith13.github.io/web-media-player/",
     "log": {
@@ -4069,6 +4101,62 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             return Checkbox;
         }());
         Control.Checkbox = Checkbox;
+        var Range = /** @class */ (function () {
+            function Range(data, options) {
+                var _this = this;
+                var _a, _b, _c, _d;
+                this.data = data;
+                this.options = options;
+                this.catchUpRestore = function (params) {
+                    var _a, _b, _c;
+                    var urlParam = params === null || params === void 0 ? void 0 : params[_this.dom.id];
+                    if (undefined !== urlParam && urlParam !== "".concat(_this.get())) {
+                        Control.eventLog({ control: _this, event: "catchUpRestore", message: "👆 Range.Change:", value: _this.get() });
+                        (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                        (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
+                    }
+                };
+                this.getId = function () { return Control.getDomId(_this.data); };
+                this.setChange = function (change) {
+                    return _this.options = __assign(__assign({}, _this.options), { change: change });
+                };
+                this.set = function (value, preventOnChange) {
+                    var _a, _b;
+                    _this.dom.value = "".concat(value);
+                    if (undefined === preventOnChange) {
+                        (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                    }
+                };
+                this.get = function () { return parseFloat(_this.dom.value); };
+                this.fire = function () { var _a, _b; return (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this); };
+                this.loadParameter = function (params, saveParameter) {
+                    var value = params[_this.dom.id];
+                    if (undefined !== value) {
+                        _this.set(parseFloat(value));
+                    }
+                    _this.saveParameter = saveParameter;
+                    return _this;
+                };
+                this.dom = Control.getDom(data);
+                if (!(this.dom instanceof HTMLInputElement) || "range" !== this.dom.type.toLowerCase()) {
+                    console.error("🦋 FIXME: Contorl.Range.InvalidDom", data, this.dom);
+                }
+                this.dom.min = "".concat((_a = this.data.min) !== null && _a !== void 0 ? _a : 0);
+                this.dom.max = "".concat((_b = this.data.max) !== null && _b !== void 0 ? _b : 100);
+                this.dom.step = "".concat((_c = this.data.step) !== null && _c !== void 0 ? _c : 1);
+                if (undefined !== this.data.default) {
+                    this.set(this.data.default, [Control.preventOnChange][false !== ((_d = this.options) === null || _d === void 0 ? void 0 : _d.preventOnChangeWhenNew) ? 0 : 1]);
+                }
+                this.dom.addEventListener("change", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 Range.Change:", value: _this.get() });
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
+                });
+            }
+            return Range;
+        }());
+        Control.Range = Range;
     })(Control || (exports.Control = Control = {}));
 });
 define("resource/images", [], {
@@ -4235,7 +4323,28 @@ define("script/tools/random", ["require", "exports", "script/tools/hash"], funct
         Random.IndexedRandom = IndexedRandom;
     })(Random || (exports.Random = Random = {}));
 });
-define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash) {
+define("script/tools/byte", ["require", "exports", "script/tools/number"], function (require, exports, number_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Byte = void 0;
+    var Byte;
+    (function (Byte) {
+        var toString = function (value, maximumDigits) {
+            return value.toLocaleString(undefined, {
+                maximumFractionDigits: undefined === maximumDigits ? undefined :
+                    Math.max(0, maximumDigits - number_2.Number.getIntegralDigits(value)),
+            });
+        };
+        Byte.toDisplayString = function (value, maximumDigits) {
+            return value < 1024 ? "".concat(toString(value, maximumDigits), " B") :
+                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits), " KiB") :
+                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits), " MiB") :
+                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits), " GiB") :
+                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits), " TiB");
+        };
+    })(Byte || (exports.Byte = Byte = {}));
+});
+define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Tools = void 0;
@@ -4246,6 +4355,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
     ImportedRandom = __importStar(ImportedRandom);
     ImportedArray = __importStar(ImportedArray);
     ImportedHash = __importStar(ImportedHash);
+    ImportedByte = __importStar(ImportedByte);
     var Tools;
     (function (Tools) {
         Tools.TypeGuards = ImportedTypeGuards.TypeGuards;
@@ -4255,6 +4365,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
         Tools.Random = ImportedRandom.Random;
         Tools.Array = ImportedArray.Array;
         Tools.Hash = ImportedHash.Hash;
+        Tools.Byte = ImportedByte.Byte;
     })(Tools || (exports.Tools = Tools = {}));
 });
 define("script/features/fps", ["require", "exports", "script/tools/index"], function (require, exports, _tools_1) {
@@ -4371,6 +4482,13 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
     })(Fps || (exports.Fps = Fps = {}));
 });
 define("resource/control", [], {
+    "volume": {
+        "id": "volume",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -4394,28 +4512,9 @@ define("resource/control", [], {
     },
     "brightness": {
         "id": "brightness",
-        "enum": [
-            100,
-            95,
-            90,
-            85,
-            80,
-            75,
-            70,
-            65,
-            60,
-            55,
-            50,
-            45,
-            40,
-            35,
-            30,
-            25,
-            20,
-            15,
-            10,
-            5
-        ],
+        "min": 0,
+        "max": 100,
+        "step": 1,
         "default": 100
     },
     "language": {
@@ -4446,6 +4545,8 @@ define("script/ui", ["require", "exports", "script/library/index", "resource/con
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
+        UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
+        UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
@@ -4453,7 +4554,7 @@ define("script/ui", ["require", "exports", "script/library/index", "resource/con
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.brightnessSelect = new _library_2.Library.Control.Select(control_json_1.default.brightness, { makeLabel: function (i) { return "".concat(i, " %"); } });
+        UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -4665,7 +4766,8 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         };
                         return [4 /*yield*/, Media.getThumbnail(category, url)];
                     case 1:
-                        _c.thumbnail = _d.sent();
+                        _c.thumbnail = _d.sent(),
+                            _c.size = file.size;
                         return [4 /*yield*/, Media.getDuration(category, url)];
                     case 2:
                         entry = (_c.duration = _d.sent(),
@@ -4780,6 +4882,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
+                            { tag: "span", className: "size", text: tools_1.Tools.Byte.toDisplayString(entry.size, 3), },
                             { tag: "span", className: "duration", text: null !== entry.duration ? tools_1.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
                         ];
                         return [4 /*yield*/, Media.removeButton(entry)];
@@ -5009,10 +5112,17 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 button.dom.blur();
                 ui_4.UI.repeatButton.dom.classList.toggle("on");
             };
+            ui_4.UI.volumeButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_4.UI.volumeButton.dom.classList.toggle("on");
+                ui_4.UI.settingButton.dom.classList.toggle("on", false);
+            };
             ui_4.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_4.UI.settingButton.dom.classList.toggle("on");
+                ui_4.UI.volumeButton.dom.classList.toggle("on", false);
             };
             ui_4.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -5068,7 +5178,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                         ui_4.UI.withFullscreen,
                         ui_4.UI.showFps,
                         ui_4.UI.clockSelect,
-                        ui_4.UI.brightnessSelect,
+                        ui_4.UI.brightnessRange,
                         ui_4.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
