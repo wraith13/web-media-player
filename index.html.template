@@ -94,6 +94,10 @@ DUMMYSTYLE
     <input id="volume" type="range" />
     <button id="setting-button">__COG_ICON__</button>
     <div id="setting-panel">
+        <label for="image-span">
+            <span data-lang-key="image-span-label"></span>
+            <select id="image-span"></select>
+        </label>
         <label for="with-fullscreen">
             <span data-lang-key="with-fullscreen-label"></span>
             <input id="with-fullscreen" type="checkbox" />

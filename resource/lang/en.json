@@ -12,7 +12,7 @@
     "canvas-size-label": "Canvas Size:",
     "layers-label": "Layers:",
     "spots-layers-label": "Layers(Spots):",
-    "cycle-span-label": "Cycle Span:",
+    "image-span-label": "Image Display Time:",
     "fuse-fps-label": "Fuse FPS:",
     "frame-delay-label": "Frame Delay:",
     "easing-label": "Easing:",

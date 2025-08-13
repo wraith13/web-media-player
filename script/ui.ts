@@ -1,3 +1,4 @@
+import { Tools } from "@tools";
 import { Library } from "@library";
 import control from "@resource/control.json";
 import poweredBy from "@resource/powered-by.json";
@@ -29,6 +30,8 @@ export namespace UI
         new Library.Control.Button({ id: "add-media", });
     export const inputFile =
         Library.UI.getElementById("input", "add-file");
+    export const imageSpan =
+        new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
     export const withFullscreen =
         new Library.Control.Checkbox(control.withFullscreen);
     export const showFps =

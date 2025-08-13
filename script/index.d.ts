@@ -41,7 +41,7 @@ declare module "locale/generated/master" {
             "canvas-size-label": string;
             "layers-label": string;
             "spots-layers-label": string;
-            "cycle-span-label": string;
+            "image-span-label": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -95,7 +95,7 @@ declare module "locale/generated/master" {
             "canvas-size-label": string;
             "layers-label": string;
             "spots-layers-label": string;
-            "cycle-span-label": string;
+            "image-span-label": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -154,7 +154,7 @@ declare module "script/library/locale" {
                 "canvas-size-label": string;
                 "layers-label": string;
                 "spots-layers-label": string;
-                "cycle-span-label": string;
+                "image-span-label": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -208,7 +208,7 @@ declare module "script/library/locale" {
                 "canvas-size-label": string;
                 "layers-label": string;
                 "spots-layers-label": string;
-                "cycle-span-label": string;
+                "image-span-label": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -550,6 +550,7 @@ declare module "script/ui" {
         const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;
+        const imageSpan: Library.Control.Select<number>;
         const withFullscreen: Library.Control.Checkbox;
         const showFps: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;

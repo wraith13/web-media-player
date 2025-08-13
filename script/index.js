@@ -183,7 +183,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "canvas-size-label": "Canvas Size:",
             "layers-label": "Layers:",
             "spots-layers-label": "Layers(Spots):",
-            "cycle-span-label": "Cycle Span:",
+            "image-span-label": "Image Display Time:",
             "fuse-fps-label": "Fuse FPS:",
             "frame-delay-label": "Frame Delay:",
             "easing-label": "Easing:",
@@ -237,7 +237,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "canvas-size-label": "キャンバスサイズ:",
             "layers-label": "レイヤー数:",
             "spots-layers-label": "レイヤー数(スポット):",
-            "cycle-span-label": "サイクルスパン:",
+            "image-span-label": "画像表示時間:",
             "fuse-fps-label": "フューズ FPS:",
             "frame-delay-label": "フレーム遅延:",
             "easing-label": "イージング:",
@@ -1175,6 +1175,35 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "imageSpan": {
+        "id": "image-span",
+        "enum": [
+            3600000,
+            1800000,
+            900000,
+            750000,
+            600000,
+            450000,
+            300000,
+            180000,
+            90000,
+            60000,
+            45000,
+            30000,
+            18000,
+            12500,
+            10000,
+            7500,
+            5000,
+            4000,
+            3000,
+            2500,
+            2000,
+            1500,
+            1000
+        ],
+        "default": 7500
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -1216,7 +1245,7 @@ define("resource/powered-by", [], {
     "evil-commonjs": "https://github.com/wraith13/evil-commonjs",
     "evil-timer.js": "https://github.com/wraith13/evil-timer.js"
 });
-define("script/ui", ["require", "exports", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _library_2, control_json_1, powered_by_json_1) {
+define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, powered_by_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
@@ -1237,6 +1266,7 @@ define("script/ui", ["require", "exports", "script/library/index", "resource/con
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
+        UI.imageSpan = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -1881,7 +1911,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_2, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_5, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_5, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -1893,7 +1923,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_2.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_2.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -1905,7 +1935,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_2.Tools,
+        Tools: _tools_3.Tools,
         Library: _library_5.Library,
         Features: _features_2.Features,
         Url: url_2.Url,

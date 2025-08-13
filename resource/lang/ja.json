@@ -12,7 +12,7 @@
     "canvas-size-label": "キャンバスサイズ:",
     "layers-label": "レイヤー数:",
     "spots-layers-label": "レイヤー数(スポット):",
-    "cycle-span-label": "サイクルスパン:",
+    "image-span-label": "画像表示時間:",
     "fuse-fps-label": "フューズ FPS:",
     "frame-delay-label": "フレーム遅延:",
     "easing-label": "イージング:",
