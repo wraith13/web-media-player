@@ -541,7 +541,7 @@
         transform: translate(-50%, 0%);
         position: fixed;
         z-index: 50;
-        padding: 0.25rem 0.5rem;
+        padding: 0.25rem 0.25rem;
         gap: 0.25rem;
         button
         {
@@ -573,7 +573,7 @@
             {
                 &:hover
                 {
-                    z-index: 100;;
+                    z-index: 100;
                     filter: drop-shadow($white-color 0px 0px 0.5rem);
                 }
             }
@@ -599,26 +599,78 @@
         }
     }
 }
+#next-button, #back-button
+{
+    @include fade-transition("body:not(.play)", "body:not(.mousemove)");
+    // @include fade-transition("body.play:not(.mousemove)");
+    @include black-pop-panel-style();
+    &
+    {
+        position: fixed;
+        z-index: 50;
+        border-style: solid;
+        border-width: 0px;
+        border-color: $white-color;
+        border-radius: 2.25rem;
+        padding-block: 1.0rem;
+        padding-inline: 1.0rem;
+        transition: opacity 750ms, filter 125ms;
+        width: 4.5rem;
+        height: 4.5rem;
+        background-color: black-color(0.6);
+        opacity: 0.6;
+    }
+    svg
+    {
+        @include svg-color($white-color);
+        width: 100%;
+        height: 100%;
+    }
+    @media (hover: hover)
+    {
+        &:hover
+        {
+            opacity: 1.0;
+            z-index: 100;
+            filter: drop-shadow($white-color 0px 0px 0.5rem);
+        }
+    }
+}
+#back-button
+{
+    left: 1.0rem;
+    left: calc(1.0rem + env(safe-area-inset-left));
+    inset-block-start: 50%;
+    transform: translate(0%, -50%);
+}
+#next-button
+{
+    right: 1.0rem;
+    right: calc(1.0rem + env(safe-area-inset-right));
+    inset-block-start: 50%;
+    transform: translate(0%, -50%);
+}
 // #setting-button:not(.on) + #setting-panel
 // {
 //     display: none;
 // }
-#volume
+#volume-panel
 {
     @include fade-transition("body #volume-button:not(.on) + &");
     //@include slide-down-transition("body #volume-button:not(.on) + &");
+    @include black-pop-panel-style();
     &
     {
-        //transition: transform 500ms, opacity 500ms, filter 500ms;
+        transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 7.5rem;
-        inset-block-end: calc(7.5rem + env(safe-area-inset-bottom));
-        inset-inline-end: calc(50% - 8.5rem);
-        //transform: translate(-50%, 0%);
-        transform: rotate(-90deg);
+        inset-inline-end: calc(50% - 8.625rem);
         position: fixed;
         z-index: 50;
-        padding: 0.25rem 0.5rem;
+        padding: 0.5rem;
+        background-color: black-color(0.9);
+        transform: rotate(-90deg);
+        line-height: 0rem;
     }
 }
 #setting-panel
@@ -632,9 +684,9 @@
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
-        inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
         inset-inline-end: calc(50% - 9.5rem);
         //transform: translate(-50%, 0%);
+        backdrop-filter: blur(0.5rem);
         position: fixed;
         z-index: 50;
         padding: 0.25rem 0.5rem;
@@ -651,11 +703,18 @@
                 padding-block: 0.125rem;
                 padding-inline: 0.5rem;
                 margin-block-end: 1px;
-                background-color: black-color(0.6);
+                background-color: black-color(0.8);
                 border-radius: 0.25rem;
                 height: 1.5rem;
                 flex-grow: 1;
                 white-space: nowrap;
+                &.information
+                {
+                    color: white-color(0.4);
+                    background-color: black-color(0.9);
+                    cursor: default;
+                    pointer-events: none;
+                }
                 @media (hover: hover)
                 {
                     &:hover
@@ -667,6 +726,16 @@
                 {
                     user-select: none;
                     cursor: pointer;
+                }
+                .value-text
+                {
+                    @include monospace-font();
+                    &
+                    {
+                        text-align: end;
+                        width: 100%;
+                        padding-inline: 0.5rem;
+                    }
                 }
                 input
                 {

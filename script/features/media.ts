@@ -166,6 +166,7 @@ export namespace Media
                 duration: await getDuration(category, url),
             };
             mediaList.push(entry);
+            updateInformationDisplay();
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom);
             console.log("📂 Media added:", mediaList[mediaList.length - 1]);
         }
@@ -227,6 +228,7 @@ export namespace Media
                     console.log("🗑️ Removing media:", mediaList[index]);
                     URL.revokeObjectURL(mediaList[index].url);
                     mediaList.splice(index, 1);
+                    updateInformationDisplay();
                     await updateMediaListDisplay();
                 }
             }
@@ -322,5 +324,16 @@ export namespace Media
         {
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom);
         }
+    };
+    export const updateInformationDisplay = (): void =>
+    {
+        Library.UI.setTextContent(UI.mediaCount, mediaList.length.toString());
+        const imageSpan = parseInt(UI.imageSpanSelect.get());
+        const totalDuration = mediaList.reduce((sum, entry) => sum + (entry.duration ?? imageSpan), 0);
+        Library.UI.setTextContent(UI.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration));
+    }
+    export const initialize = (): void =>
+    {
+        updateInformationDisplay();
     };
 }

@@ -87,13 +87,27 @@ DUMMYSTYLE
     <button id="shuffle-button">__SHUFFLE_ICON__</button>
     <button id="repeat-button">__REPEAT_ICON__</button>
     <button id="play-button">
-        <div id="play-icon">__PLAY_ICON__<div>
-        <div id="pause-icon">__PAUSE_ICON__<div>
+        <div id="play-icon">__PLAY_ICON__</div>
+        <div id="pause-icon">__PAUSE_ICON__</div>
     </button>
     <button id="volume-button">__SPEAKER_ICON__</button>
-    <input id="volume" type="range" />
+    <div id="volume-panel">
+        <input id="volume" type="range" />
+    </div>
     <button id="setting-button">__COG_ICON__</button>
     <div id="setting-panel">
+        <label for="media-count" class="information">
+            <span data-lang-key="media-count-label"></span>
+            <span id="media-count" class="value-text"></span>
+        </label>
+        <label for="media-length" class="information">
+            <span data-lang-key="media-length-label"></span>
+            <span id="media-length" class="value-text"></span>
+        </label>
+        <label for="transition">
+            <span data-lang-key="transition-label"></span>
+            <select id="transition"></select>
+        </label>
         <label for="image-span">
             <span data-lang-key="image-span-label"></span>
             <select id="image-span"></select>
@@ -132,6 +146,12 @@ DUMMYSTYLE
         </label>
     </div>
 </div>
+<button id="back-button">
+    <div id="back-icon">__BACK_ICON__<div>
+</button>
+<button id="next-button">
+    <div id="next-icon">__NEXT_ICON__<div>
+</button>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">

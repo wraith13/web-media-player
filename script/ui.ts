@@ -10,8 +10,6 @@ export namespace UI
         Library.UI.getElementById("div", "noscript");
     export const screenBody =
         Library.UI.getElementById("div", "screen-body");
-    export const canvas =
-        Library.UI.getElementById("div", "canvas");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
     export const shuffleButton =
@@ -30,7 +28,13 @@ export namespace UI
         new Library.Control.Button({ id: "add-media", });
     export const inputFile =
         Library.UI.getElementById("input", "add-file");
-    export const imageSpan =
+    export const mediaCount =
+        Library.UI.getElementById("span", "media-count");
+    export const mediaLength =
+        Library.UI.getElementById("span", "media-length");
+    export const transitionSelect =
+        new Library.Control.Select(control.transition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
     export const withFullscreen =
         new Library.Control.Checkbox(control.withFullscreen);

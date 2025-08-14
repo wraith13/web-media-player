@@ -174,6 +174,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
+            "media-count-label": "Media Count:",
+            "media-length-label": "Media Length:",
+            "transition-label": "Transition:",
+            "none": "None",
+            "fade": "Fade",
+            "pattern": "Pattern",
+            "all": "All",
             "colorspace-label": "Color Space:",
             "coloring-label": "Coloring:",
             "pattern-label": "Pattern:",
@@ -228,6 +235,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
+            "media-count-label": "メディア数:",
+            "media-length-label": "メディア長:",
+            "transition-label": "トランジション:",
+            "none": "なし",
+            "fade": "フェード",
+            "pattern": "パターン",
+            "all": "すべて",
             "colorspace-label": "色空間:",
             "coloring-label": "カラーリング:",
             "pattern-label": "パターン:",
@@ -1175,6 +1189,16 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "transition": {
+        "id": "transition",
+        "enum": [
+            "none",
+            "fade",
+            "pattern",
+            "all"
+        ],
+        "default": "none"
+    },
     "imageSpan": {
         "id": "image-span",
         "enum": [
@@ -1256,7 +1280,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
         UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
-        UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
@@ -1266,7 +1289,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
-        UI.imageSpan = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
+        UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
+        UI.transitionSelect = new _library_2.Library.Control.Select(control_json_1.default.transition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -1489,6 +1515,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         entry = (_c.duration = _d.sent(),
                             _c);
                         Media.mediaList.push(entry);
+                        Media.updateInformationDisplay();
                         _b = (_a = ui_3.UI.mediaList).insertBefore;
                         return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 3:
@@ -1565,6 +1592,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                                                 console.log("🗑️ Removing media:", Media.mediaList[index]);
                                                 URL.revokeObjectURL(Media.mediaList[index].url);
                                                 Media.mediaList.splice(index, 1);
+                                                Media.updateInformationDisplay();
                                                 return [4 /*yield*/, Media.updateMediaListDisplay()];
                                             case 1:
                                                 _b.sent();
@@ -1686,6 +1714,15 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                 }
             });
         }); };
+        Media.updateInformationDisplay = function () {
+            _library_3.Library.UI.setTextContent(ui_3.UI.mediaCount, Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_3.UI.imageSpanSelect.get());
+            var totalDuration = Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
+            _library_3.Library.UI.setTextContent(ui_3.UI.mediaLength, tools_1.Tools.Timespan.toMediaTimeString(totalDuration));
+        };
+        Media.initialize = function () {
+            Media.updateInformationDisplay();
+        };
     })(Media || (exports.Media = Media = {}));
 });
 define("script/features/player", ["require", "exports"], function (require, exports) {
@@ -1808,6 +1845,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
+            //document.body.className = "play";
             document.body.className = "list";
             var applyParam = function (key, value) {
                 url_1.Url.addParameter(url_1.Url.params, key, value);
@@ -1816,6 +1854,8 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_4.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
+                document.body.classList.toggle("list");
+                document.body.classList.toggle("play");
                 //Controller.toggleAnimation();
             };
             ui_4.UI.shuffleButton.data.click = function (event, button) {
@@ -1872,7 +1912,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
                     console.log("🖱️ MouseMove:", event, ui_4.UI.screenBody);
                 }
-                mouseMoveTimer.start(document.body, "mousemove", 1000);
+                mouseMoveTimer.start(document.body, "mousemove", 3000);
             });
             _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
@@ -1923,6 +1963,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_2.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
+    _features_2.Features.Media.initialize();
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {

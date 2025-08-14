@@ -113,6 +113,12 @@
                 },
                 "__SPEAKER_ICON__": {
                     "path": "./image/speaker.svg"
+                },
+                "__BACK_ICON__": {
+                    "path": "./image/back.svg"
+                },
+                "__NEXT_ICON__": {
+                    "path": "./image/next.svg"
                 }
             }
         },

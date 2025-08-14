@@ -56,6 +56,7 @@ export namespace Events
         window.addEventListener("drop", event => event.preventDefault());
         document.body.addEventListener("dragover", dragover);
         document.body.addEventListener("drop", drop);
+        //document.body.className = "play";
         document.body.className = "list";
         const applyParam = (key: string, value: string) =>
         {
@@ -66,6 +67,8 @@ export namespace Events
         {
             event?.stopPropagation();
             button.dom.blur();
+            document.body.classList.toggle("list");
+            document.body.classList.toggle("play");
             //Controller.toggleAnimation();
         };
         UI.shuffleButton.data.click = (event, button) =>
@@ -142,7 +145,7 @@ export namespace Events
                 {
                     console.log("🖱️ MouseMove:", event, UI.screenBody);
                 }
-                mouseMoveTimer.start(document.body, "mousemove", 1000)
+                mouseMoveTimer.start(document.body, "mousemove", 3000)
             }
         );
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])

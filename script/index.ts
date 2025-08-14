@@ -13,6 +13,7 @@ import { Events } from "./events";
 Url.initialize();
 UI.initialize();
 Events.initialize();
+Features.Media.initialize();
 interface BuildInformation
 {
     at: string;

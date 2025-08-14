@@ -32,6 +32,13 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             Auto: string;
             description: string;
+            "media-count-label": string;
+            "media-length-label": string;
+            "transition-label": string;
+            none: string;
+            fade: string;
+            pattern: string;
+            all: string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -86,6 +93,13 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             Auto: string;
             description: string;
+            "media-count-label": string;
+            "media-length-label": string;
+            "transition-label": string;
+            none: string;
+            fade: string;
+            pattern: string;
+            all: string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -145,6 +159,13 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 Auto: string;
                 description: string;
+                "media-count-label": string;
+                "media-length-label": string;
+                "transition-label": string;
+                none: string;
+                fade: string;
+                pattern: string;
+                all: string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -199,6 +220,13 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 Auto: string;
                 description: string;
+                "media-count-label": string;
+                "media-length-label": string;
+                "transition-label": string;
+                none: string;
+                fade: string;
+                pattern: string;
+                all: string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -540,7 +568,6 @@ declare module "script/ui" {
         const manifest: HTMLLinkElement;
         const noscript: HTMLDivElement;
         const screenBody: HTMLDivElement;
-        const canvas: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
         const repeatButton: Library.Control.Button<HTMLElement>;
@@ -550,7 +577,10 @@ declare module "script/ui" {
         const mediaList: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;
-        const imageSpan: Library.Control.Select<number>;
+        const mediaCount: HTMLSpanElement;
+        const mediaLength: HTMLSpanElement;
+        const transitionSelect: Library.Control.Select<string>;
+        const imageSpanSelect: Library.Control.Select<number>;
         const withFullscreen: Library.Control.Checkbox;
         const showFps: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
@@ -608,6 +638,8 @@ declare module "script/features/media" {
         const removeButton: (entry: Entry) => Promise<Library.UI.ElementSource<"button">>;
         const makeMediaEntryDom: (entry: Entry) => Promise<HTMLDivElement>;
         const updateMediaListDisplay: () => Promise<void>;
+        const updateInformationDisplay: () => void;
+        const initialize: () => void;
     }
 }
 declare module "script/features/player" {

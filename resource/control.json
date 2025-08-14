@@ -6,6 +6,16 @@
         "step": 1,
         "default": 100
     },
+    "transition": {
+        "id": "transition",
+        "enum": [
+            "none",
+            "fade",
+            "pattern",
+            "all"
+        ],
+        "default": "none"
+    },
     "imageSpan": {
         "id": "image-span",
         "enum": [

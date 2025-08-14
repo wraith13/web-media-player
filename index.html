@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Aug 13 2025 10:19:56 GMT+0900 (日本標準時)
+    build at: Thu Aug 14 2025 01:27:44 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -951,7 +951,7 @@ body.play:not(.mousemove) #control-panel:not(.show)::before {
   transform: translate(-50%, 0%);
   position: fixed;
   z-index: 50;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.25rem;
   gap: 0.25rem;
 }
 #control-panel button {
@@ -1004,16 +1004,19 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
-#volume {
+#next-button, #back-button {
   transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
 }
-body #volume-button:not(.on) + #volume:not(.show) {
+body:not(.play) #next-button:not(.show), body:not(.play) #back-button:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #volume-button:not(.on) + #volume:not(.show)::before {
+body:not(.play) #next-button:not(.show)::before, body:not(.play) #back-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1025,15 +1028,104 @@ body #volume-button:not(.on) + #volume:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-#volume {
-  border-radius: 0.5rem;
-  inset-block-end: 7.5rem;
-  inset-block-end: calc(7.5rem + env(safe-area-inset-bottom));
-  inset-inline-end: calc(50% - 8.5rem);
-  transform: rotate(-90deg);
+
+body:not(.mousemove) #next-button:not(.show), body:not(.mousemove) #back-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#next-button, #back-button {
   position: fixed;
   z-index: 50;
-  padding: 0.25rem 0.5rem;
+  border-style: solid;
+  border-width: 0px;
+  border-color: rgb(230, 237, 243);
+  border-radius: 2.25rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  transition: opacity 750ms, filter 125ms;
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: rgba(32, 28, 38, 0.6);
+  opacity: 0.6;
+}
+#next-button svg, #back-button svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  width: 100%;
+  height: 100%;
+}
+@media (hover: hover) {
+  #next-button:hover, #back-button:hover {
+    opacity: 1;
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+
+#back-button {
+  left: 1rem;
+  left: calc(1rem + env(safe-area-inset-left));
+  inset-block-start: 50%;
+  transform: translate(0%, -50%);
+}
+
+#next-button {
+  right: 1rem;
+  right: calc(1rem + env(safe-area-inset-right));
+  inset-block-start: 50%;
+  transform: translate(0%, -50%);
+}
+
+#volume-panel {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+}
+body #volume-button:not(.on) + #volume-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #volume-button:not(.on) + #volume-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#volume-panel {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  border-radius: 0.5rem;
+  inset-block-end: 7.5rem;
+  inset-inline-end: calc(50% - 8.625rem);
+  position: fixed;
+  z-index: 50;
+  padding: 0.5rem;
+  background-color: rgba(32, 28, 38, 0.9);
+  transform: rotate(-90deg);
+  line-height: 0rem;
 }
 
 #setting-panel {
@@ -1065,8 +1157,8 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
   inset-block-end: 4.5rem;
-  inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 9.5rem);
+  backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 50;
   padding: 0.25rem 0.5rem;
@@ -1102,11 +1194,17 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   padding-block: 0.125rem;
   padding-inline: 0.5rem;
   margin-block-end: 1px;
-  background-color: rgba(32, 28, 38, 0.6);
+  background-color: rgba(32, 28, 38, 0.8);
   border-radius: 0.25rem;
   height: 1.5rem;
   flex-grow: 1;
   white-space: nowrap;
+}
+#setting-panel label.information {
+  color: rgba(230, 237, 243, 0.4);
+  background-color: rgba(32, 28, 38, 0.9);
+  cursor: default;
+  pointer-events: none;
 }
 @media (hover: hover) {
   #setting-panel label:hover {
@@ -1116,6 +1214,28 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
 #setting-panel label * {
   user-select: none;
   cursor: pointer;
+}
+#setting-panel label .value-text {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #setting-panel label .value-text {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #setting-panel label .value-text {
+    font-size: 1rem;
+  }
+}
+#setting-panel label .value-text {
+  font-family: monospace;
+}
+#setting-panel label .value-text {
+  text-align: end;
+  width: 100%;
+  padding-inline: 0.5rem;
 }
 #setting-panel label input {
   font-size: 0.75rem;
@@ -1653,7 +1773,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         <path d="M277.128,192.306L277.129,192C277.294,169.198 295.857,150.737 318.698,150.737C326.626,150.737 334.038,152.961 340.345,156.819L893.467,476.149L893.46,476.161C906.034,483.312 914.523,496.833 914.523,512.321C914.523,529.423 904.173,544.126 889.4,550.504L340.335,867.492C339.741,867.855 339.138,868.203 338.526,868.537L336.016,869.985L335.929,869.834C330.678,872.232 324.842,873.568 318.697,873.568C295.755,873.568 277.128,854.942 277.128,832L277.128,192.306Z"/>
     </g>
 </svg>
-<div>
+</div>
         <div id="pause-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -1661,7 +1781,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         <path d="M444,291.176L444,732.824C444,752.238 428.847,768 410.183,768L289.817,768C271.153,768 256,752.238 256,732.824L256,291.176C256,271.762 271.153,256 289.817,256L410.183,256C428.847,256 444,271.762 444,291.176ZM748.218,291.176L748.218,732.824C748.218,752.238 733.065,768 714.401,768L594.035,768C575.371,768 560.218,752.238 560.218,732.824L560.218,291.176C560.218,271.762 575.371,256 594.035,256L714.401,256C733.065,256 748.218,271.762 748.218,291.176Z"/>
     </g>
 </svg>
-<div>
+</div>
     </button>
     <button id="volume-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1671,7 +1791,9 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </g>
 </svg>
 </button>
-    <input id="volume" type="range" />
+    <div id="volume-panel">
+        <input id="volume" type="range" />
+    </div>
     <button id="setting-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -1679,6 +1801,18 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </button>
     <div id="setting-panel">
+        <label for="media-count" class="information">
+            <span data-lang-key="media-count-label"></span>
+            <span id="media-count" class="value-text"></span>
+        </label>
+        <label for="media-length" class="information">
+            <span data-lang-key="media-length-label"></span>
+            <span id="media-length" class="value-text"></span>
+        </label>
+        <label for="transition">
+            <span data-lang-key="transition-label"></span>
+            <select id="transition"></select>
+        </label>
         <label for="image-span">
             <span data-lang-key="image-span-label"></span>
             <select id="image-span"></select>
@@ -1717,6 +1851,26 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
         </label>
     </div>
 </div>
+<button id="back-button">
+    <div id="back-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(-0.902983,0,0,0.902983,1593.33,-226.409)">
+        <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1481.15,476 1498.7,493.456 1498.86,515.017L1498.86,515.306L1498.86,1120.18C1498.86,1141.88 1481.24,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
+    </g>
+</svg>
+<div>
+</button>
+<button id="next-button">
+    <div id="next-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.902983,0,0,0.902983,-498.328,-226.409)">
+        <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1481.15,476 1498.7,493.456 1498.86,515.017L1498.86,515.306L1498.86,1120.18C1498.86,1141.88 1481.24,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
+    </g>
+</svg>
+<div>
+</button>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">
@@ -1753,8 +1907,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Aug 13 2025 10:19:56 GMT+0900 (日本標準時)",
-    tick: 1755047996820
+    at: "Thu Aug 14 2025 01:27:44 GMT+0900 (日本標準時)",
+    tick: 1755102464038
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -3492,6 +3646,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
+            "media-count-label": "Media Count:",
+            "media-length-label": "Media Length:",
+            "transition-label": "Transition:",
+            "none": "None",
+            "fade": "Fade",
+            "pattern": "Pattern",
+            "all": "All",
             "colorspace-label": "Color Space:",
             "coloring-label": "Coloring:",
             "pattern-label": "Pattern:",
@@ -3546,6 +3707,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
+            "media-count-label": "メディア数:",
+            "media-length-label": "メディア長:",
+            "transition-label": "トランジション:",
+            "none": "なし",
+            "fade": "フェード",
+            "pattern": "パターン",
+            "all": "すべて",
             "colorspace-label": "色空間:",
             "coloring-label": "カラーリング:",
             "pattern-label": "パターン:",
@@ -4493,6 +4661,16 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "transition": {
+        "id": "transition",
+        "enum": [
+            "none",
+            "fade",
+            "pattern",
+            "all"
+        ],
+        "default": "none"
+    },
     "imageSpan": {
         "id": "image-span",
         "enum": [
@@ -4574,7 +4752,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
         UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
-        UI.canvas = _library_2.Library.UI.getElementById("div", "canvas");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
@@ -4584,7 +4761,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
-        UI.imageSpan = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
+        UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
+        UI.transitionSelect = new _library_2.Library.Control.Select(control_json_1.default.transition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.withFullscreen = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -4807,6 +4987,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         entry = (_c.duration = _d.sent(),
                             _c);
                         Media.mediaList.push(entry);
+                        Media.updateInformationDisplay();
                         _b = (_a = ui_3.UI.mediaList).insertBefore;
                         return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 3:
@@ -4883,6 +5064,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                                                 console.log("🗑️ Removing media:", Media.mediaList[index]);
                                                 URL.revokeObjectURL(Media.mediaList[index].url);
                                                 Media.mediaList.splice(index, 1);
+                                                Media.updateInformationDisplay();
                                                 return [4 /*yield*/, Media.updateMediaListDisplay()];
                                             case 1:
                                                 _b.sent();
@@ -5004,6 +5186,15 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                 }
             });
         }); };
+        Media.updateInformationDisplay = function () {
+            _library_3.Library.UI.setTextContent(ui_3.UI.mediaCount, Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_3.UI.imageSpanSelect.get());
+            var totalDuration = Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
+            _library_3.Library.UI.setTextContent(ui_3.UI.mediaLength, tools_1.Tools.Timespan.toMediaTimeString(totalDuration));
+        };
+        Media.initialize = function () {
+            Media.updateInformationDisplay();
+        };
     })(Media || (exports.Media = Media = {}));
 });
 define("script/features/player", ["require", "exports"], function (require, exports) {
@@ -5126,6 +5317,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
+            //document.body.className = "play";
             document.body.className = "list";
             var applyParam = function (key, value) {
                 url_1.Url.addParameter(url_1.Url.params, key, value);
@@ -5134,6 +5326,8 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_4.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
+                document.body.classList.toggle("list");
+                document.body.classList.toggle("play");
                 //Controller.toggleAnimation();
             };
             ui_4.UI.shuffleButton.data.click = function (event, button) {
@@ -5190,7 +5384,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
                     console.log("🖱️ MouseMove:", event, ui_4.UI.screenBody);
                 }
-                mouseMoveTimer.start(document.body, "mousemove", 1000);
+                mouseMoveTimer.start(document.body, "mousemove", 3000);
             });
             _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
@@ -5241,6 +5435,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_2.Url.initialize();
     ui_5.UI.initialize();
     events_1.Events.initialize();
+    _features_2.Features.Media.initialize();
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
