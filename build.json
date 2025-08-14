@@ -111,8 +111,20 @@
                 "__COG_ICON__": {
                     "path": "./image/cog.svg"
                 },
-                "__SPEAKER_ICON__": {
-                    "path": "./image/speaker.svg"
+                "__SPEAKER_MUTE_ICON__": {
+                    "path": "./image/speaker-mute.svg"
+                },
+                "__SPEAKER_0_ICON__": {
+                    "path": "./image/speaker-0.svg"
+                },
+                "__SPEAKER_1_ICON__": {
+                    "path": "./image/speaker-1.svg"
+                },
+                "__SPEAKER_2_ICON__": {
+                    "path": "./image/speaker-2.svg"
+                },
+                "__SPEAKER_3_ICON__": {
+                    "path": "./image/speaker-3.svg"
                 },
                 "__BACK_ICON__": {
                     "path": "./image/back.svg"

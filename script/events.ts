@@ -90,6 +90,28 @@ export namespace Events
             UI.volumeButton.dom.classList.toggle("on");
             UI.settingButton.dom.classList.toggle("on", false);
         };
+        UI.volumeRange.options ||= { }
+        UI.volumeRange.options.change = (event, range) =>
+        {
+            event?.stopPropagation();
+            const value = range.get();
+            console.log("🔊 Volume changed:", value);
+            UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+            UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+            UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+            UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+            UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+            //Features.Media.setVolume(value);
+        };
+        UI.volumeRange.dom.addEventListener
+        (
+            "input",
+            event =>
+            {
+                event.stopPropagation();
+                UI.volumeRange.fire();
+            }
+        );
         UI.settingButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -151,6 +173,7 @@ export namespace Events
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])
             .forEach(label => Library.UI.showPickerOnLabel(label));
         [
+            UI.volumeRange,
             // UI.withFullscreen,
             UI.showFps,
         ].forEach(i => i.fire());

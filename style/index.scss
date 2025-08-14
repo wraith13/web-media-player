@@ -650,10 +650,33 @@
     inset-block-start: 50%;
     transform: translate(0%, -50%);
 }
-// #setting-button:not(.on) + #setting-panel
-// {
-//     display: none;
-// }
+#volume-button
+{
+    &:not(.volume-mute) #speaker-mute-icon
+    {
+        display: none;
+    }
+    &:not(.volume-0) #speaker-0-icon
+    {
+        display: none;
+    }
+    &:not(.volume-1) #speaker-1-icon
+    {
+        display: none;
+    }
+    &:not(.volume-2) #speaker-2-icon
+    {
+        display: none;
+    }
+    &:not(.volume-3) #speaker-3-icon
+    {
+        display: none;
+    }
+    #speaker-mute-icon svg
+    {
+        fill: red;
+    }
+}
 #volume-panel
 {
     @include fade-transition("body #volume-button:not(.on) + &");

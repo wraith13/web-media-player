@@ -1035,6 +1035,25 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
   transform: translate(0%, -50%);
 }
 
+#volume-button:not(.volume-mute) #speaker-mute-icon {
+  display: none;
+}
+#volume-button:not(.volume-0) #speaker-0-icon {
+  display: none;
+}
+#volume-button:not(.volume-1) #speaker-1-icon {
+  display: none;
+}
+#volume-button:not(.volume-2) #speaker-2-icon {
+  display: none;
+}
+#volume-button:not(.volume-3) #speaker-3-icon {
+  display: none;
+}
+#volume-button #speaker-mute-icon svg {
+  fill: red;
+}
+
 #volume-panel {
   transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);

@@ -90,7 +90,13 @@ DUMMYSTYLE
         <div id="play-icon">__PLAY_ICON__</div>
         <div id="pause-icon">__PAUSE_ICON__</div>
     </button>
-    <button id="volume-button">__SPEAKER_ICON__</button>
+    <button id="volume-button">
+        <div id="speaker-mute-icon">__SPEAKER_MUTE_ICON__</div>
+        <div id="speaker-0-icon">__SPEAKER_0_ICON__</div>
+        <div id="speaker-1-icon">__SPEAKER_1_ICON__</div>
+        <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
+        <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
+    </button>
     <div id="volume-panel">
         <input id="volume" type="range" />
     </div>

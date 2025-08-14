@@ -1841,6 +1841,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
         }); };
         Events.initialize = function () {
+            var _a;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
@@ -1874,6 +1875,22 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 ui_4.UI.volumeButton.dom.classList.toggle("on");
                 ui_4.UI.settingButton.dom.classList.toggle("on", false);
             };
+            (_a = ui_4.UI.volumeRange).options || (_a.options = {});
+            ui_4.UI.volumeRange.options.change = function (event, range) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                var value = range.get();
+                console.log("🔊 Volume changed:", value);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                //Features.Media.setVolume(value);
+            };
+            ui_4.UI.volumeRange.dom.addEventListener("input", function (event) {
+                event.stopPropagation();
+                ui_4.UI.volumeRange.fire();
+            });
             ui_4.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -1917,6 +1934,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
             [
+                ui_4.UI.volumeRange,
                 // UI.withFullscreen,
                 ui_4.UI.showFps,
             ].forEach(function (i) { return i.fire(); });

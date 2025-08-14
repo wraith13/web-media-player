@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Aug 14 2025 01:27:44 GMT+0900 (日本標準時)
+    build at: Thu Aug 14 2025 10:26:40 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1091,6 +1091,25 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
   transform: translate(0%, -50%);
 }
 
+#volume-button:not(.volume-mute) #speaker-mute-icon {
+  display: none;
+}
+#volume-button:not(.volume-0) #speaker-0-icon {
+  display: none;
+}
+#volume-button:not(.volume-1) #speaker-1-icon {
+  display: none;
+}
+#volume-button:not(.volume-2) #speaker-2-icon {
+  display: none;
+}
+#volume-button:not(.volume-3) #speaker-3-icon {
+  display: none;
+}
+#volume-button #speaker-mute-icon svg {
+  fill: red;
+}
+
 #volume-panel {
   transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
@@ -1783,14 +1802,48 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </div>
     </button>
-    <button id="volume-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <button id="volume-button">
+        <div id="speaker-mute-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.00047459,-1.32055,0.710938,0.000255503,147.757,849.93)">
+        <path d="M60.636,512L-0,512L163.048,185.903L348.89,185.779L512,512L451.456,512C409.793,393.528 337.759,315.193 255.962,315.248C174.225,315.302 102.267,393.618 60.636,512ZM175.658,135.257L175.638,33.983C175.634,15.351 183.775,0.219 193.806,0.212L317.996,0.13C328.027,0.123 336.173,15.244 336.177,33.876L336.197,135.15L175.658,135.257ZM452.933,748.347C452.972,950.19 364.782,1114.12 256.117,1114.19C147.451,1114.27 59.197,950.453 59.158,748.61C59.119,546.767 147.31,382.837 255.975,382.764C364.64,382.692 452.894,546.504 452.933,748.347ZM345.77,521.881C320.635,487.472 289.581,467.137 255.991,467.16C172.403,467.216 104.564,593.316 104.594,748.58C104.606,811.033 115.597,868.752 134.173,915.439L345.77,521.881ZM166.322,975.076C191.456,1009.49 222.511,1029.82 256.1,1029.8C339.689,1029.74 407.528,903.641 407.498,748.377C407.486,685.924 396.495,628.205 377.919,581.519L166.322,975.076Z"/>
+    </g>
+</svg>
+</div>
+        <div id="speaker-0-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.00047459,-1.32055,0.710938,0.000255503,147.757,849.93)">
+        <path d="M348.89,185.779L512,512L-0,512L163.048,185.903L348.89,185.779ZM175.658,135.257L175.638,33.983C175.634,15.351 183.775,0.219 193.806,0.212L317.996,0.13C328.027,0.123 336.173,15.244 336.177,33.876L336.197,135.15L175.658,135.257Z"/>
+    </g>
+</svg>
+</div>
+        <div id="speaker-1-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.761905,0,0,0.761905,119.238,207.238)">
+        <path d="M599.949,246.632C594.702,239.623 591.593,230.921 591.593,221.5C591.593,198.32 610.413,179.5 633.593,179.5C647.748,179.5 660.277,186.518 667.888,197.26C710.629,253.627 736,323.874 736,400C736,475.277 711.192,544.805 669.312,600.848C668.691,601.74 668.036,602.608 667.349,603.448L666.717,604.274L666.681,604.245C658.976,613.214 647.553,618.898 634.814,618.898C611.634,618.898 592.814,600.078 592.814,576.898C592.814,568.114 595.516,559.957 600.133,553.213L600.07,553.164C632.636,510.703 652,457.595 652,400C652,342.321 632.58,289.141 599.927,246.65L599.949,246.632ZM211,238.892L515.5,-43.705L515.181,843.705L211,560.996L211,238.892ZM163.75,539.125L69.25,539.125C51.865,539.125 37.75,525.01 37.75,507.625L37.75,292.375C37.75,274.99 51.865,260.875 69.25,260.875L163.75,260.875L163.75,539.125Z"/>
+    </g>
+</svg>
+</div>
+        <div id="speaker-2-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1.14286,0,0,1.14286,-33.1429,54.8571)">
+        <path d="M623.131,230.908C618.847,225.989 616.25,219.561 616.25,212.531C616.25,197.077 628.797,184.531 644.25,184.531C653.379,184.531 661.494,188.909 666.607,195.679L666.653,195.643C710.14,252.28 736,323.144 736,400C736,476.008 710.707,546.155 668.086,602.477C663.037,609.819 654.577,614.637 645,614.637C629.546,614.637 617,602.091 617,586.637C617,580.534 618.957,574.884 622.277,570.281L622.243,570.255C658.463,523.065 680,464.028 680,400C680,336.497 658.814,277.904 623.131,230.908ZM533.299,297.755C529.801,293.082 527.729,287.281 527.729,281C527.729,265.546 540.275,253 555.729,253C565.165,253 573.518,257.678 578.592,264.84C607.086,302.418 624,349.249 624,400C624,450.185 607.461,496.537 579.541,533.898C579.127,534.493 578.691,535.072 578.233,535.632L577.812,536.182L577.787,536.164C572.65,542.142 565.036,545.932 556.543,545.932C541.089,545.932 528.543,533.385 528.543,517.932C528.543,512.076 530.344,506.638 533.422,502.142L533.38,502.109C555.091,473.802 568,438.397 568,400C568,361.547 555.053,326.094 533.284,297.766L533.299,297.755ZM274,292.595L477,104.197L476.787,695.803L274,507.331L274,292.595ZM242.5,492.75L179.5,492.75C167.91,492.75 158.5,483.34 158.5,471.75L158.5,328.25C158.5,316.66 167.91,307.25 179.5,307.25L242.5,307.25L242.5,492.75Z"/>
+    </g>
+</svg>
+</div>
+        <div id="speaker-3-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.000597996,-1.66393,1.0857,0.000390188,423.847,937.766)">
         <path d="M192.136,-165.756L192.121,-232.073C192.118,-244.273 198.579,-254.182 206.539,-254.187L305.101,-254.241C313.062,-254.245 319.527,-244.344 319.53,-232.143L319.546,-165.827L192.136,-165.756ZM418.912,328.322C422.278,323.879 426.657,321.191 431.444,321.188C442.058,321.183 450.678,334.385 450.682,350.652C450.684,360.234 447.697,368.755 443.071,374.142L443.091,374.182C391.241,435.227 326.363,471.546 255.991,471.585C185.607,471.624 120.702,435.364 68.82,374.359L68.84,374.32C64.226,368.937 61.244,360.431 61.242,350.866C61.238,334.599 69.853,321.388 80.467,321.382C85.253,321.379 89.634,324.062 93.002,328.501C138.266,381.315 194.752,412.671 255.977,412.637C317.201,412.603 373.673,381.185 418.912,328.322ZM372.075,234.814C375.452,230.302 379.867,227.567 384.695,227.564C395.309,227.558 403.93,240.76 403.934,257.028C403.936,266.637 400.931,275.18 396.282,280.565L396.307,280.614C357.417,326.411 308.751,353.66 255.963,353.689C203.757,353.718 155.571,327.12 116.876,282.277C111.832,276.964 108.521,268.06 108.518,257.979C108.514,241.712 117.129,228.501 127.743,228.495C131.935,228.492 135.816,230.55 138.978,234.044L138.996,234.008C171.418,272.116 211.972,294.765 255.949,294.741C299.565,294.717 339.805,272.394 372.075,234.814ZM326.139,140.278C329.348,136.594 333.332,134.41 337.646,134.408C348.26,134.402 356.88,147.604 356.884,163.872C356.887,173.805 353.675,182.599 348.758,187.943C322.955,217.951 290.793,235.773 255.935,235.793C221.466,235.812 189.626,218.419 163.957,189.044C163.548,188.608 163.151,188.149 162.766,187.667L162.388,187.224L162.401,187.198C158.293,181.793 155.688,173.779 155.686,164.839C155.683,148.572 164.297,135.36 174.911,135.355C178.933,135.352 182.668,137.246 185.758,140.485L185.78,140.44C205.228,163.284 229.549,176.859 255.921,176.844C282.333,176.83 306.68,163.188 326.131,140.263L326.139,140.278ZM329.619,-132.674L459.069,80.942L52.729,80.942L182.129,-132.593L329.619,-132.674Z"/>
     </g>
 </svg>
-</button>
+</div>
+    </button>
     <div id="volume-panel">
         <input id="volume" type="range" />
     </div>
@@ -1907,8 +1960,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Aug 14 2025 01:27:44 GMT+0900 (日本標準時)",
-    tick: 1755102464038
+    at: "Thu Aug 14 2025 10:26:40 GMT+0900 (日本標準時)",
+    tick: 1755134800346
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5313,6 +5366,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
         }); };
         Events.initialize = function () {
+            var _a;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
@@ -5346,6 +5400,22 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 ui_4.UI.volumeButton.dom.classList.toggle("on");
                 ui_4.UI.settingButton.dom.classList.toggle("on", false);
             };
+            (_a = ui_4.UI.volumeRange).options || (_a.options = {});
+            ui_4.UI.volumeRange.options.change = function (event, range) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                var value = range.get();
+                console.log("🔊 Volume changed:", value);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_4.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                //Features.Media.setVolume(value);
+            };
+            ui_4.UI.volumeRange.dom.addEventListener("input", function (event) {
+                event.stopPropagation();
+                ui_4.UI.volumeRange.fire();
+            });
             ui_4.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -5389,6 +5459,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
             [
+                ui_4.UI.volumeRange,
                 // UI.withFullscreen,
                 ui_4.UI.showFps,
             ].forEach(function (i) { return i.fire(); });
