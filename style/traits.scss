@@ -184,3 +184,50 @@
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
+@keyframes scale-bounce
+{
+    0%
+    {
+        transform: scale(1);
+    }
+    10%
+    {
+        transform: scale(1.02);
+    }
+    20%
+    {
+        transform: scale(1.04);
+    }
+    30%
+    {
+        transform: scale(1.06);
+    }
+    40%
+    {
+        transform: scale(1.08);
+    }
+    50%
+    {
+        transform: scale(1.10);
+    }
+    60%
+    {
+        transform: scale(1.08);
+    }
+    70%
+    {
+        transform: scale(1.06);
+    }
+    80%
+    {
+        transform: scale(1.04);
+    }
+    90%
+    {
+        transform: scale(1.02);
+    }
+    100%
+    {
+        transform: scale(1);
+    }
+}

@@ -50,6 +50,10 @@ export namespace Events
             }
         }
     };
+    const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
+    export const mousemove = () =>
+        mouseMoveTimer.start(document.body, "mousemove", 3000);
+
     export const initialize = () =>
     {
         window.addEventListener("dragover", event => event.preventDefault());
@@ -63,13 +67,25 @@ export namespace Events
             Url.addParameter(Url.params, key, value);
             updateUrlAnchor(Url.params);
         };
+        const noMediaTimer = new Library.UI.ToggleClassForWhileTimer();
         UI.playButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
+            if (document.body.classList.contains("list") && Features.Media.mediaList.length <= 0)
+            {
+                noMediaTimer.start(document.body, "no-media", 5000);
+            }
             document.body.classList.toggle("list");
             document.body.classList.toggle("play");
-            //Controller.toggleAnimation();
+            if (document.body.classList.contains("play"))
+            {
+                Features.Player.play();
+            }
+            else
+            {
+                Features.Player.pause();
+            }
         };
         UI.shuffleButton.data.click = (event, button) =>
         {
@@ -91,9 +107,8 @@ export namespace Events
             UI.settingButton.dom.classList.toggle("on", false);
         };
         UI.volumeRange.options ||= { }
-        UI.volumeRange.options.change = (event, range) =>
+        UI.volumeRange.options.change = (_event, range) =>
         {
-            event?.stopPropagation();
             const value = range.get();
             console.log("🔊 Volume changed:", value);
             UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
@@ -102,16 +117,8 @@ export namespace Events
             UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
             UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
             //Features.Media.setVolume(value);
+            mousemove();
         };
-        UI.volumeRange.dom.addEventListener
-        (
-            "input",
-            event =>
-            {
-                event.stopPropagation();
-                UI.volumeRange.fire();
-            }
-        );
         UI.settingButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -139,6 +146,13 @@ export namespace Events
                 UI.inputFile.value = "";
             }
         );
+        UI.imageSpanSelect.options ||= { }
+        UI.imageSpanSelect.options.change = (_event, select) =>
+        {
+            const value = select.get();
+            console.log("⏱️ Image span changed:", value);
+            Features.Media.updateInformationDisplay();
+        };
         UI.introductionPanel.addEventListener
         (
             "click",
@@ -154,20 +168,39 @@ export namespace Events
             () => UI.introductionPanel.classList.toggle("force-show", false),
             15000
         );
+        UI.brightnessRange.options ||= { }
+        UI.brightnessRange.options.change = (_event, range) =>
+        {
+            const value = range.get();
+            console.log("💡 Brightness changed:", value);
+            Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+            if (document.body.classList.contains("play"))
+            {
+                Library.UI.setStyle(UI.clockDisplay, "opacity", `${value / 100}`);
+            }
+            mousemove();
+        };
+        UI.stretchRange.options ||= { }
+        UI.stretchRange.options.change = (_event, range) =>
+        {
+            const value = range.get();
+            console.log("📏 Stretch changed:", value);
+            //Features.Media.setStretch(value / 100);
+            mousemove();
+        };
         UI.showFps.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
-        const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
-        UI.screenBody.addEventListener
+        document.body.addEventListener
         (
             "mousemove",
-            _event =>
+            event =>
             {
                 if (config.log.mousemove && ! mouseMoveTimer.isOn())
                 {
                     console.log("🖱️ MouseMove:", event, UI.screenBody);
                 }
-                mouseMoveTimer.start(document.body, "mousemove", 3000)
+                mousemove();
             }
         );
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])

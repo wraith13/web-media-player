@@ -56,6 +56,7 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
+            "stretch-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -84,6 +85,7 @@ declare module "locale/generated/master" {
             FullScreen: string;
             "Show FPS": string;
             "Switch Clock": string;
+            "no-media-message": string;
             "noscript-message": string;
             "noscript-introduction-title": string;
             "noscript-introduction-description": string;
@@ -117,6 +119,7 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
+            "stretch-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -145,6 +148,7 @@ declare module "locale/generated/master" {
             FullScreen: string;
             "Show FPS": string;
             "Switch Clock": string;
+            "no-media-message": string;
             "noscript-message": string;
             "noscript-introduction-title": string;
             "noscript-introduction-description": string;
@@ -183,6 +187,7 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
+                "stretch-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -211,6 +216,7 @@ declare module "script/library/locale" {
                 FullScreen: string;
                 "Show FPS": string;
                 "Switch Clock": string;
+                "no-media-message": string;
                 "noscript-message": string;
                 "noscript-introduction-title": string;
                 "noscript-introduction-description": string;
@@ -244,6 +250,7 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
+                "stretch-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -272,6 +279,7 @@ declare module "script/library/locale" {
                 FullScreen: string;
                 "Show FPS": string;
                 "Switch Clock": string;
+                "no-media-message": string;
                 "noscript-message": string;
                 "noscript-introduction-title": string;
                 "noscript-introduction-description": string;
@@ -568,6 +576,7 @@ declare module "script/ui" {
         const manifest: HTMLLinkElement;
         const noscript: HTMLDivElement;
         const screenBody: HTMLDivElement;
+        const mediaScreen: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
         const repeatButton: Library.Control.Button<HTMLElement>;
@@ -585,6 +594,7 @@ declare module "script/ui" {
         const showFps: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
         const brightnessRange: Library.Control.Range;
+        const stretchRange: Library.Control.Range;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
         const introductionPanel: HTMLDivElement;
@@ -605,8 +615,10 @@ declare module "script/features/clock" {
     export namespace Clock {
         const makeDate: (local: string | undefined) => string;
         const makeTime: (local: string | undefined) => string;
-        const update: (local: string | undefined) => void;
+        const updateText: (local: string | undefined) => void;
         const setColor: (color: string | undefined) => void;
+        let cloclLocale: string | undefined;
+        const update: (now: number) => void;
     }
 }
 declare module "script/features/media" {
@@ -644,6 +656,10 @@ declare module "script/features/media" {
 }
 declare module "script/features/player" {
     export namespace Player {
+        const play: () => void;
+        const pause: () => void;
+        const updateFps: () => void;
+        const loop: (now: number) => void;
     }
 }
 declare module "script/features/index" {
@@ -669,6 +685,7 @@ declare module "script/url" {
 }
 declare module "script/events" {
     export namespace Events {
+        const mousemove: () => void;
         const initialize: () => void;
     }
 }

@@ -27,6 +27,7 @@
     "show-fps-label": "Show FPS:",
     "clock-label": "Clock:",
     "brightness-label": "Brightness:",
+    "stretch-label": "Stretch:",
     "hide": "Hide",
     "blend": "Blend",
     "white": "White",
@@ -55,6 +56,7 @@
     "FullScreen": "FullScreen",
     "Show FPS": "Show FPS",
     "Switch Clock": "Switch Clock",
+    "no-media-message": "No media available. Please add media.",
     "noscript-message": "JavaScript is disabled. Please enable JavaScript.",
     "noscript-introduction-title": "Introduction",
     "noscript-introduction-description": "Kaleidoscope Web Screensaver is a web-based screensaver that displays kaleidoscope-like animations. Users can customize patterns and colors to create simple yet visually engaging effects reminiscent of a kaleidoscope. It works on various devices, including PCs, smartphones, and tablets, and supports fullscreen mode.\n\nBy increasing the number of layers, users can create even more beautiful and intricate visuals. However, please note that higher layer counts may also increase the computational load, which could affect performance on less powerful devices.\n\nYou can display a clock on the screen with various styles and options, making it useful as a clock screensaver.\n\nIn addition, Kaleidoscope Web Screensaver　also includes a benchmark feature that measures the overall performance of your device and web browser together."

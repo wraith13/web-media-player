@@ -198,6 +198,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
             "brightness-label": "Brightness:",
+            "stretch-label": "Stretch:",
             "hide": "Hide",
             "blend": "Blend",
             "white": "White",
@@ -226,6 +227,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "FullScreen": "FullScreen",
             "Show FPS": "Show FPS",
             "Switch Clock": "Switch Clock",
+            "no-media-message": "No media available. Please add media.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript.",
             "noscript-introduction-title": "Introduction",
             "noscript-introduction-description": "Kaleidoscope Web Screensaver is a web-based screensaver that displays kaleidoscope-like animations. Users can customize patterns and colors to create simple yet visually engaging effects reminiscent of a kaleidoscope. It works on various devices, including PCs, smartphones, and tablets, and supports fullscreen mode.\n\nBy increasing the number of layers, users can create even more beautiful and intricate visuals. However, please note that higher layer counts may also increase the computational load, which could affect performance on less powerful devices.\n\nYou can display a clock on the screen with various styles and options, making it useful as a clock screensaver.\n\nIn addition, Kaleidoscope Web Screensaver　also includes a benchmark feature that measures the overall performance of your device and web browser together."
@@ -259,6 +261,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
             "brightness-label": "明るさ:",
+            "stretch-label": "ストレッチ:",
             "hide": "非表示",
             "blend": "ブレンド",
             "white": "ホワイト",
@@ -287,6 +290,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "FullScreen": "フルスクリーン",
             "Show FPS": "FPS 表示",
             "Switch Clock": "時計切り替え",
+            "no-media-message": "メディアがありません。メディアを追加してください。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。",
             "noscript-introduction-title": "ご紹介",
             "noscript-introduction-description": "Kaleidoscope Web Screensaver は、万華鏡のようなアニメーションを表示するウェブベースのスクリーンセーバーです。ユーザーはパターンや色をカスタマイズでき、シンプルながらも視覚的に魅力的な万華鏡風の効果を楽しめます。PC、スマートフォン、タブレットなど様々なデバイスで動作し、フルスクリーンモードにも対応しています。\n\nレイヤー数を増やすことで、さらに美しく複雑なビジュアルを作り出すことができます。ただし、レイヤー数が多いほど計算負荷も高くなるため、性能の低いデバイスでは動作が重くなる場合があります。\n\n画面上に様々なスタイルやオプションで時計を表示できるため、時計付きスクリーンセーバーとしても利用できます。\n\nさらに、Kaleidoscope Web Screensaver には、お使いのデバイスとウェブブラウザの総合的なパフォーマンスを計測できるベンチマーク機能も搭載されています。"
@@ -853,6 +857,12 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
                     (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
                 });
+                this.dom.addEventListener("input", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 Range.Input:", value: _this.get() });
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), "".concat(_this.get()));
+                });
             }
             return Range;
         }());
@@ -1256,6 +1266,13 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "stretch": {
+        "id": "stretch",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
     "language": {
         "id": "language",
         "enum": [
@@ -1280,6 +1297,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
         UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
+        UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
@@ -1297,6 +1315,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.showFps = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
+        UI.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -1351,7 +1370,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/clock", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, library_1, ui_2, config_json_2) {
+define("script/features/clock", ["require", "exports", "phi-colors", "script/library/index", "script/tools/index", "script/ui", "resource/config"], function (require, exports, phi_colors_1, library_1, _tools_3, ui_2, config_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Clock = void 0;
@@ -1364,13 +1383,43 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         Clock.makeTime = function (local) {
             return new Date().toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
-        Clock.update = function (local) {
+        Clock.updateText = function (local) {
             library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.makeDate(local));
             library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.makeTime(local));
         };
         Clock.setColor = function (color) {
             library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
             library_1.Library.UI.setStyle(ui_2.UI.time, "color", color);
+        };
+        Clock.cloclLocale = undefined;
+        var regulateH = function (h) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslHMin, phi_colors_1.phiColors.HslHMax)(h); };
+        var regulateS = function (s) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslSMin, phi_colors_1.phiColors.HslSMax)(s); };
+        var regulateL = function (l) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslLMin, phi_colors_1.phiColors.HslLMax)(l); };
+        var RgbHueUnit = 1 / 3;
+        var makeRgb = function (step) { return phi_colors_1.phiColors.clipRgb(phi_colors_1.phiColors.hslToRgb({
+            h: regulateH(((RgbHueUnit * step)) % 1),
+            s: regulateS(config_json_2.default.colors.phiColors.saturation),
+            l: regulateL(config_json_2.default.colors.phiColors.lightness),
+        })); };
+        Clock.update = function (now) {
+            var clockOption = ui_2.UI.clockSelect.get();
+            if ("hide" !== clockOption) {
+                Clock.updateText(Clock.cloclLocale);
+                switch (clockOption) {
+                    case "alternate":
+                        var isWhite = (new Date().getTime() / config_json_2.default.clock.alternate.span) % 2 < 1.0;
+                        ui_2.UI.clockDisplay.classList.toggle("white", isWhite);
+                        ui_2.UI.clockDisplay.classList.toggle("black", !isWhite);
+                        Clock.setColor(undefined);
+                        break;
+                    case "rainbow":
+                        Clock.setColor(phi_colors_1.phiColors.rgbForStyle(makeRgb((now / 7500) / phi_colors_1.phiColors.phi)));
+                        break;
+                    default:
+                        Clock.setColor(undefined);
+                        break;
+                }
+            }
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
@@ -1519,7 +1568,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         _b = (_a = ui_3.UI.mediaList).insertBefore;
                         return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 3:
-                        _b.apply(_a, [_d.sent(), ui_3.UI.addMediaButton.dom]);
+                        _b.apply(_a, [_d.sent(), ui_3.UI.addMediaButton.dom.parentElement]);
                         console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
                         return [3 /*break*/, 5];
                     case 4:
@@ -1692,7 +1741,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                 switch (_c.label) {
                     case 0:
                         Array.from(ui_3.UI.mediaList.children).forEach(function (child) {
-                            if (child instanceof HTMLDivElement && ui_3.UI.addMediaButton.dom !== child) {
+                            if (child instanceof HTMLDivElement && !child.classList.contains("add")) {
                                 child.remove();
                             }
                             ;
@@ -1705,7 +1754,7 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
                         _b = (_a = ui_3.UI.mediaList).insertBefore;
                         return [4 /*yield*/, Media.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_3.UI.addMediaButton.dom]);
+                        _b.apply(_a, [_c.sent(), ui_3.UI.addMediaButton.dom.parentElement]);
                         _c.label = 3;
                     case 3:
                         _i++;
@@ -1725,22 +1774,57 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
         };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/player", ["require", "exports"], function (require, exports) {
+define("script/features/player", ["require", "exports", "script/features/fps", "script/features/clock", "script/library/index", "script/ui"], function (require, exports, fps_1, clock_1, _library_4, ui_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Player = void 0;
+    var Player;
+    (function (Player) {
+        var loopHandle = null;
+        Player.play = function () {
+            if (null !== loopHandle) {
+                window.cancelAnimationFrame(loopHandle);
+            }
+            loopHandle = window.requestAnimationFrame(Player.loop);
+        };
+        Player.pause = function () {
+            if (null !== loopHandle) {
+                window.cancelAnimationFrame(loopHandle);
+            }
+            ui_4.UI.clockDisplay.style.removeProperty("opacity");
+        };
+        Player.updateFps = function () {
+            if (ui_4.UI.showFps.get()) {
+                _library_4.Library.UI.setTextContent(ui_4.UI.fpsDisplay, fps_1.Fps.getText());
+            }
+        };
+        Player.loop = function (now) {
+            if (document.body.classList.contains("play")) {
+                clock_1.Clock.update(now);
+                fps_1.Fps.step(now);
+                Player.updateFps();
+                loopHandle = window.requestAnimationFrame(Player.loop);
+            }
+            else {
+                loopHandle = null;
+            }
+        };
+    })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
     ImportedClock = __importStar(ImportedClock);
     ImportedMedia = __importStar(ImportedMedia);
+    ImportedPlayer = __importStar(ImportedPlayer);
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
         Features.Clock = ImportedClock.Clock;
         Features.Media = ImportedMedia.Media;
+        Features.Player = ImportedPlayer.Player;
     })(Features || (exports.Features = Features = {}));
 });
 define("resource/evil-commonjs.config", [], {
@@ -1792,7 +1876,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_4, _features_1, ui_4, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_5, _features_1, ui_5, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -1802,13 +1886,13 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
     (function (Events) {
         var _this = this;
         var updateShowFps = function () {
-            ui_4.UI.fpsDisplay.classList.toggle("hide", !ui_4.UI.showFps.get());
+            ui_5.UI.fpsDisplay.classList.toggle("hide", !ui_5.UI.showFps.get());
         };
         var updateClock = function () {
-            control_json_2.default.clock.enum.forEach(function (i) { return ui_4.UI.clockDisplay.classList.toggle(i, i === ui_4.UI.clockSelect.get()); });
+            control_json_2.default.clock.enum.forEach(function (i) { return ui_5.UI.clockDisplay.classList.toggle(i, i === ui_5.UI.clockSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_4.UI.urlAnchor.href = url_1.Url.make(params);
+            return ui_5.UI.urlAnchor.href = url_1.Url.make(params);
         };
         var dragover = function (event) {
             var _a;
@@ -1818,7 +1902,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_4.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_5.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -1840,8 +1924,12 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 return [2 /*return*/];
             });
         }); };
+        var mouseMoveTimer = new _library_5.Library.UI.ToggleClassForWhileTimer();
+        Events.mousemove = function () {
+            return mouseMoveTimer.start(document.body, "mousemove", 3000);
+        };
         Events.initialize = function () {
-            var _a;
+            var _a, _b, _c, _d;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
@@ -1852,124 +1940,151 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 url_1.Url.addParameter(url_1.Url.params, key, value);
                 updateUrlAnchor(url_1.Url.params);
             };
-            ui_4.UI.playButton.data.click = function (event, button) {
+            var noMediaTimer = new _library_5.Library.UI.ToggleClassForWhileTimer();
+            ui_5.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
+                if (document.body.classList.contains("list") && _features_1.Features.Media.mediaList.length <= 0) {
+                    noMediaTimer.start(document.body, "no-media", 5000);
+                }
                 document.body.classList.toggle("list");
                 document.body.classList.toggle("play");
-                //Controller.toggleAnimation();
+                if (document.body.classList.contains("play")) {
+                    _features_1.Features.Player.play();
+                }
+                else {
+                    _features_1.Features.Player.pause();
+                }
             };
-            ui_4.UI.shuffleButton.data.click = function (event, button) {
+            ui_5.UI.shuffleButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_4.UI.shuffleButton.dom.classList.toggle("on");
+                ui_5.UI.shuffleButton.dom.classList.toggle("on");
             };
-            ui_4.UI.repeatButton.data.click = function (event, button) {
+            ui_5.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_4.UI.repeatButton.dom.classList.toggle("on");
+                ui_5.UI.repeatButton.dom.classList.toggle("on");
             };
-            ui_4.UI.volumeButton.data.click = function (event, button) {
+            ui_5.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_4.UI.volumeButton.dom.classList.toggle("on");
-                ui_4.UI.settingButton.dom.classList.toggle("on", false);
+                ui_5.UI.volumeButton.dom.classList.toggle("on");
+                ui_5.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_a = ui_4.UI.volumeRange).options || (_a.options = {});
-            ui_4.UI.volumeRange.options.change = function (event, range) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
+            (_a = ui_5.UI.volumeRange).options || (_a.options = {});
+            ui_5.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
-                ui_4.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                ui_4.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_4.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_4.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_4.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                ui_5.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_5.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_5.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_5.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_5.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
                 //Features.Media.setVolume(value);
+                Events.mousemove();
             };
-            ui_4.UI.volumeRange.dom.addEventListener("input", function (event) {
-                event.stopPropagation();
-                ui_4.UI.volumeRange.fire();
-            });
-            ui_4.UI.settingButton.data.click = function (event, button) {
+            ui_5.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_4.UI.settingButton.dom.classList.toggle("on");
-                ui_4.UI.volumeButton.dom.classList.toggle("on", false);
+                ui_5.UI.settingButton.dom.classList.toggle("on");
+                ui_5.UI.volumeButton.dom.classList.toggle("on", false);
             };
-            ui_4.UI.addMediaButton.data.click = function (event, button) {
+            ui_5.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_4.UI.inputFile.click();
+                ui_5.UI.inputFile.click();
             };
-            ui_4.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+            ui_5.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
-                    files = ui_4.UI.inputFile.files;
+                    files = ui_5.UI.inputFile.files;
                     for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File selected:", file);
                         _features_1.Features.Media.addMediaSerial(file);
                     }
-                    ui_4.UI.inputFile.value = "";
+                    ui_5.UI.inputFile.value = "";
                     return [2 /*return*/];
                 });
             }); });
-            ui_4.UI.introductionPanel.addEventListener("click", function (event) {
+            (_b = ui_5.UI.imageSpanSelect).options || (_b.options = {});
+            ui_5.UI.imageSpanSelect.options.change = function (_event, select) {
+                var value = select.get();
+                console.log("⏱️ Image span changed:", value);
+                _features_1.Features.Media.updateInformationDisplay();
+            };
+            ui_5.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
-                ui_4.UI.introductionPanel.classList.toggle("force-show", false);
+                ui_5.UI.introductionPanel.classList.toggle("force-show", false);
             });
-            ui_4.UI.introductionPanel.classList.toggle("force-show", true);
-            setTimeout(function () { return ui_4.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            ui_4.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
-            ui_4.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
-            ui_4.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_4.UI.updateLanguage);
-            var mouseMoveTimer = new _library_4.Library.UI.ToggleClassForWhileTimer();
-            ui_4.UI.screenBody.addEventListener("mousemove", function (_event) {
-                if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
-                    console.log("🖱️ MouseMove:", event, ui_4.UI.screenBody);
+            ui_5.UI.introductionPanel.classList.toggle("force-show", true);
+            setTimeout(function () { return ui_5.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            (_c = ui_5.UI.brightnessRange).options || (_c.options = {});
+            ui_5.UI.brightnessRange.options.change = function (_event, range) {
+                var value = range.get();
+                console.log("💡 Brightness changed:", value);
+                _library_5.Library.UI.setStyle(ui_5.UI.mediaScreen, "opacity", "".concat(value / 100));
+                if (document.body.classList.contains("play")) {
+                    _library_5.Library.UI.setStyle(ui_5.UI.clockDisplay, "opacity", "".concat(value / 100));
                 }
-                mouseMoveTimer.start(document.body, "mousemove", 3000);
+                Events.mousemove();
+            };
+            (_d = ui_5.UI.stretchRange).options || (_d.options = {});
+            ui_5.UI.stretchRange.options.change = function (_event, range) {
+                var value = range.get();
+                console.log("📏 Stretch changed:", value);
+                //Features.Media.setStretch(value / 100);
+                Events.mousemove();
+            };
+            ui_5.UI.showFps.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
+            ui_5.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
+            ui_5.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.updateLanguage);
+            document.body.addEventListener("mousemove", function (event) {
+                if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
+                    console.log("🖱️ MouseMove:", event, ui_5.UI.screenBody);
+                }
+                Events.mousemove();
             });
-            _library_4.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
-                .forEach(function (label) { return _library_4.Library.UI.showPickerOnLabel(label); });
+            _library_5.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
+                .forEach(function (label) { return _library_5.Library.UI.showPickerOnLabel(label); });
             [
-                ui_4.UI.volumeRange,
+                ui_5.UI.volumeRange,
                 // UI.withFullscreen,
-                ui_4.UI.showFps,
+                ui_5.UI.showFps,
             ].forEach(function (i) { return i.fire(); });
             document.addEventListener("visibilitychange", function () {
                 console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
                 _features_1.Features.Fps.reset();
             });
             updateClock();
-            ui_4.UI.updateLanguage();
+            ui_5.UI.updateLanguage();
             updateUrlAnchor(url_1.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_4.UI.withFullscreen,
-                        ui_4.UI.showFps,
-                        ui_4.UI.clockSelect,
-                        ui_4.UI.brightnessRange,
-                        ui_4.UI.languageSelect,
+                        ui_5.UI.withFullscreen,
+                        ui_5.UI.showFps,
+                        ui_5.UI.clockSelect,
+                        ui_5.UI.brightnessRange,
+                        ui_5.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
-                var old = _library_4.Library.Locale.getLocale();
-                _library_4.Library.Locale.setLocale(ui_4.UI.languageSelect.get());
-                if (old !== _library_4.Library.Locale.getLocale()) {
-                    ui_4.UI.updateLanguage();
+                var old = _library_5.Library.Locale.getLocale();
+                _library_5.Library.Locale.setLocale(ui_5.UI.languageSelect.get());
+                if (old !== _library_5.Library.Locale.getLocale()) {
+                    ui_5.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_3, _library_5, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_5, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_4, _library_6, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_6, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -1979,10 +2094,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
     url_2.Url.initialize();
-    ui_5.UI.initialize();
+    ui_6.UI.initialize();
     events_1.Events.initialize();
     _features_2.Features.Media.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_3.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_5.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_4.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_6.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -1990,15 +2105,15 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_5.Library.Locale.master,
+        locale: _library_6.Library.Locale.master,
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_3.Tools,
-        Library: _library_5.Library,
+        Tools: _tools_4.Tools,
+        Library: _library_6.Library,
         Features: _features_2.Features,
         Url: url_2.Url,
-        UI: ui_5.UI,
+        UI: ui_6.UI,
         Events: events_1.Events,
         Resource: Resource
     };

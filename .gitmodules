@@ -7,3 +7,6 @@
 [submodule "evil-timer.js"]
 	path = evil-timer.js
 	url = https://github.com/wraith13/evil-timer.js
+[submodule "phi-colors"]
+	path = phi-colors
+	url = https://github.com/wraith13/phi-colors

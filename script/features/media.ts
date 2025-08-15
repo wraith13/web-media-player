@@ -167,7 +167,7 @@ export namespace Media
             };
             mediaList.push(entry);
             updateInformationDisplay();
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
             console.log("📂 Media added:", mediaList[mediaList.length - 1]);
         }
         else
@@ -314,7 +314,7 @@ export namespace Media
         (
             child =>
             {
-                if (child instanceof HTMLDivElement && UI.addMediaButton.dom !== child)
+                if (child instanceof HTMLDivElement && ! child.classList.contains("add"))
                 {
                     child.remove();
                 };
@@ -322,7 +322,7 @@ export namespace Media
         );
         for (const entry of mediaList)
         {
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
         }
     };
     export const updateInformationDisplay = (): void =>

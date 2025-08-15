@@ -42,7 +42,8 @@
             "@features/*": [ "./features/*" ],
             "@controller": [ "./controller" ],
             "@controller/*": [ "./controller/*" ],
-            "@script/*": [ "../script/*" ]
+            "@script/*": [ "../script/*" ],
+            "phi-colors": [ "../phi-colors/library/source" ]
         }
     },
     "files": [

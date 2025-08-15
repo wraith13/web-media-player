@@ -10,6 +10,8 @@ export namespace UI
         Library.UI.getElementById("div", "noscript");
     export const screenBody =
         Library.UI.getElementById("div", "screen-body");
+    export const mediaScreen =
+        Library.UI.getElementById("div", "media-screen");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
     export const shuffleButton =
@@ -44,6 +46,8 @@ export namespace UI
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const brightnessRange =
         new Library.Control.Range(control.brightness);
+    export const stretchRange =
+        new Library.Control.Range(control.stretch);
     export const languageSelect =
         new Library.Control.Select
         (

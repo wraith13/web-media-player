@@ -310,6 +310,16 @@ export namespace Control
                     this.saveParameter?.(this.getId() as string, `${this.get()}`);
                 }
             );
+            this.dom.addEventListener
+            (
+                "input",
+                event =>
+                {
+                    eventLog({ control: this, event, message: "👆 Range.Input:", value: this.get() });
+                    this.options?.change?.(event, this);
+                    this.saveParameter?.(this.getId() as string, `${this.get()}`);
+                }
+            );
         }
         catchUpRestore = (params?: Record<string, string>) =>
         {

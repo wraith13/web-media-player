@@ -37,12 +37,6 @@ DUMMYSTYLE
 </style>
 </head>
 <body>
-<h1 id="screen-header">
-    <a class="segment" href="https://github.com/"><span>GitHub</span></a>
-    <a class="segment" href="https://github.com/wraith13"><span>wraith13</span></a>
-    <a class="segment" href="https://wraith13.github.io/"><span>wraith13.github.io</span></a>
-    <a class="segment" href="__REPOSITORY_URL__"><span>__APPLICATION_TITLE__</span></a>
-</h1>
 <div id="noscript">
     <div class="panel">
         <noscript class="section">
@@ -58,11 +52,14 @@ DUMMYSTYLE
     <div id="media-screen">
     </div>
     <div id="media-list">
-        <div class="item add" id="add-media">
-            __ADD_ICON__
-            <input id="add-file" type="file" accept="image/*,audio/*,video/*" multiple>
+        <div class="item add">
+            <div id="add-media">__ADD_ICON__</div>
+            <input id="add-file" type="file" accept="image/*,audio/*,video/*" multiple />
         </div>
     </div>
+</div>
+<div id="no-media-panel">
+    <span data-lang-key="no-media-message"></span>
 </div>
 <div id="option-panel">
 </div>
@@ -139,7 +136,7 @@ DUMMYSTYLE
             <span class="load-status" id="brightness-load-status"></span>
         </label>
         <label for="stretch">
-            <span data-lang-key-x="stretch-label">ストレッチ:</span>
+            <span data-lang-key="stretch-label"></span>
             <input id="stretch" type="range" />
         </label>
         <label for="language">
@@ -182,6 +179,9 @@ const evilTimerConfig = // "./resource/evil-timer.js.config.json"
 __EVIL_TIMER_CONFIG__;
 __EVIL_COMMONJS__
 __EVIL_TIMER__
+module.readyToCapture("https://wraith13.github.io/phi-colors/library/source/index.js");
+__PHI_COLORS__
+module.capture("https://wraith13.github.io/phi-colors/library/source/index.js", ["phi-colors"]);
 __SCRIPT__
 </script>
 </html>

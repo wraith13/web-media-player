@@ -73,6 +73,13 @@
         "step": 1,
         "default": 100
     },
+    "stretch": {
+        "id": "stretch",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
     "language": {
         "id": "language",
         "enum": [
