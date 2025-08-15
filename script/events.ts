@@ -153,6 +153,17 @@ export namespace Events
             console.log("⏱️ Image span changed:", value);
             Features.Media.updateInformationDisplay();
         };
+        UI.withFullscreen.options ||= { }
+        UI.withFullscreen.options.change = (_event, _checkbox) =>
+        {
+            if (document.body.classList.contains("play"))
+            {
+                if (Library.UI.fullscreenEnabled)
+                {
+                    Features.Player.updateFullscreenState();
+                }
+            }
+        };
         UI.introductionPanel.addEventListener
         (
             "click",

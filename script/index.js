@@ -1781,7 +1781,19 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
     var Player;
     (function (Player) {
         var loopHandle = null;
+        Player.updateFullscreenState = function (fullscreen) {
+            if (_library_4.Library.UI.fullscreenEnabled) {
+                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_4.UI.withFullscreen.get()) {
+                    _library_4.Library.UI.requestFullscreen(document.body);
+                    setTimeout(function () { return document.body.focus(); }, 100);
+                }
+                else {
+                    _library_4.Library.UI.exitFullscreen();
+                }
+            }
+        };
         Player.play = function () {
+            Player.updateFullscreenState();
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
             }
@@ -1792,6 +1804,7 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
                 window.cancelAnimationFrame(loopHandle);
             }
             ui_4.UI.clockDisplay.style.removeProperty("opacity");
+            Player.updateFullscreenState(false);
         };
         Player.updateFps = function () {
             if (ui_4.UI.showFps.get()) {
@@ -1929,7 +1942,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             return mouseMoveTimer.start(document.body, "mousemove", 3000);
         };
         Events.initialize = function () {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             document.body.addEventListener("dragover", dragover);
@@ -2014,13 +2027,21 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 console.log("⏱️ Image span changed:", value);
                 _features_1.Features.Media.updateInformationDisplay();
             };
+            (_c = ui_5.UI.withFullscreen).options || (_c.options = {});
+            ui_5.UI.withFullscreen.options.change = function (_event, _checkbox) {
+                if (document.body.classList.contains("play")) {
+                    if (_library_5.Library.UI.fullscreenEnabled) {
+                        _features_1.Features.Player.updateFullscreenState();
+                    }
+                }
+            };
             ui_5.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
                 ui_5.UI.introductionPanel.classList.toggle("force-show", false);
             });
             ui_5.UI.introductionPanel.classList.toggle("force-show", true);
             setTimeout(function () { return ui_5.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            (_c = ui_5.UI.brightnessRange).options || (_c.options = {});
+            (_d = ui_5.UI.brightnessRange).options || (_d.options = {});
             ui_5.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
@@ -2030,7 +2051,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 }
                 Events.mousemove();
             };
-            (_d = ui_5.UI.stretchRange).options || (_d.options = {});
+            (_e = ui_5.UI.stretchRange).options || (_e.options = {});
             ui_5.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);

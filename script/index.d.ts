@@ -656,6 +656,7 @@ declare module "script/features/media" {
 }
 declare module "script/features/player" {
     export namespace Player {
+        const updateFullscreenState: (fullscreen?: boolean) => void;
         const play: () => void;
         const pause: () => void;
         const updateFps: () => void;

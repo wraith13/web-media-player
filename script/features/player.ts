@@ -5,8 +5,24 @@ import { UI } from "../ui";
 export namespace Player
 {
     let loopHandle: number | null = null;
+    export const updateFullscreenState = (fullscreen?: boolean) =>
+    {
+        if (Library.UI.fullscreenEnabled)
+        {
+            if (fullscreen ?? UI.withFullscreen.get())
+            {
+                Library.UI.requestFullscreen(document.body);
+                setTimeout(() => document.body.focus(), 100);
+            }
+            else
+            {
+                Library.UI.exitFullscreen();
+            }
+        }
+    };
     export const play = () =>
     {
+        updateFullscreenState();
         if (null !== loopHandle)
         {
             window.cancelAnimationFrame(loopHandle);
@@ -20,6 +36,7 @@ export namespace Player
             window.cancelAnimationFrame(loopHandle);
         }
         UI.clockDisplay.style.removeProperty("opacity");
+        updateFullscreenState(false);
     };
     export const updateFps = () =>
     {
