@@ -53,7 +53,21 @@ export namespace Events
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
         mouseMoveTimer.start(document.body, "mousemove", 3000);
-
+    export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
+    {
+        const value = params[button.getId() as string];
+        if (undefined !== value)
+        {
+            if (value)
+            {
+                button.dom.classList.add("on");
+            }
+            else
+            {
+                button.dom.classList.remove("on");
+            }
+        }
+    };
     export const initialize = () =>
     {
         window.addEventListener("dragover", event => event.preventDefault());
@@ -101,12 +115,14 @@ export namespace Events
             event?.stopPropagation();
             button.dom.blur();
             UI.shuffleButton.dom.classList.toggle("on");
+            applyParam(UI.shuffleButton.getId() as string, `${UI.shuffleButton.dom.classList.contains("on")}`);
         };
         UI.repeatButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             UI.repeatButton.dom.classList.toggle("on");
+            applyParam(UI.repeatButton.getId() as string, `${UI.repeatButton.dom.classList.contains("on")}`);
         };
         UI.volumeButton.data.click = (event, button) =>
         {
@@ -200,16 +216,24 @@ export namespace Events
             }
             mousemove();
         };
-        UI.minVisibleRateRange.options ||= { }
-        UI.minVisibleRateRange.options.change = (_event, range) =>
+        UI.stretchRange.options ||= { }
+        UI.stretchRange.options.change = (_event, range) =>
         {
             const value = range.get();
             console.log("📏 Stretch changed:", value);
             //Features.Media.setStretch(value / 100);
             mousemove();
         };
+        UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
+        UI.transitionCheckbox.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
+        UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
+        UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
+        UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);
+        UI.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.stretchRange.options.change);
+        UI.paddingCheckbox.loadParameter(Url.params, applyParam);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
         document.body.addEventListener
         (

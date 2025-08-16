@@ -45,6 +45,7 @@ declare module "locale/generated/master" {
             "layers-label": string;
             "spots-layers-label": string;
             "image-span-label": string;
+            "loop-short-media-label": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -52,7 +53,8 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
-            "min-visible-rate-label": string;
+            "stretch-label": string;
+            "padding-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -104,6 +106,7 @@ declare module "locale/generated/master" {
             "layers-label": string;
             "spots-layers-label": string;
             "image-span-label": string;
+            "loop-short-media-label": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -111,7 +114,8 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
-            "min-visible-rate-label": string;
+            "stretch-label": string;
+            "padding-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -168,6 +172,7 @@ declare module "script/library/locale" {
                 "layers-label": string;
                 "spots-layers-label": string;
                 "image-span-label": string;
+                "loop-short-media-label": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -175,7 +180,8 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
-                "min-visible-rate-label": string;
+                "stretch-label": string;
+                "padding-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -227,6 +233,7 @@ declare module "script/library/locale" {
                 "layers-label": string;
                 "spots-layers-label": string;
                 "image-span-label": string;
+                "loop-short-media-label": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -234,7 +241,8 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
-                "min-visible-rate-label": string;
+                "stretch-label": string;
+                "padding-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -357,6 +365,7 @@ declare module "script/library/control" {
             data: ButtonArguments<T>;
             dom: T;
             constructor(data: ButtonArguments<T>);
+            getId: () => string | undefined;
             setClick: (click: (event: Event | null, select: Button<T>) => unknown) => (event: Event | null, select: Button<T>) => unknown;
             fire: () => unknown;
         }
@@ -578,11 +587,13 @@ declare module "script/ui" {
         const mediaLength: HTMLSpanElement;
         const transitionCheckbox: Library.Control.Checkbox;
         const imageSpanSelect: Library.Control.Select<number>;
+        const loopShortMediaCheckbox: Library.Control.Checkbox;
         const withFullscreenCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
         const brightnessRange: Library.Control.Range;
-        const minVisibleRateRange: Library.Control.Range;
+        const stretchRange: Library.Control.Range;
+        const paddingCheckbox: Library.Control.Checkbox;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
         const introductionPanel: HTMLDivElement;
@@ -648,22 +659,37 @@ declare module "script/features/media" {
         const initialize: () => void;
     }
 }
+declare module "script/features/visualizer" {
+    import { Media } from "script/features/media";
+    export namespace Visualizer {
+        type VisualizerDom = HTMLDivElement;
+        const make: (media: Media.Entry) => VisualizerDom;
+        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom) => void;
+    }
+}
 declare module "script/features/player" {
     import { Media } from "script/features/media";
+    import { Visualizer } from "script/features/visualizer";
     export namespace Player {
         class TransitionSession {
         }
-        class PlaySession {
-            playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
-            visualDom: HTMLImageElement | HTMLDivElement | HTMLVideoElement;
+        class Track {
+            playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+            visualDom: HTMLImageElement | Visualizer.VisualizerDom | HTMLVideoElement | null;
             media: Media.Entry;
-            startTime: number;
-            endTime: number;
-            elapsedTime: number;
-            constructor(playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement, media: Media.Entry, startTime: number, endTime: number);
+            startTime: number | null;
+            elapsedTime: number | null;
+            constructor(media: Media.Entry);
+            play(): void;
             pause(): void;
-            resume(): void;
-            setMinVisibleRate(minVisibleRate: number): void;
+            setPositionState(): void;
+            step(): void;
+            isLoop(): boolean;
+            getDuration(): number;
+            getEndTime(): number;
+            getElapsedTime(): number;
+            getRemainingTime(): number;
+            updateMinVisibleRate(): void;
             setVolume(volume: number): void;
             transitionStep(rate: number): void;
         }
@@ -681,11 +707,13 @@ declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
     import * as ImportedMedia from "script/features/media";
+    import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
         export import Media = ImportedMedia.Media;
+        export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
     }
 }
@@ -699,8 +727,10 @@ declare module "script/url" {
     }
 }
 declare module "script/events" {
+    import { Library } from "script/library/index";
     export namespace Events {
         const mousemove: () => void;
+        const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const initialize: () => void;
     }
 }

@@ -71,6 +71,7 @@ export namespace Control
                 }
             );
         }
+        getId = () => getDomId(this.data);
         setClick = (click: (event: Event | null, select: Button<T>) => unknown) =>
             this.data.click = click;
         fire = () => this.data.click?.(null, this);

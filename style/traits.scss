@@ -184,50 +184,90 @@
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
-@keyframes scale-bounce
+@keyframes drop-shadow-bounce
 {
     0%
     {
-        transform: scale(1);
+        filter: drop-shadow($white-color 0px 0px 0.0rem);
+    }
+    5%
+    {
+        filter: drop-shadow($white-color 0px 0px 0.2rem);
     }
     10%
     {
-        transform: scale(1.02);
+        filter: drop-shadow($white-color 0px 0px 0.4rem);
+    }
+    15%
+    {
+        filter: drop-shadow($white-color 0px 0px 0.6rem);
     }
     20%
     {
-        transform: scale(1.04);
+        filter: drop-shadow($white-color 0px 0px 0.8rem);
+    }
+    25%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.0rem);
     }
     30%
     {
-        transform: scale(1.06);
+        filter: drop-shadow($white-color 0px 0px 1.2rem);
+    }
+    35%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.4rem);
     }
     40%
     {
-        transform: scale(1.08);
+        filter: drop-shadow($white-color 0px 0px 1.6rem);
+    }
+    45%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.8rem);
     }
     50%
     {
-        transform: scale(1.10);
+        filter: drop-shadow($white-color 0px 0px 2.0rem);
+    }
+    55%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.8rem);
     }
     60%
     {
-        transform: scale(1.08);
+        filter: drop-shadow($white-color 0px 0px 1.6rem);
+    }
+    65%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.4rem);
     }
     70%
     {
-        transform: scale(1.06);
+        filter: drop-shadow($white-color 0px 0px 1.2rem);
+    }
+    75%
+    {
+        filter: drop-shadow($white-color 0px 0px 1.0rem);
     }
     80%
     {
-        transform: scale(1.04);
+        filter: drop-shadow($white-color 0px 0px 0.8rem);
+    }
+    85%
+    {
+        filter: drop-shadow($white-color 0px 0px 0.6rem);
     }
     90%
     {
-        transform: scale(1.02);
+        filter: drop-shadow($white-color 0px 0px 0.4rem);
+    }
+    95%
+    {
+        filter: drop-shadow($white-color 0px 0px 0.2rem);
     }
     100%
     {
-        transform: scale(1);
+        filter: drop-shadow($white-color 0px 0px 0.0rem);
     }
 }

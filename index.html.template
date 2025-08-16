@@ -115,6 +115,10 @@ DUMMYSTYLE
             <span data-lang-key="image-span-label"></span>
             <select id="image-span"></select>
         </label>
+        <label for="loop-short-media">
+            <span data-lang-key="loop-short-media-label"></span>
+            <input id="loop-short-media" type="checkbox" />
+        </label>
         <label for="with-fullscreen">
             <span data-lang-key="with-fullscreen-label"></span>
             <input id="with-fullscreen" type="checkbox" />
@@ -135,9 +139,13 @@ DUMMYSTYLE
             <input id="brightness" type="range" />
             <span class="load-status" id="brightness-load-status"></span>
         </label>
-        <label for="min-visible-rate">
-            <span data-lang-key="min-visible-rate-label"></span>
-            <input id="min-visible-rate" type="range" />
+        <label for="stretch">
+            <span data-lang-key="stretch-label"></span>
+            <input id="stretch" type="range" />
+        </label>
+        <label for="padding">
+            <span data-lang-key="padding-label"></span>
+            <input id="padding" type="checkbox" />
         </label>
         <label for="language">
             <span data-lang-key="language-label"></span>

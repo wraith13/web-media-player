@@ -280,7 +280,7 @@ export namespace Media
                 { tag: "span", className: "name", text: entry.name, },
                 { tag: "span", className: "type", text: entry.category, },
                 { tag: "span", className: "size", text: Tools.Byte.toDisplayString(entry.size, 3), },
-                { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration) : "", },
+                { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration): "", },
                 await removeButton(entry),
             ]
         }) as HTMLDivElement;

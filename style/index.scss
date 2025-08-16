@@ -21,12 +21,13 @@
         @include fade-transition("body.list");
         @include solid-box();
         position: absolute;
-        .layer
+        overflow: visible;
+        .player:not(audio), .visualizer
         {
-            @include full-stretch-box();
-            position: absolute;
-            // mix-blend-mode: difference;
-            // will-change: mix-blend-mode, background-color, background-image, background-position, background-size;
+            position: fixed;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            transform: translate(-50%, -50%);
         }
     }
     #media-list
@@ -223,7 +224,7 @@
                 overflow: visible;
                 &:first-child #add-media
                 {
-                    animation: scale-bounce 1.5s infinite ease-in-out;
+                    animation: drop-shadow-bounce 3.5s infinite ease-in-out;
                 }
                 #add-media
                 {

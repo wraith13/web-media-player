@@ -187,6 +187,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "layers-label": "Layers:",
             "spots-layers-label": "Layers(Spots):",
             "image-span-label": "Image Display Time:",
+            "loop-short-media-label": "Loop Short Media:",
             "fuse-fps-label": "Fuse FPS:",
             "frame-delay-label": "Frame Delay:",
             "easing-label": "Easing:",
@@ -194,7 +195,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
             "brightness-label": "Brightness:",
-            "min-visible-rate-label": "Minimum Visible Rate:",
+            "stretch-label": "Stretch:",
+            "padding-label": "Padding:",
             "hide": "Hide",
             "blend": "Blend",
             "white": "White",
@@ -246,6 +248,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "layers-label": "レイヤー数:",
             "spots-layers-label": "レイヤー数(スポット):",
             "image-span-label": "画像表示時間:",
+            "loop-short-media-label": "短いメディアをループ再生:",
             "fuse-fps-label": "フューズ FPS:",
             "frame-delay-label": "フレーム遅延:",
             "easing-label": "イージング:",
@@ -253,7 +256,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
             "brightness-label": "明るさ:",
-            "min-visible-rate-label": "最小表示比率:",
+            "stretch-label": "ストレッチ:",
+            "padding-label": "パディング:",
             "hide": "非表示",
             "blend": "ブレンド",
             "white": "ホワイト",
@@ -657,6 +661,7 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             function Button(data) {
                 var _this = this;
                 this.data = data;
+                this.getId = function () { return Control.getDomId(_this.data); };
                 this.setClick = function (click) {
                     return _this.data.click = click;
                 };
@@ -1231,6 +1236,10 @@ define("resource/control", [], {
         ],
         "default": 7500
     },
+    "loopShortMedia": {
+        "id": "loop-short-media",
+        "default": false
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -1259,12 +1268,16 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
-    "minVisibleRate": {
-        "id": "min-visible-rate",
+    "stretch": {
+        "id": "stretch",
         "min": 0,
         "max": 100,
         "step": 1,
         "default": 70
+    },
+    "padding": {
+        "id": "padding",
+        "default": false
     },
     "language": {
         "id": "language",
@@ -1306,11 +1319,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
         UI.transitionCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.transition);
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.withFullscreenCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
-        UI.minVisibleRateRange = new _library_2.Library.Control.Range(control_json_1.default.minVisibleRate);
+        UI.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
+        UI.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -1814,7 +1829,27 @@ define("script/features/media", ["require", "exports", "script/ui", "script/libr
         };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/player", ["require", "exports", "script/features/fps", "script/features/clock", "script/library/index", "script/ui", "script/features/media", "resource/config"], function (require, exports, fps_1, clock_1, _library_4, ui_4, media_1, config) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/tools/index"], function (require, exports, _library_4, _tools_4) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Visualizer = void 0;
+    var Visualizer;
+    (function (Visualizer) {
+        Visualizer.make = function (media) {
+            var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visual" });
+            switch (media.type) {
+                case "audio":
+                    //visualDom.classList.add("audio");
+                    break;
+            }
+            return visualDom;
+        };
+        Visualizer.step = function (_media, playerDom, visualDom) {
+            _library_4.Library.UI.setTextContent(visualDom, "".concat(_tools_4.Tools.Timespan.toMediaTimeString(playerDom.currentTime), " / ").concat(_tools_4.Tools.Timespan.toMediaTimeString(playerDom.duration)));
+        };
+    })(Visualizer || (exports.Visualizer = Visualizer = {}));
+});
+define("script/features/player", ["require", "exports", "script/features/fps", "script/features/clock", "script/library/index", "script/ui", "script/features/media", "script/features/visualizer", "resource/config"], function (require, exports, fps_1, clock_1, _library_5, ui_4, media_1, visualizer_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -1827,65 +1862,183 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
             return TransitionSession;
         }());
         Player.TransitionSession = TransitionSession;
-        var PlaySession = /** @class */ (function () {
-            function PlaySession(playerDom, media, startTime, endTime) {
-                this.elapsedTime = 0;
-                this.playerDom = playerDom;
-                if (playerDom instanceof HTMLImageElement || playerDom instanceof HTMLVideoElement) {
-                    this.visualDom = playerDom;
+        var Track = /** @class */ (function () {
+            function Track(media) {
+                this.startTime = null;
+                this.elapsedTime = null;
+                this.media = media;
+                switch (media.type) {
+                    case "image":
+                        this.playerDom = _library_5.Library.UI.createElement({
+                            tag: "img",
+                            className: "player",
+                            attributes: {
+                                src: media.url,
+                                alt: media.name,
+                            },
+                        });
+                        this.visualDom = this.playerDom;
+                        break;
+                    case "audio":
+                        this.playerDom = _library_5.Library.UI.createElement({
+                            tag: "audio",
+                            className: "player",
+                            attributes: {
+                                src: media.url,
+                                controls: false,
+                                autoplay: false,
+                                loop: this.isLoop(),
+                            },
+                        });
+                        this.visualDom = visualizer_1.Visualizer.make(media);
+                        break;
+                    case "video":
+                        this.playerDom = _library_5.Library.UI.createElement({
+                            tag: "video",
+                            className: "player",
+                            attributes: {
+                                src: media.url,
+                                controls: false,
+                                autoplay: false,
+                                loop: this.isLoop(),
+                            },
+                        });
+                        this.visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visual" });
+                        break;
+                    default:
+                        console.error("🦋 Unknown media type:", media.type, media);
+                        this.playerDom = null;
+                        this.visualDom = null;
+                        break;
+                }
+                // this.startTime = Date.now();
+                // this.endTime = this.startTime + (media.duration ?? parseFloat(UI.imageSpanSelect.get()));
+            }
+            Track.prototype.play = function () {
+                if (this.playerDom instanceof HTMLMediaElement) {
+                    this.playerDom.play();
+                }
+                if (null !== this.elapsedTime) {
+                    this.startTime = Date.now() - this.elapsedTime;
                 }
                 else {
-                    this.visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visual" });
-                }
-                this.media = media;
-                this.startTime = startTime;
-                this.endTime = endTime;
-            }
-            PlaySession.prototype.pause = function () {
-                this.elapsedTime = Date.now() - this.startTime;
-            };
-            ;
-            PlaySession.prototype.resume = function () {
-                this.startTime = Date.now() - this.elapsedTime;
-                //this.endTime = this.startTime + (this.media.duration * 1000);
-            };
-            ;
-            PlaySession.prototype.setMinVisibleRate = function (minVisibleRate) {
-                if (this.media.area) {
-                    var widthScale = this.media.area.width / document.body.clientWidth;
-                    var heightScale = this.media.area.height / document.body.clientHeight;
-                    var minScale = Math.min(widthScale, heightScale);
-                    var maxScale = Math.max(widthScale, heightScale);
-                    var maxStreach = minScale / maxScale;
-                    var ratio = Math.min(maxStreach, minVisibleRate);
-                    var scale = minScale / ratio;
-                    var scaledWidth = this.media.area.width * scale;
-                    var scaledHeight = this.media.area.height * scale;
-                    this.visualDom.style.width = "".concat(scaledWidth, "px");
-                    this.visualDom.style.height = "".concat(scaledHeight, "px");
+                    this.startTime = Date.now();
                 }
             };
-            PlaySession.prototype.setVolume = function (volume) {
-                if (this.playerDom instanceof HTMLVideoElement || this.playerDom instanceof HTMLAudioElement) {
+            Track.prototype.pause = function () {
+                if (this.playerDom instanceof HTMLMediaElement) {
+                    this.playerDom.pause();
+                }
+                if (null !== this.startTime) {
+                    this.elapsedTime = Date.now() - this.startTime;
+                }
+            };
+            Track.prototype.setPositionState = function () {
+                navigator.mediaSession.setPositionState({
+                    duration: this.getDuration(),
+                    playbackRate: this.playerDom instanceof HTMLMediaElement ? this.playerDom.playbackRate : 1.0,
+                    position: this.getElapsedTime() / 1000,
+                });
+            };
+            Track.prototype.step = function () {
+                if (this.playerDom instanceof HTMLAudioElement && !this.playerDom.paused) {
+                    visualizer_1.Visualizer.step(this.media, this.playerDom, this.visualDom);
+                }
+                this.setPositionState(); // 🔥 これはここでやっちゃダメ！
+            };
+            Track.prototype.isLoop = function () {
+                var loopShortMedia = ui_4.UI.loopShortMediaCheckbox.get();
+                var imageSpan = parseFloat(ui_4.UI.imageSpanSelect.get());
+                return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
+            };
+            Track.prototype.getDuration = function () {
+                var _a;
+                var imageSpan = parseFloat(ui_4.UI.imageSpanSelect.get());
+                if (this.isLoop()) {
+                    return imageSpan;
+                }
+                else {
+                    return (_a = this.media.duration) !== null && _a !== void 0 ? _a : imageSpan;
+                }
+            };
+            Track.prototype.getEndTime = function () {
+                if (null === this.startTime) {
+                    return 0;
+                }
+                else if (this.playerDom instanceof HTMLMediaElement && !this.isLoop()) {
+                    return Date.now() + ((this.playerDom.duration - this.playerDom.currentTime) * 1000);
+                }
+                else {
+                    return this.startTime + this.getDuration();
+                }
+            };
+            Track.prototype.getElapsedTime = function () {
+                if (null === this.startTime) {
+                    return 0;
+                }
+                else if (this.playerDom instanceof HTMLMediaElement && !this.isLoop()) {
+                    return this.playerDom.currentTime * 1000;
+                }
+                else {
+                    return Date.now() - this.startTime;
+                }
+            };
+            Track.prototype.getRemainingTime = function () {
+                if (null === this.startTime) {
+                    return 0;
+                }
+                else if (this.playerDom instanceof HTMLMediaElement && !this.isLoop()) {
+                    return (this.playerDom.duration - this.playerDom.currentTime) * 1000;
+                }
+                else {
+                    return this.getEndTime() - Date.now();
+                }
+            };
+            Track.prototype.updateMinVisibleRate = function () {
+                if (this.visualDom) {
+                    var minVisibleRate = (100 - ui_4.UI.stretchRange.get()) / 100;
+                    if (this.media.area) {
+                        var widthScale = this.media.area.width / document.body.clientWidth;
+                        var heightScale = this.media.area.height / document.body.clientHeight;
+                        var minScale = Math.min(widthScale, heightScale);
+                        var maxScale = Math.max(widthScale, heightScale);
+                        var maxStreach = minScale / maxScale;
+                        var ratio = Math.min(maxStreach, minVisibleRate);
+                        var scale = minScale / ratio;
+                        var scaledWidth = this.media.area.width * scale;
+                        var scaledHeight = this.media.area.height * scale;
+                        _library_5.Library.UI.setStyle(this.visualDom, "width", "".concat(scaledWidth, "px"));
+                        _library_5.Library.UI.setStyle(this.visualDom, "height", "".concat(scaledHeight, "px"));
+                    }
+                    else {
+                        _library_5.Library.UI.setStyle(this.visualDom, "width", "100%");
+                        _library_5.Library.UI.setStyle(this.visualDom, "height", "100%");
+                    }
+                }
+            };
+            Track.prototype.setVolume = function (volume) {
+                if (this.playerDom instanceof HTMLMediaElement) {
                     this.playerDom.volume = volume;
                 }
             };
-            PlaySession.prototype.transitionStep = function (rate) {
-                this.visualDom.style.opacity = "".concat(rate);
+            Track.prototype.transitionStep = function (rate) {
+                if (this.visualDom) {
+                    this.visualDom.style.opacity = "".concat(rate);
+                }
             };
-            return PlaySession;
+            return Track;
         }());
-        Player.PlaySession = PlaySession;
-        var noMediaTimer = new _library_4.Library.UI.ToggleClassForWhileTimer();
+        Player.Track = Track;
+        var noMediaTimer = new _library_5.Library.UI.ToggleClassForWhileTimer();
         var loopHandle = null;
         Player.updateFullscreenState = function (fullscreen) {
-            if (_library_4.Library.UI.fullscreenEnabled) {
+            if (_library_5.Library.UI.fullscreenEnabled) {
                 if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_4.UI.withFullscreenCheckbox.get()) {
-                    _library_4.Library.UI.requestFullscreen(document.body);
+                    _library_5.Library.UI.requestFullscreen(document.body);
                     setTimeout(function () { return document.body.focus(); }, 100);
                 }
                 else {
-                    _library_4.Library.UI.exitFullscreen();
+                    _library_5.Library.UI.exitFullscreen();
                 }
             }
         };
@@ -1909,7 +2062,7 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
             navigator.mediaSession.playbackState = "playing";
             document.body.classList.toggle("list", false);
             document.body.classList.toggle("play", true);
-            if (document.body.classList.contains("list") && media_1.Media.mediaList.length <= 0) {
+            if (media_1.Media.mediaList.length <= 0) {
                 noMediaTimer.start(document.body, "no-media", 5000);
             }
         };
@@ -1929,7 +2082,7 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
         };
         Player.updateFps = function () {
             if (ui_4.UI.showFpsCheckbox.get()) {
-                _library_4.Library.UI.setTextContent(ui_4.UI.fpsDisplay, fps_1.Fps.getText());
+                _library_5.Library.UI.setTextContent(ui_4.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
         Player.loop = function (now) {
@@ -1964,19 +2117,21 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia, ImportedPlayer) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/media", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedMedia, ImportedVisualizer, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
     ImportedClock = __importStar(ImportedClock);
     ImportedMedia = __importStar(ImportedMedia);
+    ImportedVisualizer = __importStar(ImportedVisualizer);
     ImportedPlayer = __importStar(ImportedPlayer);
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
         Features.Clock = ImportedClock.Clock;
         Features.Media = ImportedMedia.Media;
+        Features.Visualizer = ImportedVisualizer.Visualizer;
         Features.Player = ImportedPlayer.Player;
     })(Features || (exports.Features = Features = {}));
 });
@@ -2029,7 +2184,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_5, _features_1, ui_5, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_6, _features_1, ui_5, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -2077,9 +2232,20 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 return [2 /*return*/];
             });
         }); };
-        var mouseMoveTimer = new _library_5.Library.UI.ToggleClassForWhileTimer();
+        var mouseMoveTimer = new _library_6.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", 3000);
+        };
+        Events.loadToggleButtonParameter = function (button, params) {
+            var value = params[button.getId()];
+            if (undefined !== value) {
+                if (value) {
+                    button.dom.classList.add("on");
+                }
+                else {
+                    button.dom.classList.remove("on");
+                }
+            }
         };
         Events.initialize = function () {
             var _a, _b, _c, _d, _e;
@@ -2121,11 +2287,13 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_5.UI.shuffleButton.dom.classList.toggle("on");
+                applyParam(ui_5.UI.shuffleButton.getId(), "".concat(ui_5.UI.shuffleButton.dom.classList.contains("on")));
             };
             ui_5.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_5.UI.repeatButton.dom.classList.toggle("on");
+                applyParam(ui_5.UI.repeatButton.getId(), "".concat(ui_5.UI.repeatButton.dom.classList.contains("on")));
             };
             ui_5.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -2178,7 +2346,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             (_c = ui_5.UI.withFullscreenCheckbox).options || (_c.options = {});
             ui_5.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
-                    if (_library_5.Library.UI.fullscreenEnabled) {
+                    if (_library_6.Library.UI.fullscreenEnabled) {
                         _features_1.Features.Player.updateFullscreenState();
                     }
                 }
@@ -2193,21 +2361,29 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_5.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
-                _library_5.Library.UI.setStyle(ui_5.UI.mediaScreen, "opacity", "".concat(value / 100));
+                _library_6.Library.UI.setStyle(ui_5.UI.mediaScreen, "opacity", "".concat(value / 100));
                 if (document.body.classList.contains("play")) {
-                    _library_5.Library.UI.setStyle(ui_5.UI.clockDisplay, "opacity", "".concat(value / 100));
+                    _library_6.Library.UI.setStyle(ui_5.UI.clockDisplay, "opacity", "".concat(value / 100));
                 }
                 Events.mousemove();
             };
-            (_e = ui_5.UI.minVisibleRateRange).options || (_e.options = {});
-            ui_5.UI.minVisibleRateRange.options.change = function (_event, range) {
+            (_e = ui_5.UI.stretchRange).options || (_e.options = {});
+            ui_5.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 Events.mousemove();
             };
+            ui_5.UI.volumeRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.volumeRange.options.change);
+            ui_5.UI.transitionCheckbox.loadParameter(url_1.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_5.UI.imageSpanSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.imageSpanSelect.options.change);
+            ui_5.UI.loopShortMediaCheckbox.loadParameter(url_1.Url.params, applyParam);
+            ui_5.UI.withFullscreenCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.withFullscreenCheckbox.options.change);
             ui_5.UI.showFpsCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
             ui_5.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
+            ui_5.UI.brightnessRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.brightnessRange.options.change);
+            ui_5.UI.stretchRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.stretchRange.options.change);
+            ui_5.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam);
             ui_5.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_5.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
@@ -2215,8 +2391,8 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 }
                 Events.mousemove();
             });
-            _library_5.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
-                .forEach(function (label) { return _library_5.Library.UI.showPickerOnLabel(label); });
+            _library_6.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
+                .forEach(function (label) { return _library_6.Library.UI.showPickerOnLabel(label); });
             [
                 ui_5.UI.volumeRange,
                 // UI.withFullscreen,
@@ -2244,16 +2420,16 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
-                var old = _library_5.Library.Locale.getLocale();
-                _library_5.Library.Locale.setLocale(ui_5.UI.languageSelect.get());
-                if (old !== _library_5.Library.Locale.getLocale()) {
+                var old = _library_6.Library.Locale.getLocale();
+                _library_6.Library.Locale.setLocale(ui_5.UI.languageSelect.get());
+                if (old !== _library_6.Library.Locale.getLocale()) {
                     ui_5.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_4, _library_6, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_6, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/events"], function (require, exports, _tools_5, _library_7, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_6, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -2266,7 +2442,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     ui_6.UI.initialize();
     events_1.Events.initialize();
     _features_2.Features.Media.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_4.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_6.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_5.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_7.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -2274,12 +2450,12 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_6.Library.Locale.master,
+        locale: _library_7.Library.Locale.master,
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_4.Tools,
-        Library: _library_6.Library,
+        Tools: _tools_5.Tools,
+        Library: _library_7.Library,
         Features: _features_2.Features,
         Url: url_2.Url,
         UI: ui_6.UI,

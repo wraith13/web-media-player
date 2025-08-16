@@ -3,6 +3,7 @@ import { Clock } from "./clock";
 import { Library } from "@library";
 import { UI } from "../ui";
 import { Media } from "./media";
+import { Visualizer } from "./visualizer";
 import * as config from "@resource/config.json";
 export namespace Player
 {
@@ -10,65 +11,218 @@ export namespace Player
     {
 
     }
-    export class PlaySession
+    export class Track
     {
-        playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
-        visualDom: HTMLImageElement | HTMLDivElement | HTMLVideoElement;
+        playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        visualDom: HTMLImageElement | Visualizer.VisualizerDom | HTMLVideoElement | null;
         media: Media.Entry;
-        startTime: number;
-        endTime: number;
-        elapsedTime: number = 0;
-        constructor(playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement, media: Media.Entry, startTime: number, endTime: number)
+        startTime: number | null = null;
+        elapsedTime: number | null = null;
+        constructor(media: Media.Entry)
         {
-            this.playerDom = playerDom;
-            if (playerDom instanceof HTMLImageElement || playerDom instanceof HTMLVideoElement)
+            this.media = media;
+            switch(media.type)
             {
-                this.visualDom = playerDom;
+            case "image":
+                this.playerDom = Library.UI.createElement
+                ({
+                    tag: "img",
+                    className: "player",
+                    attributes:
+                    {
+                        src: media.url,
+                        alt: media.name,
+                    },
+                });
+                this.visualDom = this.playerDom;
+                break;
+            case "audio":
+                this.playerDom = Library.UI.createElement
+                ({
+                    tag: "audio",
+                    className: "player",
+                    attributes:
+                    {
+                        src: media.url,
+                        controls: false,
+                        autoplay: false,
+                        loop: this.isLoop(),
+                    },
+                });
+                this.visualDom = Visualizer.make(media);
+                break;
+            case "video":
+                this.playerDom = Library.UI.createElement
+                ({
+                    tag: "video",
+                    className: "player",
+                    attributes:
+                    {
+                        src: media.url,
+                        controls: false,
+                        autoplay: false,
+                        loop: this.isLoop(),
+                    },
+                });
+                this.visualDom = Library.UI.createElement({ tag: "div", className: "visual" });
+                break;
+            default:
+                console.error("🦋 Unknown media type:", media.type, media);
+                this.playerDom = null;
+                this.visualDom = null;
+                break;
+            }
+            // this.startTime = Date.now();
+            // this.endTime = this.startTime + (media.duration ?? parseFloat(UI.imageSpanSelect.get()));
+        }
+        play(): void
+        {
+            if (this.playerDom instanceof HTMLMediaElement)
+            {
+                this.playerDom.play();
+            }
+            if (null !== this.elapsedTime)
+            {
+                this.startTime = Date.now() - this.elapsedTime;
             }
             else
             {
-                this.visualDom = Library.UI.createElement({ tag:"div", className: "visual" });
+                this.startTime = Date.now();
             }
-            this.media = media;
-            this.startTime = startTime;
-            this.endTime = endTime;
         }
         pause(): void
         {
-            this.elapsedTime = Date.now() - this.startTime;
-        };
-        resume(): void
-        {
-            this.startTime = Date.now() - this.elapsedTime;
-            //this.endTime = this.startTime + (this.media.duration * 1000);
-        };
-        setMinVisibleRate(minVisibleRate: number): void
-        {
-            if (this.media.area)
+            if (this.playerDom instanceof HTMLMediaElement)
             {
-                const widthScale = this.media.area.width /document.body.clientWidth;
-                const heightScale = this.media.area.height /document.body.clientHeight;
-                const minScale = Math.min(widthScale, heightScale);
-                const maxScale = Math.max(widthScale, heightScale);
-                const maxStreach = minScale /maxScale;
-                const ratio = Math.min(maxStreach, minVisibleRate);
-                const scale = minScale /ratio;
-                const scaledWidth = this.media.area.width *scale;
-                const scaledHeight = this.media.area.height *scale;
-                this.visualDom.style.width = `${scaledWidth}px`;
-                this.visualDom.style.height = `${scaledHeight}px`;
+                this.playerDom.pause();
+            }
+            if (null !== this.startTime)
+            {
+                this.elapsedTime = Date.now() - this.startTime;
+            }
+        }
+        setPositionState(): void
+        {
+            navigator.mediaSession.setPositionState
+            ({
+                duration: this.getDuration(),
+                playbackRate: this.playerDom instanceof HTMLMediaElement ? this.playerDom.playbackRate : 1.0,
+                position: this.getElapsedTime() /1000,
+            });
+        }
+        step(): void
+        {
+            if (this.playerDom instanceof HTMLAudioElement && ! this.playerDom.paused)
+            {
+                Visualizer.step(this.media, this.playerDom, this.visualDom as Visualizer.VisualizerDom);
+            }
+            this.setPositionState(); // 🔥 これはここでやっちゃダメ！
+        }
+        isLoop(): boolean
+        {
+            const loopShortMedia = UI.loopShortMediaCheckbox.get();
+            const imageSpan = parseFloat(UI.imageSpanSelect.get());
+            return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
+        }
+        getDuration(): number
+        {
+            const imageSpan = parseFloat(UI.imageSpanSelect.get());
+            if (this.isLoop())
+            {
+                return imageSpan;
+            }
+            else
+            {
+                return this.media.duration ?? imageSpan;
+            }
+        }
+        getEndTime(): number
+        {
+            if (null === this.startTime)
+            {
+                return 0;
+            }
+            else
+            if (this.playerDom instanceof HTMLMediaElement && ! this.isLoop())
+            {
+                return Date.now() +((this.playerDom.duration - this.playerDom.currentTime) * 1000);
+            }
+            else
+            {
+                return this.startTime + this.getDuration();
+            }
+        }
+        getElapsedTime(): number
+        {
+            if (null === this.startTime)
+            {
+                return 0;
+            }
+            else
+            if (this.playerDom instanceof HTMLMediaElement && ! this.isLoop())
+            {
+                return this.playerDom.currentTime * 1000;
+            }
+            else
+            {
+                return Date.now() - this.startTime;
+            }
+        }
+        getRemainingTime(): number
+        {
+            if (null === this.startTime)
+            {
+                return 0;
+            }
+            else
+            if (this.playerDom instanceof HTMLMediaElement && ! this.isLoop())
+            {
+                return (this.playerDom.duration - this.playerDom.currentTime) * 1000;
+            }
+            else
+            {
+                return this.getEndTime() - Date.now();
+            }
+        }
+        updateMinVisibleRate(): void
+        {
+            if (this.visualDom)
+            {
+                const minVisibleRate = (100 -UI.stretchRange.get()) /100;
+                if (this.media.area)
+                {
+                    const widthScale = this.media.area.width /document.body.clientWidth;
+                    const heightScale = this.media.area.height /document.body.clientHeight;
+                    const minScale = Math.min(widthScale, heightScale);
+                    const maxScale = Math.max(widthScale, heightScale);
+                    const maxStreach = minScale /maxScale;
+                    const ratio = Math.min(maxStreach, minVisibleRate);
+                    const scale = minScale /ratio;
+                    const scaledWidth = this.media.area.width *scale;
+                    const scaledHeight = this.media.area.height *scale;
+                    Library.UI.setStyle(this.visualDom, "width", `${scaledWidth}px`);
+                    Library.UI.setStyle(this.visualDom, "height", `${scaledHeight}px`);
+                }
+                else
+                {
+                    Library.UI.setStyle(this.visualDom, "width", "100%");
+                    Library.UI.setStyle(this.visualDom, "height", "100%");
+                }
             }
         }
         setVolume(volume: number): void
         {
-            if (this.playerDom instanceof HTMLVideoElement || this.playerDom instanceof HTMLAudioElement)
+            if (this.playerDom instanceof HTMLMediaElement)
             {
                 this.playerDom.volume = volume;
             }
         }
         transitionStep(rate: number): void
         {
-            this.visualDom.style.opacity = `${rate}`;
+            if (this.visualDom)
+            {
+                this.visualDom.style.opacity = `${rate}`;
+            }
         }
     }
     const noMediaTimer = new Library.UI.ToggleClassForWhileTimer();
@@ -112,7 +266,7 @@ export namespace Player
         navigator.mediaSession.playbackState = "playing";
         document.body.classList.toggle("list", false);
         document.body.classList.toggle("play", true);
-        if (document.body.classList.contains("list") && Media.mediaList.length <= 0)
+        if (Media.mediaList.length <= 0)
         {
             noMediaTimer.start(document.body, "no-media", 5000);
         }

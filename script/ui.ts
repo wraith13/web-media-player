@@ -42,6 +42,8 @@ export namespace UI
         new Library.Control.Checkbox(control.transition);
     export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
+    export const loopShortMediaCheckbox =
+        new Library.Control.Checkbox(control.loopShortMedia);
     export const withFullscreenCheckbox =
         new Library.Control.Checkbox(control.withFullscreen);
     export const showFpsCheckbox =
@@ -50,8 +52,10 @@ export namespace UI
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const brightnessRange =
         new Library.Control.Range(control.brightness);
-    export const minVisibleRateRange =
-        new Library.Control.Range(control.minVisibleRate);
+    export const stretchRange =
+        new Library.Control.Range(control.stretch);
+    export const paddingCheckbox =
+        new Library.Control.Checkbox(control.padding);
     export const languageSelect =
         new Library.Control.Select
         (
