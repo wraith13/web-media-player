@@ -8,13 +8,7 @@
     },
     "transition": {
         "id": "transition",
-        "enum": [
-            "none",
-            "fade",
-            "pattern",
-            "all"
-        ],
-        "default": "none"
+        "default": false
     },
     "imageSpan": {
         "id": "image-span",
@@ -73,12 +67,12 @@
         "step": 1,
         "default": 100
     },
-    "stretch": {
-        "id": "stretch",
+    "minVisibleRate": {
+        "id": "min-visible-rate",
         "min": 0,
         "max": 100,
         "step": 1,
-        "default": 100
+        "default": 70
     },
     "language": {
         "id": "language",

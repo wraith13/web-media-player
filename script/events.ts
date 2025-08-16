@@ -8,7 +8,7 @@ export namespace Events
 {
     const updateShowFps = () =>
     {
-        UI.fpsDisplay.classList.toggle("hide", ! UI.showFps.get());
+        UI.fpsDisplay.classList.toggle("hide", ! UI.showFpsCheckbox.get());
     }
     const updateClock = () =>
     {
@@ -67,18 +67,15 @@ export namespace Events
             Url.addParameter(Url.params, key, value);
             updateUrlAnchor(Url.params);
         };
-        const noMediaTimer = new Library.UI.ToggleClassForWhileTimer();
+        navigator.mediaSession.setActionHandler("play", Features.Player.play);
+        navigator.mediaSession.setActionHandler("pause", Features.Player.pause);
+        navigator.mediaSession.setActionHandler("previoustrack", Features.Player.previous);
+        navigator.mediaSession.setActionHandler("nexttrack", Features.Player.next);
         UI.playButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
-            if (document.body.classList.contains("list") && Features.Media.mediaList.length <= 0)
-            {
-                noMediaTimer.start(document.body, "no-media", 5000);
-            }
-            document.body.classList.toggle("list");
-            document.body.classList.toggle("play");
-            if (document.body.classList.contains("play"))
+            if (navigator.mediaSession && "playing" !== navigator.mediaSession.playbackState)
             {
                 Features.Player.play();
             }
@@ -87,6 +84,18 @@ export namespace Events
                 Features.Player.pause();
             }
         };
+        UI.nextButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            Features.Player.next();
+        };
+        UI.backBUtton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            Features.Player.previous();
+        }
         UI.shuffleButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -153,8 +162,8 @@ export namespace Events
             console.log("⏱️ Image span changed:", value);
             Features.Media.updateInformationDisplay();
         };
-        UI.withFullscreen.options ||= { }
-        UI.withFullscreen.options.change = (_event, _checkbox) =>
+        UI.withFullscreenCheckbox.options ||= { }
+        UI.withFullscreenCheckbox.options.change = (_event, _checkbox) =>
         {
             if (document.body.classList.contains("play"))
             {
@@ -191,15 +200,15 @@ export namespace Events
             }
             mousemove();
         };
-        UI.stretchRange.options ||= { }
-        UI.stretchRange.options.change = (_event, range) =>
+        UI.minVisibleRateRange.options ||= { }
+        UI.minVisibleRateRange.options.change = (_event, range) =>
         {
             const value = range.get();
             console.log("📏 Stretch changed:", value);
             //Features.Media.setStretch(value / 100);
             mousemove();
         };
-        UI.showFps.loadParameter(Url.params, applyParam).setChange(updateShowFps);
+        UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
         document.body.addEventListener
@@ -219,7 +228,7 @@ export namespace Events
         [
             UI.volumeRange,
             // UI.withFullscreen,
-            UI.showFps,
+            UI.showFpsCheckbox,
         ].forEach(i => i.fire());
         document.addEventListener
         (
@@ -242,8 +251,8 @@ export namespace Events
                 (
                     () =>
                     [
-                        UI.withFullscreen,
-                        UI.showFps,
+                        UI.withFullscreenCheckbox,
+                        UI.showFpsCheckbox,
                         UI.clockSelect,
                         UI.brightnessRange,
                         UI.languageSelect,

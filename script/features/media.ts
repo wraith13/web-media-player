@@ -14,6 +14,7 @@ export namespace Media
         thumbnail: string;
         size: number;
         duration: number | null;
+        area: { width: number; height: number; } | null;
     };
     export const mediaList: Entry[] = [];
     export type Category = "image" | "audio" | "video";
@@ -46,22 +47,6 @@ export namespace Media
         URL.createObjectURL(file);
     export const getName = (file: File): string =>
         file.name || "Unknown File";
-    export const getThumbnail = async (mediaType: Category, url: string): Promise<string> =>
-    {
-        if (mediaType === "image")
-        {
-            return await getImageThumbnail(url);
-        }
-        if (mediaType === "audio")
-        {
-            return "SVG:audio";
-        }
-        if (mediaType === "video")
-        {
-            return await getVideoThumbnail(url);
-        }
-        return "SVG:error";
-    };
     const canvasImageSourceToDataUrl = (canvasImageSource: CanvasImageSource, width: number, height: number): string =>
     {
         const maxSize = Config.thumbnail.maxSize;
@@ -92,79 +77,126 @@ export namespace Media
             return "SVG:error";
         }
     };
-    const getImageThumbnail = (url: string): Promise<string> => new Promise
-    (
-        (resolve) =>
+    export const imageToEntry = (category: Category, file: File): Promise<Entry | null> =>
+    {
+        return new Promise(async (resolve) =>
         {
             const img = new Image();
-            img.onload = () => resolve(canvasImageSourceToDataUrl(img, img.width, img.height));
-            img.onerror = () => resolve("SVG:error");
-            img.src = url;
-        }
-    );
-    const getVideoThumbnail = (url: string): Promise<string> => new Promise
-    (
-        (resolve) =>
-        {
-            const video = document.createElement("video");
-            video.src = url;
-            video.currentTime = 0.1;
-            video.muted = true;
-            video.playsInline = true;
-            video.onloadeddata = () => resolve(canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight));
-            video.onerror = () => resolve("SVG:error");
-        }
-    );
-    export const getDuration = (mediaType: Category, url: string): Promise<number | null> =>
-    {
-        return new Promise((resolve) =>
-        {
-            if (mediaType === "audio" || mediaType === "video")
-            {
-                const media = document.createElement(mediaType);
-                media.src = url;
-                media.addEventListener
-                (
-                    "loadedmetadata", () =>
-                    {
-                        resolve(media.duration *1000);
-                        URL.revokeObjectURL(url);
-                    }
-                );
-                media.addEventListener
-                (
-                    "error", () =>
-                    {
-                        resolve(null);
-                        URL.revokeObjectURL(url);
-                    }
-                );
-            }
-            else
-            {
-                resolve(null);
-            }
-        });
-    };
-    export const addMedia = async (file: File): Promise<void> =>
-    {
-        console.log("📂 Adding media:", file);
-        const category = getMediaCategory(file);
-        if (null !== category)
-        {
-            console.log("✅ Valid media file:", file);
             const url = getUrl(file);
-            const entry: Entry =
-            {
+            img.onload = () => resolve
+            ({
                 file,
                 url,
                 type: file.type,
                 category,
                 name: getName(file),
-                thumbnail: await getThumbnail(category, url),
+                thumbnail: canvasImageSourceToDataUrl(img, img.width, img.height),
                 size: file.size,
-                duration: await getDuration(category, url),
+                duration: null,
+                area: { width: img.width, height: img.height },
+            });
+            img.onerror = () => resolve(null);
+            img.src = url;
+        });
+    };
+    export const audioToEntry = (category: Category, file: File): Promise<Entry | null> =>
+    {
+        return new Promise(async (resolve) =>
+        {
+            const url = getUrl(file);
+            const audio = document.createElement("audio");
+            audio.src = url;
+            audio.addEventListener
+            (
+                "loadedmetadata", () => resolve
+                ({
+                    file,
+                    url,
+                    type: file.type,
+                    category,
+                    name: getName(file),
+                    thumbnail: "SVG:audio",
+                    size: file.size,
+                    duration: audio.duration *1000,
+                    area: null,
+                })
+            );
+            audio.addEventListener("error", () => resolve(null));
+        });
+    };
+    export const videoToEntry = (category: Category, file: File): Promise<Entry | null> =>
+    {
+        return new Promise(async (resolve) =>
+        {
+            const url = getUrl(file);
+            const video = document.createElement("video");
+            video.currentTime = 0.1;
+            video.muted = true;
+            video.playsInline = true;
+            video.src = url;
+            const finish = () => resolve
+            ({
+                file,
+                url,
+                type: file.type,
+                category,
+                name: getName(file),
+                thumbnail: canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
+                size: file.size,
+                duration: video.duration *1000,
+                area: { width: video.videoWidth, height: video.videoHeight },
+            });
+            let loadedmetadataCalled = false;
+            let loadeddataCalled = false;
+            const tryFinish = () =>
+            {
+                if (loadedmetadataCalled && loadeddataCalled)
+                {
+                    finish();
+                }
             };
+            video.addEventListener
+            (
+                "loadedmetadata", () =>
+                {
+                    loadedmetadataCalled = true;
+                    tryFinish();
+                }
+            );
+            video.addEventListener
+            (
+                "loadeddata", () =>
+                {
+                    loadeddataCalled = true;
+                    tryFinish();
+                }
+        );
+            video.addEventListener("error", () => resolve(null));
+        });
+    };
+    export const fileToEntry = async (file: File): Promise<Entry | null> =>
+    {
+        const category = getMediaCategory(file);
+        switch (category)
+        {
+        case "image":
+            return await imageToEntry(category, file);
+        case "audio":
+            return await audioToEntry(category, file);
+        case "video":
+            return await videoToEntry(category, file);
+        default:
+            console.warn("🚫 Unsupported media type:", file.type, file);
+            return null;
+        }
+    }
+    export const addMedia = async (file: File): Promise<void> =>
+    {
+        console.log("📂 Adding media:", file);
+        const entry = await fileToEntry(file);
+        if (null !== entry)
+        {
+            console.log("✅ Valid media file:", file);
             mediaList.push(entry);
             updateInformationDisplay();
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);

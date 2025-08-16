@@ -14,6 +14,10 @@ export namespace UI
         Library.UI.getElementById("div", "media-screen");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
+    export const nextButton =
+        new Library.Control.Button({ id: "next-button", });
+    export const backBUtton =
+        new Library.Control.Button({ id: "back-button", });
     export const shuffleButton =
         new Library.Control.Button({ id: "shuffle-button", });
     export const repeatButton =
@@ -34,20 +38,20 @@ export namespace UI
         Library.UI.getElementById("span", "media-count");
     export const mediaLength =
         Library.UI.getElementById("span", "media-length");
-    export const transitionSelect =
-        new Library.Control.Select(control.transition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const transitionCheckbox =
+        new Library.Control.Checkbox(control.transition);
     export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
-    export const withFullscreen =
+    export const withFullscreenCheckbox =
         new Library.Control.Checkbox(control.withFullscreen);
-    export const showFps =
+    export const showFpsCheckbox =
         new Library.Control.Checkbox(control.showFps);
     export const clockSelect =
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const brightnessRange =
         new Library.Control.Range(control.brightness);
-    export const stretchRange =
-        new Library.Control.Range(control.stretch);
+    export const minVisibleRateRange =
+        new Library.Control.Range(control.minVisibleRate);
     export const languageSelect =
         new Library.Control.Select
         (
@@ -98,9 +102,9 @@ export namespace UI
     export const initialize = () =>
     {
         noscript.style.setProperty("display", "none");
-        if ( ! Library.UI.fullscreenEnabled && withFullscreen.dom.parentElement)
+        if ( ! Library.UI.fullscreenEnabled && withFullscreenCheckbox.dom.parentElement)
         {
-            withFullscreen.dom.parentElement.style.setProperty("display", "none");
+            withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
         Library.UI.setTextContent(Library.UI.querySelector("span", "#powered-by .title"), "powered by");
         Library.UI.replaceChildren

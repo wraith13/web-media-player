@@ -35,10 +35,6 @@ declare module "locale/generated/master" {
             "media-count-label": string;
             "media-length-label": string;
             "transition-label": string;
-            none: string;
-            fade: string;
-            pattern: string;
-            all: string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -56,7 +52,7 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
-            "stretch-label": string;
+            "min-visible-rate-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -98,10 +94,6 @@ declare module "locale/generated/master" {
             "media-count-label": string;
             "media-length-label": string;
             "transition-label": string;
-            none: string;
-            fade: string;
-            pattern: string;
-            all: string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -119,7 +111,7 @@ declare module "locale/generated/master" {
             "show-fps-label": string;
             "clock-label": string;
             "brightness-label": string;
-            "stretch-label": string;
+            "min-visible-rate-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -166,10 +158,6 @@ declare module "script/library/locale" {
                 "media-count-label": string;
                 "media-length-label": string;
                 "transition-label": string;
-                none: string;
-                fade: string;
-                pattern: string;
-                all: string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -187,7 +175,7 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
-                "stretch-label": string;
+                "min-visible-rate-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -229,10 +217,6 @@ declare module "script/library/locale" {
                 "media-count-label": string;
                 "media-length-label": string;
                 "transition-label": string;
-                none: string;
-                fade: string;
-                pattern: string;
-                all: string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -250,7 +234,7 @@ declare module "script/library/locale" {
                 "show-fps-label": string;
                 "clock-label": string;
                 "brightness-label": string;
-                "stretch-label": string;
+                "min-visible-rate-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -315,7 +299,7 @@ declare module "script/library/ui" {
         type Events = {
             [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
         };
-        type ElementSource<T extends HtmlTag = any> = CreateElementArguments<T> | HTMLElementTagNameMap[T] | Text | string;
+        type ElementSource<T extends HtmlTag = any> = CreateElementArguments<T> | HTMLElementTagNameMap[T];
         interface ElementOptions {
             className?: string;
             text?: string;
@@ -329,7 +313,9 @@ declare module "script/library/ui" {
         }
         type HtmlTag = keyof HTMLElementTagNameMap;
         const setOptions: <T extends HTMLElement>(element: T, options?: ElementOptions) => T;
-        const createElement: <T extends HtmlTag>(element: ElementSource<T>) => HTMLElementTagNameMap[T] | Text;
+        const createText: (text: string | Text) => Text;
+        const createElement: <T extends HtmlTag>(element: ElementSource<T>) => HTMLElementTagNameMap[T];
+        const createNode: <T extends HtmlTag>(element: ElementSource<T> | Text | string) => HTMLElementTagNameMap[T] | Text;
         const removeAllChildren: <ParentT extends HTMLElement>(parent: ParentT) => ParentT;
         const appendChild: <ParentT extends HTMLElement, T extends HtmlTag>(parent: ParentT, element: ElementSource<T>) => ParentT;
         const replaceChild: <ParentT extends HTMLElement, T extends HtmlTag>(parent: ParentT, element: ElementSource<T>) => ParentT;
@@ -578,6 +564,8 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
+        const nextButton: Library.Control.Button<HTMLElement>;
+        const backBUtton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
         const repeatButton: Library.Control.Button<HTMLElement>;
         const volumeButton: Library.Control.Button<HTMLElement>;
@@ -588,13 +576,13 @@ declare module "script/ui" {
         const inputFile: HTMLInputElement;
         const mediaCount: HTMLSpanElement;
         const mediaLength: HTMLSpanElement;
-        const transitionSelect: Library.Control.Select<string>;
+        const transitionCheckbox: Library.Control.Checkbox;
         const imageSpanSelect: Library.Control.Select<number>;
-        const withFullscreen: Library.Control.Checkbox;
-        const showFps: Library.Control.Checkbox;
+        const withFullscreenCheckbox: Library.Control.Checkbox;
+        const showFpsCheckbox: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
         const brightnessRange: Library.Control.Range;
-        const stretchRange: Library.Control.Range;
+        const minVisibleRateRange: Library.Control.Range;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
         const introductionPanel: HTMLDivElement;
@@ -633,6 +621,10 @@ declare module "script/features/media" {
             thumbnail: string;
             size: number;
             duration: number | null;
+            area: {
+                width: number;
+                height: number;
+            } | null;
         }
         const mediaList: Entry[];
         type Category = "image" | "audio" | "video";
@@ -640,8 +632,10 @@ declare module "script/features/media" {
         const isMediaFile: (file: File) => boolean;
         const getUrl: (file: File) => string;
         const getName: (file: File) => string;
-        const getThumbnail: (mediaType: Category, url: string) => Promise<string>;
-        const getDuration: (mediaType: Category, url: string) => Promise<number | null>;
+        const imageToEntry: (category: Category, file: File) => Promise<Entry | null>;
+        const audioToEntry: (category: Category, file: File) => Promise<Entry | null>;
+        const videoToEntry: (category: Category, file: File) => Promise<Entry | null>;
+        const fileToEntry: (file: File) => Promise<Entry | null>;
         const addMedia: (file: File) => Promise<void>;
         const addMediaSerial: (file: File) => void;
         const isPixelatedImage: (entry: Entry) => boolean;
@@ -655,12 +649,32 @@ declare module "script/features/media" {
     }
 }
 declare module "script/features/player" {
+    import { Media } from "script/features/media";
     export namespace Player {
+        class TransitionSession {
+        }
+        class PlaySession {
+            playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
+            visualDom: HTMLImageElement | HTMLDivElement | HTMLVideoElement;
+            media: Media.Entry;
+            startTime: number;
+            endTime: number;
+            elapsedTime: number;
+            constructor(playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement, media: Media.Entry, startTime: number, endTime: number);
+            pause(): void;
+            resume(): void;
+            setMinVisibleRate(minVisibleRate: number): void;
+            setVolume(volume: number): void;
+            transitionStep(rate: number): void;
+        }
         const updateFullscreenState: (fullscreen?: boolean) => void;
         const play: () => void;
         const pause: () => void;
+        const previous: () => void;
+        const next: () => void;
         const updateFps: () => void;
         const loop: (now: number) => void;
+        const playMedia: (entry: Media.Entry) => void;
     }
 }
 declare module "script/features/index" {

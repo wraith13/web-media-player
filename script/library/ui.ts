@@ -104,7 +104,7 @@ export namespace UI
     {
         [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
     };
-    export type ElementSource<T extends HtmlTag = any> = CreateElementArguments<T> | HTMLElementTagNameMap[T] | Text | string;
+    export type ElementSource<T extends HtmlTag = any> = CreateElementArguments<T> | HTMLElementTagNameMap[T];
     export interface ElementOptions
     {
         className?: string;
@@ -145,7 +145,12 @@ export namespace UI
         children.forEach(child => appendChild(element, child));
         return element;
     };
-    export const createElement = <T extends HtmlTag>(element: ElementSource<T>): HTMLElementTagNameMap[T] | Text =>
+    export const createText = (text: string | Text): Text =>
+        "string" === typeof text ? document.createTextNode(text): text;
+    export const createElement = <T extends HtmlTag>(element: ElementSource<T>): HTMLElementTagNameMap[T] =>
+        element instanceof Node ? element:
+            setOptions(document.createElement(element.tag), element);
+    export const createNode = <T extends HtmlTag>(element: ElementSource<T> | Text | string): HTMLElementTagNameMap[T] | Text =>
         "string" === typeof element ? document.createTextNode(element):
         element instanceof Node ? element:
             setOptions(document.createElement(element.tag), element);
@@ -156,7 +161,7 @@ export namespace UI
     };
     export const appendChild = <ParentT extends HTMLElement, T extends HtmlTag>(parent: ParentT, element: ElementSource<T>): ParentT =>
     {
-        parent.appendChild(createElement(element));
+        parent.appendChild(createNode(element));
         return parent;
     };
     export const replaceChild = <ParentT extends HTMLElement, T extends HtmlTag>(parent: ParentT, element: ElementSource<T>): ParentT =>
@@ -168,7 +173,7 @@ export namespace UI
     {
         if ("append" in parent)
         {
-            parent.append(...elements.map(i => createElement(i)));
+            parent.append(...elements.map(i => createNode(i)));
         }
         else
         {

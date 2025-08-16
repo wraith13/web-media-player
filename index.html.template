@@ -109,7 +109,7 @@ DUMMYSTYLE
         </label>
         <label for="transition">
             <span data-lang-key="transition-label"></span>
-            <select id="transition"></select>
+            <input id="transition" type="checkbox" />
         </label>
         <label for="image-span">
             <span data-lang-key="image-span-label"></span>
@@ -135,9 +135,9 @@ DUMMYSTYLE
             <input id="brightness" type="range" />
             <span class="load-status" id="brightness-load-status"></span>
         </label>
-        <label for="stretch">
-            <span data-lang-key="stretch-label"></span>
-            <input id="stretch" type="range" />
+        <label for="min-visible-rate">
+            <span data-lang-key="min-visible-rate-label"></span>
+            <input id="min-visible-rate" type="range" />
         </label>
         <label for="language">
             <span data-lang-key="language-label"></span>
