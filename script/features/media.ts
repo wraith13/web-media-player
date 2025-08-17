@@ -1,3 +1,4 @@
+import { History } from "./history";
 import { UI } from "../ui";
 import { Library } from "@library";
 import { Tools } from "../tools";
@@ -200,6 +201,7 @@ export namespace Media
             mediaList.push(entry);
             updateInformationDisplay();
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
+            History.clear();
             console.log("📂 Media added:", mediaList[mediaList.length - 1]);
         }
         else
@@ -260,6 +262,7 @@ export namespace Media
                     console.log("🗑️ Removing media:", mediaList[index]);
                     URL.revokeObjectURL(mediaList[index].url);
                     mediaList.splice(index, 1);
+                    History.clear();
                     updateInformationDisplay();
                     await updateMediaListDisplay();
                 }
@@ -334,6 +337,7 @@ export namespace Media
                 {
                     const moved = mediaList.splice(fromIndex, 1)[0];
                     mediaList.splice(toIndex, 0, moved);
+                    History.clear();
                 }
                 await updateMediaListDisplay();
             }
