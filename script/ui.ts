@@ -50,6 +50,8 @@ export namespace UI
         new Library.Control.Checkbox(control.showFps);
     export const clockSelect =
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const clockPositionSelect =
+        new Library.Control.Select(control.clockPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const brightnessRange =
         new Library.Control.Range(control.brightness);
     export const stretchRange =

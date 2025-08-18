@@ -20,7 +20,8 @@
     {
         @include fade-transition("body.list");
         @include solid-box();
-        position: absolute;
+        @include full-stretch-box();
+        position: fixed;
         overflow: visible;
         .player:not(audio), .visualizer
         {
@@ -28,6 +29,18 @@
             inset-block-start: 50%;
             inset-inline-start: 50%;
             transform: translate(-50%, -50%);
+        }
+        video::-webkit-media-controls,
+        video::-moz-media-controls,
+        video::-ms-media-controls,
+        video::-o-media-controls,
+        video::-media-controls
+        {
+            display: none !important;
+        }
+        .padding
+        {
+            filter: blur(0.5rem);
         }
     }
     #media-list
@@ -521,7 +534,7 @@ body:not(.no-media)
         inset-inline-start: 50%;
         transform: translate(-50%, 0%);
         position: fixed;
-        z-index: 50;
+        z-index: 60;
         padding: 0.25rem 0.25rem;
         gap: 0.25rem;
         button
@@ -684,7 +697,7 @@ body.no-media
         inset-block-end: 7.5rem;
         inset-inline-end: calc(50% - 8.625rem);
         position: fixed;
-        z-index: 50;
+        z-index: 60;
         padding: 0.5rem;
         background-color: black-color(0.9);
         transform: rotate(-90deg);
@@ -706,7 +719,7 @@ body.no-media
         //transform: translate(-50%, 0%);
         backdrop-filter: blur(0.5rem);
         position: fixed;
-        z-index: 50;
+        z-index: 60;
         padding: 0.25rem 0.5rem;
         gap: 0.25rem;
         label
@@ -818,11 +831,34 @@ body.no-media
     &
     {
         position: fixed;
-        inset-block-start: 50%;
-        inset-inline-start: 50%;
-        transform: translate(-50%, -50%);
         user-select: none;
         pointer-events: none;
+        &.center
+        {
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &.top-left, &.top-right
+        {
+            top: calc(1vw + 1vh);
+            top: calc(1vw + 1vh + env(safe-area-inset-top));
+        }
+        &.top-right, &.bottom-right
+        {
+            right: calc(1vw + 1vh);
+            right: calc(1vw + 1vh + env(safe-area-inset-right));
+        }
+        &.top-left, &.bottom-left
+        {
+            left: calc(1vw + 1vh);
+            left: calc(1vw + 1vh + env(safe-area-inset-left));
+        }
+        &.bottom-right, &.bottom-left
+        {
+            bottom: calc(1vw + 1vh);
+            bottom: calc(1vw + 1vh + env(safe-area-inset-bottom));
+        }
         span
         {
             display: block;
@@ -882,7 +918,6 @@ body.no-media
             @include monospace-font();
             &
             {
-                @include font-size(13.5vw);
                 white-space: nowrap;
             }
         }
@@ -891,9 +926,48 @@ body.no-media
             @include font();
             &
             {
-                @include font-size(3vw);
                 white-space: nowrap;
             }
+        }
+        &.center
+        {
+            #time
+            {
+                @include font-size(13.5vw);
+            }
+            #date
+            {
+                @include font-size(3vw);
+            }
+        }
+        &:not(.center)
+        {
+            #time
+            {
+                @include font-size(2.0rem);
+            }
+            #date
+            {
+                @include font-size(1.0rem);
+            }
+        }
+        &.top-right, &.top-left
+        {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        &.bottom-right, &.bottom-left
+        {
+            display: flex;
+            flex-direction: column;
+        }
+        &.top-right, &.bottom-right
+        {
+            align-items: end;
+        }
+        &.top-left, &.bottom-left
+        {
+            align-items: start;
         }
     }
 }

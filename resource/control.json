@@ -8,7 +8,7 @@
     },
     "transition": {
         "id": "transition",
-        "default": false
+        "default": true
     },
     "imageSpan": {
         "id": "image-span",
@@ -64,6 +64,17 @@
         ],
         "default": "hide"
     },
+    "clockPosition": {
+        "id": "clock-position",
+        "enum": [
+            "center",
+            "top-left",
+            "top-right",
+            "bottom-left",
+            "bottom-right"
+        ],
+        "default": "center"
+    },
     "brightness": {
         "id": "brightness",
         "min": 0,
@@ -76,11 +87,11 @@
         "min": 0,
         "max": 100,
         "step": 1,
-        "default": 70
+        "default": 0
     },
     "padding": {
         "id": "padding",
-        "default": false
+        "default": true
     },
     "language": {
         "id": "language",

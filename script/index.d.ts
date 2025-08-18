@@ -52,9 +52,6 @@ declare module "locale/generated/master" {
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
-            "brightness-label": string;
-            "stretch-label": string;
-            "padding-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -62,6 +59,15 @@ declare module "locale/generated/master" {
             system: string;
             alternate: string;
             rainbow: string;
+            "brightness-label": string;
+            "clock-position-label": string;
+            center: string;
+            "top-left": string;
+            "top-right": string;
+            "bottom-left": string;
+            "bottom-right": string;
+            "stretch-label": string;
+            "padding-label": string;
             "language-label": string;
             "url-label": string;
             "run-benchmark-label": string;
@@ -113,9 +119,6 @@ declare module "locale/generated/master" {
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
-            "brightness-label": string;
-            "stretch-label": string;
-            "padding-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -123,6 +126,15 @@ declare module "locale/generated/master" {
             system: string;
             alternate: string;
             rainbow: string;
+            "clock-position-label": string;
+            center: string;
+            "top-left": string;
+            "top-right": string;
+            "bottom-left": string;
+            "bottom-right": string;
+            "brightness-label": string;
+            "stretch-label": string;
+            "padding-label": string;
             "language-label": string;
             "url-label": string;
             "run-benchmark-label": string;
@@ -179,9 +191,6 @@ declare module "script/library/locale" {
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
-                "brightness-label": string;
-                "stretch-label": string;
-                "padding-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -189,6 +198,15 @@ declare module "script/library/locale" {
                 system: string;
                 alternate: string;
                 rainbow: string;
+                "brightness-label": string;
+                "clock-position-label": string;
+                center: string;
+                "top-left": string;
+                "top-right": string;
+                "bottom-left": string;
+                "bottom-right": string;
+                "stretch-label": string;
+                "padding-label": string;
                 "language-label": string;
                 "url-label": string;
                 "run-benchmark-label": string;
@@ -240,9 +258,6 @@ declare module "script/library/locale" {
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
-                "brightness-label": string;
-                "stretch-label": string;
-                "padding-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -250,6 +265,15 @@ declare module "script/library/locale" {
                 system: string;
                 alternate: string;
                 rainbow: string;
+                "clock-position-label": string;
+                center: string;
+                "top-left": string;
+                "top-right": string;
+                "bottom-left": string;
+                "bottom-right": string;
+                "brightness-label": string;
+                "stretch-label": string;
+                "padding-label": string;
                 "language-label": string;
                 "url-label": string;
                 "run-benchmark-label": string;
@@ -514,6 +538,12 @@ declare module "script/tools/byte" {
         const toDisplayString: (value: number, maximumDigits?: number) => string;
     }
 }
+declare module "script/tools/environment" {
+    export namespace Environment {
+        const isMobile: () => boolean;
+        const isTouchDevice: () => boolean;
+    }
+}
 declare module "script/tools/index" {
     import * as ImportedTypeGuards from "script/tools/type-guards";
     import * as ImportedNumber from "script/tools/number";
@@ -523,6 +553,7 @@ declare module "script/tools/index" {
     import * as ImportedArray from "script/tools/array";
     import * as ImportedHash from "script/tools/hash";
     import * as ImportedByte from "script/tools/byte";
+    import * as ImportedEnvironment from "script/tools/environment";
     export namespace Tools {
         export import TypeGuards = ImportedTypeGuards.TypeGuards;
         export import Number = ImportedNumber.Number;
@@ -532,6 +563,7 @@ declare module "script/tools/index" {
         export import Array = ImportedArray.Array;
         export import Hash = ImportedHash.Hash;
         export import Byte = ImportedByte.Byte;
+        export import Environment = ImportedEnvironment.Environment;
     }
 }
 declare module "script/features/fps" {
@@ -591,6 +623,7 @@ declare module "script/ui" {
         const withFullscreenCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const clockSelect: Library.Control.Select<string>;
+        const clockPositionSelect: Library.Control.Select<string>;
         const brightnessRange: Library.Control.Range;
         const stretchRange: Library.Control.Range;
         const paddingCheckbox: Library.Control.Checkbox;
@@ -647,16 +680,22 @@ declare module "script/features/media" {
         const audioToEntry: (category: Category, file: File) => Promise<Entry | null>;
         const videoToEntry: (category: Category, file: File) => Promise<Entry | null>;
         const fileToEntry: (file: File) => Promise<Entry | null>;
-        const addMedia: (file: File) => Promise<void>;
-        const addMediaSerial: (file: File) => void;
         const isPixelatedImage: (entry: Entry) => boolean;
         const isThumbnailPixelatedImage: (entry: Entry) => boolean;
         const makeThumbnailElement: (entry: Entry) => Promise<Library.UI.ElementSource<"img"> | SVGElement>;
-        const removeButton: (entry: Entry) => Promise<Library.UI.ElementSource<"button">>;
-        const makeMediaEntryDom: (entry: Entry) => Promise<HTMLDivElement>;
-        const updateMediaListDisplay: () => Promise<void>;
-        const updateInformationDisplay: () => void;
-        const initialize: () => void;
+    }
+}
+declare module "script/features/history" {
+    import { Media } from "script/features/media";
+    export namespace History {
+        const clear: () => void;
+        const isCleared: () => boolean;
+        const regulate: () => void;
+        const getMedia: () => Media.Entry | undefined;
+        const play: () => Media.Entry | undefined;
+        const next: () => Media.Entry | undefined;
+        const back: () => Media.Entry | undefined;
+        const getShuffleNext: () => number;
     }
 }
 declare module "script/features/visualizer" {
@@ -667,53 +706,69 @@ declare module "script/features/visualizer" {
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom) => void;
     }
 }
-declare module "script/features/player" {
+declare module "script/features/track" {
     import { Media } from "script/features/media";
     import { Visualizer } from "script/features/visualizer";
+    export class Track {
+        playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        paddingDom: HTMLImageElement | HTMLVideoElement | null;
+        visualDom: HTMLDivElement | Visualizer.VisualizerDom | null;
+        media: Media.Entry;
+        startTime: number | null;
+        elapsedTime: number | null;
+        constructor(media: Media.Entry);
+        makePlayerDom(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        isPlaying(): boolean;
+        play(): void;
+        pause(): void;
+        setPositionState(): void;
+        step(): void;
+        isLoop(): boolean;
+        getDuration(): number;
+        getEndTime(): number;
+        getElapsedTime(): number;
+        getRemainingTime(): number;
+        appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
+        updateStretch(): void;
+        setVolume(volume: number): void;
+        transitionStep(rate: number): void;
+    }
+}
+declare module "script/features/player" {
+    import { Media } from "script/features/media";
+    import { Track } from "script/features/track";
     export namespace Player {
-        class TransitionSession {
-        }
-        class Track {
-            playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
-            visualDom: HTMLImageElement | Visualizer.VisualizerDom | HTMLVideoElement | null;
-            media: Media.Entry;
-            startTime: number | null;
-            elapsedTime: number | null;
-            constructor(media: Media.Entry);
-            play(): void;
-            pause(): void;
-            setPositionState(): void;
-            step(): void;
-            isLoop(): boolean;
-            getDuration(): number;
-            getEndTime(): number;
-            getElapsedTime(): number;
-            getRemainingTime(): number;
-            updateMinVisibleRate(): void;
-            setVolume(volume: number): void;
-            transitionStep(rate: number): void;
+        namespace Transition {
+            let startAt: number | null;
+            let elapsedTime: number | null;
+            const duration: number;
+            const clear: () => void;
+            const isTransitioning: () => boolean;
+            const start: () => void;
+            const pause: () => void;
+            const resume: () => void;
+            const getEndAt: () => number | null;
+            const getProgress: () => number;
+            const isActiveTransitionTarget: (target: Track) => boolean;
         }
         const updateFullscreenState: (fullscreen?: boolean) => void;
+        const isPlaying: () => boolean;
         const play: () => void;
         const pause: () => void;
         const previous: () => void;
         const next: () => void;
         const updateFps: () => void;
+        const transition: () => void;
         const loop: (now: number) => void;
-        const playMedia: (entry: Media.Entry) => void;
+        const playMedia: (entry: Media.Entry, resume?: "resume") => void;
+        const removeTrack: (track: Track | null) => void;
+        const removeFadeoutTrack: () => void;
+        const updateStretch: () => void;
     }
 }
 declare module "script/features/index" {
-    import * as ImportedFps from "script/features/fps";
-    import * as ImportedClock from "script/features/clock";
-    import * as ImportedMedia from "script/features/media";
-    import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
-        export import Fps = ImportedFps.Fps;
-        export import Clock = ImportedClock.Clock;
-        export import Media = ImportedMedia.Media;
-        export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
     }
 }
@@ -724,6 +779,20 @@ declare module "script/url" {
         const addParameter: (params: Record<string, string>, key: string, value: string) => Record<string, string>;
         const initialize: () => void;
         const params: Record<string, string>;
+    }
+}
+declare module "script/medialist" {
+    import { Library } from "script/library/index";
+    import { Media } from "script/features/media";
+    export namespace MediaList {
+        const addMedia: (file: File) => Promise<void>;
+        const addMediaSerial: (file: File) => void;
+        const removeButton: (entry: Media.Entry) => Promise<Library.UI.ElementSource<"button">>;
+        const makeMediaEntryDom: (entry: Media.Entry) => Promise<HTMLDivElement>;
+        const updateMediaListDisplay: () => Promise<void>;
+        const updateInformationDisplay: () => void;
+        const initialize: () => void;
+        const clearPlayState: () => void;
     }
 }
 declare module "script/events" {

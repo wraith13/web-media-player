@@ -9,11 +9,12 @@ import images from "@resource/images.json";
 import poweredBy from "@resource/powered-by.json";
 import { Url } from "./url";
 import { UI } from "./ui";
+import { MediaList } from "./medialist";
 import { Events } from "./events";
 Url.initialize();
 UI.initialize();
 Events.initialize();
-Features.Media.initialize();
+MediaList.initialize();
 interface BuildInformation
 {
     at: string;

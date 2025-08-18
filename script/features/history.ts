@@ -1,21 +1,26 @@
 import { Media } from "./media";
 import { Tools } from "@tools";
 import { UI } from "../ui";
+import * as config from "@resource/config.json";
 export namespace History
 {
     let history: number[] = [];
     let currentIndex = -1;
     export const clear = (): void =>
     {
+        navigator.mediaSession.setPositionState();
         history = [];
         currentIndex = -1;
     };
+    export const isCleared = (): boolean =>
+        0 === history.length && -1 === currentIndex;
     export const regulate = (): void =>
     {
-        if (1000 < history.length)
+        const maxHistoryLength = Math.max(config.history.maxLength, Media.mediaList.length);
+        if (maxHistoryLength < history.length)
         {
             const oldLength = history.length;
-            history = history.slice(-1000);
+            history = history.slice(-maxHistoryLength);
             currentIndex -= oldLength - history.length;
         }
     };
@@ -100,7 +105,7 @@ export namespace History
     {
         const playedList = history.slice(Math.floor(currentIndex /Media.mediaList.length) *Media.mediaList.length);
         const unplayedList = Media.mediaList.map((_, i) => i).filter(i => ! playedList.includes(i));
-        const forbidens = history.slice(-Math.floor(Media.mediaList.length /3));
+        const forbidens = history.slice(-Math.floor(Media.mediaList.length *config.history.shuffleForbiddenRate));
         const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
         return canonicals[Tools.Random.makeInteger(canonicals.length)];
     }

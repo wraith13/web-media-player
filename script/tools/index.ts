@@ -6,6 +6,7 @@ import * as ImportedRandom from "./random";
 import * as ImportedArray from "./array";
 import * as ImportedHash from "./hash";
 import * as ImportedByte from "./byte";
+import * as ImportedEnvironment from "./environment";
 export namespace Tools
 {
     export import TypeGuards = ImportedTypeGuards.TypeGuards;
@@ -16,4 +17,5 @@ export namespace Tools
     export import Array = ImportedArray.Array;
     export import Hash = ImportedHash.Hash;
     export import Byte = ImportedByte.Byte;
+    export import Environment = ImportedEnvironment.Environment;
 }

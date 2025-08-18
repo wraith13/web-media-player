@@ -50,6 +50,10 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
+        <div id="clock-panel" dir="ltr">
+            <span id="time"></span>
+            <span id="date"></span>
+        </div>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -64,10 +68,6 @@ DUMMYSTYLE
 <div id="option-panel">
 </div>
 <div id="fps"></div>
-<div id="clock-panel">
-    <span id="time"></span>
-    <span id="date"></span>
-</div>
 <div id="background-introduction-panel">
     <div class="section">
         <h2><span data-lang-key="noscript-introduction-title"></span></h2>
@@ -133,6 +133,10 @@ DUMMYSTYLE
             <span data-lang-key="clock-label"></span>
             <select id="clock"></select>
             <span class="load-status" id="clock-load-status"></span>
+        </label>
+        <label for="clock-position">
+            <span data-lang-key="clock-position-label"></span>
+            <select id="clock-position"></select>
         </label>
         <label for="brightness">
             <span data-lang-key="brightness-label"></span>

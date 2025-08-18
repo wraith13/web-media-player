@@ -11,6 +11,13 @@
         "type": "image/jpeg",
         "quality": 0.7
     },
+    "history": {
+        "maxLength": 1000,
+        "shuffleForbiddenRate": 0.333
+    },
+    "transition": {
+        "duration": 1000
+    },
     "colors": {
         "monochrome": [
             "#000000",
