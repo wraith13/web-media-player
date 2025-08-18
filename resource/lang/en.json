@@ -5,7 +5,7 @@
     "description": "Web-based media player that runs in a web browser",
     "media-count-label": "Media Count:",
     "media-length-label": "Media Length:",
-    "transition-label": "Transition:",
+    "cross-fade-label": "Cross Fade:",
     "colorspace-label": "Color Space:",
     "coloring-label": "Coloring:",
     "pattern-label": "Pattern:",

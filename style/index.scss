@@ -23,9 +23,9 @@
         @include full-stretch-box();
         position: fixed;
         overflow: visible;
-        .player:not(audio), .visualizer
+        .player:not(audio):not(.sound-only), .visualizer
         {
-            position: fixed;
+            position: absolute;
             inset-block-start: 50%;
             inset-inline-start: 50%;
             transform: translate(-50%, -50%);
@@ -304,6 +304,10 @@
             display: none
         }
     }
+}
+#element-pool
+{
+    display: none;
 }
 #option-panel
 {

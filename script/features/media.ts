@@ -7,7 +7,7 @@ export namespace Media
 {
     export interface Entry
     {
-        file: File;
+        //file: File;
         url: string;
         type: string;
         category: Category;
@@ -86,7 +86,7 @@ export namespace Media
             const url = getUrl(file);
             img.onload = () => resolve
             ({
-                file,
+                //file,
                 url,
                 type: file.type,
                 category,
@@ -111,7 +111,7 @@ export namespace Media
             (
                 "loadedmetadata", () => resolve
                 ({
-                    file,
+                    //file,
                     url,
                     type: file.type,
                     category,
@@ -137,7 +137,7 @@ export namespace Media
             video.src = url;
             const finish = () => resolve
             ({
-                file,
+                //file,
                 url,
                 type: file.type,
                 category,

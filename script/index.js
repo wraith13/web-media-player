@@ -176,7 +176,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "description": "Web-based media player that runs in a web browser",
             "media-count-label": "Media Count:",
             "media-length-label": "Media Length:",
-            "transition-label": "Transition:",
+            "cross-fade-label": "Cross Fade:",
             "colorspace-label": "Color Space:",
             "coloring-label": "Coloring:",
             "pattern-label": "Pattern:",
@@ -243,7 +243,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "media-count-label": "メディア数:",
             "media-length-label": "メディア長:",
-            "transition-label": "トランジション:",
+            "cross-fade-label": "クロスフェード:",
             "colorspace-label": "色空間:",
             "coloring-label": "カラーリング:",
             "pattern-label": "パターン:",
@@ -374,9 +374,6 @@ define("resource/config", [], {
     "history": {
         "maxLength": 1000,
         "shuffleForbiddenRate": 0.333
-    },
-    "transition": {
-        "duration": 1000
     },
     "colors": {
         "monochrome": [
@@ -1021,7 +1018,7 @@ define("script/tools/random", ["require", "exports", "script/tools/hash"], funct
     var Random;
     (function (Random) {
         Random.makeInteger = function (size, random, index, prime) {
-            if (random === void 0) { random = Math.random; }
+            if (random === void 0) { random = function () { return Math.random(); }; }
             return Math.floor(random(index, prime) * size);
         };
         Random.select = function (list, random, index, prime) {
@@ -1083,6 +1080,12 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
     exports.Environment = void 0;
     var Environment;
     (function (Environment) {
+        Environment.isApple = function () {
+            return /Macintosh|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        };
+        Environment.isSafari = function () {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        };
         Environment.isMobile = function () {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         };
@@ -1238,9 +1241,28 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
-    "transition": {
-        "id": "transition",
-        "default": true
+    "crossFade": {
+        "id": "cross-fade",
+        "enum": [
+            30000,
+            24000,
+            18000,
+            12500,
+            10000,
+            7500,
+            5000,
+            4000,
+            3000,
+            2500,
+            2000,
+            1500,
+            1250,
+            1000,
+            750,
+            500,
+            250
+        ],
+        "default": 1250
     },
     "imageSpan": {
         "id": "image-span",
@@ -1257,6 +1279,7 @@ define("resource/control", [], {
             60000,
             45000,
             30000,
+            24000,
             18000,
             12500,
             10000,
@@ -1350,6 +1373,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
+        UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
         UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
         UI.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
@@ -1363,7 +1387,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
         UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
-        UI.transitionCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.transition);
+        UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.withFullscreenCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
@@ -1549,7 +1573,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     img = new Image();
                     url = Media.getUrl(file);
                     img.onload = function () { return resolve({
-                        file: file,
+                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -1573,7 +1597,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     audio = document.createElement("audio");
                     audio.src = url;
                     audio.addEventListener("loadedmetadata", function () { return resolve({
-                        file: file,
+                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -1599,7 +1623,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     video.playsInline = true;
                     video.src = url;
                     finish = function () { return resolve({
-                        file: file,
+                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -1687,7 +1711,118 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_3, config) {
+define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_4, ui_3) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ElementPool = void 0;
+    var ElementPool;
+    (function (ElementPool) {
+        ElementPool.makeSure = function (data) {
+            var result = Promise.resolve();
+            if (data.image) {
+                while (ui_3.UI.elementPool.getElementsByTagName("img").length < 4) {
+                    var imgElement = _library_4.Library.UI.createElement({
+                        tag: "img",
+                        className: "player",
+                        attributes: {
+                            src: data.image.url,
+                            alt: data.image.name,
+                        },
+                    });
+                    ui_3.UI.elementPool.appendChild(imgElement);
+                }
+            }
+            if (data.audio) {
+                var _loop_1 = function () {
+                    var audioElement = _library_4.Library.UI.createElement({
+                        tag: "audio",
+                        className: "player",
+                        attributes: {
+                            src: data.audio.url,
+                            //controls: false,
+                            autoplay: false,
+                        },
+                    });
+                    ui_3.UI.elementPool.appendChild(audioElement);
+                    audioElement.volume = 0;
+                    audioElement.muted = false;
+                    result = result.then(function () { return audioElement.play(); });
+                };
+                while (ui_3.UI.elementPool.getElementsByTagName("audio").length < 2) {
+                    _loop_1();
+                }
+            }
+            if (data.video) {
+                var _loop_2 = function () {
+                    var videoElement = _library_4.Library.UI.createElement({
+                        tag: "video",
+                        className: "player",
+                        attributes: {
+                            src: data.video.url,
+                            //controls: false,
+                            autoplay: false,
+                        },
+                    });
+                    ui_3.UI.elementPool.appendChild(videoElement);
+                    videoElement.volume = 0;
+                    videoElement.muted = false;
+                    result = result.then(function () { return videoElement.play(); });
+                };
+                while (ui_3.UI.elementPool.getElementsByTagName("video").length < 4) {
+                    _loop_2();
+                }
+            }
+            return result.then(function () { return undefined; });
+        };
+        ElementPool.get = function (media) {
+            switch (media.category) {
+                case "image":
+                    var imgElement = ui_3.UI.elementPool.getElementsByTagName("img")[0];
+                    if (imgElement) {
+                        imgElement.src = media.url;
+                        imgElement.alt = media.name;
+                        return imgElement;
+                    }
+                    break;
+                case "audio":
+                    var audioElement = ui_3.UI.elementPool.getElementsByTagName("audio")[0];
+                    if (audioElement) {
+                        audioElement.src = media.url;
+                        audioElement.controls = false;
+                        audioElement.autoplay = false;
+                        audioElement.currentTime = 0;
+                        audioElement.volume = 0;
+                        audioElement.muted = false;
+                        return audioElement;
+                    }
+                    break;
+                case "video":
+                    var videoElement = ui_3.UI.elementPool.getElementsByTagName("video")[0];
+                    if (videoElement) {
+                        videoElement.src = media.url;
+                        videoElement.autoplay = false;
+                        videoElement.currentTime = 0;
+                        videoElement.volume = 0;
+                        videoElement.muted = false;
+                        return videoElement;
+                    }
+                    break;
+                default:
+                    console.error("🦋 Unknown media type:", media.type, media);
+                    return null;
+            }
+            console.error("🦋 No element found in the pool for media:", media);
+            return null;
+        };
+        ElementPool.release = function (element) {
+            if (element) {
+                element.className = "player";
+                ui_3.UI.elementPool.appendChild(element);
+            }
+        };
+    })(ElementPool || (exports.ElementPool = ElementPool = {}));
+});
+define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_4, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.History = void 0;
@@ -1743,13 +1878,13 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 }
                 else {
                     currentIndex = history.length;
-                    if (ui_3.UI.shuffleButton.dom.classList.contains("on")) {
+                    if (ui_4.UI.shuffleButton.dom.classList.contains("on")) {
                         history.push(History.getShuffleNext());
                     }
                     else {
                         var backMediaIndex = (_a = history[currentIndex - 1]) !== null && _a !== void 0 ? _a : -1;
                         var currentMediaIndex = backMediaIndex + 1;
-                        if (currentMediaIndex < media_1.Media.mediaList.length || ui_3.UI.repeatButton.dom.classList.contains("on")) {
+                        if (currentMediaIndex < media_1.Media.mediaList.length || ui_4.UI.repeatButton.dom.classList.contains("on")) {
                             history.push(currentMediaIndex % media_1.Media.mediaList.length);
                             History.regulate();
                         }
@@ -1773,22 +1908,33 @@ define("script/features/history", ["require", "exports", "script/features/media"
             return undefined;
         };
         History.getShuffleNext = function () {
-            var playedList = history.slice(Math.floor(currentIndex / media_1.Media.mediaList.length) * media_1.Media.mediaList.length);
-            var unplayedList = media_1.Media.mediaList.map(function (_, i) { return i; }).filter(function (i) { return !playedList.includes(i); });
-            var forbidens = history.slice(-Math.floor(media_1.Media.mediaList.length * config.history.shuffleForbiddenRate));
-            var canonicals = unplayedList.filter(function (i) { return !forbidens.includes(i); });
-            return canonicals[_tools_4.Tools.Random.makeInteger(canonicals.length)];
+            switch (media_1.Media.mediaList.length) {
+                case 0:
+                    return -1;
+                case 1:
+                    return 0;
+                case 2:
+                    return history.length < 2 ?
+                        _tools_4.Tools.Random.makeInteger(media_1.Media.mediaList.length) :
+                        history.filter(function (i) { return 0 === i; }).length / history.length < Math.random() ? 0 : 1;
+                default:
+                    var playedList_1 = history.slice(Math.floor(currentIndex / media_1.Media.mediaList.length) * media_1.Media.mediaList.length);
+                    var unplayedList = media_1.Media.mediaList.map(function (_, i) { return i; }).filter(function (i) { return !playedList_1.includes(i); });
+                    var forbidens_1 = history.slice(-Math.ceil(media_1.Media.mediaList.length * config.history.shuffleForbiddenRate));
+                    var canonicals = unplayedList.filter(function (i) { return !forbidens_1.includes(i); });
+                    return canonicals[_tools_4.Tools.Random.makeInteger(canonicals.length)];
+            }
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/tools/index"], function (require, exports, _library_4, _tools_5) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/tools/index"], function (require, exports, _library_5, _tools_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
     var Visualizer;
     (function (Visualizer) {
         Visualizer.make = function (media) {
-            var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visual" });
+            var visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visual" });
             switch (media.type) {
                 case "audio":
                     //visualDom.classList.add("audio");
@@ -1797,115 +1943,97 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             return visualDom;
         };
         Visualizer.step = function (_media, playerDom, visualDom) {
-            _library_4.Library.UI.setTextContent(visualDom, "".concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.currentTime), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.duration)));
+            _library_5.Library.UI.setTextContent(visualDom, "".concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.currentTime), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.duration)));
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/track", ["require", "exports", "script/library/index", "script/ui", "script/features/visualizer"], function (require, exports, _library_5, ui_4, visualizer_1) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/visualizer"], function (require, exports, _tools_6, _library_6, ui_5, elementpool_1, visualizer_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = void 0;
     var Track = /** @class */ (function () {
         function Track(media) {
-            this.paddingDom = null;
+            this.paddingElement = null;
             this.startTime = null;
             this.elapsedTime = null;
             this.media = media;
             switch (media.category) {
                 case "image":
-                    this.playerDom = this.makePlayerDom();
-                    this.visualDom = _library_5.Library.UI.createElement({
+                    this.playerElement = this.makePlayerElement();
+                    this.visualElement = _library_6.Library.UI.createElement({
                         tag: "div",
                         className: "track-frame",
-                        children: [this.playerDom,]
+                        children: [this.playerElement,]
                     });
                     break;
                 case "audio":
-                    this.playerDom = this.makePlayerDom();
-                    this.visualDom = visualizer_1.Visualizer.make(media);
+                    this.playerElement = this.makePlayerElement();
+                    this.visualElement = visualizer_1.Visualizer.make(media);
                     break;
                 case "video":
-                    this.playerDom = this.makePlayerDom();
-                    this.visualDom = _library_5.Library.UI.createElement({
+                    this.playerElement = this.makePlayerElement();
+                    this.visualElement = _library_6.Library.UI.createElement({
                         tag: "div",
                         className: "track-frame",
-                        children: [this.playerDom,]
+                        children: [this.playerElement,]
                     });
                     break;
                 default:
                     console.error("🦋 Unknown media type:", media.type, media);
-                    this.playerDom = null;
-                    this.visualDom = null;
+                    this.playerElement = null;
+                    this.visualElement = null;
                     break;
             }
-            if (this.playerDom instanceof HTMLMediaElement && this.isLoop()) {
-                this.playerDom.loop = true;
+            if (this.playerElement instanceof HTMLMediaElement) {
+                if (this.isLoop()) {
+                    this.playerElement.loop = true;
+                }
+                else {
+                    this.playerElement.removeAttribute("loop");
+                }
             }
-            // this.startTime = Date.now();
-            // this.endTime = this.startTime + (media.duration ?? parseFloat(UI.imageSpanSelect.get()));
         }
-        Track.prototype.makePlayerDom = function () {
-            switch (this.media.category) {
-                case "image":
-                    return _library_5.Library.UI.createElement({
-                        tag: "img",
-                        className: "player",
-                        attributes: {
-                            src: this.media.url,
-                            alt: this.media.name,
-                        },
-                    });
-                case "audio":
-                    return _library_5.Library.UI.createElement({
-                        tag: "audio",
-                        className: "player",
-                        attributes: {
-                            src: this.media.url,
-                            controls: false,
-                            autoplay: false,
-                        },
-                    });
-                case "video":
-                    return _library_5.Library.UI.createElement({
-                        tag: "video",
-                        className: "player",
-                        attributes: {
-                            src: this.media.url,
-                            //controls: false,
-                            autoplay: false,
-                        },
-                    });
-                default:
-                    console.error("🦋 Unknown media type:", this.media.type, this.media);
-                    return null;
-            }
+        Track.prototype.makePlayerElement = function () {
+            return elementpool_1.ElementPool.get(this.media);
         };
         Track.prototype.isPlaying = function () {
             return null !== this.startTime;
         };
         Track.prototype.play = function () {
-            var _a;
-            if (this.playerDom instanceof HTMLMediaElement) {
-                this.playerDom.play();
-                this.playerDom.currentTime = ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000;
-                if (this.paddingDom instanceof HTMLMediaElement) {
-                    this.paddingDom.play();
-                    this.paddingDom.currentTime = this.playerDom.currentTime;
-                }
-            }
-            if (null !== this.elapsedTime) {
-                this.startTime = Date.now() - this.elapsedTime;
-                this.elapsedTime = null;
-            }
-            else {
-                this.startTime = Date.now();
-            }
+            return __awaiter(this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this.playerElement.play()];
+                        case 1:
+                            _b.sent();
+                            this.playerElement.currentTime = ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000;
+                            if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this.paddingElement.play()];
+                        case 2:
+                            _b.sent();
+                            this.paddingElement.currentTime = this.playerElement.currentTime;
+                            _b.label = 3;
+                        case 3:
+                            if (null !== this.elapsedTime) {
+                                this.startTime = Date.now() - this.elapsedTime;
+                                this.elapsedTime = null;
+                            }
+                            else {
+                                this.startTime = Date.now();
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
         };
         Track.prototype.pause = function () {
-            if (this.playerDom instanceof HTMLMediaElement) {
-                this.playerDom.pause();
-                if (this.paddingDom instanceof HTMLMediaElement) {
-                    this.paddingDom.pause();
+            if (this.playerElement instanceof HTMLMediaElement) {
+                this.playerElement.pause();
+                if (this.paddingElement instanceof HTMLMediaElement) {
+                    this.paddingElement.pause();
                 }
             }
             if (null !== this.startTime) {
@@ -1916,24 +2044,24 @@ define("script/features/track", ["require", "exports", "script/library/index", "
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
                 duration: this.getDuration(),
-                playbackRate: this.playerDom instanceof HTMLMediaElement ? this.playerDom.playbackRate : 1.0,
+                playbackRate: this.playerElement instanceof HTMLMediaElement ? this.playerElement.playbackRate : 1.0,
                 position: this.getElapsedTime() / 1000,
             });
         };
         Track.prototype.step = function () {
-            if (this.playerDom instanceof HTMLAudioElement && !this.playerDom.paused) {
-                visualizer_1.Visualizer.step(this.media, this.playerDom, this.visualDom);
+            if (this.playerElement instanceof HTMLAudioElement && !this.playerElement.paused) {
+                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
             }
             this.setPositionState(); // 🔥 これはここでやっちゃダメ！
         };
         Track.prototype.isLoop = function () {
-            var loopShortMedia = ui_4.UI.loopShortMediaCheckbox.get();
-            var imageSpan = parseFloat(ui_4.UI.imageSpanSelect.get());
+            var loopShortMedia = ui_5.UI.loopShortMediaCheckbox.get();
+            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
             return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
         };
         Track.prototype.getDuration = function () {
             var _a;
-            var imageSpan = parseFloat(ui_4.UI.imageSpanSelect.get());
+            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
             if (this.isLoop()) {
                 return imageSpan;
             }
@@ -1976,8 +2104,8 @@ define("script/features/track", ["require", "exports", "script/library/index", "
                 var scale = ratio * minScale;
                 var scaledWidth = this.media.area.width * scale;
                 var scaledHeight = this.media.area.height * scale;
-                _library_5.Library.UI.setStyle(dom, "width", "".concat(scaledWidth, "px"));
-                _library_5.Library.UI.setStyle(dom, "height", "".concat(scaledHeight, "px"));
+                _library_6.Library.UI.setStyle(dom, "width", "".concat(scaledWidth, "px"));
+                _library_6.Library.UI.setStyle(dom, "height", "".concat(scaledHeight, "px"));
                 if (maxStreach <= ratio) {
                     return true;
                 }
@@ -1985,128 +2113,146 @@ define("script/features/track", ["require", "exports", "script/library/index", "
             return false;
         };
         Track.prototype.updateStretch = function () {
-            if (this.visualDom) {
+            var _this = this;
+            if (this.visualElement) {
                 if (this.media.area) {
-                    var StretchRate = ui_4.UI.stretchRange.get() / 100;
-                    var isFit = this.appleyStretch(this.playerDom, StretchRate);
-                    if (ui_4.UI.paddingCheckbox.get()) {
+                    var StretchRate = ui_5.UI.stretchRange.get() / 100;
+                    var isFit = this.appleyStretch(this.playerElement, StretchRate);
+                    if (ui_5.UI.paddingCheckbox.get()) {
                         if (!isFit) {
-                            if (null === this.paddingDom) {
-                                this.paddingDom = this.makePlayerDom();
-                                if (this.playerDom instanceof HTMLMediaElement && this.isLoop()) {
-                                    this.playerDom.loop = true;
+                            if (null === this.paddingElement) {
+                                this.paddingElement = this.makePlayerElement();
+                                this.paddingElement.classList.add("padding");
+                                if (this.paddingElement instanceof HTMLMediaElement) {
+                                    var playerDom = this.playerElement;
+                                    this.paddingElement.volume = 0;
+                                    this.paddingElement.muted = true;
+                                    this.paddingElement.loop = playerDom.loop;
+                                    this.paddingElement.currentTime = playerDom.currentTime;
+                                    if (this.playerElement instanceof HTMLMediaElement && !this.playerElement.paused) {
+                                        this.paddingElement.play().then(function () {
+                                            if (_this.paddingElement instanceof HTMLVideoElement && _this.playerElement instanceof HTMLVideoElement) {
+                                                _this.paddingElement.currentTime = _this.playerElement.currentTime;
+                                            }
+                                        });
+                                    }
                                 }
-                                this.paddingDom.classList.add("padding");
-                                if (this.paddingDom instanceof HTMLMediaElement) {
-                                    var playerDom = this.playerDom;
-                                    this.paddingDom.volume = 0;
-                                    this.paddingDom.muted = true;
-                                    this.paddingDom.loop = playerDom.loop;
-                                    this.paddingDom.currentTime = playerDom.currentTime;
-                                }
-                                this.visualDom.insertBefore(this.paddingDom, this.playerDom);
+                                this.visualElement.insertBefore(this.paddingElement, this.playerElement);
                             }
-                            this.appleyStretch(this.paddingDom, 1.0);
+                            this.appleyStretch(this.paddingElement, 1.0);
                         }
                     }
                     else {
-                        if (null !== this.paddingDom) {
-                            this.visualDom.removeChild(this.paddingDom);
-                            this.paddingDom = null;
+                        if (null !== this.paddingElement) {
+                            if (this.paddingElement instanceof HTMLMediaElement) {
+                                this.paddingElement.pause();
+                            }
+                            elementpool_1.ElementPool.release(this.paddingElement);
+                            this.paddingElement = null;
                         }
                     }
                 }
                 else {
-                    _library_5.Library.UI.setStyle(this.visualDom, "width", "100%");
-                    _library_5.Library.UI.setStyle(this.visualDom, "height", "100%");
+                    _library_6.Library.UI.setStyle(this.visualElement, "width", "100%");
+                    _library_6.Library.UI.setStyle(this.visualElement, "height", "100%");
                 }
             }
         };
         Track.prototype.setVolume = function (volume) {
-            if (this.playerDom instanceof HTMLMediaElement) {
-                this.playerDom.volume = volume;
-                this.playerDom.muted = volume <= 0;
+            if (this.playerElement instanceof HTMLMediaElement) {
+                this.playerElement.volume = volume;
+                //this.playerElement.muted = volume <= 0;
             }
         };
-        Track.prototype.transitionStep = function (rate) {
-            if (this.visualDom) {
-                this.visualDom.style.opacity = "".concat(rate);
+        Track.prototype.crossFadeStep = function (rate) {
+            if (this.visualElement) {
+                this.visualElement.style.opacity = "".concat(rate);
+                if (_tools_6.Tools.Environment.isApple() && _tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
+                    this.playerElement.muted = rate <= 0.5;
+                }
             }
+        };
+        Track.prototype.release = function () {
+            elementpool_1.ElementPool.release(this.playerElement);
+            elementpool_1.ElementPool.release(this.paddingElement);
         };
         return Track;
     }());
     exports.Track = Track;
 });
-define("script/features/player", ["require", "exports", "script/features/fps", "script/features/clock", "script/library/index", "script/ui", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, fps_1, clock_1, _library_6, ui_5, media_2, history_1, track_1, config) {
+define("script/features/player", ["require", "exports", "script/library/index", "script/features/fps", "script/features/clock", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _library_7, fps_1, clock_1, ui_6, elementpool_2, media_2, history_1, track_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
     config = __importStar(config);
     var Player;
     (function (Player) {
-        var Transition;
-        (function (Transition) {
-            Transition.startAt = null;
-            Transition.elapsedTime = null;
-            Transition.duration = config.transition.duration;
-            Transition.clear = function () {
-                Transition.startAt = null;
-                Transition.elapsedTime = null;
+        var _this = this;
+        var CrossFade;
+        (function (CrossFade) {
+            CrossFade.startAt = null;
+            CrossFade.elapsedTime = null;
+            CrossFade.getDuration = function () {
+                return parseFloat(ui_6.UI.crossFadeSelect.get());
             };
-            Transition.isTransitioning = function () {
-                return null !== Transition.startAt || null !== Transition.elapsedTime;
+            CrossFade.clear = function () {
+                CrossFade.startAt = null;
+                CrossFade.elapsedTime = null;
             };
-            Transition.start = function () {
-                Transition.startAt = Date.now();
-                Transition.elapsedTime = null;
+            CrossFade.isCrossFading = function () {
+                return null !== CrossFade.startAt || null !== CrossFade.elapsedTime;
             };
-            Transition.pause = function () {
-                if (null !== Transition.startAt) {
-                    Transition.elapsedTime = Date.now() - Transition.startAt;
+            CrossFade.start = function () {
+                CrossFade.startAt = Date.now();
+                CrossFade.elapsedTime = null;
+            };
+            CrossFade.pause = function () {
+                if (null !== CrossFade.startAt) {
+                    CrossFade.elapsedTime = Date.now() - CrossFade.startAt;
                 }
             };
-            Transition.resume = function () {
-                if (null !== Transition.elapsedTime) {
-                    Transition.startAt = Date.now() - Transition.elapsedTime;
-                    Transition.elapsedTime = null;
+            CrossFade.resume = function () {
+                if (null !== CrossFade.elapsedTime) {
+                    CrossFade.startAt = Date.now() - CrossFade.elapsedTime;
+                    CrossFade.elapsedTime = null;
                 }
             };
-            Transition.getEndAt = function () {
-                if (null !== Transition.startAt) {
-                    return Transition.startAt + Transition.duration;
+            CrossFade.getEndAt = function () {
+                if (null !== CrossFade.startAt) {
+                    return CrossFade.startAt + CrossFade.getDuration();
                 }
-                else if (null !== Transition.elapsedTime) {
-                    return Date.now() + Transition.duration - Transition.elapsedTime;
+                else if (null !== CrossFade.elapsedTime) {
+                    return Date.now() + CrossFade.getDuration() - CrossFade.elapsedTime;
                 }
                 else {
                     return null;
                 }
             };
-            Transition.getProgress = function () {
-                if (null !== Transition.elapsedTime) {
-                    return Math.min(Transition.elapsedTime / Transition.duration, 1);
+            CrossFade.getProgress = function () {
+                if (null !== CrossFade.elapsedTime) {
+                    return Math.min(CrossFade.elapsedTime / CrossFade.getDuration(), 1);
                 }
-                else if (null !== Transition.startAt) {
-                    return Math.min((Date.now() - Transition.startAt) / Transition.duration, 1);
+                else if (null !== CrossFade.startAt) {
+                    return Math.min((Date.now() - CrossFade.startAt) / CrossFade.getDuration(), 1);
                 }
                 else {
                     return 0;
                 }
             };
-            Transition.isActiveTransitionTarget = function (target) {
-                return (config.transition.duration * 3) < target.getDuration();
+            CrossFade.isHotCrossFadeTarget = function (target) {
+                return (CrossFade.getDuration() * 3) < target.getDuration();
             };
-        })(Transition = Player.Transition || (Player.Transition = {}));
-        var noMediaTimer = new _library_6.Library.UI.ToggleClassForWhileTimer();
+        })(CrossFade = Player.CrossFade || (Player.CrossFade = {}));
+        var noMediaTimer = new _library_7.Library.UI.ToggleClassForWhileTimer();
         var loopHandle = null;
         Player.updateFullscreenState = function (fullscreen) {
-            if (_library_6.Library.UI.fullscreenEnabled) {
-                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_5.UI.withFullscreenCheckbox.get()) {
-                    _library_6.Library.UI.requestFullscreen(document.body);
+            if (_library_7.Library.UI.fullscreenEnabled) {
+                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_6.UI.withFullscreenCheckbox.get()) {
+                    _library_7.Library.UI.requestFullscreen(document.body);
                     setTimeout(function () { return document.body.focus(); }, 100);
                 }
                 else {
-                    _library_6.Library.UI.exitFullscreen();
+                    _library_7.Library.UI.exitFullscreen();
                 }
             }
         };
@@ -2115,58 +2261,72 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
         Player.isPlaying = function () {
             return document.body.classList.contains("play");
         };
-        Player.play = function () {
-            Player.updateFullscreenState();
-            if (null !== loopHandle) {
-                window.cancelAnimationFrame(loopHandle);
-            }
-            loopHandle = window.requestAnimationFrame(Player.loop);
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: config.applicationTitle,
-                artist: "Unknown Artist",
-                album: "Temporary Media List",
-                artwork: [
-                    {
-                        src: "./image/appicon.png",
-                        type: "image/png",
-                    },
-                ],
+        Player.play = function () { return __awaiter(_this, void 0, void 0, function () {
+            var media;
+            var _a, _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0: return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
+                            image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
+                            audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
+                            video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
+                        })];
+                    case 1:
+                        _d.sent();
+                        Player.updateFullscreenState();
+                        if (null !== loopHandle) {
+                            window.cancelAnimationFrame(loopHandle);
+                        }
+                        loopHandle = window.requestAnimationFrame(Player.loop);
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: config.applicationTitle,
+                            artist: "Unknown Artist",
+                            album: "Temporary Media List",
+                            artwork: [
+                                {
+                                    src: "./image/appicon.png",
+                                    type: "image/png",
+                                },
+                            ],
+                        });
+                        navigator.mediaSession.playbackState = "playing";
+                        document.body.classList.toggle("list", false);
+                        document.body.classList.toggle("play", true);
+                        _library_7.Library.UI.setStyle(ui_6.UI.mediaScreen, "opacity", "".concat(ui_6.UI.brightnessRange.get() / 100));
+                        if (media_2.Media.mediaList.length <= 0) {
+                            noMediaTimer.start(document.body, "no-media", 5000);
+                        }
+                        if (history_1.History.isCleared()) {
+                            CrossFade.clear();
+                            Player.removeFadeoutTrack();
+                            Player.removeTrack(currentTrack);
+                            currentTrack = null;
+                        }
+                        CrossFade.resume();
+                        media = history_1.History.play();
+                        if (media) {
+                            Player.playMedia(media, "resume");
+                        }
+                        else if (!ui_6.UI.repeatButton.dom.classList.contains("on")) {
+                            Player.pause();
+                        }
+                        return [2 /*return*/];
+                }
             });
-            navigator.mediaSession.playbackState = "playing";
-            document.body.classList.toggle("list", false);
-            document.body.classList.toggle("play", true);
-            _library_6.Library.UI.setStyle(ui_5.UI.mediaScreen, "opacity", "".concat(ui_5.UI.brightnessRange.get() / 100));
-            if (media_2.Media.mediaList.length <= 0) {
-                noMediaTimer.start(document.body, "no-media", 5000);
-            }
-            if (history_1.History.isCleared()) {
-                Transition.clear();
-                Player.removeFadeoutTrack();
-                Player.removeTrack(currentTrack);
-                currentTrack = null;
-            }
-            Transition.resume();
-            var media = history_1.History.play();
-            if (media) {
-                Player.playMedia(media, "resume");
-            }
-            else if (!ui_5.UI.repeatButton.dom.classList.contains("on")) {
-                Player.pause();
-            }
-        };
+        }); };
         Player.pause = function () {
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
             }
-            ui_5.UI.clockDisplay.style.removeProperty("opacity");
+            ui_6.UI.clockDisplay.style.removeProperty("opacity");
             Player.updateFullscreenState(false);
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
             document.body.classList.toggle("play", false);
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
-            Transition.pause();
-            _library_6.Library.UI.setStyle(ui_5.UI.mediaScreen, "opacity", "0.2");
+            CrossFade.pause();
+            _library_7.Library.UI.setStyle(ui_6.UI.mediaScreen, "opacity", "0.2");
         };
         Player.previous = function () {
             var media = history_1.History.back();
@@ -2188,75 +2348,85 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
             }
         };
         Player.updateFps = function () {
-            if (ui_5.UI.showFpsCheckbox.get()) {
-                _library_6.Library.UI.setTextContent(ui_5.UI.fpsDisplay, fps_1.Fps.getText());
+            if (ui_6.UI.showFpsCheckbox.get()) {
+                _library_7.Library.UI.setTextContent(ui_6.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
         var lastTimeVolume = 1.0;
-        Player.transition = function () {
+        Player.crossFade = function () { return __awaiter(_this, void 0, void 0, function () {
+            var currentVolume, progress;
             var _a;
-            if (null !== currentTrack) {
-                var currentVolume = ui_5.UI.volumeRange.get() / 100;
-                if (Transition.isTransitioning()) {
-                    if (((_a = Transition.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now()) {
-                        Transition.clear();
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!(null !== currentTrack)) return [3 /*break*/, 6];
+                        currentVolume = ui_6.UI.volumeRange.get() / 100;
+                        if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
+                        if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
+                        CrossFade.clear();
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.transitionStep(1);
-                        if (!currentTrack.isPlaying()) {
-                            currentTrack.play();
-                        }
-                    }
-                    else {
-                        var progress = Transition.getProgress();
+                        currentTrack.crossFadeStep(1);
+                        currentTrack.updateStretch();
+                        if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
+                        return [4 /*yield*/, currentTrack.play()];
+                    case 1:
+                        _b.sent();
+                        _b.label = 2;
+                    case 2: return [3 /*break*/, 4];
+                    case 3:
+                        progress = CrossFade.getProgress();
                         if (null !== fadeoutingTrack) {
                             fadeoutingTrack.setVolume(currentVolume * (1 - progress));
-                            fadeoutingTrack.transitionStep(1 - progress);
+                            fadeoutingTrack.crossFadeStep(1 - progress);
                         }
                         currentTrack.setVolume(currentVolume * progress);
-                        currentTrack.transitionStep(progress);
-                    }
-                    lastTimeVolume = currentVolume;
-                }
-                else {
-                    if (lastTimeVolume !== currentVolume) {
+                        currentTrack.crossFadeStep(progress);
+                        _b.label = 4;
+                    case 4:
                         lastTimeVolume = currentVolume;
-                        if (null !== currentTrack) {
-                            currentTrack.setVolume(currentVolume);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        if (lastTimeVolume !== currentVolume) {
+                            lastTimeVolume = currentVolume;
+                            if (null !== currentTrack) {
+                                currentTrack.setVolume(currentVolume);
+                            }
                         }
-                    }
-                    if (ui_5.UI.transitionCheckbox.get()) {
-                        if (Transition.isActiveTransitionTarget(currentTrack)) {
-                            if (currentTrack.getRemainingTime() <= config.transition.duration) {
-                                Transition.start();
-                                Player.next();
+                        if (0 < parseFloat(ui_6.UI.crossFadeSelect.get())) {
+                            if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
+                                if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
+                                    //CrossFade.start();
+                                    Player.next();
+                                }
+                            }
+                            else {
+                                if (currentTrack.getRemainingTime() <= 0) {
+                                    //CrossFade.start();
+                                    Player.next();
+                                }
                             }
                         }
                         else {
                             if (currentTrack.getRemainingTime() <= 0) {
-                                Transition.start();
                                 Player.next();
                             }
                         }
-                    }
-                    else {
-                        if (currentTrack.getRemainingTime() <= 0) {
-                            Player.next();
-                        }
-                    }
+                        _b.label = 6;
+                    case 6: return [2 /*return*/];
                 }
-            }
-        };
+            });
+        }); };
         Player.loop = function (now) {
             var _a, _b;
             if (document.body.classList.contains("play")) {
                 clock_1.Clock.update(now);
                 fps_1.Fps.step(now);
                 Player.updateFps();
-                Player.transition();
+                Player.crossFade();
                 navigator.mediaSession.setPositionState({
                     duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
-                    playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerDom) instanceof HTMLMediaElement ? currentTrack.playerDom.playbackRate : 1.0,
+                    playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
                     position: ((_b = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getElapsedTime()) !== null && _b !== void 0 ? _b : 0) / 1000,
                 });
                 loopHandle = window.requestAnimationFrame(Player.loop);
@@ -2283,14 +2453,11 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry);
                 currentTrack.updateStretch();
-                if (currentTrack.visualDom) {
-                    ui_5.UI.mediaScreen.insertBefore(currentTrack.visualDom, ui_5.UI.clockDisplay);
-                }
-                if (ui_5.UI.transitionCheckbox.get() && fadeoutingTrack) {
-                    Transition.start();
+                if (0 < parseFloat(ui_6.UI.crossFadeSelect.get()) && fadeoutingTrack) {
+                    CrossFade.start();
                     currentTrack.setVolume(0);
-                    currentTrack.transitionStep(0);
-                    if (Transition.isActiveTransitionTarget(currentTrack)) {
+                    currentTrack.crossFadeStep(0);
+                    if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
                 }
@@ -2298,19 +2465,23 @@ define("script/features/player", ["require", "exports", "script/features/fps", "
                     if (fadeoutingTrack) {
                         Player.removeFadeoutTrack();
                     }
-                    var currentVolume = ui_5.UI.volumeRange.get() / 100;
+                    var currentVolume = ui_6.UI.volumeRange.get() / 100;
                     currentTrack.setVolume(currentVolume);
-                    currentTrack.transitionStep(1);
+                    currentTrack.crossFadeStep(1);
                     currentTrack.play();
+                }
+                if (currentTrack.visualElement) {
+                    ui_6.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_6.UI.clockDisplay);
                 }
             }
         };
         Player.removeTrack = function (track) {
             if (track) {
                 track.pause();
-                if (track.visualDom) {
-                    ui_5.UI.mediaScreen.removeChild(track.visualDom);
+                if (track.visualElement) {
+                    ui_6.UI.mediaScreen.removeChild(track.visualElement);
                 }
+                track.release();
             }
         };
         Player.removeFadeoutTrack = function () {
@@ -2388,7 +2559,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/media", "script/features/history", "script/ui"], function (require, exports, _tools_6, _library_7, media_3, history_2, ui_6) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/media", "script/features/history", "script/ui"], function (require, exports, _tools_7, _library_8, media_3, history_2, ui_7) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -2408,10 +2579,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         console.log("✅ Valid media file:", file);
                         media_3.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
-                        _b = (_a = ui_6.UI.mediaList).insertBefore;
+                        _b = (_a = ui_7.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_6.UI.addMediaButton.dom.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_7.UI.addMediaButton.dom.parentElement]);
                         MediaList.clearPlayState();
                         console.log("📂 Media added:", media_3.Media.mediaList[media_3.Media.mediaList.length - 1]);
                         return [3 /*break*/, 4];
@@ -2436,7 +2607,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             tag: "button",
                             className: "remove-button"
                         };
-                        return [4 /*yield*/, _library_7.Library.Svg.getSvg("SVG:close")];
+                        return [4 /*yield*/, _library_8.Library.Svg.getSvg("SVG:close")];
                     case 1: return [2 /*return*/, (_a.children = [
                             _b.sent()
                         ],
@@ -2477,7 +2648,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                 switch (_e.label) {
                     case 0:
                         ix = media_3.Media.mediaList.indexOf(entry);
-                        _b = (_a = _library_7.Library.UI).createElement;
+                        _b = (_a = _library_8.Library.UI).createElement;
                         _d = {
                             tag: "div",
                             className: "item",
@@ -2489,8 +2660,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
-                            { tag: "span", className: "size", text: _tools_6.Tools.Byte.toDisplayString(entry.size, 3), },
-                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_6.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3), },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
                         ];
                         return [4 /*yield*/, MediaList.removeButton(entry)];
                     case 2:
@@ -2500,7 +2671,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 _d)]);
                         item.addEventListener("dragstart", function (event) {
                             var _a;
-                            ui_6.UI.mediaList.classList.add("dragging");
+                            ui_7.UI.mediaList.classList.add("dragging");
                             item.classList.add("dragging");
                             (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
                         });
@@ -2508,7 +2679,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
-                                        ui_6.UI.mediaList.classList.remove("dragging");
+                                        ui_7.UI.mediaList.classList.remove("dragging");
                                         item.classList.remove("dragging");
                                         return [4 /*yield*/, MediaList.updateMediaListDisplay()];
                                     case 1:
@@ -2555,7 +2726,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        Array.from(ui_6.UI.mediaList.children).forEach(function (child) {
+                        Array.from(ui_7.UI.mediaList.children).forEach(function (child) {
                             if (child instanceof HTMLDivElement && !child.classList.contains("add")) {
                                 child.remove();
                             }
@@ -2566,10 +2737,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
                         entry = _a[_i];
-                        _c = (_b = ui_6.UI.mediaList).insertBefore;
+                        _c = (_b = ui_7.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_6.UI.addMediaButton.dom.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_7.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -2579,10 +2750,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_7.Library.UI.setTextContent(ui_6.UI.mediaCount, media_3.Media.mediaList.length.toString());
-            var imageSpan = parseInt(ui_6.UI.imageSpanSelect.get());
+            _library_8.Library.UI.setTextContent(ui_7.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_7.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_7.Library.UI.setTextContent(ui_6.UI.mediaLength, _tools_6.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_7.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
@@ -2592,7 +2763,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_7, _library_8, _features_1, media_4, medialist_1, ui_7, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_9, _features_1, media_4, medialist_1, ui_8, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -2602,16 +2773,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     (function (Events) {
         var _this = this;
         var updateShowFps = function () {
-            ui_7.UI.fpsDisplay.classList.toggle("hide", !ui_7.UI.showFpsCheckbox.get());
+            ui_8.UI.fpsDisplay.classList.toggle("hide", !ui_8.UI.showFpsCheckbox.get());
         };
         var updateClock = function () {
-            control_json_2.default.clock.enum.forEach(function (i) { return ui_7.UI.clockDisplay.classList.toggle(i, i === ui_7.UI.clockSelect.get()); });
+            control_json_2.default.clock.enum.forEach(function (i) { return ui_8.UI.clockDisplay.classList.toggle(i, i === ui_8.UI.clockSelect.get()); });
         };
         var updateClockPosition = function () {
-            control_json_2.default.clockPosition.enum.forEach(function (i) { return ui_7.UI.clockDisplay.classList.toggle(i, i === ui_7.UI.clockPositionSelect.get()); });
+            control_json_2.default.clockPosition.enum.forEach(function (i) { return ui_8.UI.clockDisplay.classList.toggle(i, i === ui_8.UI.clockPositionSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_7.UI.urlAnchor.href = url_1.Url.make(params);
+            return ui_8.UI.urlAnchor.href = url_1.Url.make(params);
         };
         var dragover = function (event) {
             var _a;
@@ -2621,7 +2792,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_7.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_8.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -2643,7 +2814,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
-        var mouseMoveTimer = new _library_8.Library.UI.ToggleClassForWhileTimer();
+        var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", 3000);
         };
@@ -2693,38 +2864,38 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if (["ArrowUp"].includes(event.key)) {
                     event.preventDefault();
-                    ui_7.UI.volumeRange.set(ui_7.UI.volumeRange.get() + 5);
-                    ui_7.UI.volumeRange.fire();
+                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() + 5);
+                    ui_8.UI.volumeRange.fire();
                 }
                 if (["ArrowDown"].includes(event.key)) {
                     event.preventDefault();
-                    ui_7.UI.volumeRange.set(ui_7.UI.volumeRange.get() - 5);
-                    ui_7.UI.volumeRange.fire();
+                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() - 5);
+                    ui_8.UI.volumeRange.fire();
                 }
                 if (["Escape"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    ui_7.UI.settingButton.dom.classList.toggle("on", false);
-                    ui_7.UI.volumeButton.dom.classList.toggle("on", false);
+                    ui_8.UI.settingButton.dom.classList.toggle("on", false);
+                    ui_8.UI.volumeButton.dom.classList.toggle("on", false);
                 }
                 if ("F" === event.key.toUpperCase() && !event.repeat) {
                     event.preventDefault();
-                    if (_library_8.Library.UI.fullscreenEnabled) {
-                        ui_7.UI.withFullscreenCheckbox.toggle();
+                    if (_library_9.Library.UI.fullscreenEnabled) {
+                        ui_8.UI.withFullscreenCheckbox.toggle();
                         _features_1.Features.Player.updateFullscreenState();
                     }
                 }
                 if ("P" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_7.UI.paddingCheckbox.toggle();
+                    ui_8.UI.paddingCheckbox.toggle();
                     _features_1.Features.Player.updateStretch();
                 }
                 if ("R" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_7.UI.repeatButton.dom.classList.toggle("on");
+                    ui_8.UI.repeatButton.dom.classList.toggle("on");
                 }
                 if ("S" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_7.UI.shuffleButton.dom.classList.toggle("on");
+                    ui_8.UI.shuffleButton.dom.classList.toggle("on");
                 }
             });
             document.body.addEventListener("dragover", dragover);
@@ -2739,7 +2910,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_1.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_1.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_1.Features.Player.next);
-            ui_7.UI.playButton.data.click = function (event, button) {
+            ui_8.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_features_1.Features.Player.isPlaying()) {
@@ -2749,135 +2920,129 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_1.Features.Player.play();
                 }
             };
-            ui_7.UI.nextButton.data.click = function (event, button) {
+            ui_8.UI.nextButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_1.Features.Player.next();
             };
-            ui_7.UI.backBUtton.data.click = function (event, button) {
+            ui_8.UI.backBUtton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_1.Features.Player.previous();
             };
-            ui_7.UI.shuffleButton.data.click = function (event, button) {
+            ui_8.UI.shuffleButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_7.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam(ui_7.UI.shuffleButton.getId(), "".concat(ui_7.UI.shuffleButton.dom.classList.contains("on")));
+                ui_8.UI.shuffleButton.dom.classList.toggle("on");
+                applyParam(ui_8.UI.shuffleButton.getId(), "".concat(ui_8.UI.shuffleButton.dom.classList.contains("on")));
             };
-            ui_7.UI.repeatButton.data.click = function (event, button) {
+            ui_8.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_7.UI.repeatButton.dom.classList.toggle("on");
-                applyParam(ui_7.UI.repeatButton.getId(), "".concat(ui_7.UI.repeatButton.dom.classList.contains("on")));
+                ui_8.UI.repeatButton.dom.classList.toggle("on");
+                applyParam(ui_8.UI.repeatButton.getId(), "".concat(ui_8.UI.repeatButton.dom.classList.contains("on")));
             };
-            ui_7.UI.volumeButton.data.click = function (event, button) {
+            ui_8.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_7.UI.volumeButton.dom.classList.toggle("on");
-                ui_7.UI.settingButton.dom.classList.toggle("on", false);
+                ui_8.UI.volumeButton.dom.classList.toggle("on");
+                ui_8.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_a = ui_7.UI.volumeRange).options || (_a.options = {});
-            ui_7.UI.volumeRange.options.change = function (_event, range) {
+            (_a = ui_8.UI.volumeRange).options || (_a.options = {});
+            ui_8.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
-                if (_tools_7.Tools.Environment.isMobile() && 0 < value) {
-                    console.warn("📱 Mobile device detected, volume change is not supported.");
-                    range.set(0, "preventOnChange");
-                }
-                else {
-                    console.log("🔊 Volume changed:", value);
-                    ui_7.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                    ui_7.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                    ui_7.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                    ui_7.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                    ui_7.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
-                    //Media.setVolume(value);
-                }
+                console.log("🔊 Volume changed:", value);
+                ui_8.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_8.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_8.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_8.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_8.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                //Media.setVolume(value);
                 Events.mousemove();
             };
-            ui_7.UI.settingButton.data.click = function (event, button) {
+            ui_8.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_7.UI.settingButton.dom.classList.toggle("on");
-                ui_7.UI.volumeButton.dom.classList.toggle("on", false);
+                ui_8.UI.settingButton.dom.classList.toggle("on");
+                ui_8.UI.volumeButton.dom.classList.toggle("on", false);
             };
-            ui_7.UI.addMediaButton.data.click = function (event, button) {
+            ui_8.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_7.UI.inputFile.click();
+                ui_8.UI.inputFile.click();
             };
-            ui_7.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+            ui_8.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
-                    files = ui_7.UI.inputFile.files;
+                    files = ui_8.UI.inputFile.files;
                     for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File selected:", file);
                         medialist_1.MediaList.addMediaSerial(file);
                     }
-                    ui_7.UI.inputFile.value = "";
+                    ui_8.UI.inputFile.value = "";
                     return [2 /*return*/];
                 });
             }); });
-            (_b = ui_7.UI.imageSpanSelect).options || (_b.options = {});
-            ui_7.UI.imageSpanSelect.options.change = function (_event, select) {
+            (_b = ui_8.UI.imageSpanSelect).options || (_b.options = {});
+            ui_8.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_c = ui_7.UI.withFullscreenCheckbox).options || (_c.options = {});
-            ui_7.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
+            (_c = ui_8.UI.withFullscreenCheckbox).options || (_c.options = {});
+            ui_8.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
-                    if (_library_8.Library.UI.fullscreenEnabled) {
+                    if (_library_9.Library.UI.fullscreenEnabled) {
                         _features_1.Features.Player.updateFullscreenState();
                     }
                 }
             };
-            ui_7.UI.introductionPanel.addEventListener("click", function (event) {
+            ui_8.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
-                ui_7.UI.introductionPanel.classList.toggle("force-show", false);
+                ui_8.UI.introductionPanel.classList.toggle("force-show", false);
             });
-            ui_7.UI.introductionPanel.classList.toggle("force-show", true);
-            setTimeout(function () { return ui_7.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            (_d = ui_7.UI.brightnessRange).options || (_d.options = {});
-            ui_7.UI.brightnessRange.options.change = function (_event, range) {
+            ui_8.UI.introductionPanel.classList.toggle("force-show", true);
+            setTimeout(function () { return ui_8.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            (_d = ui_8.UI.brightnessRange).options || (_d.options = {});
+            ui_8.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
-                _library_8.Library.UI.setStyle(ui_7.UI.mediaScreen, "opacity", "".concat(value / 100));
+                _library_9.Library.UI.setStyle(ui_8.UI.mediaScreen, "opacity", "".concat(value / 100));
                 Events.mousemove();
             };
-            (_e = ui_7.UI.stretchRange).options || (_e.options = {});
-            ui_7.UI.stretchRange.options.change = function (_event, range) {
+            (_e = ui_8.UI.stretchRange).options || (_e.options = {});
+            ui_8.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 _features_1.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            ui_7.UI.volumeRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.volumeRange.options.change);
-            ui_7.UI.transitionCheckbox.loadParameter(url_1.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_7.UI.imageSpanSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.imageSpanSelect.options.change);
-            ui_7.UI.loopShortMediaCheckbox.loadParameter(url_1.Url.params, applyParam);
-            ui_7.UI.withFullscreenCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.withFullscreenCheckbox.options.change);
-            ui_7.UI.showFpsCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
-            ui_7.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
-            ui_7.UI.clockPositionSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClockPosition);
-            ui_7.UI.brightnessRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.brightnessRange.options.change);
-            ui_7.UI.stretchRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.stretchRange.options.change);
-            ui_7.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(function () { return _features_1.Features.Player.updateStretch(); });
-            ui_7.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_7.UI.updateLanguage);
+            ui_8.UI.volumeRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.volumeRange.options.change);
+            ui_8.UI.crossFadeSelect.loadParameter(url_1.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_8.UI.imageSpanSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.imageSpanSelect.options.change);
+            ui_8.UI.loopShortMediaCheckbox.loadParameter(url_1.Url.params, applyParam);
+            ui_8.UI.withFullscreenCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.withFullscreenCheckbox.options.change);
+            ui_8.UI.showFpsCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
+            ui_8.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
+            ui_8.UI.clockPositionSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClockPosition);
+            ui_8.UI.brightnessRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.brightnessRange.options.change);
+            ui_8.UI.stretchRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.stretchRange.options.change);
+            ui_8.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(function () { return _features_1.Features.Player.updateStretch(); });
+            ui_8.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
-                    console.log("🖱️ MouseMove:", event, ui_7.UI.screenBody);
+                    console.log("🖱️ MouseMove:", event, ui_8.UI.screenBody);
                 }
                 Events.mousemove();
             });
-            _library_8.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
-                .forEach(function (label) { return _library_8.Library.UI.showPickerOnLabel(label); });
+            _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
+                .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
-                ui_7.UI.volumeRange,
+                ui_8.UI.volumeRange,
                 // UI.withFullscreen,
-                ui_7.UI.showFpsCheckbox,
+                ui_8.UI.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
             // document.addEventListener
             // (
@@ -2889,38 +3054,33 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             // );
             updateClock();
             updateClockPosition();
-            ui_7.UI.updateLanguage();
+            ui_8.UI.updateLanguage();
             updateUrlAnchor(url_1.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_7.UI.withFullscreenCheckbox,
-                        ui_7.UI.showFpsCheckbox,
-                        ui_7.UI.clockSelect,
-                        ui_7.UI.brightnessRange,
-                        ui_7.UI.languageSelect,
+                        ui_8.UI.withFullscreenCheckbox,
+                        ui_8.UI.showFpsCheckbox,
+                        ui_8.UI.clockSelect,
+                        ui_8.UI.brightnessRange,
+                        ui_8.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
-                var old = _library_8.Library.Locale.getLocale();
-                _library_8.Library.Locale.setLocale(ui_7.UI.languageSelect.get());
-                if (old !== _library_8.Library.Locale.getLocale()) {
-                    ui_7.UI.updateLanguage();
+                var old = _library_9.Library.Locale.getLocale();
+                _library_9.Library.Locale.setLocale(ui_8.UI.languageSelect.get());
+                if (old !== _library_9.Library.Locale.getLocale()) {
+                    ui_8.UI.updateLanguage();
                 }
             });
-            if (_tools_7.Tools.Environment.isMobile()) {
-                console.log("📱 Mobile device detected.");
-                document.body.classList.add("mobile");
-                ui_7.UI.volumeRange.set(0);
-            }
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_8, _library_9, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_8, medialist_2, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_8, _library_10, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_9, medialist_2, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -2930,10 +3090,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
     url_2.Url.initialize();
-    ui_8.UI.initialize();
+    ui_9.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_9.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_10.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -2941,15 +3101,15 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_9.Library.Locale.master,
+        locale: _library_10.Library.Locale.master,
         poweredBy: powered_by_json_2.default
     };
     var modules = {
         Tools: _tools_8.Tools,
-        Library: _library_9.Library,
+        Library: _library_10.Library,
         Features: _features_2.Features,
         Url: url_2.Url,
-        UI: ui_8.UI,
+        UI: ui_9.UI,
         Events: events_1.Events,
         Resource: Resource
     };

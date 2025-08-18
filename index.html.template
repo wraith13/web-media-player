@@ -62,6 +62,7 @@ DUMMYSTYLE
         </div>
     </div>
 </div>
+<div id="element-pool"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
 </div>
@@ -107,9 +108,9 @@ DUMMYSTYLE
             <span data-lang-key="media-length-label"></span>
             <span id="media-length" class="value-text"></span>
         </label>
-        <label for="transition">
-            <span data-lang-key="transition-label"></span>
-            <input id="transition" type="checkbox" />
+        <label for="cross-fade">
+            <span data-lang-key="cross-fade-label"></span>
+            <select id="cross-fade"></select>
         </label>
         <label for="image-span">
             <span data-lang-key="image-span-label"></span>

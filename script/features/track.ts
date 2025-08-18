@@ -1,12 +1,14 @@
+import { Tools } from "@tools";
 import { Library } from "@library";
 import { UI } from "../ui";
+import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { Visualizer } from "./visualizer";
 export class Track
 {
-    playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
-    paddingDom: HTMLImageElement | HTMLVideoElement | null = null;
-    visualDom: HTMLDivElement | Visualizer.VisualizerDom | null;
+    playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+    paddingElement: HTMLImageElement | HTMLVideoElement | null = null;
+    visualElement: HTMLDivElement | Visualizer.VisualizerDom | null;
     media: Media.Entry;
     startTime: number | null = null;
     elapsedTime: number | null = null;
@@ -16,98 +18,63 @@ export class Track
         switch(media.category)
         {
         case "image":
-            this.playerDom = this.makePlayerDom();
-            this.visualDom = Library.UI.createElement
+            this.playerElement = this.makePlayerElement();
+            this.visualElement = Library.UI.createElement
             ({
                 tag: "div",
                 className: "track-frame",
-                children: [ this.playerDom,]
+                children: [ this.playerElement,]
             });
             break;
         case "audio":
-            this.playerDom = this.makePlayerDom();
-            this.visualDom = Visualizer.make(media);
+            this.playerElement = this.makePlayerElement();
+            this.visualElement = Visualizer.make(media);
             break;
         case "video":
-            this.playerDom = this.makePlayerDom();
-            this.visualDom = Library.UI.createElement
+            this.playerElement = this.makePlayerElement();
+            this.visualElement = Library.UI.createElement
             ({
                 tag: "div",
                 className: "track-frame",
-                children: [ this.playerDom,]
+                children: [ this.playerElement,]
             });
             break;
         default:
             console.error("🦋 Unknown media type:", media.type, media);
-            this.playerDom = null;
-            this.visualDom = null;
+            this.playerElement = null;
+            this.visualElement = null;
             break;
         }
-        if (this.playerDom instanceof HTMLMediaElement && this.isLoop())
+        if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerDom.loop = true;
+            if (this.isLoop())
+            {
+                this.playerElement.loop = true;
+            }
+            else
+            {
+                this.playerElement.removeAttribute("loop");
+            }
         }
-        // this.startTime = Date.now();
-        // this.endTime = this.startTime + (media.duration ?? parseFloat(UI.imageSpanSelect.get()));
     }
-    makePlayerDom(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null
+    makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null
     {
-        switch(this.media.category)
-        {
-        case "image":
-            return Library.UI.createElement
-            ({
-                tag: "img",
-                className: "player",
-                attributes:
-                {
-                    src: this.media.url,
-                    alt: this.media.name,
-                },
-            });
-        case "audio":
-            return Library.UI.createElement
-            ({
-                tag: "audio",
-                className: "player",
-                attributes:
-                {
-                    src: this.media.url,
-                    controls: false,
-                    autoplay: false,
-                },
-            });
-        case "video":
-            return Library.UI.createElement
-            ({
-                tag: "video",
-                className: "player",
-                attributes:
-                {
-                    src: this.media.url,
-                    //controls: false,
-                    autoplay: false,
-                },
-            });
-        default:
-            console.error("🦋 Unknown media type:", this.media.type, this.media);
-            return null;
-        }
+        return ElementPool.get(this.media);
     }
     isPlaying(): boolean
     {
         return null !== this.startTime;
     }
-    play(): void
+    async play(): Promise<void>
     {
-        if (this.playerDom instanceof HTMLMediaElement)
+        if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerDom.play();
-            this.playerDom.currentTime = (this.elapsedTime ?? 0) /1000;
-            if (this.paddingDom instanceof HTMLMediaElement)
+            await this.playerElement.play();
+            this.playerElement.currentTime = (this.elapsedTime ?? 0) /1000;
+            if (this.paddingElement instanceof HTMLMediaElement)
             {
-                this.paddingDom.play();
-                this.paddingDom.currentTime = this.playerDom.currentTime;
+                await this.paddingElement.play();
+                this.paddingElement.currentTime = this.playerElement.currentTime;
             }
         }
         if (null !== this.elapsedTime)
@@ -122,12 +89,12 @@ export class Track
     }
     pause(): void
     {
-        if (this.playerDom instanceof HTMLMediaElement)
+        if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerDom.pause();
-            if (this.paddingDom instanceof HTMLMediaElement)
+            this.playerElement.pause();
+            if (this.paddingElement instanceof HTMLMediaElement)
             {
-                this.paddingDom.pause();
+                this.paddingElement.pause();
             }
         }
         if (null !== this.startTime)
@@ -141,15 +108,15 @@ export class Track
         navigator.mediaSession.setPositionState
         ({
             duration: this.getDuration(),
-            playbackRate: this.playerDom instanceof HTMLMediaElement ? this.playerDom.playbackRate : 1.0,
+            playbackRate: this.playerElement instanceof HTMLMediaElement ? this.playerElement.playbackRate : 1.0,
             position: this.getElapsedTime() /1000,
         });
     }
     step(): void
     {
-        if (this.playerDom instanceof HTMLAudioElement && ! this.playerDom.paused)
+        if (this.playerElement instanceof HTMLAudioElement && ! this.playerElement.paused)
         {
-            Visualizer.step(this.media, this.playerDom, this.visualDom as Visualizer.VisualizerDom);
+            Visualizer.step(this.media, this.playerElement, this.visualElement as Visualizer.VisualizerDom);
         }
         this.setPositionState(); // 🔥 これはここでやっちゃダメ！
     }
@@ -228,66 +195,88 @@ export class Track
     }
     updateStretch(): void
     {
-        if (this.visualDom)
+        if (this.visualElement)
         {
             if (this.media.area)
             {
                 const StretchRate = UI.stretchRange.get() /100;
-                const isFit = this.appleyStretch(this.playerDom as HTMLImageElement | HTMLVideoElement, StretchRate);
+                const isFit = this.appleyStretch(this.playerElement as HTMLImageElement | HTMLVideoElement, StretchRate);
                 if (UI.paddingCheckbox.get())
                 {
                     if ( ! isFit)
                     {
-                        if (null === this.paddingDom)
+                        if (null === this.paddingElement)
                         {
-                            this.paddingDom = this.makePlayerDom() as HTMLImageElement | HTMLVideoElement;
-                            if (this.playerDom instanceof HTMLMediaElement && this.isLoop())
+                            this.paddingElement = this.makePlayerElement() as HTMLImageElement | HTMLVideoElement;
+                            this.paddingElement.classList.add("padding");
+                            if (this.paddingElement instanceof HTMLMediaElement)
                             {
-                                this.playerDom.loop = true;
+                                const playerDom = this.playerElement as HTMLMediaElement;
+                                this.paddingElement.volume = 0;
+                                this.paddingElement.muted = true;
+                                this.paddingElement.loop = playerDom.loop;
+                                this.paddingElement.currentTime = playerDom.currentTime;
+                                if (this.playerElement instanceof HTMLMediaElement && ! this.playerElement.paused)
+                                {
+                                    this.paddingElement.play().then
+                                    (
+                                        () =>
+                                        {
+                                            if (this.paddingElement instanceof HTMLVideoElement && this.playerElement instanceof HTMLVideoElement)
+                                            {
+                                                this.paddingElement.currentTime = this.playerElement.currentTime;
+                                            }
+                                        }
+                                    );
+                                }
                             }
-                            this.paddingDom.classList.add("padding");
-                            if (this.paddingDom instanceof HTMLMediaElement)
-                            {
-                                const playerDom = this.playerDom as HTMLMediaElement;
-                                this.paddingDom.volume = 0;
-                                this.paddingDom.muted = true;
-                                this.paddingDom.loop = playerDom.loop;
-                                this.paddingDom.currentTime = playerDom.currentTime;
-                            }
-                            this.visualDom.insertBefore(this.paddingDom, this.playerDom);
+                            this.visualElement.insertBefore(this.paddingElement, this.playerElement);
                         }
-                        this.appleyStretch(this.paddingDom, 1.0);
+                        this.appleyStretch(this.paddingElement, 1.0);
                     }
                 }
                 else
                 {
-                    if (null !== this.paddingDom)
+                    if (null !== this.paddingElement)
                     {
-                        this.visualDom.removeChild(this.paddingDom);
-                        this.paddingDom = null;
+                        if (this.paddingElement instanceof HTMLMediaElement)
+                        {
+                            this.paddingElement.pause();
+                        }
+                        ElementPool.release(this.paddingElement);
+                        this.paddingElement = null;
                     }
                 }
             }
             else
             {
-                Library.UI.setStyle(this.visualDom, "width", "100%");
-                Library.UI.setStyle(this.visualDom, "height", "100%");
+                Library.UI.setStyle(this.visualElement, "width", `100%`);
+                Library.UI.setStyle(this.visualElement, "height", `100%`);
             }
         }
     }
     setVolume(volume: number): void
     {
-        if (this.playerDom instanceof HTMLMediaElement)
+        if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerDom.volume = volume;
-            this.playerDom.muted = volume <= 0;
+            this.playerElement.volume = volume;
+            //this.playerElement.muted = volume <= 0;
         }
     }
-    transitionStep(rate: number): void
+    crossFadeStep(rate: number): void
     {
-        if (this.visualDom)
+        if (this.visualElement)
         {
-            this.visualDom.style.opacity = `${rate}`;
+            this.visualElement.style.opacity = `${rate}`;
+            if (Tools.Environment.isApple() && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
+            {
+                this.playerElement.muted = rate <= 0.5;
+            }
         }
+    }
+    release(): void
+    {
+        ElementPool.release(this.playerElement);
+        ElementPool.release(this.paddingElement);
     }
 }

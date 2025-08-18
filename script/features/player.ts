@@ -1,24 +1,26 @@
+import { Library } from "@library";
 import { Fps } from "./fps";
 import { Clock } from "./clock";
-import { Library } from "@library";
 import { UI } from "../ui";
+import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { History } from "./history";
 import { Track } from "./track";
 import * as config from "@resource/config.json";
 export namespace Player
 {
-    export namespace Transition
+    export namespace CrossFade
     {
         export let startAt: number | null = null;
         export let elapsedTime: number | null = null;
-        export const duration: number = config.transition.duration;
+        export const getDuration = (): number =>
+            parseFloat(UI.crossFadeSelect.get());
         export const clear = (): void =>
         {
             startAt = null;
             elapsedTime = null;
         };
-        export const isTransitioning = (): boolean =>
+        export const isCrossFading = (): boolean =>
             null !== startAt || null !== elapsedTime;
         export const start = (): void =>
         {
@@ -44,12 +46,12 @@ export namespace Player
         {
             if (null !== startAt)
             {
-                return startAt + duration;
+                return startAt + getDuration();
             }
             else
             if (null !== elapsedTime)
             {
-                return Date.now() + duration - elapsedTime;
+                return Date.now() + getDuration() - elapsedTime;
             }
             else
             {
@@ -60,20 +62,20 @@ export namespace Player
         {
             if (null !== elapsedTime)
             {
-                return Math.min(elapsedTime / duration, 1);
+                return Math.min(elapsedTime / getDuration(), 1);
             }
             else
             if (null !== startAt)
             {
-                return Math.min((Date.now() - startAt) / duration, 1);
+                return Math.min((Date.now() - startAt) / getDuration(), 1);
             }
             else
             {
                 return 0;
             }
         };
-        export const isActiveTransitionTarget = (target: Track): boolean =>
-            (config.transition.duration *3) < target.getDuration();
+        export const isHotCrossFadeTarget = (target: Track): boolean =>
+            (getDuration() *3) < target.getDuration();
     }
     const noMediaTimer = new Library.UI.ToggleClassForWhileTimer();
     let loopHandle: number | null = null;
@@ -96,8 +98,14 @@ export namespace Player
     let fadeoutingTrack: Track | null = null;
     export const isPlaying = (): boolean =>
         document.body.classList.contains("play");
-    export const play = () =>
+    export const play = async () =>
     {
+        await ElementPool.makeSure
+        ({
+            image: Media.mediaList.find(m => "image" === m.category) ?? null,
+            audio: Media.mediaList.find(m => "audio" === m.category) ?? null,
+            video: Media.mediaList.find(m => "video" === m.category) ?? null,
+        });
         updateFullscreenState();
         if (null !== loopHandle)
         {
@@ -127,12 +135,12 @@ export namespace Player
         }
         if (History.isCleared())
         {
-            Transition.clear();
+            CrossFade.clear();
             removeFadeoutTrack();
             removeTrack(currentTrack);
             currentTrack = null;
         }
-        Transition.resume();
+        CrossFade.resume();
         const media = History.play();
         if (media)
         {
@@ -157,7 +165,7 @@ export namespace Player
         document.body.classList.toggle("play", false);
         currentTrack?.pause();
         fadeoutingTrack?.pause();
-        Transition.pause();
+        CrossFade.pause();
         Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
     };
     export const previous = () =>
@@ -193,34 +201,35 @@ export namespace Player
         }
     }
     let lastTimeVolume: number = 1.0;
-    export const transition = () =>
+    export const crossFade = async () =>
     {
         if (null !== currentTrack)
         {
             const currentVolume = UI.volumeRange.get() /100;
-            if (Transition.isTransitioning())
+            if (CrossFade.isCrossFading())
             {
-                if ((Transition.getEndAt() ?? 0) <= Date.now())
+                if ((CrossFade.getEndAt() ?? 0) <= Date.now())
                 {
-                    Transition.clear();
+                    CrossFade.clear();
                     removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
-                    currentTrack.transitionStep(1);
+                    currentTrack.crossFadeStep(1);
+                    currentTrack.updateStretch();
                     if ( ! currentTrack.isPlaying())
                     {
-                        currentTrack.play();
+                        await currentTrack.play();
                     }
                 }
                 else
                 {
-                    const progress = Transition.getProgress();
+                    const progress = CrossFade.getProgress();
                     if (null !== fadeoutingTrack)
                     {
                         fadeoutingTrack.setVolume(currentVolume * (1 - progress));
-                        fadeoutingTrack.transitionStep(1 - progress);
+                        fadeoutingTrack.crossFadeStep(1 - progress);
                     }
                     currentTrack.setVolume(currentVolume *progress);
-                    currentTrack.transitionStep(progress);
+                    currentTrack.crossFadeStep(progress);
                 }
                 lastTimeVolume = currentVolume;
             }
@@ -234,13 +243,13 @@ export namespace Player
                         currentTrack.setVolume(currentVolume);
                     }
                 }
-                if (UI.transitionCheckbox.get())
+                if (0 < parseFloat(UI.crossFadeSelect.get()))
                 {
-                    if (Transition.isActiveTransitionTarget(currentTrack))
+                    if (CrossFade.isHotCrossFadeTarget(currentTrack))
                     {
-                        if (currentTrack.getRemainingTime() <= config.transition.duration)
+                        if (currentTrack.getRemainingTime() <= CrossFade.getDuration())
                         {
-                            Transition.start();
+                            //CrossFade.start();
                             next();
                         }
                     }
@@ -248,7 +257,7 @@ export namespace Player
                     {
                         if (currentTrack.getRemainingTime() <= 0)
                         {
-                            Transition.start();
+                            //CrossFade.start();
                             next();
                         }
                     }
@@ -270,11 +279,11 @@ export namespace Player
             Clock.update(now);
             Fps.step(now);
             updateFps();
-            transition();
+            crossFade();
             navigator.mediaSession.setPositionState
             ({
                 duration: (currentTrack?.getDuration() ?? 0) /1000,
-                playbackRate: currentTrack?.playerDom instanceof HTMLMediaElement ? currentTrack.playerDom.playbackRate : 1.0,
+                playbackRate: currentTrack?.playerElement instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
                 position: (currentTrack?.getElapsedTime() ?? 0) /1000,
             })
             loopHandle = window.requestAnimationFrame(loop);
@@ -306,16 +315,12 @@ export namespace Player
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry);
             currentTrack.updateStretch();
-            if (currentTrack.visualDom)
+            if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {
-                UI.mediaScreen.insertBefore(currentTrack.visualDom, UI.clockDisplay);
-            }
-            if (UI.transitionCheckbox.get() && fadeoutingTrack)
-            {
-                Transition.start();
+                CrossFade.start();
                 currentTrack.setVolume(0);
-                currentTrack.transitionStep(0);
-                if (Transition.isActiveTransitionTarget(currentTrack))
+                currentTrack.crossFadeStep(0);
+                if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
                 }
@@ -328,8 +333,12 @@ export namespace Player
                 }
                 const currentVolume = UI.volumeRange.get() /100;
                 currentTrack.setVolume(currentVolume);
-                currentTrack.transitionStep(1);
+                currentTrack.crossFadeStep(1);
                 currentTrack.play();
+            }
+            if (currentTrack.visualElement)
+            {
+                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.clockDisplay);
             }
         }
     };
@@ -338,10 +347,11 @@ export namespace Player
         if (track)
         {
             track.pause();
-            if (track.visualDom)
+            if (track.visualElement)
             {
-                UI.mediaScreen.removeChild(track.visualDom);
+                UI.mediaScreen.removeChild(track.visualElement);
             }
+            track.release();
         }
     }
     export const removeFadeoutTrack = () =>

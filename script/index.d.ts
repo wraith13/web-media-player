@@ -34,7 +34,7 @@ declare module "locale/generated/master" {
             description: string;
             "media-count-label": string;
             "media-length-label": string;
-            "transition-label": string;
+            "cross-fade-label": string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -101,7 +101,7 @@ declare module "locale/generated/master" {
             description: string;
             "media-count-label": string;
             "media-length-label": string;
-            "transition-label": string;
+            "cross-fade-label": string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -173,7 +173,7 @@ declare module "script/library/locale" {
                 description: string;
                 "media-count-label": string;
                 "media-length-label": string;
-                "transition-label": string;
+                "cross-fade-label": string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -240,7 +240,7 @@ declare module "script/library/locale" {
                 description: string;
                 "media-count-label": string;
                 "media-length-label": string;
-                "transition-label": string;
+                "cross-fade-label": string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -540,6 +540,8 @@ declare module "script/tools/byte" {
 }
 declare module "script/tools/environment" {
     export namespace Environment {
+        const isApple: () => boolean;
+        const isSafari: () => boolean;
         const isMobile: () => boolean;
         const isTouchDevice: () => boolean;
     }
@@ -604,6 +606,7 @@ declare module "script/ui" {
         const noscript: HTMLDivElement;
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
+        const elementPool: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
         const nextButton: Library.Control.Button<HTMLElement>;
         const backBUtton: Library.Control.Button<HTMLElement>;
@@ -617,7 +620,7 @@ declare module "script/ui" {
         const inputFile: HTMLInputElement;
         const mediaCount: HTMLSpanElement;
         const mediaLength: HTMLSpanElement;
-        const transitionCheckbox: Library.Control.Checkbox;
+        const crossFadeSelect: Library.Control.Select<number>;
         const imageSpanSelect: Library.Control.Select<number>;
         const loopShortMediaCheckbox: Library.Control.Checkbox;
         const withFullscreenCheckbox: Library.Control.Checkbox;
@@ -657,7 +660,6 @@ declare module "script/features/media" {
     import { Library } from "script/library/index";
     export namespace Media {
         interface Entry {
-            file: File;
             url: string;
             type: string;
             category: Category;
@@ -685,6 +687,18 @@ declare module "script/features/media" {
         const makeThumbnailElement: (entry: Entry) => Promise<Library.UI.ElementSource<"img"> | SVGElement>;
     }
 }
+declare module "script/features/elementpool" {
+    import { Media } from "script/features/media";
+    export namespace ElementPool {
+        const makeSure: (data: {
+            image: Media.Entry | null;
+            audio: Media.Entry | null;
+            video: Media.Entry | null;
+        }) => Promise<void>;
+        const get: (media: Media.Entry) => HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        const release: (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) => void;
+    }
+}
 declare module "script/features/history" {
     import { Media } from "script/features/media";
     export namespace History {
@@ -710,16 +724,16 @@ declare module "script/features/track" {
     import { Media } from "script/features/media";
     import { Visualizer } from "script/features/visualizer";
     export class Track {
-        playerDom: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
-        paddingDom: HTMLImageElement | HTMLVideoElement | null;
-        visualDom: HTMLDivElement | Visualizer.VisualizerDom | null;
+        playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        paddingElement: HTMLImageElement | HTMLVideoElement | null;
+        visualElement: HTMLDivElement | Visualizer.VisualizerDom | null;
         media: Media.Entry;
         startTime: number | null;
         elapsedTime: number | null;
         constructor(media: Media.Entry);
-        makePlayerDom(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
+        makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         isPlaying(): boolean;
-        play(): void;
+        play(): Promise<void>;
         pause(): void;
         setPositionState(): void;
         step(): void;
@@ -731,34 +745,35 @@ declare module "script/features/track" {
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
         updateStretch(): void;
         setVolume(volume: number): void;
-        transitionStep(rate: number): void;
+        crossFadeStep(rate: number): void;
+        release(): void;
     }
 }
 declare module "script/features/player" {
     import { Media } from "script/features/media";
     import { Track } from "script/features/track";
     export namespace Player {
-        namespace Transition {
+        namespace CrossFade {
             let startAt: number | null;
             let elapsedTime: number | null;
-            const duration: number;
+            const getDuration: () => number;
             const clear: () => void;
-            const isTransitioning: () => boolean;
+            const isCrossFading: () => boolean;
             const start: () => void;
             const pause: () => void;
             const resume: () => void;
             const getEndAt: () => number | null;
             const getProgress: () => number;
-            const isActiveTransitionTarget: (target: Track) => boolean;
+            const isHotCrossFadeTarget: (target: Track) => boolean;
         }
         const updateFullscreenState: (fullscreen?: boolean) => void;
         const isPlaying: () => boolean;
-        const play: () => void;
+        const play: () => Promise<void>;
         const pause: () => void;
         const previous: () => void;
         const next: () => void;
         const updateFps: () => void;
-        const transition: () => void;
+        const crossFade: () => Promise<void>;
         const loop: (now: number) => void;
         const playMedia: (entry: Media.Entry, resume?: "resume") => void;
         const removeTrack: (track: Track | null) => void;

@@ -1,4 +1,3 @@
-import { Tools } from "@tools";
 import { Library } from "@library";
 import { Features } from "@features";
 import { Media } from "@features/media";
@@ -232,21 +231,13 @@ export namespace Events
         UI.volumeRange.options.change = (_event, range) =>
         {
             const value = range.get();
-            if (Tools.Environment.isMobile() && 0 < value)
-            {
-                console.warn("📱 Mobile device detected, volume change is not supported.");
-                range.set(0, "preventOnChange");
-            }
-            else
-            {
-                console.log("🔊 Volume changed:", value);
-                UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
-                //Media.setVolume(value);
-            }
+            console.log("🔊 Volume changed:", value);
+            UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+            UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+            UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+            UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+            UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+            //Media.setVolume(value);
             mousemove();
         };
         UI.settingButton.data.click = (event, button) =>
@@ -327,7 +318,7 @@ export namespace Events
             mousemove();
         };
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
-        UI.transitionCheckbox.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
@@ -404,11 +395,5 @@ export namespace Events
                 }
             }
         );
-        if (Tools.Environment.isMobile())
-        {
-            console.log("📱 Mobile device detected.");
-            document.body.classList.add("mobile");
-            UI.volumeRange.set(0);
-        }
     };
 }

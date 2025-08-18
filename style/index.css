@@ -238,8 +238,8 @@ body.list #screen-body #media-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
-#screen-body #media-screen .player:not(audio), #screen-body #media-screen .visualizer {
-  position: fixed;
+#screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer {
+  position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 50%;
   transform: translate(-50%, -50%);
@@ -534,6 +534,10 @@ body.play #screen-body #media-list:not(.show)::before {
   background-color: black;
 }
 #screen-body.black #canvas {
+  display: none;
+}
+
+#element-pool {
   display: none;
 }
 

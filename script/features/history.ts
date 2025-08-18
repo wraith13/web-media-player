@@ -103,10 +103,22 @@ export namespace History
     };
     export const getShuffleNext = (): number =>
     {
-        const playedList = history.slice(Math.floor(currentIndex /Media.mediaList.length) *Media.mediaList.length);
-        const unplayedList = Media.mediaList.map((_, i) => i).filter(i => ! playedList.includes(i));
-        const forbidens = history.slice(-Math.floor(Media.mediaList.length *config.history.shuffleForbiddenRate));
-        const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
-        return canonicals[Tools.Random.makeInteger(canonicals.length)];
+        switch(Media.mediaList.length)
+        {
+        case 0:
+            return -1;
+        case 1:
+            return 0;
+        case 2:
+            return history.length < 2 ?
+                Tools.Random.makeInteger(Media.mediaList.length):
+                history.filter(i => 0 === i).length /history.length < Math.random() ? 0 : 1;
+        default:
+            const playedList = history.slice(Math.floor(currentIndex /Media.mediaList.length) *Media.mediaList.length);
+            const unplayedList = Media.mediaList.map((_, i) => i).filter(i => ! playedList.includes(i));
+            const forbidens = history.slice(-Math.ceil(Media.mediaList.length *config.history.shuffleForbiddenRate));
+            const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
+            return canonicals[Tools.Random.makeInteger(canonicals.length)];
+        }
     }
 }

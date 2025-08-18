@@ -5,7 +5,7 @@
     "description": "Web ブラウザ上で動作するメディアプレイヤー",
     "media-count-label": "メディア数:",
     "media-length-label": "メディア長:",
-    "transition-label": "トランジション:",
+    "cross-fade-label": "クロスフェード:",
     "colorspace-label": "色空間:",
     "coloring-label": "カラーリング:",
     "pattern-label": "パターン:",

@@ -12,6 +12,8 @@ export namespace UI
         Library.UI.getElementById("div", "screen-body");
     export const mediaScreen =
         Library.UI.getElementById("div", "media-screen");
+    export const elementPool =
+        Library.UI.getElementById("div", "element-pool");
     export const playButton =
         new Library.Control.Button({ id: "play-button", });
     export const nextButton =
@@ -38,8 +40,8 @@ export namespace UI
         Library.UI.getElementById("span", "media-count");
     export const mediaLength =
         Library.UI.getElementById("span", "media-length");
-    export const transitionCheckbox =
-        new Library.Control.Checkbox(control.transition);
+    export const crossFadeSelect =
+        new Library.Control.Select(control.crossFade, { makeLabel: Tools.Timespan.toDisplayString });
     export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
     export const loopShortMediaCheckbox =
