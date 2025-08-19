@@ -14,4 +14,6 @@ export namespace Array
         ix === list.indexOf(i);
     export const lookupValue = <T>(list: T[], value: T): T | undefined =>
         list.includes(value) ? value : undefined;
+    export const backSlice = <T>(list: T[], start: number): T[] =>
+        start <= 0 ? []: list.slice(-start);
 }

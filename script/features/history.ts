@@ -112,11 +112,11 @@ export namespace History
         case 2:
             return history.length < 2 ?
                 Tools.Random.makeInteger(Media.mediaList.length):
-                history.filter(i => 0 === i).length /history.length < Math.random() ? 0 : 1;
+                (0 === history[Tools.Random.makeInteger(history.length)] ? 1 : 0);
         default:
             const playedList = history.slice(Math.floor(currentIndex /Media.mediaList.length) *Media.mediaList.length);
             const unplayedList = Media.mediaList.map((_, i) => i).filter(i => ! playedList.includes(i));
-            const forbidens = history.slice(-Math.ceil(Media.mediaList.length *Config.history.shuffleForbiddenRate));
+            const forbidens = Tools.Array.backSlice(history, Math.ceil(Media.mediaList.length *Config.history.shuffleForbiddenRate));
             const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
             return canonicals[Tools.Random.makeInteger(canonicals.length)];
         }

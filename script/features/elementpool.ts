@@ -41,7 +41,7 @@ export namespace ElementPool
                 UI.elementPool.appendChild(audioElement);
                 audioElement.volume = 0;
                 audioElement.muted = false;
-                result = result.then(() => audioElement.play());
+                result = result.then(() => audioElement.play().then(() => audioElement.pause()));
             }
         }
         if (data.video)
@@ -57,12 +57,14 @@ export namespace ElementPool
                         src: data.video.url,
                         //controls: false,
                         autoplay: false,
+                        // playsinline: true,
+                        // webkitPlaysinline: true,
                     },
                 }) as HTMLVideoElement;
                 UI.elementPool.appendChild(videoElement);
                 videoElement.volume = 0;
                 videoElement.muted = false;
-                result = result.then(() => videoElement.play());
+                result = result.then(() => videoElement.play().then(() => videoElement.pause()));
             }
         }
         return result.then(() => undefined);

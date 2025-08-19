@@ -162,6 +162,9 @@ define("script/tools/array", ["require", "exports", "script/tools/type-guards", 
         Array.lookupValue = function (list, value) {
             return list.includes(value) ? value : undefined;
         };
+        Array.backSlice = function (list, start) {
+            return start <= 0 ? [] : list.slice(-start);
+        };
     })(Array || (exports.Array = Array = {}));
 });
 define("locale/generated/master", ["require", "exports"], function (require, exports) {
@@ -1757,7 +1760,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                     ui_3.UI.elementPool.appendChild(audioElement);
                     audioElement.volume = 0;
                     audioElement.muted = false;
-                    result = result.then(function () { return audioElement.play(); });
+                    result = result.then(function () { return audioElement.play().then(function () { return audioElement.pause(); }); });
                 };
                 while (ui_3.UI.elementPool.getElementsByTagName("audio").length < 2) {
                     _loop_1();
@@ -1772,12 +1775,14 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                             src: data.video.url,
                             //controls: false,
                             autoplay: false,
+                            // playsinline: true,
+                            // webkitPlaysinline: true,
                         },
                     });
                     ui_3.UI.elementPool.appendChild(videoElement);
                     videoElement.volume = 0;
                     videoElement.muted = false;
-                    result = result.then(function () { return videoElement.play(); });
+                    result = result.then(function () { return videoElement.play().then(function () { return videoElement.pause(); }); });
                 };
                 while (ui_3.UI.elementPool.getElementsByTagName("video").length < 4) {
                     _loop_2();
@@ -1927,11 +1932,11 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 case 2:
                     return history.length < 2 ?
                         _tools_4.Tools.Random.makeInteger(media_1.Media.mediaList.length) :
-                        history.filter(function (i) { return 0 === i; }).length / history.length < Math.random() ? 0 : 1;
+                        (0 === history[_tools_4.Tools.Random.makeInteger(history.length)] ? 1 : 0);
                 default:
                     var playedList_1 = history.slice(Math.floor(currentIndex / media_1.Media.mediaList.length) * media_1.Media.mediaList.length);
                     var unplayedList = media_1.Media.mediaList.map(function (_, i) { return i; }).filter(function (i) { return !playedList_1.includes(i); });
-                    var forbidens_1 = history.slice(-Math.ceil(media_1.Media.mediaList.length * Config.history.shuffleForbiddenRate));
+                    var forbidens_1 = _tools_4.Tools.Array.backSlice(history, Math.ceil(media_1.Media.mediaList.length * Config.history.shuffleForbiddenRate));
                     var canonicals = unplayedList.filter(function (i) { return !forbidens_1.includes(i); });
                     return canonicals[_tools_4.Tools.Random.makeInteger(canonicals.length)];
             }

@@ -23,6 +23,7 @@ declare module "script/tools/array" {
         const joinable: <T>(value: T, condition?: boolean) => T[];
         const uniqueFilter: <T>(i: T, ix: number, list: T[]) => boolean;
         const lookupValue: <T>(list: T[], value: T) => T | undefined;
+        const backSlice: <T>(list: T[], start: number) => T[];
     }
 }
 declare module "locale/generated/master" {
