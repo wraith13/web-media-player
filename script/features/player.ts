@@ -6,7 +6,7 @@ import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { History } from "./history";
 import { Track } from "./track";
-import * as config from "@resource/config.json";
+import * as Config from "@resource/config.json";
 export namespace Player
 {
     export namespace CrossFade
@@ -114,7 +114,7 @@ export namespace Player
         loopHandle = window.requestAnimationFrame(loop);
         navigator.mediaSession.metadata = new MediaMetadata
         ({
-            title: config.applicationTitle,
+            title: Config.applicationTitle,
             artist: "Unknown Artist",
             album: "Temporary Media List",
             artwork:
@@ -225,8 +225,9 @@ export namespace Player
                     const progress = CrossFade.getProgress();
                     if (null !== fadeoutingTrack)
                     {
-                        fadeoutingTrack.setVolume(currentVolume * (1 - progress));
-                        fadeoutingTrack.crossFadeStep(1 - progress);
+                        const fadeoutProgress = 1 - progress;
+                        fadeoutingTrack.setVolume(currentVolume * fadeoutProgress);
+                        fadeoutingTrack.crossFadeStep(fadeoutProgress);
                     }
                     currentTrack.setVolume(currentVolume *progress);
                     currentTrack.crossFadeStep(progress);

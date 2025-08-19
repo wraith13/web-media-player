@@ -1,10 +1,12 @@
 import { Tools } from "@tools";
 import { Library } from "@library";
+import { Features } from "@features";
 import { Media } from "@features/media";
 import { History } from "@features/history";
 import { UI } from "./ui";
 export namespace MediaList
 {
+    const notSupportedMediaTimer = new Library.UI.ToggleClassForWhileTimer();
     export const addMedia = async (file: File): Promise<void> =>
     {
         console.log("📂 Adding media:", file);
@@ -15,12 +17,17 @@ export namespace MediaList
             Media.mediaList.push(entry);
             updateInformationDisplay();
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
+            if (Features.Player.isPlaying())
+            {
+                Features.Player.pause();
+            }
             clearPlayState();
             console.log("📂 Media added:", Media.mediaList[Media.mediaList.length - 1]);
         }
         else
         {
             console.warn("🚫 Invalid media file:", file);
+            notSupportedMediaTimer.start(document.body, "not-supported-media", 5000);
         }
     };
     let addMediaQueue: Promise<void> = Promise.resolve();

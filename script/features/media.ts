@@ -96,7 +96,11 @@ export namespace Media
                 duration: null,
                 area: { width: img.width, height: img.height },
             });
-            img.onerror = () => resolve(null);
+            img.onerror = error =>
+            {
+                console.error("🚫 Error loading image metadata:", error);
+                resolve(null)
+            };
             img.src = url;
         });
     };
@@ -122,7 +126,14 @@ export namespace Media
                     area: null,
                 })
             );
-            audio.addEventListener("error", () => resolve(null));
+            audio.addEventListener
+            (
+                "error", error =>
+                {
+                    console.error("🚫 Error loading audio metadata:", error);
+                    resolve(null)
+                }
+            );
         });
     };
     export const videoToEntry = (category: Category, file: File): Promise<Entry | null> =>
@@ -171,8 +182,15 @@ export namespace Media
                     loadeddataCalled = true;
                     tryFinish();
                 }
-        );
-            video.addEventListener("error", () => resolve(null));
+            );
+            video.addEventListener
+            (
+                "error", error =>
+                {
+                    console.error("🚫 Error loading video metadata:", error);
+                    resolve(null);
+                }
+            );
         });
     };
     export const fileToEntry = async (file: File): Promise<Entry | null> =>

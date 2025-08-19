@@ -1,3 +1,4 @@
+import { Tools } from "@tools";
 import { Library } from "@library";
 import { Features } from "@features";
 import { Media } from "@features/media";
@@ -224,7 +225,14 @@ export namespace Events
         {
             event?.stopPropagation();
             button.dom.blur();
-            UI.volumeButton.dom.classList.toggle("on");
+            if (Tools.Environment.isSafari())
+            {
+                UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
+            }
+            else
+            {
+                UI.volumeButton.dom.classList.toggle("on");
+            }
             UI.settingButton.dom.classList.toggle("on", false);
         };
         UI.volumeRange.options ||= { }
@@ -305,7 +313,7 @@ export namespace Events
         {
             const value = range.get();
             console.log("💡 Brightness changed:", value);
-            Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+            Library.UI.setStyle(UI.mediaScreen, "opacity", `${Math.pow(value / 100, 2)}`);
             mousemove();
         };
         UI.stretchRange.options ||= { }

@@ -62,6 +62,7 @@ export const localeMaster = {
         "Show FPS": "Show FPS",
         "Switch Clock": "Switch Clock",
         "no-media-message": "No media available. Please add media.",
+        "not-supported-media-message": "This media cannot be played.",
         "noscript-message": "JavaScript is disabled. Please enable JavaScript.",
         "noscript-introduction-title": "Introduction",
         "noscript-introduction-description": "Kaleidoscope Web Screensaver is a web-based screensaver that displays kaleidoscope-like animations. Users can customize patterns and colors to create simple yet visually engaging effects reminiscent of a kaleidoscope. It works on various devices, including PCs, smartphones, and tablets, and supports fullscreen mode.\n\nBy increasing the number of layers, users can create even more beautiful and intricate visuals. However, please note that higher layer counts may also increase the computational load, which could affect performance on less powerful devices.\n\nYou can display a clock on the screen with various styles and options, making it useful as a clock screensaver.\n\nIn addition, Kaleidoscope Web Screensaver　also includes a benchmark feature that measures the overall performance of your device and web browser together."
@@ -129,6 +130,7 @@ export const localeMaster = {
         "Show FPS": "FPS 表示",
         "Switch Clock": "時計切り替え",
         "no-media-message": "メディアがありません。メディアを追加してください。",
+        "not-supported-media-message": "再生できないメディアです。",
         "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。",
         "noscript-introduction-title": "ご紹介",
         "noscript-introduction-description": "Kaleidoscope Web Screensaver は、万華鏡のようなアニメーションを表示するウェブベースのスクリーンセーバーです。ユーザーはパターンや色をカスタマイズでき、シンプルながらも視覚的に魅力的な万華鏡風の効果を楽しめます。PC、スマートフォン、タブレットなど様々なデバイスで動作し、フルスクリーンモードにも対応しています。\n\nレイヤー数を増やすことで、さらに美しく複雑なビジュアルを作り出すことができます。ただし、レイヤー数が多いほど計算負荷も高くなるため、性能の低いデバイスでは動作が重くなる場合があります。\n\n画面上に様々なスタイルやオプションで時計を表示できるため、時計付きスクリーンセーバーとしても利用できます。\n\nさらに、Kaleidoscope Web Screensaver には、お使いのデバイスとウェブブラウザの総合的なパフォーマンスを計測できるベンチマーク機能も搭載されています。"

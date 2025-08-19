@@ -267,8 +267,8 @@ export class Track
     {
         if (this.visualElement)
         {
-            this.visualElement.style.opacity = `${rate}`;
-            if (Tools.Environment.isApple() && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
+            this.visualElement.style.opacity = `${rate * rate}`;
+            if (Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
             {
                 this.playerElement.muted = rate <= 0.5;
             }

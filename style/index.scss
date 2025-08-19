@@ -498,10 +498,10 @@
         }
     }
 }
-#no-media-panel
+#no-media-panel,
+#not-supported-media-panel
 {
     @include black-pop-panel-style();
-    @include fade-transition("body:not(.no-media)");
     @include font();
     &
     {
@@ -518,9 +518,24 @@
         z-index: 100;
     }
 }
+#no-media-panel
+{
+    @include fade-transition("body:not(.no-media)");
+}
 body:not(.no-media)
 {
     #no-media-panel
+    {
+        transition: opacity 3000ms, filter 3000ms !important;
+    }
+}
+#not-supported-media-panel
+{
+    @include fade-transition("body:not(.not-supported-media)");
+}
+body:not(.not-supported-media)
+{
+    #not-supported-media-panel
     {
         transition: opacity 3000ms, filter 3000ms !important;
     }

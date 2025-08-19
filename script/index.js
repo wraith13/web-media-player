@@ -232,6 +232,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Show FPS": "Show FPS",
             "Switch Clock": "Switch Clock",
             "no-media-message": "No media available. Please add media.",
+            "not-supported-media-message": "This media cannot be played.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript.",
             "noscript-introduction-title": "Introduction",
             "noscript-introduction-description": "Kaleidoscope Web Screensaver is a web-based screensaver that displays kaleidoscope-like animations. Users can customize patterns and colors to create simple yet visually engaging effects reminiscent of a kaleidoscope. It works on various devices, including PCs, smartphones, and tablets, and supports fullscreen mode.\n\nBy increasing the number of layers, users can create even more beautiful and intricate visuals. However, please note that higher layer counts may also increase the computational load, which could affect performance on less powerful devices.\n\nYou can display a clock on the screen with various styles and options, making it useful as a clock screensaver.\n\nIn addition, Kaleidoscope Web Screensaver　also includes a benchmark feature that measures the overall performance of your device and web browser together."
@@ -299,6 +300,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Show FPS": "FPS 表示",
             "Switch Clock": "時計切り替え",
             "no-media-message": "メディアがありません。メディアを追加してください。",
+            "not-supported-media-message": "再生できないメディアです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。",
             "noscript-introduction-title": "ご紹介",
             "noscript-introduction-description": "Kaleidoscope Web Screensaver は、万華鏡のようなアニメーションを表示するウェブベースのスクリーンセーバーです。ユーザーはパターンや色をカスタマイズでき、シンプルながらも視覚的に魅力的な万華鏡風の効果を楽しめます。PC、スマートフォン、タブレットなど様々なデバイスで動作し、フルスクリーンモードにも対応しています。\n\nレイヤー数を増やすことで、さらに美しく複雑なビジュアルを作り出すことができます。ただし、レイヤー数が多いほど計算負荷も高くなるため、性能の低いデバイスでは動作が重くなる場合があります。\n\n画面上に様々なスタイルやオプションで時計を表示できるため、時計付きスクリーンセーバーとしても利用できます。\n\nさらに、Kaleidoscope Web Screensaver には、お使いのデバイスとウェブブラウザの総合的なパフォーマンスを計測できるベンチマーク機能も搭載されています。"
@@ -1583,7 +1585,10 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         duration: null,
                         area: { width: img.width, height: img.height },
                     }); };
-                    img.onerror = function () { return resolve(null); };
+                    img.onerror = function (error) {
+                        console.error("🚫 Error loading image metadata:", error);
+                        resolve(null);
+                    };
                     img.src = url;
                     return [2 /*return*/];
                 });
@@ -1607,7 +1612,10 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         duration: audio.duration * 1000,
                         area: null,
                     }); });
-                    audio.addEventListener("error", function () { return resolve(null); });
+                    audio.addEventListener("error", function (error) {
+                        console.error("🚫 Error loading audio metadata:", error);
+                        resolve(null);
+                    });
                     return [2 /*return*/];
                 });
             }); });
@@ -1648,7 +1656,10 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         loadeddataCalled = true;
                         tryFinish();
                     });
-                    video.addEventListener("error", function () { return resolve(null); });
+                    video.addEventListener("error", function (error) {
+                        console.error("🚫 Error loading video metadata:", error);
+                        resolve(null);
+                    });
                     return [2 /*return*/];
                 });
             }); });
@@ -1822,11 +1833,11 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         };
     })(ElementPool || (exports.ElementPool = ElementPool = {}));
 });
-define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_4, config) {
+define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_4, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.History = void 0;
-    config = __importStar(config);
+    Config = __importStar(Config);
     var History;
     (function (History) {
         var history = [];
@@ -1840,7 +1851,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
             return 0 === history.length && -1 === currentIndex;
         };
         History.regulate = function () {
-            var maxHistoryLength = Math.max(config.history.maxLength, media_1.Media.mediaList.length);
+            var maxHistoryLength = Math.max(Config.history.maxLength, media_1.Media.mediaList.length);
             if (maxHistoryLength < history.length) {
                 var oldLength = history.length;
                 history = history.slice(-maxHistoryLength);
@@ -1920,7 +1931,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 default:
                     var playedList_1 = history.slice(Math.floor(currentIndex / media_1.Media.mediaList.length) * media_1.Media.mediaList.length);
                     var unplayedList = media_1.Media.mediaList.map(function (_, i) { return i; }).filter(function (i) { return !playedList_1.includes(i); });
-                    var forbidens_1 = history.slice(-Math.ceil(media_1.Media.mediaList.length * config.history.shuffleForbiddenRate));
+                    var forbidens_1 = history.slice(-Math.ceil(media_1.Media.mediaList.length * Config.history.shuffleForbiddenRate));
                     var canonicals = unplayedList.filter(function (i) { return !forbidens_1.includes(i); });
                     return canonicals[_tools_4.Tools.Random.makeInteger(canonicals.length)];
             }
@@ -2166,8 +2177,8 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.crossFadeStep = function (rate) {
             if (this.visualElement) {
-                this.visualElement.style.opacity = "".concat(rate);
-                if (_tools_6.Tools.Environment.isApple() && _tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
+                this.visualElement.style.opacity = "".concat(rate * rate);
+                if (_tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
                     this.playerElement.muted = rate <= 0.5;
                 }
             }
@@ -2180,11 +2191,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     }());
     exports.Track = Track;
 });
-define("script/features/player", ["require", "exports", "script/library/index", "script/features/fps", "script/features/clock", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _library_7, fps_1, clock_1, ui_6, elementpool_2, media_2, history_1, track_1, config) {
+define("script/features/player", ["require", "exports", "script/library/index", "script/features/fps", "script/features/clock", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _library_7, fps_1, clock_1, ui_6, elementpool_2, media_2, history_1, track_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
-    config = __importStar(config);
+    Config = __importStar(Config);
     var Player;
     (function (Player) {
         var _this = this;
@@ -2279,7 +2290,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                         }
                         loopHandle = window.requestAnimationFrame(Player.loop);
                         navigator.mediaSession.metadata = new MediaMetadata({
-                            title: config.applicationTitle,
+                            title: Config.applicationTitle,
                             artist: "Unknown Artist",
                             album: "Temporary Media List",
                             artwork: [
@@ -2354,7 +2365,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
         };
         var lastTimeVolume = 1.0;
         Player.crossFade = function () { return __awaiter(_this, void 0, void 0, function () {
-            var currentVolume, progress;
+            var currentVolume, progress, fadeoutProgress;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -2377,8 +2388,9 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                     case 3:
                         progress = CrossFade.getProgress();
                         if (null !== fadeoutingTrack) {
-                            fadeoutingTrack.setVolume(currentVolume * (1 - progress));
-                            fadeoutingTrack.crossFadeStep(1 - progress);
+                            fadeoutProgress = 1 - progress;
+                            fadeoutingTrack.setVolume(currentVolume * fadeoutProgress);
+                            fadeoutingTrack.crossFadeStep(fadeoutProgress);
                         }
                         currentTrack.setVolume(currentVolume * progress);
                         currentTrack.crossFadeStep(progress);
@@ -2559,13 +2571,14 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/media", "script/features/history", "script/ui"], function (require, exports, _tools_7, _library_8, media_3, history_2, ui_7) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/features/history", "script/ui"], function (require, exports, _tools_7, _library_8, _features_1, media_3, history_2, ui_7) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
     var MediaList;
     (function (MediaList) {
         var _this = this;
+        var notSupportedMediaTimer = new _library_8.Library.UI.ToggleClassForWhileTimer();
         MediaList.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
             var entry, _a, _b;
             return __generator(this, function (_c) {
@@ -2583,11 +2596,15 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
                         _b.apply(_a, [_c.sent(), ui_7.UI.addMediaButton.dom.parentElement]);
+                        if (_features_1.Features.Player.isPlaying()) {
+                            _features_1.Features.Player.pause();
+                        }
                         MediaList.clearPlayState();
                         console.log("📂 Media added:", media_3.Media.mediaList[media_3.Media.mediaList.length - 1]);
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", 5000);
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -2763,7 +2780,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _library_9, _features_1, media_4, medialist_1, ui_8, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_8, url_1, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -2833,33 +2850,33 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             var _a, _b, _c, _d, _e;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
-            window.addEventListener("resize", function () { return _features_1.Features.Player.updateStretch(); });
+            window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("keydown", function (event) {
                 if (["Space", " "].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    if (_features_1.Features.Player.isPlaying()) {
-                        _features_1.Features.Player.pause();
+                    if (_features_2.Features.Player.isPlaying()) {
+                        _features_2.Features.Player.pause();
                     }
                     else {
-                        _features_1.Features.Player.play();
+                        _features_2.Features.Player.play();
                     }
                 }
                 if (["ArrowLeft"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    if (_features_1.Features.Player.isPlaying()) {
-                        _features_1.Features.Player.previous();
+                    if (_features_2.Features.Player.isPlaying()) {
+                        _features_2.Features.Player.previous();
                     }
                     else {
-                        _features_1.Features.Player.play();
+                        _features_2.Features.Player.play();
                     }
                 }
                 if (["ArrowRight"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    if (_features_1.Features.Player.isPlaying()) {
-                        _features_1.Features.Player.next();
+                    if (_features_2.Features.Player.isPlaying()) {
+                        _features_2.Features.Player.next();
                     }
                     else {
-                        _features_1.Features.Player.play();
+                        _features_2.Features.Player.play();
                     }
                 }
                 if (["ArrowUp"].includes(event.key)) {
@@ -2881,13 +2898,13 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                     event.preventDefault();
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         ui_8.UI.withFullscreenCheckbox.toggle();
-                        _features_1.Features.Player.updateFullscreenState();
+                        _features_2.Features.Player.updateFullscreenState();
                     }
                 }
                 if ("P" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
                     ui_8.UI.paddingCheckbox.toggle();
-                    _features_1.Features.Player.updateStretch();
+                    _features_2.Features.Player.updateStretch();
                 }
                 if ("R" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
@@ -2906,29 +2923,29 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 url_1.Url.addParameter(url_1.Url.params, key, value);
                 updateUrlAnchor(url_1.Url.params);
             };
-            navigator.mediaSession.setActionHandler("play", _features_1.Features.Player.play);
-            navigator.mediaSession.setActionHandler("pause", _features_1.Features.Player.pause);
-            navigator.mediaSession.setActionHandler("previoustrack", _features_1.Features.Player.previous);
-            navigator.mediaSession.setActionHandler("nexttrack", _features_1.Features.Player.next);
+            navigator.mediaSession.setActionHandler("play", _features_2.Features.Player.play);
+            navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
+            navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
+            navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
             ui_8.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                if (_features_1.Features.Player.isPlaying()) {
-                    _features_1.Features.Player.pause();
+                if (_features_2.Features.Player.isPlaying()) {
+                    _features_2.Features.Player.pause();
                 }
                 else {
-                    _features_1.Features.Player.play();
+                    _features_2.Features.Player.play();
                 }
             };
             ui_8.UI.nextButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                _features_1.Features.Player.next();
+                _features_2.Features.Player.next();
             };
             ui_8.UI.backBUtton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                _features_1.Features.Player.previous();
+                _features_2.Features.Player.previous();
             };
             ui_8.UI.shuffleButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -2945,7 +2962,12 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_8.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_8.UI.volumeButton.dom.classList.toggle("on");
+                if (_tools_8.Tools.Environment.isSafari()) {
+                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() <= 0 ? 100 : 0);
+                }
+                else {
+                    ui_8.UI.volumeButton.dom.classList.toggle("on");
+                }
                 ui_8.UI.settingButton.dom.classList.toggle("on", false);
             };
             (_a = ui_8.UI.volumeRange).options || (_a.options = {});
@@ -2994,7 +3016,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_8.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
-                        _features_1.Features.Player.updateFullscreenState();
+                        _features_2.Features.Player.updateFullscreenState();
                     }
                 }
             };
@@ -3008,7 +3030,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_8.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
-                _library_9.Library.UI.setStyle(ui_8.UI.mediaScreen, "opacity", "".concat(value / 100));
+                _library_9.Library.UI.setStyle(ui_8.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
                 Events.mousemove();
             };
             (_e = ui_8.UI.stretchRange).options || (_e.options = {});
@@ -3016,7 +3038,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
-                _features_1.Features.Player.updateStretch();
+                _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
             ui_8.UI.volumeRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.volumeRange.options.change);
@@ -3029,7 +3051,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
             ui_8.UI.clockPositionSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClockPosition);
             ui_8.UI.brightnessRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.brightnessRange.options.change);
             ui_8.UI.stretchRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.stretchRange.options.change);
-            ui_8.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(function () { return _features_1.Features.Player.updateStretch(); });
+            ui_8.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_8.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
@@ -3080,7 +3102,7 @@ define("script/events", ["require", "exports", "script/library/index", "script/f
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_8, _library_10, _features_2, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_9, medialist_2, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_9, _library_10, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_9, medialist_2, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -3093,7 +3115,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     ui_9.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_10.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_10.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -3105,9 +3127,9 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_8.Tools,
+        Tools: _tools_9.Tools,
         Library: _library_10.Library,
-        Features: _features_2.Features,
+        Features: _features_3.Features,
         Url: url_2.Url,
         UI: ui_9.UI,
         Events: events_1.Events,

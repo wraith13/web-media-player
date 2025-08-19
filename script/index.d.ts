@@ -90,6 +90,7 @@ declare module "locale/generated/master" {
             "Show FPS": string;
             "Switch Clock": string;
             "no-media-message": string;
+            "not-supported-media-message": string;
             "noscript-message": string;
             "noscript-introduction-title": string;
             "noscript-introduction-description": string;
@@ -157,6 +158,7 @@ declare module "locale/generated/master" {
             "Show FPS": string;
             "Switch Clock": string;
             "no-media-message": string;
+            "not-supported-media-message": string;
             "noscript-message": string;
             "noscript-introduction-title": string;
             "noscript-introduction-description": string;
@@ -229,6 +231,7 @@ declare module "script/library/locale" {
                 "Show FPS": string;
                 "Switch Clock": string;
                 "no-media-message": string;
+                "not-supported-media-message": string;
                 "noscript-message": string;
                 "noscript-introduction-title": string;
                 "noscript-introduction-description": string;
@@ -296,6 +299,7 @@ declare module "script/library/locale" {
                 "Show FPS": string;
                 "Switch Clock": string;
                 "no-media-message": string;
+                "not-supported-media-message": string;
                 "noscript-message": string;
                 "noscript-introduction-title": string;
                 "noscript-introduction-description": string;

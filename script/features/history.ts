@@ -1,7 +1,7 @@
 import { Media } from "./media";
 import { Tools } from "@tools";
 import { UI } from "../ui";
-import * as config from "@resource/config.json";
+import * as Config from "@resource/config.json";
 export namespace History
 {
     let history: number[] = [];
@@ -16,7 +16,7 @@ export namespace History
         0 === history.length && -1 === currentIndex;
     export const regulate = (): void =>
     {
-        const maxHistoryLength = Math.max(config.history.maxLength, Media.mediaList.length);
+        const maxHistoryLength = Math.max(Config.history.maxLength, Media.mediaList.length);
         if (maxHistoryLength < history.length)
         {
             const oldLength = history.length;
@@ -116,7 +116,7 @@ export namespace History
         default:
             const playedList = history.slice(Math.floor(currentIndex /Media.mediaList.length) *Media.mediaList.length);
             const unplayedList = Media.mediaList.map((_, i) => i).filter(i => ! playedList.includes(i));
-            const forbidens = history.slice(-Math.ceil(Media.mediaList.length *config.history.shuffleForbiddenRate));
+            const forbidens = history.slice(-Math.ceil(Media.mediaList.length *Config.history.shuffleForbiddenRate));
             const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
             return canonicals[Tools.Random.makeInteger(canonicals.length)];
         }
