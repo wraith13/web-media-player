@@ -1650,16 +1650,17 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                 return __generator(this, function (_a) {
                     url = Media.getUrl(file);
                     video = document.createElement("video");
-                    video.currentTime = 0.1;
                     video.muted = true;
                     video.playsInline = true;
-                    finish = function () { return resolve({
+                    finish = function (skipThumbnail) { return resolve({
                         //file,
                         url: url,
                         type: file.type,
                         category: category,
                         name: Media.getName(file),
-                        thumbnail: canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
+                        thumbnail: skipThumbnail ?
+                            "SVG:error" :
+                            canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
                         size: file.size,
                         duration: video.duration * 1000,
                         area: { width: video.videoWidth, height: video.videoHeight },
@@ -1686,11 +1687,15 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         resolve(null);
                     });
                     video.src = url;
+                    video.currentTime = 0.1;
                     Media.sleep(1000).then(function () {
-                        if ((!loadedmetadataCalled || !loadeddataCalled) && !failed) {
-                            console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
-                            finish();
-                        }
+                        video.play().finally(function () {
+                            video.pause();
+                            if ((!loadedmetadataCalled || !loadeddataCalled) && !failed) {
+                                console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
+                                finish("skipThumbnail");
+                            }
+                        });
                     });
                     return [2 /*return*/];
                 });
@@ -2070,27 +2075,26 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.play = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
+                var seek;
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
-                            _c.sent();
+                            _b.sent();
+                            seek = ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000;
                             if (null !== this.media.duration && this.isLoop()) {
-                                this.playerElement.currentTime = (((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000) % this.media.duration;
-                            }
-                            else {
-                                this.playerElement.currentTime = ((_b = this.elapsedTime) !== null && _b !== void 0 ? _b : 0) / 1000;
+                                seek = seek % this.media.duration;
                             }
                             this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
                         case 2:
-                            _c.sent();
+                            _b.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _c.label = 3;
+                            _b.label = 3;
                         case 3:
                             if (null !== this.elapsedTime) {
                                 this.startTime = Date.now() - this.elapsedTime;
@@ -2235,7 +2239,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.isMuteCondition = function (volume, rate) {
             if (undefined !== rate && _tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
-                return rate <= 0.5;
+                return volume <= 0 || rate <= 0.5;
             }
             else {
                 return volume <= 0;

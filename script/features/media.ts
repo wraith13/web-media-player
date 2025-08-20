@@ -172,17 +172,18 @@ export namespace Media
             {
                 const url = getUrl(file);
                 const video = document.createElement("video");
-                video.currentTime = 0.1;
                 video.muted = true;
                 video.playsInline = true;
-                const finish = () => resolve
+                const finish = (skipThumbnail?: "skipThumbnail") => resolve
                 ({
                     //file,
                     url,
                     type: file.type,
                     category,
                     name: getName(file),
-                    thumbnail: canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
+                    thumbnail: skipThumbnail ?
+                        "SVG:error":
+                        canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
                     size: file.size,
                     duration: video.duration *1000,
                     area: { width: video.videoWidth, height: video.videoHeight },
@@ -223,13 +224,21 @@ export namespace Media
                     }
                 );
                 video.src = url;
+                video.currentTime = 0.1;
                 sleep(1000).then(() =>
                 {
-                    if (( ! loadedmetadataCalled || ! loadeddataCalled) && ! failed)
-                    {
-                        console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
-                        finish();
-                    }
+                    video.play().finally
+                    (
+                        () =>
+                        {
+                            video.pause();
+                            if (( ! loadedmetadataCalled || ! loadeddataCalled) && ! failed)
+                            {
+                                console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
+                                finish("skipThumbnail");
+                            }
+                        }
+                    );
                 });
             }
         );

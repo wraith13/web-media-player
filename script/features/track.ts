@@ -98,13 +98,10 @@ export class Track
         if (this.playerElement instanceof HTMLMediaElement)
         {
             await this.playerElement.play();
+            let seek = (this.elapsedTime ?? 0) /1000;
             if (null !== this.media.duration && this.isLoop())
             {
-                this.playerElement.currentTime = ((this.elapsedTime ?? 0) /1000) %this.media.duration;
-            }
-            else
-            {
-                this.playerElement.currentTime = (this.elapsedTime ?? 0) /1000;
+                seek = seek %this.media.duration;
             }
             this.currentTimeForValidation = this.playerElement.currentTime;
             if (this.paddingElement instanceof HTMLMediaElement)
@@ -295,7 +292,7 @@ export class Track
     {
         if (undefined !== rate && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
         {
-            return rate <= 0.5;
+            return volume <= 0 || rate <= 0.5;
         }
         else
         {

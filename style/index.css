@@ -488,7 +488,9 @@ body.play #screen-body #media-list:not(.show)::before {
   padding: 0px;
   cursor: default;
   overflow: visible;
-  min-width: 100%;
+  min-width: 91%;
+  min-width: calc(100% - 1rem);
+  min-width: calc(100% - 1rem + env(safe-area-inset-left) + env(safe-area-inset-right));
 }
 body.progress-circle #screen-body #media-list .item.add:not(.show) {
   opacity: 0;

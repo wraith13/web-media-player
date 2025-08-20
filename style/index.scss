@@ -236,7 +236,9 @@
                 padding: 0px;
                 cursor: default;
                 overflow: visible;
-                min-width: 100%;
+                min-width: 91%;
+                min-width: calc(100% - 1rem);
+                min-width: calc(100% - 1rem + env(safe-area-inset-left) + env(safe-area-inset-right));
                 &:first-child #add-media
                 {
                     animation: drop-shadow-bounce 3.5s infinite ease-in-out;
