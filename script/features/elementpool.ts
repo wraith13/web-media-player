@@ -25,46 +25,62 @@ export namespace ElementPool
         }
         if (data.audio)
         {
-            while(UI.elementPool.getElementsByTagName("audio").length < 2)
+            const url = data.audio.url;
+            let count = UI.elementPool.getElementsByTagName("audio").length;
+            while(count++ < 2)
             {
-                const audioElement = Library.UI.createElement
-                ({
-                    tag: "audio",
-                    className: "player",
-                    attributes:
+                result = result.then
+                (
+                    () =>
                     {
-                        src: data.audio.url,
-                        //controls: false,
-                        autoplay: false,
-                    },
-                }) as HTMLAudioElement;
-                UI.elementPool.appendChild(audioElement);
-                audioElement.volume = 0;
-                audioElement.muted = false;
-                result = result.then(() => audioElement.play().then(() => audioElement.pause()));
+                        const audioElement = Library.UI.createElement
+                        ({
+                            tag: "audio",
+                            className: "player",
+                            attributes:
+                            {
+                                src: url,
+                                //controls: false,
+                                autoplay: false,
+                            },
+                        }) as HTMLAudioElement;
+                        UI.elementPool.appendChild(audioElement);
+                        audioElement.volume = 0;
+                        audioElement.muted = false;
+                        return audioElement.play().then(() => { audioElement.pause(); audioElement.currentTime = 0;});
+                    }
+                );
             }
         }
         if (data.video)
         {
-            while(UI.elementPool.getElementsByTagName("video").length < 4)
+            const url = data.video.url;
+            let count = UI.elementPool.getElementsByTagName("video").length;
+            while(count++ < 4)
             {
-                const videoElement = Library.UI.createElement
-                ({
-                    tag: "video",
-                    className: "player",
-                    attributes:
+                result = result.then
+                (
+                    () =>
                     {
-                        src: data.video.url,
-                        //controls: false,
-                        autoplay: false,
-                        // playsinline: true,
-                        // webkitPlaysinline: true,
-                    },
-                }) as HTMLVideoElement;
-                UI.elementPool.appendChild(videoElement);
-                videoElement.volume = 0;
-                videoElement.muted = false;
-                result = result.then(() => videoElement.play().then(() => videoElement.pause()));
+                        const videoElement = Library.UI.createElement
+                        ({
+                            tag: "video",
+                            className: "player",
+                            attributes:
+                            {
+                                src: url,
+                                //controls: false,
+                                autoplay: false,
+                                playsinline: true,
+                                webkitPlaysinline: true,
+                            },
+                        }) as HTMLVideoElement;
+                        UI.elementPool.appendChild(videoElement);
+                        videoElement.volume = 0;
+                        videoElement.muted = false;
+                        return videoElement.play().then(() => { videoElement.pause(); videoElement.currentTime = 0;});
+                    }
+                );
             }
         }
         return result.then(() => undefined);

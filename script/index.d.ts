@@ -621,20 +621,21 @@ declare module "script/ui" {
         const volumeRange: Library.Control.Range;
         const settingButton: Library.Control.Button<HTMLElement>;
         const mediaList: HTMLDivElement;
+        const progressCircle: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;
         const mediaCount: HTMLSpanElement;
         const mediaLength: HTMLSpanElement;
-        const crossFadeSelect: Library.Control.Select<number>;
-        const imageSpanSelect: Library.Control.Select<number>;
-        const loopShortMediaCheckbox: Library.Control.Checkbox;
         const withFullscreenCheckbox: Library.Control.Checkbox;
-        const showFpsCheckbox: Library.Control.Checkbox;
-        const clockSelect: Library.Control.Select<string>;
-        const clockPositionSelect: Library.Control.Select<string>;
         const brightnessRange: Library.Control.Range;
         const stretchRange: Library.Control.Range;
         const paddingCheckbox: Library.Control.Checkbox;
+        const crossFadeSelect: Library.Control.Select<number>;
+        const imageSpanSelect: Library.Control.Select<number>;
+        const loopShortMediaCheckbox: Library.Control.Checkbox;
+        const clockSelect: Library.Control.Select<string>;
+        const clockPositionSelect: Library.Control.Select<string>;
+        const showFpsCheckbox: Library.Control.Checkbox;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
         const introductionPanel: HTMLDivElement;
@@ -664,6 +665,7 @@ declare module "script/features/clock" {
 declare module "script/features/media" {
     import { Library } from "script/library/index";
     export namespace Media {
+        const sleep: (timeout: number) => Promise<void>;
         interface Entry {
             url: string;
             type: string;
@@ -735,7 +737,10 @@ declare module "script/features/track" {
         media: Media.Entry;
         startTime: number | null;
         elapsedTime: number | null;
+        fadeRate: number;
+        currentTimeForValidation: number;
         constructor(media: Media.Entry);
+        selfValidate(): boolean;
         makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         isPlaying(): boolean;
         play(): Promise<void>;
@@ -749,7 +754,8 @@ declare module "script/features/track" {
         getRemainingTime(): number;
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
         updateStretch(): void;
-        setVolume(volume: number): void;
+        isMuteCondition(volume: number, rate?: number): boolean;
+        setVolume(volume: number, rate?: number): void;
         crossFadeStep(rate: number): void;
         release(): void;
     }
@@ -773,11 +779,14 @@ declare module "script/features/player" {
         }
         const updateFullscreenState: (fullscreen?: boolean) => void;
         const isPlaying: () => boolean;
+        const startAnimationFrameLoop: () => void;
         const play: () => Promise<void>;
+        const resume: () => void;
         const pause: () => void;
         const previous: () => void;
         const next: () => void;
         const updateFps: () => void;
+        const isNextTiming: () => boolean;
         const crossFade: () => Promise<void>;
         const loop: (now: number) => void;
         const playMedia: (entry: Media.Entry, resume?: "resume") => void;
@@ -787,8 +796,10 @@ declare module "script/features/player" {
     }
 }
 declare module "script/features/index" {
+    import * as ImportedFps from "script/features/fps";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
+        export import Fps = ImportedFps.Fps;
         export import Player = ImportedPlayer.Player;
     }
 }
@@ -799,6 +810,13 @@ declare module "script/url" {
         const addParameter: (params: Record<string, string>, key: string, value: string) => Record<string, string>;
         const initialize: () => void;
         const params: Record<string, string>;
+    }
+}
+declare module "script/progress" {
+    export namespace Progress {
+        const incrementTask: (progress?: number) => void;
+        const completeTask: (progress?: number) => void;
+        const updateProgress: () => void;
     }
 }
 declare module "script/medialist" {

@@ -98,6 +98,14 @@ export namespace Player
     let fadeoutingTrack: Track | null = null;
     export const isPlaying = (): boolean =>
         document.body.classList.contains("play");
+    export const startAnimationFrameLoop = (): void =>
+    {
+        if (null !== loopHandle)
+        {
+            window.cancelAnimationFrame(loopHandle);
+        }
+        loopHandle = window.requestAnimationFrame(loop);
+    };
     export const play = async () =>
     {
         await ElementPool.makeSure
@@ -107,11 +115,7 @@ export namespace Player
             video: Media.mediaList.find(m => "video" === m.category) ?? null,
         });
         updateFullscreenState();
-        if (null !== loopHandle)
-        {
-            window.cancelAnimationFrame(loopHandle);
-        }
-        loopHandle = window.requestAnimationFrame(loop);
+        startAnimationFrameLoop();
         navigator.mediaSession.metadata = new MediaMetadata
         ({
             title: Config.applicationTitle,
@@ -150,6 +154,13 @@ export namespace Player
         if ( ! UI.repeatButton.dom.classList.contains("on"))
         {
             pause();
+        }
+    };
+    export const resume = () =>
+    {
+        if (isPlaying())
+        {
+            startAnimationFrameLoop();
         }
     };
     export const pause = () =>
@@ -201,10 +212,35 @@ export namespace Player
         }
     }
     let lastTimeVolume: number = 1.0;
+    export const isNextTiming = (): boolean =>
+    {
+        if (null !== currentTrack)
+        {
+            if (currentTrack.getRemainingTime() <= 0)
+            {
+                return true;
+            }
+            if (0 < parseFloat(UI.crossFadeSelect.get()))
+            {
+                if (CrossFade.isHotCrossFadeTarget(currentTrack))
+                {
+                    if (currentTrack.getRemainingTime() <= CrossFade.getDuration())
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     export const crossFade = async () =>
     {
         if (null !== currentTrack)
         {
+            if (currentTrack.selfValidate())
+            {
+                UI.mediaLength.click();
+            }
             const currentVolume = UI.volumeRange.get() /100;
             if (CrossFade.isCrossFading())
             {
@@ -226,10 +262,10 @@ export namespace Player
                     if (null !== fadeoutingTrack)
                     {
                         const fadeoutProgress = 1 - progress;
-                        fadeoutingTrack.setVolume(currentVolume * fadeoutProgress);
+                        fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
                         fadeoutingTrack.crossFadeStep(fadeoutProgress);
                     }
-                    currentTrack.setVolume(currentVolume *progress);
+                    currentTrack.setVolume(currentVolume, progress);
                     currentTrack.crossFadeStep(progress);
                 }
                 lastTimeVolume = currentVolume;
@@ -244,31 +280,9 @@ export namespace Player
                         currentTrack.setVolume(currentVolume);
                     }
                 }
-                if (0 < parseFloat(UI.crossFadeSelect.get()))
+                if (isNextTiming())
                 {
-                    if (CrossFade.isHotCrossFadeTarget(currentTrack))
-                    {
-                        if (currentTrack.getRemainingTime() <= CrossFade.getDuration())
-                        {
-                            //CrossFade.start();
-                            next();
-                        }
-                    }
-                    else
-                    {
-                        if (currentTrack.getRemainingTime() <= 0)
-                        {
-                            //CrossFade.start();
-                            next();
-                        }
-                    }
-                }
-                else
-                {
-                    if (currentTrack.getRemainingTime() <= 0)
-                    {
-                        next();
-                    }
+                    next();
                 }
             }
         }

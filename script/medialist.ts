@@ -4,6 +4,7 @@ import { Features } from "@features";
 import { Media } from "@features/media";
 import { History } from "@features/history";
 import { UI } from "./ui";
+import { Progress } from "./progress";
 export namespace MediaList
 {
     const notSupportedMediaTimer = new Library.UI.ToggleClassForWhileTimer();
@@ -33,9 +34,10 @@ export namespace MediaList
     let addMediaQueue: Promise<void> = Promise.resolve();
     export const addMediaSerial = (file: File): void =>
     {
+        Progress.incrementTask();
         addMediaQueue = addMediaQueue.then
         (
-            () => addMedia(file).catch(e => console.error(e))
+            () => addMedia(file).catch(e => console.error(e)).finally(() => Progress.completeTask())
         );
     };
     export const removeButton = async (entry: Media.Entry): Promise<Library.UI.ElementSource<"button">> =>

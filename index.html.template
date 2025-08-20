@@ -63,6 +63,7 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="element-pool"></div>
+<div id="progress-circle"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
 </div>

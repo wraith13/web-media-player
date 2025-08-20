@@ -12,6 +12,8 @@ export class Track
     media: Media.Entry;
     startTime: number | null = null;
     elapsedTime: number | null = null;
+    fadeRate: number = 0.0;
+    currentTimeForValidation: number = 0.0;
     constructor(media: Media.Entry)
     {
         this.media = media;
@@ -57,6 +59,32 @@ export class Track
             }
         }
     }
+    selfValidate(): boolean
+    {
+        if (this.playerElement instanceof HTMLMediaElement)
+        {
+            if (this.currentTimeForValidation +(60 *60) < this.playerElement.currentTime && this.playerElement.paused)
+            {
+                const actualDuration = this.currentTimeForValidation * 1000;
+                if (null === this.media.duration || (actualDuration +(60 *60 *1000)) < this.media.duration)
+                {
+                    this.media.duration = actualDuration;
+                    console.log("🦋 Updated media duration:", this.media.name, this.media.duration);
+                    if (this.isLoop())
+                    {
+                        this.playerElement.loop = true;
+                        this.playerElement.play();
+                    }
+                    return true;
+                }
+            }
+            else
+            {
+                this.currentTimeForValidation = this.playerElement.currentTime;
+            }
+        }
+        return false;
+    }
     makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null
     {
         return ElementPool.get(this.media);
@@ -70,7 +98,15 @@ export class Track
         if (this.playerElement instanceof HTMLMediaElement)
         {
             await this.playerElement.play();
-            this.playerElement.currentTime = (this.elapsedTime ?? 0) /1000;
+            if (null !== this.media.duration && this.isLoop())
+            {
+                this.playerElement.currentTime = ((this.elapsedTime ?? 0) /1000) %this.media.duration;
+            }
+            else
+            {
+                this.playerElement.currentTime = (this.elapsedTime ?? 0) /1000;
+            }
+            this.currentTimeForValidation = this.playerElement.currentTime;
             if (this.paddingElement instanceof HTMLMediaElement)
             {
                 await this.paddingElement.play();
@@ -255,23 +291,31 @@ export class Track
             }
         }
     }
-    setVolume(volume: number): void
+    isMuteCondition(volume: number, rate?: number): boolean
+    {
+        if (undefined !== rate && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
+        {
+            return rate <= 0.5;
+        }
+        else
+        {
+            return volume <= 0;
+        }
+    }
+    setVolume(volume: number, rate?: number): void
     {
         if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerElement.volume = volume;
-            //this.playerElement.muted = volume <= 0;
+            this.playerElement.volume = volume *(rate ?? 1.0);
+            this.playerElement.muted = this.isMuteCondition(volume, rate);
         }
     }
     crossFadeStep(rate: number): void
     {
+        this.fadeRate = rate;
         if (this.visualElement)
         {
             this.visualElement.style.opacity = `${rate * rate}`;
-            if (Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
-            {
-                this.playerElement.muted = rate <= 0.5;
-            }
         }
     }
     release(): void

@@ -6,6 +6,28 @@
         "step": 1,
         "default": 100
     },
+    "withFullscreen": {
+        "id": "with-fullscreen",
+        "default": false
+    },
+    "brightness": {
+        "id": "brightness",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
+    "stretch": {
+        "id": "stretch",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 30
+    },
+    "padding": {
+        "id": "padding",
+        "default": true
+    },
     "crossFade": {
         "id": "cross-fade",
         "enum": [
@@ -64,14 +86,6 @@
         "id": "loop-short-media",
         "default": false
     },
-    "withFullscreen": {
-        "id": "with-fullscreen",
-        "default": false
-    },
-    "showFps": {
-        "id": "show-fps",
-        "default": false
-    },
     "clock": {
         "id": "clock",
         "enum": [
@@ -96,23 +110,9 @@
         ],
         "default": "center"
     },
-    "brightness": {
-        "id": "brightness",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "default": 100
-    },
-    "stretch": {
-        "id": "stretch",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "default": 0
-    },
-    "padding": {
-        "id": "padding",
-        "default": true
+    "showFps": {
+        "id": "show-fps",
+        "default": false
     },
     "language": {
         "id": "language",

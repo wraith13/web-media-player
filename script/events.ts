@@ -94,6 +94,8 @@ export namespace Events
                     if (Features.Player.isPlaying())
                     {
                         Features.Player.pause();
+                        MediaList.updateMediaListDisplay();
+                        MediaList.updateInformationDisplay();
                     }
                     else
                     {
@@ -182,6 +184,26 @@ export namespace Events
         navigator.mediaSession.setActionHandler("pause", Features.Player.pause);
         navigator.mediaSession.setActionHandler("previoustrack", Features.Player.previous);
         navigator.mediaSession.setActionHandler("nexttrack", Features.Player.next);
+        UI.addMediaButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            UI.inputFile.click();
+        };
+        UI.inputFile.addEventListener
+        (
+            "change",
+            async () =>
+            {
+                const files = UI.inputFile.files;
+                for (const file of Array.from(files ?? []))
+                {
+                    console.log("📂 File selected:", file);
+                    MediaList.addMediaSerial(file);
+                }
+                UI.inputFile.value = "";
+            }
+        );
         UI.playButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -189,6 +211,8 @@ export namespace Events
             if (Features.Player.isPlaying())
             {
                 Features.Player.pause();
+                MediaList.updateMediaListDisplay();
+                MediaList.updateInformationDisplay();
             }
             else
             {
@@ -255,31 +279,9 @@ export namespace Events
             UI.settingButton.dom.classList.toggle("on");
             UI.volumeButton.dom.classList.toggle("on", false);
         };
-        UI.addMediaButton.data.click = (event, button) =>
+        UI.mediaLength.click = () =>
         {
-            event?.stopPropagation();
-            button.dom.blur();
-            UI.inputFile.click();
-        };
-        UI.inputFile.addEventListener
-        (
-            "change",
-            async () =>
-            {
-                const files = UI.inputFile.files;
-                for (const file of Array.from(files ?? []))
-                {
-                    console.log("📂 File selected:", file);
-                    MediaList.addMediaSerial(file);
-                }
-                UI.inputFile.value = "";
-            }
-        );
-        UI.imageSpanSelect.options ||= { }
-        UI.imageSpanSelect.options.change = (_event, select) =>
-        {
-            const value = select.get();
-            console.log("⏱️ Image span changed:", value);
+            MediaList.updateMediaListDisplay();
             MediaList.updateInformationDisplay();
         };
         UI.withFullscreenCheckbox.options ||= { }
@@ -293,21 +295,6 @@ export namespace Events
                 }
             }
         };
-        UI.introductionPanel.addEventListener
-        (
-            "click",
-            event =>
-            {
-                event.stopPropagation();
-                UI.introductionPanel.classList.toggle("force-show", false);
-            }
-        );
-        UI.introductionPanel.classList.toggle("force-show", true);
-        setTimeout
-        (
-            () => UI.introductionPanel.classList.toggle("force-show", false),
-            15000
-        );
         UI.brightnessRange.options ||= { }
         UI.brightnessRange.options.change = (_event, range) =>
         {
@@ -325,6 +312,28 @@ export namespace Events
             Features.Player.updateStretch();
             mousemove();
         };
+        UI.imageSpanSelect.options ||= { }
+        UI.imageSpanSelect.options.change = (_event, select) =>
+        {
+            const value = select.get();
+            console.log("⏱️ Image span changed:", value);
+            MediaList.updateInformationDisplay();
+        };
+        UI.introductionPanel.addEventListener
+        (
+            "click",
+            event =>
+            {
+                event.stopPropagation();
+                UI.introductionPanel.classList.toggle("force-show", false);
+            }
+        );
+        UI.introductionPanel.classList.toggle("force-show", true);
+        setTimeout
+        (
+            () => UI.introductionPanel.classList.toggle("force-show", false),
+            15000
+        );
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
         UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
@@ -356,14 +365,18 @@ export namespace Events
             // UI.withFullscreen,
             UI.showFpsCheckbox,
         ].forEach(i => i.fire());
-        // document.addEventListener
-        // (
-        //     "visibilitychange", () =>
-        //     {
-        //         console.log(`👀 visibilitychange: document.hidden: ${document.hidden}`);
-        //         Features.Fps.reset();
-        //     }
-        // );
+        document.addEventListener
+        (
+            "visibilitychange", () =>
+            {
+                console.log(`👀 visibilitychange: document.hidden: ${document.hidden}`);
+                Features.Fps.reset();
+                if ( ! document.hidden)
+                {
+                    Features.Player.resume();
+                }
+            }
+        );
         updateClock();
         updateClockPosition();
         UI.updateLanguage();

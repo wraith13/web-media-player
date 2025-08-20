@@ -231,10 +231,12 @@
             }
             &.add
             {
+                @include fade-transition("body.progress-circle");
                 background-color: transparent;
                 padding: 0px;
                 cursor: default;
                 overflow: visible;
+                min-width: 100%;
                 &:first-child #add-media
                 {
                     animation: drop-shadow-bounce 3.5s infinite ease-in-out;
@@ -498,6 +500,29 @@
         }
     }
 }
+#progress-circle
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+    filter: drop-shadow(black 0px 0px 0.5rem);
+    border-color: #fff;
+    border-width: 0.125rem;
+    border-style: solid;
+    z-index: 100;
+}
+body:not(.progress-circle)
+{
+    #progress-circle
+    {
+        display: none;
+    }
+}
 #no-media-panel,
 #not-supported-media-panel
 {
@@ -638,7 +663,6 @@ body.play:not(.mousemove)
         width: 4.5rem;
         height: 4.5rem;
         background-color: black-color(0.6);
-        opacity: 0.8;
     }
     svg
     {
@@ -650,7 +674,6 @@ body.play:not(.mousemove)
     {
         &:hover
         {
-            opacity: 1.0;
             z-index: 100;
             filter: drop-shadow($white-color 0px 0px 0.5rem);
         }

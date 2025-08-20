@@ -32,6 +32,8 @@ export namespace UI
         new Library.Control.Button({ id: "setting-button", });
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
+    export const progressCircle =
+        Library.UI.getElementById("div", "progress-circle");
     export const addMediaButton =
         new Library.Control.Button({ id: "add-media", });
     export const inputFile =
@@ -40,26 +42,26 @@ export namespace UI
         Library.UI.getElementById("span", "media-count");
     export const mediaLength =
         Library.UI.getElementById("span", "media-length");
-    export const crossFadeSelect =
-        new Library.Control.Select(control.crossFade, { makeLabel: Tools.Timespan.toDisplayString });
-    export const imageSpanSelect =
-        new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
-    export const loopShortMediaCheckbox =
-        new Library.Control.Checkbox(control.loopShortMedia);
     export const withFullscreenCheckbox =
         new Library.Control.Checkbox(control.withFullscreen);
-    export const showFpsCheckbox =
-        new Library.Control.Checkbox(control.showFps);
-    export const clockSelect =
-        new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const clockPositionSelect =
-        new Library.Control.Select(control.clockPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const brightnessRange =
         new Library.Control.Range(control.brightness);
     export const stretchRange =
         new Library.Control.Range(control.stretch);
     export const paddingCheckbox =
         new Library.Control.Checkbox(control.padding);
+    export const crossFadeSelect =
+        new Library.Control.Select(control.crossFade, { makeLabel: Tools.Timespan.toDisplayString });
+    export const imageSpanSelect =
+        new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
+    export const loopShortMediaCheckbox =
+        new Library.Control.Checkbox(control.loopShortMedia);
+    export const clockSelect =
+        new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const clockPositionSelect =
+        new Library.Control.Select(control.clockPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const showFpsCheckbox =
+        new Library.Control.Checkbox(control.showFps);
     export const languageSelect =
         new Library.Control.Select
         (

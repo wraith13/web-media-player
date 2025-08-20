@@ -5,6 +5,8 @@ import { Library } from "@library";
 import * as Config from "@resource/config.json";
 export namespace Media
 {
+    export const sleep = (timeout: number): Promise<void> =>
+        new Promise(resolve => setTimeout(resolve, timeout));
     export interface Entry
     {
         //file: File;
@@ -50,33 +52,37 @@ export namespace Media
         file.name || "Unknown File";
     const canvasImageSourceToDataUrl = (canvasImageSource: CanvasImageSource, width: number, height: number): string =>
     {
-        const maxSize = Config.thumbnail.maxSize;
-        if (width > maxSize || height > maxSize)
+        if (width <= 0 || height <= 0)
         {
-            const scale = Math.min(maxSize / width, maxSize / height);
-            width = Math.round(width * scale);
-            height = Math.round(height * scale);
+            console.warn("🚫 Invalid dimensions for canvas image source:", { width, height, canvasImageSource });
         }
         else
         {
-            if (canvasImageSource instanceof HTMLImageElement)
+            const maxSize = Config.thumbnail.maxSize;
+            if (width > maxSize || height > maxSize)
             {
-                return canvasImageSource.src;
+                const scale = Math.min(maxSize / width, maxSize / height);
+                width = Math.round(width * scale);
+                height = Math.round(height * scale);
+            }
+            else
+            {
+                if (canvasImageSource instanceof HTMLImageElement)
+                {
+                    return canvasImageSource.src;
+                }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            if (ctx)
+            {
+                ctx.drawImage(canvasImageSource, 0, 0, width, height);
+                return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
             }
         }
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        if (ctx)
-        {
-            ctx.drawImage(canvasImageSource, 0, 0, width, height);
-            return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
-        }
-        else
-        {
-            return "SVG:error";
-        }
+        return "SVG:error";
     };
     export const imageToEntry = (category: Category, file: File): Promise<Entry | null> =>
     {
@@ -106,14 +112,15 @@ export namespace Media
     };
     export const audioToEntry = (category: Category, file: File): Promise<Entry | null> =>
     {
-        return new Promise(async (resolve) =>
-        {
-            const url = getUrl(file);
-            const audio = document.createElement("audio");
-            audio.src = url;
-            audio.addEventListener
-            (
-                "loadedmetadata", () => resolve
+        return new Promise
+        (
+            async (resolve) =>
+            {
+                const url = getUrl(file);
+                const audio = document.createElement("audio");
+                let loadedmetadataCalled = false;
+                let failed = false;
+                const finish = () => resolve
                 ({
                     //file,
                     url,
@@ -124,74 +131,108 @@ export namespace Media
                     size: file.size,
                     duration: audio.duration *1000,
                     area: null,
-                })
-            );
-            audio.addEventListener
-            (
-                "error", error =>
-                {
-                    console.error("🚫 Error loading audio metadata:", error);
-                    resolve(null)
-                }
-            );
-        });
+                });
+                audio.addEventListener
+                (
+                    "loadedmetadata", () =>
+                    {
+                        loadedmetadataCalled = true;
+                        finish();
+                    }
+                );
+                audio.addEventListener
+                (
+                    "error", error =>
+                    {
+                        console.error("🚫 Error loading audio metadata:", error);
+                        failed = true;
+                        resolve(null)
+                    }
+                );
+                audio.src = url;
+                sleep(1000).then
+                (
+                    () =>
+                    {
+                        if (!loadedmetadataCalled && !failed)
+                        {
+                            console.warn("⏳ Audio metadata not loaded in time, trying to finish anyway.");
+                            finish();
+                        }
+                    }
+                );
+            }
+        );
     };
     export const videoToEntry = (category: Category, file: File): Promise<Entry | null> =>
     {
-        return new Promise(async (resolve) =>
-        {
-            const url = getUrl(file);
-            const video = document.createElement("video");
-            video.currentTime = 0.1;
-            video.muted = true;
-            video.playsInline = true;
-            video.src = url;
-            const finish = () => resolve
-            ({
-                //file,
-                url,
-                type: file.type,
-                category,
-                name: getName(file),
-                thumbnail: canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
-                size: file.size,
-                duration: video.duration *1000,
-                area: { width: video.videoWidth, height: video.videoHeight },
-            });
-            let loadedmetadataCalled = false;
-            let loadeddataCalled = false;
-            const tryFinish = () =>
+        return new Promise
+        (
+            async (resolve) =>
             {
-                if (loadedmetadataCalled && loadeddataCalled)
+                const url = getUrl(file);
+                const video = document.createElement("video");
+                video.currentTime = 0.1;
+                video.muted = true;
+                video.playsInline = true;
+                const finish = () => resolve
+                ({
+                    //file,
+                    url,
+                    type: file.type,
+                    category,
+                    name: getName(file),
+                    thumbnail: canvasImageSourceToDataUrl(video, video.videoWidth, video.videoHeight),
+                    size: file.size,
+                    duration: video.duration *1000,
+                    area: { width: video.videoWidth, height: video.videoHeight },
+                });
+                let loadedmetadataCalled = false;
+                let loadeddataCalled = false;
+                let failed = false;
+                const tryFinish = () =>
                 {
-                    finish();
-                }
-            };
-            video.addEventListener
-            (
-                "loadedmetadata", () =>
+                    if (loadedmetadataCalled && loadeddataCalled)
+                    {
+                        finish();
+                    }
+                };
+                video.addEventListener
+                (
+                    "loadedmetadata", () =>
+                    {
+                        loadedmetadataCalled = true;
+                        tryFinish();
+                    }
+                );
+                video.addEventListener
+                (
+                    "loadeddata", () =>
+                    {
+                        loadeddataCalled = true;
+                        tryFinish();
+                    }
+                );
+                video.addEventListener
+                (
+                    "error", error =>
+                    {
+                        console.error("🚫 Error loading video metadata:", error);
+                        failed = true;
+                        resolve(null);
+                    }
+                );
+                video.src = url;
+                sleep(1000).then(() =>
                 {
-                    loadedmetadataCalled = true;
-                    tryFinish();
-                }
-            );
-            video.addEventListener
-            (
-                "loadeddata", () =>
-                {
-                    loadeddataCalled = true;
-                    tryFinish();
-                }
-            );
-            video.addEventListener
-            (
-                "error", error =>
-                {
-                    console.error("🚫 Error loading video metadata:", error);
-                    resolve(null);
-                }
-            );
-        });
+                    if (( ! loadedmetadataCalled || ! loadeddataCalled) && ! failed)
+                    {
+                        console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
+                        finish();
+                    }
+                });
+            }
+        );
     };
     export const fileToEntry = async (file: File): Promise<Entry | null> =>
     {

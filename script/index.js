@@ -1246,6 +1246,28 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "withFullscreen": {
+        "id": "with-fullscreen",
+        "default": false
+    },
+    "brightness": {
+        "id": "brightness",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100
+    },
+    "stretch": {
+        "id": "stretch",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 30
+    },
+    "padding": {
+        "id": "padding",
+        "default": true
+    },
     "crossFade": {
         "id": "cross-fade",
         "enum": [
@@ -1265,7 +1287,8 @@ define("resource/control", [], {
             1000,
             750,
             500,
-            250
+            250,
+            0
         ],
         "default": 1250
     },
@@ -1303,14 +1326,6 @@ define("resource/control", [], {
         "id": "loop-short-media",
         "default": false
     },
-    "withFullscreen": {
-        "id": "with-fullscreen",
-        "default": false
-    },
-    "showFps": {
-        "id": "show-fps",
-        "default": false
-    },
     "clock": {
         "id": "clock",
         "enum": [
@@ -1335,23 +1350,9 @@ define("resource/control", [], {
         ],
         "default": "center"
     },
-    "brightness": {
-        "id": "brightness",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "default": 100
-    },
-    "stretch": {
-        "id": "stretch",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "default": 0
-    },
-    "padding": {
-        "id": "padding",
-        "default": true
+    "showFps": {
+        "id": "show-fps",
+        "default": false
     },
     "language": {
         "id": "language",
@@ -1388,20 +1389,21 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
+        UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
         UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
-        UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
-        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
-        UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.withFullscreenCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
-        UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
-        UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.clockPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
         UI.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
         UI.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
+        UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
+        UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.clockPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -1517,6 +1519,9 @@ define("script/features/media", ["require", "exports", "script/library/index", "
     var Media;
     (function (Media) {
         var _this = this;
+        Media.sleep = function (timeout) {
+            return new Promise(function (resolve) { return setTimeout(resolve, timeout); });
+        };
         ;
         Media.mediaList = [];
         Media.getMediaCategory = function (file) {
@@ -1548,28 +1553,31 @@ define("script/features/media", ["require", "exports", "script/library/index", "
             return file.name || "Unknown File";
         };
         var canvasImageSourceToDataUrl = function (canvasImageSource, width, height) {
-            var maxSize = Config.thumbnail.maxSize;
-            if (width > maxSize || height > maxSize) {
-                var scale = Math.min(maxSize / width, maxSize / height);
-                width = Math.round(width * scale);
-                height = Math.round(height * scale);
+            if (width <= 0 || height <= 0) {
+                console.warn("🚫 Invalid dimensions for canvas image source:", { width: width, height: height, canvasImageSource: canvasImageSource });
             }
             else {
-                if (canvasImageSource instanceof HTMLImageElement) {
-                    return canvasImageSource.src;
+                var maxSize = Config.thumbnail.maxSize;
+                if (width > maxSize || height > maxSize) {
+                    var scale = Math.min(maxSize / width, maxSize / height);
+                    width = Math.round(width * scale);
+                    height = Math.round(height * scale);
+                }
+                else {
+                    if (canvasImageSource instanceof HTMLImageElement) {
+                        return canvasImageSource.src;
+                    }
+                }
+                var canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                var ctx = canvas.getContext("2d");
+                if (ctx) {
+                    ctx.drawImage(canvasImageSource, 0, 0, width, height);
+                    return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
                 }
             }
-            var canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext("2d");
-            if (ctx) {
-                ctx.drawImage(canvasImageSource, 0, 0, width, height);
-                return canvas.toDataURL(Config.thumbnail.type, Config.thumbnail.quality);
-            }
-            else {
-                return "SVG:error";
-            }
+            return "SVG:error";
         };
         Media.imageToEntry = function (category, file) {
             return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
@@ -1599,12 +1607,13 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         };
         Media.audioToEntry = function (category, file) {
             return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-                var url, audio;
+                var url, audio, loadedmetadataCalled, failed, finish;
                 return __generator(this, function (_a) {
                     url = Media.getUrl(file);
                     audio = document.createElement("audio");
-                    audio.src = url;
-                    audio.addEventListener("loadedmetadata", function () { return resolve({
+                    loadedmetadataCalled = false;
+                    failed = false;
+                    finish = function () { return resolve({
                         //file,
                         url: url,
                         type: file.type,
@@ -1614,10 +1623,22 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         size: file.size,
                         duration: audio.duration * 1000,
                         area: null,
-                    }); });
+                    }); };
+                    audio.addEventListener("loadedmetadata", function () {
+                        loadedmetadataCalled = true;
+                        finish();
+                    });
                     audio.addEventListener("error", function (error) {
                         console.error("🚫 Error loading audio metadata:", error);
+                        failed = true;
                         resolve(null);
+                    });
+                    audio.src = url;
+                    Media.sleep(1000).then(function () {
+                        if (!loadedmetadataCalled && !failed) {
+                            console.warn("⏳ Audio metadata not loaded in time, trying to finish anyway.");
+                            finish();
+                        }
                     });
                     return [2 /*return*/];
                 });
@@ -1625,14 +1646,13 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         };
         Media.videoToEntry = function (category, file) {
             return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-                var url, video, finish, loadedmetadataCalled, loadeddataCalled, tryFinish;
+                var url, video, finish, loadedmetadataCalled, loadeddataCalled, failed, tryFinish;
                 return __generator(this, function (_a) {
                     url = Media.getUrl(file);
                     video = document.createElement("video");
                     video.currentTime = 0.1;
                     video.muted = true;
                     video.playsInline = true;
-                    video.src = url;
                     finish = function () { return resolve({
                         //file,
                         url: url,
@@ -1646,6 +1666,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     }); };
                     loadedmetadataCalled = false;
                     loadeddataCalled = false;
+                    failed = false;
                     tryFinish = function () {
                         if (loadedmetadataCalled && loadeddataCalled) {
                             finish();
@@ -1661,7 +1682,15 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     });
                     video.addEventListener("error", function (error) {
                         console.error("🚫 Error loading video metadata:", error);
+                        failed = true;
                         resolve(null);
+                    });
+                    video.src = url;
+                    Media.sleep(1000).then(function () {
+                        if ((!loadedmetadataCalled || !loadeddataCalled) && !failed) {
+                            console.warn("⏳ Video metadata not loaded in time, trying to finish anyway.");
+                            finish();
+                        }
                     });
                     return [2 /*return*/];
                 });
@@ -1747,45 +1776,47 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                 }
             }
             if (data.audio) {
-                var _loop_1 = function () {
-                    var audioElement = _library_4.Library.UI.createElement({
-                        tag: "audio",
-                        className: "player",
-                        attributes: {
-                            src: data.audio.url,
-                            //controls: false,
-                            autoplay: false,
-                        },
+                var url_1 = data.audio.url;
+                var count = ui_3.UI.elementPool.getElementsByTagName("audio").length;
+                while (count++ < 2) {
+                    result = result.then(function () {
+                        var audioElement = _library_4.Library.UI.createElement({
+                            tag: "audio",
+                            className: "player",
+                            attributes: {
+                                src: url_1,
+                                //controls: false,
+                                autoplay: false,
+                            },
+                        });
+                        ui_3.UI.elementPool.appendChild(audioElement);
+                        audioElement.volume = 0;
+                        audioElement.muted = false;
+                        return audioElement.play().then(function () { audioElement.pause(); audioElement.currentTime = 0; });
                     });
-                    ui_3.UI.elementPool.appendChild(audioElement);
-                    audioElement.volume = 0;
-                    audioElement.muted = false;
-                    result = result.then(function () { return audioElement.play().then(function () { return audioElement.pause(); }); });
-                };
-                while (ui_3.UI.elementPool.getElementsByTagName("audio").length < 2) {
-                    _loop_1();
                 }
             }
             if (data.video) {
-                var _loop_2 = function () {
-                    var videoElement = _library_4.Library.UI.createElement({
-                        tag: "video",
-                        className: "player",
-                        attributes: {
-                            src: data.video.url,
-                            //controls: false,
-                            autoplay: false,
-                            // playsinline: true,
-                            // webkitPlaysinline: true,
-                        },
+                var url_2 = data.video.url;
+                var count = ui_3.UI.elementPool.getElementsByTagName("video").length;
+                while (count++ < 4) {
+                    result = result.then(function () {
+                        var videoElement = _library_4.Library.UI.createElement({
+                            tag: "video",
+                            className: "player",
+                            attributes: {
+                                src: url_2,
+                                //controls: false,
+                                autoplay: false,
+                                playsinline: true,
+                                webkitPlaysinline: true,
+                            },
+                        });
+                        ui_3.UI.elementPool.appendChild(videoElement);
+                        videoElement.volume = 0;
+                        videoElement.muted = false;
+                        return videoElement.play().then(function () { videoElement.pause(); videoElement.currentTime = 0; });
                     });
-                    ui_3.UI.elementPool.appendChild(videoElement);
-                    videoElement.volume = 0;
-                    videoElement.muted = false;
-                    result = result.then(function () { return videoElement.play().then(function () { return videoElement.pause(); }); });
-                };
-                while (ui_3.UI.elementPool.getElementsByTagName("video").length < 4) {
-                    _loop_2();
                 }
             }
             return result.then(function () { return undefined; });
@@ -1972,6 +2003,8 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.paddingElement = null;
             this.startTime = null;
             this.elapsedTime = null;
+            this.fadeRate = 0.0;
+            this.currentTimeForValidation = 0.0;
             this.media = media;
             switch (media.category) {
                 case "image":
@@ -2009,6 +2042,26 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
         }
+        Track.prototype.selfValidate = function () {
+            if (this.playerElement instanceof HTMLMediaElement) {
+                if (this.currentTimeForValidation + (60 * 60) < this.playerElement.currentTime && this.playerElement.paused) {
+                    var actualDuration = this.currentTimeForValidation * 1000;
+                    if (null === this.media.duration || (actualDuration + (60 * 60 * 1000)) < this.media.duration) {
+                        this.media.duration = actualDuration;
+                        console.log("🦋 Updated media duration:", this.media.name, this.media.duration);
+                        if (this.isLoop()) {
+                            this.playerElement.loop = true;
+                            this.playerElement.play();
+                        }
+                        return true;
+                    }
+                }
+                else {
+                    this.currentTimeForValidation = this.playerElement.currentTime;
+                }
+            }
+            return false;
+        };
         Track.prototype.makePlayerElement = function () {
             return elementpool_1.ElementPool.get(this.media);
         };
@@ -2017,21 +2070,27 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.play = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                var _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0:
                             if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
-                            _b.sent();
-                            this.playerElement.currentTime = ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000;
+                            _c.sent();
+                            if (null !== this.media.duration && this.isLoop()) {
+                                this.playerElement.currentTime = (((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000) % this.media.duration;
+                            }
+                            else {
+                                this.playerElement.currentTime = ((_b = this.elapsedTime) !== null && _b !== void 0 ? _b : 0) / 1000;
+                            }
+                            this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
                         case 2:
-                            _b.sent();
+                            _c.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _b.label = 3;
+                            _c.label = 3;
                         case 3:
                             if (null !== this.elapsedTime) {
                                 this.startTime = Date.now() - this.elapsedTime;
@@ -2174,18 +2233,24 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
         };
-        Track.prototype.setVolume = function (volume) {
+        Track.prototype.isMuteCondition = function (volume, rate) {
+            if (undefined !== rate && _tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
+                return rate <= 0.5;
+            }
+            else {
+                return volume <= 0;
+            }
+        };
+        Track.prototype.setVolume = function (volume, rate) {
             if (this.playerElement instanceof HTMLMediaElement) {
-                this.playerElement.volume = volume;
-                //this.playerElement.muted = volume <= 0;
+                this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                this.playerElement.muted = this.isMuteCondition(volume, rate);
             }
         };
         Track.prototype.crossFadeStep = function (rate) {
+            this.fadeRate = rate;
             if (this.visualElement) {
                 this.visualElement.style.opacity = "".concat(rate * rate);
-                if (_tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
-                    this.playerElement.muted = rate <= 0.5;
-                }
             }
         };
         Track.prototype.release = function () {
@@ -2277,6 +2342,12 @@ define("script/features/player", ["require", "exports", "script/library/index", 
         Player.isPlaying = function () {
             return document.body.classList.contains("play");
         };
+        Player.startAnimationFrameLoop = function () {
+            if (null !== loopHandle) {
+                window.cancelAnimationFrame(loopHandle);
+            }
+            loopHandle = window.requestAnimationFrame(Player.loop);
+        };
         Player.play = function () { return __awaiter(_this, void 0, void 0, function () {
             var media;
             var _a, _b, _c;
@@ -2290,10 +2361,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                     case 1:
                         _d.sent();
                         Player.updateFullscreenState();
-                        if (null !== loopHandle) {
-                            window.cancelAnimationFrame(loopHandle);
-                        }
-                        loopHandle = window.requestAnimationFrame(Player.loop);
+                        Player.startAnimationFrameLoop();
                         navigator.mediaSession.metadata = new MediaMetadata({
                             title: Config.applicationTitle,
                             artist: "Unknown Artist",
@@ -2330,6 +2398,11 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 }
             });
         }); };
+        Player.resume = function () {
+            if (Player.isPlaying()) {
+                Player.startAnimationFrameLoop();
+            }
+        };
         Player.pause = function () {
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
@@ -2369,6 +2442,21 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             }
         };
         var lastTimeVolume = 1.0;
+        Player.isNextTiming = function () {
+            if (null !== currentTrack) {
+                if (currentTrack.getRemainingTime() <= 0) {
+                    return true;
+                }
+                if (0 < parseFloat(ui_6.UI.crossFadeSelect.get())) {
+                    if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
+                        if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        };
         Player.crossFade = function () { return __awaiter(_this, void 0, void 0, function () {
             var currentVolume, progress, fadeoutProgress;
             var _a;
@@ -2376,6 +2464,9 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 switch (_b.label) {
                     case 0:
                         if (!(null !== currentTrack)) return [3 /*break*/, 6];
+                        if (currentTrack.selfValidate()) {
+                            ui_6.UI.mediaLength.click();
+                        }
                         currentVolume = ui_6.UI.volumeRange.get() / 100;
                         if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
@@ -2394,10 +2485,10 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                         progress = CrossFade.getProgress();
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
-                            fadeoutingTrack.setVolume(currentVolume * fadeoutProgress);
+                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
                             fadeoutingTrack.crossFadeStep(fadeoutProgress);
                         }
-                        currentTrack.setVolume(currentVolume * progress);
+                        currentTrack.setVolume(currentVolume, progress);
                         currentTrack.crossFadeStep(progress);
                         _b.label = 4;
                     case 4:
@@ -2410,24 +2501,8 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                                 currentTrack.setVolume(currentVolume);
                             }
                         }
-                        if (0 < parseFloat(ui_6.UI.crossFadeSelect.get())) {
-                            if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
-                                if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
-                                    //CrossFade.start();
-                                    Player.next();
-                                }
-                            }
-                            else {
-                                if (currentTrack.getRemainingTime() <= 0) {
-                                    //CrossFade.start();
-                                    Player.next();
-                                }
-                            }
-                        }
-                        else {
-                            if (currentTrack.getRemainingTime() <= 0) {
-                                Player.next();
-                            }
+                        if (Player.isNextTiming()) {
+                            Player.next();
                         }
                         _b.label = 6;
                     case 6: return [2 /*return*/];
@@ -2511,15 +2586,16 @@ define("script/features/player", ["require", "exports", "script/library/index", 
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/player"], function (require, exports, ImportedPlayer) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/player"], function (require, exports, ImportedFps, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
+    ImportedFps = __importStar(ImportedFps);
     ImportedPlayer = __importStar(ImportedPlayer);
     var Features;
     (function (Features) {
-        // export import Fps = ImportedFps.Fps;
-        // export import Clock = ImportedClock.Clock;
+        Features.Fps = ImportedFps.Fps;
+        //export import Clock = ImportedClock.Clock;
         //export import Media = ImportedMedia.Media;
         //export import History = ImortedHistory.History;
         //export import Track = ImportedTrack.Track;
@@ -2576,7 +2652,35 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/features/history", "script/ui"], function (require, exports, _tools_7, _library_8, _features_1, media_3, history_2, ui_7) {
+define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_7) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Progress = void 0;
+    var Progress;
+    (function (Progress) {
+        var totalTasks = 0;
+        var completedTasks = 0;
+        Progress.incrementTask = function (progress) {
+            if (progress === void 0) { progress = 1; }
+            totalTasks += progress;
+            Progress.updateProgress();
+        };
+        Progress.completeTask = function (progress) {
+            if (progress === void 0) { progress = 1; }
+            completedTasks += progress;
+            Progress.updateProgress();
+        };
+        Progress.updateProgress = function () {
+            document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
+            ui_7.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
+            if (totalTasks <= completedTasks) {
+                totalTasks = 0;
+                completedTasks = 0;
+            }
+        };
+    })(Progress || (exports.Progress = Progress = {}));
+});
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/features/history", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, history_2, ui_8, progress_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -2597,10 +2701,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         console.log("✅ Valid media file:", file);
                         media_3.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
-                        _b = (_a = ui_7.UI.mediaList).insertBefore;
+                        _b = (_a = ui_8.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_7.UI.addMediaButton.dom.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_8.UI.addMediaButton.dom.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -2617,7 +2721,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         }); };
         var addMediaQueue = Promise.resolve();
         MediaList.addMediaSerial = function (file) {
-            addMediaQueue = addMediaQueue.then(function () { return MediaList.addMedia(file).catch(function (e) { return console.error(e); }); });
+            progress_1.Progress.incrementTask();
+            addMediaQueue = addMediaQueue.then(function () { return MediaList.addMedia(file).catch(function (e) { return console.error(e); }).finally(function () { return progress_1.Progress.completeTask(); }); });
         };
         MediaList.removeButton = function (entry) { return __awaiter(_this, void 0, void 0, function () {
             var _a;
@@ -2693,7 +2798,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 _d)]);
                         item.addEventListener("dragstart", function (event) {
                             var _a;
-                            ui_7.UI.mediaList.classList.add("dragging");
+                            ui_8.UI.mediaList.classList.add("dragging");
                             item.classList.add("dragging");
                             (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
                         });
@@ -2701,7 +2806,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
-                                        ui_7.UI.mediaList.classList.remove("dragging");
+                                        ui_8.UI.mediaList.classList.remove("dragging");
                                         item.classList.remove("dragging");
                                         return [4 /*yield*/, MediaList.updateMediaListDisplay()];
                                     case 1:
@@ -2748,7 +2853,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        Array.from(ui_7.UI.mediaList.children).forEach(function (child) {
+                        Array.from(ui_8.UI.mediaList.children).forEach(function (child) {
                             if (child instanceof HTMLDivElement && !child.classList.contains("add")) {
                                 child.remove();
                             }
@@ -2759,10 +2864,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
                         entry = _a[_i];
-                        _c = (_b = ui_7.UI.mediaList).insertBefore;
+                        _c = (_b = ui_8.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_7.UI.addMediaButton.dom.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_8.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -2772,10 +2877,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_7.UI.mediaCount, media_3.Media.mediaList.length.toString());
-            var imageSpan = parseInt(ui_7.UI.imageSpanSelect.get());
+            _library_8.Library.UI.setTextContent(ui_8.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_8.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_7.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_8.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
@@ -2785,7 +2890,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_8, url_1, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -2795,16 +2900,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     (function (Events) {
         var _this = this;
         var updateShowFps = function () {
-            ui_8.UI.fpsDisplay.classList.toggle("hide", !ui_8.UI.showFpsCheckbox.get());
+            ui_9.UI.fpsDisplay.classList.toggle("hide", !ui_9.UI.showFpsCheckbox.get());
         };
         var updateClock = function () {
-            control_json_2.default.clock.enum.forEach(function (i) { return ui_8.UI.clockDisplay.classList.toggle(i, i === ui_8.UI.clockSelect.get()); });
+            control_json_2.default.clock.enum.forEach(function (i) { return ui_9.UI.clockDisplay.classList.toggle(i, i === ui_9.UI.clockSelect.get()); });
         };
         var updateClockPosition = function () {
-            control_json_2.default.clockPosition.enum.forEach(function (i) { return ui_8.UI.clockDisplay.classList.toggle(i, i === ui_8.UI.clockPositionSelect.get()); });
+            control_json_2.default.clockPosition.enum.forEach(function (i) { return ui_9.UI.clockDisplay.classList.toggle(i, i === ui_9.UI.clockPositionSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_8.UI.urlAnchor.href = url_1.Url.make(params);
+            return ui_9.UI.urlAnchor.href = url_3.Url.make(params);
         };
         var dragover = function (event) {
             var _a;
@@ -2814,7 +2919,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_8.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_9.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -2861,6 +2966,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     event.preventDefault();
                     if (_features_2.Features.Player.isPlaying()) {
                         _features_2.Features.Player.pause();
+                        medialist_1.MediaList.updateMediaListDisplay();
+                        medialist_1.MediaList.updateInformationDisplay();
                     }
                     else {
                         _features_2.Features.Player.play();
@@ -2886,38 +2993,38 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if (["ArrowUp"].includes(event.key)) {
                     event.preventDefault();
-                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() + 5);
-                    ui_8.UI.volumeRange.fire();
+                    ui_9.UI.volumeRange.set(ui_9.UI.volumeRange.get() + 5);
+                    ui_9.UI.volumeRange.fire();
                 }
                 if (["ArrowDown"].includes(event.key)) {
                     event.preventDefault();
-                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() - 5);
-                    ui_8.UI.volumeRange.fire();
+                    ui_9.UI.volumeRange.set(ui_9.UI.volumeRange.get() - 5);
+                    ui_9.UI.volumeRange.fire();
                 }
                 if (["Escape"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    ui_8.UI.settingButton.dom.classList.toggle("on", false);
-                    ui_8.UI.volumeButton.dom.classList.toggle("on", false);
+                    ui_9.UI.settingButton.dom.classList.toggle("on", false);
+                    ui_9.UI.volumeButton.dom.classList.toggle("on", false);
                 }
                 if ("F" === event.key.toUpperCase() && !event.repeat) {
                     event.preventDefault();
                     if (_library_9.Library.UI.fullscreenEnabled) {
-                        ui_8.UI.withFullscreenCheckbox.toggle();
+                        ui_9.UI.withFullscreenCheckbox.toggle();
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
                 if ("P" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_8.UI.paddingCheckbox.toggle();
+                    ui_9.UI.paddingCheckbox.toggle();
                     _features_2.Features.Player.updateStretch();
                 }
                 if ("R" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_8.UI.repeatButton.dom.classList.toggle("on");
+                    ui_9.UI.repeatButton.dom.classList.toggle("on");
                 }
                 if ("S" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_8.UI.shuffleButton.dom.classList.toggle("on");
+                    ui_9.UI.shuffleButton.dom.classList.toggle("on");
                 }
             });
             document.body.addEventListener("dragover", dragover);
@@ -2925,189 +3032,194 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             //document.body.className = "play";
             document.body.className = "list";
             var applyParam = function (key, value) {
-                url_1.Url.addParameter(url_1.Url.params, key, value);
-                updateUrlAnchor(url_1.Url.params);
+                url_3.Url.addParameter(url_3.Url.params, key, value);
+                updateUrlAnchor(url_3.Url.params);
             };
             navigator.mediaSession.setActionHandler("play", _features_2.Features.Player.play);
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
-            ui_8.UI.playButton.data.click = function (event, button) {
+            ui_9.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                if (_features_2.Features.Player.isPlaying()) {
-                    _features_2.Features.Player.pause();
-                }
-                else {
-                    _features_2.Features.Player.play();
-                }
+                ui_9.UI.inputFile.click();
             };
-            ui_8.UI.nextButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                _features_2.Features.Player.next();
-            };
-            ui_8.UI.backBUtton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                _features_2.Features.Player.previous();
-            };
-            ui_8.UI.shuffleButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_8.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam(ui_8.UI.shuffleButton.getId(), "".concat(ui_8.UI.shuffleButton.dom.classList.contains("on")));
-            };
-            ui_8.UI.repeatButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_8.UI.repeatButton.dom.classList.toggle("on");
-                applyParam(ui_8.UI.repeatButton.getId(), "".concat(ui_8.UI.repeatButton.dom.classList.contains("on")));
-            };
-            ui_8.UI.volumeButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                if (_tools_8.Tools.Environment.isSafari()) {
-                    ui_8.UI.volumeRange.set(ui_8.UI.volumeRange.get() <= 0 ? 100 : 0);
-                }
-                else {
-                    ui_8.UI.volumeButton.dom.classList.toggle("on");
-                }
-                ui_8.UI.settingButton.dom.classList.toggle("on", false);
-            };
-            (_a = ui_8.UI.volumeRange).options || (_a.options = {});
-            ui_8.UI.volumeRange.options.change = function (_event, range) {
-                var value = range.get();
-                console.log("🔊 Volume changed:", value);
-                ui_8.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                ui_8.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_8.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_8.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_8.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
-                //Media.setVolume(value);
-                Events.mousemove();
-            };
-            ui_8.UI.settingButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_8.UI.settingButton.dom.classList.toggle("on");
-                ui_8.UI.volumeButton.dom.classList.toggle("on", false);
-            };
-            ui_8.UI.addMediaButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_8.UI.inputFile.click();
-            };
-            ui_8.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+            ui_9.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
-                    files = ui_8.UI.inputFile.files;
+                    files = ui_9.UI.inputFile.files;
                     for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File selected:", file);
                         medialist_1.MediaList.addMediaSerial(file);
                     }
-                    ui_8.UI.inputFile.value = "";
+                    ui_9.UI.inputFile.value = "";
                     return [2 /*return*/];
                 });
             }); });
-            (_b = ui_8.UI.imageSpanSelect).options || (_b.options = {});
-            ui_8.UI.imageSpanSelect.options.change = function (_event, select) {
-                var value = select.get();
-                console.log("⏱️ Image span changed:", value);
+            ui_9.UI.playButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                if (_features_2.Features.Player.isPlaying()) {
+                    _features_2.Features.Player.pause();
+                    medialist_1.MediaList.updateMediaListDisplay();
+                    medialist_1.MediaList.updateInformationDisplay();
+                }
+                else {
+                    _features_2.Features.Player.play();
+                }
+            };
+            ui_9.UI.nextButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                _features_2.Features.Player.next();
+            };
+            ui_9.UI.backBUtton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                _features_2.Features.Player.previous();
+            };
+            ui_9.UI.shuffleButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_9.UI.shuffleButton.dom.classList.toggle("on");
+                applyParam(ui_9.UI.shuffleButton.getId(), "".concat(ui_9.UI.shuffleButton.dom.classList.contains("on")));
+            };
+            ui_9.UI.repeatButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_9.UI.repeatButton.dom.classList.toggle("on");
+                applyParam(ui_9.UI.repeatButton.getId(), "".concat(ui_9.UI.repeatButton.dom.classList.contains("on")));
+            };
+            ui_9.UI.volumeButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                if (_tools_8.Tools.Environment.isSafari()) {
+                    ui_9.UI.volumeRange.set(ui_9.UI.volumeRange.get() <= 0 ? 100 : 0);
+                }
+                else {
+                    ui_9.UI.volumeButton.dom.classList.toggle("on");
+                }
+                ui_9.UI.settingButton.dom.classList.toggle("on", false);
+            };
+            (_a = ui_9.UI.volumeRange).options || (_a.options = {});
+            ui_9.UI.volumeRange.options.change = function (_event, range) {
+                var value = range.get();
+                console.log("🔊 Volume changed:", value);
+                ui_9.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_9.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_9.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_9.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_9.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                //Media.setVolume(value);
+                Events.mousemove();
+            };
+            ui_9.UI.settingButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_9.UI.settingButton.dom.classList.toggle("on");
+                ui_9.UI.volumeButton.dom.classList.toggle("on", false);
+            };
+            ui_9.UI.mediaLength.click = function () {
+                medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_c = ui_8.UI.withFullscreenCheckbox).options || (_c.options = {});
-            ui_8.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
+            (_b = ui_9.UI.withFullscreenCheckbox).options || (_b.options = {});
+            ui_9.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
             };
-            ui_8.UI.introductionPanel.addEventListener("click", function (event) {
-                event.stopPropagation();
-                ui_8.UI.introductionPanel.classList.toggle("force-show", false);
-            });
-            ui_8.UI.introductionPanel.classList.toggle("force-show", true);
-            setTimeout(function () { return ui_8.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
-            (_d = ui_8.UI.brightnessRange).options || (_d.options = {});
-            ui_8.UI.brightnessRange.options.change = function (_event, range) {
+            (_c = ui_9.UI.brightnessRange).options || (_c.options = {});
+            ui_9.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
-                _library_9.Library.UI.setStyle(ui_8.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
+                _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
                 Events.mousemove();
             };
-            (_e = ui_8.UI.stretchRange).options || (_e.options = {});
-            ui_8.UI.stretchRange.options.change = function (_event, range) {
+            (_d = ui_9.UI.stretchRange).options || (_d.options = {});
+            ui_9.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            ui_8.UI.volumeRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.volumeRange.options.change);
-            ui_8.UI.crossFadeSelect.loadParameter(url_1.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_8.UI.imageSpanSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.imageSpanSelect.options.change);
-            ui_8.UI.loopShortMediaCheckbox.loadParameter(url_1.Url.params, applyParam);
-            ui_8.UI.withFullscreenCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.withFullscreenCheckbox.options.change);
-            ui_8.UI.showFpsCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(updateShowFps);
-            ui_8.UI.clockSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClock);
-            ui_8.UI.clockPositionSelect.loadParameter(url_1.Url.params, applyParam).setChange(updateClockPosition);
-            ui_8.UI.brightnessRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.brightnessRange.options.change);
-            ui_8.UI.stretchRange.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.stretchRange.options.change);
-            ui_8.UI.paddingCheckbox.loadParameter(url_1.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_8.UI.languageSelect.loadParameter(url_1.Url.params, applyParam).setChange(ui_8.UI.updateLanguage);
+            (_e = ui_9.UI.imageSpanSelect).options || (_e.options = {});
+            ui_9.UI.imageSpanSelect.options.change = function (_event, select) {
+                var value = select.get();
+                console.log("⏱️ Image span changed:", value);
+                medialist_1.MediaList.updateInformationDisplay();
+            };
+            ui_9.UI.introductionPanel.addEventListener("click", function (event) {
+                event.stopPropagation();
+                ui_9.UI.introductionPanel.classList.toggle("force-show", false);
+            });
+            ui_9.UI.introductionPanel.classList.toggle("force-show", true);
+            setTimeout(function () { return ui_9.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            ui_9.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.volumeRange.options.change);
+            ui_9.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_9.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.imageSpanSelect.options.change);
+            ui_9.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_9.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.withFullscreenCheckbox.options.change);
+            ui_9.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
+            ui_9.UI.clockSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClock);
+            ui_9.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClockPosition);
+            ui_9.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.brightnessRange.options.change);
+            ui_9.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.stretchRange.options.change);
+            ui_9.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_9.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
-                    console.log("🖱️ MouseMove:", event, ui_8.UI.screenBody);
+                    console.log("🖱️ MouseMove:", event, ui_9.UI.screenBody);
                 }
                 Events.mousemove();
             });
             _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
-                ui_8.UI.volumeRange,
+                ui_9.UI.volumeRange,
                 // UI.withFullscreen,
-                ui_8.UI.showFpsCheckbox,
+                ui_9.UI.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
-            // document.addEventListener
-            // (
-            //     "visibilitychange", () =>
-            //     {
-            //         console.log(`👀 visibilitychange: document.hidden: ${document.hidden}`);
-            //         Features.Fps.reset();
-            //     }
-            // );
+            document.addEventListener("visibilitychange", function () {
+                console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
+                _features_2.Features.Fps.reset();
+                if (!document.hidden) {
+                    _features_2.Features.Player.resume();
+                }
+            });
             updateClock();
             updateClockPosition();
-            ui_8.UI.updateLanguage();
-            updateUrlAnchor(url_1.Url.params);
+            ui_9.UI.updateLanguage();
+            updateUrlAnchor(url_3.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_8.UI.withFullscreenCheckbox,
-                        ui_8.UI.showFpsCheckbox,
-                        ui_8.UI.clockSelect,
-                        ui_8.UI.brightnessRange,
-                        ui_8.UI.languageSelect,
+                        ui_9.UI.withFullscreenCheckbox,
+                        ui_9.UI.showFpsCheckbox,
+                        ui_9.UI.clockSelect,
+                        ui_9.UI.brightnessRange,
+                        ui_9.UI.languageSelect,
                     ]
-                        .forEach(function (i) { return i.catchUpRestore(url_1.Url.params); });
+                        .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 var old = _library_9.Library.Locale.getLocale();
-                _library_9.Library.Locale.setLocale(ui_8.UI.languageSelect.get());
+                _library_9.Library.Locale.setLocale(ui_9.UI.languageSelect.get());
                 if (old !== _library_9.Library.Locale.getLocale()) {
-                    ui_8.UI.updateLanguage();
+                    ui_9.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_9, _library_10, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_2, ui_9, medialist_2, events_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_9, _library_10, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_10, medialist_2, events_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -3116,8 +3228,8 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
-    url_2.Url.initialize();
-    ui_9.UI.initialize();
+    url_4.Url.initialize();
+    ui_10.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_10.Library.Locale.map("ago"), " )"));
@@ -3135,8 +3247,8 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Tools: _tools_9.Tools,
         Library: _library_10.Library,
         Features: _features_3.Features,
-        Url: url_2.Url,
-        UI: ui_9.UI,
+        Url: url_4.Url,
+        UI: ui_10.UI,
         Events: events_1.Events,
         Resource: Resource
     };
