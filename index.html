@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Aug 20 2025 19:05:37 GMT+0900 (日本標準時)
+    build at: Thu Aug 21 2025 08:37:05 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -122,6 +122,24 @@ DEALINGS IN THE SOFTWARE.
   }
   100% {
     filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0rem);
+  }
+}
+@keyframes ripple {
+  0% {
+    min-width: 4.5rem;
+    max-width: 4.5rem;
+    min-height: 4.5rem;
+    max-height: 4.5rem;
+    opacity: 1;
+    filter: blur(0rem);
+  }
+  100% {
+    min-width: 90rem;
+    max-width: 90rem;
+    min-height: 90rem;
+    max-height: 90rem;
+    opacity: 0;
+    filter: blur(0.125rem);
   }
 }
 * {
@@ -385,6 +403,11 @@ body.play #screen-body #media-list:not(.show)::before {
   overflow: hidden;
   transition: background-color 300ms, transform 300ms;
 }
+#screen-body #media-list .item:not(.add) {
+  border-color: rgba(230, 237, 243, 0.6);
+  border-width: 1px;
+  border-style: solid;
+}
 #screen-body #media-list .item > .thumbnail {
   margin: 0px;
   inset-block-start: 0px;
@@ -398,7 +421,7 @@ body.play #screen-body #media-list:not(.show)::before {
   z-index: 10;
   width: 100%;
   height: 100%;
-  fill: rgba(230, 237, 243, 0.3);
+  fill: rgba(230, 237, 243, 0.4);
 }
 #screen-body #media-list .item > span {
   font-size: 0.75rem;
@@ -567,8 +590,21 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   transition: filter 750ms;
 }
 
-#screen-body #media-list .item.add:first-child #add-media {
-  animation: drop-shadow-bounce 3.5s infinite ease-in-out;
+#screen-body #media-list .item.add:first-child::before {
+  position: absolute;
+  content: " ";
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 4.5rem;
+  max-width: 4.5rem;
+  min-height: 4.5rem;
+  max-height: 4.5rem;
+  border-radius: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;
+  animation: ripple 10s infinite cubic-bezier(0, 0, 0.7, 0.85);
+  pointer-events: none;
 }
 #screen-body #media-list .item.add #add-media {
   border-width: 1px;
@@ -618,121 +654,6 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 
 #element-pool {
   display: none;
-}
-
-#option-panel {
-  display: none;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #option-panel {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #option-panel {
-    font-size: 1rem;
-  }
-}
-#option-panel {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#option-panel {
-  position: absolute;
-  z-index: 80;
-  inset-block-start: 3.25rem;
-  inset-block-start: calc(3.25rem + env(safe-area-inset-top));
-  inset-inline-start: 0.75rem;
-  inset-inline-start: calc(0.75rem + env(safe-area-inset-left));
-  overflow: visible;
-  max-height: 70vh;
-}
-#option-panel label {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  cursor: pointer;
-  padding-block: 0.125rem;
-  padding-inline: 0.5rem;
-  margin-block-end: 1px;
-  background-color: rgba(32, 28, 38, 0.6);
-  border-radius: 0.25rem;
-  height: 1.5rem;
-  flex-grow: 1;
-}
-@media (hover: hover) {
-  #option-panel label:hover {
-    background-color: rgba(32, 28, 38, 0.95);
-  }
-}
-#option-panel label * {
-  user-select: none;
-  cursor: pointer;
-}
-#option-panel label input {
-  margin: 0.5rem;
-  padding: 0px;
-}
-#option-panel label select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #option-panel label select {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #option-panel label select {
-    font-size: 1rem;
-  }
-}
-#option-panel label select {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#option-panel label select {
-  color: rgb(230, 237, 243);
-  background-color: transparent;
-  border: none;
-  border-radius: 0.5rem;
-  padding-block: 0.25rem;
-  padding-inline: 0.25rem;
-  text-align: end;
-  text-align-last: end;
-}
-#option-panel label select option {
-  background-color: rgb(32, 28, 38);
-  text-align: end;
-}
-#option-panel label .load-status {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  position: absolute;
-  inset-inline-start: calc(100% + 0.25rem);
-  padding-block: 0.125rem;
-  padding-inline: 0.5rem;
-  border-radius: 1rem;
-  word-break: keep-all;
-  white-space: nowrap;
-}
-#option-panel label .load-status:empty {
-  display: none;
-}
-#option-panel label[for=url]:not(:hover) {
-  background-color: rgba(32, 28, 38, 0.4);
-}
-#option-panel label[for=url]:not(:hover) a {
-  width: 100%;
 }
 
 #fps {
@@ -1212,7 +1133,7 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
   border-radius: 2.25rem;
   padding-block: 1rem;
   padding-inline: 1rem;
-  transition: opacity 1500ms, filter 1500ms;
+  transition: opacity 1500ms, filter 125ms;
   width: 4.5rem;
   height: 4.5rem;
   background-color: rgba(32, 28, 38, 0.6);
@@ -1953,8 +1874,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <div id="not-supported-media-panel">
     <span data-lang-key="not-supported-media-message"></span>
 </div>
-<div id="option-panel">
-</div>
 <div id="fps"></div>
 <div id="background-introduction-panel">
     <div class="section">
@@ -2173,8 +2092,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Aug 20 2025 19:05:37 GMT+0900 (日本標準時)",
-    tick: 1755684337535
+    at: "Thu Aug 21 2025 08:37:05 GMT+0900 (日本標準時)",
+    tick: 1755733025946
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {

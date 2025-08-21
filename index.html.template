@@ -70,8 +70,6 @@ DUMMYSTYLE
 <div id="not-supported-media-panel">
     <span data-lang-key="not-supported-media-message"></span>
 </div>
-<div id="option-panel">
-</div>
 <div id="fps"></div>
 <div id="background-introduction-panel">
     <div class="section">

@@ -271,3 +271,24 @@
         filter: drop-shadow($white-color 0px 0px 0.0rem);
     }
 }
+@keyframes ripple
+{
+    0%
+    {
+        min-width: 4.5rem;
+        max-width: 4.5rem;
+        min-height: 4.5rem;
+        max-height: 4.5rem;
+        opacity: 1.0;
+        filter: blur(0.0rem);
+    }
+    100%
+    {
+        min-width: 90rem;
+        max-width: 90rem;
+        min-height: 90rem;
+        max-height: 90rem;
+        opacity: 0.0;
+        filter: blur(0.125rem);
+    }
+}
