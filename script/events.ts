@@ -236,14 +236,14 @@ export namespace Events
             event?.stopPropagation();
             button.dom.blur();
             UI.shuffleButton.dom.classList.toggle("on");
-            applyParam(UI.shuffleButton.getId() as string, `${UI.shuffleButton.dom.classList.contains("on")}`);
+            applyParam("shuffle", `${UI.shuffleButton.dom.classList.contains("on")}`);
         };
         UI.repeatButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             UI.repeatButton.dom.classList.toggle("on");
-            applyParam(UI.repeatButton.getId() as string, `${UI.repeatButton.dom.classList.contains("on")}`);
+            applyParam("repeat", `${UI.repeatButton.dom.classList.contains("on")}`);
         };
         UI.volumeButton.data.click = (event, button) =>
         {
@@ -334,6 +334,8 @@ export namespace Events
             () => UI.introductionPanel.classList.toggle("force-show", false),
             15000
         );
+        UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
+        UI.repeatButton.dom.classList.toggle("on", "true" === (Url.params["repeat"] ?? "false").toLowerCase());
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
         UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);

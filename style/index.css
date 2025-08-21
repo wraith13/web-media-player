@@ -3,71 +3,6 @@
   image-rendering: crisp-edges;
 }
 
-@keyframes drop-shadow-bounce {
-  0% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0rem);
-  }
-  5% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.2rem);
-  }
-  10% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.4rem);
-  }
-  15% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.6rem);
-  }
-  20% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.8rem);
-  }
-  25% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1rem);
-  }
-  30% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.2rem);
-  }
-  35% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.4rem);
-  }
-  40% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.6rem);
-  }
-  45% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.8rem);
-  }
-  50% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 2rem);
-  }
-  55% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.8rem);
-  }
-  60% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.6rem);
-  }
-  65% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.4rem);
-  }
-  70% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.2rem);
-  }
-  75% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1rem);
-  }
-  80% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.8rem);
-  }
-  85% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.6rem);
-  }
-  90% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.4rem);
-  }
-  95% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.2rem);
-  }
-  100% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0rem);
-  }
-}
 @keyframes ripple {
   0% {
     min-width: 4.5rem;
@@ -78,10 +13,10 @@
     filter: blur(0rem);
   }
   100% {
-    min-width: 90rem;
-    max-width: 90rem;
-    min-height: 90rem;
-    max-height: 90rem;
+    min-width: 200vh;
+    max-width: 200vh;
+    min-height: 200vh;
+    max-height: 200vh;
     opacity: 0;
     filter: blur(0.125rem);
   }
@@ -223,6 +158,64 @@ body.play.mousemove #screen-body {
   cursor: pointer;
 }
 
+#screen-body #background-screen {
+  transition: opacity 750ms, filter 750ms;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+body.play #screen-body #background-screen:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play #screen-body #background-screen:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#screen-body #background-screen span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #background-screen span {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #background-screen span {
+    font-size: 1rem;
+  }
+}
+#screen-body #background-screen span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #background-screen span {
+  color: rgba(230, 237, 243, 0.7);
+  text-shadow: 0px 0px 0.25rem black;
+  user-select: none;
+  transform: scale(1.25);
+}
 #screen-body #media-screen {
   transition: opacity 750ms, filter 750ms;
   display: block;
@@ -260,6 +253,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 50%;
+  object-fit: cover;
   transform: translate(-50%, -50%);
 }
 #screen-body #media-screen video::-webkit-media-controls,
@@ -535,7 +529,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #screen-body #media-list .item.add:first-child::before {
-  position: absolute;
+  position: fixed;
   content: " ";
   margin-left: auto;
   margin-right: auto;

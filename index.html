@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Aug 21 2025 08:37:05 GMT+0900 (日本標準時)
+    build at: Thu Aug 21 2025 20:34:55 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -59,71 +59,6 @@ DEALINGS IN THE SOFTWARE.
   image-rendering: crisp-edges;
 }
 
-@keyframes drop-shadow-bounce {
-  0% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0rem);
-  }
-  5% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.2rem);
-  }
-  10% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.4rem);
-  }
-  15% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.6rem);
-  }
-  20% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.8rem);
-  }
-  25% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1rem);
-  }
-  30% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.2rem);
-  }
-  35% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.4rem);
-  }
-  40% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.6rem);
-  }
-  45% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.8rem);
-  }
-  50% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 2rem);
-  }
-  55% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.8rem);
-  }
-  60% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.6rem);
-  }
-  65% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.4rem);
-  }
-  70% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1.2rem);
-  }
-  75% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 1rem);
-  }
-  80% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.8rem);
-  }
-  85% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.6rem);
-  }
-  90% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.4rem);
-  }
-  95% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.2rem);
-  }
-  100% {
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0rem);
-  }
-}
 @keyframes ripple {
   0% {
     min-width: 4.5rem;
@@ -134,10 +69,10 @@ DEALINGS IN THE SOFTWARE.
     filter: blur(0rem);
   }
   100% {
-    min-width: 90rem;
-    max-width: 90rem;
-    min-height: 90rem;
-    max-height: 90rem;
+    min-width: 200vh;
+    max-width: 200vh;
+    min-height: 200vh;
+    max-height: 200vh;
     opacity: 0;
     filter: blur(0.125rem);
   }
@@ -279,6 +214,64 @@ body.play.mousemove #screen-body {
   cursor: pointer;
 }
 
+#screen-body #background-screen {
+  transition: opacity 750ms, filter 750ms;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+body.play #screen-body #background-screen:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play #screen-body #background-screen:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#screen-body #background-screen span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #background-screen span {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #background-screen span {
+    font-size: 1rem;
+  }
+}
+#screen-body #background-screen span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #background-screen span {
+  color: rgba(230, 237, 243, 0.7);
+  text-shadow: 0px 0px 0.25rem black;
+  user-select: none;
+  transform: scale(1.25);
+}
 #screen-body #media-screen {
   transition: opacity 750ms, filter 750ms;
   display: block;
@@ -316,6 +309,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 50%;
+  object-fit: cover;
   transform: translate(-50%, -50%);
 }
 #screen-body #media-screen video::-webkit-media-controls,
@@ -591,7 +585,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #screen-body #media-list .item.add:first-child::before {
-  position: absolute;
+  position: fixed;
   content: " ";
   margin-left: auto;
   margin-right: auto;
@@ -1852,6 +1846,9 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
             <span id="date"></span>
         </div>
     </div>
+    <div id="background-screen">
+        <span>Web Media Player</span>
+    </div>
     <div id="media-list">
         <div class="item add">
             <div id="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2092,8 +2089,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Aug 21 2025 08:37:05 GMT+0900 (日本標準時)",
-    tick: 1755733025946
+    at: "Thu Aug 21 2025 20:34:55 GMT+0900 (日本標準時)",
+    tick: 1755776095798
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5170,7 +5167,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 1250
+        "default": 2500
     },
     "imageSpan": {
         "id": "image-span",
@@ -5200,7 +5197,7 @@ define("resource/control", [], {
             1500,
             1000
         ],
-        "default": 7500
+        "default": 24000
     },
     "loopShortMedia": {
         "id": "loop-short-media",
@@ -6841,7 +6838,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a, _b, _c, _d, _e;
+            var _a, _b;
+            var _c, _d, _e, _f, _g;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -6967,13 +6965,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_9.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam(ui_9.UI.shuffleButton.getId(), "".concat(ui_9.UI.shuffleButton.dom.classList.contains("on")));
+                applyParam("shuffle", "".concat(ui_9.UI.shuffleButton.dom.classList.contains("on")));
             };
             ui_9.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_9.UI.repeatButton.dom.classList.toggle("on");
-                applyParam(ui_9.UI.repeatButton.getId(), "".concat(ui_9.UI.repeatButton.dom.classList.contains("on")));
+                applyParam("repeat", "".concat(ui_9.UI.repeatButton.dom.classList.contains("on")));
             };
             ui_9.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -6986,7 +6984,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_9.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_a = ui_9.UI.volumeRange).options || (_a.options = {});
+            (_c = ui_9.UI.volumeRange).options || (_c.options = {});
             ui_9.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
@@ -7008,7 +7006,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_b = ui_9.UI.withFullscreenCheckbox).options || (_b.options = {});
+            (_d = ui_9.UI.withFullscreenCheckbox).options || (_d.options = {});
             ui_9.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -7016,14 +7014,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_c = ui_9.UI.brightnessRange).options || (_c.options = {});
+            (_e = ui_9.UI.brightnessRange).options || (_e.options = {});
             ui_9.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
                 _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
                 Events.mousemove();
             };
-            (_d = ui_9.UI.stretchRange).options || (_d.options = {});
+            (_f = ui_9.UI.stretchRange).options || (_f.options = {});
             ui_9.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -7031,7 +7029,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_e = ui_9.UI.imageSpanSelect).options || (_e.options = {});
+            (_g = ui_9.UI.imageSpanSelect).options || (_g.options = {});
             ui_9.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
@@ -7043,6 +7041,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             });
             ui_9.UI.introductionPanel.classList.toggle("force-show", true);
             setTimeout(function () { return ui_9.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            ui_9.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
+            ui_9.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
             ui_9.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.volumeRange.options.change);
             ui_9.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_9.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.imageSpanSelect.options.change);

@@ -50,7 +50,7 @@
             250,
             0
         ],
-        "default": 1250
+        "default": 2500
     },
     "imageSpan": {
         "id": "image-span",
@@ -80,7 +80,7 @@
             1500,
             1000
         ],
-        "default": 7500
+        "default": 24000
     },
     "loopShortMedia": {
         "id": "loop-short-media",

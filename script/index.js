@@ -1290,7 +1290,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 1250
+        "default": 2500
     },
     "imageSpan": {
         "id": "image-span",
@@ -1320,7 +1320,7 @@ define("resource/control", [], {
             1500,
             1000
         ],
-        "default": 7500
+        "default": 24000
     },
     "loopShortMedia": {
         "id": "loop-short-media",
@@ -2961,7 +2961,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a, _b, _c, _d, _e;
+            var _a, _b;
+            var _c, _d, _e, _f, _g;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -3087,13 +3088,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_9.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam(ui_9.UI.shuffleButton.getId(), "".concat(ui_9.UI.shuffleButton.dom.classList.contains("on")));
+                applyParam("shuffle", "".concat(ui_9.UI.shuffleButton.dom.classList.contains("on")));
             };
             ui_9.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_9.UI.repeatButton.dom.classList.toggle("on");
-                applyParam(ui_9.UI.repeatButton.getId(), "".concat(ui_9.UI.repeatButton.dom.classList.contains("on")));
+                applyParam("repeat", "".concat(ui_9.UI.repeatButton.dom.classList.contains("on")));
             };
             ui_9.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -3106,7 +3107,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_9.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_a = ui_9.UI.volumeRange).options || (_a.options = {});
+            (_c = ui_9.UI.volumeRange).options || (_c.options = {});
             ui_9.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
@@ -3128,7 +3129,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_b = ui_9.UI.withFullscreenCheckbox).options || (_b.options = {});
+            (_d = ui_9.UI.withFullscreenCheckbox).options || (_d.options = {});
             ui_9.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -3136,14 +3137,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_c = ui_9.UI.brightnessRange).options || (_c.options = {});
+            (_e = ui_9.UI.brightnessRange).options || (_e.options = {});
             ui_9.UI.brightnessRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("💡 Brightness changed:", value);
                 _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
                 Events.mousemove();
             };
-            (_d = ui_9.UI.stretchRange).options || (_d.options = {});
+            (_f = ui_9.UI.stretchRange).options || (_f.options = {});
             ui_9.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -3151,7 +3152,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_e = ui_9.UI.imageSpanSelect).options || (_e.options = {});
+            (_g = ui_9.UI.imageSpanSelect).options || (_g.options = {});
             ui_9.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
@@ -3163,6 +3164,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             });
             ui_9.UI.introductionPanel.classList.toggle("force-show", true);
             setTimeout(function () { return ui_9.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
+            ui_9.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
+            ui_9.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
             ui_9.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.volumeRange.options.change);
             ui_9.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_9.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.imageSpanSelect.options.change);

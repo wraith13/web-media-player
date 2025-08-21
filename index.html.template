@@ -55,6 +55,9 @@ DUMMYSTYLE
             <span id="date"></span>
         </div>
     </div>
+    <div id="background-screen">
+        <span>__APPLICATION_TITLE__</span>
+    </div>
     <div id="media-list">
         <div class="item add">
             <div id="add-media">__ADD_ICON__</div>
