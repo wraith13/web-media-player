@@ -108,6 +108,11 @@ export namespace Player
     };
     export const play = async () =>
     {
+        if (UI.isScrolledToMediaListBottom())
+        {
+            UI.mediaList.scrollTop = UI.mediaList.scrollHeight -UI.mediaList.clientHeight -(document.body.clientHeight /2);
+            document.body.classList.toggle("show-paused-media", false);
+        }
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -177,7 +182,11 @@ export namespace Player
         currentTrack?.pause();
         fadeoutingTrack?.pause();
         CrossFade.pause();
-        Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
+        //Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
+        if (0 < Media.mediaList.length)
+        {
+            UI.screenBody.classList.toggle("paused", true);
+        }
     };
     export const previous = () =>
     {
@@ -263,7 +272,7 @@ export namespace Player
                     {
                         const fadeoutProgress = 1 - progress;
                         fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
-                        fadeoutingTrack.crossFadeStep(fadeoutProgress);
+                        //fadeoutingTrack.crossFadeStep(fadeoutProgress);
                     }
                     currentTrack.setVolume(currentVolume, progress);
                     currentTrack.crossFadeStep(progress);
@@ -295,6 +304,15 @@ export namespace Player
             Fps.step(now);
             updateFps();
             crossFade();
+            if (null !== fadeoutingTrack)
+            {
+                fadeoutingTrack.step();
+            }
+            if (null !== currentTrack)
+            {
+                currentTrack.step();
+                currentTrack.setPositionState();
+            }
             navigator.mediaSession.setPositionState
             ({
                 duration: (currentTrack?.getDuration() ?? 0) /1000,

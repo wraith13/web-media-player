@@ -1290,7 +1290,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 2500
+        "default": 1500
     },
     "imageSpan": {
         "id": "image-span",
@@ -1389,6 +1389,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
+        UI.isScrolledToMediaListBottom = function () {
+            return UI.mediaList.scrollHeight - 1 <= UI.mediaList.scrollTop + UI.mediaList.clientHeight;
+        };
         UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
@@ -1465,6 +1468,8 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
     config_json_2 = __importDefault(config_json_2);
     var Clock;
     (function (Clock) {
+        Clock.title = undefined;
+        Clock.subtitle = undefined;
         Clock.makeDate = function (local) {
             return new Date().toLocaleDateString(local, config_json_2.default.clock.dateFormat);
         };
@@ -1472,8 +1477,11 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
             return new Date().toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
         Clock.updateText = function (local) {
-            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.makeDate(local));
-            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.makeTime(local));
+            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : Clock.makeDate(local));
+            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(local));
+            if (null !== Clock.title) {
+                ui_2.UI.time.classList.toggle("text", true);
+            }
         };
         Clock.setColor = function (color) {
             library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
@@ -1985,8 +1993,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
     exports.Visualizer = void 0;
     var Visualizer;
     (function (Visualizer) {
+        Visualizer.VisualizerDom = HTMLDivElement;
         Visualizer.make = function (media) {
-            var visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visual" });
+            var visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
                 case "audio":
                     //visualDom.classList.add("audio");
@@ -1994,8 +2003,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return visualDom;
         };
+        Visualizer.makeSureTextSpan = function (visualDom) {
+            var result = visualDom.querySelector(".visual-text");
+            if (!result) {
+                result = _library_5.Library.UI.createElement({ tag: "span", className: "visual-text" });
+                visualDom.appendChild(result);
+            }
+            return result;
+        };
         Visualizer.step = function (_media, playerDom, visualDom) {
-            _library_5.Library.UI.setTextContent(visualDom, "".concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.currentTime), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.duration)));
+            _library_5.Library.UI.setTextContent(Visualizer.makeSureTextSpan(visualDom), "".concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.currentTime * 1000), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.duration * 1000)));
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
@@ -2023,6 +2040,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 case "audio":
                     this.playerElement = this.makePlayerElement();
                     this.visualElement = visualizer_1.Visualizer.make(media);
+                    this.visualElement.appendChild(this.playerElement);
                     break;
                 case "video":
                     this.playerElement = this.makePlayerElement();
@@ -2128,10 +2146,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             });
         };
         Track.prototype.step = function () {
-            if (this.playerElement instanceof HTMLAudioElement && !this.playerElement.paused) {
+            if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
             }
-            this.setPositionState(); // 🔥 これはここでやっちゃダメ！
         };
         Track.prototype.isLoop = function () {
             var loopShortMedia = ui_5.UI.loopShortMediaCheckbox.get();
@@ -2254,7 +2271,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         Track.prototype.crossFadeStep = function (rate) {
             this.fadeRate = rate;
             if (this.visualElement) {
-                this.visualElement.style.opacity = "".concat(rate * rate);
+                this.visualElement.style.opacity = "".concat(rate);
             }
         };
         Track.prototype.release = function () {
@@ -2357,11 +2374,16 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             var _a, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
-                    case 0: return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
-                            image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
-                            audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
-                            video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
-                        })];
+                    case 0:
+                        if (ui_6.UI.isScrolledToMediaListBottom()) {
+                            ui_6.UI.mediaList.scrollTop = ui_6.UI.mediaList.scrollHeight - ui_6.UI.mediaList.clientHeight - (document.body.clientHeight / 2);
+                            document.body.classList.toggle("show-paused-media", false);
+                        }
+                        return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
+                                image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
+                                audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
+                                video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
+                            })];
                     case 1:
                         _d.sent();
                         Player.updateFullscreenState();
@@ -2419,7 +2441,10 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
-            _library_7.Library.UI.setStyle(ui_6.UI.mediaScreen, "opacity", "0.2");
+            //Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
+            if (0 < media_2.Media.mediaList.length) {
+                ui_6.UI.screenBody.classList.toggle("paused", true);
+            }
         };
         Player.previous = function () {
             var media = history_1.History.back();
@@ -2490,7 +2515,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
-                            fadeoutingTrack.crossFadeStep(fadeoutProgress);
+                            //fadeoutingTrack.crossFadeStep(fadeoutProgress);
                         }
                         currentTrack.setVolume(currentVolume, progress);
                         currentTrack.crossFadeStep(progress);
@@ -2520,6 +2545,13 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 fps_1.Fps.step(now);
                 Player.updateFps();
                 Player.crossFade();
+                if (null !== fadeoutingTrack) {
+                    fadeoutingTrack.step();
+                }
+                if (null !== currentTrack) {
+                    currentTrack.step();
+                    currentTrack.setPositionState();
+                }
                 navigator.mediaSession.setPositionState({
                     duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
                     playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
@@ -2590,16 +2622,17 @@ define("script/features/player", ["require", "exports", "script/library/index", 
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/player"], function (require, exports, ImportedFps, ImportedPlayer) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
+    ImportedClock = __importStar(ImportedClock);
     ImportedPlayer = __importStar(ImportedPlayer);
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
-        //export import Clock = ImportedClock.Clock;
+        Features.Clock = ImportedClock.Clock;
         //export import Media = ImportedMedia.Media;
         //export import History = ImortedHistory.History;
         //export import Track = ImportedTrack.Track;
@@ -2651,7 +2684,6 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         // export const applyParam = (key: string, value: string): void =>
         //     update(addParameter(parseParameter(window.location.href), key, value));
         Url.initialize = function () {
-            // Initialization of params is necessary, but it is actually initialized at the time of declaration. In reality, nothing is done here.
         };
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
@@ -2891,6 +2923,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
         MediaList.clearPlayState = function () {
             history_2.History.clear();
+            ui_8.UI.mediaList.classList.toggle("paused", false);
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
@@ -2963,6 +2996,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.initialize = function () {
             var _a, _b;
             var _c, _d, _e, _f, _g;
+            _features_2.Features.Clock.title = url_3.Url.params["title"];
+            _features_2.Features.Clock.subtitle = url_3.Url.params["subtitle"];
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -3044,6 +3079,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
+            ui_9.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_9.UI.isScrolledToMediaListBottom()); });
             ui_9.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();

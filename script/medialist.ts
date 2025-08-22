@@ -173,5 +173,6 @@ export namespace MediaList
     export const clearPlayState = (): void =>
     {
         History.clear();
+        UI.mediaList.classList.toggle("paused", false);
     };
 }

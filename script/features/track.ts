@@ -29,8 +29,9 @@ export class Track
             });
             break;
         case "audio":
-            this.playerElement = this.makePlayerElement();
+            this.playerElement = this.makePlayerElement() as HTMLAudioElement;
             this.visualElement = Visualizer.make(media);
+            this.visualElement.appendChild(this.playerElement);
             break;
         case "video":
             this.playerElement = this.makePlayerElement();
@@ -147,11 +148,10 @@ export class Track
     }
     step(): void
     {
-        if (this.playerElement instanceof HTMLAudioElement && ! this.playerElement.paused)
+        if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
-            Visualizer.step(this.media, this.playerElement, this.visualElement as Visualizer.VisualizerDom);
+            Visualizer.step(this.media, this.playerElement, this.visualElement);
         }
-        this.setPositionState(); // 🔥 これはここでやっちゃダメ！
     }
     isLoop(): boolean
     {
@@ -312,7 +312,7 @@ export class Track
         this.fadeRate = rate;
         if (this.visualElement)
         {
-            this.visualElement.style.opacity = `${rate * rate}`;
+            this.visualElement.style.opacity = `${rate}`;
         }
     }
     release(): void

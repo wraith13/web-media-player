@@ -32,6 +32,8 @@ export namespace UI
         new Library.Control.Button({ id: "setting-button", });
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
+    export const isScrolledToMediaListBottom = () =>
+        UI.mediaList.scrollHeight -1 <= UI.mediaList.scrollTop + UI.mediaList.clientHeight;
     export const progressCircle =
         Library.UI.getElementById("div", "progress-circle");
     export const addMediaButton =

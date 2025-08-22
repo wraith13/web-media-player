@@ -32,7 +32,6 @@ export namespace Url
     //     update(addParameter(parseParameter(window.location.href), key, value));
     export const initialize = () =>
     {
-        // Initialization of params is necessary, but it is actually initialized at the time of declaration. In reality, nothing is done here.
     };
     export const params = parseParameter(window.location.href);
 }

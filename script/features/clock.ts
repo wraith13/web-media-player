@@ -5,6 +5,8 @@ import { UI } from "../ui";
 import config from "@resource/config.json";
 export namespace Clock
 {
+    export let title: string | undefined = undefined;
+    export let subtitle: string | undefined = undefined;
     export const makeDate = (local: string | undefined): string =>
         new Date().toLocaleDateString
         (
@@ -19,8 +21,12 @@ export namespace Clock
         );
     export const updateText = (local: string | undefined): void =>
     {
-        Library.UI.setTextContent(UI.date, makeDate(local));
-        Library.UI.setTextContent(UI.time, makeTime(local));
+        Library.UI.setTextContent(UI.date, subtitle ?? makeDate(local));
+        Library.UI.setTextContent(UI.time, title ?? makeTime(local));
+        if (null !== title)
+        {
+            UI.time.classList.toggle("text", true);
+        }
     };
     export const setColor = (color: string | undefined): void =>
     {

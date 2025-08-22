@@ -61,6 +61,17 @@
         {
             filter: blur(0.5rem);
         }
+        .visualizer
+        {
+            color: $white-color;
+            background-color: black;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
     }
     #media-list
     {
@@ -263,7 +274,7 @@
                 overflow: visible;
                 min-width: 91%;
                 min-width: calc(100% - 1rem);
-                min-width: calc(100% - 1rem + env(safe-area-inset-left) + env(safe-area-inset-right));
+                min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
                 &:first-child::before
                 {
                     position: fixed;
@@ -345,6 +356,37 @@
         {
             display: none
         }
+    }
+}
+body:not(.show-paused-media) #screen-body.paused
+{
+    #media-screen
+    {
+        opacity: 0.2;
+    }
+}
+body #screen-body.paused
+{
+    #media-list
+    {
+        padding-bottom: 100vh;
+    }
+}
+body.show-paused-media #screen-body
+{
+    #media-screen
+    {
+        opacity: 1.0;
+        filter: none !important;
+    }
+    #background-screen
+    {
+        opacity: 0.0;
+    }
+    #media-list
+    {
+        opacity: 0.0;
+        filter: blur(0.5rem);
     }
 }
 #element-pool
@@ -516,7 +558,7 @@ body:not(.not-supported-media)
 #control-panel
 {
     @include black-pop-panel-style();
-    @include fade-transition("body.play:not(.mousemove)");
+    @include fade-transition("body.play:not(.mousemove)", "body.show-paused-media:not(.mousemove)");
     @include flex(row, center);
     &
     {
@@ -594,7 +636,7 @@ body.play:not(.mousemove)
 }
 #next-button, #back-button
 {
-    @include fade-transition("body:not(.play)", "body:not(.mousemove)");
+    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.mousemove)");
     // @include fade-transition("body.play:not(.mousemove)");
     @include black-pop-panel-style();
     &
@@ -604,19 +646,19 @@ body.play:not(.mousemove)
         border-style: solid;
         border-width: 0px;
         border-color: $white-color;
-        border-radius: 2.25rem;
+        border-radius: 4.5rem;
         padding-block: 1.0rem;
         padding-inline: 1.0rem;
         transition: opacity 1500ms, filter 125ms;
-        width: 4.5rem;
-        height: 4.5rem;
+        width: 9rem;
+        height: 9rem;
         background-color: black-color(0.6);
     }
     svg
     {
         @include svg-color($white-color);
-        width: 100%;
-        height: 100%;
+        width: 2.5rem;
+        height: 2.5rem;
     }
     @media (hover: hover)
     {
@@ -629,17 +671,25 @@ body.play:not(.mousemove)
 }
 #back-button
 {
-    left: 1.0rem;
-    left: calc(1.0rem + env(safe-area-inset-left));
+    left: -5.5rem;
+    left: calc(-5.5rem + env(safe-area-inset-left));
     inset-block-start: 50%;
     transform: translate(0%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
 }
 #next-button
 {
-    right: 1.0rem;
-    right: calc(1.0rem + env(safe-area-inset-right));
+    right: -5.5rem;
+    right: calc(-5.5rem + env(safe-area-inset-right));
     inset-block-start: 50%;
     transform: translate(0%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
 }
 body.no-media
 {
@@ -903,13 +953,17 @@ body.no-media
                 text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
             }
         }
-        #time
+        #time:not(.text)
         {
             @include monospace-font();
-            &
-            {
-                white-space: nowrap;
-            }
+        }
+        #time.text
+        {
+            @include font();
+        }
+        #time
+        {
+            white-space: nowrap;
         }
         #date
         {
@@ -977,7 +1031,7 @@ body.no-media
         @include flex(row, space-between, end);
         #keyboard-shortcut
         {
-            @include fade-transition("body.play");
+            @include fade-transition("body.play", "body.show-paused-media");
             @include black-pop-panel-style();
             @include font();
             &
@@ -1042,7 +1096,7 @@ body.no-media
         }
         #powered-by
         {
-            @include fade-transition("body.play");
+            @include fade-transition("body.play", "body.show-paused-media");
             @include black-pop-panel-style();
             @include font();
             &

@@ -621,6 +621,7 @@ declare module "script/ui" {
         const volumeRange: Library.Control.Range;
         const settingButton: Library.Control.Button<HTMLElement>;
         const mediaList: HTMLDivElement;
+        const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const inputFile: HTMLInputElement;
@@ -654,6 +655,8 @@ declare module "script/ui" {
 }
 declare module "script/features/clock" {
     export namespace Clock {
+        let title: string | undefined;
+        let subtitle: string | undefined;
         const makeDate: (local: string | undefined) => string;
         const makeTime: (local: string | undefined) => string;
         const updateText: (local: string | undefined) => void;
@@ -723,7 +726,12 @@ declare module "script/features/visualizer" {
     import { Media } from "script/features/media";
     export namespace Visualizer {
         type VisualizerDom = HTMLDivElement;
+        const VisualizerDom: {
+            new (): HTMLDivElement;
+            prototype: HTMLDivElement;
+        };
         const make: (media: Media.Entry) => VisualizerDom;
+        const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom) => void;
     }
 }
@@ -797,9 +805,11 @@ declare module "script/features/player" {
 }
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
+    import * as ImportedClock from "script/features/clock";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
+        export import Clock = ImportedClock.Clock;
         export import Player = ImportedPlayer.Player;
     }
 }
