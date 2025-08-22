@@ -851,4 +851,12 @@ declare module "script/events" {
         const initialize: () => void;
     }
 }
+declare module "script/screenshot" {
+    export namespace Screenshot {
+        const initialize: (params: Record<string, string>) => void;
+        const setDisplayNone: (querySelectors: string[]) => void;
+        const fixCanvasSize: (width: string, height: string) => void;
+        const toCenterControlPanel: (rate: number) => void;
+    }
+}
 declare module "script/index" { }

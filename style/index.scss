@@ -12,10 +12,10 @@
     {
         cursor: none;
     }
-    @at-root body.play.mousemove &
-    {
-        cursor: pointer;
-    }
+    // @at-root body.play.mousemove &
+    // {
+    //     cursor: pointer;
+    // }
     #background-screen
     {
         @include fade-transition("body.play");

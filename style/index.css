@@ -154,10 +154,6 @@ body.play:not(.mousemove) #screen-body {
   cursor: none;
 }
 
-body.play.mousemove #screen-body {
-  cursor: pointer;
-}
-
 #screen-body #background-screen {
   transition: opacity 750ms, filter 750ms;
   display: block;

@@ -3262,7 +3262,53 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events"], function (require, exports, _tools_9, _library_10, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_10, medialist_2, events_1) {
+define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_10) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Screenshot = void 0;
+    var Screenshot;
+    (function (Screenshot) {
+        Screenshot.initialize = function (params) {
+            var screenshot = params["screenshot"];
+            switch (screenshot) {
+                case "favicon":
+                    Screenshot.fixCanvasSize("1024px", "1024px");
+                    Screenshot.toCenterControlPanel(10);
+                    _library_10.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#setting-button",]);
+                    break;
+                case "twitter-card":
+                    Screenshot.fixCanvasSize("1200px", "630px");
+                    Screenshot.toCenterControlPanel(3.5);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add",]);
+                    break;
+            }
+        };
+        Screenshot.setDisplayNone = function (querySelectors) { return querySelectors.forEach(function (selector) {
+            var element = document.querySelector(selector);
+            if (element) {
+                element.style.setProperty("display", "none");
+            }
+        }); };
+        Screenshot.fixCanvasSize = function (width, height) {
+            ui_10.UI.screenBody.style.setProperty("background-color", "white");
+            ui_10.UI.screenBody.style.setProperty("display", "flex");
+            ui_10.UI.screenBody.style.setProperty("flex-direction", "column");
+            ui_10.UI.screenBody.style.setProperty("align-items", "center");
+            ui_10.UI.screenBody.style.setProperty("justify-content", "center");
+            ui_10.UI.mediaList.style.setProperty("position", "relative");
+            ui_10.UI.mediaList.style.setProperty("background-color", "black");
+            ["min-width", "max-width",].forEach(function (i) { return ui_10.UI.mediaList.style.setProperty(i, width); });
+            ["min-height", "max-height",].forEach(function (i) { return ui_10.UI.mediaList.style.setProperty(i, height); });
+        };
+        Screenshot.toCenterControlPanel = function (rate) {
+            var controlPanel = _library_10.Library.UI.getElementById("div", "control-panel");
+            controlPanel.style.setProperty("inset-block-end", "50%");
+            controlPanel.style.setProperty("transform", "translate(-50%, 50%) scale(".concat(rate, ")"));
+        };
+    })(Screenshot || (exports.Screenshot = Screenshot = {}));
+});
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -3272,10 +3318,11 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
     url_4.Url.initialize();
-    ui_10.UI.initialize();
+    ui_11.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_10.Library.Locale.map("ago"), " )"));
+    screenshot_1.Screenshot.initialize(url_4.Url.params);
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -3283,15 +3330,15 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_10.Library.Locale.master,
+        locale: _library_11.Library.Locale.master,
         poweredBy: powered_by_json_2.default
     };
     var modules = {
         Tools: _tools_9.Tools,
-        Library: _library_10.Library,
+        Library: _library_11.Library,
         Features: _features_3.Features,
         Url: url_4.Url,
-        UI: ui_10.UI,
+        UI: ui_11.UI,
         Events: events_1.Events,
         Resource: Resource
     };

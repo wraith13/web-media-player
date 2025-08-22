@@ -11,10 +11,12 @@ import { Url } from "./url";
 import { UI } from "./ui";
 import { MediaList } from "./medialist";
 import { Events } from "./events";
+import { Screenshot } from "./screenshot";
 Url.initialize();
 UI.initialize();
 Events.initialize();
 MediaList.initialize();
+Screenshot.initialize(Url.params);
 interface BuildInformation
 {
     at: string;
