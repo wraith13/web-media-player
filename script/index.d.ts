@@ -624,6 +624,7 @@ declare module "script/ui" {
         const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;
         const addMediaButton: Library.Control.Button<HTMLElement>;
+        const addMediaButtonHeight = 84;
         const inputFile: HTMLInputElement;
         const mediaCount: HTMLSpanElement;
         const mediaLength: HTMLSpanElement;
@@ -663,6 +664,7 @@ declare module "script/features/clock" {
         const setColor: (color: string | undefined) => void;
         let cloclLocale: string | undefined;
         const update: (now: number) => void;
+        const initialize: (params: Record<string, string>) => void;
     }
 }
 declare module "script/features/media" {
@@ -801,6 +803,7 @@ declare module "script/features/player" {
         const removeTrack: (track: Track | null) => void;
         const removeFadeoutTrack: () => void;
         const updateStretch: () => void;
+        const clear: () => void;
     }
 }
 declare module "script/features/index" {

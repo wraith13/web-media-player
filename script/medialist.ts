@@ -2,7 +2,6 @@ import { Tools } from "@tools";
 import { Library } from "@library";
 import { Features } from "@features";
 import { Media } from "@features/media";
-import { History } from "@features/history";
 import { UI } from "./ui";
 import { Progress } from "./progress";
 export namespace MediaList
@@ -172,7 +171,7 @@ export namespace MediaList
     };
     export const clearPlayState = (): void =>
     {
-        History.clear();
+        Features.Player.clear();
         UI.mediaList.classList.toggle("paused", false);
     };
 }

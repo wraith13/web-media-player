@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Aug 22 2025 22:02:25 GMT+0900 (日本標準時)
+    build at: Sat Aug 23 2025 10:51:39 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2197,8 +2197,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Aug 22 2025 22:02:25 GMT+0900 (日本標準時)",
-    tick: 1755867745840
+    at: "Sat Aug 23 2025 10:51:39 GMT+0900 (日本標準時)",
+    tick: 1755913899050
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5375,10 +5375,11 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.isScrolledToMediaListBottom = function () {
-            return UI.mediaList.scrollHeight - 1 <= UI.mediaList.scrollTop + UI.mediaList.clientHeight;
+            return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + UI.addMediaButtonHeight;
         };
         UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
+        UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
         UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
@@ -5464,9 +5465,6 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
         Clock.updateText = function (local) {
             library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : Clock.makeDate(local));
             library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(local));
-            if (null !== Clock.title) {
-                ui_2.UI.time.classList.toggle("text", true);
-            }
         };
         Clock.setColor = function (color) {
             library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
@@ -5501,6 +5499,11 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
                         break;
                 }
             }
+        };
+        Clock.initialize = function (params) {
+            Clock.title = params["title"];
+            Clock.subtitle = params["subtitle"];
+            ui_2.UI.time.classList.toggle("text", undefined !== Clock.title);
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
@@ -6361,7 +6364,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 switch (_d.label) {
                     case 0:
                         if (ui_6.UI.isScrolledToMediaListBottom()) {
-                            ui_6.UI.mediaList.scrollTop = ui_6.UI.mediaList.scrollHeight - ui_6.UI.mediaList.clientHeight - (document.body.clientHeight / 2);
+                            ui_6.UI.mediaList.scrollTop = ui_6.UI.mediaList.scrollHeight - ((ui_6.UI.mediaList.clientHeight * 1.5) + ui_6.UI.addMediaButtonHeight);
                             document.body.classList.toggle("show-paused-media", false);
                         }
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
@@ -6426,10 +6429,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
-            //Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
-            if (0 < media_2.Media.mediaList.length) {
-                ui_6.UI.screenBody.classList.toggle("paused", true);
-            }
+            ui_6.UI.screenBody.classList.toggle("paused", 0 < media_2.Media.mediaList.length && null !== currentTrack);
         };
         Player.previous = function () {
             var media = history_1.History.back();
@@ -6446,7 +6446,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 Player.playMedia(media);
             }
             else {
-                history_1.History.clear();
+                Player.clear();
                 Player.pause();
             }
         };
@@ -6605,6 +6605,14 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
+        Player.clear = function () {
+            history_1.History.clear();
+            CrossFade.clear();
+            Player.removeFadeoutTrack();
+            Player.removeTrack(currentTrack);
+            currentTrack = null;
+            ui_6.UI.screenBody.classList.toggle("paused", false);
+        };
     })(Player || (exports.Player = Player = {}));
 });
 define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedPlayer) {
@@ -6701,7 +6709,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/features/history", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, history_2, ui_8, progress_1) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_8, progress_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -6907,7 +6915,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             MediaList.updateInformationDisplay();
         };
         MediaList.clearPlayState = function () {
-            history_2.History.clear();
+            _features_1.Features.Player.clear();
             ui_8.UI.mediaList.classList.toggle("paused", false);
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
@@ -6981,8 +6989,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.initialize = function () {
             var _a, _b;
             var _c, _d, _e, _f, _g;
-            _features_2.Features.Clock.title = url_3.Url.params["title"];
-            _features_2.Features.Clock.subtitle = url_3.Url.params["subtitle"];
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -7064,7 +7070,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
-            ui_9.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_9.UI.isScrolledToMediaListBottom()); });
+            ui_9.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_9.UI.screenBody.classList.contains("paused") && ui_9.UI.isScrolledToMediaListBottom()); });
             ui_9.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -7306,6 +7312,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     ui_11.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
+    _features_3.Features.Clock.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;

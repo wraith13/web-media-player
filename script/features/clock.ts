@@ -23,10 +23,6 @@ export namespace Clock
     {
         Library.UI.setTextContent(UI.date, subtitle ?? makeDate(local));
         Library.UI.setTextContent(UI.time, title ?? makeTime(local));
-        if (null !== title)
-        {
-            UI.time.classList.toggle("text", true);
-        }
     };
     export const setColor = (color: string | undefined): void =>
     {
@@ -70,4 +66,10 @@ export namespace Clock
             }
         }
     };
+    export const initialize = (params: Record<string, string>) =>
+    {
+        title = params["title"];
+        subtitle = params["subtitle"];
+        UI.time.classList.toggle("text", undefined !== title);
+    }
 }

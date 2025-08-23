@@ -80,8 +80,6 @@ export namespace Events
     };
     export const initialize = () =>
     {
-        Features.Clock.title = Url.params["title"];
-        Features.Clock.subtitle = Url.params["subtitle"];
         window.addEventListener("dragover", event => event.preventDefault());
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());
@@ -189,7 +187,11 @@ export namespace Events
         UI.mediaList.addEventListener
         (
             "scroll",
-            () => document.body.classList.toggle("show-paused-media", UI.isScrolledToMediaListBottom())
+            () => document.body.classList.toggle
+            (
+                "show-paused-media",
+                UI.screenBody.classList.contains("paused") && UI.isScrolledToMediaListBottom()
+            )
         )
         UI.addMediaButton.data.click = (event, button) =>
         {

@@ -110,7 +110,7 @@ export namespace Player
     {
         if (UI.isScrolledToMediaListBottom())
         {
-            UI.mediaList.scrollTop = UI.mediaList.scrollHeight -UI.mediaList.clientHeight -(document.body.clientHeight /2);
+            UI.mediaList.scrollTop = UI.mediaList.scrollHeight -((UI.mediaList.clientHeight *1.5) +UI.addMediaButtonHeight);
             document.body.classList.toggle("show-paused-media", false);
         }
         await ElementPool.makeSure
@@ -182,11 +182,7 @@ export namespace Player
         currentTrack?.pause();
         fadeoutingTrack?.pause();
         CrossFade.pause();
-        //Library.UI.setStyle(UI.mediaScreen, "opacity", "0.2");
-        if (0 < Media.mediaList.length)
-        {
-            UI.screenBody.classList.toggle("paused", true);
-        }
+        UI.screenBody.classList.toggle("paused", 0 < Media.mediaList.length && null !== currentTrack);
     };
     export const previous = () =>
     {
@@ -209,7 +205,7 @@ export namespace Player
         }
         else
         {
-            History.clear();
+            clear();
             pause();
         }
     };
@@ -396,5 +392,14 @@ export namespace Player
     {
         currentTrack?.updateStretch();
         fadeoutingTrack?.updateStretch();
+    }
+    export const clear = () =>
+    {
+        History.clear();
+        CrossFade.clear();
+        removeFadeoutTrack();
+        removeTrack(currentTrack);
+        currentTrack = null;
+        UI.screenBody.classList.toggle("paused", false);
     }
 }
