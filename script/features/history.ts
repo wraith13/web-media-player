@@ -5,11 +5,13 @@ import * as Config from "@resource/config.json";
 export namespace History
 {
     let history: number[] = [];
+    let baseIndex = 0;
     let currentIndex = -1;
     export const clear = (): void =>
     {
         navigator.mediaSession.setPositionState();
         history = [];
+        baseIndex = 0;
         currentIndex = -1;
     };
     export const isCleared = (): boolean =>
@@ -21,9 +23,13 @@ export namespace History
         {
             const oldLength = history.length;
             history = history.slice(-maxHistoryLength);
-            currentIndex -= oldLength - history.length;
+            const diff = oldLength - history.length;
+            baseIndex += diff;
+            currentIndex -= diff;
         }
     };
+    export const getCurrentIndex = (): number =>
+        baseIndex +currentIndex;
     export const getMedia = (): Media.Entry | undefined =>
     {
         const mediaIndex = history[currentIndex];

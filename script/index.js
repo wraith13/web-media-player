@@ -1893,10 +1893,12 @@ define("script/features/history", ["require", "exports", "script/features/media"
     var History;
     (function (History) {
         var history = [];
+        var baseIndex = 0;
         var currentIndex = -1;
         History.clear = function () {
             navigator.mediaSession.setPositionState();
             history = [];
+            baseIndex = 0;
             currentIndex = -1;
         };
         History.isCleared = function () {
@@ -1907,8 +1909,13 @@ define("script/features/history", ["require", "exports", "script/features/media"
             if (maxHistoryLength < history.length) {
                 var oldLength = history.length;
                 history = history.slice(-maxHistoryLength);
-                currentIndex -= oldLength - history.length;
+                var diff = oldLength - history.length;
+                baseIndex += diff;
+                currentIndex -= diff;
             }
+        };
+        History.getCurrentIndex = function () {
+            return baseIndex + currentIndex;
         };
         History.getMedia = function () {
             var mediaIndex = history[currentIndex];
@@ -2019,13 +2026,14 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
     (function (Visualizer) {
         var _this = this;
         Visualizer.VisualizerDom = HTMLDivElement;
-        Visualizer.make = function (media) {
+        Visualizer.make = function (media, index) {
             var visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
                 case "audio":
                     //visualDom.classList.add("audio");
                     break;
             }
+            visualDom.classList.toggle("odd", 0 !== (index % 2));
             return visualDom;
         };
         Visualizer.makeSureIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
@@ -2077,7 +2085,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = void 0;
     var Track = /** @class */ (function () {
-        function Track(media) {
+        function Track(media, index) {
             this.paddingElement = null;
             this.startTime = null;
             this.elapsedTime = null;
@@ -2095,7 +2103,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     break;
                 case "audio":
                     this.playerElement = this.makePlayerElement();
-                    this.visualElement = visualizer_1.Visualizer.make(media);
+                    this.visualElement = visualizer_1.Visualizer.make(media, index);
                     this.visualElement.appendChild(this.playerElement);
                     break;
                 case "video":
@@ -2149,27 +2157,34 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.play = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var seek;
-                var _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
                         case 0:
-                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
+                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 4];
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
-                            _b.sent();
-                            seek = ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0) / 1000;
-                            if (null !== this.media.duration && this.isLoop()) {
-                                seek = seek % this.media.duration;
-                            }
+                            _a.sent();
+                            // let seek = (this.elapsedTime ?? 0) /1000;
+                            // if (null !== this.media.duration && this.isLoop())
+                            // {
+                            //     seek = seek %this.media.duration;
+                            // }
                             this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
                         case 2:
-                            _b.sent();
+                            _a.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _b.label = 3;
+                            _a.label = 3;
                         case 3:
+                            if (!this.isLoop()) {
+                                this.startTime = Date.now() - (this.playerElement.currentTime * 1000);
+                            }
+                            else {
+                                this.elapsedTime = null;
+                            }
+                            return [3 /*break*/, 5];
+                        case 4:
                             if (null !== this.elapsedTime) {
                                 this.startTime = Date.now() - this.elapsedTime;
                                 this.elapsedTime = null;
@@ -2177,7 +2192,8 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                             else {
                                 this.startTime = Date.now();
                             }
-                            return [2 /*return*/];
+                            _a.label = 5;
+                        case 5: return [2 /*return*/];
                     }
                 });
             });
@@ -2631,7 +2647,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             else {
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
-                currentTrack = new track_1.Track(entry);
+                currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
                 currentTrack.updateStretch();
                 if (0 < parseFloat(ui_6.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();

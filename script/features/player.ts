@@ -341,7 +341,7 @@ export namespace Player
         {
             removeFadeoutTrack();
             fadeoutingTrack = currentTrack;
-            currentTrack = new Track(entry);
+            currentTrack = new Track(entry, History.getCurrentIndex());
             currentTrack.updateStretch();
             if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {

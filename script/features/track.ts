@@ -14,7 +14,7 @@ export class Track
     elapsedTime: number | null = null;
     fadeRate: number = 0.0;
     currentTimeForValidation: number = 0.0;
-    constructor(media: Media.Entry)
+    constructor(media: Media.Entry, index: number)
     {
         this.media = media;
         switch(media.category)
@@ -30,7 +30,7 @@ export class Track
             break;
         case "audio":
             this.playerElement = this.makePlayerElement() as HTMLAudioElement;
-            this.visualElement = Visualizer.make(media);
+            this.visualElement = Visualizer.make(media, index);
             this.visualElement.appendChild(this.playerElement);
             break;
         case "video":
@@ -99,26 +99,37 @@ export class Track
         if (this.playerElement instanceof HTMLMediaElement)
         {
             await this.playerElement.play();
-            let seek = (this.elapsedTime ?? 0) /1000;
-            if (null !== this.media.duration && this.isLoop())
-            {
-                seek = seek %this.media.duration;
-            }
+            // let seek = (this.elapsedTime ?? 0) /1000;
+            // if (null !== this.media.duration && this.isLoop())
+            // {
+            //     seek = seek %this.media.duration;
+            // }
             this.currentTimeForValidation = this.playerElement.currentTime;
             if (this.paddingElement instanceof HTMLMediaElement)
             {
                 await this.paddingElement.play();
                 this.paddingElement.currentTime = this.playerElement.currentTime;
             }
-        }
-        if (null !== this.elapsedTime)
-        {
-            this.startTime = Date.now() - this.elapsedTime;
-            this.elapsedTime = null;
+            if ( ! this.isLoop())
+            {
+                this.startTime = Date.now() - (this.playerElement.currentTime *1000);
+            }
+            else
+            {
+                this.elapsedTime = null;
+            }
         }
         else
         {
-            this.startTime = Date.now();
+            if (null !== this.elapsedTime)
+            {
+                this.startTime = Date.now() - this.elapsedTime;
+                this.elapsedTime = null;
+            }
+            else
+            {
+                this.startTime = Date.now();
+            }
         }
     }
     pause(): void

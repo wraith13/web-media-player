@@ -288,18 +288,21 @@ body.list #screen-body #media-screen:not(.show)::before {
   border-color: #fff;
   border-width: 0.125rem;
   border-style: solid;
-  z-index: 100;
-  opacity: 0.5;
+  z-index: 50;
+}
+#screen-body #media-screen .visualizer.odd .visual-progress-circle {
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
 }
 #screen-body #media-screen .visualizer svg {
   position: absolute;
-  max-height: 50vh;
-  max-width: 50vw;
+  height: calc(15vw + 15vh);
+  width: calc(15vw + 15vh);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  fill: rgba(230, 237, 243, 0.4);
-  z-index: 50;
+  fill: black;
+  filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  z-index: 100;
 }
 #screen-body #media-list {
   transition: opacity 750ms, filter 750ms;

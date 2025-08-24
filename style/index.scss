@@ -89,19 +89,23 @@
                 border-color: #fff;
                 border-width: 0.125rem;
                 border-style: solid;
-                z-index: 100;
-                opacity: 0.5;
+                z-index: 50;
+            }
+            &.odd .visual-progress-circle
+            {
+                background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
             }
             svg
             {
                 position: absolute;
-                max-height: 50vh;
-                max-width: 50vw;
+                height: calc(15vw + 15vh);
+                width: calc(15vw + 15vh);
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                fill: white-color(0.4);
-                z-index: 50;
+                fill: black;
+                filter: drop-shadow($white-color 0px 0px 0.5rem);
+                z-index: 100;
             }
         }
     }

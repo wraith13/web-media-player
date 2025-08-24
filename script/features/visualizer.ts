@@ -5,7 +5,7 @@ export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
     export const VisualizerDom = HTMLDivElement;
-    export const make = (media: Media.Entry): VisualizerDom =>
+    export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
         switch(media.type)
@@ -14,6 +14,7 @@ export namespace Visualizer
             //visualDom.classList.add("audio");
             break;
         }
+        visualDom.classList.toggle("odd", 0 !== (index %2));
         return visualDom;
     };
     export const makeSureIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>

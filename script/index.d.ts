@@ -717,6 +717,7 @@ declare module "script/features/history" {
         const clear: () => void;
         const isCleared: () => boolean;
         const regulate: () => void;
+        const getCurrentIndex: () => number;
         const getMedia: () => Media.Entry | undefined;
         const play: () => Media.Entry | undefined;
         const next: () => Media.Entry | undefined;
@@ -733,7 +734,7 @@ declare module "script/features/visualizer" {
             new (): HTMLDivElement;
             prototype: HTMLDivElement;
         };
-        const make: (media: Media.Entry) => VisualizerDom;
+        const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
@@ -752,7 +753,7 @@ declare module "script/features/track" {
         elapsedTime: number | null;
         fadeRate: number;
         currentTimeForValidation: number;
-        constructor(media: Media.Entry);
+        constructor(media: Media.Entry, index: number);
         selfValidate(): boolean;
         makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         isPlaying(): boolean;
