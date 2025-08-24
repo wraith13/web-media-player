@@ -1,5 +1,5 @@
 import { Library } from "@library";
-import { Tools } from "@tools";
+//import { Tools } from "@tools";
 import { Media } from "./media";
 export namespace Visualizer
 {
@@ -16,6 +16,27 @@ export namespace Visualizer
         }
         return visualDom;
     };
+    export const makeSureIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
+    {
+        let result = visualDom.querySelector(".visual-icon") as SVGElement;
+        if ( ! result)
+        {
+            result = await Library.Svg.loadSvg("audio-icon");
+            result.classList.add("visual-icon");
+            visualDom.appendChild(result);
+        }
+        return result;
+    };
+    export const makeSureProgressCircle = (visualDom: VisualizerDom): HTMLDivElement =>
+    {
+        let result = visualDom.querySelector(".visual-progress-circle") as HTMLDivElement;
+        if ( ! result)
+        {
+            result = Library.UI.createElement({ tag: "div", className: "visual-progress-circle" });
+            visualDom.appendChild(result);
+        }
+        return result;
+    };
     export const makeSureTextSpan = (visualDom: VisualizerDom): HTMLSpanElement =>
     {
         let result = visualDom.querySelector(".visual-text") as HTMLSpanElement;
@@ -28,11 +49,12 @@ export namespace Visualizer
     };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom): void =>
     {
-
-        Library.UI.setTextContent
-        (
-            makeSureTextSpan(visualDom),
-            `${Tools.Timespan.toMediaTimeString(playerDom.currentTime *1000)} / ${Tools.Timespan.toMediaTimeString(playerDom.duration *1000)}`
-        );
+        makeSureIcon(visualDom).catch(console.error);
+        makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
+        // Library.UI.setTextContent
+        // (
+        //     makeSureTextSpan(visualDom),
+        //     `${Tools.Timespan.toMediaTimeString(playerDom.currentTime *1000)} / ${Tools.Timespan.toMediaTimeString(playerDom.duration *1000)}`
+        // );
     };
 }

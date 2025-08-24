@@ -272,6 +272,35 @@ body.list #screen-body #media-screen:not(.show)::before {
   height: 100%;
   width: 100%;
 }
+#screen-body #media-screen .visualizer .viaul-text {
+  z-index: 100;
+}
+#screen-body #media-screen .visualizer .visual-progress-circle {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: calc(25vw + 25vh);
+  width: calc(25vw + 25vh);
+  border-radius: 50%;
+  background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+  filter: drop-shadow(black 0px 0px 0.5rem);
+  border-color: #fff;
+  border-width: 0.125rem;
+  border-style: solid;
+  z-index: 100;
+  opacity: 0.5;
+}
+#screen-body #media-screen .visualizer svg {
+  position: absolute;
+  max-height: 50vh;
+  max-width: 50vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: rgba(230, 237, 243, 0.4);
+  z-index: 50;
+}
 #screen-body #media-list {
   transition: opacity 750ms, filter 750ms;
   display: block;

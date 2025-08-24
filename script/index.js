@@ -1941,25 +1941,46 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 }
                 else {
                     currentIndex = history.length;
-                    if (ui_4.UI.shuffleButton.dom.classList.contains("on")) {
-                        history.push(History.getShuffleNext());
-                    }
-                    else {
-                        var backMediaIndex = (_a = history[currentIndex - 1]) !== null && _a !== void 0 ? _a : -1;
-                        var currentMediaIndex = backMediaIndex + 1;
-                        if (currentMediaIndex < media_1.Media.mediaList.length || ui_4.UI.repeatButton.dom.classList.contains("on")) {
+                    var backMediaIndex = (_a = history[currentIndex - 1]) !== null && _a !== void 0 ? _a : -1;
+                    var currentMediaIndex = backMediaIndex + 1;
+                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_4.UI.repeatButton.dom.classList.contains("on")) {
+                        if (ui_4.UI.shuffleButton.dom.classList.contains("on")) {
+                            history.push(History.getShuffleNext());
+                        }
+                        else {
                             history.push(currentMediaIndex % media_1.Media.mediaList.length);
                             History.regulate();
                         }
-                        else {
-                            History.clear();
-                            return undefined;
-                        }
+                        return History.getMedia();
                     }
-                    return History.getMedia();
+                    else {
+                        History.clear();
+                        return undefined;
+                    }
                 }
             }
             return undefined;
+        };
+        History.isAtEnd = function () {
+            var _a;
+            if (0 <= media_1.Media.mediaList.length) {
+                var nextIndex = currentIndex + 1;
+                if (nextIndex < history.length) {
+                    return false;
+                }
+                else {
+                    nextIndex = history.length;
+                    var backMediaIndex = (_a = history[nextIndex - 1]) !== null && _a !== void 0 ? _a : -1;
+                    var currentMediaIndex = backMediaIndex + 1;
+                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_4.UI.repeatButton.dom.classList.contains("on")) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+            return true;
         };
         History.back = function () {
             if (0 <= media_1.Media.mediaList.length) {
@@ -1990,12 +2011,13 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/tools/index"], function (require, exports, _library_5, _tools_5) {
+define("script/features/visualizer", ["require", "exports", "script/library/index"], function (require, exports, _library_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
     var Visualizer;
     (function (Visualizer) {
+        var _this = this;
         Visualizer.VisualizerDom = HTMLDivElement;
         Visualizer.make = function (media) {
             var visualDom = _library_5.Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -2006,6 +2028,31 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return visualDom;
         };
+        Visualizer.makeSureIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        result = visualDom.querySelector(".visual-icon");
+                        if (!!result) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _library_5.Library.Svg.loadSvg("audio-icon")];
+                    case 1:
+                        result = _a.sent();
+                        result.classList.add("visual-icon");
+                        visualDom.appendChild(result);
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, result];
+                }
+            });
+        }); };
+        Visualizer.makeSureProgressCircle = function (visualDom) {
+            var result = visualDom.querySelector(".visual-progress-circle");
+            if (!result) {
+                result = _library_5.Library.UI.createElement({ tag: "div", className: "visual-progress-circle" });
+                visualDom.appendChild(result);
+            }
+            return result;
+        };
         Visualizer.makeSureTextSpan = function (visualDom) {
             var result = visualDom.querySelector(".visual-text");
             if (!result) {
@@ -2015,11 +2062,17 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             return result;
         };
         Visualizer.step = function (_media, playerDom, visualDom) {
-            _library_5.Library.UI.setTextContent(Visualizer.makeSureTextSpan(visualDom), "".concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.currentTime * 1000), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(playerDom.duration * 1000)));
+            Visualizer.makeSureIcon(visualDom).catch(console.error);
+            Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
+            // Library.UI.setTextContent
+            // (
+            //     makeSureTextSpan(visualDom),
+            //     `${Tools.Timespan.toMediaTimeString(playerDom.currentTime *1000)} / ${Tools.Timespan.toMediaTimeString(playerDom.duration *1000)}`
+            // );
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/visualizer"], function (require, exports, _tools_6, _library_6, ui_5, elementpool_1, visualizer_1) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/visualizer"], function (require, exports, _tools_5, _library_6, ui_5, elementpool_1, visualizer_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = void 0;
@@ -2258,7 +2311,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.isMuteCondition = function (volume, rate) {
-            if (undefined !== rate && _tools_6.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
+            if (undefined !== rate && _tools_5.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
                 return volume <= 0 || rate <= 0.5;
             }
             else {
@@ -2405,7 +2458,6 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                         navigator.mediaSession.playbackState = "playing";
                         document.body.classList.toggle("list", false);
                         document.body.classList.toggle("play", true);
-                        _library_7.Library.UI.setStyle(ui_6.UI.mediaScreen, "opacity", "".concat(ui_6.UI.brightnessRange.get() / 100));
                         if (media_2.Media.mediaList.length <= 0) {
                             noMediaTimer.start(document.body, "no-media", 5000);
                         }
@@ -2530,7 +2582,7 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                                 currentTrack.setVolume(currentVolume);
                             }
                         }
-                        if (Player.isNextTiming()) {
+                        if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
                         }
                         _b.label = 6;
@@ -2724,7 +2776,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_8, progress_1) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_6, _library_8, _features_1, media_3, ui_8, progress_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -2831,8 +2883,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
-                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3), },
-                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                            { tag: "span", className: "size", text: _tools_6.Tools.Byte.toDisplayString(entry.size, 3), },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_6.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
                         ];
                         return [4 /*yield*/, MediaList.removeButton(entry)];
                     case 2:
@@ -2924,7 +2976,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             _library_8.Library.UI.setTextContent(ui_8.UI.mediaCount, media_3.Media.mediaList.length.toString());
             var imageSpan = parseInt(ui_8.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_8.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_8.UI.mediaLength, _tools_6.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
@@ -2935,7 +2987,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_7, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_4, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -2946,6 +2998,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var _this = this;
         var updateShowFps = function () {
             ui_9.UI.fpsDisplay.classList.toggle("hide", !ui_9.UI.showFpsCheckbox.get());
+        };
+        Events.updateBrightness = function () {
+            var value = ui_9.UI.brightnessRange.get();
+            console.log("💡 Brightness changed:", value);
+            _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(value / 100));
+            Events.mousemove();
         };
         var updateClock = function () {
             control_json_2.default.clock.enum.forEach(function (i) { return ui_9.UI.clockDisplay.classList.toggle(i, i === ui_9.UI.clockSelect.get()); });
@@ -3141,7 +3199,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                if (_tools_8.Tools.Environment.isSafari()) {
+                if (_tools_7.Tools.Environment.isSafari()) {
                     ui_9.UI.volumeRange.set(ui_9.UI.volumeRange.get() <= 0 ? 100 : 0);
                 }
                 else {
@@ -3180,12 +3238,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
             };
             (_e = ui_9.UI.brightnessRange).options || (_e.options = {});
-            ui_9.UI.brightnessRange.options.change = function (_event, range) {
-                var value = range.get();
-                console.log("💡 Brightness changed:", value);
-                _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(Math.pow(value / 100, 2)));
-                Events.mousemove();
-            };
+            ui_9.UI.brightnessRange.options.change = Events.updateBrightness;
             (_f = ui_9.UI.stretchRange).options || (_f.options = {});
             ui_9.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
@@ -3240,6 +3293,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_2.Features.Player.resume();
                 }
             });
+            Events.updateBrightness();
             updateClock();
             updateClockPosition();
             ui_9.UI.updateLanguage();
@@ -3314,7 +3368,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_8, _library_11, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_5 = __importDefault(config_json_5);
@@ -3329,7 +3383,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     medialist_2.MediaList.initialize();
     _features_3.Features.Clock.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_5.default,
@@ -3341,7 +3395,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_9.Tools,
+        Tools: _tools_8.Tools,
         Library: _library_11.Library,
         Features: _features_3.Features,
         Url: url_4.Url,

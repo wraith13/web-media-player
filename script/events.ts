@@ -13,6 +13,13 @@ export namespace Events
     {
         UI.fpsDisplay.classList.toggle("hide", ! UI.showFpsCheckbox.get());
     }
+    export const updateBrightness = () =>
+    {
+        const value = UI.brightnessRange.get();
+        console.log("💡 Brightness changed:", value);
+        Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+        mousemove();
+    };
     const updateClock = () =>
     {
         control.clock.enum.forEach
@@ -305,13 +312,7 @@ export namespace Events
             }
         };
         UI.brightnessRange.options ||= { }
-        UI.brightnessRange.options.change = (_event, range) =>
-        {
-            const value = range.get();
-            console.log("💡 Brightness changed:", value);
-            Library.UI.setStyle(UI.mediaScreen, "opacity", `${Math.pow(value / 100, 2)}`);
-            mousemove();
-        };
+        UI.brightnessRange.options.change = updateBrightness;
         UI.stretchRange.options ||= { }
         UI.stretchRange.options.change = (_event, range) =>
         {
@@ -388,6 +389,7 @@ export namespace Events
                 }
             }
         );
+        updateBrightness();
         updateClock();
         updateClockPosition();
         UI.updateLanguage();

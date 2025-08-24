@@ -137,7 +137,6 @@ export namespace Player
         navigator.mediaSession.playbackState = "playing";
         document.body.classList.toggle("list", false);
         document.body.classList.toggle("play", true);
-        Library.UI.setStyle(UI.mediaScreen, "opacity", `${UI.brightnessRange.get() / 100}`);
         if (Media.mediaList.length <= 0)
         {
             noMediaTimer.start(document.body, "no-media", 5000);
@@ -285,7 +284,7 @@ export namespace Player
                         currentTrack.setVolume(currentVolume);
                     }
                 }
-                if (isNextTiming())
+                if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
                 {
                     next();
                 }

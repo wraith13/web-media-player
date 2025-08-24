@@ -720,6 +720,7 @@ declare module "script/features/history" {
         const getMedia: () => Media.Entry | undefined;
         const play: () => Media.Entry | undefined;
         const next: () => Media.Entry | undefined;
+        const isAtEnd: () => boolean;
         const back: () => Media.Entry | undefined;
         const getShuffleNext: () => number;
     }
@@ -733,6 +734,8 @@ declare module "script/features/visualizer" {
             prototype: HTMLDivElement;
         };
         const make: (media: Media.Entry) => VisualizerDom;
+        const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
+        const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom) => void;
     }
@@ -849,6 +852,7 @@ declare module "script/medialist" {
 declare module "script/events" {
     import { Library } from "script/library/index";
     export namespace Events {
+        const updateBrightness: () => void;
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const initialize: () => void;

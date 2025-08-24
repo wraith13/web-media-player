@@ -65,30 +65,56 @@ export namespace History
             else
             {
                 currentIndex = history.length;
-                if (UI.shuffleButton.dom.classList.contains("on"))
+                const backMediaIndex = history[currentIndex -1] ?? -1;
+                const currentMediaIndex = backMediaIndex +1;
+                if (currentMediaIndex < Media.mediaList.length || UI.repeatButton.dom.classList.contains("on"))
                 {
-                    history.push(getShuffleNext());
-                }
-                else
-                {
-                    const backMediaIndex = history[currentIndex -1] ?? -1;
-                    let currentMediaIndex = backMediaIndex +1;
-                    if (currentMediaIndex < Media.mediaList.length || UI.repeatButton.dom.classList.contains("on"))
+                    if (UI.shuffleButton.dom.classList.contains("on"))
+                    {
+                        history.push(getShuffleNext());
+                    }
+                    else
                     {
                         history.push(currentMediaIndex %Media.mediaList.length);
                         regulate();
                     }
-                    else
-                    {
-                        clear();
-                        return undefined;
-                    }
+                    return getMedia();
                 }
-                return getMedia();
+                else
+                {
+                    clear();
+                    return undefined;
+                }
             }
         }
         return undefined;
     };
+    export const isAtEnd = (): boolean =>
+    {
+        if (0 <= Media.mediaList.length)
+        {
+            let nextIndex = currentIndex +1;
+            if (nextIndex < history.length)
+            {
+                return false;
+            }
+            else
+            {
+                nextIndex = history.length;
+                const backMediaIndex = history[nextIndex -1] ?? -1;
+                const currentMediaIndex = backMediaIndex +1;
+                if (currentMediaIndex < Media.mediaList.length || UI.repeatButton.dom.classList.contains("on"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        return true;
+    }
     export const back = (): Media.Entry | undefined =>
     {
         if (0 <= Media.mediaList.length)
