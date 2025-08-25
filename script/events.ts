@@ -13,10 +13,12 @@ export namespace Events
     {
         UI.fpsDisplay.classList.toggle("hide", ! UI.showFpsCheckbox.get());
     }
+    const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
     export const updateBrightness = () =>
     {
         const value = UI.brightnessRange.get();
         console.log("💡 Brightness changed:", value);
+        brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
         Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
         mousemove();
     };

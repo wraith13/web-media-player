@@ -765,6 +765,7 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     console.error("🦋 FIXME: Contorl.Select.InvalidDom", data, this.dom);
                 }
                 this.reloadOptions(this.data.default);
+                this.dom.addEventListener("click", function (event) { return event.stopPropagation(); });
                 this.dom.addEventListener("change", function (event) {
                     var _a, _b, _c;
                     Control.eventLog({ control: _this, event: event, message: "👆 Select.Change:", value: _this.get() });
@@ -2529,8 +2530,8 @@ define("script/features/player", ["require", "exports", "script/library/index", 
                 Player.playMedia(media);
             }
             else {
-                Player.clear();
                 Player.pause();
+                Player.clear();
             }
         };
         Player.updateFps = function () {
@@ -2689,12 +2690,23 @@ define("script/features/player", ["require", "exports", "script/library/index", 
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
         Player.clear = function () {
+            ui_6.UI.screenBody.classList.toggle("paused", false);
             history_1.History.clear();
             CrossFade.clear();
             Player.removeFadeoutTrack();
-            Player.removeTrack(currentTrack);
-            currentTrack = null;
-            ui_6.UI.screenBody.classList.toggle("paused", false);
+            if (null !== currentTrack) {
+                var clearedTrack_1 = fadeoutingTrack = currentTrack;
+                currentTrack = null;
+                if (fadeoutingTrack.visualElement) {
+                    _library_7.Library.UI.setStyle(fadeoutingTrack.visualElement, "opacity", undefined);
+                    fadeoutingTrack.visualElement.classList.add("fade-out");
+                }
+                setTimeout(function () {
+                    if (clearedTrack_1 === fadeoutingTrack) {
+                        Player.removeFadeoutTrack();
+                    }
+                }, 3000);
+            }
         };
     })(Player || (exports.Player = Player = {}));
 });
@@ -3015,9 +3027,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateShowFps = function () {
             ui_9.UI.fpsDisplay.classList.toggle("hide", !ui_9.UI.showFpsCheckbox.get());
         };
+        var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function () {
             var value = ui_9.UI.brightnessRange.get();
             console.log("💡 Brightness changed:", value);
+            brightnessTimer.start(ui_9.UI.mediaScreen, "disable-transition", 100);
             _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(value / 100));
             Events.mousemove();
         };

@@ -252,6 +252,10 @@ body.list #screen-body #media-screen:not(.show)::before {
   object-fit: cover;
   transform: translate(-50%, -50%);
 }
+#screen-body #media-screen .track-frame.fade-out .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer.fade-out {
+  transition: opacity 3000ms;
+  opacity: 0;
+}
 #screen-body #media-screen video::-webkit-media-controls,
 #screen-body #media-screen video::-moz-media-controls,
 #screen-body #media-screen video::-ms-media-controls,
@@ -303,6 +307,9 @@ body.list #screen-body #media-screen:not(.show)::before {
   fill: black;
   filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
   z-index: 100;
+}
+#screen-body #media-screen.disable-transition {
+  transition: none !important;
 }
 #screen-body #media-list {
   transition: opacity 750ms, filter 750ms;

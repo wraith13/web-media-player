@@ -103,6 +103,11 @@ export namespace Control
             this.reloadOptions(this.data.default);
             this.dom.addEventListener
             (
+                // Without this, in Chromium-based browsers, selecting from the dropdown triggers the label's click event, causing the dropdown to reopen.
+                "click", event => event.stopPropagation()
+            );
+            this.dom.addEventListener
+            (
                 "change", event =>
                 {
                     eventLog({ control: this, event, message: "👆 Select.Change:", value: this.get() });

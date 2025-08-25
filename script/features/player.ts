@@ -204,8 +204,8 @@ export namespace Player
         }
         else
         {
-            clear();
             pause();
+            clear();
         }
     };
     export const updateFps = () =>
@@ -394,11 +394,30 @@ export namespace Player
     }
     export const clear = () =>
     {
+        UI.screenBody.classList.toggle("paused", false);
         History.clear();
         CrossFade.clear();
         removeFadeoutTrack();
-        removeTrack(currentTrack);
-        currentTrack = null;
-        UI.screenBody.classList.toggle("paused", false);
+        if (null !== currentTrack)
+        {
+            const clearedTrack = fadeoutingTrack = currentTrack;
+            currentTrack = null;
+            if (fadeoutingTrack.visualElement)
+            {
+                Library.UI.setStyle(fadeoutingTrack.visualElement, "opacity", undefined);
+                fadeoutingTrack.visualElement.classList.add("fade-out");
+            }
+            setTimeout
+            (
+                () =>
+                {
+                    if (clearedTrack === fadeoutingTrack)
+                    {
+                        removeFadeoutTrack();
+                    }
+                },
+                3000
+            );
+        }
     }
 }

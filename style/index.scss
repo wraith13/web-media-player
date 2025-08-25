@@ -49,6 +49,11 @@
             object-fit: cover;
             transform: translate(-50%, -50%);
         }
+        .track-frame.fade-out .player:not(audio):not(.sound-only), .visualizer.fade-out
+        {
+            transition: opacity 3000ms;
+            opacity: 0;
+        }
         video::-webkit-media-controls,
         video::-moz-media-controls,
         video::-ms-media-controls,
@@ -107,6 +112,10 @@
                 filter: drop-shadow($white-color 0px 0px 0.5rem);
                 z-index: 100;
             }
+        }
+        &.disable-transition
+        {
+            transition: none !important;
         }
     }
     #media-list
