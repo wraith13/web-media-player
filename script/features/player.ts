@@ -1,3 +1,4 @@
+import { Tools } from "@tools";
 import { Library } from "@library";
 import { Fps } from "./fps";
 import { Clock } from "./clock";
@@ -291,6 +292,12 @@ export namespace Player
             }
         }
     };
+    export const makeIndexText = (track: Track): string =>
+        `${Media.mediaList.indexOf(track.media) +1} / ${Media.mediaList.length}`;
+    export const makeTitleText = (track: Track): string =>
+        `${track.media.name}`;
+    export const makeTimeText = (track: Track): string =>
+        `${Tools.Timespan.toMediaTimeString(track.getElapsedTime())} / ${Tools.Timespan.toMediaTimeString(track.getDuration())}`;
     export const loop = (now: number) =>
     {
         if (document.body.classList.contains("play"))
@@ -305,6 +312,7 @@ export namespace Player
             }
             if (null !== currentTrack)
             {
+                Library.UI.setTextContent(UI.mediaTime, makeTimeText(currentTrack));
                 currentTrack.step();
                 currentTrack.setPositionState();
             }
@@ -343,6 +351,8 @@ export namespace Player
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
             currentTrack.updateStretch();
+            Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
+            Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
             if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {
                 CrossFade.start();
@@ -395,6 +405,7 @@ export namespace Player
     export const clear = () =>
     {
         UI.screenBody.classList.toggle("paused", false);
+        Library.UI.setTextContent(UI.mediaTitle, "");
         History.clear();
         CrossFade.clear();
         removeFadeoutTrack();

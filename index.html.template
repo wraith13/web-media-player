@@ -167,6 +167,9 @@ DUMMYSTYLE
         </label>
     </div>
 </div>
+<span id="media-index"></span>
+<span id="media-title"></span>
+<span id="media-time"></span>
 <button id="back-button">
     <div id="back-icon">__BACK_ICON__<div>
 </button>

@@ -334,7 +334,7 @@
                     border-width: 1px;
                     border-style: solid;
                     border-color: white;
-                    animation: ripple 10.0s infinite cubic-bezier(0, 0, 0.7, 0.85);
+                    animation: ripple 10.0s infinite linear;
                     pointer-events: none;
                 }
                 #add-media
@@ -677,6 +677,51 @@ body.play:not(.mousemove)
     #control-panel
     {
         transition: opacity 3000ms, filter 3000ms !important;
+    }
+}
+#media-index,
+#media-title,
+#media-time
+{
+    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.mousemove)");
+    @include black-pop-panel-style();
+    @include font();
+    &
+    {
+        position: fixed;
+        top: 0.5rem;
+        top: calc(0.5rem + env(safe-area-inset-top));
+        padding: 0.25rem 0.75rem;
+        z-index: 50;
+        color: $white-color;
+        border-radius: 1rem;
+    }
+}
+#media-index
+{
+    @include monospace-font();
+    &
+    {
+        left: 0.5rem;
+        left: calc(0.5rem + env(safe-area-inset-left));
+    }
+}
+#media-title
+{
+    @include font();
+    &
+    {
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+}
+#media-time
+{
+    @include monospace-font();
+    &
+    {
+        right: 0.5rem;
+        right: calc(0.5rem + env(safe-area-inset-right));
     }
 }
 #next-button, #back-button

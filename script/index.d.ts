@@ -613,6 +613,9 @@ declare module "script/ui" {
         const mediaScreen: HTMLDivElement;
         const elementPool: HTMLDivElement;
         const playButton: Library.Control.Button<HTMLElement>;
+        const mediaIndex: HTMLSpanElement;
+        const mediaTitle: HTMLSpanElement;
+        const mediaTime: HTMLSpanElement;
         const nextButton: Library.Control.Button<HTMLElement>;
         const backBUtton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
@@ -802,6 +805,9 @@ declare module "script/features/player" {
         const updateFps: () => void;
         const isNextTiming: () => boolean;
         const crossFade: () => Promise<void>;
+        const makeIndexText: (track: Track) => string;
+        const makeTitleText: (track: Track) => string;
+        const makeTimeText: (track: Track) => string;
         const loop: (now: number) => void;
         const playMedia: (entry: Media.Entry, resume?: "resume") => void;
         const removeTrack: (track: Track | null) => void;

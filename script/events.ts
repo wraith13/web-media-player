@@ -71,7 +71,7 @@ export namespace Events
     };
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
-        mouseMoveTimer.start(document.body, "mousemove", 3000);
+        mouseMoveTimer.start(document.body, "mousemove", 5000);
     export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
     {
         const value = params[button.getId() as string];

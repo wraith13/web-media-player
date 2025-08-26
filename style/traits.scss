@@ -192,6 +192,15 @@
         max-width: 4.5rem;
         min-height: 4.5rem;
         max-height: 4.5rem;
+        opacity: 0.0;
+        filter: blur(0.125rem);
+    }
+    5%
+    {
+        min-width: 4.5rem;
+        max-width: 4.5rem;
+        min-height: 4.5rem;
+        max-height: 4.5rem;
         opacity: 1.0;
         filter: blur(0.0rem);
     }
