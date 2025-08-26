@@ -5,7 +5,7 @@ import { Media } from "@features/media";
 import { MediaList } from "./medialist";
 import { UI } from "./ui";
 import { Url } from "./url";
-import config from "@resource/config.json";
+//import config from "@resource/config.json";
 import control from "@resource/control.json";
 export namespace Events
 {
@@ -69,9 +69,10 @@ export namespace Events
             }
         }
     };
-    const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
+    //const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
-        mouseMoveTimer.start(document.body, "mousemove", 5000);
+        //mouseMoveTimer.start(document.body, "mousemove", 5000);
+        { };
     export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
     {
         const value = params[button.getId() as string];
@@ -363,13 +364,13 @@ export namespace Events
         document.body.addEventListener
         (
             "mousemove",
-            event =>
+            _event =>
             {
-                if (config.log.mousemove && ! mouseMoveTimer.isOn())
-                {
-                    console.log("🖱️ MouseMove:", event, UI.screenBody);
-                }
-                mousemove();
+                // if (config.log.mousemove && ! mouseMoveTimer.isOn())
+                // {
+                //     console.log("🖱️ MouseMove:", event, UI.screenBody);
+                // }
+                // mousemove();
             }
         );
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])

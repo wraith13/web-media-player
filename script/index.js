@@ -2092,6 +2092,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     exports.Track = void 0;
     var Track = /** @class */ (function () {
         function Track(media, index) {
+            var _a;
             this.paddingElement = null;
             this.startTime = null;
             this.elapsedTime = null;
@@ -2134,6 +2135,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.playerElement.removeAttribute("loop");
                 }
             }
+            (_a = this.visualElement) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () { return document.body.classList.toggle("mousemove"); });
         }
         Track.prototype.selfValidate = function () {
             if (this.playerElement instanceof HTMLMediaElement) {
@@ -3033,11 +3035,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_4, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_4 = __importDefault(config_json_4);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -3092,10 +3093,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
-        var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
-        Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", 5000);
-        };
+        //const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
+        Events.mousemove = function () { };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
             if (undefined !== value) {
@@ -3321,11 +3320,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.stretchRange.options.change);
             ui_9.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_9.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.updateLanguage);
-            document.body.addEventListener("mousemove", function (event) {
-                if (config_json_4.default.log.mousemove && !mouseMoveTimer.isOn()) {
-                    console.log("🖱️ MouseMove:", event, ui_9.UI.screenBody);
-                }
-                Events.mousemove();
+            document.body.addEventListener("mousemove", function (_event) {
+                // if (config.log.mousemove && ! mouseMoveTimer.isOn())
+                // {
+                //     console.log("🖱️ MouseMove:", event, UI.screenBody);
+                // }
+                // mousemove();
             });
             _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
@@ -3416,10 +3416,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_5, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_4, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_5 = __importDefault(config_json_5);
+    config_json_4 = __importDefault(config_json_4);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -3434,7 +3434,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_5.default,
+        config: config_json_4.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
