@@ -5,7 +5,7 @@ import { Media } from "@features/media";
 import { MediaList } from "./medialist";
 import { UI } from "./ui";
 import { Url } from "./url";
-//import config from "@resource/config.json";
+import config from "@resource/config.json";
 import control from "@resource/control.json";
 export namespace Events
 {
@@ -69,10 +69,9 @@ export namespace Events
             }
         }
     };
-    //const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
+    const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
-        //mouseMoveTimer.start(document.body, "mousemove", 5000);
-        { };
+        mouseMoveTimer.start(document.body, "mousemove", 1500);
     export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
     {
         const value = params[button.getId() as string];
@@ -185,6 +184,11 @@ export namespace Events
         document.body.addEventListener("drop", drop);
         //document.body.className = "play";
         document.body.className = "list";
+        UI.screenBody.addEventListener
+        (
+            "click",
+            () => document.body.classList.toggle("show-ui")
+        );
         const applyParam = (key: string, value: string) =>
         {
             Url.addParameter(Url.params, key, value);
@@ -364,13 +368,13 @@ export namespace Events
         document.body.addEventListener
         (
             "mousemove",
-            _event =>
+            event =>
             {
-                // if (config.log.mousemove && ! mouseMoveTimer.isOn())
-                // {
-                //     console.log("🖱️ MouseMove:", event, UI.screenBody);
-                // }
-                // mousemove();
+                if (config.log.mousemove && ! mouseMoveTimer.isOn())
+                {
+                    console.log("🖱️ MouseMove:", event, UI.screenBody);
+                }
+                mousemove();
             }
         );
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])

@@ -59,11 +59,11 @@ export class Track
                 this.playerElement.removeAttribute("loop");
             }
         }
-        this.visualElement?.addEventListener
-        (
-            "click",
-            () => document.body.classList.toggle("mousemove")
-        );
+        // this.visualElement?.addEventListener
+        // (
+        //     "click",
+        //     () => document.body.classList.toggle("mousemove")
+        // );
     }
     selfValidate(): boolean
     {

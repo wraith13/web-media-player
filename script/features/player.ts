@@ -405,7 +405,9 @@ export namespace Player
     export const clear = () =>
     {
         UI.screenBody.classList.toggle("paused", false);
+        Library.UI.setTextContent(UI.mediaIndex, "");
         Library.UI.setTextContent(UI.mediaTitle, "");
+        Library.UI.setTextContent(UI.mediaTime, "");
         History.clear();
         CrossFade.clear();
         removeFadeoutTrack();

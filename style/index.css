@@ -272,7 +272,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   display: none !important;
 }
 #screen-body #media-screen .padding {
-  filter: blur(0.5rem);
+  filter: blur(calc(0.5vw + 0.5vh));
 }
 #screen-body #media-screen .visualizer {
   color: rgb(230, 237, 243);
@@ -399,6 +399,38 @@ body.play #screen-body #media-list:not(.show)::before {
   border-width: 1px;
   border-style: solid;
 }
+#screen-body #media-list .item:not(.add)::before {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #media-list .item:not(.add)::before {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #media-list .item:not(.add)::before {
+    font-size: 1rem;
+  }
+}
+#screen-body #media-list .item:not(.add)::before {
+  font-family: monospace;
+}
+#screen-body #media-list .item:not(.add)::before {
+  content: counter(item-num);
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  font-size: 1rem;
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  z-index: 50;
+  padding: 0.25rem;
+  border-radius: 1.5rem;
+  min-width: 1.5rem;
+  text-align: center;
+  user-select: none;
+}
 #screen-body #media-list .item > .thumbnail {
   margin: 0px;
   inset-block-start: 0px;
@@ -446,6 +478,7 @@ body.play #screen-body #media-list:not(.show)::before {
   z-index: 100;
 }
 #screen-body #media-list .item > span.type {
+  display: none;
   font-size: 1rem;
   width: 100%;
   padding: 0.25rem;
@@ -1007,13 +1040,13 @@ body:not(.not-supported-media) #not-supported-media-panel {
   justify-content: center;
   align-items: center;
 }
-body.play:not(.mousemove) #control-panel:not(.show) {
+body.play:not(.show-ui) #control-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play:not(.mousemove) #control-panel:not(.show)::before {
+body.play:not(.show-ui) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1026,13 +1059,13 @@ body.play:not(.mousemove) #control-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-body.show-paused-media:not(.mousemove) #control-panel:not(.show) {
+body.show-paused-media:not(.show-ui) #control-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-paused-media:not(.mousemove) #control-panel:not(.show)::before {
+body.show-paused-media:not(.show-ui) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1106,10 +1139,6 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
-body.play:not(.mousemove) #control-panel {
-  transition: opacity 3000ms, filter 3000ms !important;
-}
-
 #media-index,
 #media-title,
 #media-time {
@@ -1143,17 +1172,17 @@ body:not(.play):not(.show-paused-media) #media-time:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.mousemove) #media-index:not(.show),
-body:not(.mousemove) #media-title:not(.show),
-body:not(.mousemove) #media-time:not(.show) {
+body:not(.show-ui) #media-index:not(.show),
+body:not(.show-ui) #media-title:not(.show),
+body:not(.show-ui) #media-time:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.mousemove) #media-index:not(.show)::before,
-body:not(.mousemove) #media-title:not(.show)::before,
-body:not(.mousemove) #media-time:not(.show)::before {
+body:not(.show-ui) #media-index:not(.show)::before,
+body:not(.show-ui) #media-title:not(.show)::before,
+body:not(.show-ui) #media-time:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1195,6 +1224,11 @@ body:not(.mousemove) #media-time:not(.show)::before {
   z-index: 50;
   color: rgb(230, 237, 243);
   border-radius: 1rem;
+}
+#media-index:empty,
+#media-title:empty,
+#media-time:empty {
+  display: none;
 }
 
 #media-index {
@@ -1263,6 +1297,12 @@ body:not(.mousemove) #media-time:not(.show)::before {
   right: calc(0.5rem + env(safe-area-inset-right));
 }
 
+@media (max-width: 480px) {
+  #media-index,
+  #media-time {
+    display: none;
+  }
+}
 #next-button, #back-button {
   transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
@@ -1288,13 +1328,13 @@ body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:no
   transition: filter 750ms;
 }
 
-body:not(.mousemove) #next-button:not(.show), body:not(.mousemove) #back-button:not(.show) {
+body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back-button:not(.show)::before {
+body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1317,8 +1357,8 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
   padding-block: 1rem;
   padding-inline: 1rem;
   transition: opacity 1500ms, filter 125ms;
-  width: 9rem;
-  height: 9rem;
+  width: 9.5rem;
+  height: 4.5rem;
   background-color: rgba(32, 28, 38, 0.6);
 }
 #next-button svg, #back-button svg {
@@ -1335,8 +1375,9 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
 }
 
 #back-button {
-  left: -5.5rem;
-  left: calc(-5.5rem + env(safe-area-inset-left));
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
   inset-block-start: 50%;
   transform: translate(0%, -50%);
   display: flex;
@@ -1346,8 +1387,9 @@ body:not(.mousemove) #next-button:not(.show)::before, body:not(.mousemove) #back
 }
 
 #next-button {
-  right: -5.5rem;
-  right: calc(-5.5rem + env(safe-area-inset-right));
+  right: -5.75rem;
+  right: calc(-5.75rem + env(safe-area-inset-right));
+  padding-right: 6rem;
   inset-block-start: 50%;
   transform: translate(0%, -50%);
   display: flex;
