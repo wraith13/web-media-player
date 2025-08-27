@@ -209,6 +209,36 @@ export namespace Player
             clear();
         }
     };
+    export const clearCrossFade = () =>
+    {
+        if (null !== currentTrack)
+        {
+            if (CrossFade.isCrossFading())
+            {
+                const currentVolume = UI.volumeRange.get() /100;
+                CrossFade.clear();
+                removeFadeoutTrack();
+                currentTrack.setVolume(currentVolume);
+                currentTrack.crossFadeStep(1);
+            }
+        }
+    };
+    export const fastForward = () =>
+    {
+        if (null !== currentTrack)
+        {
+            clearCrossFade();
+            currentTrack.fastForward();
+        }
+    };
+    export const rewind = () =>
+    {
+        if (null !== currentTrack)
+        {
+            clearCrossFade();
+            currentTrack.rewind();
+        }
+    };
     export const updateFps = () =>
     {
         if (UI.showFpsCheckbox.get())

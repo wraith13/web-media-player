@@ -618,6 +618,8 @@ declare module "script/ui" {
         const mediaTime: HTMLSpanElement;
         const nextButton: Library.Control.Button<HTMLElement>;
         const backBUtton: Library.Control.Button<HTMLElement>;
+        const fastForwardButton: Library.Control.Button<HTMLElement>;
+        const rewindButton: Library.Control.Button<HTMLElement>;
         const shuffleButton: Library.Control.Button<HTMLElement>;
         const repeatButton: Library.Control.Button<HTMLElement>;
         const volumeButton: Library.Control.Button<HTMLElement>;
@@ -762,6 +764,10 @@ declare module "script/features/track" {
         isPlaying(): boolean;
         play(): Promise<void>;
         pause(): void;
+        seek(seekPosition: number): void;
+        diffSeek(seekDiff: number): void;
+        fastForward(): void;
+        rewind(): void;
         setPositionState(): void;
         step(): void;
         isLoop(): boolean;
@@ -802,6 +808,9 @@ declare module "script/features/player" {
         const pause: () => void;
         const previous: () => void;
         const next: () => void;
+        const clearCrossFade: () => void;
+        const fastForward: () => void;
+        const rewind: () => void;
         const updateFps: () => void;
         const isNextTiming: () => boolean;
         const crossFade: () => Promise<void>;

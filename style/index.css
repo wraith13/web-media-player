@@ -1349,6 +1349,8 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
 
 #next-button, #back-button {
   position: fixed;
+  inset-block-start: 50%;
+  transform: translate(0%, -50%);
   z-index: 50;
   border-style: solid;
   border-width: 0px;
@@ -1360,6 +1362,9 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
   width: 9.5rem;
   height: 4.5rem;
   background-color: rgba(32, 28, 38, 0.6);
+}
+#next-button:active, #back-button:active {
+  border-width: 1px;
 }
 #next-button svg, #back-button svg {
   color: rgb(230, 237, 243);
@@ -1378,8 +1383,6 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
   left: -5.75rem;
   left: calc(-5.75rem + env(safe-area-inset-left));
   padding-left: 6rem;
-  inset-block-start: 50%;
-  transform: translate(0%, -50%);
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -1390,8 +1393,6 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
   right: -5.75rem;
   right: calc(-5.75rem + env(safe-area-inset-right));
   padding-right: 6rem;
-  inset-block-start: 50%;
-  transform: translate(0%, -50%);
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -1402,6 +1403,114 @@ body.no-media #next-button, body.no-media #back-button {
   opacity: 0.3;
 }
 
+#fast-forward-button, #rewind-button {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+}
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #rewind-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#fast-forward-button, #rewind-button {
+  position: fixed;
+  bottom: 1.75rem;
+  bottom: calc(1.75rem + env(safe-area-inset-bottom));
+  z-index: 50;
+  border-style: solid;
+  border-width: 0px;
+  border-color: rgb(230, 237, 243);
+  border-radius: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
+  transition: opacity 750ms, filter 125ms;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(32, 28, 38, 0.9);
+}
+#fast-forward-button:active, #rewind-button:active {
+  border-width: 1px;
+}
+#fast-forward-button svg, #rewind-button svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  width: 100%;
+  height: 100%;
+}
+@media (hover: hover) {
+  #fast-forward-button:hover, #rewind-button:hover {
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+
+#rewind-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+
+#fast-forward-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+body.no-media #fast-forward-button,
+body.no-media #rewind-button {
+  opacity: 0.3;
+}
+
+@media (max-width: 480px) {
+  #fast-forward-button,
+  #rewind-button {
+    display: none;
+  }
+}
 #volume-button:not(.volume-mute) #speaker-mute-icon {
   display: none;
 }

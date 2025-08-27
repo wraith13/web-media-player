@@ -176,6 +176,12 @@ DUMMYSTYLE
 <button id="next-button">
     <div id="next-icon">__NEXT_ICON__<div>
 </button>
+<button id="rewind-button">
+    <div id="rewind-icon">__REWIND_ICON__<div>
+</button>
+<button id="fast-forward-button">
+    <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
+</button>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">

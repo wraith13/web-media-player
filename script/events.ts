@@ -254,6 +254,18 @@ export namespace Events
             button.dom.blur();
             Features.Player.previous();
         }
+        UI.fastForwardButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            Features.Player.fastForward();
+        };
+        UI.rewindButton.data.click = (event, button) =>
+        {
+            event?.stopPropagation();
+            button.dom.blur();
+            Features.Player.rewind();
+        };
         UI.shuffleButton.data.click = (event, button) =>
         {
             event?.stopPropagation();

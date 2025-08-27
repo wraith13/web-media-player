@@ -1389,6 +1389,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
         UI.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
+        UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
+        UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
         UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
         UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
@@ -2221,6 +2223,42 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.startTime = null;
             }
         };
+        Track.prototype.seek = function (seekPosition) {
+            if (seekPosition < 0) {
+                seekPosition = 0;
+            }
+            if (null !== this.media.duration) {
+                var duration = this.media.duration;
+                if (this.isLoop()) {
+                    seekPosition = seekPosition % duration;
+                }
+                if (!this.isLoop() && duration < seekPosition) {
+                    seekPosition = duration;
+                }
+            }
+            if (this.playerElement instanceof HTMLMediaElement) {
+                this.playerElement.currentTime = seekPosition / 1000;
+                if (this.paddingElement instanceof HTMLMediaElement) {
+                    this.paddingElement.currentTime = seekPosition / 1000;
+                }
+            }
+            if (null !== this.startTime) {
+                this.startTime = Date.now() - seekPosition;
+            }
+            if (null !== this.elapsedTime) {
+                this.elapsedTime = seekPosition;
+            }
+        };
+        Track.prototype.diffSeek = function (seekDiff) {
+            var _a;
+            this.seek(((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : this.getElapsedTime()) + seekDiff);
+        };
+        Track.prototype.fastForward = function () {
+            this.diffSeek(5000);
+        };
+        Track.prototype.rewind = function () {
+            this.diffSeek(-5000);
+        };
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
                 duration: this.getDuration(),
@@ -2542,6 +2580,29 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             else {
                 Player.pause();
                 Player.clear();
+            }
+        };
+        Player.clearCrossFade = function () {
+            if (null !== currentTrack) {
+                if (CrossFade.isCrossFading()) {
+                    var currentVolume = ui_6.UI.volumeRange.get() / 100;
+                    CrossFade.clear();
+                    Player.removeFadeoutTrack();
+                    currentTrack.setVolume(currentVolume);
+                    currentTrack.crossFadeStep(1);
+                }
+            }
+        };
+        Player.fastForward = function () {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack.fastForward();
+            }
+        };
+        Player.rewind = function () {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack.rewind();
             }
         };
         Player.updateFps = function () {
@@ -3239,6 +3300,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.previous();
+            };
+            ui_9.UI.fastForwardButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                _features_2.Features.Player.fastForward();
+            };
+            ui_9.UI.rewindButton.data.click = function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                _features_2.Features.Player.rewind();
             };
             ui_9.UI.shuffleButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

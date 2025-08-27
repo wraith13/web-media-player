@@ -138,6 +138,12 @@
                 },
                 "__NEXT_ICON__": {
                     "path": "./image/next.svg"
+                },
+                "__REWIND_ICON__": {
+                    "path": "./image/rewind.svg"
+                },
+                "__FAST_FORWARD_ICON__": {
+                    "path": "./image/fast-forward.svg"
                 }
             }
         },

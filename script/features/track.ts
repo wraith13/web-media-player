@@ -104,11 +104,6 @@ export class Track
         if (this.playerElement instanceof HTMLMediaElement)
         {
             await this.playerElement.play();
-            // let seek = (this.elapsedTime ?? 0) /1000;
-            // if (null !== this.media.duration && this.isLoop())
-            // {
-            //     seek = seek %this.media.duration;
-            // }
             this.currentTimeForValidation = this.playerElement.currentTime;
             if (this.paddingElement instanceof HTMLMediaElement)
             {
@@ -117,7 +112,7 @@ export class Track
             }
             if ( ! this.isLoop())
             {
-                this.startTime = Date.now() - (this.playerElement.currentTime *1000);
+                this.startTime = Date.now() -(this.playerElement.currentTime *1000);
             }
             else
             {
@@ -128,7 +123,7 @@ export class Track
         {
             if (null !== this.elapsedTime)
             {
-                this.startTime = Date.now() - this.elapsedTime;
+                this.startTime = Date.now() -this.elapsedTime;
                 this.elapsedTime = null;
             }
             else
@@ -152,6 +147,52 @@ export class Track
             this.elapsedTime = Date.now() - this.startTime;
             this.startTime = null;
         }
+    }
+    seek(seekPosition: number): void
+    {
+        if (seekPosition < 0)
+        {
+            seekPosition = 0;
+        }
+        if (null !== this.media.duration)
+        {
+            if (this.isLoop())
+            {
+                seekPosition = seekPosition %this.media.duration;
+            }
+            if ( ! this.isLoop() && this.media.duration < seekPosition)
+            {
+                seekPosition = this.media.duration;
+            }
+        }
+        if (this.playerElement instanceof HTMLMediaElement)
+        {
+            this.playerElement.currentTime = seekPosition /1000;
+            if (this.paddingElement instanceof HTMLMediaElement)
+            {
+                this.paddingElement.currentTime = seekPosition /1000;
+            }
+        }
+        if (null !== this.startTime)
+        {
+            this.startTime = Date.now() -seekPosition;
+        }
+        if (null !== this.elapsedTime)
+        {
+            this.elapsedTime = seekPosition;
+        }
+    }
+    diffSeek(seekDiff: number): void
+    {
+        this.seek((this.elapsedTime ?? this.getElapsedTime()) +seekDiff);
+    }
+    fastForward(): void
+    {
+        this.diffSeek(5000);
+    }
+    rewind(): void
+    {
+        this.diffSeek(-5000);
     }
     setPositionState(): void
     {
