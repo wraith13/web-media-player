@@ -182,9 +182,24 @@ export class Track
             this.elapsedTime = seekPosition;
         }
     }
+    getSeek(): number
+    {
+        if (this.playerElement instanceof HTMLMediaElement)
+        {
+            return this.playerElement.currentTime *1000;
+        }
+        else
+        {
+            return this.elapsedTime ?? this.getElapsedTime();
+        }
+    }
     diffSeek(seekDiff: number): void
     {
-        this.seek((this.elapsedTime ?? this.getElapsedTime()) +seekDiff);
+        this.seek(this.getSeek() +seekDiff);
+    }
+    rateSeek(rate: number): void
+    {
+        this.seek(this.getSingleDuration() *rate);
     }
     fastForward(): void
     {
@@ -209,24 +224,39 @@ export class Track
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement);
         }
+        if (this.playerElement instanceof HTMLMediaElement)
+        {
+            UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getSingleDuration();
+        }
+        else
+        {
+            UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getSingleDuration();
+        }
     }
     isLoop(): boolean
     {
         const loopShortMedia = UI.loopShortMediaCheckbox.get();
-        const imageSpan = parseFloat(UI.imageSpanSelect.get());
+        const imageSpan = this.getImageDuration();
         return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
+    }
+    getImageDuration(): number
+    {
+        return parseFloat(UI.imageSpanSelect.get());
     }
     getDuration(): number
     {
-        const imageSpan = parseFloat(UI.imageSpanSelect.get());
         if (this.isLoop())
         {
-            return imageSpan;
+            return this.getImageDuration();
         }
         else
         {
-            return this.media.duration ?? imageSpan;
+            return this.getSingleDuration();
         }
+    }
+    getSingleDuration(): number
+    {
+        return this.media.duration ?? this.getImageDuration();
     }
     getEndTime(): number
     {

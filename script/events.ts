@@ -69,6 +69,8 @@ export namespace Events
             }
         }
     };
+    const updateSeek = () =>
+        Features.Player.seek(UI.seekRange.valueAsNumber);
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
         mouseMoveTimer.start(document.body, "mousemove", 1500);
@@ -348,6 +350,18 @@ export namespace Events
             console.log("⏱️ Image span changed:", value);
             MediaList.updateInformationDisplay();
         };
+        UI.mediaTime.addEventListener
+        (
+            "click",
+            event =>
+            {
+                event.stopPropagation();
+                UI.mediaTime.classList.toggle("on");
+            }
+        );
+        UI.seekRange.addEventListener("click", event => event.stopPropagation());
+        UI.seekRange.addEventListener("change", updateSeek);
+        UI.seekRange.addEventListener("input", updateSeek);
         UI.introductionPanel.addEventListener
         (
             "click",

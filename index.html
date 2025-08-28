@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Aug 27 2025 23:22:03 GMT+0900 (日本標準時)
+    build at: Thu Aug 28 2025 01:13:47 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1351,11 +1351,98 @@ body:not(.show-ui) #media-time:not(.show)::before {
 #media-time {
   right: 0.5rem;
   right: calc(0.5rem + env(safe-area-inset-right));
+  border-style: solid;
+  border-width: 0px;
+  border-color: rgb(230, 237, 243);
+  cursor: pointer;
+}
+#media-time.on {
+  border-width: 1px;
+}
+
+#seek-panel {
+  transition: opacity 750ms, filter 750ms;
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+}
+body:not(.play):not(.show-paused-media) #seek-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #seek-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui) #seek-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui) #seek-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#media-time:not(.on) + #seek-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#media-time:not(.on) + #seek-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#seek-panel {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  border-radius: 0.5rem;
+  position: fixed;
+  top: 2.5rem;
+  top: calc(2.5rem + env(safe-area-inset-top));
+  right: 0.5rem;
+  right: calc(0.5rem + env(safe-area-inset-right));
+  z-index: 60;
+  padding: 0.5rem;
+  background-color: rgba(32, 28, 38, 0.9);
+  line-height: 0rem;
+}
+#seek-panel input[type=range] {
+  width: 40vw;
 }
 
 @media (max-width: 480px) {
   #media-index,
-  #media-time {
+  #media-time,
+  #seek-panel {
     display: none;
   }
 }
@@ -2495,6 +2582,9 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <span id="media-index"></span>
 <span id="media-title"></span>
 <span id="media-time"></span>
+<div id="seek-panel">
+    <input id="seek" type="range" min="0" max="1" step="any" />
+</div>
 <button id="back-button">
     <div id="back-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -2571,8 +2661,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Aug 27 2025 23:22:03 GMT+0900 (日本標準時)",
-    tick: 1756304523825
+    at: "Thu Aug 28 2025 01:13:47 GMT+0900 (日本標準時)",
+    tick: 1756311227910
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5746,6 +5836,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
         UI.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
         UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
+        UI.seekRange = _library_2.Library.UI.getElementById("input", "seek");
         UI.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
         UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
@@ -6536,11 +6627,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
                             _a.sent();
-                            // let seek = (this.elapsedTime ?? 0) /1000;
-                            // if (null !== this.media.duration && this.isLoop())
-                            // {
-                            //     seek = seek %this.media.duration;
-                            // }
                             this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
@@ -6587,12 +6673,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 seekPosition = 0;
             }
             if (null !== this.media.duration) {
-                var duration = this.media.duration;
                 if (this.isLoop()) {
-                    seekPosition = seekPosition % duration;
+                    seekPosition = seekPosition % this.media.duration;
                 }
-                if (!this.isLoop() && duration < seekPosition) {
-                    seekPosition = duration;
+                if (!this.isLoop() && this.media.duration < seekPosition) {
+                    seekPosition = this.media.duration;
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement) {
@@ -6608,9 +6693,20 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.elapsedTime = seekPosition;
             }
         };
-        Track.prototype.diffSeek = function (seekDiff) {
+        Track.prototype.getSeek = function () {
             var _a;
-            this.seek(((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : this.getElapsedTime()) + seekDiff);
+            if (this.playerElement instanceof HTMLMediaElement) {
+                return this.playerElement.currentTime * 1000;
+            }
+            else {
+                return (_a = this.elapsedTime) !== null && _a !== void 0 ? _a : this.getElapsedTime();
+            }
+        };
+        Track.prototype.diffSeek = function (seekDiff) {
+            this.seek(this.getSeek() + seekDiff);
+        };
+        Track.prototype.rateSeek = function (rate) {
+            this.seek(this.getSingleDuration() * rate);
         };
         Track.prototype.fastForward = function () {
             this.diffSeek(5000);
@@ -6629,21 +6725,32 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
             }
+            if (this.playerElement instanceof HTMLMediaElement) {
+                ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getSingleDuration();
+            }
+            else {
+                ui_5.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getSingleDuration();
+            }
         };
         Track.prototype.isLoop = function () {
             var loopShortMedia = ui_5.UI.loopShortMediaCheckbox.get();
-            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
+            var imageSpan = this.getImageDuration();
             return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
         };
+        Track.prototype.getImageDuration = function () {
+            return parseFloat(ui_5.UI.imageSpanSelect.get());
+        };
         Track.prototype.getDuration = function () {
-            var _a;
-            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
             if (this.isLoop()) {
-                return imageSpan;
+                return this.getImageDuration();
             }
             else {
-                return (_a = this.media.duration) !== null && _a !== void 0 ? _a : imageSpan;
+                return this.getSingleDuration();
             }
+        };
+        Track.prototype.getSingleDuration = function () {
+            var _a;
+            return (_a = this.media.duration) !== null && _a !== void 0 ? _a : this.getImageDuration();
         };
         Track.prototype.getEndTime = function () {
             if (null === this.startTime) {
@@ -6956,12 +7063,21 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (null !== currentTrack) {
                 Player.clearCrossFade();
                 currentTrack.fastForward();
+                Player.step();
             }
         };
         Player.rewind = function () {
             if (null !== currentTrack) {
                 Player.clearCrossFade();
                 currentTrack.rewind();
+                Player.step();
+            }
+        };
+        Player.seek = function (rate) {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack.rateSeek(rate);
+                Player.step();
             }
         };
         Player.updateFps = function () {
@@ -6991,7 +7107,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(null !== currentTrack)) return [3 /*break*/, 6];
+                        if (!(null !== currentTrack)) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
                             ui_6.UI.mediaLength.click();
                         }
@@ -7019,12 +7135,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         currentTrack.setVolume(currentVolume, progress);
                         currentTrack.crossFadeStep(progress);
                         _b.label = 4;
-                    case 4:
-                        lastTimeVolume = currentVolume;
-                        return [3 /*break*/, 6];
+                    case 4: return [3 /*break*/, 6];
                     case 5:
                         if (lastTimeVolume !== currentVolume) {
-                            lastTimeVolume = currentVolume;
                             if (null !== currentTrack) {
                                 currentTrack.setVolume(currentVolume);
                             }
@@ -7033,7 +7146,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             Player.next();
                         }
                         _b.label = 6;
-                    case 6: return [2 /*return*/];
+                    case 6:
+                        lastTimeVolume = currentVolume;
+                        _b.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         }); };
@@ -7046,6 +7162,16 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.makeTimeText = function (track) {
             return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration()));
         };
+        Player.step = function () {
+            if (null !== fadeoutingTrack) {
+                fadeoutingTrack.step();
+            }
+            if (null !== currentTrack) {
+                _library_7.Library.UI.setTextContent(ui_6.UI.mediaTime, Player.makeTimeText(currentTrack));
+                currentTrack.step();
+                currentTrack.setPositionState();
+            }
+        };
         Player.loop = function (now) {
             var _a, _b;
             if (document.body.classList.contains("play")) {
@@ -7053,14 +7179,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fps_1.Fps.step(now);
                 Player.updateFps();
                 Player.crossFade();
-                if (null !== fadeoutingTrack) {
-                    fadeoutingTrack.step();
-                }
-                if (null !== currentTrack) {
-                    _library_7.Library.UI.setTextContent(ui_6.UI.mediaTime, Player.makeTimeText(currentTrack));
-                    currentTrack.step();
-                    currentTrack.setPositionState();
-                }
+                Player.step();
                 navigator.mediaSession.setPositionState({
                     duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
                     playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
@@ -7519,6 +7638,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
+        var updateSeek = function () {
+            return _features_2.Features.Player.seek(ui_9.UI.seekRange.valueAsNumber);
+        };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", 1500);
@@ -7739,6 +7861,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
+            ui_9.UI.mediaTime.addEventListener("click", function (event) {
+                event.stopPropagation();
+                ui_9.UI.mediaTime.classList.toggle("on");
+            });
+            ui_9.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_9.UI.seekRange.addEventListener("change", updateSeek);
+            ui_9.UI.seekRange.addEventListener("input", updateSeek);
             ui_9.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
                 ui_9.UI.introductionPanel.classList.toggle("force-show", false);

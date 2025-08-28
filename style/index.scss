@@ -727,12 +727,44 @@ body:not(.not-supported-media)
     {
         right: 0.5rem;
         right: calc(0.5rem + env(safe-area-inset-right));
+        border-style: solid;
+        border-width: 0px;
+        &.on
+        {
+            border-width: 1px;
+        }
+        border-color: $white-color;
+        cursor: pointer;
+    }
+}
+#seek-panel
+{
+    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)", "#media-time:not(.on) + &");
+    @include black-pop-panel-style();
+    &
+    {
+        transition: transform 500ms, opacity 500ms, filter 500ms;
+        border-radius: 0.5rem;
+        position: fixed;
+        top: 2.5rem;
+        top: calc(2.5rem + env(safe-area-inset-top));
+        right: 0.5rem;
+        right: calc(0.5rem + env(safe-area-inset-right));
+        z-index: 60;
+        padding: 0.5rem;
+        background-color: black-color(0.9);
+        line-height: 0rem;
+        input[type="range"]
+        {
+            width: 40vw;
+        }
     }
 }
 @media (max-width: 480px)
 {
     #media-index,
-    #media-time
+    #media-time,
+    #seek-panel
     {
         display: none;
     }

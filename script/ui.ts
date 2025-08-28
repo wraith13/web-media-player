@@ -22,6 +22,8 @@ export namespace UI
         Library.UI.getElementById("span", "media-title");
     export const mediaTime =
         Library.UI.getElementById("span", "media-time");
+    export const seekRange =
+        Library.UI.getElementById("input", "seek");
     export const nextButton =
         new Library.Control.Button({ id: "next-button", });
     export const backBUtton =

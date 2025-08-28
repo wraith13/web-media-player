@@ -229,6 +229,7 @@ export namespace Player
         {
             clearCrossFade();
             currentTrack.fastForward();
+            step();
         }
     };
     export const rewind = () =>
@@ -237,8 +238,18 @@ export namespace Player
         {
             clearCrossFade();
             currentTrack.rewind();
+            step();
         }
     };
+    export const seek = (rate: number) =>
+    {
+        if (null !== currentTrack)
+        {
+            clearCrossFade();
+            currentTrack.rateSeek(rate);
+            step();
+        }
+    }
     export const updateFps = () =>
     {
         if (UI.showFpsCheckbox.get())
@@ -303,13 +314,11 @@ export namespace Player
                     currentTrack.setVolume(currentVolume, progress);
                     currentTrack.crossFadeStep(progress);
                 }
-                lastTimeVolume = currentVolume;
             }
             else
             {
                 if (lastTimeVolume !== currentVolume)
                 {
-                    lastTimeVolume = currentVolume;
                     if (null !== currentTrack)
                     {
                         currentTrack.setVolume(currentVolume);
@@ -320,6 +329,7 @@ export namespace Player
                     next();
                 }
             }
+            lastTimeVolume = currentVolume;
         }
     };
     export const makeIndexText = (track: Track): string =>
@@ -328,6 +338,19 @@ export namespace Player
         `${track.media.name}`;
     export const makeTimeText = (track: Track): string =>
         `${Tools.Timespan.toMediaTimeString(track.getElapsedTime())} / ${Tools.Timespan.toMediaTimeString(track.getDuration())}`;
+    export const step = () =>
+    {
+        if (null !== fadeoutingTrack)
+        {
+            fadeoutingTrack.step();
+        }
+        if (null !== currentTrack)
+        {
+            Library.UI.setTextContent(UI.mediaTime, makeTimeText(currentTrack));
+            currentTrack.step();
+            currentTrack.setPositionState();
+        }
+    };
     export const loop = (now: number) =>
     {
         if (document.body.classList.contains("play"))
@@ -336,16 +359,7 @@ export namespace Player
             Fps.step(now);
             updateFps();
             crossFade();
-            if (null !== fadeoutingTrack)
-            {
-                fadeoutingTrack.step();
-            }
-            if (null !== currentTrack)
-            {
-                Library.UI.setTextContent(UI.mediaTime, makeTimeText(currentTrack));
-                currentTrack.step();
-                currentTrack.setPositionState();
-            }
+            step();
             navigator.mediaSession.setPositionState
             ({
                 duration: (currentTrack?.getDuration() ?? 0) /1000,

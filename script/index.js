@@ -1387,6 +1387,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
         UI.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
         UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
+        UI.seekRange = _library_2.Library.UI.getElementById("input", "seek");
         UI.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
         UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
@@ -2177,11 +2178,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
                             _a.sent();
-                            // let seek = (this.elapsedTime ?? 0) /1000;
-                            // if (null !== this.media.duration && this.isLoop())
-                            // {
-                            //     seek = seek %this.media.duration;
-                            // }
                             this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
@@ -2228,12 +2224,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 seekPosition = 0;
             }
             if (null !== this.media.duration) {
-                var duration = this.media.duration;
                 if (this.isLoop()) {
-                    seekPosition = seekPosition % duration;
+                    seekPosition = seekPosition % this.media.duration;
                 }
-                if (!this.isLoop() && duration < seekPosition) {
-                    seekPosition = duration;
+                if (!this.isLoop() && this.media.duration < seekPosition) {
+                    seekPosition = this.media.duration;
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement) {
@@ -2249,9 +2244,20 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.elapsedTime = seekPosition;
             }
         };
-        Track.prototype.diffSeek = function (seekDiff) {
+        Track.prototype.getSeek = function () {
             var _a;
-            this.seek(((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : this.getElapsedTime()) + seekDiff);
+            if (this.playerElement instanceof HTMLMediaElement) {
+                return this.playerElement.currentTime * 1000;
+            }
+            else {
+                return (_a = this.elapsedTime) !== null && _a !== void 0 ? _a : this.getElapsedTime();
+            }
+        };
+        Track.prototype.diffSeek = function (seekDiff) {
+            this.seek(this.getSeek() + seekDiff);
+        };
+        Track.prototype.rateSeek = function (rate) {
+            this.seek(this.getSingleDuration() * rate);
         };
         Track.prototype.fastForward = function () {
             this.diffSeek(5000);
@@ -2270,21 +2276,32 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
             }
+            if (this.playerElement instanceof HTMLMediaElement) {
+                ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getSingleDuration();
+            }
+            else {
+                ui_5.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getSingleDuration();
+            }
         };
         Track.prototype.isLoop = function () {
             var loopShortMedia = ui_5.UI.loopShortMediaCheckbox.get();
-            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
+            var imageSpan = this.getImageDuration();
             return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
         };
+        Track.prototype.getImageDuration = function () {
+            return parseFloat(ui_5.UI.imageSpanSelect.get());
+        };
         Track.prototype.getDuration = function () {
-            var _a;
-            var imageSpan = parseFloat(ui_5.UI.imageSpanSelect.get());
             if (this.isLoop()) {
-                return imageSpan;
+                return this.getImageDuration();
             }
             else {
-                return (_a = this.media.duration) !== null && _a !== void 0 ? _a : imageSpan;
+                return this.getSingleDuration();
             }
+        };
+        Track.prototype.getSingleDuration = function () {
+            var _a;
+            return (_a = this.media.duration) !== null && _a !== void 0 ? _a : this.getImageDuration();
         };
         Track.prototype.getEndTime = function () {
             if (null === this.startTime) {
@@ -2597,12 +2614,21 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (null !== currentTrack) {
                 Player.clearCrossFade();
                 currentTrack.fastForward();
+                Player.step();
             }
         };
         Player.rewind = function () {
             if (null !== currentTrack) {
                 Player.clearCrossFade();
                 currentTrack.rewind();
+                Player.step();
+            }
+        };
+        Player.seek = function (rate) {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack.rateSeek(rate);
+                Player.step();
             }
         };
         Player.updateFps = function () {
@@ -2632,7 +2658,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(null !== currentTrack)) return [3 /*break*/, 6];
+                        if (!(null !== currentTrack)) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
                             ui_6.UI.mediaLength.click();
                         }
@@ -2660,12 +2686,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         currentTrack.setVolume(currentVolume, progress);
                         currentTrack.crossFadeStep(progress);
                         _b.label = 4;
-                    case 4:
-                        lastTimeVolume = currentVolume;
-                        return [3 /*break*/, 6];
+                    case 4: return [3 /*break*/, 6];
                     case 5:
                         if (lastTimeVolume !== currentVolume) {
-                            lastTimeVolume = currentVolume;
                             if (null !== currentTrack) {
                                 currentTrack.setVolume(currentVolume);
                             }
@@ -2674,7 +2697,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             Player.next();
                         }
                         _b.label = 6;
-                    case 6: return [2 /*return*/];
+                    case 6:
+                        lastTimeVolume = currentVolume;
+                        _b.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         }); };
@@ -2687,6 +2713,16 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.makeTimeText = function (track) {
             return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration()));
         };
+        Player.step = function () {
+            if (null !== fadeoutingTrack) {
+                fadeoutingTrack.step();
+            }
+            if (null !== currentTrack) {
+                _library_7.Library.UI.setTextContent(ui_6.UI.mediaTime, Player.makeTimeText(currentTrack));
+                currentTrack.step();
+                currentTrack.setPositionState();
+            }
+        };
         Player.loop = function (now) {
             var _a, _b;
             if (document.body.classList.contains("play")) {
@@ -2694,14 +2730,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fps_1.Fps.step(now);
                 Player.updateFps();
                 Player.crossFade();
-                if (null !== fadeoutingTrack) {
-                    fadeoutingTrack.step();
-                }
-                if (null !== currentTrack) {
-                    _library_7.Library.UI.setTextContent(ui_6.UI.mediaTime, Player.makeTimeText(currentTrack));
-                    currentTrack.step();
-                    currentTrack.setPositionState();
-                }
+                Player.step();
                 navigator.mediaSession.setPositionState({
                     duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
                     playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
@@ -3160,6 +3189,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
+        var updateSeek = function () {
+            return _features_2.Features.Player.seek(ui_9.UI.seekRange.valueAsNumber);
+        };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", 1500);
@@ -3380,6 +3412,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
+            ui_9.UI.mediaTime.addEventListener("click", function (event) {
+                event.stopPropagation();
+                ui_9.UI.mediaTime.classList.toggle("on");
+            });
+            ui_9.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_9.UI.seekRange.addEventListener("change", updateSeek);
+            ui_9.UI.seekRange.addEventListener("input", updateSeek);
             ui_9.UI.introductionPanel.addEventListener("click", function (event) {
                 event.stopPropagation();
                 ui_9.UI.introductionPanel.classList.toggle("force-show", false);
