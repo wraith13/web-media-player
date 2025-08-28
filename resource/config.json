@@ -15,46 +15,22 @@
         "maxLength": 1000,
         "shuffleForbiddenRate": 0.333
     },
-    "colors": {
-        "monochrome": [
-            "#000000",
-            "#FFFFFF"
-        ],
-        "primaryColors": [
-            "#FF0000",
-            "#00FF00",
-            "#0000FF"
-        ],
-        "phiColors": {
-            "saturation": 0.8,
-            "lightness": 0.6
-        }
+    "ui": {
+        "mousemoveTimeout": 1500
     },
-    "intervalSize": {
-        "minRate": 0.03,
-        "maxRate": 0.6
-    },
-    "maximumFractionDigits": 2,
-    "startWait": 750,
-    "fullscreenAdditionalWait": 750,
-    "benchmark": {
-        "startWait": 1750,
-        "stableWait": 1750,
-        "adjustLayersWait": 300,
-        "nextPatternWait": 1500,
-        "screenResolutionWait": 1000,
-        "refreshRateWait": 1750,
-        "endWait": 1000,
-        "pixelUnit": 2073600,
-        "colorDepthUnit": 24,
-        "fpsUnit": 60,
-        "decimalDigits": 2
+    "player": {
+        "fastFowardSpan": 5000,
+        "rewindSpan": 5000
     },
     "clock":
     {
         "alternate":
         {
             "span": 47000
+        },
+        "phiColors": {
+            "saturation": 0.8,
+            "lightness": 0.6
         },
         "dateFormat": {
             "weekday": "long",

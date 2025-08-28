@@ -36,6 +36,7 @@ declare module "locale/generated/master" {
             "media-count-label": string;
             "media-length-label": string;
             "cross-fade-label": string;
+            "cross-fade-0": string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -104,6 +105,7 @@ declare module "locale/generated/master" {
             "media-count-label": string;
             "media-length-label": string;
             "cross-fade-label": string;
+            "cross-fade-0": string;
             "colorspace-label": string;
             "coloring-label": string;
             "pattern-label": string;
@@ -177,6 +179,7 @@ declare module "script/library/locale" {
                 "media-count-label": string;
                 "media-length-label": string;
                 "cross-fade-label": string;
+                "cross-fade-0": string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;
@@ -245,6 +248,7 @@ declare module "script/library/locale" {
                 "media-count-label": string;
                 "media-length-label": string;
                 "cross-fade-label": string;
+                "cross-fade-0": string;
                 "colorspace-label": string;
                 "coloring-label": string;
                 "pattern-label": string;

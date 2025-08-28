@@ -65,8 +65,15 @@ export namespace UI
         new Library.Control.Range(control.stretch);
     export const paddingCheckbox =
         new Library.Control.Checkbox(control.padding);
-    export const crossFadeSelect =
-        new Library.Control.Select(control.crossFade, { makeLabel: Tools.Timespan.toDisplayString });
+    export const crossFadeSelect = new Library.Control.Select
+    (
+        control.crossFade,
+        {
+            makeLabel: value => value <= 0 ?
+                Library.Locale.map("cross-fade-0"):
+                Tools.Timespan.toDisplayString(value)
+        }
+    );
     export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
     export const loopShortMediaCheckbox =

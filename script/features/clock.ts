@@ -39,8 +39,8 @@ export namespace Clock
         phiColors.hslToRgb
         ({
             h: regulateH(((RgbHueUnit *step)) %1),
-            s: regulateS(config.colors.phiColors.saturation),
-            l: regulateL(config.colors.phiColors.lightness),
+            s: regulateS(config.clock.phiColors.saturation),
+            l: regulateL(config.clock.phiColors.lightness),
         })
     );
     export const update = (now: number) =>

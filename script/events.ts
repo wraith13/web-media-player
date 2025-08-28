@@ -73,7 +73,7 @@ export namespace Events
         Features.Player.seek(UI.seekRange.valueAsNumber);
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
-        mouseMoveTimer.start(document.body, "mousemove", 1500);
+        mouseMoveTimer.start(document.body, "mousemove", config.ui.mousemoveTimeout);
     export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
     {
         const value = params[button.getId() as string];

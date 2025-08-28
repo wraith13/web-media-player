@@ -4,6 +4,7 @@ import { UI } from "../ui";
 import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { Visualizer } from "./visualizer";
+import config from "@resource/config.json";
 export class Track
 {
     playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -203,11 +204,11 @@ export class Track
     }
     fastForward(): void
     {
-        this.diffSeek(5000);
+        this.diffSeek(config.player.fastFowardSpan);
     }
     rewind(): void
     {
-        this.diffSeek(-5000);
+        this.diffSeek(-config.player.rewindSpan);
     }
     setPositionState(): void
     {
