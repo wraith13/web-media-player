@@ -1142,59 +1142,12 @@ body:not(.play) #control-panel #play-button #pause-icon {
 #media-index,
 #media-title,
 #media-time {
-  transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show),
-body:not(.play):not(.show-paused-media) #media-title:not(.show),
-body:not(.play):not(.show-paused-media) #media-time:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.show-paused-media) #media-index:not(.show)::before,
-body:not(.play):not(.show-paused-media) #media-title:not(.show)::before,
-body:not(.play):not(.show-paused-media) #media-time:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-ui) #media-index:not(.show),
-body:not(.show-ui) #media-title:not(.show),
-body:not(.show-ui) #media-time:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #media-index:not(.show)::before,
-body:not(.show-ui) #media-title:not(.show)::before,
-body:not(.show-ui) #media-time:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
 @media (min-width: 1024px) and (max-width: 1599px) {
   #media-index,
   #media-title,
@@ -1217,9 +1170,6 @@ body:not(.show-ui) #media-time:not(.show)::before {
 #media-index,
 #media-title,
 #media-time {
-  position: fixed;
-  top: 0.5rem;
-  top: calc(0.5rem + env(safe-area-inset-top));
   padding: 0.25rem 0.75rem;
   z-index: 50;
   color: rgb(230, 237, 243);
@@ -1231,10 +1181,75 @@ body:not(.show-ui) #media-time:not(.show)::before {
   display: none;
 }
 
+#media-index,
+#media-title {
+  position: fixed;
+  top: 0.5rem;
+  top: calc(0.5rem + env(safe-area-inset-top));
+}
+
 #media-index {
+  transition: opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
+body:not(.play):not(.show-paused-media) #media-index:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui) #media-index:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui) #media-index:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.show-seek-bar #media-index:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.show-seek-bar #media-index:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 @media (min-width: 1024px) and (max-width: 1599px) {
   #media-index {
     font-size: 0.9rem;
@@ -1254,9 +1269,67 @@ body:not(.show-ui) #media-time:not(.show)::before {
 }
 
 #media-title {
+  transition: opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
+body:not(.play):not(.show-paused-media) #media-title:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui) #media-title:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui) #media-title:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.show-seek-bar #media-title:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.show-seek-bar #media-title:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 @media (min-width: 1024px) and (max-width: 1599px) {
   #media-title {
     font-size: 0.9rem;
@@ -1275,48 +1348,102 @@ body:not(.show-ui) #media-time:not(.show)::before {
   transform: translate(-50%, 0%);
 }
 
-#media-time {
+#media-time-frame {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: end;
+  align-items: center;
+}
+#media-time-frame {
+  position: fixed;
+  top: 0.5rem;
+  top: calc(0.5rem + env(safe-area-inset-top));
+  right: 0.5rem;
+  right: calc(0.5rem + env(safe-area-inset-right));
+  left: 0.5rem;
+  left: calc(0.5rem + env(safe-area-inset-left));
+  z-index: 50;
+  gap: 0.25rem;
+}
+#media-time-frame #media-time {
+  transition: opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui) #media-time-frame #media-time:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #media-time {
+  #media-time-frame #media-time {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #media-time {
+  #media-time-frame #media-time {
     font-size: 1rem;
   }
 }
-#media-time {
+#media-time-frame #media-time {
   font-family: monospace;
 }
-#media-time {
-  right: 0.5rem;
-  right: calc(0.5rem + env(safe-area-inset-right));
+#media-time-frame #media-time {
   border-style: solid;
   border-width: 0px;
   border-color: rgb(230, 237, 243);
   cursor: pointer;
 }
-#media-time.on {
-  border-width: 1px;
-}
-
-#seek-panel {
+#media-time-frame #seek-panel {
   transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }
-body:not(.play):not(.show-paused-media) #seek-panel:not(.show) {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #seek-panel:not(.show)::before {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1329,13 +1456,13 @@ body:not(.play):not(.show-paused-media) #seek-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #seek-panel:not(.show) {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #seek-panel:not(.show)::before {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1348,13 +1475,13 @@ body:not(.show-ui) #seek-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-#media-time:not(.on) + #seek-panel:not(.show) {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#media-time:not(.on) + #seek-panel:not(.show)::before {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1366,26 +1493,24 @@ body:not(.show-ui) #seek-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-#seek-panel {
+
+#media-time-frame #seek-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
-  border-radius: 0.5rem;
-  position: fixed;
-  top: 2.5rem;
-  top: calc(2.5rem + env(safe-area-inset-top));
-  right: 0.5rem;
-  right: calc(0.5rem + env(safe-area-inset-right));
+  border-radius: 1rem;
   z-index: 60;
-  padding: 0.5rem;
-  background-color: rgba(32, 28, 38, 0.9);
+  padding: 0.25rem 0.5rem;
   line-height: 0rem;
+  flex-grow: 1;
 }
-#seek-panel input[type=range] {
-  width: 40vw;
+
+body.show-seek-bar #media-time-frame #media-time {
+  border-width: 1px;
 }
 
 @media (max-width: 480px) {
   #media-index,
   #media-time,
+  #media-time-frame,
   #seek-panel {
     display: none;
   }

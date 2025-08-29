@@ -79,14 +79,7 @@ export namespace Events
         const value = params[button.getId() as string];
         if (undefined !== value)
         {
-            if (value)
-            {
-                button.dom.classList.add("on");
-            }
-            else
-            {
-                button.dom.classList.remove("on");
-            }
+            button.dom.classList.toggle("on", "true" === value.toLowerCase());
         }
     };
     export const initialize = () =>
@@ -356,7 +349,7 @@ export namespace Events
             event =>
             {
                 event.stopPropagation();
-                UI.mediaTime.classList.toggle("on");
+                document.body.classList.toggle("show-seek-bar");
             }
         );
         UI.seekRange.addEventListener("click", event => event.stopPropagation());

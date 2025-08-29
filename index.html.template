@@ -169,9 +169,11 @@ DUMMYSTYLE
 </div>
 <span id="media-index"></span>
 <span id="media-title"></span>
-<span id="media-time"></span>
-<div id="seek-panel">
-    <input id="seek" type="range" min="0" max="1" step="any" />
+<div id="media-time-frame">
+    <span id="media-time"></span>
+    <div id="seek-panel">
+        <input id="seek" type="range" min="0" max="1" step="any" />
+    </div>
 </div>
 <button id="back-button">
     <div id="back-icon">__BACK_ICON__<div>

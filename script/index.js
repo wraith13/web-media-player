@@ -3182,12 +3182,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
             if (undefined !== value) {
-                if (value) {
-                    button.dom.classList.add("on");
-                }
-                else {
-                    button.dom.classList.remove("on");
-                }
+                button.dom.classList.toggle("on", "true" === value.toLowerCase());
             }
         };
         Events.initialize = function () {
@@ -3397,7 +3392,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             };
             ui_9.UI.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
-                ui_9.UI.mediaTime.classList.toggle("on");
+                document.body.classList.toggle("show-seek-bar");
             });
             ui_9.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_9.UI.seekRange.addEventListener("change", updateSeek);
