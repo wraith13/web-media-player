@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Aug 29 2025 00:51:33 GMT+0900 (日本標準時)
+    build at: Fri Aug 29 2025 10:24:13 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2788,8 +2788,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Aug 29 2025 00:51:33 GMT+0900 (日本標準時)",
-    tick: 1756396293636
+    at: "Fri Aug 29 2025 10:24:13 GMT+0900 (日本標準時)",
+    tick: 1756430653263
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7767,6 +7767,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
+            window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("keydown", function (event) {
                 if (["Space", " "].includes(event.key) && !event.repeat) {
                     event.preventDefault();

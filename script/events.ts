@@ -87,6 +87,7 @@ export namespace Events
         window.addEventListener("dragover", event => event.preventDefault());
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());
+        window.addEventListener("orientationchange", () => Features.Player.updateStretch());
         window.addEventListener
         (
             "keydown",

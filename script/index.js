@@ -3191,6 +3191,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
+            window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("keydown", function (event) {
                 if (["Space", " "].includes(event.key) && !event.repeat) {
                     event.preventDefault();
