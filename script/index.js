@@ -444,12 +444,12 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
         var ToggleClassForWhileTimer = /** @class */ (function () {
             function ToggleClassForWhileTimer() {
                 var _this = this;
-                this.isOn = function () { return undefined !== _this.timer; };
+                this.isInTimer = function () { return undefined !== _this.timer; };
                 this.timer = undefined;
             }
             ToggleClassForWhileTimer.prototype.start = function (element, token, span) {
                 var _this = this;
-                if (this.isOn()) {
+                if (this.isInTimer()) {
                     clearTimeout(this.timer);
                 }
                 element.classList.toggle(token, true);
@@ -1060,6 +1060,42 @@ define("script/tools/byte", ["require", "exports", "script/tools/number"], funct
         };
     })(Byte || (exports.Byte = Byte = {}));
 });
+define("script/tools/timer", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Timer = void 0;
+    var Timer;
+    (function (Timer) {
+        Timer.sleep = function (timeout) {
+            return new Promise(function (resolve) { return setTimeout(resolve, timeout); });
+        };
+        var ExtendableTimer = /** @class */ (function () {
+            function ExtendableTimer(onStart, onEnd, span) {
+                var _this = this;
+                this.onStart = onStart;
+                this.onEnd = onEnd;
+                this.span = span;
+                this.isInTimer = function () { return undefined !== _this.timer; };
+                this.timer = undefined;
+            }
+            ExtendableTimer.prototype.kick = function () {
+                var _this = this;
+                if (this.isInTimer()) {
+                    clearTimeout(this.timer);
+                }
+                else {
+                    this.onStart();
+                }
+                this.timer = setTimeout(function () {
+                    _this.timer = undefined;
+                    _this.onEnd();
+                }, this.span);
+            };
+            return ExtendableTimer;
+        }());
+        Timer.ExtendableTimer = ExtendableTimer;
+    })(Timer || (exports.Timer = Timer = {}));
+});
 define("script/tools/environment", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -1080,7 +1116,7 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
         };
     })(Environment || (exports.Environment = Environment = {}));
 });
-define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte", "script/tools/environment"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte, ImportedEnvironment) {
+define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte", "script/tools/timer", "script/tools/environment"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte, ImportedTimer, ImportedEnvironment) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Tools = void 0;
@@ -1092,6 +1128,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
     ImportedArray = __importStar(ImportedArray);
     ImportedHash = __importStar(ImportedHash);
     ImportedByte = __importStar(ImportedByte);
+    ImportedTimer = __importStar(ImportedTimer);
     ImportedEnvironment = __importStar(ImportedEnvironment);
     var Tools;
     (function (Tools) {
@@ -1103,6 +1140,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
         Tools.Array = ImportedArray.Array;
         Tools.Hash = ImportedHash.Hash;
         Tools.Byte = ImportedByte.Byte;
+        Tools.Timer = ImportedTimer.Timer;
         Tools.Environment = ImportedEnvironment.Environment;
     })(Tools || (exports.Tools = Tools = {}));
 });
@@ -1513,7 +1551,7 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
-define("script/features/media", ["require", "exports", "script/library/index", "resource/config"], function (require, exports, _library_3, Config) {
+define("script/features/media", ["require", "exports", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, _library_3, tools_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Media = void 0;
@@ -1521,9 +1559,6 @@ define("script/features/media", ["require", "exports", "script/library/index", "
     var Media;
     (function (Media) {
         var _this = this;
-        Media.sleep = function (timeout) {
-            return new Promise(function (resolve) { return setTimeout(resolve, timeout); });
-        };
         ;
         Media.mediaList = [];
         Media.getMediaCategory = function (file) {
@@ -1636,7 +1671,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         resolve(null);
                     });
                     audio.src = url;
-                    Media.sleep(1000).then(function () {
+                    tools_1.Tools.Timer.sleep(1000).then(function () {
                         if (!loadedmetadataCalled && !failed) {
                             console.warn("⏳ Audio metadata not loaded in time, trying to finish anyway.");
                             finish();
@@ -1690,7 +1725,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     });
                     video.src = url;
                     video.currentTime = 0.1;
-                    Media.sleep(1000).then(function () {
+                    tools_1.Tools.Timer.sleep(1000).then(function () {
                         video.play().finally(function () {
                             video.pause();
                             if ((!loadedmetadataCalled || !loadeddataCalled) && !failed) {
@@ -2484,6 +2519,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.isPlaying = function () {
             return document.body.classList.contains("play");
         };
+        Player.isSeeking = function () {
+            return document.body.classList.contains("is-seeking");
+        };
         Player.startAnimationFrameLoop = function () {
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
@@ -2614,6 +2652,18 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 Player.step();
             }
         };
+        Player.temporaryPause = function () {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
+            }
+        };
+        Player.temporaryResume = function () {
+            if (null !== currentTrack) {
+                Player.clearCrossFade();
+                currentTrack.play();
+            }
+        };
         Player.updateFps = function () {
             if (ui_6.UI.showFpsCheckbox.get()) {
                 _library_7.Library.UI.setTextContent(ui_6.UI.fpsDisplay, fps_1.Fps.getText());
@@ -2641,7 +2691,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(null !== currentTrack)) return [3 /*break*/, 7];
+                        if (!(null !== currentTrack && !Player.isSeeking())) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
                             ui_6.UI.mediaLength.click();
                         }
@@ -2708,7 +2758,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.loop = function (now) {
             var _a, _b;
-            if (document.body.classList.contains("play")) {
+            if (Player.isPlaying()) {
                 clock_1.Clock.update(now);
                 fps_1.Fps.step(now);
                 Player.updateFps();
@@ -3172,8 +3222,21 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
+        var isSeekingTimer = new _tools_8.Tools.Timer.ExtendableTimer(function () {
+            document.body.classList.add("is-seeking");
+            if (_features_2.Features.Player.isPlaying()) {
+                _features_2.Features.Player.temporaryPause();
+            }
+        }, function () {
+            document.body.classList.remove("is-seeking");
+            if (_features_2.Features.Player.isPlaying()) {
+                _features_2.Features.Player.temporaryResume();
+                _features_2.Features.Player.seek(ui_9.UI.seekRange.valueAsNumber);
+            }
+        }, 500);
         var updateSeek = function () {
-            return _features_2.Features.Player.seek(ui_9.UI.seekRange.valueAsNumber);
+            isSeekingTimer.kick();
+            _features_2.Features.Player.seek(ui_9.UI.seekRange.valueAsNumber);
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
@@ -3277,6 +3340,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 ui_9.UI.inputFile.click();
             };
+            ui_9.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_9.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
@@ -3419,7 +3483,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_9.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_5.default.log.mousemove && !mouseMoveTimer.isOn()) {
+                if (config_json_5.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_9.UI.screenBody);
                 }
                 Events.mousemove();

@@ -69,8 +69,32 @@ export namespace Events
             }
         }
     };
+    const isSeekingTimer = new Tools.Timer.ExtendableTimer
+    (
+        () =>
+        {
+            document.body.classList.add("is-seeking");
+            if (Features.Player.isPlaying())
+            {
+                Features.Player.temporaryPause();
+            }
+        },
+        () =>
+        {
+            document.body.classList.remove("is-seeking");
+            if (Features.Player.isPlaying())
+            {
+                Features.Player.temporaryResume();
+                Features.Player.seek(UI.seekRange.valueAsNumber);
+            }
+        },
+        500
+    );
     const updateSeek = () =>
+    {
+        isSeekingTimer.kick();
         Features.Player.seek(UI.seekRange.valueAsNumber);
+    };
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
         mouseMoveTimer.start(document.body, "mousemove", config.ui.mousemoveTimeout);
@@ -209,6 +233,7 @@ export namespace Events
             button.dom.blur();
             UI.inputFile.click();
         };
+        UI.inputFile.addEventListener("click", event => event.stopPropagation());
         UI.inputFile.addEventListener
         (
             "change",
@@ -390,7 +415,7 @@ export namespace Events
             "mousemove",
             event =>
             {
-                if (config.log.mousemove && ! mouseMoveTimer.isOn())
+                if (config.log.mousemove && ! mouseMoveTimer.isInTimer())
                 {
                     console.log("🖱️ MouseMove:", event, UI.screenBody);
                 }

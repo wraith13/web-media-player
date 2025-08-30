@@ -99,6 +99,8 @@ export namespace Player
     let fadeoutingTrack: Track | null = null;
     export const isPlaying = (): boolean =>
         document.body.classList.contains("play");
+    export const isSeeking = (): boolean =>
+        document.body.classList.contains("is-seeking");
     export const startAnimationFrameLoop = (): void =>
     {
         if (null !== loopHandle)
@@ -250,6 +252,22 @@ export namespace Player
             step();
         }
     }
+    export const temporaryPause = () =>
+    {
+        if (null !== currentTrack)
+        {
+            clearCrossFade();
+            currentTrack?.pause();
+        }
+    };
+    export const temporaryResume = () =>
+    {
+        if (null !== currentTrack)
+        {
+            clearCrossFade();
+            currentTrack.play();
+        }
+    }
     export const updateFps = () =>
     {
         if (UI.showFpsCheckbox.get())
@@ -281,7 +299,7 @@ export namespace Player
     }
     export const crossFade = async () =>
     {
-        if (null !== currentTrack)
+        if (null !== currentTrack && ! isSeeking())
         {
             if (currentTrack.selfValidate())
             {
@@ -353,7 +371,7 @@ export namespace Player
     };
     export const loop = (now: number) =>
     {
-        if (document.body.classList.contains("play"))
+        if (isPlaying())
         {
             Clock.update(now);
             Fps.step(now);
@@ -365,7 +383,7 @@ export namespace Player
                 duration: (currentTrack?.getDuration() ?? 0) /1000,
                 playbackRate: currentTrack?.playerElement instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
                 position: (currentTrack?.getElapsedTime() ?? 0) /1000,
-            })
+            });
             loopHandle = window.requestAnimationFrame(loop);
         }
         else

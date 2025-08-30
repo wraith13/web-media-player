@@ -1,12 +1,10 @@
 //import { History } from "./history";
 // import { UI } from "../ui";
 import { Library } from "@library";
-//import { Tools } from "../tools";
+import { Tools } from "../tools";
 import * as Config from "@resource/config.json";
 export namespace Media
 {
-    export const sleep = (timeout: number): Promise<void> =>
-        new Promise(resolve => setTimeout(resolve, timeout));
     export interface Entry
     {
         //file: File;
@@ -150,7 +148,7 @@ export namespace Media
                     }
                 );
                 audio.src = url;
-                sleep(1000).then
+                Tools.Timer.sleep(1000).then
                 (
                     () =>
                     {
@@ -225,7 +223,7 @@ export namespace Media
                 );
                 video.src = url;
                 video.currentTime = 0.1;
-                sleep(1000).then(() =>
+                Tools.Timer.sleep(1000).then(() =>
                 {
                     video.play().finally
                     (

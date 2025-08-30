@@ -47,7 +47,7 @@ export namespace UI
         }
         start(element: HTMLElement, token: string, span: number)
         {
-            if (this.isOn())
+            if (this.isInTimer())
             {
                 clearTimeout(this.timer);
             }
@@ -66,7 +66,7 @@ export namespace UI
                 span
             );
         }
-        isOn = () => undefined !== this.timer;
+        isInTimer = () => undefined !== this.timer;
     }
     export const fullscreenEnabled = document.fullscreenEnabled || (<any>document).webkitFullscreenEnabled;
     export const getFullscreenElement = () =>

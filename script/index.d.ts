@@ -329,7 +329,7 @@ declare module "script/library/ui" {
             timer: ReturnType<typeof setTimeout> | undefined;
             constructor();
             start(element: HTMLElement, token: string, span: number): void;
-            isOn: () => boolean;
+            isInTimer: () => boolean;
         }
         const fullscreenEnabled: any;
         const getFullscreenElement: () => {} | null;
@@ -547,6 +547,20 @@ declare module "script/tools/byte" {
         const toDisplayString: (value: number, maximumDigits?: number) => string;
     }
 }
+declare module "script/tools/timer" {
+    export namespace Timer {
+        const sleep: (timeout: number) => Promise<void>;
+        class ExtendableTimer {
+            onStart: () => unknown;
+            onEnd: () => unknown;
+            span: number;
+            timer: ReturnType<typeof setTimeout> | undefined;
+            constructor(onStart: () => unknown, onEnd: () => unknown, span: number);
+            kick(): void;
+            isInTimer: () => boolean;
+        }
+    }
+}
 declare module "script/tools/environment" {
     export namespace Environment {
         const isApple: () => boolean;
@@ -564,6 +578,7 @@ declare module "script/tools/index" {
     import * as ImportedArray from "script/tools/array";
     import * as ImportedHash from "script/tools/hash";
     import * as ImportedByte from "script/tools/byte";
+    import * as ImportedTimer from "script/tools/timer";
     import * as ImportedEnvironment from "script/tools/environment";
     export namespace Tools {
         export import TypeGuards = ImportedTypeGuards.TypeGuards;
@@ -574,6 +589,7 @@ declare module "script/tools/index" {
         export import Array = ImportedArray.Array;
         export import Hash = ImportedHash.Hash;
         export import Byte = ImportedByte.Byte;
+        export import Timer = ImportedTimer.Timer;
         export import Environment = ImportedEnvironment.Environment;
     }
 }
@@ -680,7 +696,6 @@ declare module "script/features/clock" {
 declare module "script/features/media" {
     import { Library } from "script/library/index";
     export namespace Media {
-        const sleep: (timeout: number) => Promise<void>;
         interface Entry {
             url: string;
             type: string;
@@ -811,6 +826,7 @@ declare module "script/features/player" {
         }
         const updateFullscreenState: (fullscreen?: boolean) => void;
         const isPlaying: () => boolean;
+        const isSeeking: () => boolean;
         const startAnimationFrameLoop: () => void;
         const play: () => Promise<void>;
         const resume: () => void;
@@ -821,6 +837,8 @@ declare module "script/features/player" {
         const fastForward: () => void;
         const rewind: () => void;
         const seek: (rate: number) => void;
+        const temporaryPause: () => void;
+        const temporaryResume: () => void;
         const updateFps: () => void;
         const isNextTiming: () => boolean;
         const crossFade: () => Promise<void>;
