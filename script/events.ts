@@ -369,6 +369,15 @@ export namespace Events
             console.log("⏱️ Image span changed:", value);
             MediaList.updateInformationDisplay();
         };
+        UI.mediaTitle.addEventListener
+        (
+            "click",
+            event =>
+            {
+                event.stopPropagation();
+                document.body.classList.toggle("show-seek-bar");
+            }
+        );
         UI.mediaTime.addEventListener
         (
             "click",

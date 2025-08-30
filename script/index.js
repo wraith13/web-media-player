@@ -3455,6 +3455,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
+            ui_9.UI.mediaTitle.addEventListener("click", function (event) {
+                event.stopPropagation();
+                document.body.classList.toggle("show-seek-bar");
+            });
             ui_9.UI.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");

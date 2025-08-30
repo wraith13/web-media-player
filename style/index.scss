@@ -777,12 +777,16 @@ body.show-seek-bar #media-time-frame
 }
 @media (max-width: 480px)
 {
-    #media-index,
-    #media-time,
-    #media-time-frame,
-    #seek-panel
+    #media-index
     {
         display: none;
+    }
+    body:not(.show-seek-bar)
+    {
+        #media-time-frame
+        {
+            display: none;
+        }
     }
 }
 #next-button, #back-button

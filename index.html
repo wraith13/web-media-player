@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Aug 30 2025 00:53:19 GMT+0900 (日本標準時)
+    build at: Sat Aug 30 2025 21:22:59 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1564,10 +1564,10 @@ body.show-seek-bar #media-time-frame #media-time {
 }
 
 @media (max-width: 480px) {
-  #media-index,
-  #media-time,
-  #media-time-frame,
-  #seek-panel {
+  #media-index {
+    display: none;
+  }
+  body:not(.show-seek-bar) #media-time-frame {
     display: none;
   }
 }
@@ -2788,8 +2788,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Aug 30 2025 00:53:19 GMT+0900 (日本標準時)",
-    tick: 1756482799315
+    at: "Sat Aug 30 2025 21:22:59 GMT+0900 (日本標準時)",
+    tick: 1756556579913
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8031,6 +8031,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
+            ui_9.UI.mediaTitle.addEventListener("click", function (event) {
+                event.stopPropagation();
+                document.body.classList.toggle("show-seek-bar");
+            });
             ui_9.UI.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
