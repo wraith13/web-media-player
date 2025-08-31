@@ -2189,38 +2189,30 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.play = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
+                            this.startTime = Date.now() - ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0);
                             if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 4];
                             return [4 /*yield*/, this.playerElement.play()];
                         case 1:
-                            _a.sent();
+                            _b.sent();
                             this.currentTimeForValidation = this.playerElement.currentTime;
                             if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
                         case 2:
-                            _a.sent();
+                            _b.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _a.label = 3;
+                            _b.label = 3;
                         case 3:
                             if (!this.isLoop()) {
                                 this.startTime = Date.now() - (this.playerElement.currentTime * 1000);
                             }
-                            else {
-                                this.elapsedTime = null;
-                            }
-                            return [3 /*break*/, 5];
+                            _b.label = 4;
                         case 4:
-                            if (null !== this.elapsedTime) {
-                                this.startTime = Date.now() - this.elapsedTime;
-                                this.elapsedTime = null;
-                            }
-                            else {
-                                this.startTime = Date.now();
-                            }
-                            _a.label = 5;
-                        case 5: return [2 /*return*/];
+                            this.elapsedTime = null;
+                            return [2 /*return*/];
                     }
                 });
             });
@@ -2242,17 +2234,18 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 seekPosition = 0;
             }
             if (null !== this.media.duration) {
-                if (this.isLoop()) {
-                    seekPosition = seekPosition % this.media.duration;
-                }
-                if (!this.isLoop() && this.media.duration < seekPosition) {
-                    seekPosition = this.media.duration;
+                var duration = this.getDuration();
+                if (duration < seekPosition) {
+                    seekPosition = duration;
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement) {
-                this.playerElement.currentTime = seekPosition / 1000;
+                var singleSeekPosition = this.isLoop() ?
+                    seekPosition % this.getSingleDuration() :
+                    seekPosition;
+                this.playerElement.currentTime = singleSeekPosition / 1000;
                 if (this.paddingElement instanceof HTMLMediaElement) {
-                    this.paddingElement.currentTime = seekPosition / 1000;
+                    this.paddingElement.currentTime = singleSeekPosition / 1000;
                 }
             }
             if (null !== this.startTime) {
@@ -2264,7 +2257,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.getSeek = function () {
             var _a;
-            if (this.playerElement instanceof HTMLMediaElement) {
+            if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 return this.playerElement.currentTime * 1000;
             }
             else {
@@ -2275,7 +2268,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.seek(this.getSeek() + seekDiff);
         };
         Track.prototype.rateSeek = function (rate) {
-            this.seek(this.getSingleDuration() * rate);
+            this.seek(this.getDuration() * rate);
         };
         Track.prototype.fastForward = function () {
             this.diffSeek(config_json_3.default.player.fastFowardSpan);
@@ -2294,17 +2287,17 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
             }
-            if (this.playerElement instanceof HTMLMediaElement) {
-                ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getSingleDuration();
+            if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
+                ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }
             else {
-                ui_5.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getSingleDuration();
+                ui_5.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
             }
         };
         Track.prototype.isLoop = function () {
             var loopShortMedia = ui_5.UI.loopShortMediaCheckbox.get();
             var imageSpan = this.getImageDuration();
-            return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
+            return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
         };
         Track.prototype.getImageDuration = function () {
             return parseFloat(ui_5.UI.imageSpanSelect.get());
@@ -2322,19 +2315,20 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             return (_a = this.media.duration) !== null && _a !== void 0 ? _a : this.getImageDuration();
         };
         Track.prototype.getEndTime = function () {
-            if (null === this.startTime) {
-                return 0;
+            if (null !== this.startTime) {
+                return this.startTime + this.getDuration();
             }
             else {
-                return this.startTime + this.getDuration();
+                return 0;
             }
         };
         Track.prototype.getElapsedTime = function () {
-            if (null === this.startTime) {
-                return 0;
+            var _a;
+            if (null !== this.startTime) {
+                return Date.now() - this.startTime;
             }
             else {
-                return Date.now() - this.startTime;
+                return (_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0;
             }
         };
         Track.prototype.getRemainingTime = function () {

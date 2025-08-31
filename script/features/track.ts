@@ -102,6 +102,7 @@ export class Track
     }
     async play(): Promise<void>
     {
+        this.startTime = Date.now() -(this.elapsedTime ?? 0);
         if (this.playerElement instanceof HTMLMediaElement)
         {
             await this.playerElement.play();
@@ -115,23 +116,8 @@ export class Track
             {
                 this.startTime = Date.now() -(this.playerElement.currentTime *1000);
             }
-            else
-            {
-                this.elapsedTime = null;
-            }
         }
-        else
-        {
-            if (null !== this.elapsedTime)
-            {
-                this.startTime = Date.now() -this.elapsedTime;
-                this.elapsedTime = null;
-            }
-            else
-            {
-                this.startTime = Date.now();
-            }
-        }
+        this.elapsedTime = null;
     }
     pause(): void
     {
@@ -151,27 +137,16 @@ export class Track
     }
     seek(seekPosition: number): void
     {
-        if (seekPosition < 0)
-        {
-            seekPosition = 0;
-        }
-        if (null !== this.media.duration)
-        {
-            if (this.isLoop())
-            {
-                seekPosition = seekPosition %this.media.duration;
-            }
-            if ( ! this.isLoop() && this.media.duration < seekPosition)
-            {
-                seekPosition = this.media.duration;
-            }
-        }
+        seekPosition = Math.max(0, Math.min(seekPosition, this.getDuration()));
         if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerElement.currentTime = seekPosition /1000;
+            const singleSeekPosition = this.isLoop() ?
+                    seekPosition %this.getSingleDuration():
+                    seekPosition;
+            this.playerElement.currentTime = singleSeekPosition /1000;
             if (this.paddingElement instanceof HTMLMediaElement)
             {
-                this.paddingElement.currentTime = seekPosition /1000;
+                this.paddingElement.currentTime = singleSeekPosition /1000;
             }
         }
         if (null !== this.startTime)
@@ -185,7 +160,7 @@ export class Track
     }
     getSeek(): number
     {
-        if (this.playerElement instanceof HTMLMediaElement)
+        if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
             return this.playerElement.currentTime *1000;
         }
@@ -200,7 +175,7 @@ export class Track
     }
     rateSeek(rate: number): void
     {
-        this.seek(this.getSingleDuration() *rate);
+        this.seek(this.getDuration() *rate);
     }
     fastForward(): void
     {
@@ -225,20 +200,20 @@ export class Track
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement);
         }
-        if (this.playerElement instanceof HTMLMediaElement)
+        if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
-            UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getSingleDuration();
+            UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
         }
         else
         {
-            UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getSingleDuration();
+            UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
         }
     }
     isLoop(): boolean
     {
         const loopShortMedia = UI.loopShortMediaCheckbox.get();
         const imageSpan = this.getImageDuration();
-        return loopShortMedia && null !== this.media.duration && this.media.duration < imageSpan;
+        return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
     }
     getImageDuration(): number
     {
@@ -261,24 +236,24 @@ export class Track
     }
     getEndTime(): number
     {
-        if (null === this.startTime)
+        if (null !== this.startTime)
         {
-            return 0;
+            return this.startTime + this.getDuration();
         }
         else
         {
-            return this.startTime + this.getDuration();
+            return 0;
         }
     }
     getElapsedTime(): number
     {
-        if (null === this.startTime)
+        if (null !== this.startTime)
         {
-            return 0;
+            return Date.now() - this.startTime;
         }
         else
         {
-            return Date.now() - this.startTime;
+            return this.elapsedTime ?? 0;
         }
     }
     getRemainingTime(): number
