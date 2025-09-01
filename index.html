@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Aug 31 2025 17:05:36 GMT+0900 (日本標準時)
+    build at: Mon Sep 01 2025 18:02:13 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2072,20 +2072,20 @@ body:not(.play) #clock-panel:not(.show)::before {
   transform: translate(-50%, -50%);
 }
 #clock-panel.top-left, #clock-panel.top-right {
-  top: calc(1vw + 1vh);
-  top: calc(1vw + 1vh + env(safe-area-inset-top));
+  top: calc(1 * var(--diagonal));
+  top: calc(1 * var(--diagonal) + env(safe-area-inset-top));
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
-  right: calc(1vw + 1vh);
-  right: calc(1vw + 1vh + env(safe-area-inset-right));
+  right: calc(1 * var(--diagonal));
+  right: calc(1 * var(--diagonal) + env(safe-area-inset-right));
 }
 #clock-panel.top-left, #clock-panel.bottom-left {
-  left: calc(1vw + 1vh);
-  left: calc(1vw + 1vh + env(safe-area-inset-left));
+  left: calc(1 * var(--diagonal));
+  left: calc(1 * var(--diagonal) + env(safe-area-inset-left));
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
-  bottom: calc(1vw + 1vh);
-  bottom: calc(1vw + 1vh + env(safe-area-inset-bottom));
+  bottom: calc(1 * var(--diagonal));
+  bottom: calc(1 * var(--diagonal) + env(safe-area-inset-bottom));
 }
 #clock-panel span {
   display: block;
@@ -2138,6 +2138,10 @@ body:not(.play) #clock-panel:not(.show)::before {
 #clock-panel #time:not(.text) {
   font-family: monospace;
 }
+#clock-panel #time:not(.text) {
+  font-size: calc(6.75 * var(--diagonal));
+  line-height: 100%;
+}
 #clock-panel #time.text {
   font-size: 0.75rem;
   font-weight: 400;
@@ -2154,6 +2158,9 @@ body:not(.play) #clock-panel:not(.show)::before {
 }
 #clock-panel #time.text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#clock-panel #time.text {
+  font-size: calc(6.75 * var(--diagonal));
 }
 #clock-panel #time {
   white-space: nowrap;
@@ -2176,27 +2183,16 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #date {
+  font-size: calc(1.8 * var(--diagonal));
   white-space: nowrap;
-}
-#clock-panel.center #time {
-  font-size: 13.5vw;
-}
-#clock-panel.center #date {
-  font-size: 3vw;
-}
-#clock-panel:not(.center) #time {
-  font-size: 2rem;
-}
-#clock-panel:not(.center) #date {
-  font-size: 1rem;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
   align-items: end;
@@ -2788,8 +2784,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Aug 31 2025 17:05:36 GMT+0900 (日本標準時)",
-    tick: 1756627536810
+    at: "Mon Sep 01 2025 18:02:13 GMT+0900 (日本標準時)",
+    tick: 1756717333933
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7409,6 +7405,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack = null;
         };
         Player.updateStretch = function () {
+            var width = window.innerWidth, height = window.innerHeight;
+            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(width, height) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
@@ -8098,6 +8096,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
             });
             Events.updateBrightness();
+            _features_2.Features.Player.updateStretch();
             updateClock();
             updateClockPosition();
             ui_9.UI.updateLanguage();

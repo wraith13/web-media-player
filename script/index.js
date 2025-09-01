@@ -2833,6 +2833,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack = null;
         };
         Player.updateStretch = function () {
+            var width = window.innerWidth, height = window.innerHeight;
+            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(width, height) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
@@ -3522,6 +3524,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
             });
             Events.updateBrightness();
+            _features_2.Features.Player.updateStretch();
             updateClock();
             updateClockPosition();
             ui_9.UI.updateLanguage();

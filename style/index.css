@@ -2016,20 +2016,20 @@ body:not(.play) #clock-panel:not(.show)::before {
   transform: translate(-50%, -50%);
 }
 #clock-panel.top-left, #clock-panel.top-right {
-  top: calc(1vw + 1vh);
-  top: calc(1vw + 1vh + env(safe-area-inset-top));
+  top: calc(1 * var(--diagonal));
+  top: calc(1 * var(--diagonal) + env(safe-area-inset-top));
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
-  right: calc(1vw + 1vh);
-  right: calc(1vw + 1vh + env(safe-area-inset-right));
+  right: calc(1 * var(--diagonal));
+  right: calc(1 * var(--diagonal) + env(safe-area-inset-right));
 }
 #clock-panel.top-left, #clock-panel.bottom-left {
-  left: calc(1vw + 1vh);
-  left: calc(1vw + 1vh + env(safe-area-inset-left));
+  left: calc(1 * var(--diagonal));
+  left: calc(1 * var(--diagonal) + env(safe-area-inset-left));
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
-  bottom: calc(1vw + 1vh);
-  bottom: calc(1vw + 1vh + env(safe-area-inset-bottom));
+  bottom: calc(1 * var(--diagonal));
+  bottom: calc(1 * var(--diagonal) + env(safe-area-inset-bottom));
 }
 #clock-panel span {
   display: block;
@@ -2082,6 +2082,10 @@ body:not(.play) #clock-panel:not(.show)::before {
 #clock-panel #time:not(.text) {
   font-family: monospace;
 }
+#clock-panel #time:not(.text) {
+  font-size: calc(6.75 * var(--diagonal));
+  line-height: 100%;
+}
 #clock-panel #time.text {
   font-size: 0.75rem;
   font-weight: 400;
@@ -2098,6 +2102,9 @@ body:not(.play) #clock-panel:not(.show)::before {
 }
 #clock-panel #time.text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#clock-panel #time.text {
+  font-size: calc(6.75 * var(--diagonal));
 }
 #clock-panel #time {
   white-space: nowrap;
@@ -2120,27 +2127,16 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #date {
+  font-size: calc(1.8 * var(--diagonal));
   white-space: nowrap;
-}
-#clock-panel.center #time {
-  font-size: 13.5vw;
-}
-#clock-panel.center #date {
-  font-size: 3vw;
-}
-#clock-panel:not(.center) #time {
-  font-size: 2rem;
-}
-#clock-panel:not(.center) #date {
-  font-size: 1rem;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
   align-items: end;

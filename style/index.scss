@@ -1116,23 +1116,23 @@ body.no-media
         }
         &.top-left, &.top-right
         {
-            top: calc(1vw + 1vh);
-            top: calc(1vw + 1vh + env(safe-area-inset-top));
+            top: calc(1.0 * var(--diagonal));
+            top: calc(1.0 * var(--diagonal) + env(safe-area-inset-top));
         }
         &.top-right, &.bottom-right
         {
-            right: calc(1vw + 1vh);
-            right: calc(1vw + 1vh + env(safe-area-inset-right));
+            right: calc(1.0 * var(--diagonal));
+            right: calc(1.0 * var(--diagonal) + env(safe-area-inset-right));
         }
         &.top-left, &.bottom-left
         {
-            left: calc(1vw + 1vh);
-            left: calc(1vw + 1vh + env(safe-area-inset-left));
+            left: calc(1.0 * var(--diagonal));
+            left: calc(1.0 * var(--diagonal) + env(safe-area-inset-left));
         }
         &.bottom-right, &.bottom-left
         {
-            bottom: calc(1vw + 1vh);
-            bottom: calc(1vw + 1vh + env(safe-area-inset-bottom));
+            bottom: calc(1.0 * var(--diagonal));
+            bottom: calc(1.0 * var(--diagonal) + env(safe-area-inset-bottom));
         }
         span
         {
@@ -1191,10 +1191,19 @@ body.no-media
         #time:not(.text)
         {
             @include monospace-font();
+            &
+            {
+                @include font-size(calc(6.75 * var(--diagonal)));
+                line-height: 100%;
+            }
         }
         #time.text
         {
             @include font();
+            &
+            {
+                @include font-size(calc(6.75 * var(--diagonal)));
+            }
         }
         #time
         {
@@ -1205,40 +1214,19 @@ body.no-media
             @include font();
             &
             {
+                @include font-size(calc(1.8 * var(--diagonal)));
                 white-space: nowrap;
-            }
-        }
-        &.center
-        {
-            #time
-            {
-                @include font-size(13.5vw);
-            }
-            #date
-            {
-                @include font-size(3vw);
-            }
-        }
-        &:not(.center)
-        {
-            #time
-            {
-                @include font-size(2.0rem);
-            }
-            #date
-            {
-                @include font-size(1.0rem);
             }
         }
         &.top-right, &.top-left
         {
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column;
         }
         &.bottom-right, &.bottom-left
         {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
         }
         &.top-right, &.bottom-right
         {

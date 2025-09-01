@@ -461,6 +461,7 @@ export namespace Events
             }
         );
         updateBrightness();
+        Features.Player.updateStretch();
         updateClock();
         updateClockPosition();
         UI.updateLanguage();
