@@ -464,6 +464,13 @@ export namespace Player
         currentTrack?.updateStretch();
         fadeoutingTrack?.updateStretch();
     }
+    export const updateLoopShortMedia = () =>
+    {
+        if (null !== currentTrack)
+        {
+            currentTrack.updateLoopShortMedia();
+        }
+    }
     export const clear = () =>
     {
         UI.screenBody.classList.toggle("paused", false);

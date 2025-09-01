@@ -2230,15 +2230,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.seek = function (seekPosition) {
-            if (seekPosition < 0) {
-                seekPosition = 0;
-            }
-            if (null !== this.media.duration) {
-                var duration = this.getDuration();
-                if (duration < seekPosition) {
-                    seekPosition = duration;
-                }
-            }
+            seekPosition = Math.max(0, Math.min(seekPosition, this.getDuration()));
             if (this.playerElement instanceof HTMLMediaElement) {
                 var singleSeekPosition = this.isLoop() ?
                     seekPosition % this.getSingleDuration() :
@@ -2401,6 +2393,22 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 else {
                     _library_6.Library.UI.setStyle(this.visualElement, "width", "100%");
                     _library_6.Library.UI.setStyle(this.visualElement, "height", "100%");
+                }
+            }
+        };
+        Track.prototype.updateLoopShortMedia = function () {
+            if (this.playerElement instanceof HTMLMediaElement) {
+                if (this.isLoop()) {
+                    this.playerElement.loop = true;
+                    if (this.paddingElement instanceof HTMLMediaElement) {
+                        this.paddingElement.loop = true;
+                    }
+                }
+                else {
+                    this.playerElement.removeAttribute("loop");
+                    if (this.paddingElement instanceof HTMLMediaElement) {
+                        this.paddingElement.removeAttribute("loop");
+                    }
                 }
             }
         };
@@ -2828,6 +2836,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
+        Player.updateLoopShortMedia = function () {
+            if (null !== currentTrack) {
+                currentTrack.updateLoopShortMedia();
+            }
+        };
         Player.clear = function () {
             ui_6.UI.screenBody.classList.toggle("paused", false);
             _library_7.Library.UI.setTextContent(ui_6.UI.mediaIndex, "");
@@ -3177,6 +3190,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _library_9.Library.UI.setStyle(ui_9.UI.mediaScreen, "opacity", "".concat(value / 100));
             Events.mousemove();
         };
+        var updateLoopShortMedia = function () {
+            _features_2.Features.Player.updateLoopShortMedia();
+        };
         var updateClock = function () {
             control_json_2.default.clock.enum.forEach(function (i) { return ui_9.UI.clockDisplay.classList.toggle(i, i === ui_9.UI.clockSelect.get()); });
         };
@@ -3244,7 +3260,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.initialize = function () {
             var _a, _b;
-            var _c, _d, _e, _f, _g;
+            var _c, _d, _e, _f, _g, _h;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -3448,6 +3464,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
+            };
+            (_h = ui_9.UI.loopShortMediaCheckbox).options || (_h.options = {});
+            ui_9.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
+                console.log("🔁 Loop short media changed:", ui_9.UI.loopShortMediaCheckbox.get());
+                updateLoopShortMedia();
             };
             ui_9.UI.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();

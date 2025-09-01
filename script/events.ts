@@ -22,6 +22,10 @@ export namespace Events
         Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
         mousemove();
     };
+    const updateLoopShortMedia = () =>
+    {
+        Features.Player.updateLoopShortMedia();
+    };
     const updateClock = () =>
     {
         control.clock.enum.forEach
@@ -368,6 +372,12 @@ export namespace Events
             const value = select.get();
             console.log("⏱️ Image span changed:", value);
             MediaList.updateInformationDisplay();
+        };
+        UI.loopShortMediaCheckbox.options ||= { }
+        UI.loopShortMediaCheckbox.options.change = (_event, _checkbox) =>
+        {
+            console.log("🔁 Loop short media changed:", UI.loopShortMediaCheckbox.get());
+            updateLoopShortMedia();
         };
         UI.mediaTitle.addEventListener
         (

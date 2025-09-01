@@ -351,6 +351,28 @@ export class Track
             }
         }
     }
+    updateLoopShortMedia(): void
+    {
+        if (this.playerElement instanceof HTMLMediaElement)
+        {
+            if (this.isLoop())
+            {
+                this.playerElement.loop = true;
+                if (this.paddingElement instanceof HTMLMediaElement)
+                {
+                    this.paddingElement.loop = true;
+                }
+            }
+            else
+            {
+                this.playerElement.removeAttribute("loop");
+                if (this.paddingElement instanceof HTMLMediaElement)
+                {
+                    this.paddingElement.removeAttribute("loop");
+                }
+            }
+        }
+    }
     isMuteCondition(volume: number, rate?: number): boolean
     {
         if (undefined !== rate && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)

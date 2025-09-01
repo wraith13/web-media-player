@@ -801,6 +801,7 @@ declare module "script/features/track" {
         getRemainingTime(): number;
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
         updateStretch(): void;
+        updateLoopShortMedia(): void;
         isMuteCondition(volume: number, rate?: number): boolean;
         setVolume(volume: number, rate?: number): void;
         crossFadeStep(rate: number): void;
@@ -851,6 +852,7 @@ declare module "script/features/player" {
         const removeTrack: (track: Track | null) => void;
         const removeFadeoutTrack: () => void;
         const updateStretch: () => void;
+        const updateLoopShortMedia: () => void;
         const clear: () => void;
     }
 }
