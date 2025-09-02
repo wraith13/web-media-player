@@ -143,6 +143,10 @@ DUMMYSTYLE
             <span data-lang-key="loop-short-media-label"></span>
             <input id="loop-short-media" type="checkbox" />
         </label>
+        <label for="visualizer">
+            <span data-lang-key="visualizer-label"></span>
+            <select id="visualizer"></select>
+        </label>
         <label for="clock">
             <span data-lang-key="clock-label"></span>
             <select id="clock"></select>

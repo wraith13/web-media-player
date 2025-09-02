@@ -78,6 +78,8 @@ export namespace UI
         new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
     export const loopShortMediaCheckbox =
         new Library.Control.Checkbox(control.loopShortMedia);
+    export const visualizerSelect =
+        new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
     export const clockSelect =
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const clockPositionSelect =

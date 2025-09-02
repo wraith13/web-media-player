@@ -351,16 +351,24 @@ export class Track
             }
         }
     }
-    updateLoopShortMedia(): void
+    updateLoopShortMedia(isPlaying: boolean): void
     {
         if (this.playerElement instanceof HTMLMediaElement)
         {
             if (this.isLoop())
             {
                 this.playerElement.loop = true;
+                if (this.playerElement.paused && isPlaying)
+                {
+                    this.playerElement.play();
+                }
                 if (this.paddingElement instanceof HTMLMediaElement)
                 {
                     this.paddingElement.loop = true;
+                    if (this.paddingElement.paused && isPlaying)
+                    {
+                        this.paddingElement.play();
+                    }
                 }
             }
             else

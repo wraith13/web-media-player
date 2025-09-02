@@ -192,6 +192,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "spots-layers-label": "Layers(Spots):",
             "image-span-label": "Image Display Time:",
             "loop-short-media-label": "Loop Short Media:",
+            "visualizer-label": "Visualizer:",
+            "visualizer-simple": "Simple",
+            "visualizer-raw-frequency-data": "Raw Frequency Data",
             "fuse-fps-label": "Fuse FPS:",
             "frame-delay-label": "Frame Delay:",
             "easing-label": "Easing:",
@@ -261,6 +264,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "spots-layers-label": "レイヤー数(スポット):",
             "image-span-label": "画像表示時間:",
             "loop-short-media-label": "短いメディアをループ再生:",
+            "visualizer-label": "ビジュアライザー:",
+            "visualizer-simple": "シンプル",
+            "visualizer-raw-frequency-data": "生の周波数データ",
             "fuse-fps-label": "フューズ FPS:",
             "frame-delay-label": "フレーム遅延:",
             "easing-label": "イージング:",
@@ -1345,6 +1351,14 @@ define("resource/control", [], {
         "id": "loop-short-media",
         "default": false
     },
+    "visualizer": {
+        "id": "visualizer",
+        "enum": [
+            "simple",
+            "raw-frequency-data"
+        ],
+        "default": "simple"
+    },
     "clock": {
         "id": "clock",
         "enum": [
@@ -1434,6 +1448,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         });
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
+        UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.clockPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
@@ -2396,12 +2411,18 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
         };
-        Track.prototype.updateLoopShortMedia = function () {
+        Track.prototype.updateLoopShortMedia = function (isPlaying) {
             if (this.playerElement instanceof HTMLMediaElement) {
                 if (this.isLoop()) {
                     this.playerElement.loop = true;
+                    if (this.playerElement.paused && isPlaying) {
+                        this.playerElement.play();
+                    }
                     if (this.paddingElement instanceof HTMLMediaElement) {
                         this.paddingElement.loop = true;
+                        if (this.paddingElement.paused && isPlaying) {
+                            this.paddingElement.play();
+                        }
                     }
                 }
                 else {
@@ -2833,14 +2854,14 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack = null;
         };
         Player.updateStretch = function () {
-            var width = window.innerWidth, height = window.innerHeight;
-            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(width, height) * 0.01, "px"));
+            var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
+            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
         };
         Player.updateLoopShortMedia = function () {
             if (null !== currentTrack) {
-                currentTrack.updateLoopShortMedia();
+                currentTrack.updateLoopShortMedia(Player.isPlaying());
             }
         };
         Player.clear = function () {

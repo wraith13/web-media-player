@@ -86,6 +86,14 @@
         "id": "loop-short-media",
         "default": false
     },
+    "visualizer": {
+        "id": "visualizer",
+        "enum": [
+            "simple",
+            "raw-frequency-data"
+        ],
+        "default": "simple"
+    },
     "clock": {
         "id": "clock",
         "enum": [

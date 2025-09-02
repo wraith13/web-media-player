@@ -470,7 +470,7 @@ export namespace Player
     {
         if (null !== currentTrack)
         {
-            currentTrack.updateLoopShortMedia();
+            currentTrack.updateLoopShortMedia(isPlaying());
         }
     }
     export const clear = () =>

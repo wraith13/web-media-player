@@ -48,6 +48,9 @@ declare module "locale/generated/master" {
             "spots-layers-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
+            "visualizer-label": string;
+            "visualizer-simple": string;
+            "visualizer-raw-frequency-data": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -117,6 +120,9 @@ declare module "locale/generated/master" {
             "spots-layers-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
+            "visualizer-label": string;
+            "visualizer-simple": string;
+            "visualizer-raw-frequency-data": string;
             "fuse-fps-label": string;
             "frame-delay-label": string;
             "easing-label": string;
@@ -191,6 +197,9 @@ declare module "script/library/locale" {
                 "spots-layers-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
+                "visualizer-label": string;
+                "visualizer-simple": string;
+                "visualizer-raw-frequency-data": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -260,6 +269,9 @@ declare module "script/library/locale" {
                 "spots-layers-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
+                "visualizer-label": string;
+                "visualizer-simple": string;
+                "visualizer-raw-frequency-data": string;
                 "fuse-fps-label": string;
                 "frame-delay-label": string;
                 "easing-label": string;
@@ -661,6 +673,7 @@ declare module "script/ui" {
         const crossFadeSelect: Library.Control.Select<number>;
         const imageSpanSelect: Library.Control.Select<number>;
         const loopShortMediaCheckbox: Library.Control.Checkbox;
+        const visualizerSelect: Library.Control.Select<string>;
         const clockSelect: Library.Control.Select<string>;
         const clockPositionSelect: Library.Control.Select<string>;
         const showFpsCheckbox: Library.Control.Checkbox;
@@ -801,7 +814,7 @@ declare module "script/features/track" {
         getRemainingTime(): number;
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
         updateStretch(): void;
-        updateLoopShortMedia(): void;
+        updateLoopShortMedia(isPlaying: boolean): void;
         isMuteCondition(volume: number, rate?: number): boolean;
         setVolume(volume: number, rate?: number): void;
         crossFadeStep(rate: number): void;
