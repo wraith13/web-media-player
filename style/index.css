@@ -414,7 +414,7 @@ body.play #screen-body #media-list:not(.show)::before {
   }
 }
 #screen-body #media-list .item:not(.add)::before {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-body #media-list .item:not(.add)::before {
   content: counter(item-num);
@@ -503,7 +503,7 @@ body.play #screen-body #media-list:not(.show)::before {
   }
 }
 #screen-body #media-list .item > span.size {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-body #media-list .item > span.size {
   font-size: 1rem;
@@ -529,7 +529,7 @@ body.play #screen-body #media-list:not(.show)::before {
   }
 }
 #screen-body #media-list .item > span.duration {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 1rem;
@@ -722,7 +722,7 @@ body.show-paused-media #screen-body #media-list {
   }
 }
 #fps {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #fps {
   position: absolute;
@@ -1261,7 +1261,7 @@ body.show-seek-bar #media-index:not(.show)::before {
   }
 }
 #media-index {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #media-index {
   left: 0.5rem;
@@ -1419,7 +1419,7 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   }
 }
 #media-time-frame #media-time {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #media-time-frame #media-time {
   border-style: solid;
@@ -1881,7 +1881,7 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   }
 }
 #setting-panel label .value-text {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #setting-panel label .value-text {
   text-align: end;
@@ -2080,10 +2080,10 @@ body:not(.play) #clock-panel:not(.show)::before {
   }
 }
 #clock-panel #time:not(.text) {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #clock-panel #time:not(.text) {
-  font-size: calc(6.75 * var(--diagonal));
+  font-size: calc(4.8 * var(--diagonal));
   line-height: 100%;
 }
 #clock-panel #time.text {
@@ -2104,7 +2104,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #time.text {
-  font-size: calc(6.75 * var(--diagonal));
+  font-size: calc(4.8 * var(--diagonal));
 }
 #clock-panel #time {
   white-space: nowrap;
@@ -2127,16 +2127,16 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #date {
-  font-size: calc(1.8 * var(--diagonal));
+  font-size: calc(2.5 * var(--diagonal));
   white-space: nowrap;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
   align-items: end;
@@ -2261,7 +2261,7 @@ body.show-paused-media #screen-footer #supplementary-line #keyboard-shortcut:not
   }
 }
 #screen-footer #supplementary-line #keyboard-shortcut span kbd {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-footer #supplementary-line #keyboard-shortcut span kbd {
   display: inline-block;
@@ -2291,7 +2291,7 @@ body.show-paused-media #screen-footer #supplementary-line #keyboard-shortcut:not
   }
 }
 #screen-footer #supplementary-line #keyboard-shortcut span .separator {
-  font-family: monospace;
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-footer #supplementary-line #keyboard-shortcut span .separator {
   display: inline-block;

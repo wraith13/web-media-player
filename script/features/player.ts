@@ -461,8 +461,8 @@ export namespace Player
     }
     export const updateStretch = () =>
     {
-        const { innerWidth: width, innerHeight: height } = window;
-        document.documentElement.style.setProperty('--diagonal', `${Math.hypot(width, height) *0.01}px`);
+        const { innerWidth, innerHeight } = window;
+        document.documentElement.style.setProperty('--diagonal', `${Math.hypot(innerWidth, innerHeight) *0.01}px`);
         currentTrack?.updateStretch();
         fadeoutingTrack?.updateStretch();
     }

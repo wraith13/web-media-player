@@ -208,10 +208,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "brightness-label": "Brightness:",
             "clock-position-label": "Clock Position:",
             "center": "Center",
-            "top-left": "Top Left",
             "top-right": "Top Right",
-            "bottom-left": "Bottom Left",
             "bottom-right": "Bottom Right",
+            "bottom-left": "Bottom Left",
+            "top-left": "Top Left",
             "stretch-label": "Stretch:",
             "padding-label": "Padding:",
             "language-label": "Language:",
@@ -276,10 +276,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "rainbow": "レインボー",
             "clock-position-label": "時計位置:",
             "center": "中央",
-            "top-left": "左上",
             "top-right": "右上",
-            "bottom-left": "左下",
             "bottom-right": "右下",
+            "bottom-left": "左下",
+            "top-left": "左上",
             "brightness-label": "明るさ:",
             "stretch-label": "ストレッチ:",
             "padding-label": "パディング:",
@@ -1362,10 +1362,10 @@ define("resource/control", [], {
         "id": "clock-position",
         "enum": [
             "center",
-            "top-left",
             "top-right",
+            "bottom-right",
             "bottom-left",
-            "bottom-right"
+            "top-left"
         ],
         "default": "center"
     },

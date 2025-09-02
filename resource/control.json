@@ -103,10 +103,10 @@
         "id": "clock-position",
         "enum": [
             "center",
-            "top-left",
             "top-right",
+            "bottom-right",
             "bottom-left",
-            "bottom-right"
+            "top-left"
         ],
         "default": "center"
     },

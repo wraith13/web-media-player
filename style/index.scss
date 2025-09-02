@@ -1193,7 +1193,7 @@ body.no-media
             @include monospace-font();
             &
             {
-                @include font-size(calc(6.75 * var(--diagonal)));
+                @include font-size(calc(4.8 * var(--diagonal)));
                 line-height: 100%;
             }
         }
@@ -1202,7 +1202,7 @@ body.no-media
             @include font();
             &
             {
-                @include font-size(calc(6.75 * var(--diagonal)));
+                @include font-size(calc(4.8 * var(--diagonal)));
             }
         }
         #time
@@ -1214,19 +1214,19 @@ body.no-media
             @include font();
             &
             {
-                @include font-size(calc(1.8 * var(--diagonal)));
+                @include font-size(calc(2.5 * var(--diagonal)));
                 white-space: nowrap;
             }
         }
         &.top-right, &.top-left
         {
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
         }
         &.bottom-right, &.bottom-left
         {
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column;
         }
         &.top-right, &.bottom-right
         {
