@@ -74,18 +74,6 @@ DUMMYSTYLE
     <span data-lang-key="not-supported-media-message"></span>
 </div>
 <div id="fps"></div>
-<div id="background-introduction-panel">
-    <div class="section">
-        <h2><span data-lang-key="noscript-introduction-title"></span></h2>
-        <p><span data-lang-key="noscript-introduction-description"></span></p>
-    </div>
-</div>
-<div id="popup-introduction-panel">
-    <div class="section">
-        <h2><span data-lang-key="noscript-introduction-title"></span></h2>
-        <p><span data-lang-key="noscript-introduction-description"></span></p>
-    </div>
-</div>
 <div id="control-panel">
     <button id="shuffle-button">__SHUFFLE_ICON__</button>
     <button id="repeat-button">__REPEAT_ICON__</button>

@@ -400,21 +400,6 @@ export namespace Events
         UI.seekRange.addEventListener("click", event => event.stopPropagation());
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
-        UI.introductionPanel.addEventListener
-        (
-            "click",
-            event =>
-            {
-                event.stopPropagation();
-                UI.introductionPanel.classList.toggle("force-show", false);
-            }
-        );
-        UI.introductionPanel.classList.toggle("force-show", true);
-        setTimeout
-        (
-            () => UI.introductionPanel.classList.toggle("force-show", false),
-            15000
-        );
         UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
         UI.repeatButton.dom.classList.toggle("on", "true" === (Url.params["repeat"] ?? "false").toLowerCase());
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);

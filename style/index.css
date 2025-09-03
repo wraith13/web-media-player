@@ -2084,6 +2084,7 @@ body:not(.play) #clock-panel:not(.show)::before {
 }
 #clock-panel #time:not(.text) {
   font-size: calc(4.8 * var(--diagonal));
+  font-weight: bold;
   line-height: 100%;
 }
 #clock-panel #time.text {

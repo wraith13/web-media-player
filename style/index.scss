@@ -1194,6 +1194,7 @@ body.no-media
             &
             {
                 @include font-size(calc(4.8 * var(--diagonal)));
+                font-weight: bold;
                 line-height: 100%;
             }
         }

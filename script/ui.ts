@@ -109,8 +109,6 @@ export namespace UI
         );
     export const urlAnchor =
         Library.UI.getElementById("a", "url");
-    export const introductionPanel =
-        Library.UI.getElementById("div", "popup-introduction-panel");
     export const fpsDisplay =
         Library.UI.getElementById("div", "fps");
     export const clockDisplay =

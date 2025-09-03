@@ -187,17 +187,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lines": "Lines",
             "spots": "Spots",
             "both": "Both",
-            "canvas-size-label": "Canvas Size:",
-            "layers-label": "Layers:",
-            "spots-layers-label": "Layers(Spots):",
             "image-span-label": "Image Display Time:",
             "loop-short-media-label": "Loop Short Media:",
             "visualizer-label": "Visualizer:",
             "visualizer-simple": "Simple",
             "visualizer-raw-frequency-data": "Raw Frequency Data",
-            "fuse-fps-label": "Fuse FPS:",
-            "frame-delay-label": "Frame Delay:",
-            "easing-label": "Easing:",
             "with-fullscreen-label": "FullScreen:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
@@ -219,8 +213,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "padding-label": "Padding:",
             "language-label": "Language:",
             "url-label": "Link to this setting",
-            "run-benchmark-label": "Run Benchmark",
-            "informationFuseFps": "⚠️ Automatically stops if FPS(Max) drops below \"Fuse FPS\" to avoid crashing the web browser or OS.",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -229,12 +221,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "ago": "ago",
             "Hide UI": "Hide UI",
             "Play / Pause": "Play / Pause",
-            "Switch Pattern": "Switch Pattern",
-            "Switch Coloring": "Switch Coloring",
-            "Scaling Canvas Size": "Scaling Canvas Size",
-            "Increase / Decrease Frame Delay": "Increase / Decrease Frame Delay",
-            "Increase / Decrease Layer": "Increase / Decrease Layer",
-            "Speed Down / Up": "Speed Down / Up",
             "FullScreen": "FullScreen",
             "Show FPS": "Show FPS",
             "Switch Clock": "Switch Clock",
@@ -259,17 +245,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lines": "ライン",
             "spots": "スポット",
             "both": "両方",
-            "canvas-size-label": "キャンバスサイズ:",
-            "layers-label": "レイヤー数:",
-            "spots-layers-label": "レイヤー数(スポット):",
             "image-span-label": "画像表示時間:",
             "loop-short-media-label": "短いメディアをループ再生:",
             "visualizer-label": "ビジュアライザー:",
             "visualizer-simple": "シンプル",
             "visualizer-raw-frequency-data": "生の周波数データ",
-            "fuse-fps-label": "フューズ FPS:",
-            "frame-delay-label": "フレーム遅延:",
-            "easing-label": "イージング:",
             "with-fullscreen-label": "フルスクリーン:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
@@ -291,8 +271,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "padding-label": "パディング:",
             "language-label": "言語:",
             "url-label": "この設定のリンク",
-            "run-benchmark-label": "ベンチマーク実行",
-            "informationFuseFps": "⚠️ Web ブラウザや OS がクラッシュする事を避ける為に FPS(Max) が \"フューズ FPS\" を下回ると自動停止します。",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -301,12 +279,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "ago": "前",
             "Hide UI": "UI 非表示",
             "Play / Pause": "再生 / 一時停止",
-            "Switch Pattern": "パターン切り替え",
-            "Switch Coloring": "カラーリング切り替え",
-            "Scaling Canvas Size": "キャンバスサイズ拡大縮小",
-            "Increase / Decrease Frame Delay": "フレーム遅延増減",
-            "Increase / Decrease Layer": "レイヤー増減",
-            "Speed Down / Up": "スピード ダウン/アップ",
             "FullScreen": "フルスクリーン",
             "Show FPS": "FPS 表示",
             "Switch Clock": "時計切り替え",
@@ -1463,7 +1435,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     + _library_2.Library.Locale.toRtl(_library_2.Library.Locale.map("lang-label", i), _library_2.Library.Locale.isRtl() && _library_2.Library.Locale.isLtr(i))); },
         });
         UI.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
-        UI.introductionPanel = _library_2.Library.UI.getElementById("div", "popup-introduction-panel");
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
         UI.clockDisplay = _library_2.Library.UI.getElementById("div", "clock-panel");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
@@ -3504,12 +3475,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_9.UI.seekRange.addEventListener("change", updateSeek);
             ui_9.UI.seekRange.addEventListener("input", updateSeek);
-            ui_9.UI.introductionPanel.addEventListener("click", function (event) {
-                event.stopPropagation();
-                ui_9.UI.introductionPanel.classList.toggle("force-show", false);
-            });
-            ui_9.UI.introductionPanel.classList.toggle("force-show", true);
-            setTimeout(function () { return ui_9.UI.introductionPanel.classList.toggle("force-show", false); }, 15000);
             ui_9.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
             ui_9.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
             ui_9.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.volumeRange.options.change);
