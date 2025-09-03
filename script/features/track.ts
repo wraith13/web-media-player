@@ -5,6 +5,8 @@ import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { Visualizer } from "./visualizer";
 import config from "@resource/config.json";
+const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+const fftSize = 1024;
 export class Track
 {
     playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -15,6 +17,9 @@ export class Track
     elapsedTime: number | null = null;
     fadeRate: number = 0.0;
     currentTimeForValidation: number = 0.0;
+    analyserNode: AnalyserNode | null = null;
+    mediaElementAudioSourceNode: MediaElementAudioSourceNode | null = null;
+    dataArray: Uint8Array<ArrayBuffer> | null = null;
     constructor(media: Media.Entry, index: number)
     {
         this.media = media;
@@ -33,6 +38,27 @@ export class Track
             this.playerElement = this.makePlayerElement() as HTMLAudioElement;
             this.visualElement = Visualizer.make(media, index);
             this.visualElement.appendChild(this.playerElement);
+            if (audioContext)
+            {
+                try
+                {
+                    this.analyserNode = audioContext.createAnalyser();
+                    this.analyserNode.fftSize = fftSize;
+                    this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(this.playerElement);
+                    this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                    this.analyserNode.connect(audioContext.destination);
+                    const bufferLength = this.analyserNode.frequencyBinCount;
+                    this.dataArray = new Uint8Array(bufferLength);
+                    console.log("🦋 AudioContext initialized for audio visualization.");
+                }
+                catch (e)
+                {
+                    console.error("🦋 AudioContext error:", e);
+                    this.analyserNode = null;
+                    this.mediaElementAudioSourceNode = null;
+                    this.dataArray = null;
+                }
+            }
             break;
         case "video":
             this.playerElement = this.makePlayerElement();
@@ -105,6 +131,10 @@ export class Track
         this.startTime = Date.now() -(this.elapsedTime ?? 0);
         if (this.playerElement instanceof HTMLMediaElement)
         {
+            if (audioContext && "suspended" === audioContext.state)
+            {
+                await audioContext.resume();
+            }
             await this.playerElement.play();
             this.currentTimeForValidation = this.playerElement.currentTime;
             if (this.paddingElement instanceof HTMLMediaElement)
@@ -194,11 +224,20 @@ export class Track
             position: this.getElapsedTime() /1000,
         });
     }
+    getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
+    {
+        if (this.analyserNode && this.dataArray)
+        {
+            this.analyserNode.getByteFrequencyData(this.dataArray);
+            return this.dataArray;
+        }
+        return null;
+    }
     step(): void
     {
         if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
-            Visualizer.step(this.media, this.playerElement, this.visualElement);
+            Visualizer.step(this.media, this.playerElement, this.visualElement, this.getByteFrequencyData());
         }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
@@ -410,6 +449,14 @@ export class Track
     }
     release(): void
     {
+        if (this.analyserNode && this.mediaElementAudioSourceNode)
+        {
+            this.analyserNode.disconnect();
+            this.mediaElementAudioSourceNode.disconnect();
+            this.analyserNode = null;
+            this.mediaElementAudioSourceNode = null;
+            this.dataArray = null;
+        }
         ElementPool.release(this.playerElement);
         ElementPool.release(this.paddingElement);
     }

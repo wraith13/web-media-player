@@ -291,7 +291,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
   height: calc(25vw + 25vh);
   width: calc(25vw + 25vh);
   border-radius: 50%;

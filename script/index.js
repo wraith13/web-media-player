@@ -2081,14 +2081,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
-        Visualizer.step = function (_media, playerDom, visualDom) {
+        Visualizer.step = function (_media, playerDom, visualDom, dataArray) {
             Visualizer.makeSureIcon(visualDom).catch(console.error);
             Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
-            // Library.UI.setTextContent
-            // (
-            //     makeSureTextSpan(visualDom),
-            //     `${Tools.Timespan.toMediaTimeString(playerDom.currentTime *1000)} / ${Tools.Timespan.toMediaTimeString(playerDom.duration *1000)}`
-            // );
+            Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(dataArray)));
+        };
+        Visualizer.getVolume = function (dataArray) {
+            if (dataArray && 0 < dataArray.length) {
+                return (Math.hypot.apply(Math, Array.from(dataArray)) / Math.sqrt(dataArray.length)) / 255.0;
+            }
+            return 0;
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
@@ -2097,6 +2099,8 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = void 0;
     config_json_3 = __importDefault(config_json_3);
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var fftSize = 1024;
     var Track = /** @class */ (function () {
         function Track(media, index) {
             this.paddingElement = null;
@@ -2104,6 +2108,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.elapsedTime = null;
             this.fadeRate = 0.0;
             this.currentTimeForValidation = 0.0;
+            this.analyserNode = null;
+            this.mediaElementAudioSourceNode = null;
+            this.dataArray = null;
             this.media = media;
             switch (media.category) {
                 case "image":
@@ -2118,6 +2125,24 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.playerElement = this.makePlayerElement();
                     this.visualElement = visualizer_1.Visualizer.make(media, index);
                     this.visualElement.appendChild(this.playerElement);
+                    if (audioContext) {
+                        try {
+                            this.analyserNode = audioContext.createAnalyser();
+                            this.analyserNode.fftSize = fftSize;
+                            this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(this.playerElement);
+                            this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                            this.analyserNode.connect(audioContext.destination);
+                            var bufferLength = this.analyserNode.frequencyBinCount;
+                            this.dataArray = new Uint8Array(bufferLength);
+                            console.log("🦋 AudioContext initialized for audio visualization.");
+                        }
+                        catch (e) {
+                            console.error("🦋 AudioContext error:", e);
+                            this.analyserNode = null;
+                            this.mediaElementAudioSourceNode = null;
+                            this.dataArray = null;
+                        }
+                    }
                     break;
                 case "video":
                     this.playerElement = this.makePlayerElement();
@@ -2180,23 +2205,28 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     switch (_b.label) {
                         case 0:
                             this.startTime = Date.now() - ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0);
-                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 4];
-                            return [4 /*yield*/, this.playerElement.play()];
+                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 6];
+                            if (!(audioContext && "suspended" === audioContext.state)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, audioContext.resume()];
                         case 1:
                             _b.sent();
+                            _b.label = 2;
+                        case 2: return [4 /*yield*/, this.playerElement.play()];
+                        case 3:
+                            _b.sent();
                             this.currentTimeForValidation = this.playerElement.currentTime;
-                            if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
+                            if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 5];
                             return [4 /*yield*/, this.paddingElement.play()];
-                        case 2:
+                        case 4:
                             _b.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _b.label = 3;
-                        case 3:
+                            _b.label = 5;
+                        case 5:
                             if (!this.isLoop()) {
                                 this.startTime = Date.now() - (this.playerElement.currentTime * 1000);
                             }
-                            _b.label = 4;
-                        case 4:
+                            _b.label = 6;
+                        case 6:
                             this.elapsedTime = null;
                             return [2 /*return*/];
                     }
@@ -2261,9 +2291,16 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 position: this.getElapsedTime() / 1000,
             });
         };
+        Track.prototype.getByteFrequencyData = function () {
+            if (this.analyserNode && this.dataArray) {
+                this.analyserNode.getByteFrequencyData(this.dataArray);
+                return this.dataArray;
+            }
+            return null;
+        };
         Track.prototype.step = function () {
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
-                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement);
+                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.getByteFrequencyData());
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
@@ -2425,6 +2462,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.release = function () {
+            if (this.analyserNode && this.mediaElementAudioSourceNode) {
+                this.analyserNode.disconnect();
+                this.mediaElementAudioSourceNode.disconnect();
+                this.analyserNode = null;
+                this.mediaElementAudioSourceNode = null;
+                this.dataArray = null;
+            }
             elementpool_1.ElementPool.release(this.playerElement);
             elementpool_1.ElementPool.release(this.paddingElement);
         };

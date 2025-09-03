@@ -48,14 +48,18 @@ export namespace Visualizer
         }
         return result;
     };
-    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom): void =>
+    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, dataArray: Uint8Array<ArrayBuffer> | null): void =>
     {
         makeSureIcon(visualDom).catch(console.error);
         makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
-        // Library.UI.setTextContent
-        // (
-        //     makeSureTextSpan(visualDom),
-        //     `${Tools.Timespan.toMediaTimeString(playerDom.currentTime *1000)} / ${Tools.Timespan.toMediaTimeString(playerDom.duration *1000)}`
-        // );
+        makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(dataArray)}`);
     };
+    export const getVolume = (dataArray: Uint8Array<ArrayBuffer> | null): number =>
+    {
+        if (dataArray && 0 < dataArray.length)
+        {
+            return (Math.hypot(...Array.from(dataArray)) / Math.sqrt(dataArray.length)) /255.0;
+        }
+        return 0;
+    }
 }

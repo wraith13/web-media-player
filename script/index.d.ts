@@ -719,7 +719,8 @@ declare module "script/features/visualizer" {
         const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
-        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom) => void;
+        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, dataArray: Uint8Array<ArrayBuffer> | null) => void;
+        const getVolume: (dataArray: Uint8Array<ArrayBuffer> | null) => number;
     }
 }
 declare module "script/features/track" {
@@ -734,6 +735,9 @@ declare module "script/features/track" {
         elapsedTime: number | null;
         fadeRate: number;
         currentTimeForValidation: number;
+        analyserNode: AnalyserNode | null;
+        mediaElementAudioSourceNode: MediaElementAudioSourceNode | null;
+        dataArray: Uint8Array<ArrayBuffer> | null;
         constructor(media: Media.Entry, index: number);
         selfValidate(): boolean;
         makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -747,6 +751,7 @@ declare module "script/features/track" {
         fastForward(): void;
         rewind(): void;
         setPositionState(): void;
+        getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
         step(): void;
         isLoop(): boolean;
         getImageDuration(): number;
