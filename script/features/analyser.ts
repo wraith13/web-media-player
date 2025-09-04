@@ -16,7 +16,7 @@ export namespace Analyser
     {
         analyserNode: AnalyserNode;
         mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-        dataArray: Uint8Array<ArrayBuffer>;
+        frequencyDataArray: Uint8Array<ArrayBuffer>;
         constructor(public mediaElement: HTMLMediaElement)
         {
             this.analyserNode = audioContext.createAnalyser();
@@ -24,7 +24,7 @@ export namespace Analyser
             this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
             this.mediaElementAudioSourceNode.connect(this.analyserNode);
             this.analyserNode.connect(audioContext.destination);
-            this.dataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+            this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
         }
         destroy(): void
         {
@@ -33,7 +33,7 @@ export namespace Analyser
         }
         getByteFrequencyData(): Uint8Array<ArrayBuffer>
         {
-            this.analyserNode.getByteFrequencyData(this.dataArray);
-            return this.dataArray;
+            this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+            return this.frequencyDataArray;
         }
     }}

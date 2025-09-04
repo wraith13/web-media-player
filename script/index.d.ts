@@ -690,7 +690,7 @@ declare module "script/features/analyser" {
             mediaElement: HTMLMediaElement;
             analyserNode: AnalyserNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-            dataArray: Uint8Array<ArrayBuffer>;
+            frequencyDataArray: Uint8Array<ArrayBuffer>;
             constructor(mediaElement: HTMLMediaElement);
             destroy(): void;
             getByteFrequencyData(): Uint8Array<ArrayBuffer>;
@@ -738,8 +738,9 @@ declare module "script/features/visualizer" {
         const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
-        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, dataArray: Uint8Array<ArrayBuffer> | null) => void;
-        const getVolume: (dataArray: Uint8Array<ArrayBuffer> | null) => number;
+        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
+        const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
+        const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
     }
 }
 declare module "script/features/track" {

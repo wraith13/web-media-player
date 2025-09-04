@@ -19,8 +19,7 @@
         "mousemoveTimeout": 1500
     },
     "analyser": {
-        "fftSize": 1024,
-        "pseudoVolumeMax": 0.5
+        "fftSize": 1024
     },
     "player": {
         "fastFowardSpan": 5000,

@@ -1,7 +1,6 @@
 import { Library } from "@library";
 //import { Tools } from "@tools";
 import { Media } from "./media";
-import config from "@resource/config.json";
 export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
@@ -49,18 +48,20 @@ export namespace Visualizer
         }
         return result;
     };
-    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, dataArray: Uint8Array<ArrayBuffer> | null): void =>
+    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null): void =>
     {
         makeSureIcon(visualDom).catch(console.error);
         makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
-        makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(dataArray)}`);
+        makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
     };
-    export const getVolume = (dataArray: Uint8Array<ArrayBuffer> | null): number =>
+    export const getVolume = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): number =>
+        Math.sqrt(getRawVolume(frequencyDataArray));
+    export const getRawVolume = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): number =>
     {
-        if (dataArray && 0 < dataArray.length)
+        if (frequencyDataArray && 0 < frequencyDataArray.length)
         {
-            return ((Math.hypot(...Array.from(dataArray)) / Math.sqrt(dataArray.length)) /255.0) / (config.analyser.pseudoVolumeMax ?? 0.5);
+            return (Math.hypot(...Array.from(frequencyDataArray)) / Math.sqrt(frequencyDataArray.length)) /255.0;
         }
         return 0;
-    }
+    };
 }
