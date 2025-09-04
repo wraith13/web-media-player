@@ -11,7 +11,7 @@ import * as ImportedEnvironment from "./environment";
 export namespace Tools
 {
     export import TypeGuards = ImportedTypeGuards.TypeGuards;
-    export import Number = ImportedNumber.Number;
+    export import Number = ImportedNumber.NumberTools;
     export import Timespan = ImportedTimespan.Timespan;
     export import Math = ImportedMath.Math;
     export import Random = ImportedRandom.Random;

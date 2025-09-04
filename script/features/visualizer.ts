@@ -1,6 +1,7 @@
 import { Library } from "@library";
 //import { Tools } from "@tools";
 import { Media } from "./media";
+import config from "@resource/config.json";
 export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
@@ -58,7 +59,7 @@ export namespace Visualizer
     {
         if (dataArray && 0 < dataArray.length)
         {
-            return (Math.hypot(...Array.from(dataArray)) / Math.sqrt(dataArray.length)) /255.0;
+            return ((Math.hypot(...Array.from(dataArray)) / Math.sqrt(dataArray.length)) /255.0) / (config.analyser.pseudoVolumeMax ?? 0.5);
         }
         return 0;
     }

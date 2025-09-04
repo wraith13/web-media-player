@@ -5,7 +5,7 @@ declare module "script/tools/type-guards" {
     }
 }
 declare module "script/tools/number" {
-    export namespace Number {
+    export namespace NumberTools {
         const getIntegralDigits: (value: number) => number;
         const toString: (value: number, maximumFractionDigits?: number) => string;
     }
@@ -538,7 +538,7 @@ declare module "script/tools/index" {
     import * as ImportedEnvironment from "script/tools/environment";
     export namespace Tools {
         export import TypeGuards = ImportedTypeGuards.TypeGuards;
-        export import Number = ImportedNumber.Number;
+        export import Number = ImportedNumber.NumberTools;
         export import Timespan = ImportedTimespan.Timespan;
         export import Math = ImportedMath.Math;
         export import Random = ImportedRandom.Random;
@@ -680,14 +680,33 @@ declare module "script/features/media" {
         const makeThumbnailElement: (entry: Entry) => Promise<Library.UI.ElementSource<"img"> | SVGElement>;
     }
 }
+declare module "script/features/analyser" {
+    export namespace Analyser {
+        const audioContext: AudioContext;
+        const fftSize: number;
+        const isSupported: () => boolean;
+        const resume: () => Promise<void>;
+        class Entry {
+            mediaElement: HTMLMediaElement;
+            analyserNode: AnalyserNode;
+            mediaElementAudioSourceNode: MediaElementAudioSourceNode;
+            dataArray: Uint8Array<ArrayBuffer>;
+            constructor(mediaElement: HTMLMediaElement);
+            destroy(): void;
+            getByteFrequencyData(): Uint8Array<ArrayBuffer>;
+        }
+    }
+}
 declare module "script/features/elementpool" {
     import { Media } from "script/features/media";
+    import { Analyser } from "script/features/analyser";
     export namespace ElementPool {
         const makeSure: (data: {
             image: Media.Entry | null;
             audio: Media.Entry | null;
             video: Media.Entry | null;
         }) => Promise<void>;
+        const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement) => Promise<Analyser.Entry | null>;
         const get: (media: Media.Entry) => HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         const release: (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) => void;
     }
@@ -725,6 +744,7 @@ declare module "script/features/visualizer" {
 }
 declare module "script/features/track" {
     import { Media } from "script/features/media";
+    import { Analyser } from "script/features/analyser";
     import { Visualizer } from "script/features/visualizer";
     export class Track {
         playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -735,9 +755,7 @@ declare module "script/features/track" {
         elapsedTime: number | null;
         fadeRate: number;
         currentTimeForValidation: number;
-        analyserNode: AnalyserNode | null;
-        mediaElementAudioSourceNode: MediaElementAudioSourceNode | null;
-        dataArray: Uint8Array<ArrayBuffer> | null;
+        analyser: Analyser.Entry | null;
         constructor(media: Media.Entry, index: number);
         selfValidate(): boolean;
         makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -751,7 +769,6 @@ declare module "script/features/track" {
         fastForward(): void;
         rewind(): void;
         setPositionState(): void;
-        getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
         step(): void;
         isLoop(): boolean;
         getImageDuration(): number;

@@ -1,4 +1,4 @@
-import { Number } from "./number";
+import { NumberTools } from "./number";
 export namespace Byte
 {
     const toString = (value: number, maximumDigits?: number) =>
@@ -8,7 +8,7 @@ export namespace Byte
             {
                 maximumFractionDigits:
                     undefined === maximumDigits ? undefined:
-                    Math.max(0, maximumDigits -Number.getIntegralDigits(value)),
+                    Math.max(0, maximumDigits -NumberTools.getIntegralDigits(value)),
 
             }
         );

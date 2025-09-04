@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Sep 03 2025 23:54:08 GMT+0900 (日本標準時)
+    build at: Thu Sep 04 2025 09:21:04 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2777,8 +2777,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Sep 03 2025 23:54:08 GMT+0900 (日本標準時)",
-    tick: 1756911248455
+    at: "Thu Sep 04 2025 09:21:04 GMT+0900 (日本標準時)",
+    tick: 1756945264674
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4679,16 +4679,16 @@ define("script/tools/type-guards", ["require", "exports"], function (require, ex
 define("script/tools/number", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Number = void 0;
-    var Number;
-    (function (Number) {
-        Number.getIntegralDigits = function (value) {
+    exports.NumberTools = void 0;
+    var NumberTools;
+    (function (NumberTools) {
+        NumberTools.getIntegralDigits = function (value) {
             return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
         };
-        Number.toString = function (value, maximumFractionDigits) {
+        NumberTools.toString = function (value, maximumFractionDigits) {
             return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
-    })(Number || (exports.Number = Number = {}));
+    })(NumberTools || (exports.NumberTools = NumberTools = {}));
 });
 define("script/tools/math", ["require", "exports"], function (require, exports) {
     "use strict";
@@ -4927,6 +4927,10 @@ define("resource/config", [], {
     },
     "ui": {
         "mousemoveTimeout": 1500
+    },
+    "analyser": {
+        "fftSize": 1024,
+        "pseudoVolumeMax": 0.5
     },
     "player": {
         "fastFowardSpan": 5000,
@@ -5503,22 +5507,30 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
     var Timespan;
     (function (Timespan) {
         Timespan.toDisplayString = function (value, maximumFractionDigits) {
-            return value < 1000 ? "".concat(number_1.Number.toString(value, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitMs")) :
-                value < 60 * 1000 ? "".concat(number_1.Number.toString(value / 1000, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitS")) :
-                    value < 60 * 60 * 1000 ? "".concat(number_1.Number.toString(value / (60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitM")) :
-                        value < 24 * 60 * 60 * 1000 ? "".concat(number_1.Number.toString(value / (60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
-                            "".concat(number_1.Number.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
+            return value < 1000 ? "".concat(number_1.NumberTools.toString(value, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitMs")) :
+                value < 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / 1000, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitS")) :
+                    value < 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitM")) :
+                        value < 24 * 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
+                            "".concat(number_1.NumberTools.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
         };
         Timespan.toMediaTimeString = function (value) {
-            var seconds = Math.floor(value / 1000);
-            var hours = Math.floor(seconds / 3600);
-            var minutes = Math.floor((seconds % 3600) / 60);
-            var secs = seconds % 60;
-            if (hours === 0) {
-                return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            if (Number.isNaN(value)) {
+                return "NaN";
             }
-            {
-                return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+            else if (value < 0 || !Number.isFinite(value)) {
+                return "00:00";
+            }
+            else {
+                var seconds = Math.floor(value / 1000);
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds % 3600) / 60);
+                var secs = seconds % 60;
+                if (hours === 0) {
+                    return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                }
+                {
+                    return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                }
             }
         };
     })(Timespan || (exports.Timespan = Timespan = {}));
@@ -5591,7 +5603,7 @@ define("script/tools/byte", ["require", "exports", "script/tools/number"], funct
         var toString = function (value, maximumDigits) {
             return value.toLocaleString(undefined, {
                 maximumFractionDigits: undefined === maximumDigits ? undefined :
-                    Math.max(0, maximumDigits - number_2.Number.getIntegralDigits(value)),
+                    Math.max(0, maximumDigits - number_2.NumberTools.getIntegralDigits(value)),
             });
         };
         Byte.toDisplayString = function (value, maximumDigits) {
@@ -5676,7 +5688,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
     var Tools;
     (function (Tools) {
         Tools.TypeGuards = ImportedTypeGuards.TypeGuards;
-        Tools.Number = ImportedNumber.Number;
+        Tools.Number = ImportedNumber.NumberTools;
         Tools.Timespan = ImportedTimespan.Timespan;
         Tools.Math = ImportedMath.Math;
         Tools.Random = ImportedRandom.Random;
@@ -6347,12 +6359,64 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_4, ui_3) {
+define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Analyser = void 0;
+    config_json_3 = __importDefault(config_json_3);
+    var Analyser;
+    (function (Analyser) {
+        var _this = this;
+        var _a;
+        Analyser.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        Analyser.fftSize = (_a = config_json_3.default.analyser.fftSize) !== null && _a !== void 0 ? _a : 1024;
+        Analyser.isSupported = function () {
+            return Boolean(Analyser.audioContext);
+        };
+        Analyser.resume = function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(Analyser.audioContext.state === "suspended")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, Analyser.audioContext.resume()];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        }); };
+        var Entry = /** @class */ (function () {
+            function Entry(mediaElement) {
+                this.mediaElement = mediaElement;
+                this.analyserNode = Analyser.audioContext.createAnalyser();
+                this.analyserNode.fftSize = Analyser.fftSize;
+                this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                this.analyserNode.connect(Analyser.audioContext.destination);
+                this.dataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+            }
+            Entry.prototype.destroy = function () {
+                this.mediaElementAudioSourceNode.disconnect();
+                this.analyserNode.disconnect();
+            };
+            Entry.prototype.getByteFrequencyData = function () {
+                this.analyserNode.getByteFrequencyData(this.dataArray);
+                return this.dataArray;
+            };
+            return Entry;
+        }());
+        Analyser.Entry = Entry;
+    })(Analyser || (exports.Analyser = Analyser = {}));
+});
+define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_4, ui_3, analyser_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ElementPool = void 0;
     var ElementPool;
     (function (ElementPool) {
+        var _this = this;
+        var analyserPool = new Map();
         ElementPool.makeSure = function (data) {
             var result = Promise.resolve();
             if (data.image) {
@@ -6414,6 +6478,25 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
             }
             return result.then(function () { return undefined; });
         };
+        ElementPool.makeSureAnalyser = function (element) { return __awaiter(_this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!analyser_1.Analyser.isSupported()) return [3 /*break*/, 2];
+                        return [4 /*yield*/, analyser_1.Analyser.resume()];
+                    case 1:
+                        _a.sent();
+                        result = analyserPool.get(element);
+                        if (!result) {
+                            result = new analyser_1.Analyser.Entry(element);
+                            analyserPool.set(element, result);
+                        }
+                        return [2 /*return*/, result];
+                    case 2: return [2 /*return*/, null];
+                }
+            });
+        }); };
         ElementPool.get = function (media) {
             switch (media.category) {
                 case "image":
@@ -6595,10 +6678,11 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index"], function (require, exports, _library_5) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "resource/config"], function (require, exports, _library_5, config_json_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
+    config_json_4 = __importDefault(config_json_4);
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
@@ -6652,30 +6736,28 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(dataArray)));
         };
         Visualizer.getVolume = function (dataArray) {
+            var _a;
             if (dataArray && 0 < dataArray.length) {
-                return (Math.hypot.apply(Math, Array.from(dataArray)) / Math.sqrt(dataArray.length)) / 255.0;
+                return ((Math.hypot.apply(Math, Array.from(dataArray)) / Math.sqrt(dataArray.length)) / 255.0) / ((_a = config_json_4.default.analyser.pseudoVolumeMax) !== null && _a !== void 0 ? _a : 0.5);
             }
             return 0;
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_5, elementpool_1, visualizer_1, config_json_3) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_5, elementpool_1, analyser_2, visualizer_1, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = void 0;
-    config_json_3 = __importDefault(config_json_3);
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    var fftSize = 1024;
+    config_json_5 = __importDefault(config_json_5);
     var Track = /** @class */ (function () {
         function Track(media, index) {
+            var _this = this;
             this.paddingElement = null;
             this.startTime = null;
             this.elapsedTime = null;
             this.fadeRate = 0.0;
             this.currentTimeForValidation = 0.0;
-            this.analyserNode = null;
-            this.mediaElementAudioSourceNode = null;
-            this.dataArray = null;
+            this.analyser = null;
             this.media = media;
             switch (media.category) {
                 case "image":
@@ -6690,23 +6772,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.playerElement = this.makePlayerElement();
                     this.visualElement = visualizer_1.Visualizer.make(media, index);
                     this.visualElement.appendChild(this.playerElement);
-                    if (audioContext) {
-                        try {
-                            this.analyserNode = audioContext.createAnalyser();
-                            this.analyserNode.fftSize = fftSize;
-                            this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(this.playerElement);
-                            this.mediaElementAudioSourceNode.connect(this.analyserNode);
-                            this.analyserNode.connect(audioContext.destination);
-                            var bufferLength = this.analyserNode.frequencyBinCount;
-                            this.dataArray = new Uint8Array(bufferLength);
-                            console.log("🦋 AudioContext initialized for audio visualization.");
-                        }
-                        catch (e) {
-                            console.error("🦋 AudioContext error:", e);
-                            this.analyserNode = null;
-                            this.mediaElementAudioSourceNode = null;
-                            this.dataArray = null;
-                        }
+                    if (analyser_2.Analyser.isSupported()) {
+                        elementpool_1.ElementPool.makeSureAnalyser(this.playerElement)
+                            .then(function (analyser) { return _this.analyser = analyser; })
+                            .catch(console.error);
                     }
                     break;
                 case "video":
@@ -6770,28 +6839,23 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     switch (_b.label) {
                         case 0:
                             this.startTime = Date.now() - ((_a = this.elapsedTime) !== null && _a !== void 0 ? _a : 0);
-                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 6];
-                            if (!(audioContext && "suspended" === audioContext.state)) return [3 /*break*/, 2];
-                            return [4 /*yield*/, audioContext.resume()];
+                            if (!(this.playerElement instanceof HTMLMediaElement)) return [3 /*break*/, 4];
+                            return [4 /*yield*/, this.playerElement.play()];
                         case 1:
                             _b.sent();
-                            _b.label = 2;
-                        case 2: return [4 /*yield*/, this.playerElement.play()];
-                        case 3:
-                            _b.sent();
                             this.currentTimeForValidation = this.playerElement.currentTime;
-                            if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 5];
+                            if (!(this.paddingElement instanceof HTMLMediaElement)) return [3 /*break*/, 3];
                             return [4 /*yield*/, this.paddingElement.play()];
-                        case 4:
+                        case 2:
                             _b.sent();
                             this.paddingElement.currentTime = this.playerElement.currentTime;
-                            _b.label = 5;
-                        case 5:
+                            _b.label = 3;
+                        case 3:
                             if (!this.isLoop()) {
                                 this.startTime = Date.now() - (this.playerElement.currentTime * 1000);
                             }
-                            _b.label = 6;
-                        case 6:
+                            _b.label = 4;
+                        case 4:
                             this.elapsedTime = null;
                             return [2 /*return*/];
                     }
@@ -6844,10 +6908,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.seek(this.getDuration() * rate);
         };
         Track.prototype.fastForward = function () {
-            this.diffSeek(config_json_3.default.player.fastFowardSpan);
+            this.diffSeek(config_json_5.default.player.fastFowardSpan);
         };
         Track.prototype.rewind = function () {
-            this.diffSeek(-config_json_3.default.player.rewindSpan);
+            this.diffSeek(-config_json_5.default.player.rewindSpan);
         };
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
@@ -6856,16 +6920,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 position: this.getElapsedTime() / 1000,
             });
         };
-        Track.prototype.getByteFrequencyData = function () {
-            if (this.analyserNode && this.dataArray) {
-                this.analyserNode.getByteFrequencyData(this.dataArray);
-                return this.dataArray;
-            }
-            return null;
-        };
         Track.prototype.step = function () {
+            var _a, _b;
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
-                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.getByteFrequencyData());
+                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_b = (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null);
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_5.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
@@ -7027,13 +7085,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.release = function () {
-            if (this.analyserNode && this.mediaElementAudioSourceNode) {
-                this.analyserNode.disconnect();
-                this.mediaElementAudioSourceNode.disconnect();
-                this.analyserNode = null;
-                this.mediaElementAudioSourceNode = null;
-                this.dataArray = null;
-            }
             elementpool_1.ElementPool.release(this.playerElement);
             elementpool_1.ElementPool.release(this.paddingElement);
         };
@@ -7499,11 +7550,11 @@ define("resource/evil-commonjs.config", [], {
 define("resource/evil-timer.js.config", [], {
     "debug": true
 });
-define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_4) {
+define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_6) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Url = void 0;
-    config_json_4 = __importDefault(config_json_4);
+    config_json_6 = __importDefault(config_json_6);
     var Url;
     (function (Url) {
         Url.parseParameter = function (url) {
@@ -7514,7 +7565,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
             return result;
         };
         Url.make = function (params) {
-            var url = new URL(config_json_4.default.canonicalUrl || window.location.href);
+            var url = new URL(config_json_6.default.canonicalUrl || window.location.href);
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -7773,11 +7824,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_5, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_9, url_3, config_json_7, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_5 = __importDefault(config_json_5);
+    config_json_7 = __importDefault(config_json_7);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -7853,7 +7904,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", config_json_5.default.ui.mousemoveTimeout);
+            return mouseMoveTimer.start(document.body, "mousemove", config_json_7.default.ui.mousemoveTimeout);
         };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
@@ -8099,7 +8150,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_9.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_5.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
+                if (config_json_7.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_9.UI.screenBody);
                 }
                 Events.mousemove();
@@ -8194,10 +8245,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_6, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_11, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_6 = __importDefault(config_json_6);
+    config_json_8 = __importDefault(config_json_8);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -8212,7 +8263,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_6.default,
+        config: config_json_8.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,

@@ -1,8 +1,10 @@
 import { Library } from "@library";
 import { UI } from "../ui";
 import { Media } from "./media";
+import { Analyser } from "./analyser";
 export namespace ElementPool
 {
+    const analyserPool: Map<HTMLMediaElement, Analyser.Entry> = new Map();
     export const makeSure = (data: { image: Media.Entry | null; audio: Media.Entry | null; video: Media.Entry | null; }): Promise<void> =>
     {
         let result: Promise<void> = Promise.resolve();
@@ -84,6 +86,21 @@ export namespace ElementPool
             }
         }
         return result.then(() => undefined);
+    }
+    export const makeSureAnalyser = async (element: HTMLAudioElement | HTMLVideoElement): Promise<Analyser.Entry | null> =>
+    {
+        if (Analyser.isSupported())
+        {
+            await Analyser.resume();
+            let result = analyserPool.get(element);
+            if ( ! result)
+            {
+                result = new Analyser.Entry(element);
+                analyserPool.set(element, result);
+            }
+            return result;
+        }
+        return null;
     }
     export const get = (media: Media.Entry): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null =>
     {

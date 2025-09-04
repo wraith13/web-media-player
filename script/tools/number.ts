@@ -1,4 +1,4 @@
-export namespace Number
+export namespace NumberTools
 {
     export const getIntegralDigits = (value: number): number =>
         1 <= value ? Math.floor(Math.log10(value)) +1: 0;
