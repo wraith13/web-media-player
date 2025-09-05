@@ -364,8 +364,7 @@ define("resource/config", [], {
         "mousemoveTimeout": 1500
     },
     "analyser": {
-        "fftSize": 1024,
-        "pseudoVolumeMax": 0.5
+        "fftSize": 1024
     },
     "player": {
         "fastFowardSpan": 5000,
@@ -2117,7 +2116,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
-    //import config from "@resource/config.json";
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
@@ -2170,14 +2168,14 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
             Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
         };
+        Visualizer.isValidFrequencyDataArray = function (frequencyDataArray) { var _a; return 0 < ((_a = frequencyDataArray === null || frequencyDataArray === void 0 ? void 0 : frequencyDataArray.length) !== null && _a !== void 0 ? _a : 0); };
         Visualizer.getVolume = function (frequencyDataArray) {
-            return Math.sqrt(Visualizer.getRawVolume(frequencyDataArray));
+            return Visualizer.isValidFrequencyDataArray(frequencyDataArray) ?
+                Math.sqrt(Visualizer.getRawVolume(frequencyDataArray)) :
+                0.5;
         };
         Visualizer.getRawVolume = function (frequencyDataArray) {
-            if (frequencyDataArray && 0 < frequencyDataArray.length) {
-                return (Math.hypot.apply(Math, Array.from(frequencyDataArray)) / Math.sqrt(frequencyDataArray.length)) / 255.0;
-            }
-            return 0;
+            return (Math.hypot.apply(Math, Array.from(frequencyDataArray)) / Math.sqrt(frequencyDataArray.length)) / 255.0;
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });

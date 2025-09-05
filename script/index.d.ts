@@ -739,8 +739,9 @@ declare module "script/features/visualizer" {
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
+        const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
-        const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
+        const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer>) => number;
     }
 }
 declare module "script/features/track" {

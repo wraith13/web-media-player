@@ -54,14 +54,12 @@ export namespace Visualizer
         makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
         makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
     };
+    export const isValidFrequencyDataArray = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): frequencyDataArray is Uint8Array<ArrayBuffer> =>
+        0 < (frequencyDataArray?.length ?? 0);
     export const getVolume = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): number =>
-        Math.sqrt(getRawVolume(frequencyDataArray));
-    export const getRawVolume = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): number =>
-    {
-        if (frequencyDataArray && 0 < frequencyDataArray.length)
-        {
-            return (Math.hypot(...Array.from(frequencyDataArray)) / Math.sqrt(frequencyDataArray.length)) /255.0;
-        }
-        return 0;
-    };
+        isValidFrequencyDataArray(frequencyDataArray) ?
+            Math.sqrt(getRawVolume(frequencyDataArray)):
+            0.5;
+    export const getRawVolume = (frequencyDataArray: Uint8Array<ArrayBuffer>): number =>
+        (Math.hypot(...Array.from(frequencyDataArray)) / Math.sqrt(frequencyDataArray.length)) /255.0;
 }
