@@ -379,6 +379,16 @@ export namespace Events
             console.log("🔁 Loop short media changed:", UI.loopShortMediaCheckbox.get());
             updateLoopShortMedia();
         };
+        UI.visualizerSelect.options ||= { };
+        UI.visualizerSelect.options.change = (_event, select) =>
+        {
+            const value = select.get();
+            console.log("🎨 Visualizer changed:", value);
+            control.visualizer.enum.forEach
+            (
+                i => UI.mediaScreen.classList.toggle(i, i === UI.clockPositionSelect.get())
+            );
+        };
         UI.mediaTitle.addEventListener
         (
             "click",
@@ -403,16 +413,17 @@ export namespace Events
         UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
         UI.repeatButton.dom.classList.toggle("on", "true" === (Url.params["repeat"] ?? "false").toLowerCase());
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
-        UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-        UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
-        UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
-        UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
-        UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
-        UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateClockPosition);
         UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);
         UI.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.stretchRange.options.change);
         UI.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
+        UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
+        UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
+        UI.visualizerSelect.loadParameter(Url.params, applyParam);
+        UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
+        UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateClockPosition);
+        UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
         document.body.addEventListener
         (

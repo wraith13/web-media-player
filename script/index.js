@@ -3349,7 +3349,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.initialize = function () {
             var _a, _b;
-            var _c, _d, _e, _f, _g, _h;
+            var _c, _d, _e, _f, _g, _h, _j;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -3559,6 +3559,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("🔁 Loop short media changed:", ui_9.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
             };
+            (_j = ui_9.UI.visualizerSelect).options || (_j.options = {});
+            ui_9.UI.visualizerSelect.options.change = function (_event, select) {
+                var value = select.get();
+                console.log("🎨 Visualizer changed:", value);
+                control_json_2.default.visualizer.enum.forEach(function (i) { return ui_9.UI.mediaScreen.classList.toggle(i, i === ui_9.UI.clockPositionSelect.get()); });
+            };
             ui_9.UI.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
@@ -3573,16 +3579,17 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_9.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
             ui_9.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
             ui_9.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.volumeRange.options.change);
-            ui_9.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_9.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.imageSpanSelect.options.change);
-            ui_9.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_9.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.withFullscreenCheckbox.options.change);
-            ui_9.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
-            ui_9.UI.clockSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClock);
-            ui_9.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClockPosition);
             ui_9.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.brightnessRange.options.change);
             ui_9.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.stretchRange.options.change);
             ui_9.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_9.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_9.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.imageSpanSelect.options.change);
+            ui_9.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_9.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam);
+            ui_9.UI.clockSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClock);
+            ui_9.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClockPosition);
+            ui_9.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_9.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_9.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_6.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
