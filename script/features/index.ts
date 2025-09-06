@@ -3,7 +3,7 @@ import * as ImportedClock from "./clock";
 //import * as ImportedMedia from "./media";
 //import * as ImortedHistory from "./history";
 //import * as ImportedTrack from "./track";
-//import * as ImportedVisualizer from "./visualizer";
+import * as ImportedVisualizer from "./visualizer";
 import * as ImportedPlayer from "./player";
 export namespace Features
 {
@@ -12,6 +12,6 @@ export namespace Features
     //export import Media = ImportedMedia.Media;
     //export import History = ImortedHistory.History;
     //export import Track = ImportedTrack.Track;
-    //export import Visualizer = ImportedVisualizer.Visualizer;
+    export import Visualizer = ImportedVisualizer.Visualizer;
     export import Player = ImportedPlayer.Player;
 }

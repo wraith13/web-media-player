@@ -680,6 +680,25 @@ declare module "script/features/media" {
         const makeThumbnailElement: (entry: Entry) => Promise<Library.UI.ElementSource<"img"> | SVGElement>;
     }
 }
+declare module "script/features/visualizer" {
+    import { Media } from "script/features/media";
+    export namespace Visualizer {
+        type VisualizerDom = HTMLDivElement;
+        const VisualizerDom: {
+            new (): HTMLDivElement;
+            prototype: HTMLDivElement;
+        };
+        const isSimpleMode: () => boolean;
+        const make: (media: Media.Entry, index: number) => VisualizerDom;
+        const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
+        const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
+        const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
+        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
+        const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
+        const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
+        const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer>) => number;
+    }
+}
 declare module "script/features/analyser" {
     export namespace Analyser {
         const audioContext: AudioContext;
@@ -724,24 +743,6 @@ declare module "script/features/history" {
         const isAtEnd: () => boolean;
         const back: () => Media.Entry | undefined;
         const getShuffleNext: () => number;
-    }
-}
-declare module "script/features/visualizer" {
-    import { Media } from "script/features/media";
-    export namespace Visualizer {
-        type VisualizerDom = HTMLDivElement;
-        const VisualizerDom: {
-            new (): HTMLDivElement;
-            prototype: HTMLDivElement;
-        };
-        const make: (media: Media.Entry, index: number) => VisualizerDom;
-        const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
-        const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
-        const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
-        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
-        const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
-        const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
-        const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer>) => number;
     }
 }
 declare module "script/features/track" {
@@ -839,10 +840,12 @@ declare module "script/features/player" {
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
+    import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
+        export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
     }
 }

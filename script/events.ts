@@ -26,6 +26,14 @@ export namespace Events
     {
         Features.Player.updateLoopShortMedia();
     };
+    const updateVisualizer = () =>
+    {
+        const value = UI.visualizerSelect.get();
+        control.visualizer.enum.forEach
+        (
+            i => UI.mediaScreen.classList.toggle(i, i === value)
+        );
+    };
     const updateClock = () =>
     {
         control.clock.enum.forEach
@@ -379,16 +387,6 @@ export namespace Events
             console.log("🔁 Loop short media changed:", UI.loopShortMediaCheckbox.get());
             updateLoopShortMedia();
         };
-        UI.visualizerSelect.options ||= { };
-        UI.visualizerSelect.options.change = (_event, select) =>
-        {
-            const value = select.get();
-            console.log("🎨 Visualizer changed:", value);
-            control.visualizer.enum.forEach
-            (
-                i => UI.mediaScreen.classList.toggle(i, i === UI.clockPositionSelect.get())
-            );
-        };
         UI.mediaTitle.addEventListener
         (
             "click",
@@ -420,7 +418,7 @@ export namespace Events
         UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
-        UI.visualizerSelect.loadParameter(Url.params, applyParam);
+        UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateClockPosition);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
@@ -458,6 +456,7 @@ export namespace Events
         );
         updateBrightness();
         Features.Player.updateStretch();
+        updateVisualizer();
         updateClock();
         updateClockPosition();
         UI.updateLanguage();

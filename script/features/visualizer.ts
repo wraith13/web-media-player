@@ -1,10 +1,13 @@
 import { Library } from "@library";
 //import { Tools } from "@tools";
 import { Media } from "./media";
+import { UI } from "../ui";
 export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
     export const VisualizerDom = HTMLDivElement;
+    export const isSimpleMode = (): boolean =>
+        UI.mediaScreen.classList.contains("simple");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -51,8 +54,11 @@ export namespace Visualizer
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null): void =>
     {
         makeSureIcon(visualDom).catch(console.error);
-        makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
-        makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
+        if (isSimpleMode())
+        {
+            makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
+            makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
+        }
     };
     export const isValidFrequencyDataArray = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): frequencyDataArray is Uint8Array<ArrayBuffer> =>
         0 < (frequencyDataArray?.length ?? 0);

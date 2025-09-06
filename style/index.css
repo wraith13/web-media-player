@@ -316,6 +316,12 @@ body.list #screen-body #media-screen:not(.show)::before {
   filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
   z-index: 100;
 }
+#screen-body #media-screen:not(.simple) .visual-progress-circle {
+  display: none;
+}
+#screen-body #media-screen:not(.raw-frequency-data) .visual-raw-frequency-data {
+  font-size: 0rem;
+}
 #screen-body #media-screen.disable-transition {
   transition: none !important;
 }

@@ -113,6 +113,20 @@
                 z-index: 100;
             }
         }
+        &:not(.simple)
+        {
+            .visual-progress-circle
+            {
+                display: none;
+            }
+        }
+        &:not(.raw-frequency-data)
+        {
+            .visual-raw-frequency-data
+            {
+                font-size: 0rem;
+            }
+        }
         &.disable-transition
         {
             transition: none !important;
