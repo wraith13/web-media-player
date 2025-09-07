@@ -649,6 +649,24 @@ declare module "script/features/clock" {
         const initialize: (params: Record<string, string>) => void;
     }
 }
+declare module "script/features/analyser" {
+    export namespace Analyser {
+        const audioContext: AudioContext;
+        const fftSize: number;
+        const isSupported: () => boolean;
+        const resume: () => Promise<void>;
+        class Entry {
+            mediaElement: HTMLMediaElement;
+            analyserNode: AnalyserNode | null;
+            gainNode: GainNode;
+            mediaElementAudioSourceNode: MediaElementAudioSourceNode;
+            frequencyDataArray: Uint8Array<ArrayBuffer> | null;
+            constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
+            destroy(): void;
+            getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
+        }
+    }
+}
 declare module "script/features/media" {
     import { Library } from "script/library/index";
     export namespace Media {
@@ -699,24 +717,6 @@ declare module "script/features/visualizer" {
         const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer>) => number;
     }
 }
-declare module "script/features/analyser" {
-    export namespace Analyser {
-        const audioContext: AudioContext;
-        const fftSize: number;
-        const isSupported: () => boolean;
-        const resume: () => Promise<void>;
-        class Entry {
-            mediaElement: HTMLMediaElement;
-            analyserNode: AnalyserNode | null;
-            gainNode: GainNode;
-            mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-            frequencyDataArray: Uint8Array<ArrayBuffer> | null;
-            constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
-            destroy(): void;
-            getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
-        }
-    }
-}
 declare module "script/features/elementpool" {
     import { Media } from "script/features/media";
     import { Analyser } from "script/features/analyser";
@@ -750,6 +750,11 @@ declare module "script/features/track" {
     import { Media } from "script/features/media";
     import { Analyser } from "script/features/analyser";
     import { Visualizer } from "script/features/visualizer";
+    export const hasValidGainNode: (track: Track) => track is Track & {
+        analyser: Analyser.Entry & {
+            gainNode: GainNode;
+        };
+    };
     export class Track {
         playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         paddingElement: HTMLImageElement | HTMLVideoElement | null;
@@ -785,8 +790,8 @@ declare module "script/features/track" {
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
         updateStretch(): void;
         updateLoopShortMedia(isPlaying: boolean): void;
-        isMuteCondition(volume: number, rate?: number): boolean;
-        setVolume(volume: number, rate?: number): void;
+        isMuteCondition(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): boolean;
+        setVolume(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): void;
         crossFadeStep(rate: number): void;
         release(): void;
     }
@@ -842,11 +847,13 @@ declare module "script/features/player" {
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
+    import * as ImportedAnalyser from "script/features/analyser";
     import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
+        export import Analyser = ImportedAnalyser.Analyser;
         export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
     }

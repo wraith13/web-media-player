@@ -6,6 +6,10 @@ import { Media } from "./media";
 import { Analyser } from "./analyser";
 import { Visualizer } from "./visualizer";
 import config from "@resource/config.json";
+export const hasValidGainNode = (track: Track): track is Track & { analyser: Analyser.Entry & { gainNode: GainNode } } =>
+{
+    return track.analyser instanceof Analyser.Entry && track.analyser.gainNode instanceof GainNode;
+}
 export class Track
 {
     playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
@@ -404,22 +408,34 @@ export class Track
             }
         }
     }
-    isMuteCondition(volume: number, rate?: number): boolean
+    isMuteCondition(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): boolean
     {
-        if (undefined !== rate && Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement)
+        if (Tools.Environment.isSafari())
         {
-            return volume <= 0 || rate <= 0.5;
+            if (hasValidGainNode(this))
+            {
+                switch(fade)
+                {
+                case "fadeIn":
+                    return false;
+                case "fadeOut":
+                    return true;
+                default:
+                    break;
+                }
+            }
+            if (undefined !== rate)
+            {
+                return volume <= 0 || rate <= 0.5;
+            }
         }
-        else
-        {
-            return volume <= 0;
-        }
+        return volume <= 0;
     }
-    setVolume(volume: number, rate?: number): void
+    setVolume(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): void
     {
         if (this.playerElement instanceof HTMLMediaElement)
         {
-            if (this.analyser instanceof Analyser.Entry && this.analyser.gainNode instanceof GainNode)
+            if (hasValidGainNode(this))
             {
                 this.analyser.gainNode.gain.value = volume *(rate ?? 1.0);
             }
@@ -427,7 +443,7 @@ export class Track
             {
                 this.playerElement.volume = volume *(rate ?? 1.0);
             }
-            this.playerElement.muted = this.isMuteCondition(volume, rate);
+            this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
         }
     }
     crossFadeStep(rate: number): void

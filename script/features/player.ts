@@ -326,10 +326,10 @@ export namespace Player
                     if (null !== fadeoutingTrack)
                     {
                         const fadeoutProgress = 1 - progress;
-                        fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
+                        fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                         //fadeoutingTrack.crossFadeStep(fadeoutProgress);
                     }
-                    currentTrack.setVolume(currentVolume, progress);
+                    currentTrack.setVolume(currentVolume, progress, "fadeIn");
                     currentTrack.crossFadeStep(progress);
                 }
             }
@@ -419,8 +419,8 @@ export namespace Player
             if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {
                 CrossFade.start();
-                fadeoutingTrack?.setVolume(currentVolume, 1);
-                currentTrack.setVolume(0);
+                fadeoutingTrack?.setVolume(currentVolume, 1, "fadeOut");
+                currentTrack.setVolume(currentVolume, 0, "fadeIn");
                 currentTrack.crossFadeStep(0);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {

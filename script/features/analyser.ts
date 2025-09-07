@@ -4,7 +4,9 @@ export namespace Analyser
     export const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     export const fftSize = config.analyser.fftSize ?? 1024;
     export const isSupported = (): boolean =>
-        Boolean(audioContext);
+        Boolean(audioContext) &&
+        "function" === typeof audioContext.createGain &&
+        "function" === typeof audioContext.createAnalyser;
     export const resume = async (): Promise<void> =>
     {
         if (audioContext.state === "suspended")

@@ -317,14 +317,14 @@ export namespace Events
         {
             event?.stopPropagation();
             button.dom.blur();
-            // if (Tools.Environment.isSafari())
-            // {
-            //     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
-            // }
-            // else
-            // {
+            if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
+            {
+                UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
+            }
+            else
+            {
                 UI.volumeButton.dom.classList.toggle("on");
-            // }
+            }
             UI.settingButton.dom.classList.toggle("on", false);
         };
         UI.volumeRange.options ||= { }

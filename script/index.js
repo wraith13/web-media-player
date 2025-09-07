@@ -1548,6 +1548,74 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
         };
     })(Clock || (exports.Clock = Clock = {}));
 });
+define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Analyser = void 0;
+    config_json_3 = __importDefault(config_json_3);
+    var Analyser;
+    (function (Analyser) {
+        var _this = this;
+        var _a;
+        Analyser.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        Analyser.fftSize = (_a = config_json_3.default.analyser.fftSize) !== null && _a !== void 0 ? _a : 1024;
+        Analyser.isSupported = function () {
+            return Boolean(Analyser.audioContext) &&
+                "function" === typeof Analyser.audioContext.createGain &&
+                "function" === typeof Analyser.audioContext.createAnalyser;
+        };
+        Analyser.resume = function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(Analyser.audioContext.state === "suspended")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, Analyser.audioContext.resume()];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        }); };
+        var Entry = /** @class */ (function () {
+            function Entry(mediaElement, gainOnly) {
+                this.mediaElement = mediaElement;
+                this.analyserNode = null;
+                this.frequencyDataArray = null;
+                if (gainOnly) {
+                    this.gainNode = Analyser.audioContext.createGain();
+                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                    this.mediaElementAudioSourceNode.connect(this.gainNode);
+                    this.gainNode.connect(Analyser.audioContext.destination);
+                }
+                else {
+                    this.analyserNode = Analyser.audioContext.createAnalyser();
+                    this.analyserNode.fftSize = Analyser.fftSize;
+                    this.gainNode = Analyser.audioContext.createGain();
+                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                    this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                    this.mediaElementAudioSourceNode.connect(this.gainNode);
+                    this.gainNode.connect(Analyser.audioContext.destination);
+                    //this.analyserNode.connect(audioContext.destination);
+                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                }
+            }
+            Entry.prototype.destroy = function () {
+                var _a;
+                this.mediaElementAudioSourceNode.disconnect();
+                (_a = this.analyserNode) === null || _a === void 0 ? void 0 : _a.disconnect();
+            };
+            Entry.prototype.getByteFrequencyData = function () {
+                if (this.frequencyDataArray && this.analyserNode) {
+                    this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                }
+                return this.frequencyDataArray;
+            };
+            return Entry;
+        }());
+        Analyser.Entry = Entry;
+    })(Analyser || (exports.Analyser = Analyser = {}));
+});
 define("script/features/media", ["require", "exports", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, _library_3, tools_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -1865,72 +1933,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Analyser = void 0;
-    config_json_3 = __importDefault(config_json_3);
-    var Analyser;
-    (function (Analyser) {
-        var _this = this;
-        var _a;
-        Analyser.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        Analyser.fftSize = (_a = config_json_3.default.analyser.fftSize) !== null && _a !== void 0 ? _a : 1024;
-        Analyser.isSupported = function () {
-            return Boolean(Analyser.audioContext);
-        };
-        Analyser.resume = function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(Analyser.audioContext.state === "suspended")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, Analyser.audioContext.resume()];
-                    case 1:
-                        _a.sent();
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
-                }
-            });
-        }); };
-        var Entry = /** @class */ (function () {
-            function Entry(mediaElement, gainOnly) {
-                this.mediaElement = mediaElement;
-                this.analyserNode = null;
-                this.frequencyDataArray = null;
-                if (gainOnly) {
-                    this.gainNode = Analyser.audioContext.createGain();
-                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                    this.mediaElementAudioSourceNode.connect(this.gainNode);
-                    this.gainNode.connect(Analyser.audioContext.destination);
-                }
-                else {
-                    this.analyserNode = Analyser.audioContext.createAnalyser();
-                    this.analyserNode.fftSize = Analyser.fftSize;
-                    this.gainNode = Analyser.audioContext.createGain();
-                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                    this.mediaElementAudioSourceNode.connect(this.analyserNode);
-                    this.mediaElementAudioSourceNode.connect(this.gainNode);
-                    this.gainNode.connect(Analyser.audioContext.destination);
-                    //this.analyserNode.connect(audioContext.destination);
-                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
-                }
-            }
-            Entry.prototype.destroy = function () {
-                var _a;
-                this.mediaElementAudioSourceNode.disconnect();
-                (_a = this.analyserNode) === null || _a === void 0 ? void 0 : _a.disconnect();
-            };
-            Entry.prototype.getByteFrequencyData = function () {
-                if (this.frequencyDataArray && this.analyserNode) {
-                    this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
-                }
-                return this.frequencyDataArray;
-            };
-            return Entry;
-        }());
-        Analyser.Entry = Entry;
-    })(Analyser || (exports.Analyser = Analyser = {}));
-});
 define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_4, analyser_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -2203,8 +2205,12 @@ define("script/features/history", ["require", "exports", "script/features/media"
 define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Track = void 0;
+    exports.Track = exports.hasValidGainNode = void 0;
     config_json_4 = __importDefault(config_json_4);
+    var hasValidGainNode = function (track) {
+        return track.analyser instanceof analyser_2.Analyser.Entry && track.analyser.gainNode instanceof GainNode;
+    };
+    exports.hasValidGainNode = hasValidGainNode;
     var Track = /** @class */ (function () {
         function Track(media, index) {
             var _this = this;
@@ -2532,23 +2538,33 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
         };
-        Track.prototype.isMuteCondition = function (volume, rate) {
-            if (undefined !== rate && _tools_5.Tools.Environment.isSafari() && this.playerElement instanceof HTMLMediaElement) {
-                return volume <= 0 || rate <= 0.5;
+        Track.prototype.isMuteCondition = function (volume, rate, fade) {
+            if (_tools_5.Tools.Environment.isSafari()) {
+                if ((0, exports.hasValidGainNode)(this)) {
+                    switch (fade) {
+                        case "fadeIn":
+                            return false;
+                        case "fadeOut":
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                if (undefined !== rate) {
+                    return volume <= 0 || rate <= 0.5;
+                }
             }
-            else {
-                return volume <= 0;
-            }
+            return volume <= 0;
         };
-        Track.prototype.setVolume = function (volume, rate) {
+        Track.prototype.setVolume = function (volume, rate, fade) {
             if (this.playerElement instanceof HTMLMediaElement) {
-                if (this.analyser instanceof analyser_2.Analyser.Entry && this.analyser.gainNode instanceof GainNode) {
+                if ((0, exports.hasValidGainNode)(this)) {
                     this.analyser.gainNode.gain.value = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
                 }
                 else {
                     this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
                 }
-                this.playerElement.muted = this.isMuteCondition(volume, rate);
+                this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
             }
         };
         Track.prototype.crossFadeStep = function (rate) {
@@ -2840,10 +2856,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         progress = CrossFade.getProgress();
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
-                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress);
+                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                             //fadeoutingTrack.crossFadeStep(fadeoutProgress);
                         }
-                        currentTrack.setVolume(currentVolume, progress);
+                        currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.crossFadeStep(progress);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
@@ -2925,8 +2941,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 var currentVolume = ui_7.UI.volumeRange.get() / 100;
                 if (0 < parseFloat(ui_7.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
-                    fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1);
-                    currentTrack.setVolume(0);
+                    fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
+                    currentTrack.setVolume(currentVolume, 0, "fadeIn");
                     currentTrack.crossFadeStep(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
@@ -2993,12 +3009,13 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedVisualizer, ImportedPlayer) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/analyser", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedAnalyser, ImportedVisualizer, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
     ImportedClock = __importStar(ImportedClock);
+    ImportedAnalyser = __importStar(ImportedAnalyser);
     ImportedVisualizer = __importStar(ImportedVisualizer);
     ImportedPlayer = __importStar(ImportedPlayer);
     var Features;
@@ -3007,6 +3024,7 @@ define("script/features/index", ["require", "exports", "script/features/fps", "s
         Features.Clock = ImportedClock.Clock;
         //export import Media = ImportedMedia.Media;
         //export import History = ImortedHistory.History;
+        Features.Analyser = ImportedAnalyser.Analyser;
         //export import Track = ImportedTrack.Track;
         Features.Visualizer = ImportedVisualizer.Visualizer;
         Features.Player = ImportedPlayer.Player;
@@ -3544,14 +3562,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                // if (Tools.Environment.isSafari())
-                // {
-                //     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
-                // }
-                // else
-                // {
-                ui_10.UI.volumeButton.dom.classList.toggle("on");
-                // }
+                if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
+                    ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() <= 0 ? 100 : 0);
+                }
+                else {
+                    ui_10.UI.volumeButton.dom.classList.toggle("on");
+                }
                 ui_10.UI.settingButton.dom.classList.toggle("on", false);
             };
             (_c = ui_10.UI.volumeRange).options || (_c.options = {});
