@@ -415,9 +415,11 @@ export namespace Player
             currentTrack.updateStretch();
             Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
+            const currentVolume = UI.volumeRange.get() /100;
             if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {
                 CrossFade.start();
+                fadeoutingTrack?.setVolume(currentVolume, 1);
                 currentTrack.setVolume(0);
                 currentTrack.crossFadeStep(0);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
@@ -431,7 +433,6 @@ export namespace Player
                 {
                     removeFadeoutTrack();
                 }
-                const currentVolume = UI.volumeRange.get() /100;
                 currentTrack.setVolume(currentVolume);
                 currentTrack.crossFadeStep(1);
                 currentTrack.play();

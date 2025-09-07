@@ -14,26 +14,43 @@ export namespace Analyser
     }
     export class Entry
     {
-        analyserNode: AnalyserNode;
+        analyserNode: AnalyserNode | null = null;
+        gainNode: GainNode;
         mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-        frequencyDataArray: Uint8Array<ArrayBuffer>;
-        constructor(public mediaElement: HTMLMediaElement)
+        frequencyDataArray: Uint8Array<ArrayBuffer> | null = null;
+        constructor(public mediaElement: HTMLMediaElement, gainOnly?: "gainOnly")
         {
-            this.analyserNode = audioContext.createAnalyser();
-            this.analyserNode.fftSize = fftSize;
-            this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
-            this.mediaElementAudioSourceNode.connect(this.analyserNode);
-            this.analyserNode.connect(audioContext.destination);
-            this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+            if (gainOnly)
+            {
+                this.gainNode = audioContext.createGain();
+                this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
+                this.mediaElementAudioSourceNode.connect(this.gainNode);
+                this.gainNode.connect(audioContext.destination);
+            }
+            else
+            {
+                this.analyserNode = audioContext.createAnalyser();
+                this.analyserNode.fftSize = fftSize;
+                this.gainNode = audioContext.createGain();
+                this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
+                this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                this.mediaElementAudioSourceNode.connect(this.gainNode);
+                this.gainNode.connect(audioContext.destination);
+                //this.analyserNode.connect(audioContext.destination);
+                this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+            }
         }
         destroy(): void
         {
             this.mediaElementAudioSourceNode.disconnect();
-            this.analyserNode.disconnect();
+            this.analyserNode?.disconnect();
         }
-        getByteFrequencyData(): Uint8Array<ArrayBuffer>
+        getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
         {
-            this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+            if (this.frequencyDataArray && this.analyserNode)
+            {
+                this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+            }
             return this.frequencyDataArray;
         }
     }}

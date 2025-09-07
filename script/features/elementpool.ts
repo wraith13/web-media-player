@@ -87,7 +87,7 @@ export namespace ElementPool
         }
         return result.then(() => undefined);
     }
-    export const makeSureAnalyser = async (element: HTMLAudioElement | HTMLVideoElement): Promise<Analyser.Entry | null> =>
+    export const makeSureAnalyser = async (element: HTMLAudioElement | HTMLVideoElement, gainOnly?: "gainOnly"): Promise<Analyser.Entry | null> =>
     {
         if (Analyser.isSupported())
         {
@@ -95,7 +95,7 @@ export namespace ElementPool
             let result = analyserPool.get(element);
             if ( ! result)
             {
-                result = new Analyser.Entry(element);
+                result = new Analyser.Entry(element, gainOnly);
                 analyserPool.set(element, result);
             }
             return result;

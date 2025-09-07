@@ -38,18 +38,24 @@ export class Track
             if (Analyser.isSupported())
             {
                 ElementPool.makeSureAnalyser(this.playerElement)
-                    .then((analyser) => this.analyser = analyser)
+                    .then((analyser) => this.setAnalyser(analyser))
                     .catch(console.error);
             }
             break;
         case "video":
-            this.playerElement = this.makePlayerElement();
+            this.playerElement = this.makePlayerElement() as HTMLVideoElement;
             this.visualElement = Library.UI.createElement
             ({
                 tag: "div",
                 className: "track-frame",
                 children: [ this.playerElement,]
             });
+            if (Analyser.isSupported())
+            {
+                ElementPool.makeSureAnalyser(this.playerElement, "gainOnly")
+                    .then((analyser) => this.setAnalyser(analyser))
+                    .catch(console.error);
+            }
             break;
         default:
             console.error("🦋 Unknown media type:", media.type, media);
@@ -73,6 +79,15 @@ export class Track
         //     "click",
         //     () => document.body.classList.toggle("mousemove")
         // );
+    }
+    setAnalyser(analyser: Analyser.Entry | null): void
+    {
+        this.analyser = analyser;
+        if (this.analyser instanceof Analyser.Entry && this.analyser.gainNode instanceof GainNode && this.playerElement instanceof HTMLMediaElement)
+        {
+            this.analyser.gainNode.gain.value = this.playerElement.volume;
+            this.playerElement.volume = 1.0;
+        }
     }
     selfValidate(): boolean
     {
@@ -404,7 +419,14 @@ export class Track
     {
         if (this.playerElement instanceof HTMLMediaElement)
         {
-            this.playerElement.volume = volume *(rate ?? 1.0);
+            if (this.analyser instanceof Analyser.Entry && this.analyser.gainNode instanceof GainNode)
+            {
+                this.analyser.gainNode.gain.value = volume *(rate ?? 1.0);
+            }
+            else
+            {
+                this.playerElement.volume = volume *(rate ?? 1.0);
+            }
             this.playerElement.muted = this.isMuteCondition(volume, rate);
         }
     }

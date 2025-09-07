@@ -1893,21 +1893,37 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
             });
         }); };
         var Entry = /** @class */ (function () {
-            function Entry(mediaElement) {
+            function Entry(mediaElement, gainOnly) {
                 this.mediaElement = mediaElement;
-                this.analyserNode = Analyser.audioContext.createAnalyser();
-                this.analyserNode.fftSize = Analyser.fftSize;
-                this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                this.mediaElementAudioSourceNode.connect(this.analyserNode);
-                this.analyserNode.connect(Analyser.audioContext.destination);
-                this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                this.analyserNode = null;
+                this.frequencyDataArray = null;
+                if (gainOnly) {
+                    this.gainNode = Analyser.audioContext.createGain();
+                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                    this.mediaElementAudioSourceNode.connect(this.gainNode);
+                    this.gainNode.connect(Analyser.audioContext.destination);
+                }
+                else {
+                    this.analyserNode = Analyser.audioContext.createAnalyser();
+                    this.analyserNode.fftSize = Analyser.fftSize;
+                    this.gainNode = Analyser.audioContext.createGain();
+                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                    this.mediaElementAudioSourceNode.connect(this.analyserNode);
+                    this.mediaElementAudioSourceNode.connect(this.gainNode);
+                    this.gainNode.connect(Analyser.audioContext.destination);
+                    //this.analyserNode.connect(audioContext.destination);
+                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                }
             }
             Entry.prototype.destroy = function () {
+                var _a;
                 this.mediaElementAudioSourceNode.disconnect();
-                this.analyserNode.disconnect();
+                (_a = this.analyserNode) === null || _a === void 0 ? void 0 : _a.disconnect();
             };
             Entry.prototype.getByteFrequencyData = function () {
-                this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                if (this.frequencyDataArray && this.analyserNode) {
+                    this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                }
                 return this.frequencyDataArray;
             };
             return Entry;
@@ -1984,7 +2000,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
             }
             return result.then(function () { return undefined; });
         };
-        ElementPool.makeSureAnalyser = function (element) { return __awaiter(_this, void 0, void 0, function () {
+        ElementPool.makeSureAnalyser = function (element, gainOnly) { return __awaiter(_this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -1995,7 +2011,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                         _a.sent();
                         result = analyserPool.get(element);
                         if (!result) {
-                            result = new analyser_1.Analyser.Entry(element);
+                            result = new analyser_1.Analyser.Entry(element, gainOnly);
                             analyserPool.set(element, result);
                         }
                         return [2 /*return*/, result];
@@ -2214,7 +2230,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.visualElement.appendChild(this.playerElement);
                     if (analyser_2.Analyser.isSupported()) {
                         elementpool_1.ElementPool.makeSureAnalyser(this.playerElement)
-                            .then(function (analyser) { return _this.analyser = analyser; })
+                            .then(function (analyser) { return _this.setAnalyser(analyser); })
                             .catch(console.error);
                     }
                     break;
@@ -2225,6 +2241,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         className: "track-frame",
                         children: [this.playerElement,]
                     });
+                    if (analyser_2.Analyser.isSupported()) {
+                        elementpool_1.ElementPool.makeSureAnalyser(this.playerElement, "gainOnly")
+                            .then(function (analyser) { return _this.setAnalyser(analyser); })
+                            .catch(console.error);
+                    }
                     break;
                 default:
                     console.error("🦋 Unknown media type:", media.type, media);
@@ -2246,6 +2267,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             //     () => document.body.classList.toggle("mousemove")
             // );
         }
+        Track.prototype.setAnalyser = function (analyser) {
+            this.analyser = analyser;
+            if (this.analyser instanceof analyser_2.Analyser.Entry && this.analyser.gainNode instanceof GainNode && this.playerElement instanceof HTMLMediaElement) {
+                this.analyser.gainNode.gain.value = this.playerElement.volume;
+                this.playerElement.volume = 1.0;
+            }
+        };
         Track.prototype.selfValidate = function () {
             if (this.playerElement instanceof HTMLMediaElement) {
                 if (this.currentTimeForValidation + (60 * 60) < this.playerElement.currentTime && this.playerElement.paused) {
@@ -2514,7 +2542,12 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.setVolume = function (volume, rate) {
             if (this.playerElement instanceof HTMLMediaElement) {
-                this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                if (this.analyser instanceof analyser_2.Analyser.Entry && this.analyser.gainNode instanceof GainNode) {
+                    this.analyser.gainNode.gain.value = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                }
+                else {
+                    this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                }
                 this.playerElement.muted = this.isMuteCondition(volume, rate);
             }
         };
@@ -2889,8 +2922,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 currentTrack.updateStretch();
                 _library_7.Library.UI.setTextContent(ui_7.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_7.UI.mediaTitle, Player.makeTitleText(currentTrack));
+                var currentVolume = ui_7.UI.volumeRange.get() / 100;
                 if (0 < parseFloat(ui_7.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
+                    fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1);
                     currentTrack.setVolume(0);
                     currentTrack.crossFadeStep(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
@@ -2901,7 +2936,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     if (fadeoutingTrack) {
                         Player.removeFadeoutTrack();
                     }
-                    var currentVolume = ui_7.UI.volumeRange.get() / 100;
                     currentTrack.setVolume(currentVolume);
                     currentTrack.crossFadeStep(1);
                     currentTrack.play();
@@ -3510,12 +3544,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                if (_tools_8.Tools.Environment.isSafari()) {
-                    ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() <= 0 ? 100 : 0);
-                }
-                else {
-                    ui_10.UI.volumeButton.dom.classList.toggle("on");
-                }
+                // if (Tools.Environment.isSafari())
+                // {
+                //     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
+                // }
+                // else
+                // {
+                ui_10.UI.volumeButton.dom.classList.toggle("on");
+                // }
                 ui_10.UI.settingButton.dom.classList.toggle("on", false);
             };
             (_c = ui_10.UI.volumeRange).options || (_c.options = {});

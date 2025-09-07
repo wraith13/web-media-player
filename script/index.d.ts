@@ -707,12 +707,13 @@ declare module "script/features/analyser" {
         const resume: () => Promise<void>;
         class Entry {
             mediaElement: HTMLMediaElement;
-            analyserNode: AnalyserNode;
+            analyserNode: AnalyserNode | null;
+            gainNode: GainNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-            frequencyDataArray: Uint8Array<ArrayBuffer>;
-            constructor(mediaElement: HTMLMediaElement);
+            frequencyDataArray: Uint8Array<ArrayBuffer> | null;
+            constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
-            getByteFrequencyData(): Uint8Array<ArrayBuffer>;
+            getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
         }
     }
 }
@@ -725,7 +726,7 @@ declare module "script/features/elementpool" {
             audio: Media.Entry | null;
             video: Media.Entry | null;
         }) => Promise<void>;
-        const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement) => Promise<Analyser.Entry | null>;
+        const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement, gainOnly?: "gainOnly") => Promise<Analyser.Entry | null>;
         const get: (media: Media.Entry) => HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         const release: (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) => void;
     }
@@ -760,6 +761,7 @@ declare module "script/features/track" {
         currentTimeForValidation: number;
         analyser: Analyser.Entry | null;
         constructor(media: Media.Entry, index: number);
+        setAnalyser(analyser: Analyser.Entry | null): void;
         selfValidate(): boolean;
         makePlayerElement(): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         isPlaying(): boolean;
