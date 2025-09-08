@@ -1581,6 +1581,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
             function Entry(mediaElement, gainOnly) {
                 this.mediaElement = mediaElement;
                 this.analyserNode = null;
+                this.isValidFrequencyData = false;
                 this.frequencyDataArray = null;
                 if (gainOnly) {
                     this.gainNode = Analyser.audioContext.createGain();
@@ -1605,9 +1606,13 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.mediaElementAudioSourceNode.disconnect();
                 (_a = this.analyserNode) === null || _a === void 0 ? void 0 : _a.disconnect();
             };
+            Entry.prototype.step = function () {
+                this.isValidFrequencyData = false;
+            };
             Entry.prototype.getByteFrequencyData = function () {
-                if (this.frequencyDataArray && this.analyserNode) {
+                if (this.frequencyDataArray && this.analyserNode && !this.isValidFrequencyData) {
                     this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                    this.isValidFrequencyData = true;
                 }
                 return this.frequencyDataArray;
             };
@@ -2427,9 +2432,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             });
         };
         Track.prototype.step = function () {
-            var _a, _b;
+            var _a, _b, _c;
+            (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.step();
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
-                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_b = (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null);
+                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_c = (_b = this.analyser) === null || _b === void 0 ? void 0 : _b.getByteFrequencyData()) !== null && _c !== void 0 ? _c : null);
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_6.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();

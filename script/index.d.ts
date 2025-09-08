@@ -660,9 +660,11 @@ declare module "script/features/analyser" {
             analyserNode: AnalyserNode | null;
             gainNode: GainNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
+            isValidFrequencyData: boolean;
             frequencyDataArray: Uint8Array<ArrayBuffer> | null;
             constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
+            step(): void;
             getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
         }
     }

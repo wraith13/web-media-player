@@ -223,6 +223,7 @@ export class Track
     }
     step(): void
     {
+        this.analyser?.step();
         if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser?.getByteFrequencyData() ?? null);

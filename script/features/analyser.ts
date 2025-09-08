@@ -19,6 +19,7 @@ export namespace Analyser
         analyserNode: AnalyserNode | null = null;
         gainNode: GainNode;
         mediaElementAudioSourceNode: MediaElementAudioSourceNode;
+        isValidFrequencyData: boolean = false;
         frequencyDataArray: Uint8Array<ArrayBuffer> | null = null;
         constructor(public mediaElement: HTMLMediaElement, gainOnly?: "gainOnly")
         {
@@ -47,11 +48,16 @@ export namespace Analyser
             this.mediaElementAudioSourceNode.disconnect();
             this.analyserNode?.disconnect();
         }
+        step(): void
+        {
+            this.isValidFrequencyData = false;
+        }
         getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
         {
-            if (this.frequencyDataArray && this.analyserNode)
+            if (this.frequencyDataArray && this.analyserNode && ! this.isValidFrequencyData)
             {
                 this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                this.isValidFrequencyData = true;
             }
             return this.frequencyDataArray;
         }
