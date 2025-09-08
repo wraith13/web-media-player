@@ -8,6 +8,8 @@ export namespace Visualizer
     export const VisualizerDom = HTMLDivElement;
     export const isSimpleMode = (): boolean =>
         UI.mediaScreen.classList.contains("simple");
+    export const isRawFrequencyData = (): boolean =>
+        UI.mediaScreen.classList.contains("raw-frequency-data");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -51,6 +53,16 @@ export namespace Visualizer
         }
         return result;
     };
+    export const makeRawFrequencyDataCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
+    {
+        let result = visualDom.querySelector(".visual-raw-frequency-data") as HTMLCanvasElement;
+        if ( ! result)
+        {
+            result = Library.UI.createElement({ tag: "canvas", className: "visual-raw-frequency-data" });
+            visualDom.appendChild(result);
+        }
+        return result;
+    }
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null): void =>
     {
         makeSureIcon(visualDom).catch(console.error);
@@ -58,6 +70,30 @@ export namespace Visualizer
         {
             makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
             makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
+        }
+        if (isRawFrequencyData())
+        {
+            const canvas = makeRawFrequencyDataCanvas(visualDom);
+            const context = canvas.getContext("2d");
+            if (context && frequencyDataArray)
+            {
+                const devicePixelRatio = window.devicePixelRatio || 1;
+                const width = visualDom.clientWidth /devicePixelRatio;
+                const height = visualDom.clientHeight /devicePixelRatio;
+                context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+                context.clearRect(0, 0, width, height);
+                const barWidth = (width /frequencyDataArray.length) |0;
+                for (let i = 0; i < frequencyDataArray.length; i++)
+                {
+                    const value = frequencyDataArray[i];
+                    const barHeight = Math.sqrt(value /255.0) *height;
+                    const x = i *barWidth;
+                    const y = height -barHeight;
+                    const hue = (i /frequencyDataArray.length) *360;
+                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                    context.fillRect(x, y, barWidth, barHeight);
+                }
+            }
         }
     };
     export const isValidFrequencyDataArray = (frequencyDataArray: Uint8Array<ArrayBuffer> | null): frequencyDataArray is Uint8Array<ArrayBuffer> =>

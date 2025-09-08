@@ -707,10 +707,12 @@ declare module "script/features/visualizer" {
             prototype: HTMLDivElement;
         };
         const isSimpleMode: () => boolean;
+        const isRawFrequencyData: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
+        const makeRawFrequencyDataCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

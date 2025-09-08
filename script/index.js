@@ -1872,6 +1872,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isSimpleMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("simple");
         };
+        Visualizer.isRawFrequencyData = function () {
+            return ui_3.UI.mediaScreen.classList.contains("raw-frequency-data");
+        };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
@@ -1915,11 +1918,40 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
+        Visualizer.makeRawFrequencyDataCanvas = function (visualDom) {
+            var result = visualDom.querySelector(".visual-raw-frequency-data");
+            if (!result) {
+                result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-raw-frequency-data" });
+                visualDom.appendChild(result);
+            }
+            return result;
+        };
         Visualizer.step = function (_media, playerDom, visualDom, frequencyDataArray) {
             Visualizer.makeSureIcon(visualDom).catch(console.error);
             if (Visualizer.isSimpleMode()) {
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
+            }
+            if (Visualizer.isRawFrequencyData()) {
+                var canvas = Visualizer.makeRawFrequencyDataCanvas(visualDom);
+                var context = canvas.getContext("2d");
+                if (context && frequencyDataArray) {
+                    var devicePixelRatio_1 = window.devicePixelRatio || 1;
+                    var width = visualDom.clientWidth / devicePixelRatio_1;
+                    var height = visualDom.clientHeight / devicePixelRatio_1;
+                    context.setTransform(devicePixelRatio_1, 0, 0, devicePixelRatio_1, 0, 0);
+                    context.clearRect(0, 0, width, height);
+                    var barWidth = (width / frequencyDataArray.length) | 0;
+                    for (var i = 0; i < frequencyDataArray.length; i++) {
+                        var value = frequencyDataArray[i];
+                        var barHeight = Math.sqrt(value / 255.0) * height;
+                        var x = i * barWidth;
+                        var y = height - barHeight;
+                        var hue = (i / frequencyDataArray.length) * 360;
+                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                        context.fillRect(x, y, barWidth, barHeight);
+                    }
+                }
             }
         };
         Visualizer.isValidFrequencyDataArray = function (frequencyDataArray) { var _a; return 0 < ((_a = frequencyDataArray === null || frequencyDataArray === void 0 ? void 0 : frequencyDataArray.length) !== null && _a !== void 0 ? _a : 0); };

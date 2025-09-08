@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Sep 07 2025 10:53:08 GMT+0900 (日本標準時)
+    build at: Mon Sep 08 2025 01:47:58 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -361,6 +361,16 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen .visualizer.odd .visual-progress-circle {
   background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
 }
+#screen-body #media-screen .visualizer .visual-raw-frequency-data {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 #screen-body #media-screen .visualizer svg {
   position: absolute;
   height: calc(15vw + 15vh);
@@ -376,7 +386,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   display: none;
 }
 #screen-body #media-screen:not(.raw-frequency-data) .visual-raw-frequency-data {
-  font-size: 0rem;
+  display: none;
 }
 #screen-body #media-screen.disable-transition {
   transition: none !important;
@@ -2145,8 +2155,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #clock-panel #time:not(.text) {
-  font-size: calc(4.8 * var(--diagonal));
-  font-weight: bold;
+  font-size: calc(7.4 * var(--diagonal));
   line-height: 100%;
 }
 #clock-panel #time.text {
@@ -2167,7 +2176,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #time.text {
-  font-size: calc(4.8 * var(--diagonal));
+  font-size: calc(7.4 * var(--diagonal));
 }
 #clock-panel #time {
   white-space: nowrap;
@@ -2190,16 +2199,16 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #clock-panel #date {
-  font-size: calc(2.5 * var(--diagonal));
+  font-size: calc(2.1 * var(--diagonal));
   white-space: nowrap;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 #clock-panel.bottom-right, #clock-panel.bottom-left {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 #clock-panel.top-right, #clock-panel.bottom-right {
   align-items: end;
@@ -2783,8 +2792,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Sep 07 2025 10:53:08 GMT+0900 (日本標準時)",
-    tick: 1757209988614
+    at: "Mon Sep 08 2025 01:47:58 GMT+0900 (日本標準時)",
+    tick: 1757263678149
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6443,6 +6452,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isSimpleMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("simple");
         };
+        Visualizer.isRawFrequencyData = function () {
+            return ui_3.UI.mediaScreen.classList.contains("raw-frequency-data");
+        };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
@@ -6486,11 +6498,40 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
+        Visualizer.makeRawFrequencyDataCanvas = function (visualDom) {
+            var result = visualDom.querySelector(".visual-raw-frequency-data");
+            if (!result) {
+                result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-raw-frequency-data" });
+                visualDom.appendChild(result);
+            }
+            return result;
+        };
         Visualizer.step = function (_media, playerDom, visualDom, frequencyDataArray) {
             Visualizer.makeSureIcon(visualDom).catch(console.error);
             if (Visualizer.isSimpleMode()) {
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
+            }
+            if (Visualizer.isRawFrequencyData()) {
+                var canvas = Visualizer.makeRawFrequencyDataCanvas(visualDom);
+                var context = canvas.getContext("2d");
+                if (context && frequencyDataArray) {
+                    var devicePixelRatio_1 = window.devicePixelRatio || 1;
+                    var width = visualDom.clientWidth / devicePixelRatio_1;
+                    var height = visualDom.clientHeight / devicePixelRatio_1;
+                    context.setTransform(devicePixelRatio_1, 0, 0, devicePixelRatio_1, 0, 0);
+                    context.clearRect(0, 0, width, height);
+                    var barWidth = (width / frequencyDataArray.length) | 0;
+                    for (var i = 0; i < frequencyDataArray.length; i++) {
+                        var value = frequencyDataArray[i];
+                        var barHeight = Math.sqrt(value / 255.0) * height;
+                        var x = i * barWidth;
+                        var y = height - barHeight;
+                        var hue = (i / frequencyDataArray.length) * 360;
+                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                        context.fillRect(x, y, barWidth, barHeight);
+                    }
+                }
             }
         };
         Visualizer.isValidFrequencyDataArray = function (frequencyDataArray) { var _a; return 0 < ((_a = frequencyDataArray === null || frequencyDataArray === void 0 ? void 0 : frequencyDataArray.length) !== null && _a !== void 0 ? _a : 0); };
