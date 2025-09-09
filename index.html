@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 09 2025 10:37:57 GMT+0900 (日本標準時)
+    build at: Tue Sep 09 2025 21:34:58 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2793,8 +2793,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 09 2025 10:37:57 GMT+0900 (日本標準時)",
-    tick: 1757381877103
+    at: "Tue Sep 09 2025 21:34:58 GMT+0900 (日本標準時)",
+    tick: 1757421298680
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7103,6 +7103,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.updateStretch = function () {
             var _this = this;
+            var _a, _b;
             if (this.visualElement) {
                 if (this.media.area) {
                     var StretchRate = ui_6.UI.stretchRange.get() / 100;
@@ -7141,9 +7142,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         }
                     }
                 }
-                else {
-                    _library_6.Library.UI.setStyle(this.visualElement, "width", "100%");
-                    _library_6.Library.UI.setStyle(this.visualElement, "height", "100%");
+                // else
+                // {
+                //     Library.UI.setStyle(this.visualElement, "width", `100%`);
+                //     Library.UI.setStyle(this.visualElement, "height", `100%`);
+                // }
+                if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_b = (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null);
                 }
             }
         };

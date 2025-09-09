@@ -372,10 +372,14 @@ export class Track
                     }
                 }
             }
-            else
+            // else
+            // {
+            //     Library.UI.setStyle(this.visualElement, "width", `100%`);
+            //     Library.UI.setStyle(this.visualElement, "height", `100%`);
+            // }
+            if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
             {
-                Library.UI.setStyle(this.visualElement, "width", `100%`);
-                Library.UI.setStyle(this.visualElement, "height", `100%`);
+                Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser?.getByteFrequencyData() ?? null);
             }
         }
     }

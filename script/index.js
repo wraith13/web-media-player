@@ -2522,6 +2522,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.updateStretch = function () {
             var _this = this;
+            var _a, _b;
             if (this.visualElement) {
                 if (this.media.area) {
                     var StretchRate = ui_6.UI.stretchRange.get() / 100;
@@ -2560,9 +2561,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         }
                     }
                 }
-                else {
-                    _library_6.Library.UI.setStyle(this.visualElement, "width", "100%");
-                    _library_6.Library.UI.setStyle(this.visualElement, "height", "100%");
+                // else
+                // {
+                //     Library.UI.setStyle(this.visualElement, "width", `100%`);
+                //     Library.UI.setStyle(this.visualElement, "height", `100%`);
+                // }
+                if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_b = (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null);
                 }
             }
         };
