@@ -19,7 +19,11 @@
         "mousemoveTimeout": 1500
     },
     "analyser": {
-        "fftSize": 1024
+        "fftSize": 4096
+    },
+    "visualizer": {
+        "frequencyDataLengthRate": 1.0,
+        "maxHue": 300
     },
     "player": {
         "fastFowardSpan": 5000,

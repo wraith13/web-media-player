@@ -2,6 +2,7 @@ import { Library } from "@library";
 //import { Tools } from "@tools";
 import { Media } from "./media";
 import { UI } from "../ui";
+import config from "@resource/config.json";
 export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
@@ -77,21 +78,26 @@ export namespace Visualizer
             const context = canvas.getContext("2d");
             if (context && frequencyDataArray)
             {
-                const devicePixelRatio = window.devicePixelRatio || 1;
-                const width = visualDom.clientWidth /devicePixelRatio;
-                const height = visualDom.clientHeight /devicePixelRatio;
-                context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+                const width = visualDom.clientWidth;
+                const height = visualDom.clientHeight;
+                if (canvas.width !== width || canvas.height !== height)
+                {
+                    canvas.width = width;
+                    canvas.height = height;
+                }
                 context.clearRect(0, 0, width, height);
-                const barWidth = (width /frequencyDataArray.length) |0;
-                for (let i = 0; i < frequencyDataArray.length; i++)
+                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+                const barWidth = width /maxIndex;
+                const minHeight = 1;
+                for (let i = 0; i < maxIndex; i++)
                 {
                     const value = frequencyDataArray[i];
-                    const barHeight = Math.sqrt(value /255.0) *height;
+                    const barHeight = minHeight +((value /255.0) *(height -minHeight));
                     const x = i *barWidth;
                     const y = height -barHeight;
-                    const hue = (i /frequencyDataArray.length) *360;
+                    const hue = (i /maxIndex) *config.visualizer.maxHue;
                     context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                    context.fillRect(x, y, barWidth, barHeight);
+                    context.fillRect(x, y /2, barWidth, barHeight);
                 }
             }
         }

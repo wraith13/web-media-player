@@ -364,7 +364,11 @@ define("resource/config", [], {
         "mousemoveTimeout": 1500
     },
     "analyser": {
-        "fftSize": 1024
+        "fftSize": 4096
+    },
+    "visualizer": {
+        "frequencyDataLengthRate": 1.0,
+        "maxHue": 300
     },
     "player": {
         "fastFowardSpan": 5000,
@@ -1866,10 +1870,11 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_4, ui_3) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_3, config_json_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
+    config_json_4 = __importDefault(config_json_4);
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
@@ -1941,20 +1946,24 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeRawFrequencyDataCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
-                    var devicePixelRatio_1 = window.devicePixelRatio || 1;
-                    var width = visualDom.clientWidth / devicePixelRatio_1;
-                    var height = visualDom.clientHeight / devicePixelRatio_1;
-                    context.setTransform(devicePixelRatio_1, 0, 0, devicePixelRatio_1, 0, 0);
+                    var width = visualDom.clientWidth;
+                    var height = visualDom.clientHeight;
+                    if (canvas.width !== width || canvas.height !== height) {
+                        canvas.width = width;
+                        canvas.height = height;
+                    }
                     context.clearRect(0, 0, width, height);
-                    var barWidth = (width / frequencyDataArray.length) | 0;
-                    for (var i = 0; i < frequencyDataArray.length; i++) {
+                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                    var barWidth = width / maxIndex;
+                    var minHeight = 1;
+                    for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i];
-                        var barHeight = Math.sqrt(value / 255.0) * height;
+                        var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
                         var x = i * barWidth;
                         var y = height - barHeight;
-                        var hue = (i / frequencyDataArray.length) * 360;
+                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.fillRect(x, y, barWidth, barHeight);
+                        context.fillRect(x, y / 2, barWidth, barHeight);
                     }
                 }
             }
@@ -2239,11 +2248,11 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_4) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
-    config_json_4 = __importDefault(config_json_4);
+    config_json_5 = __importDefault(config_json_5);
     var hasValidGainNode = function (track) {
         return track.analyser instanceof analyser_2.Analyser.Entry && track.analyser.gainNode instanceof GainNode;
     };
@@ -2419,10 +2428,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.seek(this.getDuration() * rate);
         };
         Track.prototype.fastForward = function () {
-            this.diffSeek(config_json_4.default.player.fastFowardSpan);
+            this.diffSeek(config_json_5.default.player.fastFowardSpan);
         };
         Track.prototype.rewind = function () {
-            this.diffSeek(-config_json_4.default.player.rewindSpan);
+            this.diffSeek(-config_json_5.default.player.rewindSpan);
         };
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
@@ -3081,11 +3090,11 @@ define("resource/evil-commonjs.config", [], {
 define("resource/evil-timer.js.config", [], {
     "debug": true
 });
-define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_5) {
+define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_6) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Url = void 0;
-    config_json_5 = __importDefault(config_json_5);
+    config_json_6 = __importDefault(config_json_6);
     var Url;
     (function (Url) {
         Url.parseParameter = function (url) {
@@ -3096,7 +3105,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
             return result;
         };
         Url.make = function (params) {
-            var url = new URL(config_json_5.default.canonicalUrl || window.location.href);
+            var url = new URL(config_json_6.default.canonicalUrl || window.location.href);
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -3355,11 +3364,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_10, url_3, config_json_6, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_10, url_3, config_json_7, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_6 = __importDefault(config_json_6);
+    config_json_7 = __importDefault(config_json_7);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -3439,7 +3448,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", config_json_6.default.ui.mousemoveTimeout);
+            return mouseMoveTimer.start(document.body, "mousemove", config_json_7.default.ui.mousemoveTimeout);
         };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
@@ -3686,7 +3695,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_10.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_6.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
+                if (config_json_7.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_10.UI.screenBody);
                 }
                 Events.mousemove();
@@ -3782,10 +3791,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_7, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_12, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_12, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_7 = __importDefault(config_json_7);
+    config_json_8 = __importDefault(config_json_8);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -3800,7 +3809,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_7.default,
+        config: config_json_8.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
