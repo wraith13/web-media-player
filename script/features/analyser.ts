@@ -40,7 +40,7 @@ export namespace Analyser
                 this.mediaElementAudioSourceNode.connect(this.gainNode);
                 this.gainNode.connect(audioContext.destination);
                 //this.analyserNode.connect(audioContext.destination);
-                this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
             }
         }
         destroy(): void
@@ -54,8 +54,12 @@ export namespace Analyser
         }
         getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
         {
-            if (this.frequencyDataArray && this.analyserNode && ! this.isValidFrequencyData)
+            if (this.analyserNode && ! this.isValidFrequencyData)
             {
+                if ( ! this.frequencyDataArray)
+                {
+                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                }
                 this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
                 this.isValidFrequencyData = true;
             }

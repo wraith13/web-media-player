@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 09 2025 03:15:58 GMT+0900 (日本標準時)
+    build at: Tue Sep 09 2025 10:37:57 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2793,8 +2793,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 09 2025 03:15:58 GMT+0900 (日本標準時)",
-    tick: 1757355358840
+    at: "Tue Sep 09 2025 10:37:57 GMT+0900 (日本標準時)",
+    tick: 1757381877103
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6183,7 +6183,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                     this.mediaElementAudioSourceNode.connect(this.gainNode);
                     this.gainNode.connect(Analyser.audioContext.destination);
                     //this.analyserNode.connect(audioContext.destination);
-                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
                 }
             }
             Entry.prototype.destroy = function () {
@@ -6195,7 +6195,10 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidFrequencyData = false;
             };
             Entry.prototype.getByteFrequencyData = function () {
-                if (this.frequencyDataArray && this.analyserNode && !this.isValidFrequencyData) {
+                if (this.analyserNode && !this.isValidFrequencyData) {
+                    if (!this.frequencyDataArray) {
+                        this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    }
                     this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
                     this.isValidFrequencyData = true;
                 }

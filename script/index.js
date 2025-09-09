@@ -1602,7 +1602,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                     this.mediaElementAudioSourceNode.connect(this.gainNode);
                     this.gainNode.connect(Analyser.audioContext.destination);
                     //this.analyserNode.connect(audioContext.destination);
-                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
                 }
             }
             Entry.prototype.destroy = function () {
@@ -1614,7 +1614,10 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidFrequencyData = false;
             };
             Entry.prototype.getByteFrequencyData = function () {
-                if (this.frequencyDataArray && this.analyserNode && !this.isValidFrequencyData) {
+                if (this.analyserNode && !this.isValidFrequencyData) {
+                    if (!this.frequencyDataArray) {
+                        this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    }
                     this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
                     this.isValidFrequencyData = true;
                 }
