@@ -87,17 +87,35 @@ export namespace Visualizer
                 }
                 context.clearRect(0, 0, width, height);
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
-                const barWidth = width /maxIndex;
-                const minHeight = 1;
-                for (let i = 0; i < maxIndex; i++)
+                if (height <= width)
                 {
-                    const value = frequencyDataArray[i];
-                    const barHeight = minHeight +((value /255.0) *(height -minHeight));
-                    const x = i *barWidth;
-                    const y = height -barHeight;
-                    const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                    context.fillRect(x, y /2, barWidth, barHeight);
+                    const barWidth = width /maxIndex;
+                    const minHeight = 1;
+                    for (let i = 0; i < maxIndex; i++)
+                    {
+                        const value = frequencyDataArray[i];
+                        const barHeight = minHeight +((value /255.0) *(height -minHeight));
+                        const x = i *barWidth;
+                        const y = (height -barHeight) /2;
+                        const hue = (i /maxIndex) *config.visualizer.maxHue;
+                        context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                        context.fillRect(x, y, barWidth, barHeight);
+                    }
+                }
+                else
+                {
+                    const barHeight = height /maxIndex;
+                    const minWidth = 1;
+                    for (let i = 0; i < maxIndex; i++)
+                    {
+                        const value = frequencyDataArray[i];
+                        const barWidth = minWidth +((value /255.0) *(width -minWidth));
+                        const x = (width -barWidth) /2;
+                        const y = height -((i +1) *barHeight);
+                        const hue = (i /maxIndex) *config.visualizer.maxHue;
+                        context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                        context.fillRect(x, y, barWidth, barHeight);
+                    }
                 }
             }
         }

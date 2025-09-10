@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 09 2025 21:34:58 GMT+0900 (日本標準時)
+    build at: Wed Sep 10 2025 07:28:11 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2793,8 +2793,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 09 2025 21:34:58 GMT+0900 (日本標準時)",
-    tick: 1757421298680
+    at: "Wed Sep 10 2025 07:28:11 GMT+0900 (日本標準時)",
+    tick: 1757456891230
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6538,16 +6538,31 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     }
                     context.clearRect(0, 0, width, height);
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var barWidth = width / maxIndex;
-                    var minHeight = 1;
-                    for (var i = 0; i < maxIndex; i++) {
-                        var value = frequencyDataArray[i];
-                        var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
-                        var x = i * barWidth;
-                        var y = height - barHeight;
-                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.fillRect(x, y / 2, barWidth, barHeight);
+                    if (height <= width) {
+                        var barWidth = width / maxIndex;
+                        var minHeight = 1;
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = frequencyDataArray[i];
+                            var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
+                            var x = i * barWidth;
+                            var y = (height - barHeight) / 2;
+                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                            context.fillRect(x, y, barWidth, barHeight);
+                        }
+                    }
+                    else {
+                        var barHeight = height / maxIndex;
+                        var minWidth = 1;
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = frequencyDataArray[i];
+                            var barWidth = minWidth + ((value / 255.0) * (width - minWidth));
+                            var x = (width - barWidth) / 2;
+                            var y = height - ((i + 1) * barHeight);
+                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                            context.fillRect(x, y, barWidth, barHeight);
+                        }
                     }
                 }
             }

@@ -1957,16 +1957,31 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     }
                     context.clearRect(0, 0, width, height);
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var barWidth = width / maxIndex;
-                    var minHeight = 1;
-                    for (var i = 0; i < maxIndex; i++) {
-                        var value = frequencyDataArray[i];
-                        var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
-                        var x = i * barWidth;
-                        var y = height - barHeight;
-                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.fillRect(x, y / 2, barWidth, barHeight);
+                    if (height <= width) {
+                        var barWidth = width / maxIndex;
+                        var minHeight = 1;
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = frequencyDataArray[i];
+                            var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
+                            var x = i * barWidth;
+                            var y = (height - barHeight) / 2;
+                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                            context.fillRect(x, y, barWidth, barHeight);
+                        }
+                    }
+                    else {
+                        var barHeight = height / maxIndex;
+                        var minWidth = 1;
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = frequencyDataArray[i];
+                            var barWidth = minWidth + ((value / 255.0) * (width - minWidth));
+                            var x = (width - barWidth) / 2;
+                            var y = height - ((i + 1) * barHeight);
+                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                            context.fillRect(x, y, barWidth, barHeight);
+                        }
                     }
                 }
             }
