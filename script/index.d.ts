@@ -711,7 +711,8 @@ declare module "script/features/visualizer" {
         const isSimpleMode: () => boolean;
         const isRawFrequencyData: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
-        const makeSureIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
+        const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
+        const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeRawFrequencyDataCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;

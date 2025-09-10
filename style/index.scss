@@ -122,6 +122,18 @@
                 filter: drop-shadow($white-color 0px 0px 0.5rem);
                 z-index: 100;
             }
+            &.muted svg
+            {
+                fill: red;
+                &.audio-icon
+                {
+                    display: none;
+                }
+            }
+            &:not(.muted) svg.mute-icon
+            {
+                display: none;
+            }
         }
         &:not(.simple)
         {

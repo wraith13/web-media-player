@@ -327,6 +327,15 @@ body.list #screen-body #media-screen:not(.show)::before {
   filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
   z-index: 100;
 }
+#screen-body #media-screen .visualizer.muted svg {
+  fill: red;
+}
+#screen-body #media-screen .visualizer.muted svg.audio-icon {
+  display: none;
+}
+#screen-body #media-screen .visualizer:not(.muted) svg.mute-icon {
+  display: none;
+}
 #screen-body #media-screen:not(.simple) .visual-progress-circle {
   display: none;
 }

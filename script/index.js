@@ -1898,17 +1898,36 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             visualDom.classList.toggle("odd", 0 !== (index % 2));
             return visualDom;
         };
-        Visualizer.makeSureIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
+        Visualizer.makeSureAudioIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        result = visualDom.querySelector(".visual-icon");
+                        result = visualDom.querySelector(".visual-icon.audio-icon");
                         if (!!result) return [3 /*break*/, 2];
                         return [4 /*yield*/, _library_4.Library.Svg.loadSvg("audio-icon")];
                     case 1:
                         result = _a.sent();
                         result.classList.add("visual-icon");
+                        result.classList.add("audio-icon");
+                        visualDom.appendChild(result);
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, result];
+                }
+            });
+        }); };
+        Visualizer.makeSureMuteIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        result = visualDom.querySelector(".visual-icon.mute-icon");
+                        if (!!result) return [3 /*break*/, 2];
+                        return [4 /*yield*/, _library_4.Library.Svg.loadSvg("error-icon")];
+                    case 1:
+                        result = _a.sent();
+                        result.classList.add("visual-icon");
+                        result.classList.add("mute-icon");
                         visualDom.appendChild(result);
                         _a.label = 2;
                     case 2: return [2 /*return*/, result];
@@ -1940,7 +1959,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             return result;
         };
         Visualizer.step = function (_media, playerDom, visualDom, frequencyDataArray) {
-            Visualizer.makeSureIcon(visualDom).catch(console.error);
+            Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
+            if (playerDom.muted) {
+                Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
+            }
+            visualDom.classList.toggle("muted", playerDom.muted);
             if (Visualizer.isSimpleMode()) {
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
@@ -1957,12 +1980,12 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     }
                     context.clearRect(0, 0, width, height);
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                    var zeroLevel = 1;
                     if (height <= width) {
                         var barWidth = width / maxIndex;
-                        var minHeight = 1;
                         for (var i = 0; i < maxIndex; i++) {
-                            var value = frequencyDataArray[i];
-                            var barHeight = minHeight + ((value / 255.0) * (height - minHeight));
+                            var value = frequencyDataArray[i] / 255.0;
+                            var barHeight = zeroLevel + (value * (height - zeroLevel));
                             var x = i * barWidth;
                             var y = (height - barHeight) / 2;
                             var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
@@ -1972,10 +1995,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     }
                     else {
                         var barHeight = height / maxIndex;
-                        var minWidth = 1;
                         for (var i = 0; i < maxIndex; i++) {
-                            var value = frequencyDataArray[i];
-                            var barWidth = minWidth + ((value / 255.0) * (width - minWidth));
+                            var value = frequencyDataArray[i] / 255.0;
+                            var barWidth = zeroLevel + (value * (width - zeroLevel));
                             var x = (width - barWidth) / 2;
                             var y = height - ((i + 1) * barHeight);
                             var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;

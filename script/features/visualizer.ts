@@ -23,13 +23,26 @@ export namespace Visualizer
         visualDom.classList.toggle("odd", 0 !== (index %2));
         return visualDom;
     };
-    export const makeSureIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
+    export const makeSureAudioIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
     {
-        let result = visualDom.querySelector(".visual-icon") as SVGElement;
+        let result = visualDom.querySelector(".visual-icon.audio-icon") as SVGElement;
         if ( ! result)
         {
             result = await Library.Svg.loadSvg("audio-icon");
             result.classList.add("visual-icon");
+            result.classList.add("audio-icon");
+            visualDom.appendChild(result);
+        }
+        return result;
+    };
+    export const makeSureMuteIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
+    {
+        let result = visualDom.querySelector(".visual-icon.mute-icon") as SVGElement;
+        if ( ! result)
+        {
+            result = await Library.Svg.loadSvg("error-icon");
+            result.classList.add("visual-icon");
+            result.classList.add("mute-icon");
             visualDom.appendChild(result);
         }
         return result;
@@ -66,7 +79,12 @@ export namespace Visualizer
     }
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null): void =>
     {
-        makeSureIcon(visualDom).catch(console.error);
+        makeSureAudioIcon(visualDom).catch(console.error);
+        if (playerDom.muted)
+        {
+            makeSureMuteIcon(visualDom).catch(console.error);
+        }
+        visualDom.classList.toggle("muted", playerDom.muted);
         if (isSimpleMode())
         {
             makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
@@ -87,14 +105,14 @@ export namespace Visualizer
                 }
                 context.clearRect(0, 0, width, height);
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+                const zeroLevel = 1;
                 if (height <= width)
                 {
                     const barWidth = width /maxIndex;
-                    const minHeight = 1;
                     for (let i = 0; i < maxIndex; i++)
                     {
-                        const value = frequencyDataArray[i];
-                        const barHeight = minHeight +((value /255.0) *(height -minHeight));
+                        const value = frequencyDataArray[i] /255.0;
+                        const barHeight = zeroLevel +(value *(height -zeroLevel));
                         const x = i *barWidth;
                         const y = (height -barHeight) /2;
                         const hue = (i /maxIndex) *config.visualizer.maxHue;
@@ -105,11 +123,10 @@ export namespace Visualizer
                 else
                 {
                     const barHeight = height /maxIndex;
-                    const minWidth = 1;
                     for (let i = 0; i < maxIndex; i++)
                     {
-                        const value = frequencyDataArray[i];
-                        const barWidth = minWidth +((value /255.0) *(width -minWidth));
+                        const value = frequencyDataArray[i] /255.0;
+                        const barWidth = zeroLevel +(value *(width -zeroLevel));
                         const x = (width -barWidth) /2;
                         const y = height -((i +1) *barHeight);
                         const hue = (i /maxIndex) *config.visualizer.maxHue;
