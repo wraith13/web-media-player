@@ -305,7 +305,7 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen .visualizer.odd .visual-progress-circle {
   background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
 }
-#screen-body #media-screen .visualizer .visual-raw-frequency-data {
+#screen-body #media-screen .visualizer .visual-canvas {
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -339,7 +339,7 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen:not(.simple) .visual-progress-circle {
   display: none;
 }
-#screen-body #media-screen:not(.raw-frequency-data) .visual-raw-frequency-data {
+#screen-body #media-screen.simple .visual-canvas {
   display: none;
 }
 #screen-body #media-screen.disable-transition {

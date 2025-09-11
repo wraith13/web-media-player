@@ -20,7 +20,9 @@ export namespace Analyser
         gainNode: GainNode;
         mediaElementAudioSourceNode: MediaElementAudioSourceNode;
         isValidFrequencyData: boolean = false;
+        isValidTimeDomainData: boolean = false;
         frequencyDataArray: Uint8Array<ArrayBuffer> | null = null;
+        timeDomainDataArray: Uint8Array<ArrayBuffer> | null = null;
         constructor(public mediaElement: HTMLMediaElement, gainOnly?: "gainOnly")
         {
             if (gainOnly)
@@ -51,6 +53,7 @@ export namespace Analyser
         step(): void
         {
             this.isValidFrequencyData = false;
+            this.isValidTimeDomainData = false;
         }
         getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
         {
@@ -64,5 +67,18 @@ export namespace Analyser
                 this.isValidFrequencyData = true;
             }
             return this.frequencyDataArray;
+        }
+        getByteTimeDomainData(): Uint8Array<ArrayBuffer> | null
+        {
+            if (this.analyserNode && ! this.isValidTimeDomainData)
+            {
+                if ( ! this.timeDomainDataArray)
+                {
+                    this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+                }
+                this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
+                this.isValidTimeDomainData = true;
+            }
+            return this.timeDomainDataArray;
         }
     }}

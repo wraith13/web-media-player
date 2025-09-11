@@ -1,6 +1,7 @@
 import { Library } from "@library";
 //import { Tools } from "@tools";
 import { Media } from "./media";
+import { Analyser } from "./analyser";
 import { UI } from "../ui";
 import config from "@resource/config.json";
 export namespace Visualizer
@@ -9,8 +10,10 @@ export namespace Visualizer
     export const VisualizerDom = HTMLDivElement;
     export const isSimpleMode = (): boolean =>
         UI.mediaScreen.classList.contains("simple");
-    export const isRawFrequencyData = (): boolean =>
-        UI.mediaScreen.classList.contains("raw-frequency-data");
+    export const isPlaneFrequencyMode = (): boolean =>
+        UI.mediaScreen.classList.contains("plane-frequency");
+    export const isPlaneWaveformMode = (): boolean =>
+        UI.mediaScreen.classList.contains("plane-waveform");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -58,17 +61,17 @@ export namespace Visualizer
         }
         return result;
     };
-    export const makeRawFrequencyDataCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
+    export const makeCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
     {
-        let result = visualDom.querySelector(".visual-raw-frequency-data") as HTMLCanvasElement;
+        let result = visualDom.querySelector(".visual-canvas") as HTMLCanvasElement;
         if ( ! result)
         {
-            result = Library.UI.createElement({ tag: "canvas", className: "visual-raw-frequency-data" });
+            result = Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
             visualDom.appendChild(result);
         }
         return result;
-    }
-    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null): void =>
+    };
+    export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
         if (playerDom.muted)
@@ -78,12 +81,14 @@ export namespace Visualizer
         visualDom.classList.toggle("muted", playerDom.muted);
         if (isSimpleMode())
         {
+            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
             makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
             makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
         }
-        if (isRawFrequencyData())
+        if (isPlaneFrequencyMode())
         {
-            const canvas = makeRawFrequencyDataCanvas(visualDom);
+            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
+            const canvas = makeCanvas(visualDom);
             const context = canvas.getContext("2d");
             if (context && frequencyDataArray)
             {
@@ -124,6 +129,70 @@ export namespace Visualizer
                         context.fillStyle = `hsl(${hue}, 100%, 50%)`;
                         context.fillRect(x, y, barWidth, barHeight);
                     }
+                }
+            }
+        }
+        if (isPlaneWaveformMode())
+        {
+            const timeDomainDataArray = analyser?.getByteTimeDomainData() ?? null;
+            const canvas = makeCanvas(visualDom);
+            const context = canvas.getContext("2d");
+            if (context && timeDomainDataArray)
+            {
+                const width = visualDom.clientWidth;
+                const height = visualDom.clientHeight;
+                if (canvas.width !== width || canvas.height !== height)
+                {
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+                context.clearRect(0, 0, width, height);
+                const maxIndex = timeDomainDataArray.length;
+                if (height <= width)
+                {
+                    const sliceWidth = width /maxIndex;
+                    context.lineWidth = 2;
+                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.beginPath();
+                    for (let i = 0; i < maxIndex; i++)
+                    {
+                        const value = timeDomainDataArray[i] /255.0;
+                        const x = i *sliceWidth;
+                        const y = value *height;
+                        if (0 === i)
+                        {
+                            context.moveTo(x, y);
+                        }
+                        else
+                        {
+                            context.lineTo(x, y);
+                        }
+                    }
+                    context.lineTo(width, height /2);
+                    context.stroke();
+                }
+                else
+                {
+                    const sliceHeight = height /maxIndex;
+                    context.lineWidth = 2;
+                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.beginPath();
+                    for (let i = 0; i < maxIndex; i++)
+                    {
+                        const value = timeDomainDataArray[i] /255.0;
+                        const x = value *width;
+                        const y = i *sliceHeight;
+                        if (0 === i)
+                        {
+                            context.moveTo(x, y);
+                        }
+                        else
+                        {
+                            context.lineTo(x, y);
+                        }
+                    }
+                    context.lineTo(width /2, height);
+                    context.stroke();
                 }
             }
         }

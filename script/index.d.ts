@@ -47,7 +47,8 @@ declare module "locale/generated/master" {
             "loop-short-media-label": string;
             "visualizer-label": string;
             "visualizer-simple": string;
-            "visualizer-raw-frequency-data": string;
+            "visualizer-plane-frequency": string;
+            "visualizer-plane-waveform": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -105,7 +106,8 @@ declare module "locale/generated/master" {
             "loop-short-media-label": string;
             "visualizer-label": string;
             "visualizer-simple": string;
-            "visualizer-raw-frequency-data": string;
+            "visualizer-plane-frequency": string;
+            "visualizer-plane-waveform": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -168,7 +170,8 @@ declare module "script/library/locale" {
                 "loop-short-media-label": string;
                 "visualizer-label": string;
                 "visualizer-simple": string;
-                "visualizer-raw-frequency-data": string;
+                "visualizer-plane-frequency": string;
+                "visualizer-plane-waveform": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -226,7 +229,8 @@ declare module "script/library/locale" {
                 "loop-short-media-label": string;
                 "visualizer-label": string;
                 "visualizer-simple": string;
-                "visualizer-raw-frequency-data": string;
+                "visualizer-plane-frequency": string;
+                "visualizer-plane-waveform": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -661,11 +665,14 @@ declare module "script/features/analyser" {
             gainNode: GainNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
             isValidFrequencyData: boolean;
+            isValidTimeDomainData: boolean;
             frequencyDataArray: Uint8Array<ArrayBuffer> | null;
+            timeDomainDataArray: Uint8Array<ArrayBuffer> | null;
             constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
             step(): void;
             getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
+            getByteTimeDomainData(): Uint8Array<ArrayBuffer> | null;
         }
     }
 }
@@ -703,6 +710,7 @@ declare module "script/features/media" {
 declare module "script/features/visualizer" {
     import { Library } from "script/library/index";
     import { Media } from "script/features/media";
+    import { Analyser } from "script/features/analyser";
     export namespace Visualizer {
         type VisualizerDom = HTMLDivElement;
         const VisualizerDom: {
@@ -710,15 +718,16 @@ declare module "script/features/visualizer" {
             prototype: HTMLDivElement;
         };
         const isSimpleMode: () => boolean;
-        const isRawFrequencyData: () => boolean;
+        const isPlaneFrequencyMode: () => boolean;
+        const isPlaneWaveformMode: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
-        const makeRawFrequencyDataCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
-        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, frequencyDataArray: Uint8Array<ArrayBuffer> | null) => void;
+        const makeCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
+        const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
         const getRawVolume: (frequencyDataArray: Uint8Array<ArrayBuffer>) => number;

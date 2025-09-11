@@ -100,7 +100,7 @@
             {
                 background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
             }
-            .visual-raw-frequency-data
+            .visual-canvas
             {
                 @include full-stretch-box();
                 position: fixed;
@@ -142,9 +142,9 @@
                 display: none;
             }
         }
-        &:not(.raw-frequency-data)
+        &.simple
         {
-            .visual-raw-frequency-data
+            .visual-canvas
             {
                 display: none;
             }

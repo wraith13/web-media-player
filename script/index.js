@@ -191,7 +191,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loop-short-media-label": "Loop Short Media:",
             "visualizer-label": "Visualizer:",
             "visualizer-simple": "Simple",
-            "visualizer-raw-frequency-data": "Raw Frequency Data",
+            "visualizer-plane-frequency": "Plane Frequency",
+            "visualizer-plane-waveform": "Plane Waveform",
             "with-fullscreen-label": "FullScreen:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
@@ -249,7 +250,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loop-short-media-label": "短いメディアをループ再生:",
             "visualizer-label": "ビジュアライザー:",
             "visualizer-simple": "シンプル",
-            "visualizer-raw-frequency-data": "生の周波数データ",
+            "visualizer-plane-frequency": "平面周波数",
+            "visualizer-plane-waveform": "平面波形",
             "with-fullscreen-label": "フルスクリーン:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
@@ -1342,7 +1344,8 @@ define("resource/control", [], {
         "id": "visualizer",
         "enum": [
             "simple",
-            "raw-frequency-data"
+            "plane-frequency",
+            "plane-waveform"
         ],
         "default": "simple"
     },
@@ -1586,7 +1589,9 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.mediaElement = mediaElement;
                 this.analyserNode = null;
                 this.isValidFrequencyData = false;
+                this.isValidTimeDomainData = false;
                 this.frequencyDataArray = null;
+                this.timeDomainDataArray = null;
                 if (gainOnly) {
                     this.gainNode = Analyser.audioContext.createGain();
                     this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
@@ -1612,6 +1617,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
             };
             Entry.prototype.step = function () {
                 this.isValidFrequencyData = false;
+                this.isValidTimeDomainData = false;
             };
             Entry.prototype.getByteFrequencyData = function () {
                 if (this.analyserNode && !this.isValidFrequencyData) {
@@ -1622,6 +1628,16 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                     this.isValidFrequencyData = true;
                 }
                 return this.frequencyDataArray;
+            };
+            Entry.prototype.getByteTimeDomainData = function () {
+                if (this.analyserNode && !this.isValidTimeDomainData) {
+                    if (!this.timeDomainDataArray) {
+                        this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+                    }
+                    this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
+                    this.isValidTimeDomainData = true;
+                }
+                return this.timeDomainDataArray;
             };
             return Entry;
         }());
@@ -1885,8 +1901,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isSimpleMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("simple");
         };
-        Visualizer.isRawFrequencyData = function () {
-            return ui_3.UI.mediaScreen.classList.contains("raw-frequency-data");
+        Visualizer.isPlaneFrequencyMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("plane-frequency");
+        };
+        Visualizer.isPlaneWaveformMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("plane-waveform");
         };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -1935,26 +1954,29 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
-        Visualizer.makeRawFrequencyDataCanvas = function (visualDom) {
-            var result = visualDom.querySelector(".visual-raw-frequency-data");
+        Visualizer.makeCanvas = function (visualDom) {
+            var result = visualDom.querySelector(".visual-canvas");
             if (!result) {
-                result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-raw-frequency-data" });
+                result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
                 visualDom.appendChild(result);
             }
             return result;
         };
-        Visualizer.step = function (_media, playerDom, visualDom, frequencyDataArray) {
+        Visualizer.step = function (_media, playerDom, visualDom, analyser) {
+            var _a, _b, _c;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
             }
             visualDom.classList.toggle("muted", playerDom.muted);
             if (Visualizer.isSimpleMode()) {
+                var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
             }
-            if (Visualizer.isRawFrequencyData()) {
-                var canvas = Visualizer.makeRawFrequencyDataCanvas(visualDom);
+            if (Visualizer.isPlaneFrequencyMode()) {
+                var frequencyDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null;
+                var canvas = Visualizer.makeCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     var width = visualDom.clientWidth;
@@ -1989,6 +2011,59 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                             context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
                             context.fillRect(x, y, barWidth, barHeight);
                         }
+                    }
+                }
+            }
+            if (Visualizer.isPlaneWaveformMode()) {
+                var timeDomainDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _c !== void 0 ? _c : null;
+                var canvas = Visualizer.makeCanvas(visualDom);
+                var context = canvas.getContext("2d");
+                if (context && timeDomainDataArray) {
+                    var width = visualDom.clientWidth;
+                    var height = visualDom.clientHeight;
+                    if (canvas.width !== width || canvas.height !== height) {
+                        canvas.width = width;
+                        canvas.height = height;
+                    }
+                    context.clearRect(0, 0, width, height);
+                    var maxIndex = timeDomainDataArray.length;
+                    if (height <= width) {
+                        var sliceWidth = width / maxIndex;
+                        context.lineWidth = 2;
+                        context.strokeStyle = "hsl(200, 100%, 50%)";
+                        context.beginPath();
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = timeDomainDataArray[i] / 255.0;
+                            var x = i * sliceWidth;
+                            var y = value * height;
+                            if (0 === i) {
+                                context.moveTo(x, y);
+                            }
+                            else {
+                                context.lineTo(x, y);
+                            }
+                        }
+                        context.lineTo(width, height / 2);
+                        context.stroke();
+                    }
+                    else {
+                        var sliceHeight = height / maxIndex;
+                        context.lineWidth = 2;
+                        context.strokeStyle = "hsl(200, 100%, 50%)";
+                        context.beginPath();
+                        for (var i = 0; i < maxIndex; i++) {
+                            var value = timeDomainDataArray[i] / 255.0;
+                            var x = value * width;
+                            var y = i * sliceHeight;
+                            if (0 === i) {
+                                context.moveTo(x, y);
+                            }
+                            else {
+                                context.lineTo(x, y);
+                            }
+                        }
+                        context.lineTo(width / 2, height);
+                        context.stroke();
                     }
                 }
             }
@@ -2466,10 +2541,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             });
         };
         Track.prototype.step = function () {
-            var _a, _b, _c;
+            var _a;
             (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.step();
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
-                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_c = (_b = this.analyser) === null || _b === void 0 ? void 0 : _b.getByteFrequencyData()) !== null && _c !== void 0 ? _c : null);
+                visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_6.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
@@ -2544,7 +2619,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.updateStretch = function () {
             var _this = this;
-            var _a, _b;
             if (this.visualElement) {
                 if (this.media.area) {
                     var StretchRate = ui_6.UI.stretchRange.get() / 100;
@@ -2589,7 +2663,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 //     Library.UI.setStyle(this.visualElement, "height", `100%`);
                 // }
                 if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
-                    visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, (_b = (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null);
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
                 }
             }
         };

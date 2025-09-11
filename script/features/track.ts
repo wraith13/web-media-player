@@ -226,7 +226,7 @@ export class Track
         this.analyser?.step();
         if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
-            Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser?.getByteFrequencyData() ?? null);
+            Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
         }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
@@ -379,7 +379,7 @@ export class Track
             // }
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
             {
-                Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser?.getByteFrequencyData() ?? null);
+                Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
         }
     }
