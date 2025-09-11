@@ -1898,42 +1898,27 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             visualDom.classList.toggle("odd", 0 !== (index % 2));
             return visualDom;
         };
-        Visualizer.makeSureAudioIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
-            var result;
+        Visualizer.makeSureIcon = function (cssClass, icon) { return function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
+            var baseCssClass, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        result = visualDom.querySelector(".visual-icon.audio-icon");
+                        baseCssClass = "visual-icon";
+                        result = visualDom.querySelector(".".concat(baseCssClass, ".").concat(cssClass));
                         if (!!result) return [3 /*break*/, 2];
-                        return [4 /*yield*/, _library_4.Library.Svg.loadSvg("audio-icon")];
+                        return [4 /*yield*/, _library_4.Library.Svg.loadSvg(icon)];
                     case 1:
                         result = _a.sent();
-                        result.classList.add("visual-icon");
-                        result.classList.add("audio-icon");
+                        result.classList.add(baseCssClass);
+                        result.classList.add(cssClass);
                         visualDom.appendChild(result);
                         _a.label = 2;
                     case 2: return [2 /*return*/, result];
                 }
             });
-        }); };
-        Visualizer.makeSureMuteIcon = function (visualDom) { return __awaiter(_this, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        result = visualDom.querySelector(".visual-icon.mute-icon");
-                        if (!!result) return [3 /*break*/, 2];
-                        return [4 /*yield*/, _library_4.Library.Svg.loadSvg("error-icon")];
-                    case 1:
-                        result = _a.sent();
-                        result.classList.add("visual-icon");
-                        result.classList.add("mute-icon");
-                        visualDom.appendChild(result);
-                        _a.label = 2;
-                    case 2: return [2 /*return*/, result];
-                }
-            });
-        }); };
+        }); }; };
+        Visualizer.makeSureAudioIcon = Visualizer.makeSureIcon("audio-icon", "audio-icon");
+        Visualizer.makeSureMuteIcon = Visualizer.makeSureIcon("mute-icon", "error-icon");
         Visualizer.makeSureProgressCircle = function (visualDom) {
             var result = visualDom.querySelector(".visual-progress-circle");
             if (!result) {

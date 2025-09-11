@@ -701,6 +701,7 @@ declare module "script/features/media" {
     }
 }
 declare module "script/features/visualizer" {
+    import { Library } from "script/library/index";
     import { Media } from "script/features/media";
     export namespace Visualizer {
         type VisualizerDom = HTMLDivElement;
@@ -711,6 +712,7 @@ declare module "script/features/visualizer" {
         const isSimpleMode: () => boolean;
         const isRawFrequencyData: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
+        const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;

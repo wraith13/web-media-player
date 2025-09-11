@@ -23,30 +23,21 @@ export namespace Visualizer
         visualDom.classList.toggle("odd", 0 !== (index %2));
         return visualDom;
     };
-    export const makeSureAudioIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
+    export const makeSureIcon = (cssClass: string, icon: Library.Svg.KeyType) => async (visualDom: VisualizerDom): Promise<SVGElement> =>
     {
-        let result = visualDom.querySelector(".visual-icon.audio-icon") as SVGElement;
+        const baseCssClass = "visual-icon";
+        let result = visualDom.querySelector(`.${baseCssClass}.${cssClass}`) as SVGElement;
         if ( ! result)
         {
-            result = await Library.Svg.loadSvg("audio-icon");
-            result.classList.add("visual-icon");
-            result.classList.add("audio-icon");
+            result = await Library.Svg.loadSvg(icon);
+            result.classList.add(baseCssClass);
+            result.classList.add(cssClass);
             visualDom.appendChild(result);
         }
         return result;
     };
-    export const makeSureMuteIcon = async (visualDom: VisualizerDom): Promise<SVGElement> =>
-    {
-        let result = visualDom.querySelector(".visual-icon.mute-icon") as SVGElement;
-        if ( ! result)
-        {
-            result = await Library.Svg.loadSvg("error-icon");
-            result.classList.add("visual-icon");
-            result.classList.add("mute-icon");
-            visualDom.appendChild(result);
-        }
-        return result;
-    };
+    export const makeSureAudioIcon = makeSureIcon("audio-icon", "audio-icon");
+    export const makeSureMuteIcon = makeSureIcon("mute-icon", "error-icon");
     export const makeSureProgressCircle = (visualDom: VisualizerDom): HTMLDivElement =>
     {
         let result = visualDom.querySelector(".visual-progress-circle") as HTMLDivElement;
