@@ -49,6 +49,8 @@ declare module "locale/generated/master" {
             "visualizer-simple": string;
             "visualizer-plane-frequency": string;
             "visualizer-plane-waveform": string;
+            "visualizer-arc-frequency": string;
+            "visualizer-arc-waveform": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -108,6 +110,8 @@ declare module "locale/generated/master" {
             "visualizer-simple": string;
             "visualizer-plane-frequency": string;
             "visualizer-plane-waveform": string;
+            "visualizer-arc-frequency": string;
+            "visualizer-arc-waveform": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -172,6 +176,8 @@ declare module "script/library/locale" {
                 "visualizer-simple": string;
                 "visualizer-plane-frequency": string;
                 "visualizer-plane-waveform": string;
+                "visualizer-arc-frequency": string;
+                "visualizer-arc-waveform": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -231,6 +237,8 @@ declare module "script/library/locale" {
                 "visualizer-simple": string;
                 "visualizer-plane-frequency": string;
                 "visualizer-plane-waveform": string;
+                "visualizer-arc-frequency": string;
+                "visualizer-arc-waveform": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -720,6 +728,8 @@ declare module "script/features/visualizer" {
         const isSimpleMode: () => boolean;
         const isPlaneFrequencyMode: () => boolean;
         const isPlaneWaveformMode: () => boolean;
+        const isArcFrequencyMode: () => boolean;
+        const isArcWaveformMode: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
@@ -727,6 +737,7 @@ declare module "script/features/visualizer" {
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
+        const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

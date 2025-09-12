@@ -91,7 +91,9 @@
         "enum": [
             "simple",
             "plane-frequency",
-            "plane-waveform"
+            "plane-waveform",
+            "arc-frequency",
+            "arc-waveform"
         ],
         "default": "simple"
     },

@@ -14,6 +14,10 @@ export namespace Visualizer
         UI.mediaScreen.classList.contains("plane-frequency");
     export const isPlaneWaveformMode = (): boolean =>
         UI.mediaScreen.classList.contains("plane-waveform");
+    export const isArcFrequencyMode = (): boolean =>
+        UI.mediaScreen.classList.contains("arc-frequency");
+    export const isArcWaveformMode = (): boolean =>
+        UI.mediaScreen.classList.contains("arc-waveform");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -71,6 +75,16 @@ export namespace Visualizer
         }
         return result;
     };
+    export const fitCanvas = (visualDom: VisualizerDom, canvas: HTMLCanvasElement): void =>
+    {
+        const width = visualDom.clientWidth;
+        const height = visualDom.clientHeight;
+        if (canvas.width !== width || canvas.height !== height)
+        {
+            canvas.width = width;
+            canvas.height = height;
+        }
+    }
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
@@ -92,16 +106,12 @@ export namespace Visualizer
             const context = canvas.getContext("2d");
             if (context && frequencyDataArray)
             {
+                fitCanvas(visualDom, canvas);
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
-                if (canvas.width !== width || canvas.height !== height)
-                {
-                    canvas.width = width;
-                    canvas.height = height;
-                }
-                context.clearRect(0, 0, width, height);
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
                 const zeroLevel = 1;
+                context.clearRect(0, 0, width, height);
                 if (height <= width)
                 {
                     const barWidth = width /maxIndex;
@@ -139,21 +149,17 @@ export namespace Visualizer
             const context = canvas.getContext("2d");
             if (context && timeDomainDataArray)
             {
+                fitCanvas(visualDom, canvas);
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
-                if (canvas.width !== width || canvas.height !== height)
-                {
-                    canvas.width = width;
-                    canvas.height = height;
-                }
-                context.clearRect(0, 0, width, height);
                 const maxIndex = timeDomainDataArray.length;
+                context.clearRect(0, 0, width, height);
+                context.lineWidth = 2;
+                context.strokeStyle = "hsl(200, 100%, 50%)";
+                context.beginPath();
                 if (height <= width)
                 {
                     const sliceWidth = width /maxIndex;
-                    context.lineWidth = 2;
-                    context.strokeStyle = "hsl(200, 100%, 50%)";
-                    context.beginPath();
                     for (let i = 0; i < maxIndex; i++)
                     {
                         const value = timeDomainDataArray[i] /255.0;
@@ -169,14 +175,10 @@ export namespace Visualizer
                         }
                     }
                     context.lineTo(width, height /2);
-                    context.stroke();
                 }
                 else
                 {
                     const sliceHeight = height /maxIndex;
-                    context.lineWidth = 2;
-                    context.strokeStyle = "hsl(200, 100%, 50%)";
-                    context.beginPath();
                     for (let i = 0; i < maxIndex; i++)
                     {
                         const value = timeDomainDataArray[i] /255.0;
@@ -192,6 +194,46 @@ export namespace Visualizer
                         }
                     }
                     context.lineTo(width /2, height);
+                }
+                context.stroke();
+            }
+        }
+        if (isArcFrequencyMode())
+        {
+            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
+            const canvas = makeCanvas(visualDom);
+            const context = canvas.getContext("2d");
+            if (context && frequencyDataArray)
+            {
+                fitCanvas(visualDom, canvas);
+                const width = visualDom.clientWidth;
+                const height = visualDom.clientHeight;
+                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+                const radius = Math.min(width, height) /2 *0.7;
+                const centerX = width /2;
+                const centerY = height /2;
+                const lineWidth = (2 *Math.PI *radius) /maxIndex *0.8;
+                const zeroLevel = 1;
+                context.clearRect(0, 0, width, height);
+                context.lineWidth = lineWidth;
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = frequencyDataArray[i] /255.0;
+                    const barLength = radius *value *1.5 +zeroLevel;
+                    const angle = (i /maxIndex) *(2 *Math.PI) -(Math.PI /2);
+                    const hue = (i /maxIndex) *config.visualizer.maxHue;
+                    context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+                    context.beginPath();
+                    context.moveTo
+                    (
+                        centerX +Math.cos(angle) *(radius -(barLength /2)),
+                        centerY +Math.sin(angle) *(radius -(barLength /2))
+                    );
+                    context.lineTo
+                    (
+                        centerX +Math.cos(angle) *(radius +(barLength /2)),
+                        centerY +Math.sin(angle) *(radius +(barLength /2))
+                    );
                     context.stroke();
                 }
             }

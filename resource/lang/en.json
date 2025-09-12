@@ -19,6 +19,8 @@
     "visualizer-simple": "Simple",
     "visualizer-plane-frequency": "Plane Frequency",
     "visualizer-plane-waveform": "Plane Waveform",
+    "visualizer-arc-frequency": "Arc Frequency",
+    "visualizer-arc-waveform": "Arc Waveform",
     "with-fullscreen-label": "FullScreen:",
     "show-fps-label": "Show FPS:",
     "clock-label": "Clock:",

@@ -193,6 +193,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-simple": "Simple",
             "visualizer-plane-frequency": "Plane Frequency",
             "visualizer-plane-waveform": "Plane Waveform",
+            "visualizer-arc-frequency": "Arc Frequency",
+            "visualizer-arc-waveform": "Arc Waveform",
             "with-fullscreen-label": "FullScreen:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
@@ -252,6 +254,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-simple": "シンプル",
             "visualizer-plane-frequency": "平面周波数",
             "visualizer-plane-waveform": "平面波形",
+            "visualizer-arc-frequency": "アーク周波数",
+            "visualizer-arc-waveform": "アーク波形",
             "with-fullscreen-label": "フルスクリーン:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
@@ -1345,7 +1349,9 @@ define("resource/control", [], {
         "enum": [
             "simple",
             "plane-frequency",
-            "plane-waveform"
+            "plane-waveform",
+            "arc-frequency",
+            "arc-waveform"
         ],
         "default": "simple"
     },
@@ -1907,6 +1913,12 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isPlaneWaveformMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("plane-waveform");
         };
+        Visualizer.isArcFrequencyMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("arc-frequency");
+        };
+        Visualizer.isArcWaveformMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("arc-waveform");
+        };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
@@ -1962,8 +1974,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
+        Visualizer.fitCanvas = function (visualDom, canvas) {
+            var width = visualDom.clientWidth;
+            var height = visualDom.clientHeight;
+            if (canvas.width !== width || canvas.height !== height) {
+                canvas.width = width;
+                canvas.height = height;
+            }
+        };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
-            var _a, _b, _c;
+            var _a, _b, _c, _d;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
@@ -1979,15 +1999,12 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
+                    Visualizer.fitCanvas(visualDom, canvas);
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
-                    if (canvas.width !== width || canvas.height !== height) {
-                        canvas.width = width;
-                        canvas.height = height;
-                    }
-                    context.clearRect(0, 0, width, height);
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
                     var zeroLevel = 1;
+                    context.clearRect(0, 0, width, height);
                     if (height <= width) {
                         var barWidth = width / maxIndex;
                         for (var i = 0; i < maxIndex; i++) {
@@ -2019,19 +2036,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
+                    Visualizer.fitCanvas(visualDom, canvas);
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
-                    if (canvas.width !== width || canvas.height !== height) {
-                        canvas.width = width;
-                        canvas.height = height;
-                    }
-                    context.clearRect(0, 0, width, height);
                     var maxIndex = timeDomainDataArray.length;
+                    context.clearRect(0, 0, width, height);
+                    context.lineWidth = 2;
+                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.beginPath();
                     if (height <= width) {
                         var sliceWidth = width / maxIndex;
-                        context.lineWidth = 2;
-                        context.strokeStyle = "hsl(200, 100%, 50%)";
-                        context.beginPath();
                         for (var i = 0; i < maxIndex; i++) {
                             var value = timeDomainDataArray[i] / 255.0;
                             var x = i * sliceWidth;
@@ -2044,13 +2058,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                             }
                         }
                         context.lineTo(width, height / 2);
-                        context.stroke();
                     }
                     else {
                         var sliceHeight = height / maxIndex;
-                        context.lineWidth = 2;
-                        context.strokeStyle = "hsl(200, 100%, 50%)";
-                        context.beginPath();
                         for (var i = 0; i < maxIndex; i++) {
                             var value = timeDomainDataArray[i] / 255.0;
                             var x = value * width;
@@ -2063,6 +2073,35 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                             }
                         }
                         context.lineTo(width / 2, height);
+                    }
+                    context.stroke();
+                }
+            }
+            if (Visualizer.isArcFrequencyMode()) {
+                var frequencyDataArray = (_d = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _d !== void 0 ? _d : null;
+                var canvas = Visualizer.makeCanvas(visualDom);
+                var context = canvas.getContext("2d");
+                if (context && frequencyDataArray) {
+                    Visualizer.fitCanvas(visualDom, canvas);
+                    var width = visualDom.clientWidth;
+                    var height = visualDom.clientHeight;
+                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                    var radius = Math.min(width, height) / 2 * 0.7;
+                    var centerX = width / 2;
+                    var centerY = height / 2;
+                    var lineWidth = (2 * Math.PI * radius) / maxIndex * 0.8;
+                    var zeroLevel = 1;
+                    context.clearRect(0, 0, width, height);
+                    context.lineWidth = lineWidth;
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = frequencyDataArray[i] / 255.0;
+                        var barLength = radius * value * 1.5 + zeroLevel;
+                        var angle = (i / maxIndex) * (2 * Math.PI) - (Math.PI / 2);
+                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                        context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                        context.beginPath();
+                        context.moveTo(centerX + Math.cos(angle) * (radius - (barLength / 2)), centerY + Math.sin(angle) * (radius - (barLength / 2)));
+                        context.lineTo(centerX + Math.cos(angle) * (radius + (barLength / 2)), centerY + Math.sin(angle) * (radius + (barLength / 2)));
                         context.stroke();
                     }
                 }
