@@ -4,6 +4,8 @@ import { Media } from "./media";
 import { Analyser } from "./analyser";
 import { UI } from "../ui";
 import config from "@resource/config.json";
+const circleRadians = 2 *Math.PI;
+const arcConfig = config.visualizer.arc[config.visualizer.arcType as "arc" | "circle"];
 export namespace Visualizer
 {
     export type VisualizerDom = HTMLDivElement;
@@ -160,38 +162,26 @@ export namespace Visualizer
                 if (height <= width)
                 {
                     const sliceWidth = width /maxIndex;
+                    context.moveTo(0, height /2);
                     for (let i = 0; i < maxIndex; i++)
                     {
                         const value = timeDomainDataArray[i] /255.0;
                         const x = i *sliceWidth;
                         const y = value *height;
-                        if (0 === i)
-                        {
-                            context.moveTo(x, y);
-                        }
-                        else
-                        {
-                            context.lineTo(x, y);
-                        }
+                        context.lineTo(x, y);
                     }
                     context.lineTo(width, height /2);
                 }
                 else
                 {
                     const sliceHeight = height /maxIndex;
+                    context.moveTo(width /2, 0);
                     for (let i = 0; i < maxIndex; i++)
                     {
                         const value = timeDomainDataArray[i] /255.0;
                         const x = value *width;
                         const y = i *sliceHeight;
-                        if (0 === i)
-                        {
-                            context.moveTo(x, y);
-                        }
-                        else
-                        {
-                            context.lineTo(x, y);
-                        }
+                        context.lineTo(x, y);
                     }
                     context.lineTo(width /2, height);
                 }
@@ -206,13 +196,14 @@ export namespace Visualizer
             if (context && frequencyDataArray)
             {
                 fitCanvas(visualDom, canvas);
+                const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
-                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
-                const radius = (width +height) *0.125;
+                const radius = (width +height) *arcConfig.radiusRate;
                 const centerX = width /2;
                 const centerY = height /2;
-                const lineWidth = (2 *Math.PI *radius) /maxIndex *0.8;
+                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+                const lineWidth = (circleRadians *radius) /maxIndex *0.8;
                 const zeroLevel = 1;
                 context.clearRect(0, 0, width, height);
                 context.lineWidth = lineWidth;
@@ -220,7 +211,7 @@ export namespace Visualizer
                 {
                     const value = frequencyDataArray[i] /255.0;
                     const barLength = radius *value +zeroLevel;
-                    const angle = (i /maxIndex) *(2 *Math.PI) -(Math.PI /2);
+                    const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
                     context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
                     context.beginPath();
@@ -246,33 +237,36 @@ export namespace Visualizer
             if (context && timeDomainDataArray)
             {
                 fitCanvas(visualDom, canvas);
+                const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
-                const maxIndex = timeDomainDataArray.length;
-                const radius = (width +height) *0.125;
+                const radius = (width +height) *arcConfig.radiusRate;
                 const centerX = width /2;
                 const centerY = height /2;
+                const maxIndex = timeDomainDataArray.length;
                 context.clearRect(0, 0, width, height);
                 context.lineWidth = 2;
                 context.strokeStyle = "hsl(200, 100%, 50%)";
                 context.beginPath();
+                context.moveTo
+                (
+                    centerX +Math.cos(startAngle) *radius,
+                    centerY +Math.sin(startAngle) *radius,
+                );
                 for (let i = 0; i < maxIndex; i++)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const barLength = (radius *(value -0.5)) *2.0;
-                    const angle = (i /maxIndex) *(2 *Math.PI) -(Math.PI /2);
+                    const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                     const x = centerX +Math.cos(angle) *(radius +barLength);
                     const y = centerY +Math.sin(angle) *(radius +barLength);
-                    if (0 === i)
-                    {
-                        context.moveTo(x, y);
-                    }
-                    else
-                    {
-                        context.lineTo(x, y);
-                    }
+                    context.lineTo(x, y);
                 }
-                context.closePath();
+                context.lineTo
+                (
+                    centerX +Math.cos(startAngle +circleRadians *arcConfig.angleRate) *radius,
+                    centerY +Math.sin(startAngle +circleRadians *arcConfig.angleRate) *radius,
+                );
                 context.stroke();
             }
         }

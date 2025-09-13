@@ -374,7 +374,20 @@ define("resource/config", [], {
     },
     "visualizer": {
         "frequencyDataLengthRate": 1.0,
-        "maxHue": 300
+        "maxHue": 300,
+        "arcType": "arc",
+        "arc": {
+            "arc": {
+                "radiusRate": 0.15,
+                "angleRate": 0.8,
+                "startAngleRate": 0.25
+            },
+            "circle": {
+                "radiusRate": 0.15,
+                "angleRate": 1.0,
+                "startAngleRate": -0.25
+            }
+        }
     },
     "player": {
         "fastFowardSpan": 5000,
@@ -1900,6 +1913,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
     config_json_4 = __importDefault(config_json_4);
+    var circleRadians = 2 * Math.PI;
+    var arcConfig = config_json_4.default.visualizer.arc[config_json_4.default.visualizer.arcType];
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
@@ -2046,31 +2061,23 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     context.beginPath();
                     if (height <= width) {
                         var sliceWidth = width / maxIndex;
+                        context.moveTo(0, height / 2);
                         for (var i = 0; i < maxIndex; i++) {
                             var value = timeDomainDataArray[i] / 255.0;
                             var x = i * sliceWidth;
                             var y = value * height;
-                            if (0 === i) {
-                                context.moveTo(x, y);
-                            }
-                            else {
-                                context.lineTo(x, y);
-                            }
+                            context.lineTo(x, y);
                         }
                         context.lineTo(width, height / 2);
                     }
                     else {
                         var sliceHeight = height / maxIndex;
+                        context.moveTo(width / 2, 0);
                         for (var i = 0; i < maxIndex; i++) {
                             var value = timeDomainDataArray[i] / 255.0;
                             var x = value * width;
                             var y = i * sliceHeight;
-                            if (0 === i) {
-                                context.moveTo(x, y);
-                            }
-                            else {
-                                context.lineTo(x, y);
-                            }
+                            context.lineTo(x, y);
                         }
                         context.lineTo(width / 2, height);
                     }
@@ -2083,20 +2090,21 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
-                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var radius = (width + height) * 0.125;
+                    var radius = (width + height) * arcConfig.radiusRate;
                     var centerX = width / 2;
                     var centerY = height / 2;
-                    var lineWidth = (2 * Math.PI * radius) / maxIndex * 0.8;
+                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                    var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
                     var zeroLevel = 1;
                     context.clearRect(0, 0, width, height);
                     context.lineWidth = lineWidth;
                     for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i] / 255.0;
                         var barLength = radius * value + zeroLevel;
-                        var angle = (i / maxIndex) * (2 * Math.PI) - (Math.PI / 2);
+                        var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
                         context.beginPath();
@@ -2112,30 +2120,27 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
-                    var maxIndex = timeDomainDataArray.length;
-                    var radius = (width + height) * 0.125;
+                    var radius = (width + height) * arcConfig.radiusRate;
                     var centerX = width / 2;
                     var centerY = height / 2;
+                    var maxIndex = timeDomainDataArray.length;
                     context.clearRect(0, 0, width, height);
                     context.lineWidth = 2;
                     context.strokeStyle = "hsl(200, 100%, 50%)";
                     context.beginPath();
+                    context.moveTo(centerX + Math.cos(startAngle) * radius, centerY + Math.sin(startAngle) * radius);
                     for (var i = 0; i < maxIndex; i++) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var barLength = (radius * (value - 0.5)) * 2.0;
-                        var angle = (i / maxIndex) * (2 * Math.PI) - (Math.PI / 2);
+                        var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
                         var x = centerX + Math.cos(angle) * (radius + barLength);
                         var y = centerY + Math.sin(angle) * (radius + barLength);
-                        if (0 === i) {
-                            context.moveTo(x, y);
-                        }
-                        else {
-                            context.lineTo(x, y);
-                        }
+                        context.lineTo(x, y);
                     }
-                    context.closePath();
+                    context.lineTo(centerX + Math.cos(startAngle + circleRadians * arcConfig.angleRate) * radius, centerY + Math.sin(startAngle + circleRadians * arcConfig.angleRate) * radius);
                     context.stroke();
                 }
             }
