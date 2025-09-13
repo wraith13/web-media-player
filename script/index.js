@@ -1966,7 +1966,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
-        Visualizer.makeCanvas = function (visualDom) {
+        Visualizer.makeSureCanvas = function (visualDom) {
             var result = visualDom.querySelector(".visual-canvas");
             if (!result) {
                 result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
@@ -1983,7 +1983,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
         };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
@@ -1996,7 +1996,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             if (Visualizer.isPlaneFrequencyMode()) {
                 var frequencyDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null;
-                var canvas = Visualizer.makeCanvas(visualDom);
+                var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
@@ -2033,7 +2033,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             if (Visualizer.isPlaneWaveformMode()) {
                 var timeDomainDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _c !== void 0 ? _c : null;
-                var canvas = Visualizer.makeCanvas(visualDom);
+                var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
@@ -2079,14 +2079,14 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             if (Visualizer.isArcFrequencyMode()) {
                 var frequencyDataArray = (_d = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _d !== void 0 ? _d : null;
-                var canvas = Visualizer.makeCanvas(visualDom);
+                var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var radius = Math.min(width, height) / 2 * 0.7;
+                    var radius = (width + height) * 0.125;
                     var centerX = width / 2;
                     var centerY = height / 2;
                     var lineWidth = (2 * Math.PI * radius) / maxIndex * 0.8;
@@ -2095,7 +2095,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     context.lineWidth = lineWidth;
                     for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i] / 255.0;
-                        var barLength = radius * value * 1.5 + zeroLevel;
+                        var barLength = radius * value + zeroLevel;
                         var angle = (i / maxIndex) * (2 * Math.PI) - (Math.PI / 2);
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
@@ -2104,6 +2104,39 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                         context.lineTo(centerX + Math.cos(angle) * (radius + (barLength / 2)), centerY + Math.sin(angle) * (radius + (barLength / 2)));
                         context.stroke();
                     }
+                }
+            }
+            if (Visualizer.isArcWaveformMode()) {
+                var timeDomainDataArray = (_e = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _e !== void 0 ? _e : null;
+                var canvas = Visualizer.makeSureCanvas(visualDom);
+                var context = canvas.getContext("2d");
+                if (context && timeDomainDataArray) {
+                    Visualizer.fitCanvas(visualDom, canvas);
+                    var width = visualDom.clientWidth;
+                    var height = visualDom.clientHeight;
+                    var maxIndex = timeDomainDataArray.length;
+                    var radius = (width + height) * 0.125;
+                    var centerX = width / 2;
+                    var centerY = height / 2;
+                    context.clearRect(0, 0, width, height);
+                    context.lineWidth = 2;
+                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.beginPath();
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = timeDomainDataArray[i] / 255.0;
+                        var barLength = (radius * (value - 0.5)) * 2.0;
+                        var angle = (i / maxIndex) * (2 * Math.PI) - (Math.PI / 2);
+                        var x = centerX + Math.cos(angle) * (radius + barLength);
+                        var y = centerY + Math.sin(angle) * (radius + barLength);
+                        if (0 === i) {
+                            context.moveTo(x, y);
+                        }
+                        else {
+                            context.lineTo(x, y);
+                        }
+                    }
+                    context.closePath();
+                    context.stroke();
                 }
             }
         };

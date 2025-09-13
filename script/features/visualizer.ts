@@ -65,7 +65,7 @@ export namespace Visualizer
         }
         return result;
     };
-    export const makeCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
+    export const makeSureCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
     {
         let result = visualDom.querySelector(".visual-canvas") as HTMLCanvasElement;
         if ( ! result)
@@ -102,7 +102,7 @@ export namespace Visualizer
         if (isPlaneFrequencyMode())
         {
             const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
-            const canvas = makeCanvas(visualDom);
+            const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
             if (context && frequencyDataArray)
             {
@@ -145,7 +145,7 @@ export namespace Visualizer
         if (isPlaneWaveformMode())
         {
             const timeDomainDataArray = analyser?.getByteTimeDomainData() ?? null;
-            const canvas = makeCanvas(visualDom);
+            const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
             if (context && timeDomainDataArray)
             {
@@ -201,7 +201,7 @@ export namespace Visualizer
         if (isArcFrequencyMode())
         {
             const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
-            const canvas = makeCanvas(visualDom);
+            const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
             if (context && frequencyDataArray)
             {
@@ -209,7 +209,7 @@ export namespace Visualizer
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
-                const radius = Math.min(width, height) /2 *0.7;
+                const radius = (width +height) *0.125;
                 const centerX = width /2;
                 const centerY = height /2;
                 const lineWidth = (2 *Math.PI *radius) /maxIndex *0.8;
@@ -219,7 +219,7 @@ export namespace Visualizer
                 for (let i = 0; i < maxIndex; i++)
                 {
                     const value = frequencyDataArray[i] /255.0;
-                    const barLength = radius *value *1.5 +zeroLevel;
+                    const barLength = radius *value +zeroLevel;
                     const angle = (i /maxIndex) *(2 *Math.PI) -(Math.PI /2);
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
                     context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
@@ -236,6 +236,44 @@ export namespace Visualizer
                     );
                     context.stroke();
                 }
+            }
+        }
+        if (isArcWaveformMode())
+        {
+            const timeDomainDataArray = analyser?.getByteTimeDomainData() ?? null;
+            const canvas = makeSureCanvas(visualDom);
+            const context = canvas.getContext("2d");
+            if (context && timeDomainDataArray)
+            {
+                fitCanvas(visualDom, canvas);
+                const width = visualDom.clientWidth;
+                const height = visualDom.clientHeight;
+                const maxIndex = timeDomainDataArray.length;
+                const radius = (width +height) *0.125;
+                const centerX = width /2;
+                const centerY = height /2;
+                context.clearRect(0, 0, width, height);
+                context.lineWidth = 2;
+                context.strokeStyle = "hsl(200, 100%, 50%)";
+                context.beginPath();
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = timeDomainDataArray[i] /255.0;
+                    const barLength = (radius *(value -0.5)) *2.0;
+                    const angle = (i /maxIndex) *(2 *Math.PI) -(Math.PI /2);
+                    const x = centerX +Math.cos(angle) *(radius +barLength);
+                    const y = centerY +Math.sin(angle) *(radius +barLength);
+                    if (0 === i)
+                    {
+                        context.moveTo(x, y);
+                    }
+                    else
+                    {
+                        context.lineTo(x, y);
+                    }
+                }
+                context.closePath();
+                context.stroke();
             }
         }
     };

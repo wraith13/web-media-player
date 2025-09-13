@@ -736,7 +736,7 @@ declare module "script/features/visualizer" {
         const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
-        const makeCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
+        const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
