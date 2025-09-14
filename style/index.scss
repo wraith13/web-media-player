@@ -483,8 +483,8 @@ body.show-paused-media #screen-body
     &
     {
         position: absolute;
-        inset-block-start: 0.5rem;
-        inset-block-start: calc(0.5rem + env(safe-area-inset-top));
+        inset-block-start: 2.5rem;
+        inset-block-start: calc(2.5rem + env(safe-area-inset-top));
         inset-inline-end: 0.5rem;
         inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
         border-radius: 0.5rem;
@@ -802,6 +802,14 @@ body:not(.not-supported-media)
                 flex-grow: 1;
             }
         }
+    }
+}
+body:not(.play):not(.show-paused-media),
+body:not(.show-ui)
+{
+    #media-time-frame
+    {
+        pointer-events: none;
     }
 }
 body.show-seek-bar #media-time-frame

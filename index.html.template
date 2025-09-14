@@ -203,9 +203,6 @@ const evilTimerConfig = // "./resource/evil-timer.js.config.json"
 __EVIL_TIMER_CONFIG__;
 __EVIL_COMMONJS__
 __EVIL_TIMER__
-module.readyToCapture("https://wraith13.github.io/phi-colors/library/source/index.js");
-__PHI_COLORS__
-module.capture("https://wraith13.github.io/phi-colors/library/source/index.js", ["phi-colors"]);
 __SCRIPT__
 </script>
 </html>

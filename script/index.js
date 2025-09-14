@@ -1514,11 +1514,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/clock", ["require", "exports", "phi-colors", "script/library/index", "script/tools/index", "script/ui", "resource/config"], function (require, exports, phi_colors_1, library_1, _tools_3, ui_2, config_json_2) {
+define("script/features/clock", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, library_1, ui_2, config_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Clock = void 0;
     config_json_2 = __importDefault(config_json_2);
+    var phi = (1 + Math.sqrt(5)) / 2;
     var Clock;
     (function (Clock) {
         Clock.title = undefined;
@@ -1538,15 +1539,6 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
             library_1.Library.UI.setStyle(ui_2.UI.time, "color", color);
         };
         Clock.cloclLocale = undefined;
-        var regulateH = function (h) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslHMin, phi_colors_1.phiColors.HslHMax)(h); };
-        var regulateS = function (s) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslSMin, phi_colors_1.phiColors.HslSMax)(s); };
-        var regulateL = function (l) { return _tools_3.Tools.Math.scale(phi_colors_1.phiColors.HslLMin, phi_colors_1.phiColors.HslLMax)(l); };
-        var RgbHueUnit = 1 / 3;
-        var makeRgb = function (step) { return phi_colors_1.phiColors.clipRgb(phi_colors_1.phiColors.hslToRgb({
-            h: regulateH(((RgbHueUnit * step)) % 1),
-            s: regulateS(config_json_2.default.clock.phiColors.saturation),
-            l: regulateL(config_json_2.default.clock.phiColors.lightness),
-        })); };
         Clock.update = function (now) {
             var clockOption = ui_2.UI.clockSelect.get();
             if ("hide" !== clockOption) {
@@ -1559,7 +1551,7 @@ define("script/features/clock", ["require", "exports", "phi-colors", "script/lib
                         Clock.setColor(undefined);
                         break;
                     case "rainbow":
-                        Clock.setColor(phi_colors_1.phiColors.rgbForStyle(makeRgb((now / 7500) / phi_colors_1.phiColors.phi)));
+                        Clock.setColor("hsl(".concat((now * 360) / (24000 * phi), ", 100%, 50%)"));
                         break;
                     default:
                         Clock.setColor(undefined);
@@ -1735,7 +1727,6 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     img = new Image();
                     url = Media.getUrl(file);
                     img.onload = function () { return resolve({
-                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -1763,7 +1754,6 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     loadedmetadataCalled = false;
                     failed = false;
                     finish = function () { return resolve({
-                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -1802,7 +1792,6 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     video.muted = true;
                     video.playsInline = true;
                     finish = function (skipThumbnail) { return resolve({
-                        //file,
                         url: url,
                         type: file.type,
                         category: category,
@@ -2292,7 +2281,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         };
     })(ElementPool || (exports.ElementPool = ElementPool = {}));
 });
-define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_5, Config) {
+define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_3, ui_5, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.History = void 0;
@@ -2413,19 +2402,19 @@ define("script/features/history", ["require", "exports", "script/features/media"
                     return 0;
                 case 2:
                     return history.length < 2 ?
-                        _tools_4.Tools.Random.makeInteger(media_1.Media.mediaList.length) :
-                        (0 === history[_tools_4.Tools.Random.makeInteger(history.length)] ? 1 : 0);
+                        _tools_3.Tools.Random.makeInteger(media_1.Media.mediaList.length) :
+                        (0 === history[_tools_3.Tools.Random.makeInteger(history.length)] ? 1 : 0);
                 default:
                     var playedList_1 = history.slice(Math.floor(currentIndex / media_1.Media.mediaList.length) * media_1.Media.mediaList.length);
                     var unplayedList = media_1.Media.mediaList.map(function (_, i) { return i; }).filter(function (i) { return !playedList_1.includes(i); });
-                    var forbidens_1 = _tools_4.Tools.Array.backSlice(history, Math.ceil(media_1.Media.mediaList.length * Config.history.shuffleForbiddenRate));
+                    var forbidens_1 = _tools_3.Tools.Array.backSlice(history, Math.ceil(media_1.Media.mediaList.length * Config.history.shuffleForbiddenRate));
                     var canonicals = unplayedList.filter(function (i) { return !forbidens_1.includes(i); });
-                    return canonicals[_tools_4.Tools.Random.makeInteger(canonicals.length)];
+                    return canonicals[_tools_3.Tools.Random.makeInteger(canonicals.length)];
             }
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_5) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_4, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
@@ -2767,7 +2756,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.isMuteCondition = function (volume, rate, fade) {
-            if (_tools_5.Tools.Environment.isSafari()) {
+            if (_tools_4.Tools.Environment.isSafari()) {
                 if ((0, exports.hasValidGainNode)(this)) {
                     switch (fade) {
                         case "fadeIn":
@@ -2809,7 +2798,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     }());
     exports.Track = Track;
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/clock", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, clock_1, ui_7, elementpool_2, media_2, history_1, track_1, Config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/clock", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _tools_5, _library_7, fps_1, clock_1, ui_7, elementpool_2, media_2, history_1, track_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -3115,7 +3104,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return "".concat(track.media.name);
         };
         Player.makeTimeText = function (track) {
-            return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration()));
+            return "".concat(_tools_5.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(track.getDuration()));
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
@@ -3334,7 +3323,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_9, progress_1) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_6, _library_8, _features_1, media_3, ui_9, progress_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -3441,8 +3430,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
-                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3), },
-                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                            { tag: "span", className: "size", text: _tools_6.Tools.Byte.toDisplayString(entry.size, 3), },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_6.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
                         ];
                         return [4 /*yield*/, MediaList.removeButton(entry)];
                     case 2:
@@ -3534,7 +3523,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             _library_8.Library.UI.setTextContent(ui_9.UI.mediaCount, media_3.Media.mediaList.length.toString());
             var imageSpan = parseInt(ui_9.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_9.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_9.UI.mediaLength, _tools_6.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
@@ -3545,7 +3534,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_10, url_3, config_json_7, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_7, _library_9, _features_2, media_4, medialist_1, ui_10, url_3, config_json_7, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -3611,7 +3600,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 return [2 /*return*/];
             });
         }); };
-        var isSeekingTimer = new _tools_8.Tools.Timer.ExtendableTimer(function () {
+        var isSeekingTimer = new _tools_7.Tools.Timer.ExtendableTimer(function () {
             document.body.classList.add("is-seeking");
             if (_features_2.Features.Player.isPlaying()) {
                 _features_2.Features.Player.temporaryPause();
@@ -3790,7 +3779,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
+                if (_tools_7.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() <= 0 ? 100 : 0);
                 }
                 else {
@@ -3972,7 +3961,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_12, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_8, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_12, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_8 = __importDefault(config_json_8);
@@ -3987,7 +3976,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     medialist_2.MediaList.initialize();
     _features_3.Features.Clock.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_8.default,
@@ -3999,7 +3988,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         poweredBy: powered_by_json_2.default
     };
     var modules = {
-        Tools: _tools_9.Tools,
+        Tools: _tools_8.Tools,
         Library: _library_11.Library,
         Features: _features_3.Features,
         Url: url_4.Url,

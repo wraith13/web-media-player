@@ -752,8 +752,8 @@ body.show-paused-media #screen-body #media-list {
 }
 #fps {
   position: absolute;
-  inset-block-start: 0.5rem;
-  inset-block-start: calc(0.5rem + env(safe-area-inset-top));
+  inset-block-start: 2.5rem;
+  inset-block-start: calc(2.5rem + env(safe-area-inset-top));
   inset-inline-end: 0.5rem;
   inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
   border-radius: 0.5rem;
@@ -1527,6 +1527,11 @@ body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show)::before {
   padding: 0.25rem 0.5rem;
   line-height: 0rem;
   flex-grow: 1;
+}
+
+body:not(.play):not(.show-paused-media) #media-time-frame,
+body:not(.show-ui) #media-time-frame {
+  pointer-events: none;
 }
 
 body.show-seek-bar #media-time-frame #media-time {

@@ -1,8 +1,7 @@
-import { phiColors } from "phi-colors";
 import { Library } from "../library";
-import { Tools } from "@tools";
 import { UI } from "../ui";
 import config from "@resource/config.json";
+const phi = (1 + Math.sqrt(5)) / 2;
 export namespace Clock
 {
     export let title: string | undefined = undefined;
@@ -30,19 +29,6 @@ export namespace Clock
         Library.UI.setStyle(UI.time, "color", color);
     };
     export let cloclLocale: string | undefined = undefined;
-    const regulateH = (h: number) => Tools.Math.scale(phiColors.HslHMin, phiColors.HslHMax)(h);
-    const regulateS = (s: number) => Tools.Math.scale(phiColors.HslSMin, phiColors.HslSMax)(s);
-    const regulateL = (l: number) => Tools.Math.scale(phiColors.HslLMin, phiColors.HslLMax)(l);
-    const RgbHueUnit = 1 / 3;
-    const makeRgb = (step: number) => phiColors.clipRgb
-    (
-        phiColors.hslToRgb
-        ({
-            h: regulateH(((RgbHueUnit *step)) %1),
-            s: regulateS(config.clock.phiColors.saturation),
-            l: regulateL(config.clock.phiColors.lightness),
-        })
-    );
     export const update = (now: number) =>
     {
         const clockOption = UI.clockSelect.get();
@@ -58,7 +44,8 @@ export namespace Clock
                 Clock.setColor(undefined);
                 break;
             case "rainbow":
-                Clock.setColor(phiColors.rgbForStyle(makeRgb((now / 7500) /phiColors.phi)));
+                Clock.setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
+                
                 break;
             default:
                 Clock.setColor(undefined);

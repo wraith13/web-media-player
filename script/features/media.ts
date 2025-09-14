@@ -7,7 +7,6 @@ export namespace Media
 {
     export interface Entry
     {
-        //file: File;
         url: string;
         type: string;
         category: Category;
@@ -90,7 +89,6 @@ export namespace Media
             const url = getUrl(file);
             img.onload = () => resolve
             ({
-                //file,
                 url,
                 type: file.type,
                 category,
@@ -120,7 +118,6 @@ export namespace Media
                 let failed = false;
                 const finish = () => resolve
                 ({
-                    //file,
                     url,
                     type: file.type,
                     category,
@@ -174,7 +171,6 @@ export namespace Media
                 video.playsInline = true;
                 const finish = (skipThumbnail?: "skipThumbnail") => resolve
                 ({
-                    //file,
                     url,
                     type: file.type,
                     category,

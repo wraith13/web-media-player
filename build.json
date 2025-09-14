@@ -77,13 +77,6 @@
                         "text": "sourceMappingURL=evil-timer.js/index.js.map"
                     }
                 },
-                "__PHI_COLORS__": {
-                    "path": "./phi-colors/library/source/index.js",
-                    "replace": {
-                        "match": "sourceMappingURL=index.js.map",
-                        "text": "sourceMappingURL=phi-colors/library/source/index.js.map"
-                    }
-                },
                 "__SCRIPT__": {
                     "path": "./script/index.js",
                     "replace": {
