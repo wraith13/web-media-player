@@ -770,6 +770,7 @@ declare module "script/features/history" {
         const next: () => Media.Entry | undefined;
         const isAtEnd: () => boolean;
         const back: () => Media.Entry | undefined;
+        const getStraightNext: (index: number) => number;
         const getShuffleNext: () => number;
     }
 }

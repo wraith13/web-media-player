@@ -295,15 +295,15 @@ body.list #screen-body #media-screen:not(.show)::before {
   height: calc(25vw + 25vh);
   width: calc(25vw + 25vh);
   border-radius: 50%;
-  background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
   filter: drop-shadow(black 0px 0px 0.5rem);
-  border-color: #fff;
+  border-color: hsl(160, 100%, 50%);
   border-width: 0.125rem;
   border-style: solid;
   z-index: 50;
 }
 #screen-body #media-screen .visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
 }
 #screen-body #media-screen .visualizer .visual-canvas {
   margin: 0px;

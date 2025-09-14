@@ -1366,7 +1366,7 @@ define("resource/control", [], {
             "arc-frequency",
             "arc-waveform"
         ],
-        "default": "simple"
+        "default": "arc-waveform"
     },
     "clock": {
         "id": "clock",
@@ -2336,51 +2336,32 @@ define("script/features/history", ["require", "exports", "script/features/media"
             return undefined;
         };
         History.next = function () {
-            var _a;
-            if (0 <= media_1.Media.mediaList.length) {
+            if (History.isAtEnd()) {
+                History.clear();
+                return undefined;
+            }
+            else {
                 ++currentIndex;
-                if (currentIndex < history.length) {
-                    return History.getMedia();
-                }
-                else {
+                if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    var backMediaIndex = (_a = history[currentIndex - 1]) !== null && _a !== void 0 ? _a : -1;
-                    var currentMediaIndex = backMediaIndex + 1;
-                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_5.UI.repeatButton.dom.classList.contains("on")) {
-                        if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
-                            history.push(History.getShuffleNext());
-                        }
-                        else {
-                            history.push(currentMediaIndex % media_1.Media.mediaList.length);
-                            History.regulate();
-                        }
-                        return History.getMedia();
+                    if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
+                        history.push(History.getShuffleNext());
                     }
                     else {
-                        History.clear();
-                        return undefined;
+                        history.push(History.getStraightNext(currentIndex));
                     }
+                    History.regulate();
                 }
+                return History.getMedia();
             }
-            return undefined;
         };
         History.isAtEnd = function () {
-            var _a;
             if (0 <= media_1.Media.mediaList.length) {
                 var nextIndex = currentIndex + 1;
-                if (nextIndex < history.length) {
+                if (nextIndex < media_1.Media.mediaList.length ||
+                    0 < History.getStraightNext(nextIndex) ||
+                    ui_5.UI.repeatButton.dom.classList.contains("on")) {
                     return false;
-                }
-                else {
-                    nextIndex = history.length;
-                    var backMediaIndex = (_a = history[nextIndex - 1]) !== null && _a !== void 0 ? _a : -1;
-                    var currentMediaIndex = backMediaIndex + 1;
-                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_5.UI.repeatButton.dom.classList.contains("on")) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
                 }
             }
             return true;
@@ -2393,6 +2374,12 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 }
             }
             return undefined;
+        };
+        History.getStraightNext = function (index) {
+            var _a;
+            var backMediaIndex = (_a = history[index - 1]) !== null && _a !== void 0 ? _a : -1;
+            var currentMediaIndex = backMediaIndex + 1;
+            return currentMediaIndex % media_1.Media.mediaList.length;
         };
         History.getShuffleNext = function () {
             switch (media_1.Media.mediaList.length) {

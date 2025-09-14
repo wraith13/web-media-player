@@ -95,7 +95,7 @@
             "arc-frequency",
             "arc-waveform"
         ],
-        "default": "simple"
+        "default": "arc-waveform"
     },
     "clock": {
         "id": "clock",

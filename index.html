@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Sep 14 2025 13:55:48 GMT+0900 (日本標準時)
+    build at: Sun Sep 14 2025 21:22:46 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -351,15 +351,15 @@ body.list #screen-body #media-screen:not(.show)::before {
   height: calc(25vw + 25vh);
   width: calc(25vw + 25vh);
   border-radius: 50%;
-  background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
   filter: drop-shadow(black 0px 0px 0.5rem);
-  border-color: #fff;
+  border-color: hsl(160, 100%, 50%);
   border-width: 0.125rem;
   border-style: solid;
   z-index: 50;
 }
 #screen-body #media-screen .visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
 }
 #screen-body #media-screen .visualizer .visual-canvas {
   margin: 0px;
@@ -2807,8 +2807,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Sep 14 2025 13:55:48 GMT+0900 (日本標準時)",
-    tick: 1757825748570
+    at: "Sun Sep 14 2025 21:22:46 GMT+0900 (日本標準時)",
+    tick: 1757852566193
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5738,7 +5738,7 @@ define("resource/control", [], {
             "arc-frequency",
             "arc-waveform"
         ],
-        "default": "simple"
+        "default": "arc-waveform"
     },
     "clock": {
         "id": "clock",
@@ -6708,51 +6708,32 @@ define("script/features/history", ["require", "exports", "script/features/media"
             return undefined;
         };
         History.next = function () {
-            var _a;
-            if (0 <= media_1.Media.mediaList.length) {
+            if (History.isAtEnd()) {
+                History.clear();
+                return undefined;
+            }
+            else {
                 ++currentIndex;
-                if (currentIndex < history.length) {
-                    return History.getMedia();
-                }
-                else {
+                if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    var backMediaIndex = (_a = history[currentIndex - 1]) !== null && _a !== void 0 ? _a : -1;
-                    var currentMediaIndex = backMediaIndex + 1;
-                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_5.UI.repeatButton.dom.classList.contains("on")) {
-                        if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
-                            history.push(History.getShuffleNext());
-                        }
-                        else {
-                            history.push(currentMediaIndex % media_1.Media.mediaList.length);
-                            History.regulate();
-                        }
-                        return History.getMedia();
+                    if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
+                        history.push(History.getShuffleNext());
                     }
                     else {
-                        History.clear();
-                        return undefined;
+                        history.push(History.getStraightNext(currentIndex));
                     }
+                    History.regulate();
                 }
+                return History.getMedia();
             }
-            return undefined;
         };
         History.isAtEnd = function () {
-            var _a;
             if (0 <= media_1.Media.mediaList.length) {
                 var nextIndex = currentIndex + 1;
-                if (nextIndex < history.length) {
+                if (nextIndex < media_1.Media.mediaList.length ||
+                    0 < History.getStraightNext(nextIndex) ||
+                    ui_5.UI.repeatButton.dom.classList.contains("on")) {
                     return false;
-                }
-                else {
-                    nextIndex = history.length;
-                    var backMediaIndex = (_a = history[nextIndex - 1]) !== null && _a !== void 0 ? _a : -1;
-                    var currentMediaIndex = backMediaIndex + 1;
-                    if (currentMediaIndex < media_1.Media.mediaList.length || ui_5.UI.repeatButton.dom.classList.contains("on")) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
                 }
             }
             return true;
@@ -6765,6 +6746,12 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 }
             }
             return undefined;
+        };
+        History.getStraightNext = function (index) {
+            var _a;
+            var backMediaIndex = (_a = history[index - 1]) !== null && _a !== void 0 ? _a : -1;
+            var currentMediaIndex = backMediaIndex + 1;
+            return currentMediaIndex % media_1.Media.mediaList.length;
         };
         History.getShuffleNext = function () {
             switch (media_1.Media.mediaList.length) {

@@ -61,62 +61,43 @@ export namespace History
     };
     export const next = (): Media.Entry | undefined =>
     {
-        if (0 <= Media.mediaList.length)
+        if (isAtEnd())
+        {
+            clear();
+            return undefined;
+        }
+        else
         {
             ++currentIndex;
-            if (currentIndex < history.length)
-            {
-                return getMedia();
-            }
-            else
+            if (history.length <= currentIndex)
             {
                 currentIndex = history.length;
-                const backMediaIndex = history[currentIndex -1] ?? -1;
-                const currentMediaIndex = backMediaIndex +1;
-                if (currentMediaIndex < Media.mediaList.length || UI.repeatButton.dom.classList.contains("on"))
+                if (UI.shuffleButton.dom.classList.contains("on"))
                 {
-                    if (UI.shuffleButton.dom.classList.contains("on"))
-                    {
-                        history.push(getShuffleNext());
-                    }
-                    else
-                    {
-                        history.push(currentMediaIndex %Media.mediaList.length);
-                        regulate();
-                    }
-                    return getMedia();
+                    history.push(getShuffleNext());
                 }
                 else
                 {
-                    clear();
-                    return undefined;
+                    history.push(getStraightNext(currentIndex));
                 }
+                regulate();
             }
+            return getMedia();
         }
-        return undefined;
     };
     export const isAtEnd = (): boolean =>
     {
         if (0 <= Media.mediaList.length)
         {
             let nextIndex = currentIndex +1;
-            if (nextIndex < history.length)
+            if
+            (
+                nextIndex < Media.mediaList.length ||
+                0 < getStraightNext(nextIndex) ||
+                UI.repeatButton.dom.classList.contains("on")
+            )
             {
                 return false;
-            }
-            else
-            {
-                nextIndex = history.length;
-                const backMediaIndex = history[nextIndex -1] ?? -1;
-                const currentMediaIndex = backMediaIndex +1;
-                if (currentMediaIndex < Media.mediaList.length || UI.repeatButton.dom.classList.contains("on"))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
             }
         }
         return true;
@@ -132,6 +113,12 @@ export namespace History
             }
         }
         return undefined;
+    };
+    export const getStraightNext = (index: number): number =>
+    {
+        const backMediaIndex = history[index -1] ?? -1;
+        const currentMediaIndex = backMediaIndex +1;
+        return currentMediaIndex %Media.mediaList.length;
     };
     export const getShuffleNext = (): number =>
     {

@@ -89,16 +89,16 @@
                 height: calc(25vw + 25vh);
                 width: calc(25vw + 25vh);
                 border-radius: 50%;
-                background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+                background: conic-gradient($visualizer-color var(--progress, 30deg), $visualizer-color var(--progress, 30deg), transparent var(--progress, 30deg));
                 filter: drop-shadow(black 0px 0px 0.5rem);
-                border-color: #fff;
+                border-color: $visualizer-color;
                 border-width: 0.125rem;
                 border-style: solid;
                 z-index: 50;
             }
             &.odd .visual-progress-circle
             {
-                background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), #fff var(--progress, 30deg));
+                background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), $visualizer-color var(--progress, 30deg));
             }
             .visual-canvas
             {
