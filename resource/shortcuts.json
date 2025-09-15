@@ -1,0 +1,191 @@
+[
+    {
+        "description": "Hide UI",
+        "shortcuts": [
+            {
+                "command": "toggleHideUI",
+                "type": "onKeyDown",
+                "keys": [
+                    "U",
+                    "I"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Play / Pause",
+        "shortcuts": [
+            {
+                "command": "toggleAnimation",
+                "type": "onKeyUp",
+                "keys": [
+                    " "
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Switch Pattern",
+        "shortcuts": [
+            {
+                "command": "switchPatternForward",
+                "type": "onKeyDown",
+                "keys": [
+                    "P"
+                ]
+            },
+            {
+                "command": "switchPatternBackward",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "P"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Switch Coloring",
+        "shortcuts": [
+            {
+                "command": "switchColoringForward",
+                "type": "onKeyDown",
+                "keys": [
+                    "C"
+                ]
+            },
+            {
+                "command": "switchColoringBackward",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "C"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Scaling Canvas Size",
+        "shortcuts": [
+            {
+                "command": "increaseCanvasSize",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "ArrowUp"
+                ]
+            },
+            {
+                "command": "decreaseCanvasSize",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "ArrowDown"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Increase / Decrease Frame Delay",
+        "shortcuts": [
+            {
+                "command": "increaseFrameDelay",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "ArrowLeft"
+                ]
+            },
+            {
+                "command": "decreaseFrameDelay",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "ArrowRight"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Increase / Decrease Layer",
+        "shortcuts": [
+            {
+                "command": "increaseLayer",
+                "type": "onKeyDown",
+                "keys": [
+                    "ArrowUp"
+                ]
+            },
+            {
+                "command": "decreaseLayer",
+                "type": "onKeyDown",
+                "keys": [
+                    "ArrowDown"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Speed Down / Up",
+        "shortcuts": [
+            {
+                "command": "speedDown",
+                "type": "onKeyDown",
+                "keys": [
+                    "ArrowLeft"
+                ]
+            },
+            {
+                "command": "speedUp",
+                "type": "onKeyDown",
+                "keys": [
+                    "ArrowRight"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "FullScreen",
+        "shortcuts": [
+            {
+                "command": "toggleFullScreen",
+                "type": "onKeyUp",
+                "keys": [
+                    "F"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Show FPS",
+        "shortcuts": [
+            {
+                "command": "toggleShowFps",
+                "type": "onKeyDown",
+                "keys": [
+                    "S"
+                ]
+            }
+        ]
+    },
+    {
+        "description": "Switch Clock",
+        "shortcuts": [
+            {
+                "command": "switchClockForward",
+                "type": "onKeyDown",
+                "keys": [
+                    "T"
+                ]
+            },
+            {
+                "command": "switchClockBackward",
+                "type": "onKeyDown",
+                "keys": [
+                    "Shift",
+                    "T"
+                ]
+            }
+        ]
+    }
+]
