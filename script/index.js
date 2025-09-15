@@ -3883,9 +3883,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 setTimeout(function () {
                     return [
                         ui_10.UI.withFullscreenCheckbox,
-                        ui_10.UI.showFpsCheckbox,
-                        ui_10.UI.clockSelect,
                         ui_10.UI.brightnessRange,
+                        ui_10.UI.stretchRange,
+                        ui_10.UI.paddingCheckbox,
+                        ui_10.UI.crossFadeSelect,
+                        ui_10.UI.imageSpanSelect,
+                        ui_10.UI.loopShortMediaCheckbox,
+                        ui_10.UI.visualizerSelect,
+                        ui_10.UI.clockSelect,
+                        ui_10.UI.clockPositionSelect,
+                        ui_10.UI.showFpsCheckbox,
                         ui_10.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });

@@ -156,8 +156,8 @@ export namespace Visualizer
                 const height = visualDom.clientHeight;
                 const maxIndex = timeDomainDataArray.length;
                 context.clearRect(0, 0, width, height);
-                context.lineWidth = 2;
-                context.strokeStyle = "hsl(200, 100%, 50%)";
+                context.lineWidth = config.visualizer.waveform.lineWidth;
+                context.strokeStyle = config.visualizer.waveform.strokeStyle;
                 context.beginPath();
                 if (height <= width)
                 {
@@ -245,8 +245,8 @@ export namespace Visualizer
                 const centerY = height /2;
                 const maxIndex = timeDomainDataArray.length;
                 context.clearRect(0, 0, width, height);
-                context.lineWidth = 2;
-                context.strokeStyle = "hsl(200, 100%, 50%)";
+                context.lineWidth = config.visualizer.waveform.lineWidth;
+                context.strokeStyle = config.visualizer.waveform.strokeStyle;
                 context.beginPath();
                 context.moveTo
                 (

@@ -7,15 +7,11 @@
     @include full-stretch-box();
     @include flex(column, center);
     position: fixed;
-    background-color: $body-background-color;
+    z-index: 50;
     @at-root body.play:not(.mousemove) &
     {
         cursor: none;
     }
-    // @at-root body.play.mousemove &
-    // {
-    //     cursor: pointer;
-    // }
     #background-screen
     {
         @include fade-transition("body.play");
@@ -251,7 +247,6 @@
                 padding: 0.5rem;
                 text-align: center;
                 z-index: 100;
-                //user-select: none;
             }
             & > span.type
             {
@@ -264,9 +259,6 @@
                 position: absolute;
                 top: 0rem;
                 left: 0rem;
-                // left: 0rem;
-                // bottom: 0rem;
-                //user-select: none;
             }
             & > span.size
             {
@@ -280,7 +272,6 @@
                     position: absolute;
                     left: 0rem;
                     bottom: 0rem;
-                    //user-select: none;
                 }
             }
             & > span.duration
@@ -296,7 +287,6 @@
                     position: absolute;
                     right: 0rem;
                     bottom: 0rem;
-                    //user-select: none;
                 }
             }
             & > button.remove-button
@@ -709,13 +699,6 @@ body:not(.not-supported-media)
         }
     }
 }
-// body.play:not(.show-ui)
-// {
-//     #control-panel
-//     {
-//         transition: opacity 3000ms, filter 3000ms !important;
-//     }
-// }
 #media-index,
 #media-title,
 #media-time
@@ -1291,7 +1274,7 @@ body.no-media
     @include bottom-stretch-box();
     @include flex(column, start, stretch);
     position: fixed;
-    z-index: 50;
+    z-index: 20;
     pointer-events: none;
     #supplementary-line
     {

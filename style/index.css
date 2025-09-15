@@ -156,7 +156,7 @@ button {
   justify-content: center;
   align-items: center;
   position: fixed;
-  background-color: black;
+  z-index: 50;
 }
 body.play:not(.mousemove) #screen-body {
   cursor: none;
@@ -2190,7 +2190,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   justify-content: start;
   align-items: stretch;
   position: fixed;
-  z-index: 50;
+  z-index: 20;
   pointer-events: none;
 }
 #screen-footer #supplementary-line {

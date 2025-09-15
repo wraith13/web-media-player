@@ -472,9 +472,16 @@ export namespace Events
                     () =>
                     [
                         UI.withFullscreenCheckbox,
-                        UI.showFpsCheckbox,
-                        UI.clockSelect,
                         UI.brightnessRange,
+                        UI.stretchRange,
+                        UI.paddingCheckbox,
+                        UI.crossFadeSelect,
+                        UI.imageSpanSelect,
+                        UI.loopShortMediaCheckbox,
+                        UI.visualizerSelect,
+                        UI.clockSelect,
+                        UI.clockPositionSelect,
+                        UI.showFpsCheckbox,
                         UI.languageSelect,
                     ]
                     .forEach(i => i.catchUpRestore(Url.params)),

@@ -25,6 +25,10 @@
         "frequencyDataLengthRate": 1.0,
         "maxHue": 300,
         "arcType": "arc",
+        "waveform": {
+            "lineWidth": 2,
+            "strokeStyle": "hsl(200, 100%, 50%)"
+        },
         "arc": {
             "arc":
             {

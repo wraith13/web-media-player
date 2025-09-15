@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Sep 14 2025 21:22:46 GMT+0900 (日本標準時)
+    build at: Sun Sep 14 2025 22:25:36 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -212,7 +212,7 @@ button {
   justify-content: center;
   align-items: center;
   position: fixed;
-  background-color: black;
+  z-index: 50;
 }
 body.play:not(.mousemove) #screen-body {
   cursor: none;
@@ -2246,7 +2246,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   justify-content: start;
   align-items: stretch;
   position: fixed;
-  z-index: 50;
+  z-index: 20;
   pointer-events: none;
 }
 #screen-footer #supplementary-line {
@@ -2807,8 +2807,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Sep 14 2025 21:22:46 GMT+0900 (日本標準時)",
-    tick: 1757852566193
+    at: "Sun Sep 14 2025 22:25:36 GMT+0900 (日本標準時)",
+    tick: 1757856336150
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8255,9 +8255,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 setTimeout(function () {
                     return [
                         ui_10.UI.withFullscreenCheckbox,
-                        ui_10.UI.showFpsCheckbox,
-                        ui_10.UI.clockSelect,
                         ui_10.UI.brightnessRange,
+                        ui_10.UI.stretchRange,
+                        ui_10.UI.paddingCheckbox,
+                        ui_10.UI.crossFadeSelect,
+                        ui_10.UI.imageSpanSelect,
+                        ui_10.UI.loopShortMediaCheckbox,
+                        ui_10.UI.visualizerSelect,
+                        ui_10.UI.clockSelect,
+                        ui_10.UI.clockPositionSelect,
+                        ui_10.UI.showFpsCheckbox,
                         ui_10.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
