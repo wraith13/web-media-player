@@ -1,9 +1,10 @@
 import shortcuts from "@resource/shortcuts.json";
 export namespace Shortcuts
 {
-    export type Entry = (typeof shortcuts)[number]["shortcuts"][number];
+    export type Entry = (typeof shortcuts)[keyof typeof shortcuts][number]["shortcuts"][number];
     export type CommandKey = Entry["command"];
     export type CommandMap = { [key in Shortcuts.CommandKey]-?: () => void };
+    let style: keyof typeof shortcuts = "YouTube";
     let currentCommandMap: CommandMap | null = null;
     const keyDisplayNames =
     {
@@ -16,7 +17,7 @@ export namespace Shortcuts
     };
     const getDisplayKeyName = (key: string) => keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
     export const getDisplayList = () =>
-        shortcuts.map
+        shortcuts[style].map
         (
             i =>
             ({
@@ -53,7 +54,7 @@ export namespace Shortcuts
             const shortcutKeys = getShortcutKeys(type, normalizedKey);
             if ( ! isInputElementFocused())
             {
-                const commandKeys = shortcuts.reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
+                const commandKeys = shortcuts[style].reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
                 (
                     shortcut =>
                         shortcut.keys.length === shortcutKeys.length &&
@@ -98,5 +99,12 @@ export namespace Shortcuts
     export const setCommandMap = (commandMap: CommandMap | null) =>
     {
         currentCommandMap = commandMap;
+    };
+    export const setStyle = (newStyle: keyof typeof shortcuts) =>
+    {
+        if (style !== newStyle && shortcuts[newStyle])
+        {
+            style = newStyle;
+        }
     };
 }
