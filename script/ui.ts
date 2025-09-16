@@ -130,6 +130,33 @@ export namespace UI
         UI.languageSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));
+        Library.UI.replaceChildren
+        (
+            UI.keyboardShortcut,
+            Library.Shortcuts.getDisplayList().map
+            (
+                i =>
+                [
+                    {
+                        tag: "span",
+                        children: i.keyss
+                            .map(j => j.map(key => ({ tag: "kbd", text: key })))
+                            .reduce
+                            (
+                                (accumulator, item, i) =>
+                                [
+                                    ...accumulator,
+                                    ...(0 < i ? [{ tag: "span", className: "separator" , text: "/", }]: []),
+                                    ...item,
+                                ],
+                                [] as Library.UI.ElementSource[]
+                            ),
+                    } as const,
+                    { tag: "span", text: Library.Locale.map(i.description as Library.Locale.Label), } as const
+                ]
+            )
+            .reduce((a, b) => a.concat(b), [])
+        );
     }
     export const initialize = () =>
     {

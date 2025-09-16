@@ -469,16 +469,36 @@ declare module "script/library/svg" {
         const loadSvg: (key: KeyType) => Promise<SVGElement>;
     }
 }
+declare module "script/library/shortcuts" {
+    import shortcuts from "resource/shortcuts";
+    export namespace Shortcuts {
+        type Entry = (typeof shortcuts)[keyof typeof shortcuts][number]["shortcuts"][number];
+        type CommandKey = Entry["command"];
+        type CommandMap = {
+            [key in Shortcuts.CommandKey]-?: () => void;
+        };
+        const getDisplayList: () => {
+            keyss: string[][];
+            description: string;
+        }[];
+        const handleKeyEvent: (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => void;
+        const initialize: () => void;
+        const setCommandMap: (commandMap: CommandMap | null) => void;
+        const setStyle: (newStyle: keyof typeof shortcuts) => void;
+    }
+}
 declare module "script/library/index" {
     import * as ImportedLocale from "script/library/locale";
     import * as ImportedUI from "script/library/ui";
     import * as ImportedControl from "script/library/control";
     import * as ImportedSvg from "script/library/svg";
+    import * as ImportedShortcuts from "script/library/shortcuts";
     export namespace Library {
         export import Locale = ImportedLocale.Locale;
         export import UI = ImportedUI.UI;
         export import Control = ImportedControl.Control;
         export import Svg = ImportedSvg.Svg;
+        export import Shortcuts = ImportedShortcuts.Shortcuts;
     }
 }
 declare module "script/tools/timespan" {

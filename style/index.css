@@ -421,7 +421,7 @@ body.play #screen-body #media-list:not(.show)::before {
   transition: background-color 300ms, transform 300ms;
 }
 #screen-body #media-list .item:not(.add) {
-  border-color: rgba(230, 237, 243, 0.6);
+  border-color: rgba(230, 237, 243, 0.9);
   border-width: 1px;
   border-style: solid;
 }

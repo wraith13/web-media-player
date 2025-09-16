@@ -376,6 +376,10 @@ define("resource/config", [], {
         "frequencyDataLengthRate": 1.0,
         "maxHue": 300,
         "arcType": "arc",
+        "waveform": {
+            "lineWidth": 2,
+            "strokeStyle": "hsl(200, 100%, 50%)"
+        },
         "arc": {
             "arc": {
                 "radiusRate": 0.15,
@@ -941,7 +945,292 @@ define("script/library/svg", ["require", "exports"], function (require, exports)
         }); };
     })(Svg || (exports.Svg = Svg = {}));
 });
-define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control", "script/library/svg"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl, ImportedSvg) {
+define("resource/shortcuts", [], {
+    "YouTube": [
+        {
+            "description": "Hide UI",
+            "shortcuts": [
+                {
+                    "command": "toggleHideUI",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "U",
+                        "I"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Play / Pause",
+            "shortcuts": [
+                {
+                    "command": "toggleAnimation",
+                    "type": "onKeyUp",
+                    "keys": [
+                        " "
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Switch Pattern",
+            "shortcuts": [
+                {
+                    "command": "switchPatternForward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "P"
+                    ]
+                },
+                {
+                    "command": "switchPatternBackward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "P"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Switch Coloring",
+            "shortcuts": [
+                {
+                    "command": "switchColoringForward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "C"
+                    ]
+                },
+                {
+                    "command": "switchColoringBackward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "C"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Scaling Canvas Size",
+            "shortcuts": [
+                {
+                    "command": "increaseCanvasSize",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowUp"
+                    ]
+                },
+                {
+                    "command": "decreaseCanvasSize",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowDown"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Increase / Decrease Frame Delay",
+            "shortcuts": [
+                {
+                    "command": "increaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowLeft"
+                    ]
+                },
+                {
+                    "command": "decreaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowRight"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Increase / Decrease Layer",
+            "shortcuts": [
+                {
+                    "command": "increaseLayer",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowUp"
+                    ]
+                },
+                {
+                    "command": "decreaseLayer",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowDown"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Speed Down / Up",
+            "shortcuts": [
+                {
+                    "command": "speedDown",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowLeft"
+                    ]
+                },
+                {
+                    "command": "speedUp",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowRight"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "FullScreen",
+            "shortcuts": [
+                {
+                    "command": "toggleFullScreen",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "F"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Show FPS",
+            "shortcuts": [
+                {
+                    "command": "toggleShowFps",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "S"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Switch Clock",
+            "shortcuts": [
+                {
+                    "command": "switchClockForward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "T"
+                    ]
+                },
+                {
+                    "command": "switchClockBackward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "T"
+                    ]
+                }
+            ]
+        }
+    ]
+});
+define("script/library/shortcuts", ["require", "exports", "resource/shortcuts"], function (require, exports, shortcuts_json_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Shortcuts = void 0;
+    shortcuts_json_1 = __importDefault(shortcuts_json_1);
+    var Shortcuts;
+    (function (Shortcuts) {
+        var style = "YouTube";
+        var currentCommandMap = null;
+        var keyDisplayNames = {
+            "ArrowUp": "↑",
+            "ArrowDown": "↓",
+            "ArrowLeft": "←",
+            "ArrowRight": "→",
+            " ": "Space",
+            "Control": "Ctrl",
+        };
+        var getDisplayKeyName = function (key) { var _a; return (_a = keyDisplayNames[key]) !== null && _a !== void 0 ? _a : key; };
+        Shortcuts.getDisplayList = function () {
+            return shortcuts_json_1.default[style].map(function (i) {
+                return ({
+                    keyss: i.shortcuts.map(function (j) { return j.keys.map(function (key) { return getDisplayKeyName(key); }); }),
+                    description: i.description,
+                });
+            });
+        };
+        var isInputElementFocused = function () { var _a, _b, _c; return ["input", "textarea", "button"].includes((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : ""); };
+        var normalizeKey = function (key, code) {
+            return code === "Space" ? " " :
+                key.length === 1 ? key.toUpperCase() :
+                    key;
+        };
+        var pressedKeys = [];
+        var getShortcutKeys = function (type, normalizedKey) {
+            switch (type) {
+                case "onKeyDown":
+                    pressedKeys.push(normalizedKey);
+                    return pressedKeys;
+                case "onKeyUp":
+                    var result = __spreadArray([], pressedKeys, true);
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
+                    return result;
+            }
+        };
+        Shortcuts.handleKeyEvent = function (type, event) {
+            var _a;
+            var commandMap = currentCommandMap;
+            if (null !== commandMap) {
+                var normalizedKey = normalizeKey(event.key, event.code);
+                var shortcutKeys_1 = getShortcutKeys(type, normalizedKey);
+                if (!isInputElementFocused()) {
+                    var commandKeys = shortcuts_json_1.default[style].reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
+                        return shortcut.keys.length === shortcutKeys_1.length &&
+                            shortcut.keys.every(function (key) { return shortcutKeys_1.includes(key); }) &&
+                            type === shortcut.type;
+                    })
+                        .map(function (i) { return i.command; });
+                    if (0 < commandKeys.length) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    commandKeys.forEach(function (i) {
+                        console.log("👆 KeyboardShortcut:", i, type, pressedKeys);
+                        var command = commandMap[i];
+                        if (command) {
+                            command();
+                        }
+                        else {
+                            console.error("🦋 FIXME: Shortcuts.handleKeyEvent.NotFoundCommand", i);
+                        }
+                    });
+                    if ("onKeyDown" === type && commandKeys.length <= 0 && !["Shift", "Control"].includes(normalizedKey)) {
+                        console.log("💡 UnknownKeyDown:", pressedKeys);
+                        (_a = commandMap["unknownKeyDown"]) === null || _a === void 0 ? void 0 : _a.call(commandMap);
+                    }
+                }
+            }
+        };
+        Shortcuts.initialize = function () {
+            window.addEventListener("keydown", function (event) { return Shortcuts.handleKeyEvent("onKeyDown", event); });
+            window.addEventListener("keyup", function (event) { return Shortcuts.handleKeyEvent("onKeyUp", event); });
+        };
+        Shortcuts.setCommandMap = function (commandMap) {
+            currentCommandMap = commandMap;
+        };
+        Shortcuts.setStyle = function (newStyle) {
+            if (style !== newStyle && shortcuts_json_1.default[newStyle]) {
+                style = newStyle;
+            }
+        };
+    })(Shortcuts || (exports.Shortcuts = Shortcuts = {}));
+});
+define("script/library/index", ["require", "exports", "script/library/locale", "script/library/ui", "script/library/control", "script/library/svg", "script/library/shortcuts"], function (require, exports, ImportedLocale, ImportedUI, ImportedControl, ImportedSvg, ImportedShortcuts) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Library = void 0;
@@ -949,12 +1238,14 @@ define("script/library/index", ["require", "exports", "script/library/locale", "
     ImportedUI = __importStar(ImportedUI);
     ImportedControl = __importStar(ImportedControl);
     ImportedSvg = __importStar(ImportedSvg);
+    ImportedShortcuts = __importStar(ImportedShortcuts);
     var Library;
     (function (Library) {
         Library.Locale = ImportedLocale.Locale;
         Library.UI = ImportedUI.UI;
         Library.Control = ImportedControl.Control;
         Library.Svg = ImportedSvg.Svg;
+        Library.Shortcuts = ImportedShortcuts.Shortcuts;
     })(Library || (exports.Library = Library = {}));
 });
 define("script/tools/timespan", ["require", "exports", "script/library/index", "script/tools/number"], function (require, exports, _library_1, number_1) {
@@ -1487,6 +1778,20 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.languageSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
                 .forEach(function (i) { return UI.updateLabel(i); });
+            _library_2.Library.UI.replaceChildren(UI.keyboardShortcut, _library_2.Library.Shortcuts.getDisplayList().map(function (i) {
+                return [
+                    {
+                        tag: "span",
+                        children: i.keyss
+                            .map(function (j) { return j.map(function (key) { return ({ tag: "kbd", text: key }); }); })
+                            .reduce(function (accumulator, item, i) {
+                            return __spreadArray(__spreadArray(__spreadArray([], accumulator, true), (0 < i ? [{ tag: "span", className: "separator", text: "/", }] : []), true), item, true);
+                        }, []),
+                    },
+                    { tag: "span", text: _library_2.Library.Locale.map(i.description), }
+                ];
+            })
+                .reduce(function (a, b) { return a.concat(b); }, []));
         };
         UI.initialize = function () {
             UI.noscript.style.setProperty("display", "none");
@@ -2045,8 +2350,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var height = visualDom.clientHeight;
                     var maxIndex = timeDomainDataArray.length;
                     context.clearRect(0, 0, width, height);
-                    context.lineWidth = 2;
-                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
+                    context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
                     context.beginPath();
                     if (height <= width) {
                         var sliceWidth = width / maxIndex;
@@ -2117,8 +2422,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var centerY = height / 2;
                     var maxIndex = timeDomainDataArray.length;
                     context.clearRect(0, 0, width, height);
-                    context.lineWidth = 2;
-                    context.strokeStyle = "hsl(200, 100%, 50%)";
+                    context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
+                    context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
                     context.beginPath();
                     context.moveTo(centerX + Math.cos(startAngle) * radius, centerY + Math.sin(startAngle) * radius);
                     for (var i = 0; i < maxIndex; i++) {
@@ -3620,6 +3925,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
+            //Library.Shortcuts.setCommandMap();
             window.addEventListener("keydown", function (event) {
                 if (["Space", " "].includes(event.key) && !event.repeat) {
                     event.preventDefault();
