@@ -2297,7 +2297,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
             }
-            visualDom.classList.toggle("muted", playerDom.muted);
             if (Visualizer.isSimpleMode()) {
                 var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
@@ -3074,6 +3073,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
                 }
                 this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
+            }
+            if ("fadeOut" !== fade && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom && this.playerElement instanceof HTMLMediaElement) {
+                this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
         Track.prototype.crossFadeStep = function (rate) {

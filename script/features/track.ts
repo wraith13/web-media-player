@@ -450,6 +450,10 @@ export class Track
             }
             this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
         }
+        if ("fadeOut" !== fade && this.visualElement instanceof Visualizer.VisualizerDom && this.playerElement instanceof HTMLMediaElement)
+        {
+            this.visualElement.classList.toggle("muted", this.playerElement.muted);
+        }
     }
     crossFadeStep(rate: number): void
     {

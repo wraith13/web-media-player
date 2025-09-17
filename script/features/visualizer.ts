@@ -94,7 +94,6 @@ export namespace Visualizer
         {
             makeSureMuteIcon(visualDom).catch(console.error);
         }
-        visualDom.classList.toggle("muted", playerDom.muted);
         if (isSimpleMode())
         {
             const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;

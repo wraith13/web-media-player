@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 16 2025 22:26:47 GMT+0900 (日本標準時)
+    build at: Tue Sep 16 2025 22:55:30 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2807,8 +2807,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 16 2025 22:26:47 GMT+0900 (日本標準時)",
-    tick: 1758029207417
+    at: "Tue Sep 16 2025 22:55:30 GMT+0900 (日本標準時)",
+    tick: 1758030930812
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6669,7 +6669,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
             }
-            visualDom.classList.toggle("muted", playerDom.muted);
             if (Visualizer.isSimpleMode()) {
                 var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
@@ -7446,6 +7445,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
                 }
                 this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
+            }
+            if ("fadeOut" !== fade && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom && this.playerElement instanceof HTMLMediaElement) {
+                this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
         Track.prototype.crossFadeStep = function (rate) {
