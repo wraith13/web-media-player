@@ -124,6 +124,7 @@ export namespace Events
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());
         window.addEventListener("orientationchange", () => Features.Player.updateStretch());
+        //Library.Shortcuts.setCommandMap();
         window.addEventListener
         (
             "keydown",

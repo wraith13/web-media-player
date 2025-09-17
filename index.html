@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 16 2025 22:55:30 GMT+0900 (日本標準時)
+    build at: Wed Sep 17 2025 22:26:04 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2557,7 +2557,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </g>
 </svg>
 </div>
-            <input id="add-file" type="file" accept="image/*,audio/*,video/*" multiple />
+            <input id="add-file" type="file" multiple />
         </div>
     </div>
 </div>
@@ -2807,8 +2807,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 16 2025 22:55:30 GMT+0900 (日本標準時)",
-    tick: 1758030930812
+    at: "Wed Sep 17 2025 22:26:04 GMT+0900 (日本標準時)",
+    tick: 1758115564249
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6663,8 +6663,40 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 canvas.height = height;
             }
         };
+        Visualizer.drawPlaneFrequency = function (context, rect, analyser) {
+            var _a;
+            var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
+            if (context && frequencyDataArray) {
+                var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                var zeroLevel = 1;
+                if (rect.height <= rect.width) {
+                    var barWidth = rect.width / maxIndex;
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = frequencyDataArray[i] / 255.0;
+                        var barHeight = zeroLevel + (value * (rect.height - zeroLevel));
+                        var x = i * barWidth;
+                        var y = (rect.height - barHeight) / 2;
+                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                        context.fillRect(rect.x + x, rect.y + y, barWidth, barHeight);
+                    }
+                }
+                else {
+                    var barHeight = rect.height / maxIndex;
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = frequencyDataArray[i] / 255.0;
+                        var barWidth = zeroLevel + (value * (rect.width - zeroLevel));
+                        var x = (rect.width - barWidth) / 2;
+                        var y = rect.height - ((i + 1) * barHeight);
+                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                        context.fillRect(rect.x + x, rect.y + y, barWidth, barHeight);
+                    }
+                }
+            }
+        };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
@@ -6675,44 +6707,18 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
             }
             if (Visualizer.isPlaneFrequencyMode()) {
-                var frequencyDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
-                if (context && frequencyDataArray) {
+                if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     var width = visualDom.clientWidth;
                     var height = visualDom.clientHeight;
-                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var zeroLevel = 1;
                     context.clearRect(0, 0, width, height);
-                    if (height <= width) {
-                        var barWidth = width / maxIndex;
-                        for (var i = 0; i < maxIndex; i++) {
-                            var value = frequencyDataArray[i] / 255.0;
-                            var barHeight = zeroLevel + (value * (height - zeroLevel));
-                            var x = i * barWidth;
-                            var y = (height - barHeight) / 2;
-                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                            context.fillRect(x, y, barWidth, barHeight);
-                        }
-                    }
-                    else {
-                        var barHeight = height / maxIndex;
-                        for (var i = 0; i < maxIndex; i++) {
-                            var value = frequencyDataArray[i] / 255.0;
-                            var barWidth = zeroLevel + (value * (width - zeroLevel));
-                            var x = (width - barWidth) / 2;
-                            var y = height - ((i + 1) * barHeight);
-                            var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                            context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                            context.fillRect(x, y, barWidth, barHeight);
-                        }
-                    }
+                    Visualizer.drawPlaneFrequency(context, { x: 0, y: 0, width: width, height: height }, analyser);
                 }
             }
             if (Visualizer.isPlaneWaveformMode()) {
-                var timeDomainDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _c !== void 0 ? _c : null;
+                var timeDomainDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
@@ -6750,7 +6756,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
             if (Visualizer.isArcFrequencyMode()) {
-                var frequencyDataArray = (_d = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _d !== void 0 ? _d : null;
+                var frequencyDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _c !== void 0 ? _c : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
@@ -6780,7 +6786,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
             if (Visualizer.isArcWaveformMode()) {
-                var timeDomainDataArray = (_e = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _e !== void 0 ? _e : null;
+                var timeDomainDataArray = (_d = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _d !== void 0 ? _d : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {

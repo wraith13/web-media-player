@@ -8,6 +8,13 @@ const circleRadians = 2 *Math.PI;
 const arcConfig = config.visualizer.arc[config.visualizer.arcType as "arc" | "circle"];
 export namespace Visualizer
 {
+    export interface Rect
+    {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
     export type VisualizerDom = HTMLDivElement;
     export const VisualizerDom = HTMLDivElement;
     export const isSimpleMode = (): boolean =>
@@ -86,7 +93,44 @@ export namespace Visualizer
             canvas.width = width;
             canvas.height = height;
         }
-    }
+    };
+    export const drawPlaneFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    {
+        const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
+        if (context && frequencyDataArray)
+        {
+            const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+            const zeroLevel = 1;
+            if (rect.height <= rect.width)
+            {
+                const barWidth = rect.width /maxIndex;
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = frequencyDataArray[i] /255.0;
+                    const barHeight = zeroLevel +(value *(rect.height -zeroLevel));
+                    const x = i *barWidth;
+                    const y = (rect.height -barHeight) /2;
+                    const hue = (i /maxIndex) *config.visualizer.maxHue;
+                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                    context.fillRect(rect.x +x, rect.y +y, barWidth, barHeight);
+                }
+            }
+            else
+            {
+                const barHeight = rect.height /maxIndex;
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = frequencyDataArray[i] /255.0;
+                    const barWidth = zeroLevel +(value *(rect.width -zeroLevel));
+                    const x = (rect.width -barWidth) /2;
+                    const y = rect.height -((i +1) *barHeight);
+                    const hue = (i /maxIndex) *config.visualizer.maxHue;
+                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                    context.fillRect(rect.x +x, rect.y +y, barWidth, barHeight);
+                }
+            }
+        }
+    };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
@@ -102,45 +146,15 @@ export namespace Visualizer
         }
         if (isPlaneFrequencyMode())
         {
-            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
             const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
-            if (context && frequencyDataArray)
+            if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
                 const width = visualDom.clientWidth;
                 const height = visualDom.clientHeight;
-                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
-                const zeroLevel = 1;
                 context.clearRect(0, 0, width, height);
-                if (height <= width)
-                {
-                    const barWidth = width /maxIndex;
-                    for (let i = 0; i < maxIndex; i++)
-                    {
-                        const value = frequencyDataArray[i] /255.0;
-                        const barHeight = zeroLevel +(value *(height -zeroLevel));
-                        const x = i *barWidth;
-                        const y = (height -barHeight) /2;
-                        const hue = (i /maxIndex) *config.visualizer.maxHue;
-                        context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                        context.fillRect(x, y, barWidth, barHeight);
-                    }
-                }
-                else
-                {
-                    const barHeight = height /maxIndex;
-                    for (let i = 0; i < maxIndex; i++)
-                    {
-                        const value = frequencyDataArray[i] /255.0;
-                        const barWidth = zeroLevel +(value *(width -zeroLevel));
-                        const x = (width -barWidth) /2;
-                        const y = height -((i +1) *barHeight);
-                        const hue = (i /maxIndex) *config.visualizer.maxHue;
-                        context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                        context.fillRect(x, y, barWidth, barHeight);
-                    }
-                }
+                drawPlaneFrequency(context, { x: 0, y: 0, width, height }, analyser);
             }
         }
         if (isPlaneWaveformMode())

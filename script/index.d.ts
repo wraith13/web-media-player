@@ -740,6 +740,12 @@ declare module "script/features/visualizer" {
     import { Media } from "script/features/media";
     import { Analyser } from "script/features/analyser";
     export namespace Visualizer {
+        interface Rect {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+        }
         type VisualizerDom = HTMLDivElement;
         const VisualizerDom: {
             new (): HTMLDivElement;
@@ -758,6 +764,7 @@ declare module "script/features/visualizer" {
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
+        const drawPlaneFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;
