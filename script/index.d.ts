@@ -765,6 +765,7 @@ declare module "script/features/visualizer" {
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
         const drawPlaneFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawPlaneWaveform: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

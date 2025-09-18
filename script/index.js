@@ -2284,8 +2284,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             return result;
         };
         Visualizer.fitCanvas = function (visualDom, canvas) {
-            var width = visualDom.clientWidth;
-            var height = visualDom.clientHeight;
+            var width = visualDom.clientWidth, height = visualDom.clientHeight;
             if (canvas.width !== width || canvas.height !== height) {
                 canvas.width = width;
                 canvas.height = height;
@@ -2323,8 +2322,41 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
         };
+        Visualizer.drawPlaneWaveform = function (context, rect, analyser) {
+            var _a;
+            var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
+            if (context && timeDomainDataArray) {
+                var maxIndex = timeDomainDataArray.length;
+                context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
+                context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
+                context.beginPath();
+                if (rect.height <= rect.width) {
+                    var sliceWidth = rect.width / maxIndex;
+                    context.moveTo(rect.x, rect.y + (rect.height / 2));
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = timeDomainDataArray[i] / 255.0;
+                        var x = i * sliceWidth;
+                        var y = value * rect.height;
+                        context.lineTo(rect.x + x, rect.y + y);
+                    }
+                    context.lineTo(rect.x + rect.width, rect.y + (rect.height / 2));
+                }
+                else {
+                    var sliceHeight = rect.height / maxIndex;
+                    context.moveTo(rect.x + (rect.width / 2), rect.y);
+                    for (var i = 0; i < maxIndex; i++) {
+                        var value = timeDomainDataArray[i] / 255.0;
+                        var x = value * rect.width;
+                        var y = i * sliceHeight;
+                        context.lineTo(rect.x + x, rect.y + y);
+                    }
+                    context.lineTo(rect.x + (rect.width / 2), rect.y + (rect.height));
+                }
+                context.stroke();
+            }
+        };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
-            var _a, _b, _c, _d;
+            var _a, _b, _c;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
@@ -2339,59 +2371,29 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
-                    var width = visualDom.clientWidth;
-                    var height = visualDom.clientHeight;
+                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     context.clearRect(0, 0, width, height);
                     Visualizer.drawPlaneFrequency(context, { x: 0, y: 0, width: width, height: height }, analyser);
                 }
             }
             if (Visualizer.isPlaneWaveformMode()) {
-                var timeDomainDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
-                if (context && timeDomainDataArray) {
+                if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
-                    var width = visualDom.clientWidth;
-                    var height = visualDom.clientHeight;
-                    var maxIndex = timeDomainDataArray.length;
+                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     context.clearRect(0, 0, width, height);
-                    context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
-                    context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
-                    context.beginPath();
-                    if (height <= width) {
-                        var sliceWidth = width / maxIndex;
-                        context.moveTo(0, height / 2);
-                        for (var i = 0; i < maxIndex; i++) {
-                            var value = timeDomainDataArray[i] / 255.0;
-                            var x = i * sliceWidth;
-                            var y = value * height;
-                            context.lineTo(x, y);
-                        }
-                        context.lineTo(width, height / 2);
-                    }
-                    else {
-                        var sliceHeight = height / maxIndex;
-                        context.moveTo(width / 2, 0);
-                        for (var i = 0; i < maxIndex; i++) {
-                            var value = timeDomainDataArray[i] / 255.0;
-                            var x = value * width;
-                            var y = i * sliceHeight;
-                            context.lineTo(x, y);
-                        }
-                        context.lineTo(width / 2, height);
-                    }
-                    context.stroke();
+                    Visualizer.drawPlaneWaveform(context, { x: 0, y: 0, width: width, height: height }, analyser);
                 }
             }
             if (Visualizer.isArcFrequencyMode()) {
-                var frequencyDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _c !== void 0 ? _c : null;
+                var frequencyDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
-                    var width = visualDom.clientWidth;
-                    var height = visualDom.clientHeight;
+                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     var radius = (width + height) * arcConfig.radiusRate;
                     var centerX = width / 2;
                     var centerY = height / 2;
@@ -2414,14 +2416,13 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
             if (Visualizer.isArcWaveformMode()) {
-                var timeDomainDataArray = (_d = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _d !== void 0 ? _d : null;
+                var timeDomainDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _c !== void 0 ? _c : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
-                    var width = visualDom.clientWidth;
-                    var height = visualDom.clientHeight;
+                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     var radius = (width + height) * arcConfig.radiusRate;
                     var centerX = width / 2;
                     var centerY = height / 2;

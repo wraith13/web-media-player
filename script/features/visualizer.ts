@@ -86,8 +86,7 @@ export namespace Visualizer
     };
     export const fitCanvas = (visualDom: VisualizerDom, canvas: HTMLCanvasElement): void =>
     {
-        const width = visualDom.clientWidth;
-        const height = visualDom.clientHeight;
+        const { clientWidth: width, clientHeight: height } = visualDom;
         if (canvas.width !== width || canvas.height !== height)
         {
             canvas.width = width;
@@ -131,6 +130,44 @@ export namespace Visualizer
             }
         }
     };
+    export const drawPlaneWaveform = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    {
+        const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
+        if (context && timeDomainDataArray)
+        {
+            const maxIndex = timeDomainDataArray.length;
+            context.lineWidth = config.visualizer.waveform.lineWidth;
+            context.strokeStyle = config.visualizer.waveform.strokeStyle;
+            context.beginPath();
+            if (rect.height <= rect.width)
+            {
+                const sliceWidth = rect.width /maxIndex;
+                context.moveTo(rect.x, rect.y +(rect.height /2));
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = timeDomainDataArray[i] /255.0;
+                    const x = i *sliceWidth;
+                    const y = value *rect.height;
+                    context.lineTo(rect.x +x, rect.y +y);
+                }
+                context.lineTo(rect.x +rect.width, rect.y +(rect.height /2));
+            }
+            else
+            {
+                const sliceHeight = rect.height /maxIndex;
+                context.moveTo(rect.x +(rect.width /2), rect.y);
+                for (let i = 0; i < maxIndex; i++)
+                {
+                    const value = timeDomainDataArray[i] /255.0;
+                    const x = value *rect.width;
+                    const y = i *sliceHeight;
+                    context.lineTo(rect.x +x, rect.y +y);
+                }
+                context.lineTo(rect.x +(rect.width /2), rect.y +(rect.height));
+            }
+            context.stroke();
+        }
+    };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
@@ -151,54 +188,21 @@ export namespace Visualizer
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                const width = visualDom.clientWidth;
-                const height = visualDom.clientHeight;
+                const { clientWidth: width, clientHeight: height } = visualDom;
                 context.clearRect(0, 0, width, height);
                 drawPlaneFrequency(context, { x: 0, y: 0, width, height }, analyser);
             }
         }
         if (isPlaneWaveformMode())
         {
-            const timeDomainDataArray = analyser?.getByteTimeDomainData() ?? null;
             const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
-            if (context && timeDomainDataArray)
+            if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                const width = visualDom.clientWidth;
-                const height = visualDom.clientHeight;
-                const maxIndex = timeDomainDataArray.length;
+                const { clientWidth: width, clientHeight: height } = visualDom;
                 context.clearRect(0, 0, width, height);
-                context.lineWidth = config.visualizer.waveform.lineWidth;
-                context.strokeStyle = config.visualizer.waveform.strokeStyle;
-                context.beginPath();
-                if (height <= width)
-                {
-                    const sliceWidth = width /maxIndex;
-                    context.moveTo(0, height /2);
-                    for (let i = 0; i < maxIndex; i++)
-                    {
-                        const value = timeDomainDataArray[i] /255.0;
-                        const x = i *sliceWidth;
-                        const y = value *height;
-                        context.lineTo(x, y);
-                    }
-                    context.lineTo(width, height /2);
-                }
-                else
-                {
-                    const sliceHeight = height /maxIndex;
-                    context.moveTo(width /2, 0);
-                    for (let i = 0; i < maxIndex; i++)
-                    {
-                        const value = timeDomainDataArray[i] /255.0;
-                        const x = value *width;
-                        const y = i *sliceHeight;
-                        context.lineTo(x, y);
-                    }
-                    context.lineTo(width /2, height);
-                }
-                context.stroke();
+                drawPlaneWaveform(context, { x: 0, y: 0, width, height }, analyser);
             }
         }
         if (isArcFrequencyMode())
@@ -210,8 +214,7 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const width = visualDom.clientWidth;
-                const height = visualDom.clientHeight;
+                const { clientWidth: width, clientHeight: height } = visualDom;
                 const radius = (width +height) *arcConfig.radiusRate;
                 const centerX = width /2;
                 const centerY = height /2;
@@ -251,8 +254,7 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const width = visualDom.clientWidth;
-                const height = visualDom.clientHeight;
+                const { clientWidth: width, clientHeight: height } = visualDom;
                 const radius = (width +height) *arcConfig.radiusRate;
                 const centerX = width /2;
                 const centerY = height /2;
