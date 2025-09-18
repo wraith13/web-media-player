@@ -2290,6 +2290,10 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 canvas.height = height;
             }
         };
+        Visualizer.clearRect = function (context, rect) {
+            if (rect === void 0) { rect = { x: 0, y: 0, width: context.canvas.width, height: context.canvas.height }; }
+            return context.clearRect(rect.x, rect.y, rect.width, rect.height);
+        };
         Visualizer.drawPlaneFrequency = function (context, rect, analyser) {
             var _a;
             var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
@@ -2371,8 +2375,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    Visualizer.clearRect(context);
                     var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    context.clearRect(0, 0, width, height);
                     Visualizer.drawPlaneFrequency(context, { x: 0, y: 0, width: width, height: height }, analyser);
                 }
             }
@@ -2381,8 +2385,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    Visualizer.clearRect(context);
                     var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    context.clearRect(0, 0, width, height);
                     Visualizer.drawPlaneWaveform(context, { x: 0, y: 0, width: width, height: height }, analyser);
                 }
             }
@@ -2392,6 +2396,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    Visualizer.clearRect(context);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                     var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     var radius = (width + height) * arcConfig.radiusRate;
@@ -2400,7 +2405,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
                     var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
                     var zeroLevel = 1;
-                    context.clearRect(0, 0, width, height);
                     context.lineWidth = lineWidth;
                     for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i] / 255.0;
@@ -2421,13 +2425,13 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
+                    Visualizer.clearRect(context);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                     var width = visualDom.clientWidth, height = visualDom.clientHeight;
                     var radius = (width + height) * arcConfig.radiusRate;
                     var centerX = width / 2;
                     var centerY = height / 2;
                     var maxIndex = timeDomainDataArray.length;
-                    context.clearRect(0, 0, width, height);
                     context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
                     context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
                     context.beginPath();

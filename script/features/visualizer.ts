@@ -93,6 +93,8 @@ export namespace Visualizer
             canvas.height = height;
         }
     };
+    export const clearRect = (context: CanvasRenderingContext2D, rect: Rect = { x: 0, y: 0, width: context.canvas.width, height: context.canvas.height }): void =>
+        context.clearRect(rect.x, rect.y, rect.width, rect.height);
     export const drawPlaneFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
@@ -188,8 +190,8 @@ export namespace Visualizer
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
+                clearRect(context);
                 const { clientWidth: width, clientHeight: height } = visualDom;
-                context.clearRect(0, 0, width, height);
                 drawPlaneFrequency(context, { x: 0, y: 0, width, height }, analyser);
             }
         }
@@ -200,8 +202,8 @@ export namespace Visualizer
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
+                clearRect(context);
                 const { clientWidth: width, clientHeight: height } = visualDom;
-                context.clearRect(0, 0, width, height);
                 drawPlaneWaveform(context, { x: 0, y: 0, width, height }, analyser);
             }
         }
@@ -213,6 +215,7 @@ export namespace Visualizer
             if (context && frequencyDataArray)
             {
                 fitCanvas(visualDom, canvas);
+                clearRect(context);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
                 const { clientWidth: width, clientHeight: height } = visualDom;
                 const radius = (width +height) *arcConfig.radiusRate;
@@ -221,7 +224,6 @@ export namespace Visualizer
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
                 const lineWidth = (circleRadians *radius) /maxIndex *0.8;
                 const zeroLevel = 1;
-                context.clearRect(0, 0, width, height);
                 context.lineWidth = lineWidth;
                 for (let i = 0; i < maxIndex; i++)
                 {
@@ -253,13 +255,13 @@ export namespace Visualizer
             if (context && timeDomainDataArray)
             {
                 fitCanvas(visualDom, canvas);
+                clearRect(context);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
                 const { clientWidth: width, clientHeight: height } = visualDom;
                 const radius = (width +height) *arcConfig.radiusRate;
                 const centerX = width /2;
                 const centerY = height /2;
                 const maxIndex = timeDomainDataArray.length;
-                context.clearRect(0, 0, width, height);
                 context.lineWidth = config.visualizer.waveform.lineWidth;
                 context.strokeStyle = config.visualizer.waveform.strokeStyle;
                 context.beginPath();

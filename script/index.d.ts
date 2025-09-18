@@ -764,6 +764,7 @@ declare module "script/features/visualizer" {
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
+        const clearRect: (context: CanvasRenderingContext2D, rect?: Rect) => void;
         const drawPlaneFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const drawPlaneWaveform: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
