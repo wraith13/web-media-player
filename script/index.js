@@ -2212,6 +2212,58 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
+        Visualizer.makePoint = function (x, y) {
+            return ({
+                x: x,
+                y: y,
+            });
+        };
+        Visualizer.makeSize = function (width, height) {
+            return ({
+                width: width,
+                height: height,
+            });
+        };
+        Visualizer.makeRect = function (point, size) {
+            var x = point.x, y = point.y;
+            var width = size.width, height = size.height;
+            return { x: x, y: y, width: width, height: height };
+        };
+        Visualizer.addPoints = function (a, b) {
+            return Visualizer.makePoint(a.x + b.x, a.y + b.y);
+        };
+        Visualizer.scalePoint = function (point, scale) {
+            return Visualizer.makePoint(point.x * scale, point.y * scale);
+        };
+        Visualizer.scaleSize = function (size, scale) {
+            return Visualizer.makeSize(size.width * scale, size.height * scale);
+        };
+        Visualizer.sizeToPoint = function (size) {
+            return Visualizer.makePoint(size.width, size.height);
+        };
+        Visualizer.getElementSize = function (element) {
+            return Visualizer.makeSize(element.clientWidth, element.clientHeight);
+        };
+        Visualizer.getElementRect = function (element) {
+            return Visualizer.makeRect(Visualizer.makePoint(0, 0), Visualizer.getElementSize(element));
+        };
+        Visualizer.getCenterPoint = function (rect) { return Visualizer.addPoints(rect, Visualizer.sizeToPoint(Visualizer.scaleSize(rect, 0.5))); };
+        Visualizer.angleToPoint = function (angle) { return Visualizer.makePoint(Math.cos(angle), Math.sin(angle)); };
+        Visualizer.getPointAtAngle = function (center, angle, radius) { return Visualizer.addPoints(center, Visualizer.scalePoint(Visualizer.angleToPoint(angle), radius)); };
+        Visualizer.clearRect = function (context, rect) {
+            if (rect === void 0) { rect = Visualizer.getElementRect(context.canvas); }
+            return context.clearRect(rect.x, rect.y, rect.width, rect.height);
+        };
+        Visualizer.fillRect = function (context, fillStyle, rect) {
+            context.fillStyle = fillStyle;
+            context.fillRect(rect.x, rect.y, rect.width, rect.height);
+        };
+        Visualizer.moveTo = function (context, point) {
+            return context.moveTo(point.x, point.y);
+        };
+        Visualizer.lineTo = function (context, point) {
+            return context.lineTo(point.x, point.y);
+        };
         Visualizer.VisualizerDom = HTMLDivElement;
         Visualizer.isSimpleMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("simple");
@@ -2284,15 +2336,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             return result;
         };
         Visualizer.fitCanvas = function (visualDom, canvas) {
-            var width = visualDom.clientWidth, height = visualDom.clientHeight;
+            var _a = Visualizer.getElementSize(visualDom), width = _a.width, height = _a.height;
             if (canvas.width !== width || canvas.height !== height) {
                 canvas.width = width;
                 canvas.height = height;
             }
-        };
-        Visualizer.clearRect = function (context, rect) {
-            if (rect === void 0) { rect = { x: 0, y: 0, width: context.canvas.width, height: context.canvas.height }; }
-            return context.clearRect(rect.x, rect.y, rect.width, rect.height);
         };
         Visualizer.drawPlaneFrequency = function (context, rect, analyser) {
             var _a;
@@ -2304,24 +2352,20 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var barWidth = rect.width / maxIndex;
                     for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i] / 255.0;
-                        var barHeight = zeroLevel + (value * (rect.height - zeroLevel));
-                        var x = i * barWidth;
-                        var y = (rect.height - barHeight) / 2;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.fillRect(rect.x + x, rect.y + y, barWidth, barHeight);
+                        var barHeight = zeroLevel + (value * (rect.height - zeroLevel));
+                        var point = Visualizer.makePoint(i * barWidth, (rect.height - barHeight) / 2);
+                        Visualizer.fillRect(context, "hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
                     }
                 }
                 else {
                     var barHeight = rect.height / maxIndex;
                     for (var i = 0; i < maxIndex; i++) {
                         var value = frequencyDataArray[i] / 255.0;
-                        var barWidth = zeroLevel + (value * (rect.width - zeroLevel));
-                        var x = (rect.width - barWidth) / 2;
-                        var y = rect.height - ((i + 1) * barHeight);
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        context.fillStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.fillRect(rect.x + x, rect.y + y, barWidth, barHeight);
+                        var barWidth = zeroLevel + (value * (rect.width - zeroLevel));
+                        var point = Visualizer.makePoint((rect.width - barWidth) / 2, rect.height - ((i + 1) * barHeight));
+                        Visualizer.fillRect(context, "hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
                     }
                 }
             }
@@ -2376,8 +2420,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     Visualizer.clearRect(context);
-                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    Visualizer.drawPlaneFrequency(context, { x: 0, y: 0, width: width, height: height }, analyser);
+                    Visualizer.drawPlaneFrequency(context, Visualizer.getElementRect(visualDom), analyser);
                 }
             }
             if (Visualizer.isPlaneWaveformMode()) {
@@ -2386,8 +2429,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     Visualizer.clearRect(context);
-                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    Visualizer.drawPlaneWaveform(context, { x: 0, y: 0, width: width, height: height }, analyser);
+                    Visualizer.drawPlaneWaveform(context, Visualizer.getElementRect(visualDom), analyser);
                 }
             }
             if (Visualizer.isArcFrequencyMode()) {
@@ -2397,11 +2439,10 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 if (context && frequencyDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     Visualizer.clearRect(context);
+                    var rect = Visualizer.getElementRect(visualDom);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
-                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    var radius = (width + height) * arcConfig.radiusRate;
-                    var centerX = width / 2;
-                    var centerY = height / 2;
+                    var radius = (rect.width + rect.height) * arcConfig.radiusRate;
+                    var center = Visualizer.getCenterPoint(rect);
                     var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
                     var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
                     var zeroLevel = 1;
@@ -2413,8 +2454,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
                         context.beginPath();
-                        context.moveTo(centerX + Math.cos(angle) * (radius - (barLength / 2)), centerY + Math.sin(angle) * (radius - (barLength / 2)));
-                        context.lineTo(centerX + Math.cos(angle) * (radius + (barLength / 2)), centerY + Math.sin(angle) * (radius + (barLength / 2)));
+                        context.moveTo(center.x + Math.cos(angle) * (radius - (barLength / 2)), center.y + Math.sin(angle) * (radius - (barLength / 2)));
+                        context.lineTo(center.x + Math.cos(angle) * (radius + (barLength / 2)), center.y + Math.sin(angle) * (radius + (barLength / 2)));
                         context.stroke();
                     }
                 }
@@ -2426,25 +2467,22 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 if (context && timeDomainDataArray) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     Visualizer.clearRect(context);
+                    var rect = Visualizer.getElementRect(visualDom);
                     var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
-                    var width = visualDom.clientWidth, height = visualDom.clientHeight;
-                    var radius = (width + height) * arcConfig.radiusRate;
-                    var centerX = width / 2;
-                    var centerY = height / 2;
+                    var radius = (rect.width + rect.height) * arcConfig.radiusRate;
+                    var center = Visualizer.getCenterPoint(rect);
                     var maxIndex = timeDomainDataArray.length;
                     context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
                     context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
                     context.beginPath();
-                    context.moveTo(centerX + Math.cos(startAngle) * radius, centerY + Math.sin(startAngle) * radius);
+                    Visualizer.moveTo(context, Visualizer.getPointAtAngle(center, startAngle, radius));
                     for (var i = 0; i < maxIndex; i++) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var barLength = (radius * (value - 0.5)) * 2.0;
                         var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
-                        var x = centerX + Math.cos(angle) * (radius + barLength);
-                        var y = centerY + Math.sin(angle) * (radius + barLength);
-                        context.lineTo(x, y);
+                        Visualizer.lineTo(context, Visualizer.getPointAtAngle(center, angle, radius + barLength));
                     }
-                    context.lineTo(centerX + Math.cos(startAngle + circleRadians * arcConfig.angleRate) * radius, centerY + Math.sin(startAngle + circleRadians * arcConfig.angleRate) * radius);
+                    Visualizer.lineTo(context, Visualizer.getPointAtAngle(center, startAngle + circleRadians * arcConfig.angleRate, radius));
                     context.stroke();
                 }
             }

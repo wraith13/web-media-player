@@ -740,12 +740,32 @@ declare module "script/features/visualizer" {
     import { Media } from "script/features/media";
     import { Analyser } from "script/features/analyser";
     export namespace Visualizer {
-        interface Rect {
+        interface Point {
             x: number;
             y: number;
+        }
+        interface Size {
             width: number;
             height: number;
         }
+        interface Rect extends Point, Size {
+        }
+        const makePoint: (x: number, y: number) => Point;
+        const makeSize: (width: number, height: number) => Size;
+        const makeRect: (point: Point, size: Size) => Rect;
+        const addPoints: (a: Point, b: Point) => Point;
+        const scalePoint: (point: Point, scale: number) => Point;
+        const scaleSize: (size: Size, scale: number) => Size;
+        const sizeToPoint: (size: Size) => Point;
+        const getElementSize: (element: HTMLElement) => Size;
+        const getElementRect: (element: HTMLElement) => Rect;
+        const getCenterPoint: (rect: Rect) => Point;
+        const angleToPoint: (angle: number) => Point;
+        const getPointAtAngle: (center: Point, angle: number, radius: number) => Point;
+        const clearRect: (context: CanvasRenderingContext2D, rect?: Rect) => void;
+        const fillRect: (context: CanvasRenderingContext2D, fillStyle: string | CanvasGradient | CanvasPattern, rect: Rect) => void;
+        const moveTo: (context: CanvasRenderingContext2D, point: Point) => void;
+        const lineTo: (context: CanvasRenderingContext2D, point: Point) => void;
         type VisualizerDom = HTMLDivElement;
         const VisualizerDom: {
             new (): HTMLDivElement;
@@ -764,7 +784,6 @@ declare module "script/features/visualizer" {
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
-        const clearRect: (context: CanvasRenderingContext2D, rect?: Rect) => void;
         const drawPlaneFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const drawPlaneWaveform: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;

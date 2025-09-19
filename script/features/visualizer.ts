@@ -8,13 +8,69 @@ const circleRadians = 2 *Math.PI;
 const arcConfig = config.visualizer.arc[config.visualizer.arcType as "arc" | "circle"];
 export namespace Visualizer
 {
-    export interface Rect
+    export interface Point
     {
         x: number;
         y: number;
+    }
+    export interface Size
+    {
         width: number;
         height: number;
     }
+    export interface Rect extends Point, Size
+    {
+    }
+    export const makePoint = (x: number, y: number): Point =>
+    ({
+        x,
+        y,
+    });
+    export const makeSize = (width: number, height: number): Size =>
+    ({
+        width,
+        height,
+    });
+    export const makeRect = (point: Point, size: Size): Rect =>
+    {
+        const { x, y } = point;
+        const { width, height } = size;
+        return { x, y, width, height };
+    };
+    export const addPoints = (a: Point, b: Point): Point =>
+        makePoint(a.x +b.x, a.y +b.y);
+    export const scalePoint = (point: Point, scale: number): Point =>
+        makePoint(point.x *scale, point.y *scale);
+    export const scaleSize = (size: Size, scale: number): Size =>
+        makeSize(size.width *scale, size.height *scale);
+    export const sizeToPoint = (size: Size): Point =>
+        makePoint(size.width, size.height);
+    export const getElementSize = (element: HTMLElement): Size =>
+        makeSize(element.clientWidth, element.clientHeight);
+    export const getElementRect = (element: HTMLElement): Rect =>
+        makeRect(makePoint(0, 0), getElementSize(element));
+    export const getCenterPoint = (rect: Rect): Point => addPoints
+    (
+        rect,
+        sizeToPoint(scaleSize(rect, 0.5)),
+    );
+    export const angleToPoint = (angle: number): Point => makePoint(Math.cos(angle), Math.sin(angle));
+    export const getPointAtAngle = (center: Point, angle: number, radius: number): Point => addPoints
+    (
+        center,
+        scalePoint(angleToPoint(angle), radius)
+    );
+    export const clearRect = (context: CanvasRenderingContext2D, rect: Rect = getElementRect(context.canvas)): void =>
+        context.clearRect(rect.x, rect.y, rect.width, rect.height);
+    export const fillRect = (context: CanvasRenderingContext2D, fillStyle: string | CanvasGradient | CanvasPattern, rect: Rect): void =>
+    {
+        context.fillStyle = fillStyle;
+        context.fillRect(rect.x, rect.y, rect.width, rect.height);
+    };
+    export const moveTo = (context: CanvasRenderingContext2D, point: Point): void =>
+        context.moveTo(point.x, point.y);
+    export const lineTo = (context: CanvasRenderingContext2D, point: Point): void =>
+        context.lineTo(point.x, point.y);
     export type VisualizerDom = HTMLDivElement;
     export const VisualizerDom = HTMLDivElement;
     export const isSimpleMode = (): boolean =>
@@ -86,15 +142,13 @@ export namespace Visualizer
     };
     export const fitCanvas = (visualDom: VisualizerDom, canvas: HTMLCanvasElement): void =>
     {
-        const { clientWidth: width, clientHeight: height } = visualDom;
+        const { width, height } = getElementSize(visualDom);
         if (canvas.width !== width || canvas.height !== height)
         {
             canvas.width = width;
             canvas.height = height;
         }
     };
-    export const clearRect = (context: CanvasRenderingContext2D, rect: Rect = { x: 0, y: 0, width: context.canvas.width, height: context.canvas.height }): void =>
-        context.clearRect(rect.x, rect.y, rect.width, rect.height);
     export const drawPlaneFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
@@ -108,12 +162,19 @@ export namespace Visualizer
                 for (let i = 0; i < maxIndex; i++)
                 {
                     const value = frequencyDataArray[i] /255.0;
-                    const barHeight = zeroLevel +(value *(rect.height -zeroLevel));
-                    const x = i *barWidth;
-                    const y = (rect.height -barHeight) /2;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                    context.fillRect(rect.x +x, rect.y +y, barWidth, barHeight);
+                    const barHeight = zeroLevel +(value *(rect.height -zeroLevel));
+                    const point = makePoint(i *barWidth, (rect.height -barHeight) /2);
+                    fillRect
+                    (
+                        context,
+                        `hsl(${hue}, 100%, 50%)`,
+                        makeRect
+                        (
+                            addPoints(rect, point),
+                            makeSize(barWidth, barHeight)
+                        )
+                    );
                 }
             }
             else
@@ -122,12 +183,19 @@ export namespace Visualizer
                 for (let i = 0; i < maxIndex; i++)
                 {
                     const value = frequencyDataArray[i] /255.0;
-                    const barWidth = zeroLevel +(value *(rect.width -zeroLevel));
-                    const x = (rect.width -barWidth) /2;
-                    const y = rect.height -((i +1) *barHeight);
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                    context.fillRect(rect.x +x, rect.y +y, barWidth, barHeight);
+                    const barWidth = zeroLevel +(value *(rect.width -zeroLevel));
+                    const point = makePoint((rect.width -barWidth) /2, rect.height -((i +1) *barHeight));
+                    fillRect
+                    (
+                        context,
+                        `hsl(${hue}, 100%, 50%)`,
+                        makeRect
+                        (
+                            addPoints(rect, point),
+                            makeSize(barWidth, barHeight)
+                        )
+                    );
                 }
             }
         }
@@ -191,8 +259,7 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 clearRect(context);
-                const { clientWidth: width, clientHeight: height } = visualDom;
-                drawPlaneFrequency(context, { x: 0, y: 0, width, height }, analyser);
+                drawPlaneFrequency(context, getElementRect(visualDom), analyser);
             }
         }
         if (isPlaneWaveformMode())
@@ -203,8 +270,7 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 clearRect(context);
-                const { clientWidth: width, clientHeight: height } = visualDom;
-                drawPlaneWaveform(context, { x: 0, y: 0, width, height }, analyser);
+                drawPlaneWaveform(context, getElementRect(visualDom), analyser);
             }
         }
         if (isArcFrequencyMode())
@@ -216,11 +282,10 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 clearRect(context);
+                const rect = getElementRect(visualDom);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const { clientWidth: width, clientHeight: height } = visualDom;
-                const radius = (width +height) *arcConfig.radiusRate;
-                const centerX = width /2;
-                const centerY = height /2;
+                const radius = (rect.width +rect.height) *arcConfig.radiusRate;
+                const center = getCenterPoint(rect);
                 const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
                 const lineWidth = (circleRadians *radius) /maxIndex *0.8;
                 const zeroLevel = 1;
@@ -235,13 +300,13 @@ export namespace Visualizer
                     context.beginPath();
                     context.moveTo
                     (
-                        centerX +Math.cos(angle) *(radius -(barLength /2)),
-                        centerY +Math.sin(angle) *(radius -(barLength /2))
+                        center.x +Math.cos(angle) *(radius -(barLength /2)),
+                        center.y +Math.sin(angle) *(radius -(barLength /2))
                     );
                     context.lineTo
                     (
-                        centerX +Math.cos(angle) *(radius +(barLength /2)),
-                        centerY +Math.sin(angle) *(radius +(barLength /2))
+                        center.x +Math.cos(angle) *(radius +(barLength /2)),
+                        center.y +Math.sin(angle) *(radius +(barLength /2))
                     );
                     context.stroke();
                 }
@@ -256,34 +321,23 @@ export namespace Visualizer
             {
                 fitCanvas(visualDom, canvas);
                 clearRect(context);
+                const rect = getElementRect(visualDom);
                 const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const { clientWidth: width, clientHeight: height } = visualDom;
-                const radius = (width +height) *arcConfig.radiusRate;
-                const centerX = width /2;
-                const centerY = height /2;
+                const radius = (rect.width +rect.height) *arcConfig.radiusRate;
+                const center = getCenterPoint(rect);
                 const maxIndex = timeDomainDataArray.length;
                 context.lineWidth = config.visualizer.waveform.lineWidth;
                 context.strokeStyle = config.visualizer.waveform.strokeStyle;
                 context.beginPath();
-                context.moveTo
-                (
-                    centerX +Math.cos(startAngle) *radius,
-                    centerY +Math.sin(startAngle) *radius,
-                );
+                moveTo(context, getPointAtAngle(center, startAngle, radius));
                 for (let i = 0; i < maxIndex; i++)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const barLength = (radius *(value -0.5)) *2.0;
                     const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
-                    const x = centerX +Math.cos(angle) *(radius +barLength);
-                    const y = centerY +Math.sin(angle) *(radius +barLength);
-                    context.lineTo(x, y);
+                    lineTo(context, getPointAtAngle(center, angle, radius +barLength));
                 }
-                context.lineTo
-                (
-                    centerX +Math.cos(startAngle +circleRadians *arcConfig.angleRate) *radius,
-                    centerY +Math.sin(startAngle +circleRadians *arcConfig.angleRate) *radius,
-                );
+                lineTo(context, getPointAtAngle(center, startAngle +circleRadians *arcConfig.angleRate, radius));
                 context.stroke();
             }
         }
