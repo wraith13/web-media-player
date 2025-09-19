@@ -39,6 +39,10 @@ export namespace Visualizer
     };
     export const addPoints = (a: Point, b: Point): Point =>
         makePoint(a.x +b.x, a.y +b.y);
+    export const offsetPointX = (a: Point, x: number): Point =>
+        makePoint(a.x +x, a.y);
+    export const offsetPointY = (a: Point, y: number): Point =>
+        makePoint(a.x, a.y +y);
     export const scalePoint = (point: Point, scale: number): Point =>
         makePoint(point.x *scale, point.y *scale);
     export const scaleSize = (size: Size, scale: number): Size =>
@@ -159,7 +163,7 @@ export namespace Visualizer
             if (rect.height <= rect.width)
             {
                 const barWidth = rect.width /maxIndex;
-                for (let i = 0; i < maxIndex; i++)
+                for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = frequencyDataArray[i] /255.0;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
@@ -180,7 +184,7 @@ export namespace Visualizer
             else
             {
                 const barHeight = rect.height /maxIndex;
-                for (let i = 0; i < maxIndex; i++)
+                for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = frequencyDataArray[i] /255.0;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
@@ -212,28 +216,28 @@ export namespace Visualizer
             if (rect.height <= rect.width)
             {
                 const sliceWidth = rect.width /maxIndex;
-                context.moveTo(rect.x, rect.y +(rect.height /2));
-                for (let i = 0; i < maxIndex; i++)
+                moveTo(context, offsetPointY(rect, rect.height /2));
+                for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = i *sliceWidth;
                     const y = value *rect.height;
-                    context.lineTo(rect.x +x, rect.y +y);
+                    lineTo(context, addPoints(rect, { x, y }));
                 }
-                context.lineTo(rect.x +rect.width, rect.y +(rect.height /2));
+                lineTo(context, addPoints(rect, makePoint(rect.width, rect.height /2)));
             }
             else
             {
                 const sliceHeight = rect.height /maxIndex;
-                context.moveTo(rect.x +(rect.width /2), rect.y);
-                for (let i = 0; i < maxIndex; i++)
+                moveTo(context, offsetPointX(rect, rect.width /2));
+                for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = value *rect.width;
                     const y = i *sliceHeight;
-                    context.lineTo(rect.x +x, rect.y +y);
+                    lineTo(context, addPoints(rect, { x, y }));
                 }
-                context.lineTo(rect.x +(rect.width /2), rect.y +(rect.height));
+                lineTo(context, addPoints(rect, makePoint(rect.width /2, rect.height)));
             }
             context.stroke();
         }

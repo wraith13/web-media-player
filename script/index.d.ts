@@ -754,6 +754,8 @@ declare module "script/features/visualizer" {
         const makeSize: (width: number, height: number) => Size;
         const makeRect: (point: Point, size: Size) => Rect;
         const addPoints: (a: Point, b: Point) => Point;
+        const offsetPointX: (a: Point, x: number) => Point;
+        const offsetPointY: (a: Point, y: number) => Point;
         const scalePoint: (point: Point, scale: number) => Point;
         const scaleSize: (size: Size, scale: number) => Size;
         const sizeToPoint: (size: Size) => Point;

@@ -2232,6 +2232,12 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.addPoints = function (a, b) {
             return Visualizer.makePoint(a.x + b.x, a.y + b.y);
         };
+        Visualizer.offsetPointX = function (a, x) {
+            return Visualizer.makePoint(a.x + x, a.y);
+        };
+        Visualizer.offsetPointY = function (a, y) {
+            return Visualizer.makePoint(a.x, a.y + y);
+        };
         Visualizer.scalePoint = function (point, scale) {
             return Visualizer.makePoint(point.x * scale, point.y * scale);
         };
@@ -2350,7 +2356,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var zeroLevel = 1;
                 if (rect.height <= rect.width) {
                     var barWidth = rect.width / maxIndex;
-                    for (var i = 0; i < maxIndex; i++) {
+                    for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         var barHeight = zeroLevel + (value * (rect.height - zeroLevel));
@@ -2360,7 +2366,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
                 else {
                     var barHeight = rect.height / maxIndex;
-                    for (var i = 0; i < maxIndex; i++) {
+                    for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                         var barWidth = zeroLevel + (value * (rect.width - zeroLevel));
@@ -2380,25 +2386,25 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.beginPath();
                 if (rect.height <= rect.width) {
                     var sliceWidth = rect.width / maxIndex;
-                    context.moveTo(rect.x, rect.y + (rect.height / 2));
-                    for (var i = 0; i < maxIndex; i++) {
+                    Visualizer.moveTo(context, Visualizer.offsetPointY(rect, rect.height / 2));
+                    for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = i * sliceWidth;
                         var y = value * rect.height;
-                        context.lineTo(rect.x + x, rect.y + y);
+                        Visualizer.lineTo(context, Visualizer.addPoints(rect, { x: x, y: y }));
                     }
-                    context.lineTo(rect.x + rect.width, rect.y + (rect.height / 2));
+                    Visualizer.lineTo(context, Visualizer.addPoints(rect, Visualizer.makePoint(rect.width, rect.height / 2)));
                 }
                 else {
                     var sliceHeight = rect.height / maxIndex;
-                    context.moveTo(rect.x + (rect.width / 2), rect.y);
-                    for (var i = 0; i < maxIndex; i++) {
+                    Visualizer.moveTo(context, Visualizer.offsetPointX(rect, rect.width / 2));
+                    for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = value * rect.width;
                         var y = i * sliceHeight;
-                        context.lineTo(rect.x + x, rect.y + y);
+                        Visualizer.lineTo(context, Visualizer.addPoints(rect, { x: x, y: y }));
                     }
-                    context.lineTo(rect.x + (rect.width / 2), rect.y + (rect.height));
+                    Visualizer.lineTo(context, Visualizer.addPoints(rect, Visualizer.makePoint(rect.width / 2, rect.height)));
                 }
                 context.stroke();
             }
