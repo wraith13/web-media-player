@@ -2409,8 +2409,32 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.stroke();
             }
         };
+        Visualizer.drawArcFrequency = function (context, rect, analyser) {
+            var _a;
+            var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
+            if (context && frequencyDataArray) {
+                var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
+                var radius = (rect.width + rect.height) * arcConfig.radiusRate;
+                var center = Visualizer.getCenterPoint(rect);
+                var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
+                var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
+                var zeroLevel = 1;
+                context.lineWidth = lineWidth;
+                for (var i = 0; i < maxIndex; i++) {
+                    var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
+                    var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
+                    var value = frequencyDataArray[i] / 255.0;
+                    var barLength = radius * value + zeroLevel;
+                    context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                    context.beginPath();
+                    Visualizer.moveTo(context, Visualizer.getPointAtAngle(center, angle, radius - (barLength / 2)));
+                    Visualizer.lineTo(context, Visualizer.getPointAtAngle(center, angle, radius + (barLength / 2)));
+                    context.stroke();
+                }
+            }
+        };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
-            var _a, _b, _c;
+            var _a, _b;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
             if (playerDom.muted) {
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
@@ -2439,35 +2463,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
             if (Visualizer.isArcFrequencyMode()) {
-                var frequencyDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
-                if (context && frequencyDataArray) {
+                if (context && analyser) {
                     Visualizer.fitCanvas(visualDom, canvas);
                     Visualizer.clearRect(context);
-                    var rect = Visualizer.getElementRect(visualDom);
-                    var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
-                    var radius = (rect.width + rect.height) * arcConfig.radiusRate;
-                    var center = Visualizer.getCenterPoint(rect);
-                    var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
-                    var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
-                    var zeroLevel = 1;
-                    context.lineWidth = lineWidth;
-                    for (var i = 0; i < maxIndex; i++) {
-                        var value = frequencyDataArray[i] / 255.0;
-                        var barLength = radius * value + zeroLevel;
-                        var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
-                        var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                        context.beginPath();
-                        context.moveTo(center.x + Math.cos(angle) * (radius - (barLength / 2)), center.y + Math.sin(angle) * (radius - (barLength / 2)));
-                        context.lineTo(center.x + Math.cos(angle) * (radius + (barLength / 2)), center.y + Math.sin(angle) * (radius + (barLength / 2)));
-                        context.stroke();
-                    }
+                    Visualizer.drawArcFrequency(context, Visualizer.getElementRect(visualDom), analyser);
                 }
             }
             if (Visualizer.isArcWaveformMode()) {
-                var timeDomainDataArray = (_c = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _c !== void 0 ? _c : null;
+                var timeDomainDataArray = (_b = analyser === null || analyser === void 0 ? void 0 : analyser.getByteTimeDomainData()) !== null && _b !== void 0 ? _b : null;
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = canvas.getContext("2d");
                 if (context && timeDomainDataArray) {

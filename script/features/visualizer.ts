@@ -242,6 +242,32 @@ export namespace Visualizer
             context.stroke();
         }
     };
+    export const drawArcFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    {
+        const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
+        if (context && frequencyDataArray)
+        {
+            const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
+            const radius = (rect.width +rect.height) *arcConfig.radiusRate;
+            const center = getCenterPoint(rect);
+            const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
+            const lineWidth = (circleRadians *radius) /maxIndex *0.8;
+            const zeroLevel = 1;
+            context.lineWidth = lineWidth;
+            for (let i = 0; i < maxIndex; i++)
+            {
+                const hue = (i /maxIndex) *config.visualizer.maxHue;
+                const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
+                const value = frequencyDataArray[i] /255.0;
+                const barLength = radius *value +zeroLevel;
+                context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+                context.beginPath();
+                moveTo(context, getPointAtAngle(center, angle, radius -(barLength /2)));
+                lineTo(context, getPointAtAngle(center, angle, radius +(barLength /2)));
+                context.stroke();
+            }
+        }
+    };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
@@ -279,41 +305,13 @@ export namespace Visualizer
         }
         if (isArcFrequencyMode())
         {
-            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
             const canvas = makeSureCanvas(visualDom);
             const context = canvas.getContext("2d");
-            if (context && frequencyDataArray)
+            if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
                 clearRect(context);
-                const rect = getElementRect(visualDom);
-                const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const radius = (rect.width +rect.height) *arcConfig.radiusRate;
-                const center = getCenterPoint(rect);
-                const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
-                const lineWidth = (circleRadians *radius) /maxIndex *0.8;
-                const zeroLevel = 1;
-                context.lineWidth = lineWidth;
-                for (let i = 0; i < maxIndex; i++)
-                {
-                    const value = frequencyDataArray[i] /255.0;
-                    const barLength = radius *value +zeroLevel;
-                    const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
-                    const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-                    context.beginPath();
-                    context.moveTo
-                    (
-                        center.x +Math.cos(angle) *(radius -(barLength /2)),
-                        center.y +Math.sin(angle) *(radius -(barLength /2))
-                    );
-                    context.lineTo
-                    (
-                        center.x +Math.cos(angle) *(radius +(barLength /2)),
-                        center.y +Math.sin(angle) *(radius +(barLength /2))
-                    );
-                    context.stroke();
-                }
+                drawArcFrequency(context, getElementRect(visualDom), analyser);
             }
         }
         if (isArcWaveformMode())
