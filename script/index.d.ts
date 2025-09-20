@@ -764,10 +764,17 @@ declare module "script/features/visualizer" {
         const getCenterPoint: (rect: Rect) => Point;
         const angleToPoint: (angle: number) => Point;
         const getPointAtAngle: (center: Point, angle: number, radius: number) => Point;
-        const clearRect: (context: CanvasRenderingContext2D, rect?: Rect) => void;
-        const fillRect: (context: CanvasRenderingContext2D, fillStyle: string | CanvasGradient | CanvasPattern, rect: Rect) => void;
-        const moveTo: (context: CanvasRenderingContext2D, point: Point) => void;
-        const lineTo: (context: CanvasRenderingContext2D, point: Point) => void;
+        class CanvasContext2D {
+            canvas: HTMLCanvasElement;
+            context: CanvasRenderingContext2D;
+            rect: Rect;
+            constructor(canvas: HTMLCanvasElement);
+            clear(rect?: Rect): void;
+            fill(fillStyle: string | CanvasGradient | CanvasPattern, rect?: Rect): void;
+            moveTo(point: Point): void;
+            lineTo(point: Point): void;
+            stroke(): void;
+        }
         type VisualizerDom = HTMLDivElement;
         const VisualizerDom: {
             new (): HTMLDivElement;
@@ -786,9 +793,10 @@ declare module "script/features/visualizer" {
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
-        const drawPlaneFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
-        const drawPlaneWaveform: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
-        const drawArcFrequency: (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawArcFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawArcWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

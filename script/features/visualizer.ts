@@ -64,17 +64,46 @@ export namespace Visualizer
         center,
         scalePoint(angleToPoint(angle), radius)
     );
-    export const clearRect = (context: CanvasRenderingContext2D, rect: Rect = getElementRect(context.canvas)): void =>
-        context.clearRect(rect.x, rect.y, rect.width, rect.height);
-    export const fillRect = (context: CanvasRenderingContext2D, fillStyle: string | CanvasGradient | CanvasPattern, rect: Rect): void =>
+    export class CanvasContext2D
     {
-        context.fillStyle = fillStyle;
-        context.fillRect(rect.x, rect.y, rect.width, rect.height);
-    };
-    export const moveTo = (context: CanvasRenderingContext2D, point: Point): void =>
-        context.moveTo(point.x, point.y);
-    export const lineTo = (context: CanvasRenderingContext2D, point: Point): void =>
-        context.lineTo(point.x, point.y);
+        context: CanvasRenderingContext2D;
+        rect: Rect;
+        constructor(public canvas: HTMLCanvasElement)
+        {
+            const context = canvas.getContext("2d");
+            if ( ! context)
+            {
+                throw new Error("Failed to get 2D context");
+            }
+            this.context = context;
+            this.rect = getElementRect(canvas);
+        }
+        clear(rect: Rect = getElementRect(this.canvas)): void
+        {
+            this.context.clearRect(rect.x, rect.y, rect.width, rect.height);
+        }
+        fill(fillStyle: string | CanvasGradient | CanvasPattern, rect: Rect = this.rect): void
+        {
+            this.context.fillStyle = fillStyle;
+            this.context.fillRect(rect.x, rect.y, rect.width, rect.height);
+        }
+        moveTo(point: Point): void
+        {
+            this.context.moveTo(point.x, point.y);
+        }
+        lineTo(point: Point): void
+        {
+            this.context.lineTo(point.x, point.y);
+        }
+        beginPath(): void
+        {
+            this.context.beginPath();
+        }
+        stroke(): void
+        {
+            this.context.stroke();
+        }
+    }
     export type VisualizerDom = HTMLDivElement;
     export const VisualizerDom = HTMLDivElement;
     export const isSimpleMode = (): boolean =>
@@ -153,7 +182,7 @@ export namespace Visualizer
             canvas.height = height;
         }
     };
-    export const drawPlaneFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawPlaneFrequency = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
         if (context && frequencyDataArray)
@@ -169,9 +198,8 @@ export namespace Visualizer
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
                     const barHeight = zeroLevel +(value *(rect.height -zeroLevel));
                     const point = makePoint(i *barWidth, (rect.height -barHeight) /2);
-                    fillRect
+                    context.fill
                     (
-                        context,
                         `hsl(${hue}, 100%, 50%)`,
                         makeRect
                         (
@@ -190,9 +218,8 @@ export namespace Visualizer
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
                     const barWidth = zeroLevel +(value *(rect.width -zeroLevel));
                     const point = makePoint((rect.width -barWidth) /2, rect.height -((i +1) *barHeight));
-                    fillRect
+                    context.fill
                     (
-                        context,
                         `hsl(${hue}, 100%, 50%)`,
                         makeRect
                         (
@@ -204,45 +231,45 @@ export namespace Visualizer
             }
         }
     };
-    export const drawPlaneWaveform = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawPlaneWaveform = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
     {
         const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
         if (context && timeDomainDataArray)
         {
             const maxIndex = timeDomainDataArray.length;
-            context.lineWidth = config.visualizer.waveform.lineWidth;
-            context.strokeStyle = config.visualizer.waveform.strokeStyle;
+            context.context.lineWidth = config.visualizer.waveform.lineWidth;
+            context.context.strokeStyle = config.visualizer.waveform.strokeStyle;
             context.beginPath();
             if (rect.height <= rect.width)
             {
                 const sliceWidth = rect.width /maxIndex;
-                moveTo(context, offsetPointY(rect, rect.height /2));
+                context.moveTo(offsetPointY(rect, rect.height /2));
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = i *sliceWidth;
                     const y = value *rect.height;
-                    lineTo(context, addPoints(rect, { x, y }));
+                    context.lineTo(addPoints(rect, { x, y }));
                 }
-                lineTo(context, addPoints(rect, makePoint(rect.width, rect.height /2)));
+                context.lineTo(addPoints(rect, makePoint(rect.width, rect.height /2)));
             }
             else
             {
                 const sliceHeight = rect.height /maxIndex;
-                moveTo(context, offsetPointX(rect, rect.width /2));
+                context.moveTo(offsetPointX(rect, rect.width /2));
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = value *rect.width;
                     const y = i *sliceHeight;
-                    lineTo(context, addPoints(rect, { x, y }));
+                    context.lineTo(addPoints(rect, { x, y }));
                 }
-                lineTo(context, addPoints(rect, makePoint(rect.width /2, rect.height)));
+                context.lineTo(addPoints(rect, makePoint(rect.width /2, rect.height)));
             }
             context.stroke();
         }
     };
-    export const drawArcFrequency = (context: CanvasRenderingContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawArcFrequency = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
         if (context && frequencyDataArray)
@@ -253,19 +280,43 @@ export namespace Visualizer
             const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
             const lineWidth = (circleRadians *radius) /maxIndex *0.8;
             const zeroLevel = 1;
-            context.lineWidth = lineWidth;
+            context.context.lineWidth = lineWidth;
             for (let i = 0; i < maxIndex; i++)
             {
                 const hue = (i /maxIndex) *config.visualizer.maxHue;
                 const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                 const value = frequencyDataArray[i] /255.0;
                 const barLength = radius *value +zeroLevel;
-                context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+                context.context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
                 context.beginPath();
-                moveTo(context, getPointAtAngle(center, angle, radius -(barLength /2)));
-                lineTo(context, getPointAtAngle(center, angle, radius +(barLength /2)));
+                context.moveTo(getPointAtAngle(center, angle, radius -(barLength /2)));
+                context.lineTo(getPointAtAngle(center, angle, radius +(barLength /2)));
                 context.stroke();
             }
+        }
+    };
+    export const drawArcWaveform = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    {
+        const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
+        if (context && timeDomainDataArray)
+        {
+            const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
+            const radius = (rect.width +rect.height) *arcConfig.radiusRate;
+            const center = getCenterPoint(rect);
+            const maxIndex = timeDomainDataArray.length;
+            context.context.lineWidth = config.visualizer.waveform.lineWidth;
+            context.context.strokeStyle = config.visualizer.waveform.strokeStyle;
+            context.beginPath();
+            context.moveTo(getPointAtAngle(center, startAngle, radius));
+            for (let i = 0; i < maxIndex; i++)
+            {
+                const value = timeDomainDataArray[i] /255.0;
+                const barLength = (radius *(value -0.5)) *2.0;
+                const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
+                context.lineTo(getPointAtAngle(center, angle, radius +barLength));
+            }
+            context.lineTo(getPointAtAngle(center, startAngle +circleRadians *arcConfig.angleRate, radius));
+            context.stroke();
         }
     };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
@@ -284,63 +335,45 @@ export namespace Visualizer
         if (isPlaneFrequencyMode())
         {
             const canvas = makeSureCanvas(visualDom);
-            const context = canvas.getContext("2d");
+            const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                clearRect(context);
+                context.clear();
                 drawPlaneFrequency(context, getElementRect(visualDom), analyser);
             }
         }
         if (isPlaneWaveformMode())
         {
             const canvas = makeSureCanvas(visualDom);
-            const context = canvas.getContext("2d");
+            const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                clearRect(context);
+                context.clear();
                 drawPlaneWaveform(context, getElementRect(visualDom), analyser);
             }
         }
         if (isArcFrequencyMode())
         {
             const canvas = makeSureCanvas(visualDom);
-            const context = canvas.getContext("2d");
+            const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                clearRect(context);
+                context.clear();
                 drawArcFrequency(context, getElementRect(visualDom), analyser);
             }
         }
         if (isArcWaveformMode())
         {
-            const timeDomainDataArray = analyser?.getByteTimeDomainData() ?? null;
             const canvas = makeSureCanvas(visualDom);
-            const context = canvas.getContext("2d");
-            if (context && timeDomainDataArray)
+            const context = new CanvasContext2D(canvas);
+            if (context && analyser)
             {
                 fitCanvas(visualDom, canvas);
-                clearRect(context);
-                const rect = getElementRect(visualDom);
-                const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
-                const radius = (rect.width +rect.height) *arcConfig.radiusRate;
-                const center = getCenterPoint(rect);
-                const maxIndex = timeDomainDataArray.length;
-                context.lineWidth = config.visualizer.waveform.lineWidth;
-                context.strokeStyle = config.visualizer.waveform.strokeStyle;
-                context.beginPath();
-                moveTo(context, getPointAtAngle(center, startAngle, radius));
-                for (let i = 0; i < maxIndex; i++)
-                {
-                    const value = timeDomainDataArray[i] /255.0;
-                    const barLength = (radius *(value -0.5)) *2.0;
-                    const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
-                    lineTo(context, getPointAtAngle(center, angle, radius +barLength));
-                }
-                lineTo(context, getPointAtAngle(center, startAngle +circleRadians *arcConfig.angleRate, radius));
-                context.stroke();
+                context.clear();
+                drawArcWaveform(context, getElementRect(visualDom), analyser);
             }
         }
     };
