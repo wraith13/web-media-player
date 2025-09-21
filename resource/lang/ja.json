@@ -21,6 +21,7 @@
     "visualizer-plane-waveform": "平面波形",
     "visualizer-arc-frequency": "アーク周波数",
     "visualizer-arc-waveform": "アーク波形",
+    "visualizer-double-arc": "ダブルアーク",
     "with-fullscreen-label": "フルスクリーン:",
     "show-fps-label": "FPS を表示:",
     "clock-label": "時計:",

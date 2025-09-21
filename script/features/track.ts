@@ -379,6 +379,7 @@ export class Track
             // }
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
             {
+                Visualizer.updateStretch(this.visualElement);
                 Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
         }

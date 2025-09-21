@@ -51,6 +51,7 @@ declare module "locale/generated/master" {
             "visualizer-plane-waveform": string;
             "visualizer-arc-frequency": string;
             "visualizer-arc-waveform": string;
+            "visualizer-double-arc": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -112,6 +113,7 @@ declare module "locale/generated/master" {
             "visualizer-plane-waveform": string;
             "visualizer-arc-frequency": string;
             "visualizer-arc-waveform": string;
+            "visualizer-double-arc": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -178,6 +180,7 @@ declare module "script/library/locale" {
                 "visualizer-plane-waveform": string;
                 "visualizer-arc-frequency": string;
                 "visualizer-arc-waveform": string;
+                "visualizer-double-arc": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -239,6 +242,7 @@ declare module "script/library/locale" {
                 "visualizer-plane-waveform": string;
                 "visualizer-arc-frequency": string;
                 "visualizer-arc-waveform": string;
+                "visualizer-double-arc": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -789,18 +793,26 @@ declare module "script/features/visualizer" {
         const isPlaneWaveformMode: () => boolean;
         const isArcFrequencyMode: () => boolean;
         const isArcWaveformMode: () => boolean;
+        const isDoubleArcMode: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureProgressCircle: (visualDom: VisualizerDom) => HTMLDivElement;
         const makeSureTextSpan: (visualDom: VisualizerDom) => HTMLSpanElement;
+        const getCanvasOrNull: (visualDom: VisualizerDom) => HTMLCanvasElement;
+        const makeCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
+        const updateStretch: (visualDom: VisualizerDom) => void;
         const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const drawArcFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
         const drawArcWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const splitRect: (rect: Rect) => {
+            firstHalf: Rect;
+            secondHalf: Rect;
+        };
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

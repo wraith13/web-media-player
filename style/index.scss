@@ -473,6 +473,7 @@ body.show-paused-media #screen-body
     &
     {
         position: absolute;
+        z-index: 100;
         inset-block-start: 2.5rem;
         inset-block-start: calc(2.5rem + env(safe-area-inset-top));
         inset-inline-end: 0.5rem;

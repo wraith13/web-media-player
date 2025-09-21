@@ -93,9 +93,10 @@
             "plane-frequency",
             "plane-waveform",
             "arc-frequency",
-            "arc-waveform"
+            "arc-waveform",
+            "double-arc"
         ],
-        "default": "arc-waveform"
+        "default": "double-arc"
     },
     "clock": {
         "id": "clock",

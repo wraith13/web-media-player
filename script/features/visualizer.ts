@@ -127,6 +127,8 @@ export namespace Visualizer
         UI.mediaScreen.classList.contains("arc-frequency");
     export const isArcWaveformMode = (): boolean =>
         UI.mediaScreen.classList.contains("arc-waveform");
+    export const isDoubleArcMode = (): boolean =>
+        UI.mediaScreen.classList.contains("double-arc");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -174,16 +176,17 @@ export namespace Visualizer
         }
         return result;
     };
-    export const makeSureCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
+    export const getCanvasOrNull = (visualDom: VisualizerDom): HTMLCanvasElement =>
+        visualDom.querySelector(".visual-canvas") as HTMLCanvasElement || null;
+    export const makeCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
     {
-        let result = visualDom.querySelector(".visual-canvas") as HTMLCanvasElement;
-        if ( ! result)
-        {
-            result = Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
-            visualDom.appendChild(result);
-        }
+        const result = Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
+        visualDom.appendChild(result);
+        fitCanvas(visualDom, result);
         return result;
     };
+    export const makeSureCanvas = (visualDom: VisualizerDom): HTMLCanvasElement =>
+        getCanvasOrNull(visualDom) ?? makeCanvas(visualDom);
     export const fitCanvas = (visualDom: VisualizerDom, canvas: HTMLCanvasElement): void =>
     {
         const { width, height } = getElementSize(visualDom);
@@ -191,6 +194,14 @@ export namespace Visualizer
         {
             canvas.width = width;
             canvas.height = height;
+        }
+    };
+    export const updateStretch = (visualDom: VisualizerDom): void =>
+    {
+        const canvas = getCanvasOrNull(visualDom);
+        if (canvas)
+        {
+            fitCanvas(visualDom, canvas);
         }
     };
     export const drawPlaneFrequency = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
@@ -325,6 +336,42 @@ export namespace Visualizer
             context.stroke();
         }
     };
+    export const splitRect = (rect: Rect): { firstHalf: Rect, secondHalf: Rect } =>
+    {
+        // const overlapThreshold = 1.7;
+        // if (rect.height *overlapThreshold <= rect.width)
+        // {
+        //     const firstHalf = makeRect(rect, makeSize(rect.width /2, rect.height));
+        //     const secondHalf = makeRect(offsetPointX(rect, rect.width /2), makeSize(rect.width /2, rect.height));
+        //     return { firstHalf, secondHalf };
+        // }
+        // else
+        // if (rect.width *overlapThreshold <= rect.height)
+        // {
+        //     const firstHalf = makeRect(rect, makeSize(rect.width, rect.height /2));
+        //     const secondHalf = makeRect(offsetPointY(rect, rect.height /2), makeSize(rect.width, rect.height /2));
+        //     return { firstHalf, secondHalf };
+        // }
+        // else
+        // {
+            const rate = 0.2;
+            const firstHalf =
+            {
+                x: rect.x -rect.width *(rate /2),
+                y: rect.y -rect.height *(rate /2),
+                width: rect.width *(1 +rate),
+                height: rect.height *(1 +rate),
+            };
+            const secondHalf =
+            {
+                x: rect.x +rect.width *(rate /2),
+                y: rect.y +rect.height *(rate /2),
+                width: rect.width *(1 -rate),
+                height: rect.height *(1 -rate),
+            }
+            return { firstHalf, secondHalf };
+        // }
+    };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
         makeSureAudioIcon(visualDom).catch(console.error);
@@ -344,7 +391,6 @@ export namespace Visualizer
             const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
-                fitCanvas(visualDom, canvas);
                 context.clear();
                 drawPlaneFrequency(context, getElementRect(visualDom), analyser);
             }
@@ -355,7 +401,6 @@ export namespace Visualizer
             const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
-                fitCanvas(visualDom, canvas);
                 context.clear();
                 drawPlaneWaveform(context, getElementRect(visualDom), analyser);
             }
@@ -366,7 +411,6 @@ export namespace Visualizer
             const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
-                fitCanvas(visualDom, canvas);
                 context.clear();
                 drawArcFrequency(context, getElementRect(visualDom), analyser);
             }
@@ -377,9 +421,21 @@ export namespace Visualizer
             const context = new CanvasContext2D(canvas);
             if (context && analyser)
             {
-                fitCanvas(visualDom, canvas);
                 context.clear();
                 drawArcWaveform(context, getElementRect(visualDom), analyser);
+            }
+        }
+        if (isDoubleArcMode())
+        {
+            const canvas = makeSureCanvas(visualDom);
+            const context = new CanvasContext2D(canvas);
+            if (context && analyser)
+            {
+                context.clear();
+                const rect = getElementRect(visualDom);
+                const { firstHalf, secondHalf } = splitRect(rect);
+                drawArcFrequency(context, firstHalf, analyser);
+                drawArcWaveform(context, secondHalf, analyser);
             }
         }
     };

@@ -412,7 +412,6 @@ export namespace Player
             removeFadeoutTrack();
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
-            currentTrack.updateStretch();
             Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
             const currentVolume = UI.volumeRange.get() /100;
@@ -440,6 +439,7 @@ export namespace Player
             if (currentTrack.visualElement)
             {
                 UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.clockDisplay);
+                currentTrack.updateStretch();
             }
         }
     };

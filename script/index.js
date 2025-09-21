@@ -195,6 +195,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-plane-waveform": "Plane Waveform",
             "visualizer-arc-frequency": "Arc Frequency",
             "visualizer-arc-waveform": "Arc Waveform",
+            "visualizer-double-arc": "Double Arc",
             "with-fullscreen-label": "FullScreen:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
@@ -256,6 +257,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-plane-waveform": "平面波形",
             "visualizer-arc-frequency": "アーク周波数",
             "visualizer-arc-waveform": "アーク波形",
+            "visualizer-double-arc": "ダブルアーク",
             "with-fullscreen-label": "フルスクリーン:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
@@ -1655,9 +1657,10 @@ define("resource/control", [], {
             "plane-frequency",
             "plane-waveform",
             "arc-frequency",
-            "arc-waveform"
+            "arc-waveform",
+            "double-arc"
         ],
-        "default": "arc-waveform"
+        "default": "double-arc"
     },
     "clock": {
         "id": "clock",
@@ -2314,6 +2317,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isArcWaveformMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("arc-waveform");
         };
+        Visualizer.isDoubleArcMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("double-arc");
+        };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
@@ -2361,19 +2367,27 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             return result;
         };
-        Visualizer.makeSureCanvas = function (visualDom) {
-            var result = visualDom.querySelector(".visual-canvas");
-            if (!result) {
-                result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
-                visualDom.appendChild(result);
-            }
+        Visualizer.getCanvasOrNull = function (visualDom) {
+            return visualDom.querySelector(".visual-canvas") || null;
+        };
+        Visualizer.makeCanvas = function (visualDom) {
+            var result = _library_4.Library.UI.createElement({ tag: "canvas", className: "visual-canvas" });
+            visualDom.appendChild(result);
+            Visualizer.fitCanvas(visualDom, result);
             return result;
         };
+        Visualizer.makeSureCanvas = function (visualDom) { var _a; return (_a = Visualizer.getCanvasOrNull(visualDom)) !== null && _a !== void 0 ? _a : Visualizer.makeCanvas(visualDom); };
         Visualizer.fitCanvas = function (visualDom, canvas) {
             var _a = Visualizer.getElementSize(visualDom), width = _a.width, height = _a.height;
             if (canvas.width !== width || canvas.height !== height) {
                 canvas.width = width;
                 canvas.height = height;
+            }
+        };
+        Visualizer.updateStretch = function (visualDom) {
+            var canvas = Visualizer.getCanvasOrNull(visualDom);
+            if (canvas) {
+                Visualizer.fitCanvas(visualDom, canvas);
             }
         };
         Visualizer.drawPlaneFrequency = function (context, rect, analyser) {
@@ -2478,6 +2492,39 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.stroke();
             }
         };
+        Visualizer.splitRect = function (rect) {
+            // const overlapThreshold = 1.7;
+            // if (rect.height *overlapThreshold <= rect.width)
+            // {
+            //     const firstHalf = makeRect(rect, makeSize(rect.width /2, rect.height));
+            //     const secondHalf = makeRect(offsetPointX(rect, rect.width /2), makeSize(rect.width /2, rect.height));
+            //     return { firstHalf, secondHalf };
+            // }
+            // else
+            // if (rect.width *overlapThreshold <= rect.height)
+            // {
+            //     const firstHalf = makeRect(rect, makeSize(rect.width, rect.height /2));
+            //     const secondHalf = makeRect(offsetPointY(rect, rect.height /2), makeSize(rect.width, rect.height /2));
+            //     return { firstHalf, secondHalf };
+            // }
+            // else
+            // {
+            var rate = 0.2;
+            var firstHalf = {
+                x: rect.x - rect.width * (rate / 2),
+                y: rect.y - rect.height * (rate / 2),
+                width: rect.width * (1 + rate),
+                height: rect.height * (1 + rate),
+            };
+            var secondHalf = {
+                x: rect.x + rect.width * (rate / 2),
+                y: rect.y + rect.height * (rate / 2),
+                width: rect.width * (1 - rate),
+                height: rect.height * (1 - rate),
+            };
+            return { firstHalf: firstHalf, secondHalf: secondHalf };
+            // }
+        };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
             var _a;
             Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
@@ -2493,7 +2540,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = new CanvasContext2D(canvas);
                 if (context && analyser) {
-                    Visualizer.fitCanvas(visualDom, canvas);
                     context.clear();
                     Visualizer.drawPlaneFrequency(context, Visualizer.getElementRect(visualDom), analyser);
                 }
@@ -2502,7 +2548,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = new CanvasContext2D(canvas);
                 if (context && analyser) {
-                    Visualizer.fitCanvas(visualDom, canvas);
                     context.clear();
                     Visualizer.drawPlaneWaveform(context, Visualizer.getElementRect(visualDom), analyser);
                 }
@@ -2511,7 +2556,6 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = new CanvasContext2D(canvas);
                 if (context && analyser) {
-                    Visualizer.fitCanvas(visualDom, canvas);
                     context.clear();
                     Visualizer.drawArcFrequency(context, Visualizer.getElementRect(visualDom), analyser);
                 }
@@ -2520,9 +2564,19 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = new CanvasContext2D(canvas);
                 if (context && analyser) {
-                    Visualizer.fitCanvas(visualDom, canvas);
                     context.clear();
                     Visualizer.drawArcWaveform(context, Visualizer.getElementRect(visualDom), analyser);
+                }
+            }
+            if (Visualizer.isDoubleArcMode()) {
+                var canvas = Visualizer.makeSureCanvas(visualDom);
+                var context = new CanvasContext2D(canvas);
+                if (context && analyser) {
+                    context.clear();
+                    var rect = Visualizer.getElementRect(visualDom);
+                    var _b = Visualizer.splitRect(rect), firstHalf = _b.firstHalf, secondHalf = _b.secondHalf;
+                    Visualizer.drawArcFrequency(context, firstHalf, analyser);
+                    Visualizer.drawArcWaveform(context, secondHalf, analyser);
                 }
             }
         };
@@ -3108,6 +3162,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 //     Library.UI.setStyle(this.visualElement, "height", `100%`);
                 // }
                 if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+                    visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
                 }
             }
@@ -3534,7 +3589,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
-                currentTrack.updateStretch();
                 _library_7.Library.UI.setTextContent(ui_7.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_7.UI.mediaTitle, Player.makeTitleText(currentTrack));
                 var currentVolume = ui_7.UI.volumeRange.get() / 100;
@@ -3557,6 +3611,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 }
                 if (currentTrack.visualElement) {
                     ui_7.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_7.UI.clockDisplay);
+                    currentTrack.updateStretch();
                 }
             }
         };
