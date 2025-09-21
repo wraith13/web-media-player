@@ -95,8 +95,19 @@ export namespace Visualizer
         {
             this.context.lineTo(point.x, point.y);
         }
-        beginPath(): void
+        beginPath(data?: { lineWidth?: number, strokeStyle?: string | CanvasGradient | CanvasPattern, }): void
         {
+            if (undefined !== data)
+            {
+                if (undefined !== data.lineWidth)
+                {
+                    this.context.lineWidth = data.lineWidth;
+                }
+                if (undefined !== data.strokeStyle)
+                {
+                    this.context.strokeStyle = data.strokeStyle;
+                }
+            }
             this.context.beginPath();
         }
         stroke(): void
@@ -237,9 +248,7 @@ export namespace Visualizer
         if (context && timeDomainDataArray)
         {
             const maxIndex = timeDomainDataArray.length;
-            context.context.lineWidth = config.visualizer.waveform.lineWidth;
-            context.context.strokeStyle = config.visualizer.waveform.strokeStyle;
-            context.beginPath();
+            context.beginPath(config.visualizer.waveform);
             if (rect.height <= rect.width)
             {
                 const sliceWidth = rect.width /maxIndex;
@@ -280,15 +289,14 @@ export namespace Visualizer
             const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
             const lineWidth = (circleRadians *radius) /maxIndex *0.8;
             const zeroLevel = 1;
-            context.context.lineWidth = lineWidth;
             for (let i = 0; i < maxIndex; i++)
             {
                 const hue = (i /maxIndex) *config.visualizer.maxHue;
                 const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                 const value = frequencyDataArray[i] /255.0;
                 const barLength = radius *value +zeroLevel;
-                context.context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-                context.beginPath();
+                const strokeStyle = `hsl(${hue}, 100%, 50%)`;
+                context.beginPath({ lineWidth, strokeStyle,});
                 context.moveTo(getPointAtAngle(center, angle, radius -(barLength /2)));
                 context.lineTo(getPointAtAngle(center, angle, radius +(barLength /2)));
                 context.stroke();
@@ -304,9 +312,7 @@ export namespace Visualizer
             const radius = (rect.width +rect.height) *arcConfig.radiusRate;
             const center = getCenterPoint(rect);
             const maxIndex = timeDomainDataArray.length;
-            context.context.lineWidth = config.visualizer.waveform.lineWidth;
-            context.context.strokeStyle = config.visualizer.waveform.strokeStyle;
-            context.beginPath();
+            context.beginPath(config.visualizer.waveform);
             context.moveTo(getPointAtAngle(center, startAngle, radius));
             for (let i = 0; i < maxIndex; i++)
             {

@@ -773,6 +773,10 @@ declare module "script/features/visualizer" {
             fill(fillStyle: string | CanvasGradient | CanvasPattern, rect?: Rect): void;
             moveTo(point: Point): void;
             lineTo(point: Point): void;
+            beginPath(data?: {
+                lineWidth?: number;
+                strokeStyle?: string | CanvasGradient | CanvasPattern;
+            }): void;
             stroke(): void;
         }
         type VisualizerDom = HTMLDivElement;

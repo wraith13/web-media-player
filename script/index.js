@@ -2281,6 +2281,17 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             CanvasContext2D.prototype.lineTo = function (point) {
                 this.context.lineTo(point.x, point.y);
             };
+            CanvasContext2D.prototype.beginPath = function (data) {
+                if (undefined !== data) {
+                    if (undefined !== data.lineWidth) {
+                        this.context.lineWidth = data.lineWidth;
+                    }
+                    if (undefined !== data.strokeStyle) {
+                        this.context.strokeStyle = data.strokeStyle;
+                    }
+                }
+                this.context.beginPath();
+            };
             CanvasContext2D.prototype.stroke = function () {
                 this.context.stroke();
             };
@@ -2398,9 +2409,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
                 var maxIndex = timeDomainDataArray.length;
-                context.context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
-                context.context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
-                context.context.beginPath();
+                context.beginPath(config_json_4.default.visualizer.waveform);
                 if (rect.height <= rect.width) {
                     var sliceWidth = rect.width / maxIndex;
                     context.moveTo(Visualizer.offsetPointY(rect, rect.height / 2));
@@ -2436,14 +2445,13 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
                 var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
                 var zeroLevel = 1;
-                context.context.lineWidth = lineWidth;
                 for (var i = 0; i < maxIndex; i++) {
                     var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                     var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
                     var value = frequencyDataArray[i] / 255.0;
                     var barLength = radius * value + zeroLevel;
-                    context.context.strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
-                    context.context.beginPath();
+                    var strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
+                    context.beginPath({ lineWidth: lineWidth, strokeStyle: strokeStyle, });
                     context.moveTo(Visualizer.getPointAtAngle(center, angle, radius - (barLength / 2)));
                     context.lineTo(Visualizer.getPointAtAngle(center, angle, radius + (barLength / 2)));
                     context.stroke();
@@ -2458,9 +2466,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var radius = (rect.width + rect.height) * arcConfig.radiusRate;
                 var center = Visualizer.getCenterPoint(rect);
                 var maxIndex = timeDomainDataArray.length;
-                context.context.lineWidth = config_json_4.default.visualizer.waveform.lineWidth;
-                context.context.strokeStyle = config_json_4.default.visualizer.waveform.strokeStyle;
-                context.context.beginPath();
+                context.beginPath(config_json_4.default.visualizer.waveform);
                 context.moveTo(Visualizer.getPointAtAngle(center, startAngle, radius));
                 for (var i = 0; i < maxIndex; i++) {
                     var value = timeDomainDataArray[i] / 255.0;
