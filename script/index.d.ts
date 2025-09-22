@@ -691,6 +691,12 @@ declare module "script/features/analyser" {
         const fftSize: number;
         const isSupported: () => boolean;
         const resume: () => Promise<void>;
+        interface Channels<T> {
+            left: T;
+            right: T;
+            mono: T;
+        }
+        type ChannelType = keyof Channels<any>;
         class Entry {
             mediaElement: HTMLMediaElement;
             analyserNode: AnalyserNode | null;
@@ -763,6 +769,7 @@ declare module "script/features/visualizer" {
         const scalePoint: (point: Point, scale: number) => Point;
         const scaleSize: (size: Size, scale: number) => Size;
         const sizeToPoint: (size: Size) => Point;
+        const scaleRect: (rect: Rect, scale: number) => Rect;
         const getElementSize: (element: HTMLElement) => Size;
         const getElementRect: (element: HTMLElement) => Rect;
         const getCenterPoint: (rect: Rect) => Point;
@@ -805,10 +812,10 @@ declare module "script/features/visualizer" {
         const makeSureCanvas: (visualDom: VisualizerDom) => HTMLCanvasElement;
         const fitCanvas: (visualDom: VisualizerDom, canvas: HTMLCanvasElement) => void;
         const updateStretch: (visualDom: VisualizerDom) => void;
-        const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
-        const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
-        const drawArcFrequency: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
-        const drawArcWaveform: (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry) => void;
+        const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
+        const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
+        const drawArcFrequency: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
+        const drawArcWaveform: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const splitRect: (rect: Rect) => {
             firstHalf: Rect;
             secondHalf: Rect;

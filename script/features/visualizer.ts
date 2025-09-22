@@ -49,6 +49,12 @@ export namespace Visualizer
         makeSize(size.width *scale, size.height *scale);
     export const sizeToPoint = (size: Size): Point =>
         makePoint(size.width, size.height);
+    export const scaleRect = (rect: Rect, scale: number): Rect =>
+        makeRect
+        (
+            addPoints(rect, sizeToPoint(scaleSize(rect, (1 -scale) /2))),
+            scaleSize(rect, scale)
+        );
     export const getElementSize = (element: HTMLElement): Size =>
         makeSize(element.clientWidth, element.clientHeight);
     export const getElementRect = (element: HTMLElement): Rect =>
@@ -204,7 +210,7 @@ export namespace Visualizer
             fitCanvas(visualDom, canvas);
         }
     };
-    export const drawPlaneFrequency = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawPlaneFrequency = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
         if (context && frequencyDataArray)
@@ -218,7 +224,7 @@ export namespace Visualizer
                 {
                     const value = frequencyDataArray[i] /255.0;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    const barHeight = zeroLevel +(value *(rect.height -zeroLevel));
+                    const barHeight = zeroLevel +(scale *value *(rect.height -zeroLevel));
                     const point = makePoint(i *barWidth, (rect.height -barHeight) /2);
                     context.fill
                     (
@@ -238,7 +244,7 @@ export namespace Visualizer
                 {
                     const value = frequencyDataArray[i] /255.0;
                     const hue = (i /maxIndex) *config.visualizer.maxHue;
-                    const barWidth = zeroLevel +(value *(rect.width -zeroLevel));
+                    const barWidth = zeroLevel +(scale *value *(rect.width -zeroLevel));
                     const point = makePoint((rect.width -barWidth) /2, rect.height -((i +1) *barHeight));
                     context.fill
                     (
@@ -253,7 +259,7 @@ export namespace Visualizer
             }
         }
     };
-    export const drawPlaneWaveform = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawPlaneWaveform = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
         const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
         if (context && timeDomainDataArray)
@@ -268,7 +274,7 @@ export namespace Visualizer
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = i *sliceWidth;
-                    const y = value *rect.height;
+                    const y = scale *value *rect.height;
                     context.lineTo(addPoints(rect, { x, y }));
                 }
                 context.lineTo(addPoints(rect, makePoint(rect.width, rect.height /2)));
@@ -280,7 +286,7 @@ export namespace Visualizer
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
-                    const x = value *rect.width;
+                    const x = scale *value *rect.width;
                     const y = i *sliceHeight;
                     context.lineTo(addPoints(rect, { x, y }));
                 }
@@ -289,7 +295,7 @@ export namespace Visualizer
             context.stroke();
         }
     };
-    export const drawArcFrequency = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawArcFrequency = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
         const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
         if (context && frequencyDataArray)
@@ -305,7 +311,7 @@ export namespace Visualizer
                 const hue = (i /maxIndex) *config.visualizer.maxHue;
                 const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                 const value = frequencyDataArray[i] /255.0;
-                const barLength = radius *value +zeroLevel;
+                const barLength = scale *radius *value +zeroLevel;
                 const strokeStyle = `hsl(${hue}, 100%, 50%)`;
                 context.beginPath({ lineWidth, strokeStyle,});
                 context.moveTo(getPointAtAngle(center, angle, radius -(barLength /2)));
@@ -314,7 +320,7 @@ export namespace Visualizer
             }
         }
     };
-    export const drawArcWaveform = (context: CanvasContext2D, rect: Rect, analyser: Analyser.Entry): void =>
+    export const drawArcWaveform = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
         const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
         if (context && timeDomainDataArray)
@@ -328,7 +334,7 @@ export namespace Visualizer
             for (let i = 0; i < maxIndex; i++)
             {
                 const value = timeDomainDataArray[i] /255.0;
-                const barLength = (radius *(value -0.5)) *2.0;
+                const barLength = scale *(radius *(value -0.5)) *2.0;
                 const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
                 context.lineTo(getPointAtAngle(center, angle, radius +barLength));
             }
@@ -354,23 +360,26 @@ export namespace Visualizer
         // }
         // else
         // {
-            const rate = 0.2;
-            const firstHalf =
-            {
-                x: rect.x -rect.width *(rate /2),
-                y: rect.y -rect.height *(rate /2),
-                width: rect.width *(1 +rate),
-                height: rect.height *(1 +rate),
-            };
-            const secondHalf =
-            {
-                x: rect.x +rect.width *(rate /2),
-                y: rect.y +rect.height *(rate /2),
-                width: rect.width *(1 -rate),
-                height: rect.height *(1 -rate),
-            }
-            return { firstHalf, secondHalf };
+            // const rate = 0.2;
+            // const firstHalf =
+            // {
+            //     x: rect.x -rect.width *(rate /2),
+            //     y: rect.y -rect.height *(rate /2),
+            //     width: rect.width *(1 +rate),
+            //     height: rect.height *(1 +rate),
+            // };
+            // const secondHalf =
+            // {
+            //     x: rect.x +rect.width *(rate /2),
+            //     y: rect.y +rect.height *(rate /2),
+            //     width: rect.width *(1 -rate),
+            //     height: rect.height *(1 -rate),
+            // }
+            // return { firstHalf, secondHalf };
         // }
+        const firstHalf = scaleRect(rect, 1.2);
+        const secondHalf = scaleRect(rect, 0.8);
+        return { firstHalf, secondHalf };
     };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
@@ -385,47 +394,7 @@ export namespace Visualizer
             makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
             makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
         }
-        if (isPlaneFrequencyMode())
-        {
-            const canvas = makeSureCanvas(visualDom);
-            const context = new CanvasContext2D(canvas);
-            if (context && analyser)
-            {
-                context.clear();
-                drawPlaneFrequency(context, getElementRect(visualDom), analyser);
-            }
-        }
-        if (isPlaneWaveformMode())
-        {
-            const canvas = makeSureCanvas(visualDom);
-            const context = new CanvasContext2D(canvas);
-            if (context && analyser)
-            {
-                context.clear();
-                drawPlaneWaveform(context, getElementRect(visualDom), analyser);
-            }
-        }
-        if (isArcFrequencyMode())
-        {
-            const canvas = makeSureCanvas(visualDom);
-            const context = new CanvasContext2D(canvas);
-            if (context && analyser)
-            {
-                context.clear();
-                drawArcFrequency(context, getElementRect(visualDom), analyser);
-            }
-        }
-        if (isArcWaveformMode())
-        {
-            const canvas = makeSureCanvas(visualDom);
-            const context = new CanvasContext2D(canvas);
-            if (context && analyser)
-            {
-                context.clear();
-                drawArcWaveform(context, getElementRect(visualDom), analyser);
-            }
-        }
-        if (isDoubleArcMode())
+        else
         {
             const canvas = makeSureCanvas(visualDom);
             const context = new CanvasContext2D(canvas);
@@ -433,9 +402,28 @@ export namespace Visualizer
             {
                 context.clear();
                 const rect = getElementRect(visualDom);
-                const { firstHalf, secondHalf } = splitRect(rect);
-                drawArcFrequency(context, firstHalf, analyser);
-                drawArcWaveform(context, secondHalf, analyser);
+                if (isPlaneFrequencyMode())
+                {
+                    drawPlaneFrequency(context, rect, 1.0, analyser);
+                }
+                if (isPlaneWaveformMode())
+                {
+                    drawPlaneWaveform(context, rect, 1.0, analyser);
+                }
+                if (isArcFrequencyMode())
+                {
+                    drawArcFrequency(context, rect, 1.0, analyser);
+                }
+                if (isArcWaveformMode())
+                {
+                    drawArcWaveform(context, rect, 1.0, analyser);
+                }
+                if (isDoubleArcMode())
+                {
+                    const { firstHalf, secondHalf } = splitRect(rect);
+                    drawArcFrequency(context, firstHalf, 0.6, analyser);
+                    drawArcWaveform(context, secondHalf, 0.7, analyser);
+                }
             }
         }
     };

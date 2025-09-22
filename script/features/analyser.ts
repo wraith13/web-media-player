@@ -14,6 +14,13 @@ export namespace Analyser
             await audioContext.resume();
         }
     }
+    export interface Channels<T>
+    {
+        left: T;
+        right: T;
+        mono: T;
+    };
+    export type ChannelType = keyof Channels<any>;
     export class Entry
     {
         analyserNode: AnalyserNode | null = null;

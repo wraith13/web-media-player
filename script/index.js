@@ -1903,6 +1903,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 }
             });
         }); };
+        ;
         var Entry = /** @class */ (function () {
             function Entry(mediaElement, gainOnly) {
                 this.mediaElement = mediaElement;
@@ -2250,6 +2251,9 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.sizeToPoint = function (size) {
             return Visualizer.makePoint(size.width, size.height);
         };
+        Visualizer.scaleRect = function (rect, scale) {
+            return Visualizer.makeRect(Visualizer.addPoints(rect, Visualizer.sizeToPoint(Visualizer.scaleSize(rect, (1 - scale) / 2))), Visualizer.scaleSize(rect, scale));
+        };
         Visualizer.getElementSize = function (element) {
             return Visualizer.makeSize(element.clientWidth, element.clientHeight);
         };
@@ -2390,7 +2394,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 Visualizer.fitCanvas(visualDom, canvas);
             }
         };
-        Visualizer.drawPlaneFrequency = function (context, rect, analyser) {
+        Visualizer.drawPlaneFrequency = function (context, rect, scale, analyser) {
             var _a;
             var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
             if (context && frequencyDataArray) {
@@ -2401,7 +2405,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        var barHeight = zeroLevel + (value * (rect.height - zeroLevel));
+                        var barHeight = zeroLevel + (scale * value * (rect.height - zeroLevel));
                         var point = Visualizer.makePoint(i * barWidth, (rect.height - barHeight) / 2);
                         context.fill("hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
                     }
@@ -2411,14 +2415,14 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
                         var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                        var barWidth = zeroLevel + (value * (rect.width - zeroLevel));
+                        var barWidth = zeroLevel + (scale * value * (rect.width - zeroLevel));
                         var point = Visualizer.makePoint((rect.width - barWidth) / 2, rect.height - ((i + 1) * barHeight));
                         context.fill("hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
                     }
                 }
             }
         };
-        Visualizer.drawPlaneWaveform = function (context, rect, analyser) {
+        Visualizer.drawPlaneWaveform = function (context, rect, scale, analyser) {
             var _a;
             var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
@@ -2430,7 +2434,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = i * sliceWidth;
-                        var y = value * rect.height;
+                        var y = scale * value * rect.height;
                         context.lineTo(Visualizer.addPoints(rect, { x: x, y: y }));
                     }
                     context.lineTo(Visualizer.addPoints(rect, Visualizer.makePoint(rect.width, rect.height / 2)));
@@ -2440,7 +2444,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     context.moveTo(Visualizer.offsetPointX(rect, rect.width / 2));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
-                        var x = value * rect.width;
+                        var x = scale * value * rect.width;
                         var y = i * sliceHeight;
                         context.lineTo(Visualizer.addPoints(rect, { x: x, y: y }));
                     }
@@ -2449,7 +2453,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.stroke();
             }
         };
-        Visualizer.drawArcFrequency = function (context, rect, analyser) {
+        Visualizer.drawArcFrequency = function (context, rect, scale, analyser) {
             var _a;
             var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
             if (context && frequencyDataArray) {
@@ -2463,7 +2467,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
                     var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
                     var value = frequencyDataArray[i] / 255.0;
-                    var barLength = radius * value + zeroLevel;
+                    var barLength = scale * radius * value + zeroLevel;
                     var strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
                     context.beginPath({ lineWidth: lineWidth, strokeStyle: strokeStyle, });
                     context.moveTo(Visualizer.getPointAtAngle(center, angle, radius - (barLength / 2)));
@@ -2472,7 +2476,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
             }
         };
-        Visualizer.drawArcWaveform = function (context, rect, analyser) {
+        Visualizer.drawArcWaveform = function (context, rect, scale, analyser) {
             var _a;
             var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
@@ -2484,7 +2488,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.moveTo(Visualizer.getPointAtAngle(center, startAngle, radius));
                 for (var i = 0; i < maxIndex; i++) {
                     var value = timeDomainDataArray[i] / 255.0;
-                    var barLength = (radius * (value - 0.5)) * 2.0;
+                    var barLength = scale * (radius * (value - 0.5)) * 2.0;
                     var angle = ((circleRadians * arcConfig.angleRate * i) / maxIndex) + startAngle;
                     context.lineTo(Visualizer.getPointAtAngle(center, angle, radius + barLength));
                 }
@@ -2509,21 +2513,26 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             // }
             // else
             // {
-            var rate = 0.2;
-            var firstHalf = {
-                x: rect.x - rect.width * (rate / 2),
-                y: rect.y - rect.height * (rate / 2),
-                width: rect.width * (1 + rate),
-                height: rect.height * (1 + rate),
-            };
-            var secondHalf = {
-                x: rect.x + rect.width * (rate / 2),
-                y: rect.y + rect.height * (rate / 2),
-                width: rect.width * (1 - rate),
-                height: rect.height * (1 - rate),
-            };
-            return { firstHalf: firstHalf, secondHalf: secondHalf };
+            // const rate = 0.2;
+            // const firstHalf =
+            // {
+            //     x: rect.x -rect.width *(rate /2),
+            //     y: rect.y -rect.height *(rate /2),
+            //     width: rect.width *(1 +rate),
+            //     height: rect.height *(1 +rate),
+            // };
+            // const secondHalf =
+            // {
+            //     x: rect.x +rect.width *(rate /2),
+            //     y: rect.y +rect.height *(rate /2),
+            //     width: rect.width *(1 -rate),
+            //     height: rect.height *(1 -rate),
             // }
+            // return { firstHalf, secondHalf };
+            // }
+            var firstHalf = Visualizer.scaleRect(rect, 1.2);
+            var secondHalf = Visualizer.scaleRect(rect, 0.8);
+            return { firstHalf: firstHalf, secondHalf: secondHalf };
         };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
             var _a;
@@ -2536,47 +2545,29 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
             }
-            if (Visualizer.isPlaneFrequencyMode()) {
-                var canvas = Visualizer.makeSureCanvas(visualDom);
-                var context = new CanvasContext2D(canvas);
-                if (context && analyser) {
-                    context.clear();
-                    Visualizer.drawPlaneFrequency(context, Visualizer.getElementRect(visualDom), analyser);
-                }
-            }
-            if (Visualizer.isPlaneWaveformMode()) {
-                var canvas = Visualizer.makeSureCanvas(visualDom);
-                var context = new CanvasContext2D(canvas);
-                if (context && analyser) {
-                    context.clear();
-                    Visualizer.drawPlaneWaveform(context, Visualizer.getElementRect(visualDom), analyser);
-                }
-            }
-            if (Visualizer.isArcFrequencyMode()) {
-                var canvas = Visualizer.makeSureCanvas(visualDom);
-                var context = new CanvasContext2D(canvas);
-                if (context && analyser) {
-                    context.clear();
-                    Visualizer.drawArcFrequency(context, Visualizer.getElementRect(visualDom), analyser);
-                }
-            }
-            if (Visualizer.isArcWaveformMode()) {
-                var canvas = Visualizer.makeSureCanvas(visualDom);
-                var context = new CanvasContext2D(canvas);
-                if (context && analyser) {
-                    context.clear();
-                    Visualizer.drawArcWaveform(context, Visualizer.getElementRect(visualDom), analyser);
-                }
-            }
-            if (Visualizer.isDoubleArcMode()) {
+            else {
                 var canvas = Visualizer.makeSureCanvas(visualDom);
                 var context = new CanvasContext2D(canvas);
                 if (context && analyser) {
                     context.clear();
                     var rect = Visualizer.getElementRect(visualDom);
-                    var _b = Visualizer.splitRect(rect), firstHalf = _b.firstHalf, secondHalf = _b.secondHalf;
-                    Visualizer.drawArcFrequency(context, firstHalf, analyser);
-                    Visualizer.drawArcWaveform(context, secondHalf, analyser);
+                    if (Visualizer.isPlaneFrequencyMode()) {
+                        Visualizer.drawPlaneFrequency(context, rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isPlaneWaveformMode()) {
+                        Visualizer.drawPlaneWaveform(context, rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isArcFrequencyMode()) {
+                        Visualizer.drawArcFrequency(context, rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isArcWaveformMode()) {
+                        Visualizer.drawArcWaveform(context, rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isDoubleArcMode()) {
+                        var _b = Visualizer.splitRect(rect), firstHalf = _b.firstHalf, secondHalf = _b.secondHalf;
+                        Visualizer.drawArcFrequency(context, firstHalf, 0.6, analyser);
+                        Visualizer.drawArcWaveform(context, secondHalf, 0.7, analyser);
+                    }
                 }
             }
         };
