@@ -14,10 +14,13 @@ export namespace Analyser
             await audioContext.resume();
         }
     }
-    export interface Channels<T>
+    export interface Stereo<T>
     {
         left: T;
         right: T;
+    };
+    export interface Channels<T> extends Stereo<T>
+    {
         mono: T;
     };
     export type ChannelType = keyof Channels<any>;
@@ -62,30 +65,38 @@ export namespace Analyser
             this.isValidFrequencyData = false;
             this.isValidTimeDomainData = false;
         }
-        getByteFrequencyData(): Uint8Array<ArrayBuffer> | null
+        getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null
         {
-            if (this.analyserNode && ! this.isValidFrequencyData)
+            if ("mono" === channel)
             {
-                if ( ! this.frequencyDataArray)
+                if (this.analyserNode && ! this.isValidFrequencyData)
                 {
-                    this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    if ( ! this.frequencyDataArray)
+                    {
+                        this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                    }
+                    this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                    this.isValidFrequencyData = true;
                 }
-                this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
-                this.isValidFrequencyData = true;
+                return this.frequencyDataArray;
             }
-            return this.frequencyDataArray;
+            return null;
         }
-        getByteTimeDomainData(): Uint8Array<ArrayBuffer> | null
+        getByteTimeDomainData(channel: ChannelType): Uint8Array<ArrayBuffer> | null
         {
-            if (this.analyserNode && ! this.isValidTimeDomainData)
+            if ("mono" === channel)
             {
-                if ( ! this.timeDomainDataArray)
+                if (this.analyserNode && ! this.isValidTimeDomainData)
                 {
-                    this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+                    if ( ! this.timeDomainDataArray)
+                    {
+                        this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+                    }
+                    this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
+                    this.isValidTimeDomainData = true;
                 }
-                this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
-                this.isValidTimeDomainData = true;
+                return this.timeDomainDataArray;
             }
-            return this.timeDomainDataArray;
+            return null;
         }
     }}

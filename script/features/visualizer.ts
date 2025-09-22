@@ -212,7 +212,7 @@ export namespace Visualizer
     };
     export const drawPlaneFrequency = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
-        const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
+        const frequencyDataArray = analyser.getByteFrequencyData("mono") ?? null;
         if (context && frequencyDataArray)
         {
             const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
@@ -261,7 +261,7 @@ export namespace Visualizer
     };
     export const drawPlaneWaveform = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
-        const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
+        const timeDomainDataArray = analyser.getByteTimeDomainData("mono") ?? null;
         if (context && timeDomainDataArray)
         {
             const maxIndex = timeDomainDataArray.length;
@@ -297,7 +297,7 @@ export namespace Visualizer
     };
     export const drawArcFrequency = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
-        const frequencyDataArray = analyser.getByteFrequencyData() ?? null;
+        const frequencyDataArray = analyser.getByteFrequencyData("mono") ?? null;
         if (context && frequencyDataArray)
         {
             const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
@@ -322,7 +322,7 @@ export namespace Visualizer
     };
     export const drawArcWaveform = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
-        const timeDomainDataArray = analyser.getByteTimeDomainData() ?? null;
+        const timeDomainDataArray = analyser.getByteTimeDomainData("mono") ?? null;
         if (context && timeDomainDataArray)
         {
             const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
@@ -390,7 +390,7 @@ export namespace Visualizer
         }
         if (isSimpleMode())
         {
-            const frequencyDataArray = analyser?.getByteFrequencyData() ?? null;
+            const frequencyDataArray = analyser?.getByteFrequencyData("mono") ?? null;
             makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
             makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
         }

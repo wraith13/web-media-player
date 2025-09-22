@@ -691,9 +691,11 @@ declare module "script/features/analyser" {
         const fftSize: number;
         const isSupported: () => boolean;
         const resume: () => Promise<void>;
-        interface Channels<T> {
+        interface Stereo<T> {
             left: T;
             right: T;
+        }
+        interface Channels<T> extends Stereo<T> {
             mono: T;
         }
         type ChannelType = keyof Channels<any>;
@@ -709,8 +711,8 @@ declare module "script/features/analyser" {
             constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
             step(): void;
-            getByteFrequencyData(): Uint8Array<ArrayBuffer> | null;
-            getByteTimeDomainData(): Uint8Array<ArrayBuffer> | null;
+            getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
+            getByteTimeDomainData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
         }
     }
 }

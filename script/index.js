@@ -1904,6 +1904,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
             });
         }); };
         ;
+        ;
         var Entry = /** @class */ (function () {
             function Entry(mediaElement, gainOnly) {
                 this.mediaElement = mediaElement;
@@ -1939,25 +1940,31 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidFrequencyData = false;
                 this.isValidTimeDomainData = false;
             };
-            Entry.prototype.getByteFrequencyData = function () {
-                if (this.analyserNode && !this.isValidFrequencyData) {
-                    if (!this.frequencyDataArray) {
-                        this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+            Entry.prototype.getByteFrequencyData = function (channel) {
+                if ("mono" === channel) {
+                    if (this.analyserNode && !this.isValidFrequencyData) {
+                        if (!this.frequencyDataArray) {
+                            this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                        }
+                        this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
+                        this.isValidFrequencyData = true;
                     }
-                    this.analyserNode.getByteFrequencyData(this.frequencyDataArray);
-                    this.isValidFrequencyData = true;
+                    return this.frequencyDataArray;
                 }
-                return this.frequencyDataArray;
+                return null;
             };
-            Entry.prototype.getByteTimeDomainData = function () {
-                if (this.analyserNode && !this.isValidTimeDomainData) {
-                    if (!this.timeDomainDataArray) {
-                        this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+            Entry.prototype.getByteTimeDomainData = function (channel) {
+                if ("mono" === channel) {
+                    if (this.analyserNode && !this.isValidTimeDomainData) {
+                        if (!this.timeDomainDataArray) {
+                            this.timeDomainDataArray = new Uint8Array(this.analyserNode.fftSize);
+                        }
+                        this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
+                        this.isValidTimeDomainData = true;
                     }
-                    this.analyserNode.getByteTimeDomainData(this.timeDomainDataArray);
-                    this.isValidTimeDomainData = true;
+                    return this.timeDomainDataArray;
                 }
-                return this.timeDomainDataArray;
+                return null;
             };
             return Entry;
         }());
@@ -2396,7 +2403,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
         Visualizer.drawPlaneFrequency = function (context, rect, scale, analyser) {
             var _a;
-            var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
+            var frequencyDataArray = (_a = analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && frequencyDataArray) {
                 var maxIndex = frequencyDataArray.length * config_json_4.default.visualizer.frequencyDataLengthRate;
                 var zeroLevel = 1;
@@ -2424,7 +2431,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
         Visualizer.drawPlaneWaveform = function (context, rect, scale, analyser) {
             var _a;
-            var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
+            var timeDomainDataArray = (_a = analyser.getByteTimeDomainData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
                 var maxIndex = timeDomainDataArray.length;
                 context.beginPath(config_json_4.default.visualizer.waveform);
@@ -2455,7 +2462,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
         Visualizer.drawArcFrequency = function (context, rect, scale, analyser) {
             var _a;
-            var frequencyDataArray = (_a = analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
+            var frequencyDataArray = (_a = analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && frequencyDataArray) {
                 var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                 var radius = (rect.width + rect.height) * arcConfig.radiusRate;
@@ -2478,7 +2485,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
         Visualizer.drawArcWaveform = function (context, rect, scale, analyser) {
             var _a;
-            var timeDomainDataArray = (_a = analyser.getByteTimeDomainData()) !== null && _a !== void 0 ? _a : null;
+            var timeDomainDataArray = (_a = analyser.getByteTimeDomainData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
                 var startAngle = circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
                 var radius = (rect.width + rect.height) * arcConfig.radiusRate;
@@ -2541,7 +2548,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
             }
             if (Visualizer.isSimpleMode()) {
-                var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData()) !== null && _a !== void 0 ? _a : null;
+                var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
             }
