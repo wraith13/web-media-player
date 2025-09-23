@@ -701,16 +701,19 @@ declare module "script/features/analyser" {
         type ChannelType = keyof Channels<any>;
         class Entry {
             mediaElement: HTMLMediaElement;
-            analyserNode: AnalyserNode | null;
+            spliter: ChannelSplitterNode | null;
+            analyserNodes: Stereo<AnalyserNode> | null;
             gainNode: GainNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
-            isValidFrequencyData: boolean;
-            isValidTimeDomainData: boolean;
-            frequencyDataArray: Uint8Array<ArrayBuffer> | null;
-            timeDomainDataArray: Uint8Array<ArrayBuffer> | null;
+            isValidFrequencyData: Channels<boolean>;
+            isValidTimeDomainData: Channels<boolean>;
+            frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null;
+            timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null;
             constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
             step(): void;
+            getChannelCount(): number;
+            mixToMono(left: Uint8Array<ArrayBuffer>, right: Uint8Array<ArrayBuffer>, mono: Uint8Array<ArrayBuffer>): void;
             getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
             getByteTimeDomainData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
         }
@@ -816,12 +819,10 @@ declare module "script/features/visualizer" {
         const updateStretch: (visualDom: VisualizerDom) => void;
         const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
-        const drawArcFrequency: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
-        const drawArcWaveform: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
-        const splitRect: (rect: Rect) => {
-            firstHalf: Rect;
-            secondHalf: Rect;
-        };
+        const getStartAngle: (channel: Analyser.ChannelType) => number;
+        const getAngle: (channel: Analyser.ChannelType, startAngle: number, rate: number) => number;
+        const drawArcFrequency: (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
+        const drawArcWaveform: (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;
         const isValidFrequencyDataArray: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => frequencyDataArray is Uint8Array<ArrayBuffer>;
         const getVolume: (frequencyDataArray: Uint8Array<ArrayBuffer> | null) => number;

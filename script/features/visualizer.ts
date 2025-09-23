@@ -295,12 +295,38 @@ export namespace Visualizer
             context.stroke();
         }
     };
-    export const drawArcFrequency = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
+    export const getStartAngle = (channel: Analyser.ChannelType): number =>
     {
-        const frequencyDataArray = analyser.getByteFrequencyData("mono") ?? null;
+        switch(channel)
+        {
+        case "left":
+            return circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/4));
+        case "right":
+            return circleRadians *(arcConfig.startAngleRate -((1 -arcConfig.angleRate)/4));
+        case "mono":
+        default:
+            return circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
+        }
+    };
+    export const getAngle = (channel: Analyser.ChannelType, startAngle:number, rate: number): number =>
+    {
+        switch(channel)
+        {
+        case "left":
+            return startAngle +(circleRadians *arcConfig.angleRate *rate *0.5);
+        case "right":
+            return startAngle -(circleRadians *arcConfig.angleRate *rate *0.5);
+        case "mono":
+        default:
+            return startAngle +(circleRadians *arcConfig.angleRate *rate);
+        }
+    };
+    export const drawArcFrequency = (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
+    {
+        const frequencyDataArray = analyser.getByteFrequencyData(channel) ?? null;
         if (context && frequencyDataArray)
         {
-            const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
+            const startAngle = getStartAngle(channel);
             const radius = (rect.width +rect.height) *arcConfig.radiusRate;
             const center = getCenterPoint(rect);
             const maxIndex = frequencyDataArray.length *config.visualizer.frequencyDataLengthRate;
@@ -309,7 +335,7 @@ export namespace Visualizer
             for (let i = 0; i < maxIndex; i++)
             {
                 const hue = (i /maxIndex) *config.visualizer.maxHue;
-                const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
+                const angle = getAngle(channel, startAngle, i /maxIndex);
                 const value = frequencyDataArray[i] /255.0;
                 const barLength = scale *radius *value +zeroLevel;
                 const strokeStyle = `hsl(${hue}, 100%, 50%)`;
@@ -320,12 +346,12 @@ export namespace Visualizer
             }
         }
     };
-    export const drawArcWaveform = (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
+    export const drawArcWaveform = (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
     {
-        const timeDomainDataArray = analyser.getByteTimeDomainData("mono") ?? null;
+        const timeDomainDataArray = analyser.getByteTimeDomainData(channel) ?? null;
         if (context && timeDomainDataArray)
         {
-            const startAngle = circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
+            const startAngle = getStartAngle(channel);
             const radius = (rect.width +rect.height) *arcConfig.radiusRate;
             const center = getCenterPoint(rect);
             const maxIndex = timeDomainDataArray.length;
@@ -335,51 +361,12 @@ export namespace Visualizer
             {
                 const value = timeDomainDataArray[i] /255.0;
                 const barLength = scale *(radius *(value -0.5)) *2.0;
-                const angle = ((circleRadians *arcConfig.angleRate *i) /maxIndex) +startAngle;
+                const angle = getAngle(channel, startAngle, i /maxIndex);
                 context.lineTo(getPointAtAngle(center, angle, radius +barLength));
             }
-            context.lineTo(getPointAtAngle(center, startAngle +circleRadians *arcConfig.angleRate, radius));
+            context.lineTo(getPointAtAngle(center, getAngle(channel, startAngle, 1.0), radius));
             context.stroke();
         }
-    };
-    export const splitRect = (rect: Rect): { firstHalf: Rect, secondHalf: Rect } =>
-    {
-        // const overlapThreshold = 1.7;
-        // if (rect.height *overlapThreshold <= rect.width)
-        // {
-        //     const firstHalf = makeRect(rect, makeSize(rect.width /2, rect.height));
-        //     const secondHalf = makeRect(offsetPointX(rect, rect.width /2), makeSize(rect.width /2, rect.height));
-        //     return { firstHalf, secondHalf };
-        // }
-        // else
-        // if (rect.width *overlapThreshold <= rect.height)
-        // {
-        //     const firstHalf = makeRect(rect, makeSize(rect.width, rect.height /2));
-        //     const secondHalf = makeRect(offsetPointY(rect, rect.height /2), makeSize(rect.width, rect.height /2));
-        //     return { firstHalf, secondHalf };
-        // }
-        // else
-        // {
-            // const rate = 0.2;
-            // const firstHalf =
-            // {
-            //     x: rect.x -rect.width *(rate /2),
-            //     y: rect.y -rect.height *(rate /2),
-            //     width: rect.width *(1 +rate),
-            //     height: rect.height *(1 +rate),
-            // };
-            // const secondHalf =
-            // {
-            //     x: rect.x +rect.width *(rate /2),
-            //     y: rect.y +rect.height *(rate /2),
-            //     width: rect.width *(1 -rate),
-            //     height: rect.height *(1 -rate),
-            // }
-            // return { firstHalf, secondHalf };
-        // }
-        const firstHalf = scaleRect(rect, 1.2);
-        const secondHalf = scaleRect(rect, 0.8);
-        return { firstHalf, secondHalf };
     };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
@@ -412,17 +399,20 @@ export namespace Visualizer
                 }
                 if (isArcFrequencyMode())
                 {
-                    drawArcFrequency(context, rect, 1.0, analyser);
+                    drawArcFrequency(context, "mono", rect, 1.0, analyser);
                 }
                 if (isArcWaveformMode())
                 {
-                    drawArcWaveform(context, rect, 1.0, analyser);
+                    drawArcWaveform(context, "mono", rect, 1.0, analyser);
                 }
                 if (isDoubleArcMode())
                 {
-                    const { firstHalf, secondHalf } = splitRect(rect);
-                    drawArcFrequency(context, firstHalf, 0.6, analyser);
-                    drawArcWaveform(context, secondHalf, 0.7, analyser);
+                    // drawArcFrequency(context, "mono", scaleRect(rect, 1.2), 0.6, analyser);
+                    // drawArcWaveform(context, "mono", scaleRect(rect, 0.8), 0.7, analyser);
+                    drawArcFrequency(context, "left", scaleRect(rect, 1.2), 0.6, analyser);
+                    drawArcWaveform(context, "left", scaleRect(rect, 0.8), 0.7, analyser);
+                    drawArcFrequency(context, "right", scaleRect(rect, 1.2), 0.6, analyser);
+                    drawArcWaveform(context, "right", scaleRect(rect, 0.8), 0.7, analyser);
                 }
             }
         }
