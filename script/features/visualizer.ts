@@ -135,6 +135,12 @@ export namespace Visualizer
         UI.mediaScreen.classList.contains("arc-waveform");
     export const isDoubleArcMode = (): boolean =>
         UI.mediaScreen.classList.contains("double-arc");
+    export const isStereoArcFrequencyMode = (): boolean =>
+        UI.mediaScreen.classList.contains("stereo-arc-frequency");
+    export const isStereoArcWaveformMode = (): boolean =>
+        UI.mediaScreen.classList.contains("stereo-arc-waveform");
+    export const isStereoDoubleArcMode = (): boolean =>
+        UI.mediaScreen.classList.contains("stereo-double-arc");
     export const make = (media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -273,11 +279,11 @@ export namespace Visualizer
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
-                    const x = i *sliceWidth;
+                    const x = rect.width -i *sliceWidth;
                     const y = scale *value *rect.height;
                     context.lineTo(addPoints(rect, { x, y }));
                 }
-                context.lineTo(addPoints(rect, makePoint(rect.width, rect.height /2)));
+                context.lineTo(addPoints(rect, makePoint(0, rect.height /2)));
             }
             else
             {
@@ -287,10 +293,10 @@ export namespace Visualizer
                 {
                     const value = timeDomainDataArray[i] /255.0;
                     const x = scale *value *rect.width;
-                    const y = i *sliceHeight;
+                    const y = rect.height -i *sliceHeight;
                     context.lineTo(addPoints(rect, { x, y }));
                 }
-                context.lineTo(addPoints(rect, makePoint(rect.width /2, rect.height)));
+                context.lineTo(addPoints(rect, makePoint(rect.width /2, 0)));
             }
             context.stroke();
         }
@@ -308,17 +314,18 @@ export namespace Visualizer
             return circleRadians *(arcConfig.startAngleRate +((1 -arcConfig.angleRate)/2));
         }
     };
-    export const getAngle = (channel: Analyser.ChannelType, startAngle:number, rate: number): number =>
+    export const getAngle = (channel: Analyser.ChannelType, rate: number): number =>
     {
+        const base = circleRadians *arcConfig.angleRate *rate;
         switch(channel)
         {
         case "left":
-            return startAngle +(circleRadians *arcConfig.angleRate *rate *0.5);
+            return base *0.5;
         case "right":
-            return startAngle -(circleRadians *arcConfig.angleRate *rate *0.5);
+            return base *-0.5;
         case "mono":
         default:
-            return startAngle +(circleRadians *arcConfig.angleRate *rate);
+            return base;
         }
     };
     export const drawArcFrequency = (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry): void =>
@@ -335,7 +342,7 @@ export namespace Visualizer
             for (let i = 0; i < maxIndex; i++)
             {
                 const hue = (i /maxIndex) *config.visualizer.maxHue;
-                const angle = getAngle(channel, startAngle, i /maxIndex);
+                const angle = startAngle +getAngle(channel, i /maxIndex);
                 const value = frequencyDataArray[i] /255.0;
                 const barLength = scale *radius *value +zeroLevel;
                 const strokeStyle = `hsl(${hue}, 100%, 50%)`;
@@ -356,15 +363,15 @@ export namespace Visualizer
             const center = getCenterPoint(rect);
             const maxIndex = timeDomainDataArray.length;
             context.beginPath(config.visualizer.waveform);
-            context.moveTo(getPointAtAngle(center, startAngle, radius));
+            context.moveTo(getPointAtAngle(center, startAngle +getAngle(channel, 1.0), radius));
             for (let i = 0; i < maxIndex; i++)
             {
                 const value = timeDomainDataArray[i] /255.0;
                 const barLength = scale *(radius *(value -0.5)) *2.0;
-                const angle = getAngle(channel, startAngle, i /maxIndex);
+                const angle = startAngle +getAngle(channel, 1.0 -(i /maxIndex));
                 context.lineTo(getPointAtAngle(center, angle, radius +barLength));
             }
-            context.lineTo(getPointAtAngle(center, getAngle(channel, startAngle, 1.0), radius));
+            context.lineTo(getPointAtAngle(center, startAngle, radius));
             context.stroke();
         }
     };
@@ -407,8 +414,21 @@ export namespace Visualizer
                 }
                 if (isDoubleArcMode())
                 {
-                    // drawArcFrequency(context, "mono", scaleRect(rect, 1.2), 0.6, analyser);
-                    // drawArcWaveform(context, "mono", scaleRect(rect, 0.8), 0.7, analyser);
+                    drawArcFrequency(context, "mono", scaleRect(rect, 1.2), 0.6, analyser);
+                    drawArcWaveform(context, "mono", scaleRect(rect, 0.8), 0.7, analyser);
+                }
+                if (isStereoArcFrequencyMode())
+                {
+                    drawArcFrequency(context, "left", rect, 1.0, analyser);
+                    drawArcFrequency(context, "right", rect, 1.0, analyser);
+                }
+                if (isStereoArcWaveformMode())
+                {
+                    drawArcWaveform(context, "left", rect, 1.0, analyser);
+                    drawArcWaveform(context, "right", rect, 1.0, analyser);
+                }
+                if (isStereoDoubleArcMode())
+                {
                     drawArcFrequency(context, "left", scaleRect(rect, 1.2), 0.6, analyser);
                     drawArcWaveform(context, "left", scaleRect(rect, 0.8), 0.7, analyser);
                     drawArcFrequency(context, "right", scaleRect(rect, 1.2), 0.6, analyser);

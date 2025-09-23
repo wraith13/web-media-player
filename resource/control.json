@@ -94,9 +94,12 @@
             "plane-waveform",
             "arc-frequency",
             "arc-waveform",
-            "double-arc"
+            "double-arc",
+            "stereo-arc-frequency",
+            "stereo-arc-waveform",
+            "stereo-double-arc"
         ],
-        "default": "double-arc"
+        "default": "stereo-double-arc"
     },
     "clock": {
         "id": "clock",

@@ -14,26 +14,23 @@ export namespace Analyser
             await audioContext.resume();
         }
     }
-    export interface Stereo<T>
+    export interface Channels<T>
     {
         left: T;
         right: T;
-    };
-    export interface Channels<T> extends Stereo<T>
-    {
         mono: T;
     };
     export type ChannelType = keyof Channels<any>;
     export class Entry
     {
         splitter: ChannelSplitterNode | null = null;
-        analyserNodes: Stereo<AnalyserNode> | null = null;
+        analyserNodes: Channels<AnalyserNode> | null = null;
         gainNode: GainNode;
         mediaElementAudioSourceNode: MediaElementAudioSourceNode;
         isValidFrequencyData: Channels<boolean> = { left: false, right: false, mono: false };
         isValidTimeDomainData: Channels<boolean> = { left: false, right: false, mono: false };
-        frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null = null;
-        timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null = null;
+        frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null> = { left: null, right: null, mono: null, };
+        timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> = { left: null, right: null, mono: null, };
         constructor(public mediaElement: HTMLMediaElement, gainOnly?: "gainOnly")
         {
             if (gainOnly)
@@ -49,7 +46,8 @@ export namespace Analyser
                 this.analyserNodes =
                 {
                     left: audioContext.createAnalyser(),
-                    right: audioContext.createAnalyser()
+                    right: audioContext.createAnalyser(),
+                    mono: audioContext.createAnalyser(),
                 };
                 this.analyserNodes.left.fftSize = fftSize;
                 this.analyserNodes.right.fftSize = fftSize;
@@ -58,6 +56,7 @@ export namespace Analyser
                 this.mediaElementAudioSourceNode.connect(this.splitter);
                 this.splitter.connect(this.analyserNodes.left, 0);
                 this.splitter.connect(this.analyserNodes.right, 1);
+                this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
                 this.mediaElementAudioSourceNode.connect(this.gainNode);
                 this.gainNode.connect(audioContext.destination);
                 //this.analyserNode.connect(audioContext.destination);
@@ -69,6 +68,8 @@ export namespace Analyser
             this.analyserNodes?.left?.disconnect();
             this.analyserNodes?.right?.disconnect();
             this.splitter?.disconnect();
+            this.analyserNodes?.mono?.disconnect();
+            this.gainNode.disconnect();
             this.mediaElementAudioSourceNode.disconnect();
         }
         step(): void
@@ -76,136 +77,30 @@ export namespace Analyser
             this.isValidFrequencyData = { left: false, right: false, mono: false };
             this.isValidTimeDomainData = { left: false, right: false, mono: false };
         }
-        mixToMono(left: Uint8Array<ArrayBuffer>, right: Uint8Array<ArrayBuffer>, mono: Uint8Array<ArrayBuffer>): void
-        {
-            const length = Math.min(left.length, right.length, mono.length);
-            for (let i = 0; i < length; i++)
-            {
-                mono[i] = ((left[i] +right[i]) /2) |0;
-            }
-        }
         getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null
         {
-            if (null === this.frequencyDataArray)
+            if (this.analyserNodes && ! this.isValidFrequencyData[channel])
             {
-                this.frequencyDataArray =
+                if ( ! this.frequencyDataArray[channel])
                 {
-                    left: null,
-                    right: null,
-                    mono: null,
-                };
-            }
-            if ("left" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidFrequencyData.left)
-                {
-                    if ( ! this.frequencyDataArray.left)
-                    {
-                        this.frequencyDataArray.left = new Uint8Array(this.analyserNodes.left.frequencyBinCount);
-                    }
-                    this.analyserNodes.left.getByteFrequencyData(this.frequencyDataArray.left);
-                    this.isValidFrequencyData.left = true;
+                    this.frequencyDataArray[channel] = new Uint8Array(this.analyserNodes[channel].frequencyBinCount);
                 }
-                return this.frequencyDataArray.left;
+                this.analyserNodes[channel].getByteFrequencyData(this.frequencyDataArray[channel]);
+                this.isValidFrequencyData[channel] = true;
             }
-            if ("right" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidFrequencyData.right)
-                {
-                    if ( ! this.frequencyDataArray.right)
-                    {
-                        this.frequencyDataArray.right = new Uint8Array(this.analyserNodes.right.frequencyBinCount);
-                    }
-                    this.analyserNodes.right.getByteFrequencyData(this.frequencyDataArray.right);
-                    this.isValidFrequencyData.right = true;
-                }
-                return this.frequencyDataArray.right;
-            }
-            if ("mono" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidFrequencyData.mono)
-                {
-                    if ( ! this.frequencyDataArray.mono)
-                    {
-                        this.frequencyDataArray.mono = new Uint8Array(this.analyserNodes.left.frequencyBinCount);
-                    }
-                    const left = this.getByteFrequencyData("left");
-                    const right = this.getByteFrequencyData("right");
-                    if (left && right)
-                    {
-                        this.mixToMono
-                        (
-                            left,
-                            right,
-                            this.frequencyDataArray.mono
-                        );
-                        this.isValidFrequencyData.mono = true;
-                    }
-                }
-                return this.frequencyDataArray.mono;
-            }
-            return null;
+            return this.frequencyDataArray[channel];
         }
         getByteTimeDomainData(channel: ChannelType): Uint8Array<ArrayBuffer> | null
         {
-            if (null === this.timeDomainDataArray)
+            if (this.analyserNodes && ! this.isValidTimeDomainData[channel])
             {
-                this.timeDomainDataArray =
+                if ( ! this.timeDomainDataArray[channel])
                 {
-                    left: null,
-                    right: null,
-                    mono: null,
-                };
-            }
-            if ("left" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidTimeDomainData.left)
-                {
-                    if ( ! this.timeDomainDataArray.left)
-                    {
-                        this.timeDomainDataArray.left = new Uint8Array(this.analyserNodes.left.fftSize);
-                    }
-                    this.analyserNodes.left.getByteTimeDomainData(this.timeDomainDataArray.left);
-                    this.isValidFrequencyData.left = true;
+                    this.timeDomainDataArray[channel] = new Uint8Array(this.analyserNodes[channel].fftSize);
                 }
-                return this.timeDomainDataArray.left;
+                this.analyserNodes[channel].getByteTimeDomainData(this.timeDomainDataArray[channel]);
+                this.isValidFrequencyData[channel] = true;
             }
-            if ("right" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidTimeDomainData.right)
-                {
-                    if ( ! this.timeDomainDataArray.right)
-                    {
-                        this.timeDomainDataArray.right = new Uint8Array(this.analyserNodes.right.fftSize);
-                    }
-                    this.analyserNodes.right.getByteTimeDomainData(this.timeDomainDataArray.right);
-                    this.isValidTimeDomainData.right = true;
-                }
-                return this.timeDomainDataArray.right;
-            }
-            if ("mono" === channel)
-            {
-                if (this.analyserNodes && ! this.isValidTimeDomainData.mono)
-                {
-                    if ( ! this.timeDomainDataArray.mono)
-                    {
-                        this.timeDomainDataArray.mono = new Uint8Array(fftSize);
-                    }
-                    const left = this.getByteTimeDomainData("left");
-                    const right = this.getByteTimeDomainData("right");
-                    if (left && right)
-                    {
-                        this.mixToMono
-                        (
-                            left,
-                            right,
-                            this.timeDomainDataArray.mono
-                        );
-                        this.isValidTimeDomainData.mono = true;
-                    }
-                }
-                return this.timeDomainDataArray.mono;
-            }
-            return null;
+            return this.timeDomainDataArray[channel];
         }
     }}

@@ -52,6 +52,9 @@ declare module "locale/generated/master" {
             "visualizer-arc-frequency": string;
             "visualizer-arc-waveform": string;
             "visualizer-double-arc": string;
+            "visualizer-stereo-arc-frequency": string;
+            "visualizer-stereo-arc-waveform": string;
+            "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -114,6 +117,9 @@ declare module "locale/generated/master" {
             "visualizer-arc-frequency": string;
             "visualizer-arc-waveform": string;
             "visualizer-double-arc": string;
+            "visualizer-stereo-arc-frequency": string;
+            "visualizer-stereo-arc-waveform": string;
+            "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
             "show-fps-label": string;
             "clock-label": string;
@@ -181,6 +187,9 @@ declare module "script/library/locale" {
                 "visualizer-arc-frequency": string;
                 "visualizer-arc-waveform": string;
                 "visualizer-double-arc": string;
+                "visualizer-stereo-arc-frequency": string;
+                "visualizer-stereo-arc-waveform": string;
+                "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -243,6 +252,9 @@ declare module "script/library/locale" {
                 "visualizer-arc-frequency": string;
                 "visualizer-arc-waveform": string;
                 "visualizer-double-arc": string;
+                "visualizer-stereo-arc-frequency": string;
+                "visualizer-stereo-arc-waveform": string;
+                "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
@@ -691,29 +703,25 @@ declare module "script/features/analyser" {
         const fftSize: number;
         const isSupported: () => boolean;
         const resume: () => Promise<void>;
-        interface Stereo<T> {
+        interface Channels<T> {
             left: T;
             right: T;
-        }
-        interface Channels<T> extends Stereo<T> {
             mono: T;
         }
         type ChannelType = keyof Channels<any>;
         class Entry {
             mediaElement: HTMLMediaElement;
-            spliter: ChannelSplitterNode | null;
-            analyserNodes: Stereo<AnalyserNode> | null;
+            splitter: ChannelSplitterNode | null;
+            analyserNodes: Channels<AnalyserNode> | null;
             gainNode: GainNode;
             mediaElementAudioSourceNode: MediaElementAudioSourceNode;
             isValidFrequencyData: Channels<boolean>;
             isValidTimeDomainData: Channels<boolean>;
-            frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null;
-            timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> | null;
+            frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null>;
+            timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null>;
             constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
             destroy(): void;
             step(): void;
-            getChannelCount(): number;
-            mixToMono(left: Uint8Array<ArrayBuffer>, right: Uint8Array<ArrayBuffer>, mono: Uint8Array<ArrayBuffer>): void;
             getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
             getByteTimeDomainData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
         }
@@ -806,6 +814,9 @@ declare module "script/features/visualizer" {
         const isArcFrequencyMode: () => boolean;
         const isArcWaveformMode: () => boolean;
         const isDoubleArcMode: () => boolean;
+        const isStereoArcFrequencyMode: () => boolean;
+        const isStereoArcWaveformMode: () => boolean;
+        const isStereoDoubleArcMode: () => boolean;
         const make: (media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
@@ -820,7 +831,7 @@ declare module "script/features/visualizer" {
         const drawPlaneFrequency: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const drawPlaneWaveform: (context: CanvasContext2D, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const getStartAngle: (channel: Analyser.ChannelType) => number;
-        const getAngle: (channel: Analyser.ChannelType, startAngle: number, rate: number) => number;
+        const getAngle: (channel: Analyser.ChannelType, rate: number) => number;
         const drawArcFrequency: (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const drawArcWaveform: (context: CanvasContext2D, channel: Analyser.ChannelType, rect: Rect, scale: number, analyser: Analyser.Entry) => void;
         const step: (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null) => void;

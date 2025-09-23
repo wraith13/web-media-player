@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Sep 22 2025 23:12:05 GMT+0900 (日本標準時)
+    build at: Tue Sep 23 2025 18:17:50 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2808,8 +2808,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Sep 22 2025 23:12:05 GMT+0900 (日本標準時)",
-    tick: 1758550325809
+    at: "Tue Sep 23 2025 18:17:50 GMT+0900 (日本標準時)",
+    tick: 1758619070954
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4569,6 +4569,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-arc-frequency": "Arc Frequency",
             "visualizer-arc-waveform": "Arc Waveform",
             "visualizer-double-arc": "Double Arc",
+            "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
+            "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
+            "visualizer-stereo-double-arc": "Stereo Double Arc",
             "with-fullscreen-label": "FullScreen:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
@@ -4631,6 +4634,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-arc-frequency": "アーク周波数",
             "visualizer-arc-waveform": "アーク波形",
             "visualizer-double-arc": "ダブルアーク",
+            "visualizer-stereo-arc-frequency": "ステレオアーク周波数",
+            "visualizer-stereo-arc-waveform": "ステレオアーク波形",
+            "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "with-fullscreen-label": "フルスクリーン:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
@@ -6031,9 +6037,12 @@ define("resource/control", [], {
             "plane-waveform",
             "arc-frequency",
             "arc-waveform",
-            "double-arc"
+            "double-arc",
+            "stereo-arc-frequency",
+            "stereo-arc-waveform",
+            "stereo-double-arc"
         ],
-        "default": "double-arc"
+        "default": "stereo-double-arc"
     },
     "clock": {
         "id": "clock",
@@ -6277,16 +6286,15 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
             });
         }); };
         ;
-        ;
         var Entry = /** @class */ (function () {
             function Entry(mediaElement, gainOnly) {
                 this.mediaElement = mediaElement;
-                this.spliter = null;
+                this.splitter = null;
                 this.analyserNodes = null;
                 this.isValidFrequencyData = { left: false, right: false, mono: false };
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
-                this.frequencyDataArray = null;
-                this.timeDomainDataArray = null;
+                this.frequencyDataArray = { left: null, right: null, mono: null, };
+                this.timeDomainDataArray = { left: null, right: null, mono: null, };
                 if (gainOnly) {
                     this.gainNode = Analyser.audioContext.createGain();
                     this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
@@ -6294,19 +6302,21 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                     this.gainNode.connect(Analyser.audioContext.destination);
                 }
                 else {
-                    this.spliter = Analyser.audioContext.createChannelSplitter(2);
+                    this.splitter = Analyser.audioContext.createChannelSplitter(2);
                     this.analyserNodes =
                         {
                             left: Analyser.audioContext.createAnalyser(),
-                            right: Analyser.audioContext.createAnalyser()
+                            right: Analyser.audioContext.createAnalyser(),
+                            mono: Analyser.audioContext.createAnalyser(),
                         };
                     this.analyserNodes.left.fftSize = Analyser.fftSize;
                     this.analyserNodes.right.fftSize = Analyser.fftSize;
                     this.gainNode = Analyser.audioContext.createGain();
                     this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                    this.mediaElementAudioSourceNode.connect(this.spliter);
-                    this.spliter.connect(this.analyserNodes.left, 0);
-                    this.spliter.connect(this.analyserNodes.right, 1);
+                    this.mediaElementAudioSourceNode.connect(this.splitter);
+                    this.splitter.connect(this.analyserNodes.left, 0);
+                    this.splitter.connect(this.analyserNodes.right, 1);
+                    this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
                     this.mediaElementAudioSourceNode.connect(this.gainNode);
                     this.gainNode.connect(Analyser.audioContext.destination);
                     //this.analyserNode.connect(audioContext.destination);
@@ -6314,114 +6324,37 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 }
             }
             Entry.prototype.destroy = function () {
-                var _a, _b, _c, _d, _e;
+                var _a, _b, _c, _d, _e, _f, _g;
                 (_b = (_a = this.analyserNodes) === null || _a === void 0 ? void 0 : _a.left) === null || _b === void 0 ? void 0 : _b.disconnect();
                 (_d = (_c = this.analyserNodes) === null || _c === void 0 ? void 0 : _c.right) === null || _d === void 0 ? void 0 : _d.disconnect();
-                (_e = this.spliter) === null || _e === void 0 ? void 0 : _e.disconnect();
+                (_e = this.splitter) === null || _e === void 0 ? void 0 : _e.disconnect();
+                (_g = (_f = this.analyserNodes) === null || _f === void 0 ? void 0 : _f.mono) === null || _g === void 0 ? void 0 : _g.disconnect();
+                this.gainNode.disconnect();
                 this.mediaElementAudioSourceNode.disconnect();
             };
             Entry.prototype.step = function () {
                 this.isValidFrequencyData = { left: false, right: false, mono: false };
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
             };
-            Entry.prototype.getChannelCount = function () {
-                return this.mediaElementAudioSourceNode.channelCount;
-            };
-            Entry.prototype.mixToMono = function (left, right, mono) {
-                var length = Math.min(left.length, right.length, mono.length);
-                for (var i = 0; i < length; i++) {
-                    mono[i] = ((left[i] + right[i]) / 2) | 0;
-                }
-            };
             Entry.prototype.getByteFrequencyData = function (channel) {
-                if (null === this.frequencyDataArray) {
-                    this.frequencyDataArray =
-                        {
-                            left: null,
-                            right: null,
-                            mono: null,
-                        };
-                }
-                if ("left" === channel) {
-                    if (this.analyserNodes && !this.isValidFrequencyData.left) {
-                        if (!this.frequencyDataArray.left) {
-                            this.frequencyDataArray.left = new Uint8Array(this.analyserNodes.left.frequencyBinCount);
-                        }
-                        this.analyserNodes.left.getByteFrequencyData(this.frequencyDataArray.left);
-                        this.isValidFrequencyData.left = true;
+                if (this.analyserNodes && !this.isValidFrequencyData[channel]) {
+                    if (!this.frequencyDataArray[channel]) {
+                        this.frequencyDataArray[channel] = new Uint8Array(this.analyserNodes[channel].frequencyBinCount);
                     }
-                    return this.frequencyDataArray.left;
+                    this.analyserNodes[channel].getByteFrequencyData(this.frequencyDataArray[channel]);
+                    this.isValidFrequencyData[channel] = true;
                 }
-                if ("right" === channel) {
-                    if (this.analyserNodes && !this.isValidFrequencyData.right) {
-                        if (!this.frequencyDataArray.right) {
-                            this.frequencyDataArray.right = new Uint8Array(this.analyserNodes.right.frequencyBinCount);
-                        }
-                        this.analyserNodes.right.getByteFrequencyData(this.frequencyDataArray.right);
-                        this.isValidFrequencyData.right = true;
-                    }
-                    return this.frequencyDataArray.right;
-                }
-                if ("mono" === channel) {
-                    if (this.analyserNodes && !this.isValidFrequencyData.mono) {
-                        if (!this.frequencyDataArray.mono) {
-                            this.frequencyDataArray.mono = new Uint8Array(this.analyserNodes.left.frequencyBinCount);
-                        }
-                        var left = this.getByteFrequencyData("left");
-                        var right = this.getByteFrequencyData("right");
-                        if (left && right) {
-                            this.mixToMono(left, right, this.frequencyDataArray.mono);
-                            this.isValidFrequencyData.mono = true;
-                        }
-                    }
-                    return this.frequencyDataArray.mono;
-                }
-                return null;
+                return this.frequencyDataArray[channel];
             };
             Entry.prototype.getByteTimeDomainData = function (channel) {
-                if (null === this.timeDomainDataArray) {
-                    this.timeDomainDataArray =
-                        {
-                            left: null,
-                            right: null,
-                            mono: null,
-                        };
-                }
-                if ("left" === channel) {
-                    if (this.analyserNodes && !this.isValidTimeDomainData.left) {
-                        if (!this.timeDomainDataArray.left) {
-                            this.timeDomainDataArray.left = new Uint8Array(this.analyserNodes.left.fftSize);
-                        }
-                        this.analyserNodes.left.getByteTimeDomainData(this.timeDomainDataArray.left);
-                        this.isValidFrequencyData.left = true;
+                if (this.analyserNodes && !this.isValidTimeDomainData[channel]) {
+                    if (!this.timeDomainDataArray[channel]) {
+                        this.timeDomainDataArray[channel] = new Uint8Array(this.analyserNodes[channel].fftSize);
                     }
-                    return this.timeDomainDataArray.left;
+                    this.analyserNodes[channel].getByteTimeDomainData(this.timeDomainDataArray[channel]);
+                    this.isValidFrequencyData[channel] = true;
                 }
-                if ("right" === channel) {
-                    if (this.analyserNodes && !this.isValidTimeDomainData.right) {
-                        if (!this.timeDomainDataArray.right) {
-                            this.timeDomainDataArray.right = new Uint8Array(this.analyserNodes.right.fftSize);
-                        }
-                        this.analyserNodes.right.getByteTimeDomainData(this.timeDomainDataArray.right);
-                        this.isValidTimeDomainData.right = true;
-                    }
-                    return this.timeDomainDataArray.right;
-                }
-                if ("mono" === channel) {
-                    if (this.analyserNodes && !this.isValidTimeDomainData.mono) {
-                        if (!this.timeDomainDataArray.mono) {
-                            this.timeDomainDataArray.mono = new Uint8Array(Analyser.fftSize);
-                        }
-                        var left = this.getByteTimeDomainData("left");
-                        var right = this.getByteTimeDomainData("right");
-                        if (left && right) {
-                            this.mixToMono(left, right, this.timeDomainDataArray.mono);
-                            this.isValidTimeDomainData.mono = true;
-                        }
-                    }
-                    return this.timeDomainDataArray.mono;
-                }
-                return null;
+                return this.timeDomainDataArray[channel];
             };
             return Entry;
         }());
@@ -6788,6 +6721,15 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isDoubleArcMode = function () {
             return ui_3.UI.mediaScreen.classList.contains("double-arc");
         };
+        Visualizer.isStereoArcFrequencyMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("stereo-arc-frequency");
+        };
+        Visualizer.isStereoArcWaveformMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("stereo-arc-waveform");
+        };
+        Visualizer.isStereoDoubleArcMode = function () {
+            return ui_3.UI.mediaScreen.classList.contains("stereo-double-arc");
+        };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
             switch (media.type) {
@@ -6897,11 +6839,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     context.moveTo(Visualizer.offsetPointY(rect, rect.height / 2));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
-                        var x = i * sliceWidth;
+                        var x = rect.width - i * sliceWidth;
                         var y = scale * value * rect.height;
                         context.lineTo(Visualizer.addPoints(rect, { x: x, y: y }));
                     }
-                    context.lineTo(Visualizer.addPoints(rect, Visualizer.makePoint(rect.width, rect.height / 2)));
+                    context.lineTo(Visualizer.addPoints(rect, Visualizer.makePoint(0, rect.height / 2)));
                 }
                 else {
                     var sliceHeight = rect.height / maxIndex;
@@ -6909,10 +6851,10 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = scale * value * rect.width;
-                        var y = i * sliceHeight;
+                        var y = rect.height - i * sliceHeight;
                         context.lineTo(Visualizer.addPoints(rect, { x: x, y: y }));
                     }
-                    context.lineTo(Visualizer.addPoints(rect, Visualizer.makePoint(rect.width / 2, rect.height)));
+                    context.lineTo(Visualizer.addPoints(rect, Visualizer.makePoint(rect.width / 2, 0)));
                 }
                 context.stroke();
             }
@@ -6928,15 +6870,16 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     return circleRadians * (arcConfig.startAngleRate + ((1 - arcConfig.angleRate) / 2));
             }
         };
-        Visualizer.getAngle = function (channel, startAngle, rate) {
+        Visualizer.getAngle = function (channel, rate) {
+            var base = circleRadians * arcConfig.angleRate * rate;
             switch (channel) {
                 case "left":
-                    return startAngle + (circleRadians * arcConfig.angleRate * rate * 0.5);
+                    return base * 0.5;
                 case "right":
-                    return startAngle - (circleRadians * arcConfig.angleRate * rate * 0.5);
+                    return base * -0.5;
                 case "mono":
                 default:
-                    return startAngle + (circleRadians * arcConfig.angleRate * rate);
+                    return base;
             }
         };
         Visualizer.drawArcFrequency = function (context, channel, rect, scale, analyser) {
@@ -6951,7 +6894,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var zeroLevel = 1;
                 for (var i = 0; i < maxIndex; i++) {
                     var hue = (i / maxIndex) * config_json_4.default.visualizer.maxHue;
-                    var angle = Visualizer.getAngle(channel, startAngle, i / maxIndex);
+                    var angle = startAngle + Visualizer.getAngle(channel, i / maxIndex);
                     var value = frequencyDataArray[i] / 255.0;
                     var barLength = scale * radius * value + zeroLevel;
                     var strokeStyle = "hsl(".concat(hue, ", 100%, 50%)");
@@ -6971,14 +6914,14 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var center = Visualizer.getCenterPoint(rect);
                 var maxIndex = timeDomainDataArray.length;
                 context.beginPath(config_json_4.default.visualizer.waveform);
-                context.moveTo(Visualizer.getPointAtAngle(center, startAngle, radius));
+                context.moveTo(Visualizer.getPointAtAngle(center, startAngle + Visualizer.getAngle(channel, 1.0), radius));
                 for (var i = 0; i < maxIndex; i++) {
                     var value = timeDomainDataArray[i] / 255.0;
                     var barLength = scale * (radius * (value - 0.5)) * 2.0;
-                    var angle = Visualizer.getAngle(channel, startAngle, i / maxIndex);
+                    var angle = startAngle + Visualizer.getAngle(channel, 1.0 - (i / maxIndex));
                     context.lineTo(Visualizer.getPointAtAngle(center, angle, radius + barLength));
                 }
-                context.lineTo(Visualizer.getPointAtAngle(center, Visualizer.getAngle(channel, startAngle, 1.0), radius));
+                context.lineTo(Visualizer.getPointAtAngle(center, startAngle, radius));
                 context.stroke();
             }
         };
@@ -7012,16 +6955,22 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                         Visualizer.drawArcWaveform(context, "mono", rect, 1.0, analyser);
                     }
                     if (Visualizer.isDoubleArcMode()) {
-                        if (analyser.getChannelCount() < 2) {
-                            Visualizer.drawArcFrequency(context, "mono", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
-                            Visualizer.drawArcWaveform(context, "mono", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
-                        }
-                        else {
-                            Visualizer.drawArcFrequency(context, "left", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
-                            Visualizer.drawArcWaveform(context, "left", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
-                            Visualizer.drawArcFrequency(context, "right", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
-                            Visualizer.drawArcWaveform(context, "right", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
-                        }
+                        Visualizer.drawArcFrequency(context, "mono", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
+                        Visualizer.drawArcWaveform(context, "mono", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
+                    }
+                    if (Visualizer.isStereoArcFrequencyMode()) {
+                        Visualizer.drawArcFrequency(context, "left", rect, 1.0, analyser);
+                        Visualizer.drawArcFrequency(context, "right", rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isStereoArcWaveformMode()) {
+                        Visualizer.drawArcWaveform(context, "left", rect, 1.0, analyser);
+                        Visualizer.drawArcWaveform(context, "right", rect, 1.0, analyser);
+                    }
+                    if (Visualizer.isStereoDoubleArcMode()) {
+                        Visualizer.drawArcFrequency(context, "left", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
+                        Visualizer.drawArcWaveform(context, "left", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
+                        Visualizer.drawArcFrequency(context, "right", Visualizer.scaleRect(rect, 1.2), 0.6, analyser);
+                        Visualizer.drawArcWaveform(context, "right", Visualizer.scaleRect(rect, 0.8), 0.7, analyser);
                     }
                 }
             }
