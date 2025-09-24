@@ -53,6 +53,7 @@ DUMMYSTYLE
         <div id="clock-panel" dir="ltr">
             <span id="time"></span>
             <span id="date"></span>
+            <div id="calendar"></div>
         </div>
     </div>
     <div id="background-screen">

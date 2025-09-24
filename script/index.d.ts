@@ -677,6 +677,7 @@ declare module "script/ui" {
         const urlAnchor: HTMLAnchorElement;
         const fpsDisplay: HTMLDivElement;
         const clockDisplay: HTMLDivElement;
+        const calendar: HTMLDivElement;
         const date: HTMLSpanElement;
         const time: HTMLSpanElement;
         const keyboardShortcut: HTMLDivElement;

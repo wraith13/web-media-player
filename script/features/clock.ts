@@ -21,7 +21,8 @@ export namespace Clock
     export const updateText = (local: string | undefined): void =>
     {
         const date = new Date();
-        Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, local));
+        const dateText = makeDate(date, local);
+        Library.UI.setTextContent(UI.date, subtitle ?? dateText);
         Library.UI.setTextContent(UI.time, title ?? makeTime(date, local));
         if (UI.clockDisplay.classList.contains("rotate"))
         {
@@ -34,9 +35,33 @@ export namespace Clock
             ]
             .forEach((i, ix) => UI.clockDisplay.classList.toggle(i, direction === ix));
         }
+        if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateText)
+        {
+            const attribute = document.createAttribute("data-date");
+            attribute.value = dateText;
+            UI.calendar.attributes.setNamedItem(attribute);
+            const weeks: string[] = [];
+            const currentDate = new Date(date);
+            const currentDay = currentDate.getDay();
+            const startOfWeek = new Date(currentDate);
+            startOfWeek.setDate(currentDate.getDate() - currentDay);
+            for (let w = -3; w <= 3; ++w)
+            {
+                const weekDays: Date[] = [];
+                for (let d = 0; d < 7; ++d)
+                {
+                    const day = new Date(startOfWeek);
+                    day.setDate(startOfWeek.getDate() + w * 7 + d);
+                    weekDays.push(day);
+                }
+                weeks.push(`<div class="week">${weekDays.map(day => `<span class="day${currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today": ""}${currentDate.getMonth() === day.getMonth() ? " current-month": ""}">${day.getDate().toString()}</span>`).join("")}</div>`);
+            }
+            UI.calendar.innerHTML = weeks.join("");
+        }
     };
     export const setColor = (color: string | undefined): void =>
     {
+        Library.UI.setStyle(UI.calendar, "color", color);
         Library.UI.setStyle(UI.date, "color", color);
         Library.UI.setStyle(UI.time, "color", color);
     };
@@ -57,7 +82,6 @@ export namespace Clock
                 break;
             case "rainbow":
                 Clock.setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
-                
                 break;
             default:
                 Clock.setColor(undefined);

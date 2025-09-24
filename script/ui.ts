@@ -113,6 +113,8 @@ export namespace UI
         Library.UI.getElementById("div", "fps");
     export const clockDisplay =
         Library.UI.getElementById("div", "clock-panel");
+    export const calendar =
+        Library.UI.getElementById("div", "calendar");
     export const date =
         Library.UI.getElementById("span", "date");
     export const time =

@@ -1780,6 +1780,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
         UI.clockDisplay = _library_2.Library.UI.getElementById("div", "clock-panel");
+        UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
         UI.time = _library_2.Library.UI.getElementById("span", "time");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
@@ -1851,8 +1852,10 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
             return date.toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
         Clock.updateText = function (local) {
+            var _a;
             var date = new Date();
-            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : Clock.makeDate(date, local));
+            var dateText = Clock.makeDate(date, local);
+            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : dateText);
             library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(date, local));
             if (ui_2.UI.clockDisplay.classList.contains("rotate")) {
                 var direction_1 = ((new Date().getHours() % 12) / 3) | 0;
@@ -1864,8 +1867,29 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
                 ]
                     .forEach(function (i, ix) { return ui_2.UI.clockDisplay.classList.toggle(i, direction_1 === ix); });
             }
+            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateText) {
+                var attribute = document.createAttribute("data-date");
+                attribute.value = dateText;
+                ui_2.UI.calendar.attributes.setNamedItem(attribute);
+                var weeks = [];
+                var currentDate_1 = new Date(date);
+                var currentDay = currentDate_1.getDay();
+                var startOfWeek = new Date(currentDate_1);
+                startOfWeek.setDate(currentDate_1.getDate() - currentDay);
+                for (var w = -3; w <= 3; ++w) {
+                    var weekDays = [];
+                    for (var d = 0; d < 7; ++d) {
+                        var day = new Date(startOfWeek);
+                        day.setDate(startOfWeek.getDate() + w * 7 + d);
+                        weekDays.push(day);
+                    }
+                    weeks.push("<div class=\"week\">".concat(weekDays.map(function (day) { return "<span class=\"day".concat(currentDate_1.getMonth() === day.getMonth() && currentDate_1.getDate() === day.getDate() ? " today" : "").concat(currentDate_1.getMonth() === day.getMonth() ? " current-month" : "", "\">").concat(day.getDate().toString(), "</span>"); }).join(""), "</div>"));
+                }
+                ui_2.UI.calendar.innerHTML = weeks.join("");
+            }
         };
         Clock.setColor = function (color) {
+            library_1.Library.UI.setStyle(ui_2.UI.calendar, "color", color);
             library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
             library_1.Library.UI.setStyle(ui_2.UI.time, "color", color);
         };
