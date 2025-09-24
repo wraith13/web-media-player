@@ -56,7 +56,7 @@ export class Track
             });
             if (Analyser.isSupported())
             {
-                ElementPool.makeSureAnalyser(this.playerElement, "gainOnly")
+                ElementPool.makeSureAnalyser(this.playerElement)
                     .then((analyser) => this.setAnalyser(analyser))
                     .catch(console.error);
             }

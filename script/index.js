@@ -216,6 +216,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "bottom-right": "Bottom Right",
             "bottom-left": "Bottom Left",
             "top-left": "Top Left",
+            "rotate": "Rotate",
             "stretch-label": "Stretch:",
             "padding-label": "Padding:",
             "language-label": "Language:",
@@ -280,6 +281,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "bottom-right": "右下",
             "bottom-left": "左下",
             "top-left": "左上",
+            "rotate": "回転",
             "brightness-label": "明るさ:",
             "stretch-label": "ストレッチ:",
             "padding-label": "パディング:",
@@ -1691,7 +1693,8 @@ define("resource/control", [], {
             "top-right",
             "bottom-right",
             "bottom-left",
-            "top-left"
+            "top-left",
+            "rotate"
         ],
         "default": "center"
     },
@@ -1841,15 +1844,26 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
     (function (Clock) {
         Clock.title = undefined;
         Clock.subtitle = undefined;
-        Clock.makeDate = function (local) {
-            return new Date().toLocaleDateString(local, config_json_2.default.clock.dateFormat);
+        Clock.makeDate = function (date, local) {
+            return date.toLocaleDateString(local, config_json_2.default.clock.dateFormat);
         };
-        Clock.makeTime = function (local) {
-            return new Date().toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
+        Clock.makeTime = function (date, local) {
+            return date.toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
         Clock.updateText = function (local) {
-            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : Clock.makeDate(local));
-            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(local));
+            var date = new Date();
+            library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : Clock.makeDate(date, local));
+            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(date, local));
+            if (ui_2.UI.clockDisplay.classList.contains("rotate")) {
+                var direction_1 = ((new Date().getHours() % 12) / 3) | 0;
+                [
+                    "top-right",
+                    "bottom-right",
+                    "bottom-left",
+                    "top-left",
+                ]
+                    .forEach(function (i, ix) { return ui_2.UI.clockDisplay.classList.toggle(i, direction_1 === ix); });
+            }
         };
         Clock.setColor = function (color) {
             library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
@@ -1914,7 +1928,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
         }); };
         ;
         var Entry = /** @class */ (function () {
-            function Entry(mediaElement, gainOnly) {
+            function Entry(mediaElement) {
                 this.mediaElement = mediaElement;
                 this.splitter = null;
                 this.analyserNodes = null;
@@ -1922,7 +1936,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
                 this.frequencyDataArray = { left: null, right: null, mono: null, };
                 this.timeDomainDataArray = { left: null, right: null, mono: null, };
-                if (gainOnly) {
+                if (mediaElement instanceof HTMLVideoElement) {
                     this.gainNode = Analyser.audioContext.createGain();
                     this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
                     this.mediaElementAudioSourceNode.connect(this.gainNode);
@@ -2682,7 +2696,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
             }
             return result.then(function () { return undefined; });
         };
-        ElementPool.makeSureAnalyser = function (element, gainOnly) { return __awaiter(_this, void 0, void 0, function () {
+        ElementPool.makeSureAnalyser = function (element) { return __awaiter(_this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -2693,7 +2707,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                         _a.sent();
                         result = analyserPool.get(element);
                         if (!result) {
-                            result = new analyser_1.Analyser.Entry(element, gainOnly);
+                            result = new analyser_1.Analyser.Entry(element);
                             analyserPool.set(element, result);
                         }
                         return [2 /*return*/, result];
@@ -2915,7 +2929,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         children: [this.playerElement,]
                     });
                     if (analyser_2.Analyser.isSupported()) {
-                        elementpool_1.ElementPool.makeSureAnalyser(this.playerElement, "gainOnly")
+                        elementpool_1.ElementPool.makeSureAnalyser(this.playerElement)
                             .then(function (analyser) { return _this.setAnalyser(analyser); })
                             .catch(console.error);
                     }

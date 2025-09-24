@@ -6,22 +6,34 @@ export namespace Clock
 {
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
-    export const makeDate = (local: string | undefined): string =>
-        new Date().toLocaleDateString
+    export const makeDate = (date: Date, local: string | undefined): string =>
+        date.toLocaleDateString
         (
             local,
             config.clock.dateFormat as Intl.DateTimeFormatOptions
         );
-    export const makeTime = (local: string | undefined): string =>
-        new Date().toLocaleTimeString
+    export const makeTime = (date: Date, local: string | undefined): string =>
+        date.toLocaleTimeString
         (
             local,
             config.clock.timeFormat as Intl.DateTimeFormatOptions
         );
     export const updateText = (local: string | undefined): void =>
     {
-        Library.UI.setTextContent(UI.date, subtitle ?? makeDate(local));
-        Library.UI.setTextContent(UI.time, title ?? makeTime(local));
+        const date = new Date();
+        Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, local));
+        Library.UI.setTextContent(UI.time, title ?? makeTime(date, local));
+        if (UI.clockDisplay.classList.contains("rotate"))
+        {
+            const direction = ((new Date().getHours() %12) /3) |0;
+            [
+                "top-right",
+                "bottom-right",
+                "bottom-left",
+                "top-left",
+            ]
+            .forEach((i, ix) => UI.clockDisplay.classList.toggle(i, direction === ix));
+        }
     };
     export const setColor = (color: string | undefined): void =>
     {

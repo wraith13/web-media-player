@@ -31,9 +31,9 @@ export namespace Analyser
         isValidTimeDomainData: Channels<boolean> = { left: false, right: false, mono: false };
         frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null> = { left: null, right: null, mono: null, };
         timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> = { left: null, right: null, mono: null, };
-        constructor(public mediaElement: HTMLMediaElement, gainOnly?: "gainOnly")
+        constructor(public mediaElement: HTMLMediaElement)
         {
-            if (gainOnly)
+            if (mediaElement instanceof HTMLVideoElement)
             {
                 this.gainNode = audioContext.createGain();
                 this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);

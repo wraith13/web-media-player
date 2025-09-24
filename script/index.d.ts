@@ -72,6 +72,7 @@ declare module "locale/generated/master" {
             "bottom-right": string;
             "bottom-left": string;
             "top-left": string;
+            rotate: string;
             "stretch-label": string;
             "padding-label": string;
             "language-label": string;
@@ -136,6 +137,7 @@ declare module "locale/generated/master" {
             "bottom-right": string;
             "bottom-left": string;
             "top-left": string;
+            rotate: string;
             "brightness-label": string;
             "stretch-label": string;
             "padding-label": string;
@@ -207,6 +209,7 @@ declare module "script/library/locale" {
                 "bottom-right": string;
                 "bottom-left": string;
                 "top-left": string;
+                rotate: string;
                 "stretch-label": string;
                 "padding-label": string;
                 "language-label": string;
@@ -271,6 +274,7 @@ declare module "script/library/locale" {
                 "bottom-right": string;
                 "bottom-left": string;
                 "top-left": string;
+                rotate: string;
                 "brightness-label": string;
                 "stretch-label": string;
                 "padding-label": string;
@@ -688,8 +692,8 @@ declare module "script/features/clock" {
     export namespace Clock {
         let title: string | undefined;
         let subtitle: string | undefined;
-        const makeDate: (local: string | undefined) => string;
-        const makeTime: (local: string | undefined) => string;
+        const makeDate: (date: Date, local: string | undefined) => string;
+        const makeTime: (date: Date, local: string | undefined) => string;
         const updateText: (local: string | undefined) => void;
         const setColor: (color: string | undefined) => void;
         let cloclLocale: string | undefined;
@@ -719,7 +723,7 @@ declare module "script/features/analyser" {
             isValidTimeDomainData: Channels<boolean>;
             frequencyDataArray: Channels<Uint8Array<ArrayBuffer> | null>;
             timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null>;
-            constructor(mediaElement: HTMLMediaElement, gainOnly?: "gainOnly");
+            constructor(mediaElement: HTMLMediaElement);
             destroy(): void;
             step(): void;
             getByteFrequencyData(channel: ChannelType): Uint8Array<ArrayBuffer> | null;
@@ -849,7 +853,7 @@ declare module "script/features/elementpool" {
             audio: Media.Entry | null;
             video: Media.Entry | null;
         }) => Promise<void>;
-        const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement, gainOnly?: "gainOnly") => Promise<Analyser.Entry | null>;
+        const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement) => Promise<Analyser.Entry | null>;
         const get: (media: Media.Entry) => HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         const release: (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) => void;
     }
