@@ -2180,7 +2180,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #clock-panel #calendar {
-  font-size: calc(1.25 * var(--diagonal));
+  font-size: calc(1 * var(--diagonal));
   line-height: 100%;
   display: flex;
   flex-direction: column;
@@ -2195,15 +2195,15 @@ body:not(.play) #clock-panel:not(.show)::before {
   gap: calc(0.75 * var(--diagonal));
 }
 #clock-panel #calendar .week .day {
-  width: calc(1.25 * var(--diagonal));
-  height: calc(1.25 * var(--diagonal));
+  width: calc(1 * var(--diagonal));
+  height: calc(1 * var(--diagonal));
   text-align: center;
 }
 #clock-panel #calendar .week .day.today {
   text-decoration: underline;
 }
 #clock-panel #calendar .week .day:not(.current-month) {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;

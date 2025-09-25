@@ -1872,20 +1872,28 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
                 attribute.value = dateText;
                 ui_2.UI.calendar.attributes.setNamedItem(attribute);
                 var weeks = [];
-                var currentDate_1 = new Date(date);
-                var currentDay = currentDate_1.getDay();
-                var startOfWeek = new Date(currentDate_1);
-                startOfWeek.setDate(currentDate_1.getDate() - currentDay);
+                var currentDate = new Date(date);
+                var currentDay = currentDate.getDay();
+                var startOfWeek = new Date(currentDate);
+                startOfWeek.setDate(currentDate.getDate() - currentDay);
                 for (var w = -3; w <= 3; ++w) {
                     var weekDays = [];
                     for (var d = 0; d < 7; ++d) {
                         var day = new Date(startOfWeek);
                         day.setDate(startOfWeek.getDate() + w * 7 + d);
-                        weekDays.push(day);
+                        weekDays.push({
+                            tag: "span",
+                            className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
+                            text: day.getDate().toString(),
+                        });
                     }
-                    weeks.push("<div class=\"week\">".concat(weekDays.map(function (day) { return "<span class=\"day".concat(currentDate_1.getMonth() === day.getMonth() && currentDate_1.getDate() === day.getDate() ? " today" : "").concat(currentDate_1.getMonth() === day.getMonth() ? " current-month" : "", "\">").concat(day.getDate().toString(), "</span>"); }).join(""), "</div>"));
+                    weeks.push({
+                        tag: "div",
+                        className: "week",
+                        children: weekDays,
+                    });
                 }
-                ui_2.UI.calendar.innerHTML = weeks.join("");
+                library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
             }
         };
         Clock.setColor = function (color) {

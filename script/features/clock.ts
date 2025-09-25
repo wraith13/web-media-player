@@ -40,23 +40,37 @@ export namespace Clock
             const attribute = document.createAttribute("data-date");
             attribute.value = dateText;
             UI.calendar.attributes.setNamedItem(attribute);
-            const weeks: string[] = [];
+            const weeks: Library.UI.ElementSource<"div">[] = [];
             const currentDate = new Date(date);
             const currentDay = currentDate.getDay();
             const startOfWeek = new Date(currentDate);
             startOfWeek.setDate(currentDate.getDate() - currentDay);
             for (let w = -3; w <= 3; ++w)
             {
-                const weekDays: Date[] = [];
+                const weekDays: Library.UI.ElementSource<"span">[] = [];
                 for (let d = 0; d < 7; ++d)
                 {
                     const day = new Date(startOfWeek);
                     day.setDate(startOfWeek.getDate() + w * 7 + d);
-                    weekDays.push(day);
+                    weekDays.push
+                    ({
+                        tag: "span",
+                        className: `day${currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today": ""}${currentDate.getMonth() === day.getMonth() ? " current-month": ""}`,
+                        text: day.getDate().toString(),
+                    });
                 }
-                weeks.push(`<div class="week">${weekDays.map(day => `<span class="day${currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today": ""}${currentDate.getMonth() === day.getMonth() ? " current-month": ""}">${day.getDate().toString()}</span>`).join("")}</div>`);
+                weeks.push
+                ({
+                    tag: "div",
+                    className: "week",
+                    children: weekDays,
+                });
             }
-            UI.calendar.innerHTML = weeks.join("");
+            Library.UI.replaceChildren
+            (
+                UI.calendar,
+                weeks,
+            );
         }
     };
     export const setColor = (color: string | undefined): void =>

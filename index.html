@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Sep 24 2025 21:21:38 GMT+0900 (日本標準時)
+    build at: Thu Sep 25 2025 02:30:56 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2236,7 +2236,7 @@ body:not(.play) #clock-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #clock-panel #calendar {
-  font-size: calc(1.25 * var(--diagonal));
+  font-size: calc(1 * var(--diagonal));
   line-height: 100%;
   display: flex;
   flex-direction: column;
@@ -2251,15 +2251,15 @@ body:not(.play) #clock-panel:not(.show)::before {
   gap: calc(0.75 * var(--diagonal));
 }
 #clock-panel #calendar .week .day {
-  width: calc(1.25 * var(--diagonal));
-  height: calc(1.25 * var(--diagonal));
+  width: calc(1 * var(--diagonal));
+  height: calc(1 * var(--diagonal));
   text-align: center;
 }
 #clock-panel #calendar .week .day.today {
   text-decoration: underline;
 }
 #clock-panel #calendar .week .day:not(.current-month) {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 #clock-panel.top-right, #clock-panel.top-left {
   display: flex;
@@ -2852,8 +2852,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Sep 24 2025 21:21:38 GMT+0900 (日本標準時)",
-    tick: 1758716498615
+    at: "Thu Sep 25 2025 02:30:56 GMT+0900 (日本標準時)",
+    tick: 1758735056733
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6289,20 +6289,28 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
                 attribute.value = dateText;
                 ui_2.UI.calendar.attributes.setNamedItem(attribute);
                 var weeks = [];
-                var currentDate_1 = new Date(date);
-                var currentDay = currentDate_1.getDay();
-                var startOfWeek = new Date(currentDate_1);
-                startOfWeek.setDate(currentDate_1.getDate() - currentDay);
+                var currentDate = new Date(date);
+                var currentDay = currentDate.getDay();
+                var startOfWeek = new Date(currentDate);
+                startOfWeek.setDate(currentDate.getDate() - currentDay);
                 for (var w = -3; w <= 3; ++w) {
                     var weekDays = [];
                     for (var d = 0; d < 7; ++d) {
                         var day = new Date(startOfWeek);
                         day.setDate(startOfWeek.getDate() + w * 7 + d);
-                        weekDays.push(day);
+                        weekDays.push({
+                            tag: "span",
+                            className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
+                            text: day.getDate().toString(),
+                        });
                     }
-                    weeks.push("<div class=\"week\">".concat(weekDays.map(function (day) { return "<span class=\"day".concat(currentDate_1.getMonth() === day.getMonth() && currentDate_1.getDate() === day.getDate() ? " today" : "").concat(currentDate_1.getMonth() === day.getMonth() ? " current-month" : "", "\">").concat(day.getDate().toString(), "</span>"); }).join(""), "</div>"));
+                    weeks.push({
+                        tag: "div",
+                        className: "week",
+                        children: weekDays,
+                    });
                 }
-                ui_2.UI.calendar.innerHTML = weeks.join("");
+                library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
             }
         };
         Clock.setColor = function (color) {

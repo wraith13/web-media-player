@@ -1251,7 +1251,7 @@ body.no-media
             @include monospace-font();
             &
             {
-                @include font-size(calc(1.25 * var(--diagonal)));
+                @include font-size(calc(1.0 * var(--diagonal)));
                 line-height: 100%;
                 display: flex;
                 flex-direction: column;
@@ -1266,8 +1266,8 @@ body.no-media
                     gap: calc(0.75 * var(--diagonal));
                     .day
                     {
-                        width: calc(1.25 * var(--diagonal));
-                        height: calc(1.25 * var(--diagonal));
+                        width: calc(1.0 * var(--diagonal));
+                        height: calc(1.0 * var(--diagonal));
                         text-align: center;
                         &.today
                         {
@@ -1275,7 +1275,7 @@ body.no-media
                         }
                         &:not(.current-month)
                         {
-                            opacity: 0.5;
+                            opacity: 0.4;
                         }
                     }
                 }
