@@ -200,6 +200,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
             "with-fullscreen-label": "FullScreen:",
+            "with-calendar-label": "With Calendar:",
             "show-fps-label": "Show FPS:",
             "clock-label": "Clock:",
             "hide": "Hide",
@@ -266,6 +267,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "with-fullscreen-label": "フルスクリーン:",
+            "with-calendar-label": "カレンダー付き:",
             "show-fps-label": "FPS を表示:",
             "clock-label": "時計:",
             "hide": "非表示",
@@ -1696,7 +1698,11 @@ define("resource/control", [], {
             "top-left",
             "rotate"
         ],
-        "default": "center"
+        "default": "rotate"
+    },
+    "withCalendar": {
+        "id": "with-calendar",
+        "default": false
     },
     "showFps": {
         "id": "show-fps",
@@ -1766,6 +1772,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.clockSelect = new _library_2.Library.Control.Select(control_json_1.default.clock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.clockPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
@@ -1867,33 +1874,39 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
                 ]
                     .forEach(function (i, ix) { return ui_2.UI.clockDisplay.classList.toggle(i, direction_1 === ix); });
             }
-            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateText) {
+            var dateDate = ui_2.UI.withCalenderCheckbox.get() ? dateText : "";
+            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
-                attribute.value = dateText;
+                attribute.value = dateDate;
                 ui_2.UI.calendar.attributes.setNamedItem(attribute);
-                var weeks = [];
-                var currentDate = new Date(date);
-                var currentDay = currentDate.getDay();
-                var startOfWeek = new Date(currentDate);
-                startOfWeek.setDate(currentDate.getDate() - currentDay);
-                for (var w = -3; w <= 3; ++w) {
-                    var weekDays = [];
-                    for (var d = 0; d < 7; ++d) {
-                        var day = new Date(startOfWeek);
-                        day.setDate(startOfWeek.getDate() + w * 7 + d);
-                        weekDays.push({
-                            tag: "span",
-                            className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
-                            text: day.getDate().toString(),
+                if ("" === dateDate) {
+                    library_1.Library.UI.removeAllChildren(ui_2.UI.calendar);
+                }
+                else {
+                    var weeks = [];
+                    var currentDate = new Date(date);
+                    var currentDay = currentDate.getDay();
+                    var startOfWeek = new Date(currentDate);
+                    startOfWeek.setDate(currentDate.getDate() - currentDay);
+                    for (var w = -3; w <= 3; ++w) {
+                        var weekDays = [];
+                        for (var d = 0; d < 7; ++d) {
+                            var day = new Date(startOfWeek);
+                            day.setDate(startOfWeek.getDate() + w * 7 + d);
+                            weekDays.push({
+                                tag: "span",
+                                className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
+                                text: day.getDate().toString(),
+                            });
+                        }
+                        weeks.push({
+                            tag: "div",
+                            className: "week",
+                            children: weekDays,
                         });
                     }
-                    weeks.push({
-                        tag: "div",
-                        className: "week",
-                        children: weekDays,
-                    });
+                    library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
                 }
-                library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
             }
         };
         Clock.setColor = function (color) {

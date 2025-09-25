@@ -35,42 +35,50 @@ export namespace Clock
             ]
             .forEach((i, ix) => UI.clockDisplay.classList.toggle(i, direction === ix));
         }
-        if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateText)
+        const dateDate = UI.withCalenderCheckbox.get() ? dateText: "";
+        if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
         {
             const attribute = document.createAttribute("data-date");
-            attribute.value = dateText;
+            attribute.value = dateDate;
             UI.calendar.attributes.setNamedItem(attribute);
-            const weeks: Library.UI.ElementSource<"div">[] = [];
-            const currentDate = new Date(date);
-            const currentDay = currentDate.getDay();
-            const startOfWeek = new Date(currentDate);
-            startOfWeek.setDate(currentDate.getDate() - currentDay);
-            for (let w = -3; w <= 3; ++w)
+            if ("" === dateDate)
             {
-                const weekDays: Library.UI.ElementSource<"span">[] = [];
-                for (let d = 0; d < 7; ++d)
+                Library.UI.removeAllChildren(UI.calendar);
+            }
+            else
+            {
+                const weeks: Library.UI.ElementSource<"div">[] = [];
+                const currentDate = new Date(date);
+                const currentDay = currentDate.getDay();
+                const startOfWeek = new Date(currentDate);
+                startOfWeek.setDate(currentDate.getDate() - currentDay);
+                for (let w = -3; w <= 3; ++w)
                 {
-                    const day = new Date(startOfWeek);
-                    day.setDate(startOfWeek.getDate() + w * 7 + d);
-                    weekDays.push
+                    const weekDays: Library.UI.ElementSource<"span">[] = [];
+                    for (let d = 0; d < 7; ++d)
+                    {
+                        const day = new Date(startOfWeek);
+                        day.setDate(startOfWeek.getDate() + w * 7 + d);
+                        weekDays.push
+                        ({
+                            tag: "span",
+                            className: `day${currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today": ""}${currentDate.getMonth() === day.getMonth() ? " current-month": ""}`,
+                            text: day.getDate().toString(),
+                        });
+                    }
+                    weeks.push
                     ({
-                        tag: "span",
-                        className: `day${currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today": ""}${currentDate.getMonth() === day.getMonth() ? " current-month": ""}`,
-                        text: day.getDate().toString(),
+                        tag: "div",
+                        className: "week",
+                        children: weekDays,
                     });
                 }
-                weeks.push
-                ({
-                    tag: "div",
-                    className: "week",
-                    children: weekDays,
-                });
+                Library.UI.replaceChildren
+                (
+                    UI.calendar,
+                    weeks,
+                );
             }
-            Library.UI.replaceChildren
-            (
-                UI.calendar,
-                weeks,
-            );
         }
     };
     export const setColor = (color: string | undefined): void =>

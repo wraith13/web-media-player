@@ -56,6 +56,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
+            "with-calendar-label": string;
             "show-fps-label": string;
             "clock-label": string;
             hide: string;
@@ -122,6 +123,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
+            "with-calendar-label": string;
             "show-fps-label": string;
             "clock-label": string;
             hide: string;
@@ -193,6 +195,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
+                "with-calendar-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
                 hide: string;
@@ -259,6 +262,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
+                "with-calendar-label": string;
                 "show-fps-label": string;
                 "clock-label": string;
                 hide: string;
@@ -672,6 +676,7 @@ declare module "script/ui" {
         const visualizerSelect: Library.Control.Select<string>;
         const clockSelect: Library.Control.Select<string>;
         const clockPositionSelect: Library.Control.Select<string>;
+        const withCalenderCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;

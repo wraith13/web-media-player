@@ -145,6 +145,10 @@ DUMMYSTYLE
             <span data-lang-key="clock-position-label"></span>
             <select id="clock-position"></select>
         </label>
+        <label for="with-calendar">
+            <span data-lang-key="with-calendar-label"></span>
+            <input id="with-calendar" type="checkbox" />
+        </label>
         <label for="show-fps">
             <span data-lang-key="show-fps-label"></span>
             <input id="show-fps" type="checkbox" />

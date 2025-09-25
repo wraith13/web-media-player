@@ -84,6 +84,8 @@ export namespace UI
         new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const clockPositionSelect =
         new Library.Control.Select(control.clockPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const withCalenderCheckbox =
+        new Library.Control.Checkbox(control.withCalendar);
     export const showFpsCheckbox =
         new Library.Control.Checkbox(control.showFps);
     export const languageSelect =
