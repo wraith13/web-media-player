@@ -696,6 +696,7 @@ declare module "script/ui" {
 }
 declare module "script/features/clock" {
     export namespace Clock {
+        let firstDayOfWeek: number;
         let title: string | undefined;
         let subtitle: string | undefined;
         const makeDate: (date: Date, local: string | undefined) => string;

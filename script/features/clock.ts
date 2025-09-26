@@ -4,6 +4,7 @@ import config from "@resource/config.json";
 const phi = (1 + Math.sqrt(5)) / 2;
 export namespace Clock
 {
+    export let firstDayOfWeek: number = config.clock.firstDayOfWeek;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
     export const makeDate = (date: Date, local: string | undefined): string =>
@@ -50,8 +51,9 @@ export namespace Clock
                 const weeks: Library.UI.ElementSource<"div">[] = [];
                 const currentDate = new Date(date);
                 const currentDay = currentDate.getDay();
+                const offset = (currentDay - firstDayOfWeek + 7) % 7;
                 const startOfWeek = new Date(currentDate);
-                startOfWeek.setDate(currentDate.getDate() - currentDay);
+                startOfWeek.setDate(currentDate.getDate() - offset);
                 for (let w = -3; w <= 3; ++w)
                 {
                     const weekDays: Library.UI.ElementSource<"span">[] = [];

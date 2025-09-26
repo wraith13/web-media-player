@@ -427,7 +427,8 @@ define("resource/config", [], {
             "hour": "2-digit",
             "minute": "2-digit",
             "second": "2-digit"
-        }
+        },
+        "firstDayOfWeek": 0
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -1850,6 +1851,7 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
     var phi = (1 + Math.sqrt(5)) / 2;
     var Clock;
     (function (Clock) {
+        Clock.firstDayOfWeek = config_json_2.default.clock.firstDayOfWeek;
         Clock.title = undefined;
         Clock.subtitle = undefined;
         Clock.makeDate = function (date, local) {
@@ -1886,8 +1888,9 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
                     var weeks = [];
                     var currentDate = new Date(date);
                     var currentDay = currentDate.getDay();
+                    var offset = (currentDay - Clock.firstDayOfWeek + 7) % 7;
                     var startOfWeek = new Date(currentDate);
-                    startOfWeek.setDate(currentDate.getDate() - currentDay);
+                    startOfWeek.setDate(currentDate.getDate() - offset);
                     for (var w = -3; w <= 3; ++w) {
                         var weekDays = [];
                         for (var d = 0; d < 7; ++d) {
