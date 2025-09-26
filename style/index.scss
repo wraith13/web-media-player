@@ -441,7 +441,7 @@ body #screen-body.paused
 {
     #media-list
     {
-        padding-bottom: 100vh;
+        padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
     }
 }
 body.show-paused-media #screen-body
@@ -457,8 +457,11 @@ body.show-paused-media #screen-body
     }
     #media-list
     {
-        opacity: 0.0;
-        filter: blur(0.5rem);
+        .item:not(.add)
+        {
+            opacity: 0.0;
+            filter: blur(0.5rem);
+        }
     }
 }
 #element-pool
@@ -631,7 +634,7 @@ body:not(.not-supported-media)
 #control-panel
 {
     @include black-pop-panel-style();
-    @include fade-transition("body.play:not(.show-ui)", "body.show-paused-media:not(.show-ui)");
+    @include fade-transition("body.play:not(.show-ui)");
     @include flex(row, center);
     &
     {

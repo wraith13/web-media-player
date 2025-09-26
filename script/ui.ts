@@ -45,7 +45,7 @@ export namespace UI
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
     export const isScrolledToMediaListBottom = () =>
-        UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight *1) +UI.addMediaButtonHeight;
+        UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight *1) +(UI.addMediaButtonHeight *0.3);
     export const progressCircle =
         Library.UI.getElementById("div", "progress-circle");
     export const addMediaButton =

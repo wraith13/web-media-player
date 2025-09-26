@@ -111,11 +111,6 @@ export namespace Player
     };
     export const play = async () =>
     {
-        if (UI.isScrolledToMediaListBottom())
-        {
-            UI.mediaList.scrollTop = UI.mediaList.scrollHeight -((UI.mediaList.clientHeight *1.5) +UI.addMediaButtonHeight);
-            document.body.classList.toggle("show-paused-media", false);
-        }
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -184,7 +179,13 @@ export namespace Player
         currentTrack?.pause();
         fadeoutingTrack?.pause();
         CrossFade.pause();
-        UI.screenBody.classList.toggle("paused", 0 < Media.mediaList.length && null !== currentTrack);
+        const isResumable = 0 < Media.mediaList.length && null !== currentTrack;
+        UI.screenBody.classList.toggle("paused", isResumable);
+        if (isResumable)
+        {
+            UI.mediaList.scrollTop = UI.mediaList.scrollHeight;
+            document.body.classList.toggle("show-paused-media", true);
+        }
     };
     export const previous = () =>
     {

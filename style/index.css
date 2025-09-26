@@ -707,7 +707,7 @@ body:not(.show-paused-media) #screen-body.paused #media-screen {
 }
 
 body #screen-body.paused #media-list {
-  padding-bottom: 100vh;
+  padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
 }
 
 body.show-paused-media #screen-body #media-screen {
@@ -717,7 +717,7 @@ body.show-paused-media #screen-body #media-screen {
 body.show-paused-media #screen-body #background-screen {
   opacity: 0;
 }
-body.show-paused-media #screen-body #media-list {
+body.show-paused-media #screen-body #media-list .item:not(.add) {
   opacity: 0;
   filter: blur(0.5rem);
 }
@@ -1074,25 +1074,6 @@ body.play:not(.show-ui) #control-panel:not(.show) {
   filter: blur(1em);
 }
 body.play:not(.show-ui) #control-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.show-paused-media:not(.show-ui) #control-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.show-paused-media:not(.show-ui) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;

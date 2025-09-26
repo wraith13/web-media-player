@@ -1751,7 +1751,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.isScrolledToMediaListBottom = function () {
-            return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + UI.addMediaButtonHeight;
+            return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
         };
         UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
@@ -3414,16 +3414,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             var _a, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
-                    case 0:
-                        if (ui_7.UI.isScrolledToMediaListBottom()) {
-                            ui_7.UI.mediaList.scrollTop = ui_7.UI.mediaList.scrollHeight - ((ui_7.UI.mediaList.clientHeight * 1.5) + ui_7.UI.addMediaButtonHeight);
-                            document.body.classList.toggle("show-paused-media", false);
-                        }
-                        return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
-                                image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
-                                audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
-                                video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
-                            })];
+                    case 0: return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
+                            image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
+                            audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
+                            video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
+                        })];
                     case 1:
                         _d.sent();
                         Player.updateFullscreenState();
@@ -3480,7 +3475,12 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
-            ui_7.UI.screenBody.classList.toggle("paused", 0 < media_2.Media.mediaList.length && null !== currentTrack);
+            var isResumable = 0 < media_2.Media.mediaList.length && null !== currentTrack;
+            ui_7.UI.screenBody.classList.toggle("paused", isResumable);
+            if (isResumable) {
+                ui_7.UI.mediaList.scrollTop = ui_7.UI.mediaList.scrollHeight;
+                document.body.classList.toggle("show-paused-media", true);
+            }
         };
         Player.previous = function () {
             var media = history_1.History.back();
