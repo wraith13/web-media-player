@@ -123,6 +123,10 @@ define("script/tools/number", ["require", "exports"], function (require, exports
         NumberTools.toString = function (value, maximumFractionDigits) {
             return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
+        NumberTools.parseInt = function (text) {
+            var value = Number.parseInt(text, 10);
+            return Number.isNaN(value) ? undefined : value;
+        };
     })(NumberTools || (exports.NumberTools = NumberTools = {}));
 });
 define("script/tools/math", ["require", "exports"], function (require, exports) {
@@ -1843,7 +1847,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/clock", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, library_1, ui_2, config_json_2) {
+define("script/features/clock", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "resource/config"], function (require, exports, library_1, tools_1, ui_2, config_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Clock = void 0;
@@ -1852,6 +1856,7 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
     var Clock;
     (function (Clock) {
         Clock.firstDayOfWeek = config_json_2.default.clock.firstDayOfWeek;
+        Clock.local = undefined;
         Clock.title = undefined;
         Clock.subtitle = undefined;
         Clock.makeDate = function (date, local) {
@@ -1860,12 +1865,12 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         Clock.makeTime = function (date, local) {
             return date.toLocaleTimeString(local, config_json_2.default.clock.timeFormat);
         };
-        Clock.updateText = function (local) {
+        Clock.updateText = function () {
             var _a;
             var date = new Date();
-            var dateText = Clock.makeDate(date, local);
+            var dateText = Clock.makeDate(date, Clock.local);
             library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : dateText);
-            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(date, local));
+            library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(date, Clock.local));
             if (ui_2.UI.clockDisplay.classList.contains("rotate")) {
                 var direction_1 = ((new Date().getHours() % 12) / 3) | 0;
                 [
@@ -1921,7 +1926,7 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
         Clock.update = function (now) {
             var clockOption = ui_2.UI.clockSelect.get();
             if ("hide" !== clockOption) {
-                Clock.updateText(Clock.cloclLocale);
+                Clock.updateText();
                 switch (clockOption) {
                     case "alternate":
                         var isWhite = (new Date().getTime() / config_json_2.default.clock.alternate.span) % 2 < 1.0;
@@ -1939,6 +1944,9 @@ define("script/features/clock", ["require", "exports", "script/library/index", "
             }
         };
         Clock.initialize = function (params) {
+            var _a;
+            Clock.firstDayOfWeek = ((_a = tools_1.Tools.Number.parseInt(params["first-day-of-week"])) !== null && _a !== void 0 ? _a : config_json_2.default.clock.firstDayOfWeek) % 7;
+            Clock.local = params["local"];
             Clock.title = params["title"];
             Clock.subtitle = params["subtitle"];
             ui_2.UI.time.classList.toggle("text", undefined !== Clock.title);
@@ -2050,7 +2058,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
         Analyser.Entry = Entry;
     })(Analyser || (exports.Analyser = Analyser = {}));
 });
-define("script/features/media", ["require", "exports", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, _library_3, tools_1, Config) {
+define("script/features/media", ["require", "exports", "script/library/index", "script/tools/index", "resource/config"], function (require, exports, _library_3, tools_2, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Media = void 0;
@@ -2168,7 +2176,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                         resolve(null);
                     });
                     audio.src = url;
-                    tools_1.Tools.Timer.sleep(1000).then(function () {
+                    tools_2.Tools.Timer.sleep(1000).then(function () {
                         if (!loadedmetadataCalled && !failed) {
                             console.warn("⏳ Audio metadata not loaded in time, trying to finish anyway.");
                             finish();
@@ -2221,7 +2229,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                     });
                     video.src = url;
                     video.currentTime = 0.1;
-                    tools_1.Tools.Timer.sleep(1000).then(function () {
+                    tools_2.Tools.Timer.sleep(1000).then(function () {
                         video.play().finally(function () {
                             video.pause();
                             if ((!loadedmetadataCalled || !loadeddataCalled) && !failed) {

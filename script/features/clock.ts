@@ -1,30 +1,32 @@
 import { Library } from "../library";
+import { Tools } from "../tools";
 import { UI } from "../ui";
 import config from "@resource/config.json";
 const phi = (1 + Math.sqrt(5)) / 2;
 export namespace Clock
 {
     export let firstDayOfWeek: number = config.clock.firstDayOfWeek;
+    export let locale: string | undefined = undefined;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
-    export const makeDate = (date: Date, local: string | undefined): string =>
+    export const makeDate = (date: Date, locale: string | undefined): string =>
         date.toLocaleDateString
         (
-            local,
+            locale,
             config.clock.dateFormat as Intl.DateTimeFormatOptions
         );
-    export const makeTime = (date: Date, local: string | undefined): string =>
+    export const makeTime = (date: Date, locale: string | undefined): string =>
         date.toLocaleTimeString
         (
-            local,
+            locale,
             config.clock.timeFormat as Intl.DateTimeFormatOptions
         );
-    export const updateText = (local: string | undefined): void =>
+    export const updateText = (): void =>
     {
         const date = new Date();
-        const dateText = makeDate(date, local);
+        const dateText = makeDate(date, locale);
         Library.UI.setTextContent(UI.date, subtitle ?? dateText);
-        Library.UI.setTextContent(UI.time, title ?? makeTime(date, local));
+        Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
         if (UI.clockDisplay.classList.contains("rotate"))
         {
             const direction = ((new Date().getHours() %12) /3) |0;
@@ -95,7 +97,7 @@ export namespace Clock
         const clockOption = UI.clockSelect.get();
         if ("hide" !== clockOption)
         {
-            Clock.updateText(cloclLocale);
+            Clock.updateText();
             switch(clockOption)
             {
             case "alternate":
@@ -115,6 +117,8 @@ export namespace Clock
     };
     export const initialize = (params: Record<string, string>) =>
     {
+        firstDayOfWeek = (Tools.Number.parseInt(params["first-day-of-week"]) ?? config.clock.firstDayOfWeek) %7;
+        locale = params["locale"];
         title = params["title"];
         subtitle = params["subtitle"];
         UI.time.classList.toggle("text", undefined !== title);

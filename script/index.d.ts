@@ -8,6 +8,7 @@ declare module "script/tools/number" {
     export namespace NumberTools {
         const getIntegralDigits: (value: number) => number;
         const toString: (value: number, maximumFractionDigits?: number) => string;
+        const parseInt: (text: string) => number | undefined;
     }
 }
 declare module "script/tools/math" {
@@ -697,11 +698,12 @@ declare module "script/ui" {
 declare module "script/features/clock" {
     export namespace Clock {
         let firstDayOfWeek: number;
+        let local: string | undefined;
         let title: string | undefined;
         let subtitle: string | undefined;
         const makeDate: (date: Date, local: string | undefined) => string;
         const makeTime: (date: Date, local: string | undefined) => string;
-        const updateText: (local: string | undefined) => void;
+        const updateText: () => void;
         const setColor: (color: string | undefined) => void;
         let cloclLocale: string | undefined;
         const update: (now: number) => void;

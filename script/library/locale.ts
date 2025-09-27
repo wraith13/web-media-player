@@ -4,7 +4,7 @@ export namespace Locale
 {
     export const master = localeMaster.localeMaster;
     export type Label = (keyof (typeof master[keyof typeof master])) | "";
-    export type Language = keyof typeof master;
+    export type Language = string & keyof typeof master; // "string &" is a workaround for foolish TypeScript
     const supportedLangs = Object.keys(master) as Language[];
     const getSegments = (text: string, separator: string, segments: number): string =>
         text.split(separator).slice(0, segments).join(separator);
