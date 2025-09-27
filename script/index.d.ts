@@ -873,7 +873,7 @@ declare module "script/features/history" {
         const regulate: () => void;
         const getCurrentIndex: () => number;
         const getMedia: () => Media.Entry | undefined;
-        const play: () => Media.Entry | undefined;
+        const play: (media?: Media.Entry) => Media.Entry | undefined;
         const next: () => Media.Entry | undefined;
         const isAtEnd: () => boolean;
         const back: () => Media.Entry | undefined;
@@ -952,7 +952,7 @@ declare module "script/features/player" {
         const isPlaying: () => boolean;
         const isSeeking: () => boolean;
         const startAnimationFrameLoop: () => void;
-        const play: () => Promise<void>;
+        const play: (media?: Media.Entry) => Promise<void>;
         const resume: () => void;
         const pause: () => void;
         const previous: () => void;

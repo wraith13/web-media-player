@@ -718,8 +718,9 @@ body.show-paused-media #screen-body #background-screen {
   opacity: 0;
 }
 body.show-paused-media #screen-body #media-list .item:not(.add) {
-  opacity: 0;
+  opacity: 0.3;
   filter: blur(0.5rem);
+  transition: opacity 1000ms, filter 1000ms;
 }
 
 #element-pool {

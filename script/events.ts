@@ -227,7 +227,7 @@ export namespace Events
             Url.addParameter(Url.params, key, value);
             updateUrlAnchor(Url.params);
         };
-        navigator.mediaSession.setActionHandler("play", Features.Player.play);
+        navigator.mediaSession.setActionHandler("play", () => Features.Player.play());
         navigator.mediaSession.setActionHandler("pause", Features.Player.pause);
         navigator.mediaSession.setActionHandler("previoustrack", Features.Player.previous);
         navigator.mediaSession.setActionHandler("nexttrack", Features.Player.next);

@@ -139,6 +139,14 @@ export namespace MediaList
                 await updateMediaListDisplay();
             }
         );
+        item.addEventListener
+        (
+            "dblclick",
+            () =>
+            {
+                Features.Player.play(entry);
+            }
+        );
         return item;
     };
     export const updateMediaListDisplay = async (): Promise<void> =>

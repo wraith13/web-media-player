@@ -44,10 +44,28 @@ export namespace History
             return undefined;
         }
     };
-    export const play = (): Media.Entry | undefined =>
+    export const play = (media?: Media.Entry): Media.Entry | undefined =>
     {
         if (0 <= Media.mediaList.length)
         {
+            if (media)
+            {
+                clear();
+                const index = Media.mediaList.indexOf(media);
+                if (UI.shuffleButton.dom.classList.contains("on"))
+                {
+                    history.push(index);
+                }
+                else
+                {
+                    for(let i = 0; i <= index; ++i)
+                    {
+                        history.push(i);
+                    }
+                }
+                return media;
+            }
+            else
             if (0 <= currentIndex && currentIndex < history.length)
             {
                 return getMedia();

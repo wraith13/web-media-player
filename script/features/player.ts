@@ -109,7 +109,7 @@ export namespace Player
         }
         loopHandle = window.requestAnimationFrame(loop);
     };
-    export const play = async () =>
+    export const play = async (media?: Media.Entry) =>
     {
         await ElementPool.makeSure
         ({
@@ -147,10 +147,10 @@ export namespace Player
             currentTrack = null;
         }
         CrossFade.resume();
-        const media = History.play();
-        if (media)
+        const currentMedia = History.play(media);
+        if (currentMedia)
         {
-            playMedia(media, "resume");
+            playMedia(currentMedia, "resume");
         }
         else
         if ( ! UI.repeatButton.dom.classList.contains("on"))

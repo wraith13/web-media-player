@@ -2854,9 +2854,22 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 return undefined;
             }
         };
-        History.play = function () {
+        History.play = function (media) {
             if (0 <= media_1.Media.mediaList.length) {
-                if (0 <= currentIndex && currentIndex < history.length) {
+                if (media) {
+                    History.clear();
+                    var index = media_1.Media.mediaList.indexOf(media);
+                    if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
+                        history.push(index);
+                    }
+                    else {
+                        for (var i = 0; i <= index; ++i) {
+                            history.push(i);
+                        }
+                    }
+                    return media;
+                }
+                else if (0 <= currentIndex && currentIndex < history.length) {
                     return History.getMedia();
                 }
                 else {
@@ -3409,8 +3422,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
             loopHandle = window.requestAnimationFrame(Player.loop);
         };
-        Player.play = function () { return __awaiter(_this, void 0, void 0, function () {
-            var media;
+        Player.play = function (media) { return __awaiter(_this, void 0, void 0, function () {
+            var currentMedia;
             var _a, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
@@ -3447,9 +3460,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             currentTrack = null;
                         }
                         CrossFade.resume();
-                        media = history_1.History.play();
-                        if (media) {
-                            Player.playMedia(media, "resume");
+                        currentMedia = history_1.History.play(media);
+                        if (currentMedia) {
+                            Player.playMedia(currentMedia, "resume");
                         }
                         else if (!ui_7.UI.repeatButton.dom.classList.contains("on")) {
                             Player.pause();
@@ -4008,6 +4021,9 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 }
                             });
                         }); });
+                        item.addEventListener("dblclick", function () {
+                            _features_1.Features.Player.play(entry);
+                        });
                         return [2 /*return*/, item];
                 }
             });
@@ -4230,7 +4246,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 url_3.Url.addParameter(url_3.Url.params, key, value);
                 updateUrlAnchor(url_3.Url.params);
             };
-            navigator.mediaSession.setActionHandler("play", _features_2.Features.Player.play);
+            navigator.mediaSession.setActionHandler("play", function () { return _features_2.Features.Player.play(); });
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
