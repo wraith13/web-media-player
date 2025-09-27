@@ -111,6 +111,7 @@ export namespace Player
     };
     export const play = async (media?: Media.Entry) =>
     {
+        document.body.classList.toggle("show-ui", false);
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,

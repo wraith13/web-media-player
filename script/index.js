@@ -3427,11 +3427,13 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             var _a, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
-                    case 0: return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
-                            image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
-                            audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
-                            video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
-                        })];
+                    case 0:
+                        document.body.classList.toggle("show-ui", false);
+                        return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
+                                image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
+                                audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
+                                video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
+                            })];
                     case 1:
                         _d.sent();
                         Player.updateFullscreenState();
@@ -4400,6 +4402,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
             ui_10.UI.clockSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClock);
             ui_10.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateClockPosition);
+            ui_10.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_10.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_10.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {

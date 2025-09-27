@@ -422,6 +422,7 @@ export namespace Events
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
         UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateClockPosition);
+        UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
         document.body.addEventListener
