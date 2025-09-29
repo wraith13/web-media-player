@@ -34,16 +34,16 @@ export namespace Events
             i => UI.mediaScreen.classList.toggle(i, i === value)
         );
     };
-    const updateClock = () =>
+    const updateOverlayStyle = () =>
     {
-        control.clock.enum.forEach
+        control.overlayStyle.enum.forEach
         (
-            i => UI.clockDisplay.classList.toggle(i, i === UI.clockSelect.get())
+            i => UI.clockDisplay.classList.toggle(i, i === UI.overlayStyleSelect.get())
         );
     };
-    const updateClockPosition = () =>
+    const updateOverlayPosition = () =>
     {
-        control.clockPosition.enum.forEach
+        control.overlayPosition.enum.forEach
         (
             i => UI.clockDisplay.classList.toggle(i, i === UI.clockPositionSelect.get())
         );
@@ -420,8 +420,8 @@ export namespace Events
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
-        UI.clockSelect.loadParameter(Url.params, applyParam).setChange(updateClock);
-        UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateClockPosition);
+        UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
+        UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
@@ -459,8 +459,8 @@ export namespace Events
         updateBrightness();
         Features.Player.updateStretch();
         updateVisualizer();
-        updateClock();
-        updateClockPosition();
+        updateOverlayStyle();
+        updateOverlayPosition();
         UI.updateLanguage();
         updateUrlAnchor(Url.params);
         document.addEventListener
@@ -481,7 +481,7 @@ export namespace Events
                         UI.imageSpanSelect,
                         UI.loopShortMediaCheckbox,
                         UI.visualizerSelect,
-                        UI.clockSelect,
+                        UI.overlayStyleSelect,
                         UI.clockPositionSelect,
                         UI.showFpsCheckbox,
                         UI.languageSelect,

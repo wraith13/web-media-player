@@ -80,10 +80,14 @@ export namespace UI
         new Library.Control.Checkbox(control.loopShortMedia);
     export const visualizerSelect =
         new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
-    export const clockSelect =
-        new Library.Control.Select(control.clock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const overlayStyleSelect =
+        new Library.Control.Select(control.overlayStyle, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const clockPositionSelect =
-        new Library.Control.Select(control.clockPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+        new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const withClockCheckbox =
+        new Library.Control.Checkbox(control.withClock);
+    export const withWeatherCheckbox =
+        new Library.Control.Checkbox(control.withWeather);
     export const withCalenderCheckbox =
         new Library.Control.Checkbox(control.withCalendar);
     export const showFpsCheckbox =
@@ -117,6 +121,8 @@ export namespace UI
         Library.UI.getElementById("div", "clock-panel");
     export const calendar =
         Library.UI.getElementById("div", "calendar");
+    export const weather =
+        Library.UI.getElementById("span", "weather");
     export const date =
         Library.UI.getElementById("span", "date");
     export const time =
@@ -130,7 +136,7 @@ export namespace UI
         document.documentElement.setAttribute("lang", lang);
         document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
-        UI.clockSelect.reloadOptions();
+        UI.overlayStyleSelect.reloadOptions();
         UI.languageSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));

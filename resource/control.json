@@ -101,10 +101,9 @@
         ],
         "default": "stereo-double-arc"
     },
-    "clock": {
-        "id": "clock",
+    "overlayStyle": {
+        "id": "overlay-style",
         "enum": [
-            "hide",
             "blend",
             "white",
             "black",
@@ -112,10 +111,10 @@
             "alternate",
             "rainbow"
         ],
-        "default": "hide"
+        "default": "blend"
     },
-    "clockPosition": {
-        "id": "clock-position",
+    "overlayPosition": {
+        "id": "overlay-position",
         "enum": [
             "center",
             "top-right",
@@ -125,6 +124,14 @@
             "rotate"
         ],
         "default": "rotate"
+    },
+    "withClock": {
+        "id": "with-clock",
+        "default": false
+    },
+    "withWeather": {
+        "id": "with-weather",
+        "default": false
     },
     "withCalendar": {
         "id": "with-calendar",

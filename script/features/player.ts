@@ -2,6 +2,7 @@ import { Tools } from "@tools";
 import { Library } from "@library";
 import { Fps } from "./fps";
 import { Clock } from "./clock";
+import { Weather } from "./weather";
 import { UI } from "../ui";
 import { ElementPool } from "./elementpool";
 import { Media } from "./media";
@@ -376,6 +377,7 @@ export namespace Player
         if (isPlaying())
         {
             Clock.update(now);
+            Weather.update();
             Fps.step(now);
             updateFps();
             crossFade();

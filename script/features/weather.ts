@@ -1,14 +1,17 @@
-import { Locale } from "../library/locale";
+import { Library } from "../library";
+import { UI } from "../ui";
 export namespace Weather
 {
     export const site = "wttr.in";
     export const format = "%l:+%c+%t";
-    export const makeRequestUrl = (lang: Locale.Language, location?: string): string =>
+    export const makeRequestUrl = (lang: Library.Locale.Language, location?: string): string =>
         location && 0 < location.length ?
             `https://${lang}.${site}/${encodeURIComponent(location)}?format=${format}` :
             `https://${lang}.${site}/?format=${format}`;
     let lastRequestTimestamp: number = 0;
-    export const fetch = async (lang: Locale.Language, location?: string): Promise<string | undefined> =>
+    export const enforceMonocromeFont = (text: string): string =>
+        text.replace(/[\u2600-\u26FF]/g, m => `${m}\uFE0E`);
+    export const fetch = async (lang: Library.Locale.Language, location?: string): Promise<string | undefined> =>
     {
         let result: Awaited<ReturnType<typeof fetch>> = undefined;
         try
@@ -17,7 +20,7 @@ export namespace Weather
             const response = await window.fetch(makeRequestUrl(lang, location));
             if (response.ok)
             {
-                result = (await response.text())
+                result = enforceMonocromeFont(await response.text())
                     .replace(/\s+/g, " ")
                     .trim();
                 console.log("🌤 Weather data fetched:", result);
@@ -63,7 +66,7 @@ export namespace Weather
     }
     export const isExpired = (): boolean =>
         lastTimestampFingerprint !== getTimeFingerprint(new Date());
-    export const get = (lang: Locale.Language, location?: string): string =>
+    export const get = (lang: Library.Locale.Language, location?: string): string =>
     {
         if (isExpired())
         {
@@ -76,4 +79,16 @@ export namespace Weather
         }
         return cache;
     }
+    export const update = () =>
+    {
+        if (UI.withWeatherCheckbox.get())
+        {
+            const weather = get(Library.Locale.getLocale());
+            Library.UI.setTextContent(UI.weather, weather);
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.weather, "");
+        }
+    };
 }

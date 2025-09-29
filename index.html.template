@@ -53,6 +53,7 @@ DUMMYSTYLE
         <div id="clock-panel" dir="ltr">
             <span id="time"></span>
             <span id="date"></span>
+            <span id="weather"></span>
             <div id="calendar"></div>
         </div>
     </div>
@@ -136,14 +137,22 @@ DUMMYSTYLE
             <span data-lang-key="visualizer-label"></span>
             <select id="visualizer"></select>
         </label>
-        <label for="clock">
-            <span data-lang-key="clock-label"></span>
-            <select id="clock"></select>
-            <span class="load-status" id="clock-load-status"></span>
+        <label for="overlay-style">
+            <span data-lang-key="overlay-style-label"></span>
+            <select id="overlay-style"></select>
+            <span class="load-status" id="overlay-style-load-status"></span>
         </label>
-        <label for="clock-position">
-            <span data-lang-key="clock-position-label"></span>
-            <select id="clock-position"></select>
+        <label for="overlay-position">
+            <span data-lang-key="overlay-position-label"></span>
+            <select id="overlay-position"></select>
+        </label>
+        <label for="with-clock">
+            <span data-lang-key="with-clock-label"></span>
+            <input id="with-clock" type="checkbox" />
+        </label>
+        <label for="with-weather">
+            <span data-lang-key="with-weather-label"></span>
+            <input id="with-weather" type="checkbox" />
         </label>
         <label for="with-calendar">
             <span data-lang-key="with-calendar-label"></span>

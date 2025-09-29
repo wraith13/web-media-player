@@ -1,5 +1,6 @@
 import * as ImportedFps from "./fps";
 import * as ImportedClock from "./clock";
+import * as ImportedWeather from "./weather";
 //import * as ImportedMedia from "./media";
 //import * as ImortedHistory from "./history";
 import * as ImportedAnalyser from "./analyser";
@@ -10,6 +11,7 @@ export namespace Features
 {
     export import Fps = ImportedFps.Fps;
     export import Clock = ImportedClock.Clock;
+    export import Weather = ImportedWeather.Weather;
     //export import Media = ImportedMedia.Media;
     //export import History = ImortedHistory.History;
     export import Analyser = ImportedAnalyser.Analyser;

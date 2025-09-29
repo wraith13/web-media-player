@@ -1250,6 +1250,15 @@ body.no-media
                 white-space: nowrap;
             }
         }
+        #weather
+        {
+            @include font();
+            &
+            {
+                @include font-size(calc(2.1 * var(--diagonal)));
+                white-space: nowrap;
+            }
+        }
         #calendar
         {
             @include monospace-font();

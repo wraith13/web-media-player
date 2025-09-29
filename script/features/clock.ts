@@ -24,12 +24,9 @@ export namespace Clock
     export const updateText = (): void =>
     {
         const date = new Date();
-        const dateText = makeDate(date, locale);
-        Library.UI.setTextContent(UI.date, subtitle ?? dateText);
-        Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
         if (UI.clockDisplay.classList.contains("rotate"))
         {
-            const direction = ((new Date().getHours() %12) /3) |0;
+            const direction = ((date.getHours() %12) /3) |0;
             [
                 "top-right",
                 "bottom-right",
@@ -37,6 +34,17 @@ export namespace Clock
                 "top-left",
             ]
             .forEach((i, ix) => UI.clockDisplay.classList.toggle(i, direction === ix));
+        }
+        const dateText = makeDate(date, locale);
+        if (UI.withClockCheckbox.get())
+        {
+            Library.UI.setTextContent(UI.date, subtitle ?? dateText);
+            Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.date, "");
+            Library.UI.setTextContent(UI.time, "");
         }
         const dateDate = UI.withCalenderCheckbox.get() ? dateText: "";
         if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
@@ -88,13 +96,14 @@ export namespace Clock
     export const setColor = (color: string | undefined): void =>
     {
         Library.UI.setStyle(UI.calendar, "color", color);
+        Library.UI.setStyle(UI.weather, "color", color);
         Library.UI.setStyle(UI.date, "color", color);
         Library.UI.setStyle(UI.time, "color", color);
     };
     export let cloclLocale: string | undefined = undefined;
     export const update = (now: number) =>
     {
-        const clockOption = UI.clockSelect.get();
+        const clockOption = UI.overlayStyleSelect.get();
         if ("hide" !== clockOption)
         {
             Clock.updateText();

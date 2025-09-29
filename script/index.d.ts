@@ -57,9 +57,8 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
-            "with-calendar-label": string;
             "show-fps-label": string;
-            "clock-label": string;
+            "overlay-style-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -68,13 +67,16 @@ declare module "locale/generated/master" {
             alternate: string;
             rainbow: string;
             "brightness-label": string;
-            "clock-position-label": string;
+            "overlay-position-label": string;
             center: string;
             "top-right": string;
             "bottom-right": string;
             "bottom-left": string;
             "top-left": string;
             rotate: string;
+            "with-clock-label": string;
+            "with-weather-label": string;
+            "with-calendar-label": string;
             "stretch-label": string;
             "padding-label": string;
             "language-label": string;
@@ -124,9 +126,8 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "with-fullscreen-label": string;
-            "with-calendar-label": string;
             "show-fps-label": string;
-            "clock-label": string;
+            "overlay-style-label": string;
             hide: string;
             blend: string;
             white: string;
@@ -134,13 +135,16 @@ declare module "locale/generated/master" {
             system: string;
             alternate: string;
             rainbow: string;
-            "clock-position-label": string;
+            "overlay-position-label": string;
             center: string;
             "top-right": string;
             "bottom-right": string;
             "bottom-left": string;
             "top-left": string;
             rotate: string;
+            "with-clock-label": string;
+            "with-weather-label": string;
+            "with-calendar-label": string;
             "brightness-label": string;
             "stretch-label": string;
             "padding-label": string;
@@ -196,9 +200,8 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
-                "with-calendar-label": string;
                 "show-fps-label": string;
-                "clock-label": string;
+                "overlay-style-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -207,13 +210,16 @@ declare module "script/library/locale" {
                 alternate: string;
                 rainbow: string;
                 "brightness-label": string;
-                "clock-position-label": string;
+                "overlay-position-label": string;
                 center: string;
                 "top-right": string;
                 "bottom-right": string;
                 "bottom-left": string;
                 "top-left": string;
                 rotate: string;
+                "with-clock-label": string;
+                "with-weather-label": string;
+                "with-calendar-label": string;
                 "stretch-label": string;
                 "padding-label": string;
                 "language-label": string;
@@ -263,9 +269,8 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "with-fullscreen-label": string;
-                "with-calendar-label": string;
                 "show-fps-label": string;
-                "clock-label": string;
+                "overlay-style-label": string;
                 hide: string;
                 blend: string;
                 white: string;
@@ -273,13 +278,16 @@ declare module "script/library/locale" {
                 system: string;
                 alternate: string;
                 rainbow: string;
-                "clock-position-label": string;
+                "overlay-position-label": string;
                 center: string;
                 "top-right": string;
                 "bottom-right": string;
                 "bottom-left": string;
                 "top-left": string;
                 rotate: string;
+                "with-clock-label": string;
+                "with-weather-label": string;
+                "with-calendar-label": string;
                 "brightness-label": string;
                 "stretch-label": string;
                 "padding-label": string;
@@ -304,8 +312,8 @@ declare module "script/library/locale" {
             };
         };
         type Label = (keyof (typeof master[keyof typeof master])) | "";
-        type Language = keyof typeof master;
-        const getLocale: () => "en" | "ja";
+        type Language = string & keyof typeof master;
+        const getLocale: () => Language;
         const setLocale: (locale?: Language | "Auto") => void;
         const getDirection: (l?: Language) => string;
         const isRtl: (l?: Language) => boolean;
@@ -675,8 +683,10 @@ declare module "script/ui" {
         const imageSpanSelect: Library.Control.Select<number>;
         const loopShortMediaCheckbox: Library.Control.Checkbox;
         const visualizerSelect: Library.Control.Select<string>;
-        const clockSelect: Library.Control.Select<string>;
+        const overlayStyleSelect: Library.Control.Select<string>;
         const clockPositionSelect: Library.Control.Select<string>;
+        const withClockCheckbox: Library.Control.Checkbox;
+        const withWeatherCheckbox: Library.Control.Checkbox;
         const withCalenderCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const languageSelect: Library.Control.Select<string>;
@@ -684,6 +694,7 @@ declare module "script/ui" {
         const fpsDisplay: HTMLDivElement;
         const clockDisplay: HTMLDivElement;
         const calendar: HTMLDivElement;
+        const weather: HTMLSpanElement;
         const date: HTMLSpanElement;
         const time: HTMLSpanElement;
         const keyboardShortcut: HTMLDivElement;
@@ -698,16 +709,33 @@ declare module "script/ui" {
 declare module "script/features/clock" {
     export namespace Clock {
         let firstDayOfWeek: number;
-        let local: string | undefined;
+        let locale: string | undefined;
         let title: string | undefined;
         let subtitle: string | undefined;
-        const makeDate: (date: Date, local: string | undefined) => string;
-        const makeTime: (date: Date, local: string | undefined) => string;
+        const makeDate: (date: Date, locale: string | undefined) => string;
+        const makeTime: (date: Date, locale: string | undefined) => string;
         const updateText: () => void;
         const setColor: (color: string | undefined) => void;
         let cloclLocale: string | undefined;
         const update: (now: number) => void;
         const initialize: (params: Record<string, string>) => void;
+    }
+}
+declare module "script/features/weather" {
+    import { Library } from "script/library/index";
+    export namespace Weather {
+        const site = "wttr.in";
+        const format = "%l:+%c+%t";
+        const makeRequestUrl: (lang: Library.Locale.Language, location?: string) => string;
+        const enforceMonocromeFont: (text: string) => string;
+        const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
+        let cache: string;
+        let lastTimestampFingerprint: string;
+        const setCache: (data: string) => void;
+        const getTimeFingerprint: (date: Date | null) => string;
+        const isExpired: () => boolean;
+        const get: (lang: Library.Locale.Language, location?: string) => string;
+        const update: () => void;
     }
 }
 declare module "script/features/analyser" {
@@ -984,12 +1012,14 @@ declare module "script/features/player" {
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedClock from "script/features/clock";
+    import * as ImportedWeather from "script/features/weather";
     import * as ImportedAnalyser from "script/features/analyser";
     import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Clock = ImportedClock.Clock;
+        export import Weather = ImportedWeather.Weather;
         export import Analyser = ImportedAnalyser.Analyser;
         export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
