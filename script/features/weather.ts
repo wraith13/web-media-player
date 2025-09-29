@@ -1,5 +1,4 @@
 import { Library } from "../library";
-import { UI } from "../ui";
 export namespace Weather
 {
     export const site = "wttr.in";
@@ -79,16 +78,4 @@ export namespace Weather
         }
         return cache;
     }
-    export const update = () =>
-    {
-        if (UI.withWeatherCheckbox.get())
-        {
-            const weather = get(Library.Locale.getLocale());
-            Library.UI.setTextContent(UI.weather, weather);
-        }
-        else
-        {
-            Library.UI.setTextContent(UI.weather, "");
-        }
-    };
 }

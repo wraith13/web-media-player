@@ -1,8 +1,7 @@
 import { Tools } from "@tools";
 import { Library } from "@library";
 import { Fps } from "./fps";
-import { Clock } from "./clock";
-import { Weather } from "./weather";
+import { Overlay } from "./overlay";
 import { UI } from "../ui";
 import { ElementPool } from "./elementpool";
 import { Media } from "./media";
@@ -173,7 +172,7 @@ export namespace Player
         {
             window.cancelAnimationFrame(loopHandle);
         }
-        UI.clockDisplay.style.removeProperty("opacity");
+        UI.overlay.style.removeProperty("opacity");
         updateFullscreenState(false);
         navigator.mediaSession.playbackState = "paused";
         document.body.classList.toggle("list", true);
@@ -376,8 +375,7 @@ export namespace Player
     {
         if (isPlaying())
         {
-            Clock.update(now);
-            Weather.update();
+            Overlay.update(now);
             Fps.step(now);
             updateFps();
             crossFade();
@@ -442,7 +440,7 @@ export namespace Player
             }
             if (currentTrack.visualElement)
             {
-                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.clockDisplay);
+                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.overlay);
                 currentTrack.updateStretch();
             }
         }

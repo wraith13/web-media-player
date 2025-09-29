@@ -16,7 +16,7 @@ Url.initialize();
 UI.initialize();
 Events.initialize();
 MediaList.initialize();
-Features.Clock.initialize(Url.params);
+Features.Overlay.initialize(Url.params);
 Screenshot.initialize(Url.params);
 interface BuildInformation
 {

@@ -1132,7 +1132,7 @@ body.no-media
         }
     }
 }
-#clock-panel
+#overlay-panel
 {
     @include fade-transition("body:not(.play)", "&.hide");
     &
@@ -1314,7 +1314,7 @@ body.no-media
         }
     }
 }
-[dir="rtl"] #clock-panel
+[dir="rtl"] #overlay-panel
 {
     transform: translate(50%, -50%);
 }

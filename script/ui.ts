@@ -86,6 +86,8 @@ export namespace UI
         new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const withClockCheckbox =
         new Library.Control.Checkbox(control.withClock);
+    export const withDateCheckbox =
+        new Library.Control.Checkbox(control.withDate);
     export const withWeatherCheckbox =
         new Library.Control.Checkbox(control.withWeather);
     export const withCalenderCheckbox =
@@ -117,8 +119,8 @@ export namespace UI
         Library.UI.getElementById("a", "url");
     export const fpsDisplay =
         Library.UI.getElementById("div", "fps");
-    export const clockDisplay =
-        Library.UI.getElementById("div", "clock-panel");
+    export const overlay =
+        Library.UI.getElementById("div", "overlay-panel");
     export const calendar =
         Library.UI.getElementById("div", "calendar");
     export const weather =

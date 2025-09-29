@@ -222,6 +222,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "top-left": "Top Left",
             "rotate": "Rotate",
             "with-clock-label": "Clock:",
+            "with-date-label": "Date:",
             "with-weather-label": "Weather:",
             "with-calendar-label": "Calendar:",
             "stretch-label": "Stretch:",
@@ -290,6 +291,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "top-left": "左上",
             "rotate": "回転",
             "with-clock-label": "時計:",
+            "with-date-label": "日付:",
             "with-weather-label": "天気:",
             "with-calendar-label": "カレンダー:",
             "brightness-label": "明るさ:",
@@ -1712,6 +1714,10 @@ define("resource/control", [], {
         "id": "with-clock",
         "default": false
     },
+    "withDate": {
+        "id": "with-date",
+        "default": false
+    },
     "withWeather": {
         "id": "with-weather",
         "default": false
@@ -1789,6 +1795,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.withClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withClock);
+        UI.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
         UI.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
         UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
@@ -1804,7 +1811,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         });
         UI.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
-        UI.clockDisplay = _library_2.Library.UI.getElementById("div", "clock-panel");
+        UI.overlay = _library_2.Library.UI.getElementById("div", "overlay-panel");
         UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
         UI.weather = _library_2.Library.UI.getElementById("span", "weather");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
@@ -1861,120 +1868,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/clock", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "resource/config"], function (require, exports, library_1, tools_1, ui_2, config_json_2) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Clock = void 0;
-    config_json_2 = __importDefault(config_json_2);
-    var phi = (1 + Math.sqrt(5)) / 2;
-    var Clock;
-    (function (Clock) {
-        Clock.firstDayOfWeek = config_json_2.default.clock.firstDayOfWeek;
-        Clock.locale = undefined;
-        Clock.title = undefined;
-        Clock.subtitle = undefined;
-        Clock.makeDate = function (date, locale) {
-            return date.toLocaleDateString(locale, config_json_2.default.clock.dateFormat);
-        };
-        Clock.makeTime = function (date, locale) {
-            return date.toLocaleTimeString(locale, config_json_2.default.clock.timeFormat);
-        };
-        Clock.updateText = function () {
-            var _a;
-            var date = new Date();
-            if (ui_2.UI.clockDisplay.classList.contains("rotate")) {
-                var direction_1 = ((date.getHours() % 12) / 3) | 0;
-                [
-                    "top-right",
-                    "bottom-right",
-                    "bottom-left",
-                    "top-left",
-                ]
-                    .forEach(function (i, ix) { return ui_2.UI.clockDisplay.classList.toggle(i, direction_1 === ix); });
-            }
-            var dateText = Clock.makeDate(date, Clock.locale);
-            if (ui_2.UI.withClockCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_2.UI.date, Clock.subtitle !== null && Clock.subtitle !== void 0 ? Clock.subtitle : dateText);
-                library_1.Library.UI.setTextContent(ui_2.UI.time, Clock.title !== null && Clock.title !== void 0 ? Clock.title : Clock.makeTime(date, Clock.locale));
-            }
-            else {
-                library_1.Library.UI.setTextContent(ui_2.UI.date, "");
-                library_1.Library.UI.setTextContent(ui_2.UI.time, "");
-            }
-            var dateDate = ui_2.UI.withCalenderCheckbox.get() ? dateText : "";
-            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
-                var attribute = document.createAttribute("data-date");
-                attribute.value = dateDate;
-                ui_2.UI.calendar.attributes.setNamedItem(attribute);
-                if ("" === dateDate) {
-                    library_1.Library.UI.removeAllChildren(ui_2.UI.calendar);
-                }
-                else {
-                    var weeks = [];
-                    var currentDate = new Date(date);
-                    var currentDay = currentDate.getDay();
-                    var offset = (currentDay - Clock.firstDayOfWeek + 7) % 7;
-                    var startOfWeek = new Date(currentDate);
-                    startOfWeek.setDate(currentDate.getDate() - offset);
-                    for (var w = -3; w <= 3; ++w) {
-                        var weekDays = [];
-                        for (var d = 0; d < 7; ++d) {
-                            var day = new Date(startOfWeek);
-                            day.setDate(startOfWeek.getDate() + w * 7 + d);
-                            weekDays.push({
-                                tag: "span",
-                                className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
-                                text: day.getDate().toString(),
-                            });
-                        }
-                        weeks.push({
-                            tag: "div",
-                            className: "week",
-                            children: weekDays,
-                        });
-                    }
-                    library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
-                }
-            }
-        };
-        Clock.setColor = function (color) {
-            library_1.Library.UI.setStyle(ui_2.UI.calendar, "color", color);
-            library_1.Library.UI.setStyle(ui_2.UI.weather, "color", color);
-            library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
-            library_1.Library.UI.setStyle(ui_2.UI.time, "color", color);
-        };
-        Clock.cloclLocale = undefined;
-        Clock.update = function (now) {
-            var clockOption = ui_2.UI.overlayStyleSelect.get();
-            if ("hide" !== clockOption) {
-                Clock.updateText();
-                switch (clockOption) {
-                    case "alternate":
-                        var isWhite = (new Date().getTime() / config_json_2.default.clock.alternate.span) % 2 < 1.0;
-                        ui_2.UI.clockDisplay.classList.toggle("white", isWhite);
-                        ui_2.UI.clockDisplay.classList.toggle("black", !isWhite);
-                        Clock.setColor(undefined);
-                        break;
-                    case "rainbow":
-                        Clock.setColor("hsl(".concat((now * 360) / (24000 * phi), ", 100%, 50%)"));
-                        break;
-                    default:
-                        Clock.setColor(undefined);
-                        break;
-                }
-            }
-        };
-        Clock.initialize = function (params) {
-            var _a;
-            Clock.firstDayOfWeek = ((_a = tools_1.Tools.Number.parseInt(params["first-day-of-week"])) !== null && _a !== void 0 ? _a : config_json_2.default.clock.firstDayOfWeek) % 7;
-            Clock.locale = params["locale"];
-            Clock.title = params["title"];
-            Clock.subtitle = params["subtitle"];
-            ui_2.UI.time.classList.toggle("text", undefined !== Clock.title);
-        };
-    })(Clock || (exports.Clock = Clock = {}));
-});
-define("script/features/weather", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, library_2, ui_3) {
+define("script/features/weather", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Weather = void 0;
@@ -2062,16 +1956,131 @@ define("script/features/weather", ["require", "exports", "script/library/index",
             }
             return Weather.cache;
         };
-        Weather.update = function () {
-            if (ui_3.UI.withWeatherCheckbox.get()) {
-                var weather = Weather.get(library_2.Library.Locale.getLocale());
-                library_2.Library.UI.setTextContent(ui_3.UI.weather, weather);
+    })(Weather || (exports.Weather = Weather = {}));
+});
+define("script/features/overlay", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "script/features/weather", "resource/config"], function (require, exports, library_1, tools_1, ui_2, weather_1, config_json_2) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Overlay = void 0;
+    config_json_2 = __importDefault(config_json_2);
+    var phi = (1 + Math.sqrt(5)) / 2;
+    var Overlay;
+    (function (Overlay) {
+        Overlay.firstDayOfWeek = config_json_2.default.clock.firstDayOfWeek;
+        Overlay.locale = undefined;
+        Overlay.title = undefined;
+        Overlay.subtitle = undefined;
+        Overlay.makeDate = function (date, locale) {
+            return date.toLocaleDateString(locale, config_json_2.default.clock.dateFormat);
+        };
+        Overlay.makeTime = function (date, locale) {
+            return date.toLocaleTimeString(locale, config_json_2.default.clock.timeFormat);
+        };
+        Overlay.updateText = function () {
+            var _a;
+            var date = new Date();
+            if (ui_2.UI.overlay.classList.contains("rotate")) {
+                var direction_1 = ((date.getHours() % 12) / 3) | 0;
+                [
+                    "top-right",
+                    "bottom-right",
+                    "bottom-left",
+                    "top-left",
+                ]
+                    .forEach(function (i, ix) { return ui_2.UI.overlay.classList.toggle(i, direction_1 === ix); });
+            }
+            var dateText = Overlay.makeDate(date, Overlay.locale);
+            if (ui_2.UI.withClockCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_2.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
             }
             else {
-                library_2.Library.UI.setTextContent(ui_3.UI.weather, "");
+                library_1.Library.UI.setTextContent(ui_2.UI.time, "");
+            }
+            if (ui_2.UI.withDateCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_2.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : dateText);
+            }
+            else {
+                library_1.Library.UI.setTextContent(ui_2.UI.date, "");
+            }
+            if (ui_2.UI.withWeatherCheckbox.get()) {
+                var weather = weather_1.Weather.get(library_1.Library.Locale.getLocale());
+                library_1.Library.UI.setTextContent(ui_2.UI.weather, weather);
+            }
+            else {
+                library_1.Library.UI.setTextContent(ui_2.UI.weather, "");
+            }
+            var dateDate = ui_2.UI.withCalenderCheckbox.get() ? dateText : "";
+            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
+                var attribute = document.createAttribute("data-date");
+                attribute.value = dateDate;
+                ui_2.UI.calendar.attributes.setNamedItem(attribute);
+                if ("" === dateDate) {
+                    library_1.Library.UI.removeAllChildren(ui_2.UI.calendar);
+                }
+                else {
+                    var weeks = [];
+                    var currentDate = new Date(date);
+                    var currentDay = currentDate.getDay();
+                    var offset = (currentDay - Overlay.firstDayOfWeek + 7) % 7;
+                    var startOfWeek = new Date(currentDate);
+                    startOfWeek.setDate(currentDate.getDate() - offset);
+                    for (var w = -3; w <= 3; ++w) {
+                        var weekDays = [];
+                        for (var d = 0; d < 7; ++d) {
+                            var day = new Date(startOfWeek);
+                            day.setDate(startOfWeek.getDate() + w * 7 + d);
+                            weekDays.push({
+                                tag: "span",
+                                className: "day".concat(currentDate.getMonth() === day.getMonth() && currentDate.getDate() === day.getDate() ? " today" : "").concat(currentDate.getMonth() === day.getMonth() ? " current-month" : ""),
+                                text: day.getDate().toString(),
+                            });
+                        }
+                        weeks.push({
+                            tag: "div",
+                            className: "week",
+                            children: weekDays,
+                        });
+                    }
+                    library_1.Library.UI.replaceChildren(ui_2.UI.calendar, weeks);
+                }
             }
         };
-    })(Weather || (exports.Weather = Weather = {}));
+        Overlay.setColor = function (color) {
+            library_1.Library.UI.setStyle(ui_2.UI.calendar, "color", color);
+            library_1.Library.UI.setStyle(ui_2.UI.weather, "color", color);
+            library_1.Library.UI.setStyle(ui_2.UI.date, "color", color);
+            library_1.Library.UI.setStyle(ui_2.UI.time, "color", color);
+        };
+        Overlay.cloclLocale = undefined;
+        Overlay.update = function (now) {
+            var clockOption = ui_2.UI.overlayStyleSelect.get();
+            if ("hide" !== clockOption) {
+                Overlay.updateText();
+                switch (clockOption) {
+                    case "alternate":
+                        var isWhite = (new Date().getTime() / config_json_2.default.clock.alternate.span) % 2 < 1.0;
+                        ui_2.UI.overlay.classList.toggle("white", isWhite);
+                        ui_2.UI.overlay.classList.toggle("black", !isWhite);
+                        Overlay.setColor(undefined);
+                        break;
+                    case "rainbow":
+                        Overlay.setColor("hsl(".concat((now * 360) / (24000 * phi), ", 100%, 50%)"));
+                        break;
+                    default:
+                        Overlay.setColor(undefined);
+                        break;
+                }
+            }
+        };
+        Overlay.initialize = function (params) {
+            var _a;
+            Overlay.firstDayOfWeek = ((_a = tools_1.Tools.Number.parseInt(params["first-day-of-week"])) !== null && _a !== void 0 ? _a : config_json_2.default.clock.firstDayOfWeek) % 7;
+            Overlay.locale = params["locale"];
+            Overlay.title = params["title"];
+            Overlay.subtitle = params["subtitle"];
+            ui_2.UI.time.classList.toggle("text", undefined !== Overlay.title);
+        };
+    })(Overlay || (exports.Overlay = Overlay = {}));
 });
 define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_3) {
     "use strict";
@@ -2420,7 +2429,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_4, config_json_4) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_3, config_json_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
@@ -2521,31 +2530,31 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.CanvasContext2D = CanvasContext2D;
         Visualizer.VisualizerDom = HTMLDivElement;
         Visualizer.isSimpleMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("simple");
+            return ui_3.UI.mediaScreen.classList.contains("simple");
         };
         Visualizer.isPlaneFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("plane-frequency");
+            return ui_3.UI.mediaScreen.classList.contains("plane-frequency");
         };
         Visualizer.isPlaneWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("plane-waveform");
+            return ui_3.UI.mediaScreen.classList.contains("plane-waveform");
         };
         Visualizer.isArcFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("arc-frequency");
+            return ui_3.UI.mediaScreen.classList.contains("arc-frequency");
         };
         Visualizer.isArcWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("arc-waveform");
+            return ui_3.UI.mediaScreen.classList.contains("arc-waveform");
         };
         Visualizer.isDoubleArcMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("double-arc");
+            return ui_3.UI.mediaScreen.classList.contains("double-arc");
         };
         Visualizer.isStereoArcFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-arc-frequency");
+            return ui_3.UI.mediaScreen.classList.contains("stereo-arc-frequency");
         };
         Visualizer.isStereoArcWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-arc-waveform");
+            return ui_3.UI.mediaScreen.classList.contains("stereo-arc-waveform");
         };
         Visualizer.isStereoDoubleArcMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-double-arc");
+            return ui_3.UI.mediaScreen.classList.contains("stereo-double-arc");
         };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -2803,7 +2812,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_5, analyser_1) {
+define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_4, analyser_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ElementPool = void 0;
@@ -2814,7 +2823,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.makeSure = function (data) {
             var result = Promise.resolve();
             if (data.image) {
-                while (ui_5.UI.elementPool.getElementsByTagName("img").length < 4) {
+                while (ui_4.UI.elementPool.getElementsByTagName("img").length < 4) {
                     var imgElement = _library_5.Library.UI.createElement({
                         tag: "img",
                         className: "player",
@@ -2823,12 +2832,12 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                             alt: data.image.name,
                         },
                     });
-                    ui_5.UI.elementPool.appendChild(imgElement);
+                    ui_4.UI.elementPool.appendChild(imgElement);
                 }
             }
             if (data.audio) {
                 var url_1 = data.audio.url;
-                var count = ui_5.UI.elementPool.getElementsByTagName("audio").length;
+                var count = ui_4.UI.elementPool.getElementsByTagName("audio").length;
                 while (count++ < 2) {
                     result = result.then(function () {
                         var audioElement = _library_5.Library.UI.createElement({
@@ -2840,7 +2849,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                                 autoplay: false,
                             },
                         });
-                        ui_5.UI.elementPool.appendChild(audioElement);
+                        ui_4.UI.elementPool.appendChild(audioElement);
                         audioElement.volume = 0;
                         audioElement.muted = false;
                         return audioElement.play().then(function () { audioElement.pause(); audioElement.currentTime = 0; });
@@ -2849,7 +2858,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
             }
             if (data.video) {
                 var url_2 = data.video.url;
-                var count = ui_5.UI.elementPool.getElementsByTagName("video").length;
+                var count = ui_4.UI.elementPool.getElementsByTagName("video").length;
                 while (count++ < 4) {
                     result = result.then(function () {
                         var videoElement = _library_5.Library.UI.createElement({
@@ -2863,7 +2872,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                                 webkitPlaysinline: true,
                             },
                         });
-                        ui_5.UI.elementPool.appendChild(videoElement);
+                        ui_4.UI.elementPool.appendChild(videoElement);
                         videoElement.volume = 0;
                         videoElement.muted = false;
                         return videoElement.play().then(function () { videoElement.pause(); videoElement.currentTime = 0; });
@@ -2894,7 +2903,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.get = function (media) {
             switch (media.category) {
                 case "image":
-                    var imgElement = ui_5.UI.elementPool.getElementsByTagName("img")[0];
+                    var imgElement = ui_4.UI.elementPool.getElementsByTagName("img")[0];
                     if (imgElement) {
                         imgElement.src = media.url;
                         imgElement.alt = media.name;
@@ -2902,7 +2911,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                     }
                     break;
                 case "audio":
-                    var audioElement = ui_5.UI.elementPool.getElementsByTagName("audio")[0];
+                    var audioElement = ui_4.UI.elementPool.getElementsByTagName("audio")[0];
                     if (audioElement) {
                         audioElement.src = media.url;
                         audioElement.controls = false;
@@ -2914,7 +2923,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                     }
                     break;
                 case "video":
-                    var videoElement = ui_5.UI.elementPool.getElementsByTagName("video")[0];
+                    var videoElement = ui_4.UI.elementPool.getElementsByTagName("video")[0];
                     if (videoElement) {
                         videoElement.src = media.url;
                         videoElement.autoplay = false;
@@ -2934,12 +2943,12 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.release = function (element) {
             if (element) {
                 element.className = "player";
-                ui_5.UI.elementPool.appendChild(element);
+                ui_4.UI.elementPool.appendChild(element);
             }
         };
     })(ElementPool || (exports.ElementPool = ElementPool = {}));
 });
-define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_3, ui_6, Config) {
+define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_3, ui_5, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.History = void 0;
@@ -2987,7 +2996,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 if (media) {
                     History.clear();
                     var index = media_1.Media.mediaList.indexOf(media);
-                    if (ui_6.UI.shuffleButton.dom.classList.contains("on")) {
+                    if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
                         history.push(index);
                     }
                     else {
@@ -3015,7 +3024,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 ++currentIndex;
                 if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    if (ui_6.UI.shuffleButton.dom.classList.contains("on")) {
+                    if (ui_5.UI.shuffleButton.dom.classList.contains("on")) {
                         history.push(History.getShuffleNext());
                     }
                     else {
@@ -3031,7 +3040,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < media_1.Media.mediaList.length ||
                     0 < History.getStraightNext(nextIndex) ||
-                    ui_6.UI.repeatButton.dom.classList.contains("on")) {
+                    ui_5.UI.repeatButton.dom.classList.contains("on")) {
                     return false;
                 }
             }
@@ -3072,7 +3081,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_4, _library_6, ui_7, elementpool_1, analyser_2, visualizer_1, config_json_5) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_4, _library_6, ui_6, elementpool_1, analyser_2, visualizer_1, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
@@ -3271,19 +3280,19 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
-                ui_7.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
+                ui_6.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }
             else {
-                ui_7.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+                ui_6.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
             }
         };
         Track.prototype.isLoop = function () {
-            var loopShortMedia = ui_7.UI.loopShortMediaCheckbox.get();
+            var loopShortMedia = ui_6.UI.loopShortMediaCheckbox.get();
             var imageSpan = this.getImageDuration();
             return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
         };
         Track.prototype.getImageDuration = function () {
-            return parseFloat(ui_7.UI.imageSpanSelect.get());
+            return parseFloat(ui_6.UI.imageSpanSelect.get());
         };
         Track.prototype.getDuration = function () {
             if (this.isLoop()) {
@@ -3345,9 +3354,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (this.visualElement) {
                 if (this.media.area) {
-                    var StretchRate = ui_7.UI.stretchRange.get() / 100;
+                    var StretchRate = ui_6.UI.stretchRange.get() / 100;
                     var isFit = this.appleyStretch(this.playerElement, StretchRate);
-                    if (ui_7.UI.paddingCheckbox.get()) {
+                    if (ui_6.UI.paddingCheckbox.get()) {
                         if (!isFit) {
                             if (null === this.paddingElement) {
                                 this.paddingElement = this.makePlayerElement();
@@ -3460,7 +3469,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     }());
     exports.Track = Track;
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/clock", "script/features/weather", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _tools_5, _library_7, fps_1, clock_1, weather_1, ui_8, elementpool_2, media_2, history_1, track_1, Config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _tools_5, _library_7, fps_1, overlay_1, ui_7, elementpool_2, media_2, history_1, track_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -3473,7 +3482,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             CrossFade.startAt = null;
             CrossFade.elapsedTime = null;
             CrossFade.getDuration = function () {
-                return parseFloat(ui_8.UI.crossFadeSelect.get());
+                return parseFloat(ui_7.UI.crossFadeSelect.get());
             };
             CrossFade.clear = function () {
                 CrossFade.startAt = null;
@@ -3527,7 +3536,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         var loopHandle = null;
         Player.updateFullscreenState = function (fullscreen) {
             if (_library_7.Library.UI.fullscreenEnabled) {
-                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_8.UI.withFullscreenCheckbox.get()) {
+                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_7.UI.withFullscreenCheckbox.get()) {
                     _library_7.Library.UI.requestFullscreen(document.body);
                     setTimeout(function () { return document.body.focus(); }, 100);
                 }
@@ -3594,7 +3603,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (currentMedia) {
                             Player.playMedia(currentMedia, "resume");
                         }
-                        else if (!ui_8.UI.repeatButton.dom.classList.contains("on")) {
+                        else if (!ui_7.UI.repeatButton.dom.classList.contains("on")) {
                             Player.pause();
                         }
                         return [2 /*return*/];
@@ -3610,7 +3619,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
             }
-            ui_8.UI.clockDisplay.style.removeProperty("opacity");
+            ui_7.UI.overlay.style.removeProperty("opacity");
             Player.updateFullscreenState(false);
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
@@ -3619,9 +3628,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
             var isResumable = 0 < media_2.Media.mediaList.length && null !== currentTrack;
-            ui_8.UI.screenBody.classList.toggle("paused", isResumable);
+            ui_7.UI.screenBody.classList.toggle("paused", isResumable);
             if (isResumable) {
-                ui_8.UI.mediaList.scrollTop = ui_8.UI.mediaList.scrollHeight;
+                ui_7.UI.mediaList.scrollTop = ui_7.UI.mediaList.scrollHeight;
                 document.body.classList.toggle("show-paused-media", true);
             }
         };
@@ -3647,7 +3656,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.clearCrossFade = function () {
             if (null !== currentTrack) {
                 if (CrossFade.isCrossFading()) {
-                    var currentVolume = ui_8.UI.volumeRange.get() / 100;
+                    var currentVolume = ui_7.UI.volumeRange.get() / 100;
                     CrossFade.clear();
                     Player.removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
@@ -3689,8 +3698,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.updateFps = function () {
-            if (ui_8.UI.showFpsCheckbox.get()) {
-                _library_7.Library.UI.setTextContent(ui_8.UI.fpsDisplay, fps_1.Fps.getText());
+            if (ui_7.UI.showFpsCheckbox.get()) {
+                _library_7.Library.UI.setTextContent(ui_7.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
         var lastTimeVolume = 1.0;
@@ -3699,7 +3708,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 if (currentTrack.getRemainingTime() <= 0) {
                     return true;
                 }
-                if (0 < parseFloat(ui_8.UI.crossFadeSelect.get())) {
+                if (0 < parseFloat(ui_7.UI.crossFadeSelect.get())) {
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
                             return true;
@@ -3717,9 +3726,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 0:
                         if (!(null !== currentTrack && !Player.isSeeking())) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
-                            ui_8.UI.mediaLength.click();
+                            ui_7.UI.mediaLength.click();
                         }
-                        currentVolume = ui_8.UI.volumeRange.get() / 100;
+                        currentVolume = ui_7.UI.volumeRange.get() / 100;
                         if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
                         CrossFade.clear();
@@ -3775,7 +3784,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack.step();
             }
             if (null !== currentTrack) {
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaTime, Player.makeTimeText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_7.UI.mediaTime, Player.makeTimeText(currentTrack));
                 currentTrack.step();
                 currentTrack.setPositionState();
             }
@@ -3783,8 +3792,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.loop = function (now) {
             var _a, _b;
             if (Player.isPlaying()) {
-                clock_1.Clock.update(now);
-                weather_1.Weather.update();
+                overlay_1.Overlay.update(now);
                 fps_1.Fps.step(now);
                 Player.updateFps();
                 Player.crossFade();
@@ -3817,10 +3825,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaIndex, Player.makeIndexText(currentTrack));
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                var currentVolume = ui_8.UI.volumeRange.get() / 100;
-                if (0 < parseFloat(ui_8.UI.crossFadeSelect.get()) && fadeoutingTrack) {
+                _library_7.Library.UI.setTextContent(ui_7.UI.mediaIndex, Player.makeIndexText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_7.UI.mediaTitle, Player.makeTitleText(currentTrack));
+                var currentVolume = ui_7.UI.volumeRange.get() / 100;
+                if (0 < parseFloat(ui_7.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
                     fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
@@ -3838,7 +3846,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
-                    ui_8.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_8.UI.clockDisplay);
+                    ui_7.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_7.UI.overlay);
                     currentTrack.updateStretch();
                 }
             }
@@ -3847,7 +3855,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (track) {
                 track.pause();
                 if (track.visualElement) {
-                    ui_8.UI.mediaScreen.removeChild(track.visualElement);
+                    ui_7.UI.mediaScreen.removeChild(track.visualElement);
                 }
                 track.release();
             }
@@ -3868,10 +3876,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.clear = function () {
-            ui_8.UI.screenBody.classList.toggle("paused", false);
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaIndex, "");
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaTitle, "");
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaTime, "");
+            ui_7.UI.screenBody.classList.toggle("paused", false);
+            _library_7.Library.UI.setTextContent(ui_7.UI.mediaIndex, "");
+            _library_7.Library.UI.setTextContent(ui_7.UI.mediaTitle, "");
+            _library_7.Library.UI.setTextContent(ui_7.UI.mediaTime, "");
             history_1.History.clear();
             CrossFade.clear();
             Player.removeFadeoutTrack();
@@ -3891,12 +3899,12 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/clock", "script/features/weather", "script/features/analyser", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedClock, ImportedWeather, ImportedAnalyser, ImportedVisualizer, ImportedPlayer) {
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/overlay", "script/features/weather", "script/features/analyser", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedOverlay, ImportedWeather, ImportedAnalyser, ImportedVisualizer, ImportedPlayer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
     ImportedFps = __importStar(ImportedFps);
-    ImportedClock = __importStar(ImportedClock);
+    ImportedOverlay = __importStar(ImportedOverlay);
     ImportedWeather = __importStar(ImportedWeather);
     ImportedAnalyser = __importStar(ImportedAnalyser);
     ImportedVisualizer = __importStar(ImportedVisualizer);
@@ -3904,7 +3912,7 @@ define("script/features/index", ["require", "exports", "script/features/fps", "s
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
-        Features.Clock = ImportedClock.Clock;
+        Features.Overlay = ImportedOverlay.Overlay;
         Features.Weather = ImportedWeather.Weather;
         //export import Media = ImportedMedia.Media;
         //export import History = ImortedHistory.History;
@@ -3962,7 +3970,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_9) {
+define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Progress = void 0;
@@ -3982,7 +3990,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
         Progress.updateProgress = function () {
             document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
-            ui_9.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
+            ui_8.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -3990,7 +3998,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_6, _library_8, _features_1, media_3, ui_10, progress_1) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_6, _library_8, _features_1, media_3, ui_9, progress_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -4011,10 +4019,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         console.log("✅ Valid media file:", file);
                         media_3.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
-                        _b = (_a = ui_10.UI.mediaList).insertBefore;
+                        _b = (_a = ui_9.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_10.UI.addMediaButton.dom.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_9.UI.addMediaButton.dom.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -4108,7 +4116,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 _d)]);
                         item.addEventListener("dragstart", function (event) {
                             var _a;
-                            ui_10.UI.mediaList.classList.add("dragging");
+                            ui_9.UI.mediaList.classList.add("dragging");
                             item.classList.add("dragging");
                             (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
                         });
@@ -4116,7 +4124,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
-                                        ui_10.UI.mediaList.classList.remove("dragging");
+                                        ui_9.UI.mediaList.classList.remove("dragging");
                                         item.classList.remove("dragging");
                                         return [4 /*yield*/, MediaList.updateMediaListDisplay()];
                                     case 1:
@@ -4166,7 +4174,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        Array.from(ui_10.UI.mediaList.children).forEach(function (child) {
+                        Array.from(ui_9.UI.mediaList.children).forEach(function (child) {
                             if (child instanceof HTMLDivElement && !child.classList.contains("add")) {
                                 child.remove();
                             }
@@ -4177,10 +4185,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
                         entry = _a[_i];
-                        _c = (_b = ui_10.UI.mediaList).insertBefore;
+                        _c = (_b = ui_9.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_10.UI.addMediaButton.dom.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_9.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -4190,21 +4198,21 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_10.UI.mediaCount, media_3.Media.mediaList.length.toString());
-            var imageSpan = parseInt(ui_10.UI.imageSpanSelect.get());
+            _library_8.Library.UI.setTextContent(ui_9.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_9.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_10.UI.mediaLength, _tools_6.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_9.UI.mediaLength, _tools_6.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
         };
         MediaList.clearPlayState = function () {
             _features_1.Features.Player.clear();
-            ui_10.UI.mediaList.classList.toggle("paused", false);
+            ui_9.UI.mediaList.classList.toggle("paused", false);
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_7, _library_9, _features_2, media_4, medialist_1, ui_11, url_3, config_json_7, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_7, _library_9, _features_2, media_4, medialist_1, ui_10, url_3, config_json_7, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -4214,31 +4222,31 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     (function (Events) {
         var _this = this;
         var updateShowFps = function () {
-            ui_11.UI.fpsDisplay.classList.toggle("hide", !ui_11.UI.showFpsCheckbox.get());
+            ui_10.UI.fpsDisplay.classList.toggle("hide", !ui_10.UI.showFpsCheckbox.get());
         };
         var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function () {
-            var value = ui_11.UI.brightnessRange.get();
+            var value = ui_10.UI.brightnessRange.get();
             console.log("💡 Brightness changed:", value);
-            brightnessTimer.start(ui_11.UI.mediaScreen, "disable-transition", 100);
-            _library_9.Library.UI.setStyle(ui_11.UI.mediaScreen, "opacity", "".concat(value / 100));
+            brightnessTimer.start(ui_10.UI.mediaScreen, "disable-transition", 100);
+            _library_9.Library.UI.setStyle(ui_10.UI.mediaScreen, "opacity", "".concat(value / 100));
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {
             _features_2.Features.Player.updateLoopShortMedia();
         };
         var updateVisualizer = function () {
-            var value = ui_11.UI.visualizerSelect.get();
-            control_json_2.default.visualizer.enum.forEach(function (i) { return ui_11.UI.mediaScreen.classList.toggle(i, i === value); });
+            var value = ui_10.UI.visualizerSelect.get();
+            control_json_2.default.visualizer.enum.forEach(function (i) { return ui_10.UI.mediaScreen.classList.toggle(i, i === value); });
         };
         var updateOverlayStyle = function () {
-            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_11.UI.clockDisplay.classList.toggle(i, i === ui_11.UI.overlayStyleSelect.get()); });
+            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_10.UI.overlay.classList.toggle(i, i === ui_10.UI.overlayStyleSelect.get()); });
         };
         var updateOverlayPosition = function () {
-            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_11.UI.clockDisplay.classList.toggle(i, i === ui_11.UI.clockPositionSelect.get()); });
+            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_10.UI.overlay.classList.toggle(i, i === ui_10.UI.clockPositionSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
-            return ui_11.UI.urlAnchor.href = url_3.Url.make(params);
+            return ui_10.UI.urlAnchor.href = url_3.Url.make(params);
         };
         var dragover = function (event) {
             var _a;
@@ -4248,7 +4256,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_11.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_10.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -4279,12 +4287,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.classList.remove("is-seeking");
             if (_features_2.Features.Player.isPlaying()) {
                 _features_2.Features.Player.temporaryResume();
-                _features_2.Features.Player.seek(ui_11.UI.seekRange.valueAsNumber);
+                _features_2.Features.Player.seek(ui_10.UI.seekRange.valueAsNumber);
             }
         }, 500);
         var updateSeek = function () {
             isSeekingTimer.kick();
-            _features_2.Features.Player.seek(ui_11.UI.seekRange.valueAsNumber);
+            _features_2.Features.Player.seek(ui_10.UI.seekRange.valueAsNumber);
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
@@ -4336,45 +4344,45 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if (["ArrowUp"].includes(event.key)) {
                     event.preventDefault();
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + 5);
-                    ui_11.UI.volumeRange.fire();
+                    ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() + 5);
+                    ui_10.UI.volumeRange.fire();
                 }
                 if (["ArrowDown"].includes(event.key)) {
                     event.preventDefault();
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() - 5);
-                    ui_11.UI.volumeRange.fire();
+                    ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() - 5);
+                    ui_10.UI.volumeRange.fire();
                 }
                 if (["Escape"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    ui_11.UI.settingButton.dom.classList.toggle("on", false);
-                    ui_11.UI.volumeButton.dom.classList.toggle("on", false);
+                    ui_10.UI.settingButton.dom.classList.toggle("on", false);
+                    ui_10.UI.volumeButton.dom.classList.toggle("on", false);
                 }
                 if ("F" === event.key.toUpperCase() && !event.repeat) {
                     event.preventDefault();
                     if (_library_9.Library.UI.fullscreenEnabled) {
-                        ui_11.UI.withFullscreenCheckbox.toggle();
+                        ui_10.UI.withFullscreenCheckbox.toggle();
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
                 if ("P" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_11.UI.paddingCheckbox.toggle();
+                    ui_10.UI.paddingCheckbox.toggle();
                     _features_2.Features.Player.updateStretch();
                 }
                 if ("R" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_11.UI.repeatButton.dom.classList.toggle("on");
+                    ui_10.UI.repeatButton.dom.classList.toggle("on");
                 }
                 if ("S" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_11.UI.shuffleButton.dom.classList.toggle("on");
+                    ui_10.UI.shuffleButton.dom.classList.toggle("on");
                 }
             });
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
             //document.body.className = "play";
             document.body.className = "list";
-            ui_11.UI.screenBody.addEventListener("click", function () { return document.body.classList.toggle("show-ui"); });
+            ui_10.UI.screenBody.addEventListener("click", function () { return document.body.classList.toggle("show-ui"); });
             var applyParam = function (key, value) {
                 url_3.Url.addParameter(url_3.Url.params, key, value);
                 updateUrlAnchor(url_3.Url.params);
@@ -4383,27 +4391,27 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
-            ui_11.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_11.UI.screenBody.classList.contains("paused") && ui_11.UI.isScrolledToMediaListBottom()); });
-            ui_11.UI.addMediaButton.data.click = function (event, button) {
+            ui_10.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_10.UI.screenBody.classList.contains("paused") && ui_10.UI.isScrolledToMediaListBottom()); });
+            ui_10.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.inputFile.click();
+                ui_10.UI.inputFile.click();
             };
-            ui_11.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
-            ui_11.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+            ui_10.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_10.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
-                    files = ui_11.UI.inputFile.files;
+                    files = ui_10.UI.inputFile.files;
                     for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File selected:", file);
                         medialist_1.MediaList.addMediaSerial(file);
                     }
-                    ui_11.UI.inputFile.value = "";
+                    ui_10.UI.inputFile.value = "";
                     return [2 /*return*/];
                 });
             }); });
-            ui_11.UI.playButton.data.click = function (event, button) {
+            ui_10.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_features_2.Features.Player.isPlaying()) {
@@ -4415,139 +4423,139 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_2.Features.Player.play();
                 }
             };
-            ui_11.UI.nextButton.data.click = function (event, button) {
+            ui_10.UI.nextButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.next();
             };
-            ui_11.UI.backBUtton.data.click = function (event, button) {
+            ui_10.UI.backBUtton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.previous();
             };
-            ui_11.UI.fastForwardButton.data.click = function (event, button) {
+            ui_10.UI.fastForwardButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.fastForward();
             };
-            ui_11.UI.rewindButton.data.click = function (event, button) {
+            ui_10.UI.rewindButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_11.UI.shuffleButton.data.click = function (event, button) {
+            ui_10.UI.shuffleButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam("shuffle", "".concat(ui_11.UI.shuffleButton.dom.classList.contains("on")));
+                ui_10.UI.shuffleButton.dom.classList.toggle("on");
+                applyParam("shuffle", "".concat(ui_10.UI.shuffleButton.dom.classList.contains("on")));
             };
-            ui_11.UI.repeatButton.data.click = function (event, button) {
+            ui_10.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.repeatButton.dom.classList.toggle("on");
-                applyParam("repeat", "".concat(ui_11.UI.repeatButton.dom.classList.contains("on")));
+                ui_10.UI.repeatButton.dom.classList.toggle("on");
+                applyParam("repeat", "".concat(ui_10.UI.repeatButton.dom.classList.contains("on")));
             };
-            ui_11.UI.volumeButton.data.click = function (event, button) {
+            ui_10.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_7.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
+                    ui_10.UI.volumeRange.set(ui_10.UI.volumeRange.get() <= 0 ? 100 : 0);
                 }
                 else {
-                    ui_11.UI.volumeButton.dom.classList.toggle("on");
+                    ui_10.UI.volumeButton.dom.classList.toggle("on");
                 }
-                ui_11.UI.settingButton.dom.classList.toggle("on", false);
+                ui_10.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_c = ui_11.UI.volumeRange).options || (_c.options = {});
-            ui_11.UI.volumeRange.options.change = function (_event, range) {
+            (_c = ui_10.UI.volumeRange).options || (_c.options = {});
+            ui_10.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                ui_10.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
+                ui_10.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_10.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_10.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_10.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
                 //Media.setVolume(value);
                 Events.mousemove();
             };
-            ui_11.UI.settingButton.data.click = function (event, button) {
+            ui_10.UI.settingButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.settingButton.dom.classList.toggle("on");
-                ui_11.UI.volumeButton.dom.classList.toggle("on", false);
+                ui_10.UI.settingButton.dom.classList.toggle("on");
+                ui_10.UI.volumeButton.dom.classList.toggle("on", false);
             };
-            ui_11.UI.mediaLength.click = function () {
+            ui_10.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_d = ui_11.UI.withFullscreenCheckbox).options || (_d.options = {});
-            ui_11.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
+            (_d = ui_10.UI.withFullscreenCheckbox).options || (_d.options = {});
+            ui_10.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
             };
-            (_e = ui_11.UI.brightnessRange).options || (_e.options = {});
-            ui_11.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_f = ui_11.UI.stretchRange).options || (_f.options = {});
-            ui_11.UI.stretchRange.options.change = function (_event, range) {
+            (_e = ui_10.UI.brightnessRange).options || (_e.options = {});
+            ui_10.UI.brightnessRange.options.change = Events.updateBrightness;
+            (_f = ui_10.UI.stretchRange).options || (_f.options = {});
+            ui_10.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_g = ui_11.UI.imageSpanSelect).options || (_g.options = {});
-            ui_11.UI.imageSpanSelect.options.change = function (_event, select) {
+            (_g = ui_10.UI.imageSpanSelect).options || (_g.options = {});
+            ui_10.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_h = ui_11.UI.loopShortMediaCheckbox).options || (_h.options = {});
-            ui_11.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
-                console.log("🔁 Loop short media changed:", ui_11.UI.loopShortMediaCheckbox.get());
+            (_h = ui_10.UI.loopShortMediaCheckbox).options || (_h.options = {});
+            ui_10.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
+                console.log("🔁 Loop short media changed:", ui_10.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
             };
-            ui_11.UI.mediaTitle.addEventListener("click", function (event) {
+            ui_10.UI.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_11.UI.mediaTime.addEventListener("click", function (event) {
+            ui_10.UI.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_11.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
-            ui_11.UI.seekRange.addEventListener("change", updateSeek);
-            ui_11.UI.seekRange.addEventListener("input", updateSeek);
-            ui_11.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
-            ui_11.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
-            ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
-            ui_11.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.withFullscreenCheckbox.options.change);
-            ui_11.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.brightnessRange.options.change);
-            ui_11.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.stretchRange.options.change);
-            ui_11.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_11.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_11.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.imageSpanSelect.options.change);
-            ui_11.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
-            ui_11.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
-            ui_11.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
-            ui_11.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
-            ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.updateLanguage);
+            ui_10.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_10.UI.seekRange.addEventListener("change", updateSeek);
+            ui_10.UI.seekRange.addEventListener("input", updateSeek);
+            ui_10.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
+            ui_10.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
+            ui_10.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.volumeRange.options.change);
+            ui_10.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.withFullscreenCheckbox.options.change);
+            ui_10.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.brightnessRange.options.change);
+            ui_10.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.stretchRange.options.change);
+            ui_10.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_10.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_10.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.imageSpanSelect.options.change);
+            ui_10.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_10.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
+            ui_10.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
+            ui_10.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_10.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_10.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
+            ui_10.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_7.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
-                    console.log("🖱️ MouseMove:", event, ui_11.UI.screenBody);
+                    console.log("🖱️ MouseMove:", event, ui_10.UI.screenBody);
                 }
                 Events.mousemove();
             });
             _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
-                ui_11.UI.volumeRange,
+                ui_10.UI.volumeRange,
                 // UI.withFullscreen,
-                ui_11.UI.showFpsCheckbox,
+                ui_10.UI.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
             document.addEventListener("visibilitychange", function () {
                 console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
@@ -4561,24 +4569,24 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             updateVisualizer();
             updateOverlayStyle();
             updateOverlayPosition();
-            ui_11.UI.updateLanguage();
+            ui_10.UI.updateLanguage();
             updateUrlAnchor(url_3.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_11.UI.withFullscreenCheckbox,
-                        ui_11.UI.brightnessRange,
-                        ui_11.UI.stretchRange,
-                        ui_11.UI.paddingCheckbox,
-                        ui_11.UI.crossFadeSelect,
-                        ui_11.UI.imageSpanSelect,
-                        ui_11.UI.loopShortMediaCheckbox,
-                        ui_11.UI.visualizerSelect,
-                        ui_11.UI.overlayStyleSelect,
-                        ui_11.UI.clockPositionSelect,
-                        ui_11.UI.showFpsCheckbox,
-                        ui_11.UI.languageSelect,
+                        ui_10.UI.withFullscreenCheckbox,
+                        ui_10.UI.brightnessRange,
+                        ui_10.UI.stretchRange,
+                        ui_10.UI.paddingCheckbox,
+                        ui_10.UI.crossFadeSelect,
+                        ui_10.UI.imageSpanSelect,
+                        ui_10.UI.loopShortMediaCheckbox,
+                        ui_10.UI.visualizerSelect,
+                        ui_10.UI.overlayStyleSelect,
+                        ui_10.UI.clockPositionSelect,
+                        ui_10.UI.showFpsCheckbox,
+                        ui_10.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
                 }, 25);
@@ -4586,15 +4594,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 var old = _library_9.Library.Locale.getLocale();
-                _library_9.Library.Locale.setLocale(ui_11.UI.languageSelect.get());
+                _library_9.Library.Locale.setLocale(ui_10.UI.languageSelect.get());
                 if (old !== _library_9.Library.Locale.getLocale()) {
-                    ui_11.UI.updateLanguage();
+                    ui_10.UI.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_12) {
+define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_11) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Screenshot = void 0;
@@ -4623,15 +4631,15 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
             }
         }); };
         Screenshot.fixCanvasSize = function (width, height) {
-            ui_12.UI.screenBody.style.setProperty("background-color", "white");
-            ui_12.UI.screenBody.style.setProperty("display", "flex");
-            ui_12.UI.screenBody.style.setProperty("flex-direction", "column");
-            ui_12.UI.screenBody.style.setProperty("align-items", "center");
-            ui_12.UI.screenBody.style.setProperty("justify-content", "center");
-            ui_12.UI.mediaList.style.setProperty("position", "relative");
-            ui_12.UI.mediaList.style.setProperty("background-color", "black");
-            ["min-width", "max-width",].forEach(function (i) { return ui_12.UI.mediaList.style.setProperty(i, width); });
-            ["min-height", "max-height",].forEach(function (i) { return ui_12.UI.mediaList.style.setProperty(i, height); });
+            ui_11.UI.screenBody.style.setProperty("background-color", "white");
+            ui_11.UI.screenBody.style.setProperty("display", "flex");
+            ui_11.UI.screenBody.style.setProperty("flex-direction", "column");
+            ui_11.UI.screenBody.style.setProperty("align-items", "center");
+            ui_11.UI.screenBody.style.setProperty("justify-content", "center");
+            ui_11.UI.mediaList.style.setProperty("position", "relative");
+            ui_11.UI.mediaList.style.setProperty("background-color", "black");
+            ["min-width", "max-width",].forEach(function (i) { return ui_11.UI.mediaList.style.setProperty(i, width); });
+            ["min-height", "max-height",].forEach(function (i) { return ui_11.UI.mediaList.style.setProperty(i, height); });
         };
         Screenshot.toCenterControlPanel = function (rate) {
             var controlPanel = _library_10.Library.UI.getElementById("div", "control-panel");
@@ -4640,7 +4648,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_8, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_13, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_8, _library_11, _features_3, config_json_8, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_12, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_8 = __importDefault(config_json_8);
@@ -4650,10 +4658,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     images_json_1 = __importDefault(images_json_1);
     powered_by_json_2 = __importDefault(powered_by_json_2);
     url_4.Url.initialize();
-    ui_13.UI.initialize();
+    ui_12.UI.initialize();
     events_1.Events.initialize();
     medialist_2.MediaList.initialize();
-    _features_3.Features.Clock.initialize(url_4.Url.params);
+    _features_3.Features.Overlay.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_8.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
@@ -4671,7 +4679,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Library: _library_11.Library,
         Features: _features_3.Features,
         Url: url_4.Url,
-        UI: ui_13.UI,
+        UI: ui_12.UI,
         Events: events_1.Events,
         Resource: Resource
     };

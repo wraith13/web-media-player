@@ -1,5 +1,5 @@
 import * as ImportedFps from "./fps";
-import * as ImportedClock from "./clock";
+import * as ImportedOverlay from "./overlay";
 import * as ImportedWeather from "./weather";
 //import * as ImportedMedia from "./media";
 //import * as ImortedHistory from "./history";
@@ -10,7 +10,7 @@ import * as ImportedPlayer from "./player";
 export namespace Features
 {
     export import Fps = ImportedFps.Fps;
-    export import Clock = ImportedClock.Clock;
+    export import Overlay = ImportedOverlay.Overlay;
     export import Weather = ImportedWeather.Weather;
     //export import Media = ImportedMedia.Media;
     //export import History = ImortedHistory.History;

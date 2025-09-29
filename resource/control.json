@@ -129,6 +129,10 @@
         "id": "with-clock",
         "default": false
     },
+    "withDate": {
+        "id": "with-date",
+        "default": false
+    },
     "withWeather": {
         "id": "with-weather",
         "default": false

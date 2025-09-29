@@ -1979,16 +1979,16 @@ body #setting-button:not(.on) + #setting-panel:not(.show) {
   width: 100%;
 }
 
-#clock-panel {
+#overlay-panel {
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.play) #clock-panel:not(.show) {
+body:not(.play) #overlay-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play) #clock-panel:not(.show)::before {
+body:not(.play) #overlay-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2001,13 +2001,13 @@ body:not(.play) #clock-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-#clock-panel.hide:not(.show) {
+#overlay-panel.hide:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#clock-panel.hide:not(.show)::before {
+#overlay-panel.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2019,170 +2019,170 @@ body:not(.play) #clock-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-#clock-panel {
+#overlay-panel {
   position: fixed;
   user-select: none;
   pointer-events: none;
 }
-#clock-panel.center {
+#overlay-panel.center {
   inset-block-start: 50%;
   inset-inline-start: 50%;
   transform: translate(-50%, -50%);
 }
-#clock-panel.top-left, #clock-panel.top-right {
+#overlay-panel.top-left, #overlay-panel.top-right {
   top: calc(1 * var(--diagonal));
   top: calc(1 * var(--diagonal) + env(safe-area-inset-top));
 }
-#clock-panel.top-right, #clock-panel.bottom-right {
+#overlay-panel.top-right, #overlay-panel.bottom-right {
   right: calc(1 * var(--diagonal));
   right: calc(1 * var(--diagonal) + env(safe-area-inset-right));
 }
-#clock-panel.top-left, #clock-panel.bottom-left {
+#overlay-panel.top-left, #overlay-panel.bottom-left {
   left: calc(1 * var(--diagonal));
   left: calc(1 * var(--diagonal) + env(safe-area-inset-left));
 }
-#clock-panel.bottom-right, #clock-panel.bottom-left {
+#overlay-panel.bottom-right, #overlay-panel.bottom-left {
   bottom: calc(1 * var(--diagonal));
   bottom: calc(1 * var(--diagonal) + env(safe-area-inset-bottom));
 }
-#clock-panel span {
+#overlay-panel span {
   display: block;
   text-align: center;
   transition: color 3000ms, text-shadow 3000ms;
 }
-#clock-panel.blend {
+#overlay-panel.blend {
   mix-blend-mode: difference;
 }
-#clock-panel.blend span {
+#overlay-panel.blend span {
   color: white;
 }
-#clock-panel.white span {
+#overlay-panel.white span {
   color: white;
   text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
 }
-#clock-panel.black span {
+#overlay-panel.black span {
   color: black;
   text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
 }
 @media (prefers-color-scheme: light) {
-  #clock-panel.system span {
+  #overlay-panel.system span {
     color: white;
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (prefers-color-scheme: dark) {
-  #clock-panel.system span {
+  #overlay-panel.system span {
     color: black;
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
 }
-#clock-panel.rainbow span {
+#overlay-panel.rainbow span {
   text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
 }
-#clock-panel #time:not(.text) {
+#overlay-panel #time:not(.text) {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #clock-panel #time:not(.text) {
+  #overlay-panel #time:not(.text) {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #clock-panel #time:not(.text) {
+  #overlay-panel #time:not(.text) {
     font-size: 1rem;
   }
 }
-#clock-panel #time:not(.text) {
+#overlay-panel #time:not(.text) {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
-#clock-panel #time:not(.text) {
+#overlay-panel #time:not(.text) {
   font-size: calc(7.4 * var(--diagonal));
   line-height: 100%;
 }
-#clock-panel #time.text {
+#overlay-panel #time.text {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #clock-panel #time.text {
+  #overlay-panel #time.text {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #clock-panel #time.text {
+  #overlay-panel #time.text {
     font-size: 1rem;
   }
 }
-#clock-panel #time.text {
+#overlay-panel #time.text {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
-#clock-panel #time.text {
+#overlay-panel #time.text {
   font-size: calc(7.4 * var(--diagonal));
 }
-#clock-panel #time {
+#overlay-panel #time {
   white-space: nowrap;
 }
-#clock-panel #date {
+#overlay-panel #date {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #clock-panel #date {
+  #overlay-panel #date {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #clock-panel #date {
+  #overlay-panel #date {
     font-size: 1rem;
   }
 }
-#clock-panel #date {
+#overlay-panel #date {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
-#clock-panel #date {
+#overlay-panel #date {
   font-size: calc(2.1 * var(--diagonal));
   white-space: nowrap;
 }
-#clock-panel #weather {
+#overlay-panel #weather {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #clock-panel #weather {
+  #overlay-panel #weather {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #clock-panel #weather {
+  #overlay-panel #weather {
     font-size: 1rem;
   }
 }
-#clock-panel #weather {
+#overlay-panel #weather {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
-#clock-panel #weather {
+#overlay-panel #weather {
   font-size: calc(2.1 * var(--diagonal));
   white-space: nowrap;
 }
-#clock-panel #calendar {
+#overlay-panel #calendar {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #clock-panel #calendar {
+  #overlay-panel #calendar {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #clock-panel #calendar {
+  #overlay-panel #calendar {
     font-size: 1rem;
   }
 }
-#clock-panel #calendar {
+#overlay-panel #calendar {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
-#clock-panel #calendar {
+#overlay-panel #calendar {
   font-size: calc(1 * var(--diagonal));
   line-height: 100%;
   display: flex;
@@ -2191,39 +2191,39 @@ body:not(.play) #clock-panel:not(.show)::before {
   gap: calc(0.5 * var(--diagonal));
   padding: calc(0.5 * var(--diagonal));
 }
-#clock-panel #calendar .week {
+#overlay-panel #calendar .week {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: calc(0.75 * var(--diagonal));
 }
-#clock-panel #calendar .week .day {
+#overlay-panel #calendar .week .day {
   width: calc(1 * var(--diagonal));
   height: calc(1 * var(--diagonal));
   text-align: center;
 }
-#clock-panel #calendar .week .day.today {
+#overlay-panel #calendar .week .day.today {
   text-decoration: underline;
 }
-#clock-panel #calendar .week .day:not(.current-month) {
+#overlay-panel #calendar .week .day:not(.current-month) {
   opacity: 0.4;
 }
-#clock-panel.top-right, #clock-panel.top-left {
+#overlay-panel.top-right, #overlay-panel.top-left {
   display: flex;
   flex-direction: column;
 }
-#clock-panel.bottom-right, #clock-panel.bottom-left {
+#overlay-panel.bottom-right, #overlay-panel.bottom-left {
   display: flex;
   flex-direction: column-reverse;
 }
-#clock-panel.top-right, #clock-panel.bottom-right {
+#overlay-panel.top-right, #overlay-panel.bottom-right {
   align-items: end;
 }
-#clock-panel.top-left, #clock-panel.bottom-left {
+#overlay-panel.top-left, #overlay-panel.bottom-left {
   align-items: start;
 }
 
-[dir=rtl] #clock-panel {
+[dir=rtl] #overlay-panel {
   transform: translate(50%, -50%);
 }
 

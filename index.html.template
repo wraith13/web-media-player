@@ -50,7 +50,7 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
-        <div id="clock-panel" dir="ltr">
+        <div id="overlay-panel" dir="ltr">
             <span id="time"></span>
             <span id="date"></span>
             <span id="weather"></span>
@@ -149,6 +149,10 @@ DUMMYSTYLE
         <label for="with-clock">
             <span data-lang-key="with-clock-label"></span>
             <input id="with-clock" type="checkbox" />
+        </label>
+        <label for="with-date">
+            <span data-lang-key="with-date-label"></span>
+            <input id="with-date" type="checkbox" />
         </label>
         <label for="with-weather">
             <span data-lang-key="with-weather-label"></span>

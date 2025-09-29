@@ -38,14 +38,14 @@ export namespace Events
     {
         control.overlayStyle.enum.forEach
         (
-            i => UI.clockDisplay.classList.toggle(i, i === UI.overlayStyleSelect.get())
+            i => UI.overlay.classList.toggle(i, i === UI.overlayStyleSelect.get())
         );
     };
     const updateOverlayPosition = () =>
     {
         control.overlayPosition.enum.forEach
         (
-            i => UI.clockDisplay.classList.toggle(i, i === UI.clockPositionSelect.get())
+            i => UI.overlay.classList.toggle(i, i === UI.clockPositionSelect.get())
         );
     };
     const updateUrlAnchor = (params: Record<string, string>) =>

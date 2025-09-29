@@ -1,9 +1,10 @@
 import { Library } from "../library";
 import { Tools } from "../tools";
 import { UI } from "../ui";
+import { Weather } from "./weather";
 import config from "@resource/config.json";
 const phi = (1 + Math.sqrt(5)) / 2;
-export namespace Clock
+export namespace Overlay
 {
     export let firstDayOfWeek: number = config.clock.firstDayOfWeek;
     export let locale: string | undefined = undefined;
@@ -24,7 +25,7 @@ export namespace Clock
     export const updateText = (): void =>
     {
         const date = new Date();
-        if (UI.clockDisplay.classList.contains("rotate"))
+        if (UI.overlay.classList.contains("rotate"))
         {
             const direction = ((date.getHours() %12) /3) |0;
             [
@@ -33,18 +34,33 @@ export namespace Clock
                 "bottom-left",
                 "top-left",
             ]
-            .forEach((i, ix) => UI.clockDisplay.classList.toggle(i, direction === ix));
+            .forEach((i, ix) => UI.overlay.classList.toggle(i, direction === ix));
         }
         const dateText = makeDate(date, locale);
         if (UI.withClockCheckbox.get())
         {
-            Library.UI.setTextContent(UI.date, subtitle ?? dateText);
             Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
         }
         else
         {
-            Library.UI.setTextContent(UI.date, "");
             Library.UI.setTextContent(UI.time, "");
+        }
+        if (UI.withDateCheckbox.get())
+        {
+            Library.UI.setTextContent(UI.date, subtitle ?? dateText);
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.date, "");
+        }
+        if (UI.withWeatherCheckbox.get())
+        {
+            const weather = Weather.get(Library.Locale.getLocale());
+            Library.UI.setTextContent(UI.weather, weather);
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.weather, "");
         }
         const dateDate = UI.withCalenderCheckbox.get() ? dateText: "";
         if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
@@ -106,20 +122,20 @@ export namespace Clock
         const clockOption = UI.overlayStyleSelect.get();
         if ("hide" !== clockOption)
         {
-            Clock.updateText();
+            Overlay.updateText();
             switch(clockOption)
             {
             case "alternate":
                 const isWhite = (new Date().getTime() /config.clock.alternate.span) %2 < 1.0;
-                UI.clockDisplay.classList.toggle("white", isWhite);
-                UI.clockDisplay.classList.toggle("black", ! isWhite);
-                Clock.setColor(undefined);
+                UI.overlay.classList.toggle("white", isWhite);
+                UI.overlay.classList.toggle("black", ! isWhite);
+                Overlay.setColor(undefined);
                 break;
             case "rainbow":
-                Clock.setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
+                Overlay.setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
                 break;
             default:
-                Clock.setColor(undefined);
+                Overlay.setColor(undefined);
                 break;
             }
         }
