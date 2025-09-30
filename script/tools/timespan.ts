@@ -34,4 +34,59 @@ export namespace Timespan
             }
         }
     };
+    export const parse = (timespan: string): number | null =>
+    {
+        try
+        {
+            switch(typeof timespan)
+            {
+            case "number":
+                return timespan;
+            case "string":
+                if (timespan.endsWith("ms"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -2).trim());
+                }
+                else
+                if (timespan.endsWith("s"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *1000;
+                }
+                else
+                if (timespan.endsWith("m"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *60 *1000;
+                }
+                else
+                if (timespan.endsWith("h"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *60 *60 *1000;
+                }
+                else
+                if (timespan.endsWith("d"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *24 *60 *60 *1000;
+                }
+                else
+                if (timespan.endsWith("w"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *7 *24 *60 *60 *1000;
+                }
+                else
+                if (timespan.endsWith("y"))
+                {
+                    return parseFloat(timespan.substring(0, timespan.length -1).trim()) *365.2425 *24 *60 *60 *1000;
+                }
+                else
+                {
+                    return parseInt(timespan.trim());
+                }
+            }
+        }
+        catch(err)
+        {
+            console.error(err);
+        }
+        return null;
+    };
 }

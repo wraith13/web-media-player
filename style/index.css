@@ -2172,6 +2172,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-size: calc(3.15 * var(--diagonal));
   margin-top: calc(-0.525 * var(--diagonal));
   margin-bottom: calc(-0.525 * var(--diagonal));
+  padding-right: calc(0.525 * var(--diagonal));
 }
 #overlay-panel #calendar {
   font-size: 0.75rem;

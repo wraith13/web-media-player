@@ -74,9 +74,9 @@ declare module "locale/generated/master" {
             "bottom-left": string;
             "top-left": string;
             rotate: string;
+            "with-weather-label": string;
             "with-clock-label": string;
             "with-date-label": string;
-            "with-weather-label": string;
             "with-calendar-label": string;
             "stretch-label": string;
             "padding-label": string;
@@ -143,9 +143,9 @@ declare module "locale/generated/master" {
             "bottom-left": string;
             "top-left": string;
             rotate: string;
+            "with-weather-label": string;
             "with-clock-label": string;
             "with-date-label": string;
-            "with-weather-label": string;
             "with-calendar-label": string;
             "brightness-label": string;
             "stretch-label": string;
@@ -219,9 +219,9 @@ declare module "script/library/locale" {
                 "bottom-left": string;
                 "top-left": string;
                 rotate: string;
+                "with-weather-label": string;
                 "with-clock-label": string;
                 "with-date-label": string;
-                "with-weather-label": string;
                 "with-calendar-label": string;
                 "stretch-label": string;
                 "padding-label": string;
@@ -288,9 +288,9 @@ declare module "script/library/locale" {
                 "bottom-left": string;
                 "top-left": string;
                 rotate: string;
+                "with-weather-label": string;
                 "with-clock-label": string;
                 "with-date-label": string;
-                "with-weather-label": string;
                 "with-calendar-label": string;
                 "brightness-label": string;
                 "stretch-label": string;
@@ -542,6 +542,7 @@ declare module "script/tools/timespan" {
     export namespace Timespan {
         const toDisplayString: (value: number, maximumFractionDigits?: number) => string;
         const toMediaTimeString: (value: number) => string;
+        const parse: (timespan: string) => number | null;
     }
 }
 declare module "script/tools/hash" {
@@ -689,9 +690,9 @@ declare module "script/ui" {
         const visualizerSelect: Library.Control.Select<string>;
         const overlayStyleSelect: Library.Control.Select<string>;
         const overlayPositionSelect: Library.Control.Select<string>;
+        const withWeatherCheckbox: Library.Control.Checkbox;
         const withClockCheckbox: Library.Control.Checkbox;
         const withDateCheckbox: Library.Control.Checkbox;
-        const withWeatherCheckbox: Library.Control.Checkbox;
         const withCalenderCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const languageSelect: Library.Control.Select<string>;
@@ -714,8 +715,8 @@ declare module "script/ui" {
 declare module "script/features/weather" {
     import { Library } from "script/library/index";
     export namespace Weather {
-        const site = "wttr.in";
-        const format = "%c \uD83C\uDF21\uFE0F%t \uD83D\uDCA7%h \uD83D\uDCA8%w";
+        const site: string;
+        const format: string;
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string) => string;
         const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
         let cache: string;

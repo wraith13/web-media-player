@@ -1,8 +1,10 @@
-import { Library } from "../library";
+import { Library } from "@library";
+import { Tools } from "@tools";
+import config from "@resource/config.json";
 export namespace Weather
 {
-    export const site = "wttr.in";
-    export const format = "%c 🌡️%t 💧%h 💨%w";
+    export const site = config.weather.site;
+    export const format = config.weather.format;
     export const makeRequestUrl = (lang: Library.Locale.Language, location?: string): string =>
         location && 0 < location.length ?
             `https://${lang}.${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}` :
@@ -71,7 +73,8 @@ export namespace Weather
         if (isExpired())
         {
             const now = Date.now();
-            if (lastRequestTimestamp + 5 * 60 * 1000 < now)
+            const retryInterval = Tools.Timespan.parse(config.weather.retryInterval) ?? (5 * 60 * 1000);
+            if (lastRequestTimestamp +retryInterval < now)
             {
                 lastRequestTimestamp = Date.now();
                 fetch(lang, location);

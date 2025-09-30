@@ -142,11 +142,11 @@ export namespace Overlay
     export let cloclLocale: string | undefined = undefined;
     export const update = (now: number) =>
     {
-        const clockOption = UI.overlayStyleSelect.get();
-        if ("hide" !== clockOption)
+        const overlayOption = UI.overlayStyleSelect.get();
+        if ("hide" !== overlayOption)
         {
             Overlay.updateText();
-            switch(clockOption)
+            switch(overlayOption)
             {
             case "alternate":
                 const isWhite = (new Date().getTime() /config.clock.alternate.span) %2 < 1.0;

@@ -69,5 +69,10 @@
             "second": "2-digit"
         },
         "firstDayOfWeek": 0
+    },
+    "weather": {
+        "site": "wttr.in",
+        "format": "%c 🌡️%t 💧%h 💨%w",
+        "retryInterval": "5m"
     }
 }
