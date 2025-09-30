@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 30 2025 21:28:01 GMT+0900 (日本標準時)
+    build at: Tue Sep 30 2025 21:49:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2881,8 +2881,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 30 2025 21:28:01 GMT+0900 (日本標準時)",
-    tick: 1759235281424
+    at: "Tue Sep 30 2025 21:49:28 GMT+0900 (日本標準時)",
+    tick: 1759236568518
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6466,9 +6466,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.makeTime = function (date, locale) {
             return date.toLocaleTimeString(locale, config_json_3.default.clock.timeFormat);
         };
-        Overlay.updateText = function () {
-            var _a, _b, _c, _d;
-            var date = new Date();
+        Overlay.updateLayout = function (date) {
             if (ui_2.UI.overlay.classList.contains("rotate")) {
                 var direction_1 = ((date.getHours() % 12) / 3) | 0;
                 [
@@ -6479,19 +6477,9 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 ]
                     .forEach(function (i, ix) { return ui_2.UI.overlay.classList.toggle(i, direction_1 === ix); });
             }
-            var dateText = Overlay.makeDate(date, Overlay.locale);
-            if (ui_2.UI.withClockCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_2.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
-            }
-            else {
-                library_1.Library.UI.setTextContent(ui_2.UI.time, "");
-            }
-            if (ui_2.UI.withDateCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_2.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : dateText);
-            }
-            else {
-                library_1.Library.UI.setTextContent(ui_2.UI.date, "");
-            }
+        };
+        Overlay.updateWeather = function () {
+            var _a, _b, _c;
             if (ui_2.UI.withWeatherCheckbox.get()) {
                 var weather = weather_1.Weather.get(library_1.Library.Locale.getLocale());
                 if (((_a = ui_2.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
@@ -6517,8 +6505,27 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             else {
                 library_1.Library.UI.setTextContent(ui_2.UI.weather, "");
             }
-            var dateDate = ui_2.UI.withCalenderCheckbox.get() ? dateText : "";
-            if (((_d = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _d === void 0 ? void 0 : _d.value) !== dateDate) {
+        };
+        Overlay.updateTime = function (date) {
+            if (ui_2.UI.withClockCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_2.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
+            }
+            else {
+                library_1.Library.UI.setTextContent(ui_2.UI.time, "");
+            }
+        };
+        Overlay.updateDate = function (date) {
+            if (ui_2.UI.withDateCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_2.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
+            }
+            else {
+                library_1.Library.UI.setTextContent(ui_2.UI.date, "");
+            }
+        };
+        Overlay.updateCalendar = function (date) {
+            var _a;
+            var dateDate = ui_2.UI.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
+            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
                 attribute.value = dateDate;
                 ui_2.UI.calendar.attributes.setNamedItem(attribute);
@@ -6563,7 +6570,12 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.update = function (now) {
             var overlayOption = ui_2.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {
-                Overlay.updateText();
+                var date = new Date();
+                Overlay.updateLayout(date);
+                Overlay.updateWeather();
+                Overlay.updateTime(date);
+                Overlay.updateDate(date);
+                Overlay.updateCalendar(date);
                 switch (overlayOption) {
                     case "alternate":
                         var isWhite = (new Date().getTime() / config_json_3.default.clock.alternate.span) % 2 < 1.0;

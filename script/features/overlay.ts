@@ -22,9 +22,8 @@ export namespace Overlay
             locale,
             config.clock.timeFormat as Intl.DateTimeFormatOptions
         );
-    export const updateText = (): void =>
+    export const updateLayout = (date: Date): void =>
     {
-        const date = new Date();
         if (UI.overlay.classList.contains("rotate"))
         {
             const direction = ((date.getHours() %12) /3) |0;
@@ -36,23 +35,9 @@ export namespace Overlay
             ]
             .forEach((i, ix) => UI.overlay.classList.toggle(i, direction === ix));
         }
-        const dateText = makeDate(date, locale);
-        if (UI.withClockCheckbox.get())
-        {
-            Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
-        }
-        else
-        {
-            Library.UI.setTextContent(UI.time, "");
-        }
-        if (UI.withDateCheckbox.get())
-        {
-            Library.UI.setTextContent(UI.date, subtitle ?? dateText);
-        }
-        else
-        {
-            Library.UI.setTextContent(UI.date, "");
-        }
+    };
+    export const updateWeather = (): void =>
+    {
         if (UI.withWeatherCheckbox.get())
         {
             const weather = Weather.get(Library.Locale.getLocale());
@@ -85,7 +70,32 @@ export namespace Overlay
         {
             Library.UI.setTextContent(UI.weather, "");
         }
-        const dateDate = UI.withCalenderCheckbox.get() ? dateText: "";
+    };
+    export const updateTime = (date: Date): void =>
+    {
+        if (UI.withClockCheckbox.get())
+        {
+            Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.time, "");
+        }
+    };
+    export const updateDate = (date: Date): void =>
+    {
+        if (UI.withDateCheckbox.get())
+        {
+            Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, locale));
+        }
+        else
+        {
+            Library.UI.setTextContent(UI.date, "");
+        }
+    };
+    export const updateCalendar = (date: Date): void =>
+    {
+        const dateDate = UI.withCalenderCheckbox.get() ? makeDate(date, locale): "";
         if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
         {
             const attribute = document.createAttribute("data-date");
@@ -145,7 +155,12 @@ export namespace Overlay
         const overlayOption = UI.overlayStyleSelect.get();
         if ("hide" !== overlayOption)
         {
-            Overlay.updateText();
+            const date = new Date();
+            Overlay.updateLayout(date);
+            Overlay.updateWeather();
+            Overlay.updateTime(date);
+            Overlay.updateDate(date);
+            Overlay.updateCalendar(date);
             switch(overlayOption)
             {
             case "alternate":

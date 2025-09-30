@@ -735,7 +735,11 @@ declare module "script/features/overlay" {
         let subtitle: string | undefined;
         const makeDate: (date: Date, locale: string | undefined) => string;
         const makeTime: (date: Date, locale: string | undefined) => string;
-        const updateText: () => void;
+        const updateLayout: (date: Date) => void;
+        const updateWeather: () => void;
+        const updateTime: (date: Date) => void;
+        const updateDate: (date: Date) => void;
+        const updateCalendar: (date: Date) => void;
         const setColor: (color: string | undefined) => void;
         let cloclLocale: string | undefined;
         const update: (now: number) => void;
