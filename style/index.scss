@@ -1252,11 +1252,18 @@ body.no-media
         }
         #weather
         {
-            @include font();
+            @include flex(row, center);
+            @include monochrome-font();
             &
             {
                 @include font-size(calc(2.1 * var(--diagonal)));
-                white-space: nowrap;
+                .first-letter
+                {
+                    @include font-size(calc(3.15 * var(--diagonal)));
+                    margin-top: calc(-0.525 * var(--diagonal));
+                    margin-bottom: calc(-0.525 * var(--diagonal));
+                    padding-right: calc(0.525 * var(--diagonal));
+                }
             }
         }
         #calendar

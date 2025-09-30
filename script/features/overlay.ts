@@ -56,7 +56,30 @@ export namespace Overlay
         if (UI.withWeatherCheckbox.get())
         {
             const weather = Weather.get(Library.Locale.getLocale());
-            Library.UI.setTextContent(UI.weather, weather);
+            if (UI.weather.attributes.getNamedItem("data-weather")?.value !== weather)
+            {
+                const attribute = document.createAttribute("data-weather");
+                attribute.value = weather;
+                UI.weather.attributes.setNamedItem(attribute);
+                const firstLetter = weather.match(/\S/)?.[0] ?? "";
+                const tail = weather.slice(firstLetter.length).trim();
+                Library.UI.replaceChildren
+                (
+                    UI.weather,
+                    [
+                        {
+                            tag: "span",
+                            className: "first-letter",
+                            text: firstLetter,
+                        },
+                        {
+                            tag: "span",
+                            className: "tail",
+                            text: tail,
+                        }
+                    ]
+                );
+            }
         }
         else
         {

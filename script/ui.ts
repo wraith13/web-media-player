@@ -82,14 +82,14 @@ export namespace UI
         new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
     export const overlayStyleSelect =
         new Library.Control.Select(control.overlayStyle, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const clockPositionSelect =
+    export const overlayPositionSelect =
         new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+    export const withWeatherCheckbox =
+        new Library.Control.Checkbox(control.withWeather);
     export const withClockCheckbox =
         new Library.Control.Checkbox(control.withClock);
     export const withDateCheckbox =
         new Library.Control.Checkbox(control.withDate);
-    export const withWeatherCheckbox =
-        new Library.Control.Checkbox(control.withWeather);
     export const withCalenderCheckbox =
         new Library.Control.Checkbox(control.withCalendar);
     export const showFpsCheckbox =

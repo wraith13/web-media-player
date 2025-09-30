@@ -143,6 +143,14 @@
         font-family: $default-font;
     }
 }
+@mixin monochrome-font()
+{
+    @include font-base();
+    &
+    {
+        font-family: $monochrome-font;
+    }
+}
 @mixin monospace-font()
 {
     @include font-base();

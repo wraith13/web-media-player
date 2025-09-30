@@ -688,7 +688,7 @@ declare module "script/ui" {
         const loopShortMediaCheckbox: Library.Control.Checkbox;
         const visualizerSelect: Library.Control.Select<string>;
         const overlayStyleSelect: Library.Control.Select<string>;
-        const clockPositionSelect: Library.Control.Select<string>;
+        const overlayPositionSelect: Library.Control.Select<string>;
         const withClockCheckbox: Library.Control.Checkbox;
         const withDateCheckbox: Library.Control.Checkbox;
         const withWeatherCheckbox: Library.Control.Checkbox;
@@ -715,9 +715,8 @@ declare module "script/features/weather" {
     import { Library } from "script/library/index";
     export namespace Weather {
         const site = "wttr.in";
-        const format = "%l:+%c+%t";
+        const format = "%c \uD83C\uDF21\uFE0F%t \uD83D\uDCA7%h \uD83D\uDCA8%w";
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string) => string;
-        const enforceMonocromeFont: (text: string) => string;
         const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
         let cache: string;
         let lastTimestampFingerprint: string;

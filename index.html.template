@@ -51,9 +51,9 @@ DUMMYSTYLE
 <div id="screen-body">
     <div id="media-screen">
         <div id="overlay-panel" dir="ltr">
+            <div id="weather"></div>
             <span id="time"></span>
             <span id="date"></span>
-            <span id="weather"></span>
             <div id="calendar"></div>
         </div>
     </div>
@@ -146,6 +146,10 @@ DUMMYSTYLE
             <span data-lang-key="overlay-position-label"></span>
             <select id="overlay-position"></select>
         </label>
+        <label for="with-weather">
+            <span data-lang-key="with-weather-label"></span>
+            <input id="with-weather" type="checkbox" />
+        </label>
         <label for="with-clock">
             <span data-lang-key="with-clock-label"></span>
             <input id="with-clock" type="checkbox" />
@@ -153,10 +157,6 @@ DUMMYSTYLE
         <label for="with-date">
             <span data-lang-key="with-date-label"></span>
             <input id="with-date" type="checkbox" />
-        </label>
-        <label for="with-weather">
-            <span data-lang-key="with-weather-label"></span>
-            <input id="with-weather" type="checkbox" />
         </label>
         <label for="with-calendar">
             <span data-lang-key="with-calendar-label"></span>

@@ -1696,7 +1696,7 @@ define("resource/control", [], {
             "alternate",
             "rainbow"
         ],
-        "default": "blend"
+        "default": "alternate"
     },
     "overlayPosition": {
         "id": "overlay-position",
@@ -1793,7 +1793,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.clockPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+        UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.withClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withClock);
         UI.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
         UI.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
@@ -1876,34 +1876,33 @@ define("script/features/weather", ["require", "exports"], function (require, exp
     (function (Weather) {
         var _this = this;
         Weather.site = "wttr.in";
-        Weather.format = "%l:+%c+%t";
+        Weather.format = "%c 🌡️%t 💧%h 💨%w";
         Weather.makeRequestUrl = function (lang, location) {
             return location && 0 < location.length ?
-                "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(Weather.format) :
-                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(Weather.format);
+                "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)) :
+                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format));
         };
         var lastRequestTimestamp = 0;
-        Weather.enforceMonocromeFont = function (text) {
-            return text.replace(/[\u2600-\u26FF]/g, function (m) { return "".concat(m, "\uFE0E"); });
-        };
+        // export const enforceMonocromeFont = (text: string): string =>
+        //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
         Weather.fetch = function (lang, location) { return __awaiter(_this, void 0, void 0, function () {
-            var result, response, _a, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var result, response, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         result = undefined;
-                        _b.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _b.trys.push([1, 6, , 7]);
+                        _a.trys.push([1, 6, , 7]);
                         console.log("🌤 Fetching weather data...", Weather.makeRequestUrl(lang, location));
                         return [4 /*yield*/, window.fetch(Weather.makeRequestUrl(lang, location))];
                     case 2:
-                        response = _b.sent();
+                        response = _a.sent();
                         if (!response.ok) return [3 /*break*/, 4];
-                        _a = Weather.enforceMonocromeFont;
                         return [4 /*yield*/, response.text()];
                     case 3:
-                        result = _a.apply(void 0, [_b.sent()])
+                        //result = enforceMonocromeFont(await response.text())
+                        result = (_a.sent())
                             .replace(/\s+/g, " ")
                             .trim();
                         console.log("🌤 Weather data fetched:", result);
@@ -1911,10 +1910,10 @@ define("script/features/weather", ["require", "exports"], function (require, exp
                         return [3 /*break*/, 5];
                     case 4:
                         console.warn("🚫 Failed to fetch weather data:", response.status, response.statusText);
-                        _b.label = 5;
+                        _a.label = 5;
                     case 5: return [3 /*break*/, 7];
                     case 6:
-                        error_1 = _b.sent();
+                        error_1 = _a.sent();
                         console.error("🚫 Error fetching weather data:", error_1);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/, result];
@@ -1977,7 +1976,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             return date.toLocaleTimeString(locale, config_json_2.default.clock.timeFormat);
         };
         Overlay.updateText = function () {
-            var _a;
+            var _a, _b, _c, _d;
             var date = new Date();
             if (ui_2.UI.overlay.classList.contains("rotate")) {
                 var direction_1 = ((date.getHours() % 12) / 3) | 0;
@@ -2004,13 +2003,31 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             }
             if (ui_2.UI.withWeatherCheckbox.get()) {
                 var weather = weather_1.Weather.get(library_1.Library.Locale.getLocale());
-                library_1.Library.UI.setTextContent(ui_2.UI.weather, weather);
+                if (((_a = ui_2.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
+                    var attribute = document.createAttribute("data-weather");
+                    attribute.value = weather;
+                    ui_2.UI.weather.attributes.setNamedItem(attribute);
+                    var firstLetter = (_c = (_b = weather.match(/\S/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
+                    var tail = weather.slice(firstLetter.length).trim();
+                    library_1.Library.UI.replaceChildren(ui_2.UI.weather, [
+                        {
+                            tag: "span",
+                            className: "first-letter",
+                            text: firstLetter,
+                        },
+                        {
+                            tag: "span",
+                            className: "tail",
+                            text: tail,
+                        }
+                    ]);
+                }
             }
             else {
                 library_1.Library.UI.setTextContent(ui_2.UI.weather, "");
             }
             var dateDate = ui_2.UI.withCalenderCheckbox.get() ? dateText : "";
-            if (((_a = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
+            if (((_d = ui_2.UI.calendar.attributes.getNamedItem("data-date")) === null || _d === void 0 ? void 0 : _d.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
                 attribute.value = dateDate;
                 ui_2.UI.calendar.attributes.setNamedItem(attribute);
@@ -4243,7 +4260,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_10.UI.overlay.classList.toggle(i, i === ui_10.UI.overlayStyleSelect.get()); });
         };
         var updateOverlayPosition = function () {
-            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_10.UI.overlay.classList.toggle(i, i === ui_10.UI.clockPositionSelect.get()); });
+            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_10.UI.overlay.classList.toggle(i, i === ui_10.UI.overlayPositionSelect.get()); });
         };
         var updateUrlAnchor = function (params) {
             return ui_10.UI.urlAnchor.href = url_3.Url.make(params);
@@ -4540,7 +4557,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_10.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_10.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
             ui_10.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
-            ui_10.UI.clockPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_10.UI.overlayPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_10.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_10.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_10.UI.withWeatherCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_10.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_10.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_10.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_10.UI.updateLanguage);
@@ -4584,7 +4604,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_10.UI.loopShortMediaCheckbox,
                         ui_10.UI.visualizerSelect,
                         ui_10.UI.overlayStyleSelect,
-                        ui_10.UI.clockPositionSelect,
+                        ui_10.UI.overlayPositionSelect,
                         ui_10.UI.showFpsCheckbox,
                         ui_10.UI.languageSelect,
                     ]

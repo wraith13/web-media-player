@@ -45,7 +45,7 @@ export namespace Events
     {
         control.overlayPosition.enum.forEach
         (
-            i => UI.overlay.classList.toggle(i, i === UI.clockPositionSelect.get())
+            i => UI.overlay.classList.toggle(i, i === UI.overlayPositionSelect.get())
         );
     };
     const updateUrlAnchor = (params: Record<string, string>) =>
@@ -421,7 +421,10 @@ export namespace Events
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
-        UI.clockPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
+        UI.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
+        UI.withClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.withDateCheckbox.loadParameter(Url.params, applyParam);
+        UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
@@ -482,7 +485,7 @@ export namespace Events
                         UI.loopShortMediaCheckbox,
                         UI.visualizerSelect,
                         UI.overlayStyleSelect,
-                        UI.clockPositionSelect,
+                        UI.overlayPositionSelect,
                         UI.showFpsCheckbox,
                         UI.languageSelect,
                     ]

@@ -111,7 +111,7 @@
             "alternate",
             "rainbow"
         ],
-        "default": "blend"
+        "default": "alternate"
     },
     "overlayPosition": {
         "id": "overlay-position",

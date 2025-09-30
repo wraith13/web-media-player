@@ -2,14 +2,14 @@ import { Library } from "../library";
 export namespace Weather
 {
     export const site = "wttr.in";
-    export const format = "%l:+%c+%t";
+    export const format = "%c 🌡️%t 💧%h 💨%w";
     export const makeRequestUrl = (lang: Library.Locale.Language, location?: string): string =>
         location && 0 < location.length ?
-            `https://${lang}.${site}/${encodeURIComponent(location)}?format=${format}` :
-            `https://${lang}.${site}/?format=${format}`;
+            `https://${lang}.${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}` :
+            `https://${lang}.${site}/?format=${encodeURIComponent(format)}`;
     let lastRequestTimestamp: number = 0;
-    export const enforceMonocromeFont = (text: string): string =>
-        text.replace(/[\u2600-\u26FF]/g, m => `${m}\uFE0E`);
+    // export const enforceMonocromeFont = (text: string): string =>
+    //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
     export const fetch = async (lang: Library.Locale.Language, location?: string): Promise<string | undefined> =>
     {
         let result: Awaited<ReturnType<typeof fetch>> = undefined;
@@ -19,7 +19,8 @@ export namespace Weather
             const response = await window.fetch(makeRequestUrl(lang, location));
             if (response.ok)
             {
-                result = enforceMonocromeFont(await response.text())
+                //result = enforceMonocromeFont(await response.text())
+                result = (await response.text())
                     .replace(/\s+/g, " ")
                     .trim();
                 console.log("🌤 Weather data fetched:", result);
