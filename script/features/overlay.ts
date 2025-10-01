@@ -46,7 +46,7 @@ export namespace Overlay
                 const attribute = document.createAttribute("data-weather");
                 attribute.value = weather;
                 UI.weather.attributes.setNamedItem(attribute);
-                const firstLetter = weather.match(/\S/)?.[0] ?? "";
+                const firstLetter = weather.match(/\S+/)?.[0] ?? "";
                 const tail = weather.slice(firstLetter.length).trim();
                 Library.UI.replaceChildren
                 (

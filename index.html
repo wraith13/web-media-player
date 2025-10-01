@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Sep 30 2025 21:49:28 GMT+0900 (日本標準時)
+    build at: Wed Oct 01 2025 08:22:30 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2881,8 +2881,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Sep 30 2025 21:49:28 GMT+0900 (日本標準時)",
-    tick: 1759236568518
+    at: "Wed Oct 01 2025 08:22:30 GMT+0900 (日本標準時)",
+    tick: 1759274550744
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6486,7 +6486,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var attribute = document.createAttribute("data-weather");
                     attribute.value = weather;
                     ui_2.UI.weather.attributes.setNamedItem(attribute);
-                    var firstLetter = (_c = (_b = weather.match(/\S/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
+                    var firstLetter = (_c = (_b = weather.match(/\S+/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
                     var tail = weather.slice(firstLetter.length).trim();
                     library_1.Library.UI.replaceChildren(ui_2.UI.weather, [
                         {

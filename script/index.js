@@ -2040,7 +2040,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var attribute = document.createAttribute("data-weather");
                     attribute.value = weather;
                     ui_2.UI.weather.attributes.setNamedItem(attribute);
-                    var firstLetter = (_c = (_b = weather.match(/\S/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
+                    var firstLetter = (_c = (_b = weather.match(/\S+/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
                     var tail = weather.slice(firstLetter.length).trim();
                     library_1.Library.UI.replaceChildren(ui_2.UI.weather, [
                         {
