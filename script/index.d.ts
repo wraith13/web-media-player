@@ -717,6 +717,8 @@ declare module "script/features/weather" {
     export namespace Weather {
         const site: string;
         const format: string;
+        const extractFixedText: (format: string) => string[];
+        const isRegularResponse: (text: string) => boolean;
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string) => string;
         const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
         let cache: string;

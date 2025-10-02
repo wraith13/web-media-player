@@ -5,6 +5,10 @@ export namespace Weather
 {
     export const site = config.weather.site;
     export const format = config.weather.format;
+    export const extractFixedText = (format: string): string[] =>
+        format.replace(/%\S+/g, "").trim().match(/\S+/g) ?? [];
+    export const isRegularResponse = (text: string): boolean =>
+        extractFixedText(format).every(i => text.includes(i));
     export const makeRequestUrl = (lang: Library.Locale.Language, location?: string): string =>
         location && 0 < location.length ?
             `https://${lang}.${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}` :
@@ -25,8 +29,15 @@ export namespace Weather
                 result = (await response.text())
                     .replace(/\s+/g, " ")
                     .trim();
-                console.log("🌤 Weather data fetched:", result);
-                setCache(result);
+                if (isRegularResponse(result))
+                {
+                    console.log("🌤 Weather data fetched:", result);
+                    setCache(result);
+                }
+                else
+                {
+                    console.warn("🚫 Irregular weather data:", result);
+                }
             }
             else
             {

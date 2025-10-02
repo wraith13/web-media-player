@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Oct 01 2025 08:22:30 GMT+0900 (日本標準時)
+    build at: Wed Oct 01 2025 23:10:00 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2881,8 +2881,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Oct 01 2025 08:22:30 GMT+0900 (日本標準時)",
-    tick: 1759274550744
+    at: "Wed Oct 01 2025 23:10:00 GMT+0900 (日本標準時)",
+    tick: 1759327800755
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6366,6 +6366,10 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         var _this = this;
         Weather.site = config_json_2.default.weather.site;
         Weather.format = config_json_2.default.weather.format;
+        Weather.extractFixedText = function (format) { var _a; return (_a = format.replace(/%\S+/g, "").trim().match(/\S+/g)) !== null && _a !== void 0 ? _a : []; };
+        Weather.isRegularResponse = function (text) {
+            return Weather.extractFixedText(Weather.format).every(function (i) { return text.includes(i); });
+        };
         Weather.makeRequestUrl = function (lang, location) {
             return location && 0 < location.length ?
                 "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)) :
@@ -6394,8 +6398,13 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                         result = (_a.sent())
                             .replace(/\s+/g, " ")
                             .trim();
-                        console.log("🌤 Weather data fetched:", result);
-                        Weather.setCache(result);
+                        if (Weather.isRegularResponse(result)) {
+                            console.log("🌤 Weather data fetched:", result);
+                            Weather.setCache(result);
+                        }
+                        else {
+                            console.warn("🚫 Irregular weather data:", result);
+                        }
                         return [3 /*break*/, 5];
                     case 4:
                         console.warn("🚫 Failed to fetch weather data:", response.status, response.statusText);

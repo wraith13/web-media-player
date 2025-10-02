@@ -1920,6 +1920,10 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         var _this = this;
         Weather.site = config_json_2.default.weather.site;
         Weather.format = config_json_2.default.weather.format;
+        Weather.extractFixedText = function (format) { var _a; return (_a = format.replace(/%\S+/g, "").trim().match(/\S+/g)) !== null && _a !== void 0 ? _a : []; };
+        Weather.isRegularResponse = function (text) {
+            return Weather.extractFixedText(Weather.format).every(function (i) { return text.includes(i); });
+        };
         Weather.makeRequestUrl = function (lang, location) {
             return location && 0 < location.length ?
                 "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)) :
@@ -1948,8 +1952,13 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                         result = (_a.sent())
                             .replace(/\s+/g, " ")
                             .trim();
-                        console.log("🌤 Weather data fetched:", result);
-                        Weather.setCache(result);
+                        if (Weather.isRegularResponse(result)) {
+                            console.log("🌤 Weather data fetched:", result);
+                            Weather.setCache(result);
+                        }
+                        else {
+                            console.warn("🚫 Irregular weather data:", result);
+                        }
                         return [3 /*break*/, 5];
                     case 4:
                         console.warn("🚫 Failed to fetch weather data:", response.status, response.statusText);
