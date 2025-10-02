@@ -73,6 +73,15 @@
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "retryInterval": "5m"
+        "retryInterval": "5m",
+        "fahrenheitLocales": [
+            "en-US",
+            "en-BS",
+            "en-BZ",
+            "en-KY",
+            "en-PW",
+            "en-LR",
+            "en-FM"
+        ]
     }
 }

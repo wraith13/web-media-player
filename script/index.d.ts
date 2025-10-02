@@ -719,7 +719,9 @@ declare module "script/features/weather" {
         const format: string;
         const extractFixedText: (format: string) => string[];
         const isRegularResponse: (text: string) => boolean;
-        const makeRequestUrl: (lang: Library.Locale.Language, location?: string) => string;
+        const getTemperatureUnit: (locale?: string) => "metric" | "imperial";
+        const getTemperatureParam: (locale?: string) => string;
+        const makeRequestUrl: (lang: Library.Locale.Language, location?: string, locale?: string) => string;
         const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
         let cache: string;
         let lastTimestampFingerprint: string;

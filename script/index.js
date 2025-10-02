@@ -443,7 +443,16 @@ define("resource/config", [], {
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "retryInterval": "5m"
+        "retryInterval": "5m",
+        "fahrenheitLocales": [
+            "en-US",
+            "en-BS",
+            "en-BZ",
+            "en-KY",
+            "en-PW",
+            "en-LR",
+            "en-FM"
+        ]
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -1924,10 +1933,19 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         Weather.isRegularResponse = function (text) {
             return Weather.extractFixedText(Weather.format).every(function (i) { return text.includes(i); });
         };
-        Weather.makeRequestUrl = function (lang, location) {
+        Weather.getTemperatureUnit = function (locale) {
+            if (locale === void 0) { locale = navigator.language; }
+            return config_json_2.default.weather.fahrenheitLocales.includes(locale) ? "imperial" : "metric";
+        };
+        Weather.getTemperatureParam = function (locale) {
+            if (locale === void 0) { locale = navigator.language; }
+            return Weather.getTemperatureUnit(locale) === "imperial" ? "&u" : "";
+        };
+        Weather.makeRequestUrl = function (lang, location, locale) {
+            if (locale === void 0) { locale = navigator.language; }
             return location && 0 < location.length ?
-                "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)) :
-                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format));
+                "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)) :
+                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale));
         };
         var lastRequestTimestamp = 0;
         // export const enforceMonocromeFont = (text: string): string =>
