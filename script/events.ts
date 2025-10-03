@@ -422,9 +422,10 @@ export namespace Events
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
         UI.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
+        UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);
+        UI.weatherLocationSelect.loadParameter(Url.params, applyParam); //.setChange(updateWeatherLocation);
         UI.withClockCheckbox.loadParameter(Url.params, applyParam);
         UI.withDateCheckbox.loadParameter(Url.params, applyParam);
-        UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
@@ -486,6 +487,11 @@ export namespace Events
                         UI.visualizerSelect,
                         UI.overlayStyleSelect,
                         UI.overlayPositionSelect,
+                        UI.withWeatherCheckbox,
+                        UI.weatherLocationSelect,
+                        UI.withClockCheckbox,
+                        UI.withDateCheckbox,
+                        UI.withCalenderCheckbox,
                         UI.showFpsCheckbox,
                         UI.languageSelect,
                     ]
