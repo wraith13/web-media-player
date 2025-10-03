@@ -137,6 +137,14 @@
         "id": "with-weather",
         "default": false
     },
+    "weatherLocation": {
+        "id": "weather-location",
+        "enum": [
+            "ip-address",
+            "geolocation"
+        ],
+        "default": "ip-address"
+    },
     "withCalendar": {
         "id": "with-calendar",
         "default": false

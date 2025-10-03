@@ -150,6 +150,10 @@ DUMMYSTYLE
             <span data-lang-key="with-weather-label"></span>
             <input id="with-weather" type="checkbox" />
         </label>
+        <label for="weather-location">
+            <span data-lang-key="weather-location-label"></span>
+            <select id="weather-location"></select>
+        </label>
         <label for="with-clock">
             <span data-lang-key="with-clock-label"></span>
             <input id="with-clock" type="checkbox" />

@@ -9,6 +9,20 @@ export namespace Weather
         format.replace(/%\S+/g, "").trim().match(/\S+/g) ?? [];
     export const isRegularResponse = (text: string): boolean =>
         extractFixedText(format).every(i => text.includes(i));
+    let location: string | undefined = undefined;
+    export const setLocation = (newLocation: string | undefined): void =>
+    {
+        if (newLocation && 0 < newLocation.length)
+        {
+            location = newLocation;
+            console.log("🌤 Weather location set to:", location);
+        }
+        else
+        {
+            location = undefined;
+            console.log("🌤 Weather location cleared.");
+        }
+    }
     export const getTemperatureUnit = (locale = navigator.language): "metric" | "imperial" =>
         config.weather.fahrenheitLocales.includes(locale) ? "imperial" : "metric";
     export const getTemperatureParam = (locale = navigator.language): string =>

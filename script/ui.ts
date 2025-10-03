@@ -86,6 +86,8 @@ export namespace UI
         new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const withWeatherCheckbox =
         new Library.Control.Checkbox(control.withWeather);
+    export const weatherLocationSelect =
+        new Library.Control.Select(control.weatherLocation, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const withClockCheckbox =
         new Library.Control.Checkbox(control.withClock);
     export const withDateCheckbox =
