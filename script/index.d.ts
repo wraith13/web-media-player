@@ -66,7 +66,6 @@ declare module "locale/generated/master" {
             system: string;
             alternate: string;
             rainbow: string;
-            "brightness-label": string;
             "overlay-position-label": string;
             center: string;
             "top-right": string;
@@ -75,9 +74,13 @@ declare module "locale/generated/master" {
             "top-left": string;
             rotate: string;
             "with-weather-label": string;
+            "weather-location-label": string;
+            "ip-address": string;
+            geolocation: string;
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
+            "brightness-label": string;
             "stretch-label": string;
             "padding-label": string;
             "language-label": string;
@@ -144,6 +147,9 @@ declare module "locale/generated/master" {
             "top-left": string;
             rotate: string;
             "with-weather-label": string;
+            "weather-location-label": string;
+            "ip-address": string;
+            geolocation: string;
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
@@ -211,7 +217,6 @@ declare module "script/library/locale" {
                 system: string;
                 alternate: string;
                 rainbow: string;
-                "brightness-label": string;
                 "overlay-position-label": string;
                 center: string;
                 "top-right": string;
@@ -220,9 +225,13 @@ declare module "script/library/locale" {
                 "top-left": string;
                 rotate: string;
                 "with-weather-label": string;
+                "weather-location-label": string;
+                "ip-address": string;
+                geolocation: string;
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
+                "brightness-label": string;
                 "stretch-label": string;
                 "padding-label": string;
                 "language-label": string;
@@ -289,6 +298,9 @@ declare module "script/library/locale" {
                 "top-left": string;
                 rotate: string;
                 "with-weather-label": string;
+                "weather-location-label": string;
+                "ip-address": string;
+                geolocation: string;
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
@@ -691,6 +703,7 @@ declare module "script/ui" {
         const overlayStyleSelect: Library.Control.Select<string>;
         const overlayPositionSelect: Library.Control.Select<string>;
         const withWeatherCheckbox: Library.Control.Checkbox;
+        const weatherLocationSelect: Library.Control.Select<string>;
         const withClockCheckbox: Library.Control.Checkbox;
         const withDateCheckbox: Library.Control.Checkbox;
         const withCalenderCheckbox: Library.Control.Checkbox;
@@ -700,7 +713,7 @@ declare module "script/ui" {
         const fpsDisplay: HTMLDivElement;
         const overlay: HTMLDivElement;
         const calendar: HTMLDivElement;
-        const weather: HTMLSpanElement;
+        const weather: HTMLDivElement;
         const date: HTMLSpanElement;
         const time: HTMLSpanElement;
         const keyboardShortcut: HTMLDivElement;
@@ -712,6 +725,13 @@ declare module "script/ui" {
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
     }
 }
+declare module "script/features/location" {
+    export namespace Location {
+        const requestToGetGeolocation: () => void;
+        const isExpired: () => boolean;
+        const get: () => string | undefined;
+    }
+}
 declare module "script/features/weather" {
     import { Library } from "script/library/index";
     export namespace Weather {
@@ -719,6 +739,7 @@ declare module "script/features/weather" {
         const format: string;
         const extractFixedText: (format: string) => string[];
         const isRegularResponse: (text: string) => boolean;
+        const setLocation: (newLocation: string | undefined) => void;
         const getTemperatureUnit: (locale?: string) => "metric" | "imperial";
         const getTemperatureParam: (locale?: string) => string;
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string, locale?: string) => string;
@@ -728,7 +749,7 @@ declare module "script/features/weather" {
         const setCache: (data: string) => void;
         const getTimeFingerprint: (date: Date | null) => string;
         const isExpired: () => boolean;
-        const get: (lang: Library.Locale.Language, location?: string) => string;
+        const get: (lang: Library.Locale.Language, location?: string | undefined) => string;
     }
 }
 declare module "script/features/overlay" {
@@ -1024,6 +1045,7 @@ declare module "script/features/player" {
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedOverlay from "script/features/overlay";
+    import * as ImportedLocation from "script/features/location";
     import * as ImportedWeather from "script/features/weather";
     import * as ImportedAnalyser from "script/features/analyser";
     import * as ImportedVisualizer from "script/features/visualizer";
@@ -1031,6 +1053,7 @@ declare module "script/features/index" {
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Overlay = ImportedOverlay.Overlay;
+        export import Location = ImportedLocation.Location;
         export import Weather = ImportedWeather.Weather;
         export import Analyser = ImportedAnalyser.Analyser;
         export import Visualizer = ImportedVisualizer.Visualizer;

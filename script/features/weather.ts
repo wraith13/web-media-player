@@ -1,5 +1,6 @@
 import { Library } from "@library";
 import { Tools } from "@tools";
+import { Location } from "./location";
 import config from "@resource/config.json";
 export namespace Weather
 {
@@ -97,7 +98,7 @@ export namespace Weather
     }
     export const isExpired = (): boolean =>
         lastTimestampFingerprint !== getTimeFingerprint(new Date());
-    export const get = (lang: Library.Locale.Language, location?: string): string =>
+    export const get = (lang: Library.Locale.Language, location = Location.get()): string =>
     {
         if (isExpired())
         {

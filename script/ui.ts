@@ -126,7 +126,7 @@ export namespace UI
     export const calendar =
         Library.UI.getElementById("div", "calendar");
     export const weather =
-        Library.UI.getElementById("span", "weather");
+        Library.UI.getElementById("div", "weather");
     export const date =
         Library.UI.getElementById("span", "date");
     export const time =
