@@ -48,6 +48,13 @@ export namespace Events
             i => UI.overlay.classList.toggle(i, i === UI.overlayPositionSelect.get())
         );
     };
+    const updateWeatherLocation = () =>
+    {
+        if ("geolocation" === UI.weatherLocationSelect.get())
+        {
+            Features.Location.requestToGetGeolocation();
+        }
+    }
     const updateUrlAnchor = (params: Record<string, string>) =>
         UI.urlAnchor.href = Url.make(params);
     const dragover = (event: DragEvent): void =>
@@ -423,7 +430,7 @@ export namespace Events
         UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
         UI.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
         UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);
-        UI.weatherLocationSelect.loadParameter(Url.params, applyParam); //.setChange(updateWeatherLocation);
+        UI.weatherLocationSelect.loadParameter(Url.params, applyParam).setChange(updateWeatherLocation);
         UI.withClockCheckbox.loadParameter(Url.params, applyParam);
         UI.withDateCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);

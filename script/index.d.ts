@@ -728,7 +728,6 @@ declare module "script/ui" {
 declare module "script/features/location" {
     export namespace Location {
         const requestToGetGeolocation: () => void;
-        const isExpired: () => boolean;
         const get: () => string | undefined;
     }
 }
@@ -739,7 +738,6 @@ declare module "script/features/weather" {
         const format: string;
         const extractFixedText: (format: string) => string[];
         const isRegularResponse: (text: string) => boolean;
-        const setLocation: (newLocation: string | undefined) => void;
         const getTemperatureUnit: (locale?: string) => "metric" | "imperial";
         const getTemperatureParam: (locale?: string) => string;
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string, locale?: string) => string;
