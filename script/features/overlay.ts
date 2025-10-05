@@ -40,7 +40,7 @@ export namespace Overlay
     {
         if (UI.withWeatherCheckbox.get())
         {
-            const weather = Weather.get(Library.Locale.getLocale());
+            const weather = Weather.get();
             if (UI.weather.attributes.getNamedItem("data-weather")?.value !== weather)
             {
                 const attribute = document.createAttribute("data-weather");

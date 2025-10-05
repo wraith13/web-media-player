@@ -732,7 +732,6 @@ declare module "script/features/location" {
     }
 }
 declare module "script/features/weather" {
-    import { Library } from "script/library/index";
     export namespace Weather {
         const site: string;
         const format: string;
@@ -741,13 +740,15 @@ declare module "script/features/weather" {
         const isRegularResponse: (text: string) => boolean;
         const getTemperatureUnit: (locale?: string) => "metric" | "imperial";
         const getTemperatureParam: (locale?: string) => string;
-        const makeRequestUrl: (lang: Library.Locale.Language, location?: string, locale?: string) => string;
-        const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
+        const makeRequestUrl: (location?: string, locale?: string) => string;
+        const fetch: (location?: string) => Promise<string | undefined>;
         let cache: string;
         let lastTimestamp: number;
-        const setCache: (data: string) => void;
+        const setCache: (data: string | undefined) => void;
+        const isWeatherFetchAllowed: () => boolean;
+        const isUpdateRequired: () => boolean;
         const isExpired: () => boolean;
-        const get: (lang: Library.Locale.Language, location?: string | undefined) => string;
+        const get: (location?: string | undefined) => string;
     }
 }
 declare module "script/features/overlay" {

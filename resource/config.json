@@ -73,7 +73,9 @@
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "expire": "20m",
+        "na": "🚫 🌡️N/A 💧N/A 💨N/A",
+        "updateInterval": "30m",
+        "expire": "60m",
         "retryInterval": "3m",
         "fahrenheitLocales": [
             "en-US",

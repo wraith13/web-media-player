@@ -449,7 +449,9 @@ define("resource/config", [], {
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "expire": "20m",
+        "na": "🚫 🌡️N/A 💧N/A 💨N/A",
+        "updateInterval": "30m",
+        "expire": "60m",
         "retryInterval": "3m",
         "fahrenheitLocales": [
             "en-US",
@@ -1991,16 +1993,16 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
             return Weather.getTemperatureUnit(locale) === "imperial" ? "&u" : "";
         };
         var locationCache = undefined;
-        Weather.makeRequestUrl = function (lang, location, locale) {
+        Weather.makeRequestUrl = function (location, locale) {
             if (locale === void 0) { locale = navigator.language; }
             return location && 0 < location.length ?
-                "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)) :
-                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)).concat(Weather.separator, "%l");
+                "https://".concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)) :
+                "https://".concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)).concat(Weather.separator, "%l");
         };
         var lastRequestTimestamp = 0;
         // export const enforceMonocromeFont = (text: string): string =>
         //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
-        Weather.fetch = function (lang, location) { return __awaiter(_this, void 0, void 0, function () {
+        Weather.fetch = function (location) { return __awaiter(_this, void 0, void 0, function () {
             var result, response, parts, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -2009,8 +2011,8 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 6, , 7]);
-                        console.log("🌤 Fetching weather data...", Weather.makeRequestUrl(lang, location));
-                        return [4 /*yield*/, window.fetch(Weather.makeRequestUrl(lang, location))];
+                        console.log("🌤 Fetching weather data...", Weather.makeRequestUrl(location));
+                        return [4 /*yield*/, window.fetch(Weather.makeRequestUrl(location))];
                     case 2:
                         response = _a.sent();
                         if (!response.ok) return [3 /*break*/, 4];
@@ -2048,30 +2050,45 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                 }
             });
         }); };
-        Weather.cache = "N/A";
+        Weather.cache = config_json_2.default.weather.na;
         Weather.lastTimestamp = 0;
         Weather.setCache = function (data) {
-            Weather.cache = data;
+            Weather.cache = data !== null && data !== void 0 ? data : config_json_2.default.weather.na;
             Weather.lastTimestamp = new Date().getTime();
+        };
+        Weather.isWeatherFetchAllowed = function () {
+            var _a;
+            var now = Date.now();
+            var retryInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.retryInterval)) !== null && _a !== void 0 ? _a : (3 * 60 * 1000);
+            return lastRequestTimestamp + retryInterval < now;
+        };
+        Weather.isUpdateRequired = function () {
+            var _a;
+            var now = Date.now();
+            var updateInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.updateInterval)) !== null && _a !== void 0 ? _a : (30 * 60 * 1000);
+            return Weather.lastTimestamp + updateInterval < now;
         };
         Weather.isExpired = function () {
             var _a;
             var now = Date.now();
-            var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.expire)) !== null && _a !== void 0 ? _a : (20 * 60 * 1000);
+            var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.expire)) !== null && _a !== void 0 ? _a : (60 * 60 * 1000);
             return Weather.lastTimestamp + expire < now;
         };
-        Weather.get = function (lang, location) {
-            var _a, _b;
+        Weather.get = function (location) {
+            var _a;
             if (location === void 0) { location = (_a = location_1.Location.get()) !== null && _a !== void 0 ? _a : locationCache; }
-            if (Weather.isExpired()) {
-                var now = Date.now();
-                var retryInterval = (_b = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.retryInterval)) !== null && _b !== void 0 ? _b : (3 * 60 * 1000);
-                if (lastRequestTimestamp + retryInterval < now) {
+            if (Weather.isUpdateRequired()) {
+                if (Weather.isWeatherFetchAllowed()) {
                     lastRequestTimestamp = Date.now();
-                    Weather.fetch(lang, location);
+                    Weather.fetch(location);
                 }
             }
-            return Weather.cache;
+            if (Weather.isExpired()) {
+                return config_json_2.default.weather.na;
+            }
+            else {
+                return Weather.cache;
+            }
         };
     })(Weather || (exports.Weather = Weather = {}));
 });
@@ -2108,7 +2125,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.updateWeather = function () {
             var _a, _b, _c;
             if (ui_3.UI.withWeatherCheckbox.get()) {
-                var weather = weather_1.Weather.get(library_1.Library.Locale.getLocale());
+                var weather = weather_1.Weather.get();
                 if (((_a = ui_3.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
                     var attribute = document.createAttribute("data-weather");
                     attribute.value = weather;

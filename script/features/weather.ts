@@ -1,4 +1,3 @@
-import { Library } from "@library";
 import { Tools } from "@tools";
 import { Location } from "./location";
 import config from "@resource/config.json";
@@ -16,20 +15,20 @@ export namespace Weather
     export const getTemperatureParam = (locale = navigator.language): string =>
         getTemperatureUnit(locale) === "imperial" ? "&u" : "";
     let locationCache: string | undefined = undefined;
-    export const makeRequestUrl = (lang: Library.Locale.Language, location?: string, locale = navigator.language): string =>
+    export const makeRequestUrl = (location?: string, locale = navigator.language): string =>
         location && 0 < location.length ?
-            `https://${lang}.${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}` :
-            `https://${lang}.${site}/?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}${separator}%l`;
+            `https://${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}` :
+            `https://${site}/?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}${separator}%l`;
     let lastRequestTimestamp: number = 0;
     // export const enforceMonocromeFont = (text: string): string =>
     //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
-    export const fetch = async (lang: Library.Locale.Language, location?: string): Promise<string | undefined> =>
+    export const fetch = async (location?: string): Promise<string | undefined> =>
     {
         let result: Awaited<ReturnType<typeof fetch>> = undefined;
         try
         {
-            console.log("🌤 Fetching weather data...", makeRequestUrl(lang, location));
-            const response = await window.fetch(makeRequestUrl(lang, location));
+            console.log("🌤 Fetching weather data...", makeRequestUrl(location));
+            const response = await window.fetch(makeRequestUrl(location));
             if (response.ok)
             {
                 //result = enforceMonocromeFont(await response.text())
@@ -67,31 +66,48 @@ export namespace Weather
         }
         return result;
     };
-    export let cache: string = "N/A";
+    export let cache: string = config.weather.na;
     export let lastTimestamp: number = 0;
-    export const setCache = (data: string): void =>
+    export const setCache = (data: string | undefined): void =>
     {
-        cache = data;
+        cache = data ?? config.weather.na;
         lastTimestamp = new Date().getTime();
+    };
+    export const isWeatherFetchAllowed = (): boolean =>
+    {
+        const now = Date.now();
+        const retryInterval = Tools.Timespan.parse(config.weather.retryInterval) ?? (3 * 60 * 1000);
+        return lastRequestTimestamp +retryInterval < now;
+    };
+    export const isUpdateRequired = (): boolean =>
+    {
+        const now = Date.now();
+        const updateInterval = Tools.Timespan.parse(config.weather.updateInterval) ?? (30 * 60 * 1000);
+        return lastTimestamp +updateInterval < now;
     };
     export const isExpired = (): boolean =>
     {
         const now = Date.now();
-        const expire = Tools.Timespan.parse(config.weather.expire) ?? (20 * 60 * 1000);
+        const expire = Tools.Timespan.parse(config.weather.expire) ?? (60 * 60 * 1000);
         return lastTimestamp +expire < now;
     };
-    export const get = (lang: Library.Locale.Language, location = Location.get() ?? locationCache): string =>
+    export const get = (location = Location.get() ?? locationCache): string =>
     {
-        if (isExpired())
+        if (isUpdateRequired())
         {
-            const now = Date.now();
-            const retryInterval = Tools.Timespan.parse(config.weather.retryInterval) ?? (3 * 60 * 1000);
-            if (lastRequestTimestamp +retryInterval < now)
+            if (isWeatherFetchAllowed())
             {
                 lastRequestTimestamp = Date.now();
-                fetch(lang, location);
+                fetch(location);
             }
         }
-        return cache;
+        if (isExpired())
+        {
+            return config.weather.na;
+        }
+        else
+        {
+            return cache;
+        }
     }
 }
