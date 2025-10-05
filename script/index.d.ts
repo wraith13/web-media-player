@@ -736,6 +736,7 @@ declare module "script/features/weather" {
     export namespace Weather {
         const site: string;
         const format: string;
+        const separator = "|";
         const extractFixedText: (format: string) => string[];
         const isRegularResponse: (text: string) => boolean;
         const getTemperatureUnit: (locale?: string) => "metric" | "imperial";
@@ -743,9 +744,8 @@ declare module "script/features/weather" {
         const makeRequestUrl: (lang: Library.Locale.Language, location?: string, locale?: string) => string;
         const fetch: (lang: Library.Locale.Language, location?: string) => Promise<string | undefined>;
         let cache: string;
-        let lastTimestampFingerprint: string;
+        let lastTimestamp: number;
         const setCache: (data: string) => void;
-        const getTimeFingerprint: (date: Date | null) => string;
         const isExpired: () => boolean;
         const get: (lang: Library.Locale.Language, location?: string | undefined) => string;
     }

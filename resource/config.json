@@ -73,9 +73,8 @@
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "geoLocationInterval": "30m",
-        "geoLocationRetryInterval": "5m",
-        "retryInterval": "5m",
+        "expire": "20m",
+        "retryInterval": "3m",
         "fahrenheitLocales": [
             "en-US",
             "en-BS",

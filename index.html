@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Oct 04 2025 23:00:12 GMT+0900 (日本標準時)
+    build at: Sun Oct 05 2025 03:11:55 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2885,8 +2885,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Oct 04 2025 23:00:12 GMT+0900 (日本標準時)",
-    tick: 1759586412745
+    at: "Sun Oct 05 2025 03:11:55 GMT+0900 (日本標準時)",
+    tick: 1759601515989
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4899,9 +4899,8 @@ define("resource/config", [], {
     "weather": {
         "site": "wttr.in",
         "format": "%c 🌡️%t 💧%h 💨%w",
-        "geoLocationInterval": "30m",
-        "geoLocationRetryInterval": "5m",
-        "retryInterval": "5m",
+        "expire": "20m",
+        "retryInterval": "3m",
         "fahrenheitLocales": [
             "en-US",
             "en-BS",
@@ -6428,6 +6427,7 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         var _this = this;
         Weather.site = config_json_2.default.weather.site;
         Weather.format = config_json_2.default.weather.format;
+        Weather.separator = "|";
         Weather.extractFixedText = function (format) { var _a; return (_a = format.replace(/%\S+/g, "").trim().match(/\S+/g)) !== null && _a !== void 0 ? _a : []; };
         Weather.isRegularResponse = function (text) {
             return Weather.extractFixedText(Weather.format).every(function (i) { return text.includes(i); });
@@ -6440,17 +6440,18 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
             if (locale === void 0) { locale = navigator.language; }
             return Weather.getTemperatureUnit(locale) === "imperial" ? "&u" : "";
         };
+        var locationCache = undefined;
         Weather.makeRequestUrl = function (lang, location, locale) {
             if (locale === void 0) { locale = navigator.language; }
             return location && 0 < location.length ?
                 "https://".concat(lang, ".").concat(Weather.site, "/").concat(encodeURIComponent(location), "?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)) :
-                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale));
+                "https://".concat(lang, ".").concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)).concat(Weather.separator, "%l");
         };
         var lastRequestTimestamp = 0;
         // export const enforceMonocromeFont = (text: string): string =>
         //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
         Weather.fetch = function (lang, location) { return __awaiter(_this, void 0, void 0, function () {
-            var result, response, error_1;
+            var result, response, parts, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -6471,6 +6472,14 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                             .trim();
                         if (Weather.isRegularResponse(result)) {
                             console.log("🌤 Weather data fetched:", result);
+                            if (result.includes(Weather.separator)) {
+                                parts = result.split(Weather.separator);
+                                if (2 <= parts.length) {
+                                    locationCache = parts[1].trim();
+                                    console.log("📍 Location extracted:", locationCache);
+                                }
+                                result = parts[0].trim();
+                            }
                             Weather.setCache(result);
                         }
                         else {
@@ -6490,36 +6499,23 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
             });
         }); };
         Weather.cache = "N/A";
-        Weather.lastTimestampFingerprint = "";
+        Weather.lastTimestamp = 0;
         Weather.setCache = function (data) {
             Weather.cache = data;
-            Weather.lastTimestampFingerprint = Weather.getTimeFingerprint(new Date());
-        };
-        Weather.getTimeFingerprint = function (date) {
-            if (date) {
-                var minute = date.getMinutes();
-                if (minute < 55) {
-                    var year = date.getFullYear();
-                    var month = date.getMonth() + 1;
-                    var day = date.getDate();
-                    var hour = date.getHours();
-                    return "".concat(year, "-").concat(month, "-").concat(day, " ").concat(hour);
-                }
-                else {
-                    return Weather.getTimeFingerprint(new Date(date.getTime() + 10 * 60 * 1000));
-                }
-            }
-            return "";
+            Weather.lastTimestamp = new Date().getTime();
         };
         Weather.isExpired = function () {
-            return Weather.lastTimestampFingerprint !== Weather.getTimeFingerprint(new Date());
+            var _a;
+            var now = Date.now();
+            var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.expire)) !== null && _a !== void 0 ? _a : (20 * 60 * 1000);
+            return Weather.lastTimestamp + expire < now;
         };
         Weather.get = function (lang, location) {
-            var _a;
-            if (location === void 0) { location = location_1.Location.get(); }
+            var _a, _b;
+            if (location === void 0) { location = (_a = location_1.Location.get()) !== null && _a !== void 0 ? _a : locationCache; }
             if (Weather.isExpired()) {
                 var now = Date.now();
-                var retryInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.retryInterval)) !== null && _a !== void 0 ? _a : (5 * 60 * 1000);
+                var retryInterval = (_b = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.retryInterval)) !== null && _b !== void 0 ? _b : (3 * 60 * 1000);
                 if (lastRequestTimestamp + retryInterval < now) {
                     lastRequestTimestamp = Date.now();
                     Weather.fetch(lang, location);
