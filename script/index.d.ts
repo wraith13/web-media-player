@@ -748,7 +748,7 @@ declare module "script/features/weather" {
         const isWeatherFetchAllowed: () => boolean;
         const isUpdateRequired: () => boolean;
         const isExpired: () => boolean;
-        const get: (location?: string | undefined) => string;
+        const get: () => string;
     }
 }
 declare module "script/features/overlay" {

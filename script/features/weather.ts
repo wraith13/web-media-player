@@ -20,6 +20,7 @@ export namespace Weather
             `https://${site}/${encodeURIComponent(location)}?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}` :
             `https://${site}/?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}${separator}%l`;
     let lastRequestTimestamp: number = 0;
+    let isLastRequestWithGeolocation: boolean = false;
     // export const enforceMonocromeFont = (text: string): string =>
     //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
     export const fetch = async (location?: string): Promise<string | undefined> =>
@@ -91,14 +92,17 @@ export namespace Weather
         const expire = Tools.Timespan.parse(config.weather.expire) ?? (60 * 60 * 1000);
         return lastTimestamp +expire < now;
     };
-    export const get = (location = Location.get() ?? locationCache): string =>
+    export const get = (): string =>
     {
-        if (isUpdateRequired())
+        const location = Location.get();
+        const isWithGeolocation = undefined !== location;
+        if (isUpdateRequired() || isWithGeolocation !== isLastRequestWithGeolocation)
         {
             if (isWeatherFetchAllowed())
             {
                 lastRequestTimestamp = Date.now();
-                fetch(location);
+                isLastRequestWithGeolocation = isWithGeolocation;
+                fetch(location ?? locationCache);
             }
         }
         if (isExpired())

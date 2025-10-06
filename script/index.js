@@ -2000,6 +2000,7 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                 "https://".concat(Weather.site, "/?format=").concat(encodeURIComponent(Weather.format)).concat(Weather.getTemperatureParam(locale)).concat(Weather.separator, "%l");
         };
         var lastRequestTimestamp = 0;
+        var isLastRequestWithGeolocation = false;
         // export const enforceMonocromeFont = (text: string): string =>
         //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
         Weather.fetch = function (location) { return __awaiter(_this, void 0, void 0, function () {
@@ -2074,13 +2075,14 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
             var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.expire)) !== null && _a !== void 0 ? _a : (60 * 60 * 1000);
             return Weather.lastTimestamp + expire < now;
         };
-        Weather.get = function (location) {
-            var _a;
-            if (location === void 0) { location = (_a = location_1.Location.get()) !== null && _a !== void 0 ? _a : locationCache; }
-            if (Weather.isUpdateRequired()) {
+        Weather.get = function () {
+            var location = location_1.Location.get();
+            var isWithGeolocation = undefined !== location;
+            if (Weather.isUpdateRequired() || isWithGeolocation !== isLastRequestWithGeolocation) {
                 if (Weather.isWeatherFetchAllowed()) {
                     lastRequestTimestamp = Date.now();
-                    Weather.fetch(location);
+                    isLastRequestWithGeolocation = isWithGeolocation;
+                    Weather.fetch(location !== null && location !== void 0 ? location : locationCache);
                 }
             }
             if (Weather.isExpired()) {
