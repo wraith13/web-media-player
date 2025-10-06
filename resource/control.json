@@ -1,4 +1,8 @@
 {
+    "shuffle": {
+        "id": "shuffle",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,

@@ -77,6 +77,10 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
+    <label for="shuffle-checkbox" class="icon-button">
+        <input id="shuffle-checkbox" type="checkbox">
+        __SHUFFLE_ICON__
+    </label>
     <button id="shuffle-button">__SHUFFLE_ICON__</button>
     <button id="repeat-button">__REPEAT_ICON__</button>
     <button id="play-button">
