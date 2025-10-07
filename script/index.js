@@ -1648,6 +1648,10 @@ define("resource/control", [], {
         "id": "shuffle",
         "default": false
     },
+    "repeat": {
+        "id": "repeat",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,
@@ -1838,9 +1842,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
         UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
         UI.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
-        // export const shuffleButton =
-        //     new Library.Control.Button({ id: "shuffle-button", });
-        UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
+        UI.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
         UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
@@ -3212,7 +3214,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < media_1.Media.mediaList.length ||
                     0 < History.getStraightNext(nextIndex) ||
-                    ui_6.UI.repeatButton.dom.classList.contains("on")) {
+                    ui_6.UI.repeat.get()) {
                     return false;
                 }
             }
@@ -3775,7 +3777,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (currentMedia) {
                             Player.playMedia(currentMedia, "resume");
                         }
-                        else if (!ui_8.UI.repeatButton.dom.classList.contains("on")) {
+                        else if (!ui_8.UI.repeat.get()) {
                             Player.pause();
                         }
                         return [2 /*return*/];
@@ -4484,8 +4486,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a;
-            var _b, _c, _d, _e, _f, _g;
+            var _a, _b, _c, _d, _e, _f;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -4550,11 +4551,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if ("R" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_11.UI.repeatButton.dom.classList.toggle("on");
+                    ui_11.UI.repeat.toggle();
                 }
                 if ("S" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    //UI.shuffleButton.dom.classList.toggle("on");
                     ui_11.UI.shuffle.toggle();
                 }
             });
@@ -4628,19 +4628,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
             });
-            // UI.shuffleButton.data.click = (event, button) =>
-            // {
-            //     event?.stopPropagation();
-            //     button.dom.blur();
-            //     UI.shuffleButton.dom.classList.toggle("on");
-            //     applyParam("shuffle", `${UI.shuffleButton.dom.classList.contains("on")}`);
-            // };
-            ui_11.UI.repeatButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_11.UI.repeatButton.dom.classList.toggle("on");
-                applyParam("repeat", "".concat(ui_11.UI.repeatButton.dom.classList.contains("on")));
-            };
             ui_11.UI.volumeButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -4652,7 +4639,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_11.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_b = ui_11.UI.volumeRange).options || (_b.options = {});
+            (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
@@ -4674,7 +4661,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_c = ui_11.UI.withFullscreenCheckbox).options || (_c.options = {});
+            (_b = ui_11.UI.withFullscreenCheckbox).options || (_b.options = {});
             ui_11.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -4682,9 +4669,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_d = ui_11.UI.brightnessRange).options || (_d.options = {});
+            (_c = ui_11.UI.brightnessRange).options || (_c.options = {});
             ui_11.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_e = ui_11.UI.stretchRange).options || (_e.options = {});
+            (_d = ui_11.UI.stretchRange).options || (_d.options = {});
             ui_11.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -4692,13 +4679,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_f = ui_11.UI.imageSpanSelect).options || (_f.options = {});
+            (_e = ui_11.UI.imageSpanSelect).options || (_e.options = {});
             ui_11.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_g = ui_11.UI.loopShortMediaCheckbox).options || (_g.options = {});
+            (_f = ui_11.UI.loopShortMediaCheckbox).options || (_f.options = {});
             ui_11.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
                 console.log("🔁 Loop short media changed:", ui_11.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
@@ -4715,8 +4702,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
             ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            //UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
-            ui_11.UI.repeatButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["repeat"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
+            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
             ui_11.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.withFullscreenCheckbox.options.change);
             ui_11.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.brightnessRange.options.change);

@@ -81,7 +81,10 @@ DUMMYSTYLE
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
     </label>
-    <button id="repeat-button">__REPEAT_ICON__</button>
+    <label for="repeat" class="icon-button">
+        <input id="repeat" type="checkbox">
+        __REPEAT_ICON__
+    </label>
     <button id="play-button">
         <div id="play-icon">__PLAY_ICON__</div>
         <div id="pause-icon">__PAUSE_ICON__</div>

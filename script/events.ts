@@ -211,12 +211,11 @@ export namespace Events
                 if ("R" === event.key.toUpperCase() && ! event.repeat)
                 {
                     //event.preventDefault();
-                    UI.repeatButton.dom.classList.toggle("on");
+                    UI.repeat.toggle();
                 }
                 if ("S" === event.key.toUpperCase() && ! event.repeat)
                 {
                     //event.preventDefault();
-                    //UI.shuffleButton.dom.classList.toggle("on");
                     UI.shuffle.toggle();
                 }
             }
@@ -316,22 +315,7 @@ export namespace Events
                 button.dom.blur();
                 applyParam("shuffle", `${UI.shuffle.get()}`);
             }
-        )
-        ;
-        // UI.shuffleButton.data.click = (event, button) =>
-        // {
-        //     event?.stopPropagation();
-        //     button.dom.blur();
-        //     UI.shuffleButton.dom.classList.toggle("on");
-        //     applyParam("shuffle", `${UI.shuffleButton.dom.classList.contains("on")}`);
-        // };
-        UI.repeatButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            UI.repeatButton.dom.classList.toggle("on");
-            applyParam("repeat", `${UI.repeatButton.dom.classList.contains("on")}`);
-        };
+        );
         UI.volumeButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
@@ -428,8 +412,7 @@ export namespace Events
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
         UI.shuffle.loadParameter(Url.params, applyParam);
-        //UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
-        UI.repeatButton.dom.classList.toggle("on", "true" === (Url.params["repeat"] ?? "false").toLowerCase());
+        UI.repeat.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
         UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
         UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);

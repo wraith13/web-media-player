@@ -3,6 +3,10 @@
         "id": "shuffle",
         "default": false
     },
+    "repeat": {
+        "id": "repeat",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,

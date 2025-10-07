@@ -154,7 +154,7 @@ export namespace Player
             playMedia(currentMedia, "resume");
         }
         else
-        if ( ! UI.repeatButton.dom.classList.contains("on"))
+        if ( ! UI.repeat.get())
         {
             pause();
         }

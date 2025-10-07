@@ -112,7 +112,7 @@ export namespace History
             (
                 nextIndex < Media.mediaList.length ||
                 0 < getStraightNext(nextIndex) ||
-                UI.repeatButton.dom.classList.contains("on")
+                UI.repeat.get()
             )
             {
                 return false;
