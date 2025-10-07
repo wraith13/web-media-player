@@ -679,7 +679,7 @@ declare module "script/ui" {
         const backBUtton: Library.Control.Button<HTMLElement>;
         const fastForwardButton: Library.Control.Button<HTMLElement>;
         const rewindButton: Library.Control.Button<HTMLElement>;
-        const shuffleButton: Library.Control.Button<HTMLElement>;
+        const shuffle: Library.Control.Checkbox;
         const repeatButton: Library.Control.Button<HTMLElement>;
         const volumeButton: Library.Control.Button<HTMLElement>;
         const volumeRange: Library.Control.Range;

@@ -52,7 +52,7 @@ export namespace History
             {
                 clear();
                 const index = Media.mediaList.indexOf(media);
-                if (UI.shuffleButton.dom.classList.contains("on"))
+                if (UI.shuffle.get())
                 {
                     history.push(index);
                 }
@@ -90,7 +90,7 @@ export namespace History
             if (history.length <= currentIndex)
             {
                 currentIndex = history.length;
-                if (UI.shuffleButton.dom.classList.contains("on"))
+                if (UI.shuffle.get())
                 {
                     history.push(getShuffleNext());
                 }

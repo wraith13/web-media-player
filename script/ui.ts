@@ -34,8 +34,8 @@ export namespace UI
         new Library.Control.Button({ id: "rewind-button", });
     export const shuffle =
         new Library.Control.Checkbox(control.shuffle);
-    export const shuffleButton =
-        new Library.Control.Button({ id: "shuffle-button", });
+    // export const shuffleButton =
+    //     new Library.Control.Button({ id: "shuffle-button", });
     export const repeatButton =
         new Library.Control.Button({ id: "repeat-button", });
     export const volumeButton =

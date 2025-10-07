@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Oct 05 2025 23:00:35 GMT+0900 (日本標準時)
+    build at: Tue Oct 07 2025 01:35:15 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1154,26 +1154,45 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   padding: 0.25rem 0.25rem;
   gap: 0.25rem;
 }
+#control-panel .icon-button input[type=checkbox] {
+  display: none;
+}
+#control-panel .icon-button input[type=checkbox]:checked + svg {
+  border-width: 1px;
+  padding-block: calc(0.75rem - 1px);
+  padding-inline: calc(0.75rem - 1px);
+}
+#control-panel .icon-button input[type=checkbox] + svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  vertical-align: middle;
+}
+#control-panel label.icon-button svg,
 #control-panel button {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
+#control-panel label.icon-button svg,
 #control-panel button {
   border-style: solid;
   border-width: 0px;
-  border-color: rgb(230, 237, 243);
-  border-radius: 1.5rem;
   padding-block: 0.75rem;
   padding-inline: 0.75rem;
+  border-color: rgb(230, 237, 243);
+  border-radius: 1.5rem;
   transition: opacity 750ms, filter 125ms;
   width: 3rem;
   height: 3rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
+#control-panel label.icon-button svg.on,
 #control-panel button.on {
   border-width: 1px;
+  padding-block: calc(0.75rem - 1px);
+  padding-inline: calc(0.75rem - 1px);
 }
+#control-panel label.icon-button svg svg,
 #control-panel button svg {
   color: rgb(230, 237, 243);
   fill: rgb(230, 237, 243);
@@ -1181,6 +1200,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   height: 100%;
 }
 @media (hover: hover) {
+  #control-panel label.icon-button svg:hover,
   #control-panel button:hover {
     z-index: 100;
     filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
@@ -2629,14 +2649,17 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </div>
 <div id="fps"></div>
 <div id="control-panel">
-    <button id="shuffle-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <label for="shuffle" class="icon-button">
+        <input id="shuffle" type="checkbox">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-6.12323e-17,1,-0.828989,-5.07609e-17,1160.71,512)">
         <path d="M218.285,891.502C231.359,901.851 240,919.691 240,939.947C240,940.555 239.992,941.16 239.977,941.764L240,941.764L240,1279.53L144,1279.53L144,976.876L0.077,896.145L-0.151,896.273L-113.99,832.417L-113.762,832.289L-209.844,778.394C-227.511,769.845 -240,748.984 -240,724.631C-240,723.007 -239.944,721.397 -239.835,719.806L-240,719.806L-240,544L-320,544L-192,287.643L-64,544L-144,544L-144,687.616L-128.266,696.442L-128.478,696.992L218.285,891.502ZM84.86,720.876L144,687.702L144,544L64,544L192,288L320,544L240,544L240,719.806L239.835,719.806C239.944,721.397 240,723.007 240,724.631C240,746.816 229.635,766.103 214.433,775.825L214.459,775.892L212.766,776.841C212.387,777.057 212.007,777.27 211.625,777.481L198.699,784.732L84.86,720.876ZM-86.463,944.688L-144,976.962L-144,1279.53L-240,1279.53L-240,941.764L-239.977,941.764C-239.992,941.16 -240,940.555 -240,939.947C-240,915.595 -227.511,894.734 -209.844,886.184L-200.302,880.832L-86.463,944.688Z"/>
     </g>
 </svg>
-</button>
+
+    </label>
     <button id="repeat-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -2885,8 +2908,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Oct 05 2025 23:00:35 GMT+0900 (日本標準時)",
-    tick: 1759672835280
+    at: "Tue Oct 07 2025 01:35:15 GMT+0900 (日本標準時)",
+    tick: 1759768515952
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6094,6 +6117,10 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
     })(Fps || (exports.Fps = Fps = {}));
 });
 define("resource/control", [], {
+    "shuffle": {
+        "id": "shuffle",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,
@@ -6283,7 +6310,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
         UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
         UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
-        UI.shuffleButton = new _library_2.Library.Control.Button({ id: "shuffle-button", });
+        UI.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
+        // export const shuffleButton =
+        //     new Library.Control.Button({ id: "shuffle-button", });
         UI.repeatButton = new _library_2.Library.Control.Button({ id: "repeat-button", });
         UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
@@ -7612,7 +7641,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 if (media) {
                     History.clear();
                     var index = media_1.Media.mediaList.indexOf(media);
-                    if (ui_6.UI.shuffleButton.dom.classList.contains("on")) {
+                    if (ui_6.UI.shuffle.get()) {
                         history.push(index);
                     }
                     else {
@@ -7640,7 +7669,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 ++currentIndex;
                 if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    if (ui_6.UI.shuffleButton.dom.classList.contains("on")) {
+                    if (ui_6.UI.shuffle.get()) {
                         history.push(History.getShuffleNext());
                     }
                     else {
@@ -8928,8 +8957,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a, _b;
-            var _c, _d, _e, _f, _g, _h;
+            var _a;
+            var _b, _c, _d, _e, _f, _g;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -8998,7 +9027,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if ("S" === event.key.toUpperCase() && !event.repeat) {
                     //event.preventDefault();
-                    ui_11.UI.shuffleButton.dom.classList.toggle("on");
+                    //UI.shuffleButton.dom.classList.toggle("on");
+                    ui_11.UI.shuffle.toggle();
                 }
             });
             document.body.addEventListener("dragover", dragover);
@@ -9066,12 +9096,18 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_11.UI.shuffleButton.data.click = function (event, button) {
+            ui_11.UI.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.shuffleButton.dom.classList.toggle("on");
-                applyParam("shuffle", "".concat(ui_11.UI.shuffleButton.dom.classList.contains("on")));
-            };
+                applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
+            });
+            // UI.shuffleButton.data.click = (event, button) =>
+            // {
+            //     event?.stopPropagation();
+            //     button.dom.blur();
+            //     UI.shuffleButton.dom.classList.toggle("on");
+            //     applyParam("shuffle", `${UI.shuffleButton.dom.classList.contains("on")}`);
+            // };
             ui_11.UI.repeatButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -9089,7 +9125,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_11.UI.settingButton.dom.classList.toggle("on", false);
             };
-            (_c = ui_11.UI.volumeRange).options || (_c.options = {});
+            (_b = ui_11.UI.volumeRange).options || (_b.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
@@ -9111,7 +9147,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_d = ui_11.UI.withFullscreenCheckbox).options || (_d.options = {});
+            (_c = ui_11.UI.withFullscreenCheckbox).options || (_c.options = {});
             ui_11.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -9119,9 +9155,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_e = ui_11.UI.brightnessRange).options || (_e.options = {});
+            (_d = ui_11.UI.brightnessRange).options || (_d.options = {});
             ui_11.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_f = ui_11.UI.stretchRange).options || (_f.options = {});
+            (_e = ui_11.UI.stretchRange).options || (_e.options = {});
             ui_11.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -9129,13 +9165,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_g = ui_11.UI.imageSpanSelect).options || (_g.options = {});
+            (_f = ui_11.UI.imageSpanSelect).options || (_f.options = {});
             ui_11.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_h = ui_11.UI.loopShortMediaCheckbox).options || (_h.options = {});
+            (_g = ui_11.UI.loopShortMediaCheckbox).options || (_g.options = {});
             ui_11.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
                 console.log("🔁 Loop short media changed:", ui_11.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
@@ -9151,8 +9187,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
-            ui_11.UI.shuffleButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["shuffle"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
-            ui_11.UI.repeatButton.dom.classList.toggle("on", "true" === ((_b = url_3.Url.params["repeat"]) !== null && _b !== void 0 ? _b : "false").toLowerCase());
+            ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
+            //UI.shuffleButton.dom.classList.toggle("on", "true" === (Url.params["shuffle"] ?? "false").toLowerCase());
+            ui_11.UI.repeatButton.dom.classList.toggle("on", "true" === ((_a = url_3.Url.params["repeat"]) !== null && _a !== void 0 ? _a : "false").toLowerCase());
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
             ui_11.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.withFullscreenCheckbox.options.change);
             ui_11.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.brightnessRange.options.change);
