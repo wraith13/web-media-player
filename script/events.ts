@@ -191,7 +191,7 @@ export namespace Events
                 {
                     event.preventDefault();
                     UI.settingButton.dom.classList.toggle("on", false);
-                    UI.volumeButton.dom.classList.toggle("on", false);
+                    UI.volumeButton.toggle(false);
                 }
                 if ("F" === event.key.toUpperCase() && ! event.repeat)
                 {
@@ -325,10 +325,7 @@ export namespace Events
                 if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
                 {
                     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
-                }
-                else
-                {
-                    UI.volumeButton.toggle();
+                    UI.volumeButton.toggle(false, "preventOnChange")
                 }
                 UI.settingButton.dom.classList.toggle("on", false);
             }
