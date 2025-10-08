@@ -7,6 +7,10 @@
         "id": "repeat",
         "default": false
     },
+    "volumeButton": {
+        "id": "volume-button",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,

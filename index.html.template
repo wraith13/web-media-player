@@ -89,16 +89,17 @@ DUMMYSTYLE
         <div id="play-icon">__PLAY_ICON__</div>
         <div id="pause-icon">__PAUSE_ICON__</div>
     </button>
-    <button id="volume-button">
+    <label for="volume-button" class="icon-button">
+        <input id="volume-button" type="checkbox">
+        <div id="volume-panel">
+            <input id="volume" type="range" />
+        </div>
         <div id="speaker-mute-icon">__SPEAKER_MUTE_ICON__</div>
         <div id="speaker-0-icon">__SPEAKER_0_ICON__</div>
         <div id="speaker-1-icon">__SPEAKER_1_ICON__</div>
         <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
-    </button>
-    <div id="volume-panel">
-        <input id="volume" type="range" />
-    </div>
+    </label>
     <button id="setting-button">__COG_ICON__</button>
     <div id="setting-panel">
         <label for="media-count" class="information">

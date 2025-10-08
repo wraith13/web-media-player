@@ -316,30 +316,33 @@ export namespace Events
                 applyParam("shuffle", `${UI.shuffle.get()}`);
             }
         );
-        UI.volumeButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
+        UI.volumeButton.setChange
+        (
+            (event, button) =>
             {
-                UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
+                event?.stopPropagation();
+                button.dom.blur();
+                if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
+                {
+                    UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
+                }
+                else
+                {
+                    UI.volumeButton.toggle();
+                }
+                UI.settingButton.dom.classList.toggle("on", false);
             }
-            else
-            {
-                UI.volumeButton.dom.classList.toggle("on");
-            }
-            UI.settingButton.dom.classList.toggle("on", false);
-        };
+        );
         UI.volumeRange.options ||= { }
         UI.volumeRange.options.change = (_event, range) =>
         {
             const value = range.get();
             console.log("🔊 Volume changed:", value);
-            UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-            UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-            UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-            UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-            UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+            UI.volumeLabel.classList.toggle("volume-mute", value <= 0);
+            UI.volumeLabel.classList.toggle("volume-0", 0 < value && value <= 25);
+            UI.volumeLabel.classList.toggle("volume-1", 25 < value && value <= 50);
+            UI.volumeLabel.classList.toggle("volume-2", 50 < value && value <= 75);
+            UI.volumeLabel.classList.toggle("volume-3", 75 < value);
             //Media.setVolume(value);
             mousemove();
         };
@@ -348,7 +351,7 @@ export namespace Events
             event?.stopPropagation();
             button.dom.blur();
             UI.settingButton.dom.classList.toggle("on");
-            UI.volumeButton.dom.classList.toggle("on", false);
+            UI.volumeButton.toggle(false);
         };
         UI.mediaLength.click = () =>
         {

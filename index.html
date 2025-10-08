@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Oct 07 2025 20:23:05 GMT+0900 (日本標準時)
+    build at: Tue Oct 07 2025 23:36:59 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1157,12 +1157,15 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel .icon-button input[type=checkbox] {
   display: none;
 }
-#control-panel .icon-button input[type=checkbox]:checked + svg {
-  border-width: 1px;
-  padding-block: calc(0.75rem - 1px);
-  padding-inline: calc(0.75rem - 1px);
+#control-panel .icon-button input[type=checkbox]:checked + svg,
+#control-panel .icon-button input[type=checkbox]:checked + div + div svg,
+#control-panel .icon-button input[type=checkbox]:checked + div + div + div svg,
+#control-panel .icon-button input[type=checkbox]:checked + div + div + div + div svg,
+#control-panel .icon-button input[type=checkbox]:checked + div + div + div + div + div svg,
+#control-panel .icon-button input[type=checkbox]:checked + div + div + div + div + div + div svg {
+  border-color: rgb(230, 237, 243);
 }
-#control-panel .icon-button input[type=checkbox] + svg {
+#control-panel .icon-button svg {
   color: rgb(230, 237, 243);
   fill: rgb(230, 237, 243);
   vertical-align: middle;
@@ -1176,10 +1179,10 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel label.icon-button svg,
 #control-panel button {
   border-style: solid;
-  border-width: 0px;
-  padding-block: 0.75rem;
-  padding-inline: 0.75rem;
-  border-color: rgb(230, 237, 243);
+  border-width: 1px;
+  padding-block: calc(0.75rem - 1px);
+  padding-inline: calc(0.75rem - 1px);
+  border-color: rgba(32, 28, 38, 0.9);
   border-radius: 1.5rem;
   transition: opacity 750ms, filter 125ms;
   width: 3rem;
@@ -1188,9 +1191,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 }
 #control-panel label.icon-button svg.on,
 #control-panel button.on {
-  border-width: 1px;
-  padding-block: calc(0.75rem - 1px);
-  padding-inline: calc(0.75rem - 1px);
+  border-color: rgb(230, 237, 243);
 }
 #control-panel label.icon-button svg svg,
 #control-panel button svg {
@@ -1207,10 +1208,11 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   }
 }
 #control-panel #play-button {
+  border-color: rgb(230, 237, 243);
   border-width: 1px;
   border-radius: 2.25rem;
-  padding-block: 1rem;
-  padding-inline: 1rem;
+  padding-block: calc(1rem - 1px);
+  padding-inline: calc(1rem - 1px);
   width: 4.5rem;
   height: 4.5rem;
   margin-top: -1.125rem;
@@ -1813,22 +1815,22 @@ body.no-media #rewind-button {
     display: none;
   }
 }
-#volume-button:not(.volume-mute) #speaker-mute-icon {
+label[for=volume-button]:not(.volume-mute) #speaker-mute-icon {
   display: none;
 }
-#volume-button:not(.volume-0) #speaker-0-icon {
+label[for=volume-button]:not(.volume-0) #speaker-0-icon {
   display: none;
 }
-#volume-button:not(.volume-1) #speaker-1-icon {
+label[for=volume-button]:not(.volume-1) #speaker-1-icon {
   display: none;
 }
-#volume-button:not(.volume-2) #speaker-2-icon {
+label[for=volume-button]:not(.volume-2) #speaker-2-icon {
   display: none;
 }
-#volume-button:not(.volume-3) #speaker-3-icon {
+label[for=volume-button]:not(.volume-3) #speaker-3-icon {
   display: none;
 }
-#volume-button #speaker-mute-icon svg {
+label[for=volume-button] #speaker-mute-icon svg {
   fill: red;
 }
 
@@ -1838,13 +1840,13 @@ body.no-media #rewind-button {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body #volume-button:not(.on) + #volume-panel:not(.show) {
+body #volume-button:not(:checked) + #volume-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #volume-button:not(.on) + #volume-panel:not(.show)::before {
+body #volume-button:not(:checked) + #volume-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2689,7 +2691,11 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 </svg>
 </div>
     </button>
-    <button id="volume-button">
+    <label for="volume-button" class="icon-button">
+        <input id="volume-button" type="checkbox">
+        <div id="volume-panel">
+            <input id="volume" type="range" />
+        </div>
         <div id="speaker-mute-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -2730,10 +2736,7 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
     </g>
 </svg>
 </div>
-    </button>
-    <div id="volume-panel">
-        <input id="volume" type="range" />
-    </div>
+    </label>
     <button id="setting-button"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -2911,8 +2914,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Oct 07 2025 20:23:05 GMT+0900 (日本標準時)",
-    tick: 1759836185224
+    at: "Tue Oct 07 2025 23:36:59 GMT+0900 (日本標準時)",
+    tick: 1759847819249
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6128,6 +6131,10 @@ define("resource/control", [], {
         "id": "repeat",
         "default": false
     },
+    "volumeButton": {
+        "id": "volume-button",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,
@@ -6319,7 +6326,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
         UI.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
         UI.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
-        UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
+        UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
+        UI.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
@@ -9104,26 +9112,26 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
             });
-            ui_11.UI.volumeButton.data.click = function (event, button) {
+            ui_11.UI.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
                 }
                 else {
-                    ui_11.UI.volumeButton.dom.classList.toggle("on");
+                    ui_11.UI.volumeButton.toggle();
                 }
                 ui_11.UI.settingButton.dom.classList.toggle("on", false);
-            };
+            });
             (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                ui_11.UI.volumeLabel.classList.toggle("volume-mute", value <= 0);
+                ui_11.UI.volumeLabel.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_11.UI.volumeLabel.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_11.UI.volumeLabel.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_11.UI.volumeLabel.classList.toggle("volume-3", 75 < value);
                 //Media.setVolume(value);
                 Events.mousemove();
             };
@@ -9131,7 +9139,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_11.UI.settingButton.dom.classList.toggle("on");
-                ui_11.UI.volumeButton.dom.classList.toggle("on", false);
+                ui_11.UI.volumeButton.toggle(false);
             };
             ui_11.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();

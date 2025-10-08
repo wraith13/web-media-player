@@ -681,7 +681,8 @@ declare module "script/ui" {
         const rewindButton: Library.Control.Button<HTMLElement>;
         const shuffle: Library.Control.Checkbox;
         const repeat: Library.Control.Checkbox;
-        const volumeButton: Library.Control.Button<HTMLElement>;
+        const volumeLabel: HTMLLabelElement;
+        const volumeButton: Library.Control.Checkbox;
         const volumeRange: Library.Control.Range;
         const settingButton: Library.Control.Button<HTMLElement>;
         const mediaList: HTMLDivElement;

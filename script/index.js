@@ -1652,6 +1652,10 @@ define("resource/control", [], {
         "id": "repeat",
         "default": false
     },
+    "volumeButton": {
+        "id": "volume-button",
+        "default": false
+    },
     "volume": {
         "id": "volume",
         "min": 0,
@@ -1843,7 +1847,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
         UI.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
         UI.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
-        UI.volumeButton = new _library_2.Library.Control.Button({ id: "volume-button", });
+        UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
+        UI.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
@@ -4628,26 +4633,26 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
             });
-            ui_11.UI.volumeButton.data.click = function (event, button) {
+            ui_11.UI.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
                 }
                 else {
-                    ui_11.UI.volumeButton.dom.classList.toggle("on");
+                    ui_11.UI.volumeButton.toggle();
                 }
                 ui_11.UI.settingButton.dom.classList.toggle("on", false);
-            };
+            });
             (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("🔊 Volume changed:", value);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-mute", value <= 0);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_11.UI.volumeButton.dom.classList.toggle("volume-3", 75 < value);
+                ui_11.UI.volumeLabel.classList.toggle("volume-mute", value <= 0);
+                ui_11.UI.volumeLabel.classList.toggle("volume-0", 0 < value && value <= 25);
+                ui_11.UI.volumeLabel.classList.toggle("volume-1", 25 < value && value <= 50);
+                ui_11.UI.volumeLabel.classList.toggle("volume-2", 50 < value && value <= 75);
+                ui_11.UI.volumeLabel.classList.toggle("volume-3", 75 < value);
                 //Media.setVolume(value);
                 Events.mousemove();
             };
@@ -4655,7 +4660,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_11.UI.settingButton.dom.classList.toggle("on");
-                ui_11.UI.volumeButton.dom.classList.toggle("on", false);
+                ui_11.UI.volumeButton.toggle(false);
             };
             ui_11.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();

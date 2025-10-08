@@ -36,8 +36,10 @@ export namespace UI
         new Library.Control.Checkbox(control.shuffle);
     export const repeat =
         new Library.Control.Checkbox(control.repeat);
+    export const volumeLabel =
+        Library.UI.querySelector("label", "label[for='volume-button']");
     export const volumeButton =
-        new Library.Control.Button({ id: "volume-button", });
+        new Library.Control.Checkbox(control.volumeButton);
     export const volumeRange =
         new Library.Control.Range(control.volume);
     export const settingButton =
