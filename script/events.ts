@@ -190,8 +190,8 @@ export namespace Events
                 if (["Escape"].includes(event.key) && ! event.repeat)
                 {
                     event.preventDefault();
-                    UI.settingButton.dom.classList.toggle("on", false);
-                    UI.volumeButton.toggle(false);
+                    UI.settingsButton.toggle(false, "preventOnChange");
+                    UI.volumeButton.toggle(false, "preventOnChange");
                 }
                 if ("F" === event.key.toUpperCase() && ! event.repeat)
                 {
@@ -327,7 +327,7 @@ export namespace Events
                     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
                     UI.volumeButton.toggle(false, "preventOnChange")
                 }
-                UI.settingButton.dom.classList.toggle("on", false);
+                UI.settingsButton.toggle(false, "preventOnChange");
             }
         );
         UI.volumeRange.options ||= { }
@@ -343,13 +343,15 @@ export namespace Events
             //Media.setVolume(value);
             mousemove();
         };
-        UI.settingButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            UI.settingButton.dom.classList.toggle("on");
-            UI.volumeButton.toggle(false);
-        };
+        UI.settingsButton.setChange
+        (
+            (event, button) =>
+            {
+                event?.stopPropagation();
+                button.dom.blur();
+                UI.volumeButton.toggle(false, "preventOnChange");
+            }
+        );
         UI.mediaLength.click = () =>
         {
             MediaList.updateMediaListDisplay();
@@ -413,7 +415,9 @@ export namespace Events
         UI.seekRange.addEventListener("input", updateSeek);
         UI.shuffle.loadParameter(Url.params, applyParam);
         UI.repeat.loadParameter(Url.params, applyParam);
+        //UI.volumeButton.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
+        //UI.settingsButton.loadParameter(Url.params, applyParam);
         UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
         UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);
         UI.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.stretchRange.options.change);
@@ -443,7 +447,7 @@ export namespace Events
                 mousemove();
             }
         );
-        Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select)", "label[for]" ])
+        Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)" ])
             .forEach(label => Library.UI.showPickerOnLabel(label));
         [
             UI.volumeRange,

@@ -684,7 +684,7 @@ declare module "script/ui" {
         const volumeLabel: HTMLLabelElement;
         const volumeButton: Library.Control.Checkbox;
         const volumeRange: Library.Control.Range;
-        const settingButton: Library.Control.Button<HTMLElement>;
+        const settingsButton: Library.Control.Checkbox;
         const mediaList: HTMLDivElement;
         const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;

@@ -11,7 +11,7 @@ export namespace Screenshot
             fixCanvasSize("1024px", "1024px");
             toCenterControlPanel(10);
             Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#setting-button", ]);
+            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#settings-button", ]);
             break;
         case "twitter-card":
             fixCanvasSize("1200px", "630px");

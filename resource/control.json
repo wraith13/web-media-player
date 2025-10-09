@@ -18,6 +18,10 @@
         "step": 1,
         "default": 100
     },
+    "settingsButton": {
+        "id": "settings-button",
+        "default": false
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false

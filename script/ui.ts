@@ -42,8 +42,8 @@ export namespace UI
         new Library.Control.Checkbox(control.volumeButton);
     export const volumeRange =
         new Library.Control.Range(control.volume);
-    export const settingButton =
-        new Library.Control.Button({ id: "setting-button", });
+    export const settingsButton =
+        new Library.Control.Checkbox(control.settingsButton);
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
     export const isScrolledToMediaListBottom = () =>

@@ -650,20 +650,22 @@ body:not(.not-supported-media)
         gap: 0.25rem;
         .icon-button
         {
-            input[type="checkbox"]
+            & > input[type="checkbox"]
             {
                 display: none;
             }
-            input[type="checkbox"]:checked + svg,
-            input[type="checkbox"]:checked + div + div svg,
-            input[type="checkbox"]:checked + div + div + div svg,
-            input[type="checkbox"]:checked + div + div + div + div svg,
-            input[type="checkbox"]:checked + div + div + div + div + div svg,
-            input[type="checkbox"]:checked + div + div + div + div + div + div svg
+            & > input[type="checkbox"]:checked + svg,
+            & > input[type="checkbox"]:checked + div + div svg,
+            & > input[type="checkbox"]:checked + div + div + div svg,
+            & > input[type="checkbox"]:checked + div + div + div + div svg,
+            & > input[type="checkbox"]:checked + div + div + div + div + div svg,
+            & > input[type="checkbox"]:checked + div + div + div + div + div + div svg,
+            & > input[type="checkbox"]:checked + div + svg
             {
                 border-color: $white-color;
             }
-            svg
+            & > svg,
+            & > div > svg
             {
                 @include svg-color($white-color);
                 vertical-align: middle;
@@ -1034,11 +1036,11 @@ label[for="volume-button"]
         line-height: 0rem;
     }
 }
-#setting-panel
+#settings-panel
 {
     //@include black-pop-panel-style();
-    @include fade-transition("body #setting-button:not(.on) + &");
-    @include slide-down-transition("body #setting-button:not(.on) + &");
+    @include fade-transition("body #settings-button:not(:checked) + &");
+    @include slide-down-transition("body #settings-button:not(:checked) + &");
     //@include flex(column);
     &
     {

@@ -100,93 +100,96 @@ DUMMYSTYLE
         <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
     </label>
-    <button id="setting-button">__COG_ICON__</button>
-    <div id="setting-panel">
-        <label for="media-count" class="information">
-            <span data-lang-key="media-count-label"></span>
-            <span id="media-count" class="value-text"></span>
-        </label>
-        <label for="media-length" class="information">
-            <span data-lang-key="media-length-label"></span>
-            <span id="media-length" class="value-text"></span>
-        </label>
-        <label for="with-fullscreen">
-            <span data-lang-key="with-fullscreen-label"></span>
-            <input id="with-fullscreen" type="checkbox" />
-            <span class="load-status" id="with-fullscreen-load-status"></span>
-        </label>
-        <label for="brightness">
-            <span data-lang-key="brightness-label"></span>
-            <input id="brightness" type="range" />
-            <span class="load-status" id="brightness-load-status"></span>
-        </label>
-        <label for="stretch">
-            <span data-lang-key="stretch-label"></span>
-            <input id="stretch" type="range" />
-        </label>
-        <label for="padding">
-            <span data-lang-key="padding-label"></span>
-            <input id="padding" type="checkbox" />
-        </label>
-        <label for="cross-fade">
-            <span data-lang-key="cross-fade-label"></span>
-            <select id="cross-fade"></select>
-        </label>
-        <label for="image-span">
-            <span data-lang-key="image-span-label"></span>
-            <select id="image-span"></select>
-        </label>
-        <label for="loop-short-media">
-            <span data-lang-key="loop-short-media-label"></span>
-            <input id="loop-short-media" type="checkbox" />
-        </label>
-        <label for="visualizer">
-            <span data-lang-key="visualizer-label"></span>
-            <select id="visualizer"></select>
-        </label>
-        <label for="overlay-style">
-            <span data-lang-key="overlay-style-label"></span>
-            <select id="overlay-style"></select>
-            <span class="load-status" id="overlay-style-load-status"></span>
-        </label>
-        <label for="overlay-position">
-            <span data-lang-key="overlay-position-label"></span>
-            <select id="overlay-position"></select>
-        </label>
-        <label for="with-weather">
-            <span data-lang-key="with-weather-label"></span>
-            <input id="with-weather" type="checkbox" />
-        </label>
-        <label for="weather-location">
-            <span data-lang-key="weather-location-label"></span>
-            <select id="weather-location"></select>
-        </label>
-        <label for="with-clock">
-            <span data-lang-key="with-clock-label"></span>
-            <input id="with-clock" type="checkbox" />
-        </label>
-        <label for="with-date">
-            <span data-lang-key="with-date-label"></span>
-            <input id="with-date" type="checkbox" />
-        </label>
-        <label for="with-calendar">
-            <span data-lang-key="with-calendar-label"></span>
-            <input id="with-calendar" type="checkbox" />
-        </label>
-        <label for="show-fps">
-            <span data-lang-key="show-fps-label"></span>
-            <input id="show-fps" type="checkbox" />
-            <span class="load-status" id="show-fps-load-status"></span>
-        </label>
-        <label for="language">
-            <span data-lang-key="language-label"></span>
-            <select id="language"></select>
-            <span class="load-status" id="language-load-status"></span>
-        </label>
-        <label for="url">
-            <a id="url" href="?"><span data-lang-key="url-label"></span></a>
-        </label>
-    </div>
+    <label for="settings-button" class="icon-button">
+        <input id="settings-button" type="checkbox">
+        <div id="settings-panel">
+            <label for="media-count" class="information">
+                <span data-lang-key="media-count-label"></span>
+                <span id="media-count" class="value-text"></span>
+            </label>
+            <label for="media-length" class="information">
+                <span data-lang-key="media-length-label"></span>
+                <span id="media-length" class="value-text"></span>
+            </label>
+            <label for="with-fullscreen">
+                <span data-lang-key="with-fullscreen-label"></span>
+                <input id="with-fullscreen" type="checkbox" />
+                <span class="load-status" id="with-fullscreen-load-status"></span>
+            </label>
+            <label for="brightness">
+                <span data-lang-key="brightness-label"></span>
+                <input id="brightness" type="range" />
+                <span class="load-status" id="brightness-load-status"></span>
+            </label>
+            <label for="stretch">
+                <span data-lang-key="stretch-label"></span>
+                <input id="stretch" type="range" />
+            </label>
+            <label for="padding">
+                <span data-lang-key="padding-label"></span>
+                <input id="padding" type="checkbox" />
+            </label>
+            <label for="cross-fade">
+                <span data-lang-key="cross-fade-label"></span>
+                <select id="cross-fade"></select>
+            </label>
+            <label for="image-span">
+                <span data-lang-key="image-span-label"></span>
+                <select id="image-span"></select>
+            </label>
+            <label for="loop-short-media">
+                <span data-lang-key="loop-short-media-label"></span>
+                <input id="loop-short-media" type="checkbox" />
+            </label>
+            <label for="visualizer">
+                <span data-lang-key="visualizer-label"></span>
+                <select id="visualizer"></select>
+            </label>
+            <label for="overlay-style">
+                <span data-lang-key="overlay-style-label"></span>
+                <select id="overlay-style"></select>
+                <span class="load-status" id="overlay-style-load-status"></span>
+            </label>
+            <label for="overlay-position">
+                <span data-lang-key="overlay-position-label"></span>
+                <select id="overlay-position"></select>
+            </label>
+            <label for="with-weather">
+                <span data-lang-key="with-weather-label"></span>
+                <input id="with-weather" type="checkbox" />
+            </label>
+            <label for="weather-location">
+                <span data-lang-key="weather-location-label"></span>
+                <select id="weather-location"></select>
+            </label>
+            <label for="with-clock">
+                <span data-lang-key="with-clock-label"></span>
+                <input id="with-clock" type="checkbox" />
+            </label>
+            <label for="with-date">
+                <span data-lang-key="with-date-label"></span>
+                <input id="with-date" type="checkbox" />
+            </label>
+            <label for="with-calendar">
+                <span data-lang-key="with-calendar-label"></span>
+                <input id="with-calendar" type="checkbox" />
+            </label>
+            <label for="show-fps">
+                <span data-lang-key="show-fps-label"></span>
+                <input id="show-fps" type="checkbox" />
+                <span class="load-status" id="show-fps-load-status"></span>
+            </label>
+            <label for="language">
+                <span data-lang-key="language-label"></span>
+                <select id="language"></select>
+                <span class="load-status" id="language-load-status"></span>
+            </label>
+            <label for="url">
+                <a id="url" href="?"><span data-lang-key="url-label"></span></a>
+            </label>
+        </div>
+        __COG_ICON__
+    </label>
 </div>
 <span id="media-index"></span>
 <span id="media-title"></span>

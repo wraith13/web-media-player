@@ -1663,6 +1663,10 @@ define("resource/control", [], {
         "step": 1,
         "default": 100
     },
+    "settingsButton": {
+        "id": "settings-button",
+        "default": false
+    },
     "withFullscreen": {
         "id": "with-fullscreen",
         "default": false
@@ -1850,7 +1854,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
-        UI.settingButton = new _library_2.Library.Control.Button({ id: "setting-button", });
+        UI.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.isScrolledToMediaListBottom = function () {
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
@@ -4539,8 +4543,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 if (["Escape"].includes(event.key) && !event.repeat) {
                     event.preventDefault();
-                    ui_11.UI.settingButton.dom.classList.toggle("on", false);
-                    ui_11.UI.volumeButton.dom.classList.toggle("on", false);
+                    ui_11.UI.settingsButton.toggle(false, "preventOnChange");
+                    ui_11.UI.volumeButton.toggle(false, "preventOnChange");
                 }
                 if ("F" === event.key.toUpperCase() && !event.repeat) {
                     event.preventDefault();
@@ -4638,11 +4642,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
+                    ui_11.UI.volumeButton.toggle(false, "preventOnChange");
                 }
-                else {
-                    ui_11.UI.volumeButton.toggle();
-                }
-                ui_11.UI.settingButton.dom.classList.toggle("on", false);
+                ui_11.UI.settingsButton.toggle(false, "preventOnChange");
             });
             (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
@@ -4656,12 +4658,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 //Media.setVolume(value);
                 Events.mousemove();
             };
-            ui_11.UI.settingButton.data.click = function (event, button) {
+            ui_11.UI.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.settingButton.dom.classList.toggle("on");
-                ui_11.UI.volumeButton.toggle(false);
-            };
+                ui_11.UI.volumeButton.toggle(false, "preventOnChange");
+            });
             ui_11.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
@@ -4708,7 +4709,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
             ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
+            //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
+            //UI.settingsButton.loadParameter(Url.params, applyParam);
             ui_11.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.withFullscreenCheckbox.options.change);
             ui_11.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.brightnessRange.options.change);
             ui_11.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.stretchRange.options.change);
@@ -4732,7 +4735,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 Events.mousemove();
             });
-            _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select)", "label[for]"])
+            _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
                 ui_11.UI.volumeRange,
@@ -4802,7 +4805,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
                     Screenshot.fixCanvasSize("1024px", "1024px");
                     Screenshot.toCenterControlPanel(10);
                     _library_10.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#setting-button",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#settings-button",]);
                     break;
                 case "twitter-card":
                     Screenshot.fixCanvasSize("1200px", "630px");
