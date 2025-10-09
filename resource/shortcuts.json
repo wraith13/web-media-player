@@ -1,14 +1,25 @@
 {
     "YouTube": [
         {
-            "description": "Hide UI",
+            "description": "Shuffle",
             "shortcuts": [
                 {
-                    "command": "toggleHideUI",
-                    "type": "onKeyDown",
+                    "command": "toggleShuffle",
+                    "type": "onKeyUp",
                     "keys": [
-                        "U",
-                        "I"
+                        "S"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Repeat",
+            "shortcuts": [
+                {
+                    "command": "toggleRepeat",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "R"
                     ]
                 }
             ]
@@ -26,99 +37,17 @@
             ]
         },
         {
-            "description": "Switch Pattern",
+            "description": "Volume Up / Down",
             "shortcuts": [
                 {
-                    "command": "switchPatternForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "P"
-                    ]
-                },
-                {
-                    "command": "switchPatternBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "P"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Switch Coloring",
-            "shortcuts": [
-                {
-                    "command": "switchColoringForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "C"
-                    ]
-                },
-                {
-                    "command": "switchColoringBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "C"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Scaling Canvas Size",
-            "shortcuts": [
-                {
-                    "command": "increaseCanvasSize",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowUp"
-                    ]
-                },
-                {
-                    "command": "decreaseCanvasSize",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowDown"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Increase / Decrease Frame Delay",
-            "shortcuts": [
-                {
-                    "command": "increaseFrameDelay",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowLeft"
-                    ]
-                },
-                {
-                    "command": "decreaseFrameDelay",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowRight"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Increase / Decrease Layer",
-            "shortcuts": [
-                {
-                    "command": "increaseLayer",
+                    "command": "volumeUp",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowUp"
                     ]
                 },
                 {
-                    "command": "decreaseLayer",
+                    "command": "volumeDown",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowDown"
@@ -146,6 +75,27 @@
             ]
         },
         {
+            "description": "Increase / Decrease Frame Delay",
+            "shortcuts": [
+                {
+                    "command": "increaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowLeft"
+                    ]
+                },
+                {
+                    "command": "decreaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowRight"
+                    ]
+                }
+            ]
+        },
+        {
             "description": "FullScreen",
             "shortcuts": [
                 {
@@ -158,33 +108,13 @@
             ]
         },
         {
-            "description": "Show FPS",
+            "description": "Padding",
             "shortcuts": [
                 {
-                    "command": "toggleShowFps",
-                    "type": "onKeyDown",
+                    "command": "togglePadding",
+                    "type": "onKeyUp",
                     "keys": [
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Switch Clock",
-            "shortcuts": [
-                {
-                    "command": "switchClockForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "T"
-                    ]
-                },
-                {
-                    "command": "switchClockBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "T"
+                        "P"
                     ]
                 }
             ]

@@ -238,10 +238,12 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "timeUnitH": "h",
             "timeUnitD": "d",
             "ago": "ago",
-            "Hide UI": "Hide UI",
+            "Shuffle": "Shuffle",
+            "Repeat": "Repeat",
             "Play / Pause": "Play / Pause",
+            "Volume Up / Down": "Volume Up / Down",
+            "Padding": "Padding",
             "FullScreen": "FullScreen",
-            "Show FPS": "Show FPS",
             "Switch Clock": "Switch Clock",
             "no-media-message": "No media available. Please add media.",
             "not-supported-media-message": "This media cannot be played.",
@@ -311,10 +313,12 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "timeUnitH": "時間",
             "timeUnitD": "日",
             "ago": "前",
-            "Hide UI": "UI 非表示",
+            "Shuffle": "シャッフル",
+            "Repeat": "リピート",
             "Play / Pause": "再生 / 一時停止",
+            "Volume Up / Down": "音量アップ / ダウン",
             "FullScreen": "フルスクリーン",
-            "Show FPS": "FPS 表示",
+            "Padding": "パディング",
             "Switch Clock": "時計切り替え",
             "no-media-message": "メディアがありません。メディアを追加してください。",
             "not-supported-media-message": "再生できないメディアです。",
@@ -994,14 +998,25 @@ define("script/library/svg", ["require", "exports"], function (require, exports)
 define("resource/shortcuts", [], {
     "YouTube": [
         {
-            "description": "Hide UI",
+            "description": "Shuffle",
             "shortcuts": [
                 {
-                    "command": "toggleHideUI",
-                    "type": "onKeyDown",
+                    "command": "toggleShuffle",
+                    "type": "onKeyUp",
                     "keys": [
-                        "U",
-                        "I"
+                        "S"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Repeat",
+            "shortcuts": [
+                {
+                    "command": "toggleRepeat",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "R"
                     ]
                 }
             ]
@@ -1019,99 +1034,17 @@ define("resource/shortcuts", [], {
             ]
         },
         {
-            "description": "Switch Pattern",
+            "description": "Volume Up / Down",
             "shortcuts": [
                 {
-                    "command": "switchPatternForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "P"
-                    ]
-                },
-                {
-                    "command": "switchPatternBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "P"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Switch Coloring",
-            "shortcuts": [
-                {
-                    "command": "switchColoringForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "C"
-                    ]
-                },
-                {
-                    "command": "switchColoringBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "C"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Scaling Canvas Size",
-            "shortcuts": [
-                {
-                    "command": "increaseCanvasSize",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowUp"
-                    ]
-                },
-                {
-                    "command": "decreaseCanvasSize",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowDown"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Increase / Decrease Frame Delay",
-            "shortcuts": [
-                {
-                    "command": "increaseFrameDelay",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowLeft"
-                    ]
-                },
-                {
-                    "command": "decreaseFrameDelay",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowRight"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Increase / Decrease Layer",
-            "shortcuts": [
-                {
-                    "command": "increaseLayer",
+                    "command": "volumeUp",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowUp"
                     ]
                 },
                 {
-                    "command": "decreaseLayer",
+                    "command": "volumeDown",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowDown"
@@ -1139,6 +1072,27 @@ define("resource/shortcuts", [], {
             ]
         },
         {
+            "description": "Increase / Decrease Frame Delay",
+            "shortcuts": [
+                {
+                    "command": "increaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowLeft"
+                    ]
+                },
+                {
+                    "command": "decreaseFrameDelay",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowRight"
+                    ]
+                }
+            ]
+        },
+        {
             "description": "FullScreen",
             "shortcuts": [
                 {
@@ -1151,33 +1105,13 @@ define("resource/shortcuts", [], {
             ]
         },
         {
-            "description": "Show FPS",
+            "description": "Padding",
             "shortcuts": [
                 {
-                    "command": "toggleShowFps",
-                    "type": "onKeyDown",
+                    "command": "togglePadding",
+                    "type": "onKeyUp",
                     "keys": [
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Switch Clock",
-            "shortcuts": [
-                {
-                    "command": "switchClockForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "T"
-                    ]
-                },
-                {
-                    "command": "switchClockBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "T"
+                        "P"
                     ]
                 }
             ]
