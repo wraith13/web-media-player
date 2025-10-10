@@ -95,6 +95,8 @@ declare module "locale/generated/master" {
             Repeat: string;
             "Play / Pause": string;
             "Volume Up / Down": string;
+            Seek: string;
+            "Go to Previous/Next Media": string;
             Padding: string;
             FullScreen: string;
             "Switch Clock": string;
@@ -170,6 +172,8 @@ declare module "locale/generated/master" {
             Repeat: string;
             "Play / Pause": string;
             "Volume Up / Down": string;
+            Seek: string;
+            "Go to Previous/Next Media": string;
             FullScreen: string;
             Padding: string;
             "Switch Clock": string;
@@ -250,6 +254,8 @@ declare module "script/library/locale" {
                 Repeat: string;
                 "Play / Pause": string;
                 "Volume Up / Down": string;
+                Seek: string;
+                "Go to Previous/Next Media": string;
                 Padding: string;
                 FullScreen: string;
                 "Switch Clock": string;
@@ -325,6 +331,8 @@ declare module "script/library/locale" {
                 Repeat: string;
                 "Play / Pause": string;
                 "Volume Up / Down": string;
+                Seek: string;
+                "Go to Previous/Next Media": string;
                 FullScreen: string;
                 Padding: string;
                 "Switch Clock": string;

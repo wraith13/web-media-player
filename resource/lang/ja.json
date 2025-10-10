@@ -64,6 +64,8 @@
     "Repeat": "リピート",
     "Play / Pause": "再生 / 一時停止",
     "Volume Up / Down": "音量アップ / ダウン",
+    "Seek": "再生位置移動",
+    "Go to Previous/Next Media": "前後のメディアへ移動",
     "FullScreen": "フルスクリーン",
     "Padding": "パディング",
     "Switch Clock": "時計切り替え",

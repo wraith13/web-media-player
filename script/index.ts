@@ -15,6 +15,7 @@ import { Screenshot } from "./screenshot";
 Url.initialize();
 UI.initialize();
 Events.initialize();
+Library.Shortcuts.initialize();
 MediaList.initialize();
 Features.Overlay.initialize(Url.params);
 Screenshot.initialize(Url.params);

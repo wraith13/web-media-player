@@ -28,7 +28,7 @@
             "description": "Play / Pause",
             "shortcuts": [
                 {
-                    "command": "toggleAnimation",
+                    "command": "togglePlay",
                     "type": "onKeyUp",
                     "keys": [
                         " "
@@ -56,17 +56,17 @@
             ]
         },
         {
-            "description": "Speed Down / Up",
+            "description": "Seek",
             "shortcuts": [
                 {
-                    "command": "speedDown",
+                    "command": "seekBackward",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowLeft"
                     ]
                 },
                 {
-                    "command": "speedUp",
+                    "command": "seekForward",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowRight"
@@ -75,10 +75,10 @@
             ]
         },
         {
-            "description": "Increase / Decrease Frame Delay",
+            "description": "Go to Previous/Next Media",
             "shortcuts": [
                 {
-                    "command": "increaseFrameDelay",
+                    "command": "goPreviousMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
@@ -86,7 +86,7 @@
                     ]
                 },
                 {
-                    "command": "decreaseFrameDelay",
+                    "command": "goNextMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",

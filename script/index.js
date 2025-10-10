@@ -242,6 +242,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Repeat": "Repeat",
             "Play / Pause": "Play / Pause",
             "Volume Up / Down": "Volume Up / Down",
+            "Seek": "Seek",
+            "Go to Previous/Next Media": "Go to Previous/Next Media",
             "Padding": "Padding",
             "FullScreen": "FullScreen",
             "Switch Clock": "Switch Clock",
@@ -317,6 +319,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Repeat": "リピート",
             "Play / Pause": "再生 / 一時停止",
             "Volume Up / Down": "音量アップ / ダウン",
+            "Seek": "再生位置移動",
+            "Go to Previous/Next Media": "前後のメディアへ移動",
             "FullScreen": "フルスクリーン",
             "Padding": "パディング",
             "Switch Clock": "時計切り替え",
@@ -1025,7 +1029,7 @@ define("resource/shortcuts", [], {
             "description": "Play / Pause",
             "shortcuts": [
                 {
-                    "command": "toggleAnimation",
+                    "command": "togglePlay",
                     "type": "onKeyUp",
                     "keys": [
                         " "
@@ -1053,17 +1057,17 @@ define("resource/shortcuts", [], {
             ]
         },
         {
-            "description": "Speed Down / Up",
+            "description": "Seek",
             "shortcuts": [
                 {
-                    "command": "speedDown",
+                    "command": "seekBackward",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowLeft"
                     ]
                 },
                 {
-                    "command": "speedUp",
+                    "command": "seekForward",
                     "type": "onKeyDown",
                     "keys": [
                         "ArrowRight"
@@ -1072,10 +1076,10 @@ define("resource/shortcuts", [], {
             ]
         },
         {
-            "description": "Increase / Decrease Frame Delay",
+            "description": "Go to Previous/Next Media",
             "shortcuts": [
                 {
-                    "command": "increaseFrameDelay",
+                    "command": "goPreviousMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
@@ -1083,7 +1087,7 @@ define("resource/shortcuts", [], {
                     ]
                 },
                 {
-                    "command": "decreaseFrameDelay",
+                    "command": "goNextMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
@@ -4434,10 +4438,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
-            //Library.Shortcuts.setCommandMap();
-            window.addEventListener("keydown", function (event) {
-                if (["Space", " "].includes(event.key) && !event.repeat) {
-                    event.preventDefault();
+            _library_9.Library.Shortcuts.setCommandMap({
+                "toggleShuffle": function () { return ui_11.UI.shuffle.toggle(); },
+                "toggleRepeat": function () { return ui_11.UI.repeat.toggle(); },
+                "togglePlay": function () {
                     if (_features_2.Features.Player.isPlaying()) {
                         _features_2.Features.Player.pause();
                         medialist_1.MediaList.updateMediaListDisplay();
@@ -4446,61 +4450,124 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     else {
                         _features_2.Features.Player.play();
                     }
-                }
-                if (["ArrowLeft"].includes(event.key) && !event.repeat) {
-                    event.preventDefault();
-                    if (_features_2.Features.Player.isPlaying()) {
-                        _features_2.Features.Player.previous();
-                    }
-                    else {
-                        _features_2.Features.Player.play();
-                    }
-                }
-                if (["ArrowRight"].includes(event.key) && !event.repeat) {
-                    event.preventDefault();
-                    if (_features_2.Features.Player.isPlaying()) {
-                        _features_2.Features.Player.next();
-                    }
-                    else {
-                        _features_2.Features.Player.play();
-                    }
-                }
-                if (["ArrowUp"].includes(event.key)) {
-                    event.preventDefault();
+                },
+                "volumeUp": function () {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + 5);
                     ui_11.UI.volumeRange.fire();
-                }
-                if (["ArrowDown"].includes(event.key)) {
-                    event.preventDefault();
+                },
+                "volumeDown": function () {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() - 5);
                     ui_11.UI.volumeRange.fire();
-                }
-                if (["Escape"].includes(event.key) && !event.repeat) {
-                    event.preventDefault();
-                    ui_11.UI.settingsButton.toggle(false, "preventOnChange");
-                    ui_11.UI.volumeButton.toggle(false, "preventOnChange");
-                }
-                if ("F" === event.key.toUpperCase() && !event.repeat) {
-                    event.preventDefault();
+                },
+                "seekBackward": function () {
+                    _features_2.Features.Player.rewind();
+                },
+                "seekForward": function () {
+                    _features_2.Features.Player.fastForward();
+                },
+                "goPreviousMedia": function () { return _features_2.Features.Player.previous(); },
+                "goNextMedia": function () { return _features_2.Features.Player.next(); },
+                "togglePadding": function () {
+                    ui_11.UI.paddingCheckbox.toggle();
+                    _features_2.Features.Player.updateStretch();
+                },
+                "toggleFullscreen": function () {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         ui_11.UI.withFullscreenCheckbox.toggle();
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
-                if ("P" === event.key.toUpperCase() && !event.repeat) {
-                    //event.preventDefault();
-                    ui_11.UI.paddingCheckbox.toggle();
-                    _features_2.Features.Player.updateStretch();
-                }
-                if ("R" === event.key.toUpperCase() && !event.repeat) {
-                    //event.preventDefault();
-                    ui_11.UI.repeat.toggle();
-                }
-                if ("S" === event.key.toUpperCase() && !event.repeat) {
-                    //event.preventDefault();
-                    ui_11.UI.shuffle.toggle();
-                }
             });
+            _library_9.Library.Shortcuts.setStyle("YouTube");
+            /*
+            window.addEventListener
+            (
+                "keydown",
+                event =>
+                {
+                    if (["Space", " "].includes(event.key) && ! event.repeat)
+                    {
+                        event.preventDefault();
+                        if (Features.Player.isPlaying())
+                        {
+                            Features.Player.pause();
+                            MediaList.updateMediaListDisplay();
+                            MediaList.updateInformationDisplay();
+                        }
+                        else
+                        {
+                            Features.Player.play();
+                        }
+                    }
+                    if (["ArrowLeft"].includes(event.key) && ! event.repeat)
+                    {
+                        event.preventDefault();
+                        if (Features.Player.isPlaying())
+                        {
+                            Features.Player.previous();
+                        }
+                        else
+                        {
+                            Features.Player.play();
+                        }
+                    }
+                    if (["ArrowRight"].includes(event.key) && ! event.repeat)
+                    {
+                        event.preventDefault();
+                        if (Features.Player.isPlaying())
+                        {
+                            Features.Player.next();
+                        }
+                        else
+                        {
+                            Features.Player.play();
+                        }
+                    }
+                    if (["ArrowUp"].includes(event.key))
+                    {
+                        event.preventDefault();
+                        UI.volumeRange.set(UI.volumeRange.get() + 5);
+                        UI.volumeRange.fire();
+                    }
+                    if (["ArrowDown"].includes(event.key))
+                    {
+                        event.preventDefault();
+                        UI.volumeRange.set(UI.volumeRange.get() - 5);
+                        UI.volumeRange.fire();
+                    }
+                    if (["Escape"].includes(event.key) && ! event.repeat)
+                    {
+                        event.preventDefault();
+                        UI.settingsButton.toggle(false, "preventOnChange");
+                        UI.volumeButton.toggle(false, "preventOnChange");
+                    }
+                    if ("F" === event.key.toUpperCase() && ! event.repeat)
+                    {
+                        event.preventDefault();
+                        if (Library.UI.fullscreenEnabled)
+                        {
+                            UI.withFullscreenCheckbox.toggle();
+                            Features.Player.updateFullscreenState();
+                        }
+                    }
+                    if ("P" === event.key.toUpperCase() && ! event.repeat)
+                    {
+                        //event.preventDefault();
+                        UI.paddingCheckbox.toggle();
+                        Features.Player.updateStretch();
+                    }
+                    if ("R" === event.key.toUpperCase() && ! event.repeat)
+                    {
+                        //event.preventDefault();
+                        UI.repeat.toggle();
+                    }
+                    if ("S" === event.key.toUpperCase() && ! event.repeat)
+                    {
+                        //event.preventDefault();
+                        UI.shuffle.toggle();
+                    }
+                }
+            );*/
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
             //document.body.className = "play";
@@ -4784,6 +4851,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     url_4.Url.initialize();
     ui_13.UI.initialize();
     events_1.Events.initialize();
+    _library_11.Library.Shortcuts.initialize();
     medialist_2.MediaList.initialize();
     _features_3.Features.Overlay.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);

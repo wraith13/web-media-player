@@ -131,7 +131,59 @@ export namespace Events
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());
         window.addEventListener("orientationchange", () => Features.Player.updateStretch());
-        //Library.Shortcuts.setCommandMap();
+        Library.Shortcuts.setCommandMap
+        ({
+            "toggleShuffle": () => UI.shuffle.toggle(),
+            "toggleRepeat": () => UI.repeat.toggle(),
+            "togglePlay": () =>
+            {
+                if (Features.Player.isPlaying())
+                {
+                    Features.Player.pause();
+                    MediaList.updateMediaListDisplay();
+                    MediaList.updateInformationDisplay();
+                }
+                else
+                {
+                    Features.Player.play();
+                }
+            },
+            "volumeUp": () =>
+            {
+                UI.volumeRange.set(UI.volumeRange.get() + 5);
+                UI.volumeRange.fire();
+            },
+            "volumeDown": () =>
+            {
+                UI.volumeRange.set(UI.volumeRange.get() - 5);
+                UI.volumeRange.fire();
+            },
+            "seekBackward": () =>
+            {
+                Features.Player.rewind();
+            },
+            "seekForward": () =>
+            {
+                Features.Player.fastForward();
+            },
+            "goPreviousMedia": () => Features.Player.previous(),
+            "goNextMedia": () => Features.Player.next(),
+            "togglePadding": () =>
+            {
+                UI.paddingCheckbox.toggle();
+                Features.Player.updateStretch();
+            },
+            "toggleFullscreen": () =>
+            {
+                if (Library.UI.fullscreenEnabled)
+                {
+                    UI.withFullscreenCheckbox.toggle();
+                    Features.Player.updateFullscreenState();
+                }
+            }
+        });
+        Library.Shortcuts.setStyle("YouTube");
+        /*
         window.addEventListener
         (
             "keydown",
@@ -219,7 +271,7 @@ export namespace Events
                     UI.shuffle.toggle();
                 }
             }
-        );
+        );*/
         document.body.addEventListener("dragover", dragover);
         document.body.addEventListener("drop", drop);
         //document.body.className = "play";
