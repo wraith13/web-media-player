@@ -1,7 +1,9 @@
+import { Environment } from "@tools/environment";
 import shortcuts from "@resource/shortcuts.json";
 export namespace Shortcuts
 {
-    export type Entry = (typeof shortcuts)[keyof typeof shortcuts][number]["shortcuts"][number];
+    export type Group = (typeof shortcuts)[keyof typeof shortcuts][number];
+    export type Entry = Group["shortcuts"][number];
     export type CommandKey = Entry["command"];
     export type CommandMap = { [key in Shortcuts.CommandKey]-?: () => void };
     let style: keyof typeof shortcuts = "YouTube";
@@ -15,13 +17,25 @@ export namespace Shortcuts
         " ": "Space",
         "Control": "Ctrl",
     };
-    const getDisplayKeyName = (key: string) => keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
+    const appleKeyDisplayNames =
+    {
+        "Alt": "⌥(option)",
+        "Control": "⌃(control)",
+        "Meta": "⌘(command)",
+        "Shift": "⇧(shift)",
+    };
+    const getKeys = (entry: Entry) =>
+        Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+    const getDisplayKeyName = (key: string) =>
+        Environment.isApple() ?
+            appleKeyDisplayNames[key as keyof typeof appleKeyDisplayNames] ?? keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key:
+            keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
     export const getDisplayList = () =>
         shortcuts[style].map
         (
             i =>
             ({
-                keyss: i.shortcuts.map(j => j.keys.map(key => getDisplayKeyName(key))),
+                keyss: i.shortcuts.map(j => getKeys(j).map(key => getDisplayKeyName(key))),
                 description: i.description,
             })
         );
@@ -54,14 +68,14 @@ export namespace Shortcuts
             const shortcutKeys = getShortcutKeys(type, normalizedKey);
             if ( ! isInputElementFocused())
             {
-                const commandKeys = shortcuts[style].reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
+                const commandKeys = (shortcuts[style] as Group[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
                 (
-                    shortcut =>
-                        shortcut.keys.length === shortcutKeys.length &&
-                        shortcut.keys.every(key => shortcutKeys.includes(key)) &&
+                    (shortcut: Entry) =>
+                        getKeys(shortcut).length === shortcutKeys.length &&
+                        getKeys(shortcut).every(key => shortcutKeys.includes(key)) &&
                         type === shortcut.type
                 )
-                .map(i => i.command);
+                .map((i: Entry) => i.command);
                 if (0 < commandKeys.length)
                 {
                     event.preventDefault();

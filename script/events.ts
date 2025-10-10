@@ -168,11 +168,6 @@ export namespace Events
             },
             "goPreviousMedia": () => Features.Player.previous(),
             "goNextMedia": () => Features.Player.next(),
-            "togglePadding": () =>
-            {
-                UI.paddingCheckbox.toggle();
-                Features.Player.updateStretch();
-            },
             "toggleFullscreen": () =>
             {
                 if (Library.UI.fullscreenEnabled)
@@ -183,95 +178,6 @@ export namespace Events
             }
         });
         Library.Shortcuts.setStyle("YouTube");
-        /*
-        window.addEventListener
-        (
-            "keydown",
-            event =>
-            {
-                if (["Space", " "].includes(event.key) && ! event.repeat)
-                {
-                    event.preventDefault();
-                    if (Features.Player.isPlaying())
-                    {
-                        Features.Player.pause();
-                        MediaList.updateMediaListDisplay();
-                        MediaList.updateInformationDisplay();
-                    }
-                    else
-                    {
-                        Features.Player.play();
-                    }
-                }
-                if (["ArrowLeft"].includes(event.key) && ! event.repeat)
-                {
-                    event.preventDefault();
-                    if (Features.Player.isPlaying())
-                    {
-                        Features.Player.previous();
-                    }
-                    else
-                    {
-                        Features.Player.play();
-                    }
-                }
-                if (["ArrowRight"].includes(event.key) && ! event.repeat)
-                {
-                    event.preventDefault();
-                    if (Features.Player.isPlaying())
-                    {
-                        Features.Player.next();
-                    }
-                    else
-                    {
-                        Features.Player.play();
-                    }
-                }
-                if (["ArrowUp"].includes(event.key))
-                {
-                    event.preventDefault();
-                    UI.volumeRange.set(UI.volumeRange.get() + 5);
-                    UI.volumeRange.fire();
-                }
-                if (["ArrowDown"].includes(event.key))
-                {
-                    event.preventDefault();
-                    UI.volumeRange.set(UI.volumeRange.get() - 5);
-                    UI.volumeRange.fire();
-                }
-                if (["Escape"].includes(event.key) && ! event.repeat)
-                {
-                    event.preventDefault();
-                    UI.settingsButton.toggle(false, "preventOnChange");
-                    UI.volumeButton.toggle(false, "preventOnChange");
-                }
-                if ("F" === event.key.toUpperCase() && ! event.repeat)
-                {
-                    event.preventDefault();
-                    if (Library.UI.fullscreenEnabled)
-                    {
-                        UI.withFullscreenCheckbox.toggle();
-                        Features.Player.updateFullscreenState();
-                    }
-                }
-                if ("P" === event.key.toUpperCase() && ! event.repeat)
-                {
-                    //event.preventDefault();
-                    UI.paddingCheckbox.toggle();
-                    Features.Player.updateStretch();
-                }
-                if ("R" === event.key.toUpperCase() && ! event.repeat)
-                {
-                    //event.preventDefault();
-                    UI.repeat.toggle();
-                }
-                if ("S" === event.key.toUpperCase() && ! event.repeat)
-                {
-                    //event.preventDefault();
-                    UI.shuffle.toggle();
-                }
-            }
-        );*/
         document.body.addEventListener("dragover", dragover);
         document.body.addEventListener("drop", drop);
         //document.body.className = "play";

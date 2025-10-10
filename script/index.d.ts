@@ -97,7 +97,8 @@ declare module "locale/generated/master" {
             "Volume Up / Down": string;
             Seek: string;
             "Go to Previous/Next Media": string;
-            Padding: string;
+            "Go to Previous Media": string;
+            "Go to Next Media": string;
             FullScreen: string;
             "Switch Clock": string;
             "no-media-message": string;
@@ -174,8 +175,9 @@ declare module "locale/generated/master" {
             "Volume Up / Down": string;
             Seek: string;
             "Go to Previous/Next Media": string;
+            "Go to Previous Media": string;
+            "Go to Next Media": string;
             FullScreen: string;
-            Padding: string;
             "Switch Clock": string;
             "no-media-message": string;
             "not-supported-media-message": string;
@@ -256,7 +258,8 @@ declare module "script/library/locale" {
                 "Volume Up / Down": string;
                 Seek: string;
                 "Go to Previous/Next Media": string;
-                Padding: string;
+                "Go to Previous Media": string;
+                "Go to Next Media": string;
                 FullScreen: string;
                 "Switch Clock": string;
                 "no-media-message": string;
@@ -333,8 +336,9 @@ declare module "script/library/locale" {
                 "Volume Up / Down": string;
                 Seek: string;
                 "Go to Previous/Next Media": string;
+                "Go to Previous Media": string;
+                "Go to Next Media": string;
                 FullScreen: string;
-                Padding: string;
                 "Switch Clock": string;
                 "no-media-message": string;
                 "not-supported-media-message": string;
@@ -534,10 +538,19 @@ declare module "script/library/svg" {
         const loadSvg: (key: KeyType) => Promise<SVGElement>;
     }
 }
+declare module "script/tools/environment" {
+    export namespace Environment {
+        const isApple: () => boolean;
+        const isSafari: () => boolean;
+        const isMobile: () => boolean;
+        const isTouchDevice: () => boolean;
+    }
+}
 declare module "script/library/shortcuts" {
     import shortcuts from "resource/shortcuts";
     export namespace Shortcuts {
-        type Entry = (typeof shortcuts)[keyof typeof shortcuts][number]["shortcuts"][number];
+        type Group = (typeof shortcuts)[keyof typeof shortcuts][number];
+        type Entry = Group["shortcuts"][number];
         type CommandKey = Entry["command"];
         type CommandMap = {
             [key in Shortcuts.CommandKey]-?: () => void;
@@ -613,14 +626,6 @@ declare module "script/tools/timer" {
             kick(): void;
             isInTimer: () => boolean;
         }
-    }
-}
-declare module "script/tools/environment" {
-    export namespace Environment {
-        const isApple: () => boolean;
-        const isSafari: () => boolean;
-        const isMobile: () => boolean;
-        const isTouchDevice: () => boolean;
     }
 }
 declare module "script/tools/index" {

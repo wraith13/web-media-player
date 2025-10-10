@@ -75,22 +75,27 @@
             ]
         },
         {
-            "description": "Go to Previous/Next Media",
+            "description": "Go to Previous Media",
             "shortcuts": [
                 {
                     "command": "goPreviousMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
-                        "ArrowLeft"
+                        "P"
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "description": "Go to Next Media",
+            "shortcuts": [
                 {
                     "command": "goNextMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
-                        "ArrowRight"
+                        "N"
                     ]
                 }
             ]
@@ -106,15 +111,114 @@
                     ]
                 }
             ]
-        },
+        }
+    ],
+    "Spotify": [
         {
-            "description": "Padding",
+            "description": "Shuffle",
             "shortcuts": [
                 {
-                    "command": "togglePadding",
+                    "command": "toggleShuffle",
                     "type": "onKeyUp",
                     "keys": [
-                        "P"
+                        "Control",
+                        "S"
+                    ],
+                    "appleKeys": [
+                        "Alt",
+                        "S"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Repeat",
+            "shortcuts": [
+                {
+                    "command": "toggleRepeat",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "Control",
+                        "R"
+                    ],
+                    "appleKeys": [
+                        "Alt",
+                        "R"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Play / Pause",
+            "shortcuts": [
+                {
+                    "command": "togglePlay",
+                    "type": "onKeyUp",
+                    "keys": [
+                        " "
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Volume Up / Down",
+            "shortcuts": [
+                {
+                    "command": "volumeUp",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowRight"
+                    ]
+                },
+                {
+                    "command": "volumeDown",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowLeft"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Seek",
+            "shortcuts": [
+                {
+                    "command": "seekBackward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowDown"
+                    ]
+                },
+                {
+                    "command": "seekForward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowUp"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Go to Previous/Next Media",
+            "shortcuts": [
+                {
+                    "command": "goNextMedia",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowUp"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "FullScreen",
+            "shortcuts": [
+                {
+                    "command": "toggleFullScreen",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "F"
                     ]
                 }
             ]

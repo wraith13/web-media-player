@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Oct 09 2025 21:50:07 GMT+0900 (日本標準時)
+    build at: Fri Oct 10 2025 22:01:30 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2912,8 +2912,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Oct 09 2025 21:50:07 GMT+0900 (日本標準時)",
-    tick: 1760014207199
+    at: "Fri Oct 10 2025 22:01:30 GMT+0900 (日本標準時)",
+    tick: 1760101290398
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4721,7 +4721,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Volume Up / Down": "Volume Up / Down",
             "Seek": "Seek",
             "Go to Previous/Next Media": "Go to Previous/Next Media",
-            "Padding": "Padding",
+            "Go to Previous Media": "Go to Previous Media",
+            "Go to Next Media": "Go to Next Media",
             "FullScreen": "FullScreen",
             "Switch Clock": "Switch Clock",
             "no-media-message": "No media available. Please add media.",
@@ -4798,8 +4799,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Volume Up / Down": "音量アップ / ダウン",
             "Seek": "再生位置移動",
             "Go to Previous/Next Media": "前後のメディアへ移動",
+            "Go to Previous Media": "前のメディアへ移動",
+            "Go to Next Media": "次のメディアへ移動",
             "FullScreen": "フルスクリーン",
-            "Padding": "パディング",
             "Switch Clock": "時計切り替え",
             "no-media-message": "メディアがありません。メディアを追加してください。",
             "not-supported-media-message": "再生できないメディアです。",
@@ -5476,6 +5478,26 @@ define("script/library/svg", ["require", "exports"], function (require, exports)
         }); };
     })(Svg || (exports.Svg = Svg = {}));
 });
+define("script/tools/environment", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Environment = void 0;
+    var Environment;
+    (function (Environment) {
+        Environment.isApple = function () {
+            return /Macintosh|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        };
+        Environment.isSafari = function () {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        };
+        Environment.isMobile = function () {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        };
+        Environment.isTouchDevice = function () {
+            return "ontouchstart" in window || 0 < navigator.maxTouchPoints;
+        };
+    })(Environment || (exports.Environment = Environment = {}));
+});
 define("resource/shortcuts", [], {
     "YouTube": [
         {
@@ -5553,22 +5575,27 @@ define("resource/shortcuts", [], {
             ]
         },
         {
-            "description": "Go to Previous/Next Media",
+            "description": "Go to Previous Media",
             "shortcuts": [
                 {
                     "command": "goPreviousMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
-                        "ArrowLeft"
+                        "P"
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "description": "Go to Next Media",
+            "shortcuts": [
                 {
                     "command": "goNextMedia",
                     "type": "onKeyDown",
                     "keys": [
                         "Shift",
-                        "ArrowRight"
+                        "N"
                     ]
                 }
             ]
@@ -5584,22 +5611,121 @@ define("resource/shortcuts", [], {
                     ]
                 }
             ]
-        },
+        }
+    ],
+    "Spotify": [
         {
-            "description": "Padding",
+            "description": "Shuffle",
             "shortcuts": [
                 {
-                    "command": "togglePadding",
+                    "command": "toggleShuffle",
                     "type": "onKeyUp",
                     "keys": [
-                        "P"
+                        "Control",
+                        "S"
+                    ],
+                    "appleKeys": [
+                        "Alt",
+                        "S"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Repeat",
+            "shortcuts": [
+                {
+                    "command": "toggleRepeat",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "Control",
+                        "R"
+                    ],
+                    "appleKeys": [
+                        "Alt",
+                        "R"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Play / Pause",
+            "shortcuts": [
+                {
+                    "command": "togglePlay",
+                    "type": "onKeyUp",
+                    "keys": [
+                        " "
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Volume Up / Down",
+            "shortcuts": [
+                {
+                    "command": "volumeUp",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowRight"
+                    ]
+                },
+                {
+                    "command": "volumeDown",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowLeft"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Seek",
+            "shortcuts": [
+                {
+                    "command": "seekBackward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowDown"
+                    ]
+                },
+                {
+                    "command": "seekForward",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "ArrowUp"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Go to Previous/Next Media",
+            "shortcuts": [
+                {
+                    "command": "goNextMedia",
+                    "type": "onKeyDown",
+                    "keys": [
+                        "Shift",
+                        "ArrowUp"
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "FullScreen",
+            "shortcuts": [
+                {
+                    "command": "toggleFullScreen",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "F"
                     ]
                 }
             ]
         }
     ]
 });
-define("script/library/shortcuts", ["require", "exports", "resource/shortcuts"], function (require, exports, shortcuts_json_1) {
+define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "resource/shortcuts"], function (require, exports, environment_1, shortcuts_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Shortcuts = void 0;
@@ -5616,11 +5742,25 @@ define("script/library/shortcuts", ["require", "exports", "resource/shortcuts"],
             " ": "Space",
             "Control": "Ctrl",
         };
-        var getDisplayKeyName = function (key) { var _a; return (_a = keyDisplayNames[key]) !== null && _a !== void 0 ? _a : key; };
+        var appleKeyDisplayNames = {
+            "Alt": "⌥(option)",
+            "Control": "⌃(control)",
+            "Meta": "⌘(command)",
+            "Shift": "⇧(shift)",
+        };
+        var getKeys = function (entry) {
+            return environment_1.Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+        };
+        var getDisplayKeyName = function (key) {
+            var _a, _b, _c;
+            return environment_1.Environment.isApple() ?
+                (_b = (_a = appleKeyDisplayNames[key]) !== null && _a !== void 0 ? _a : keyDisplayNames[key]) !== null && _b !== void 0 ? _b : key :
+                (_c = keyDisplayNames[key]) !== null && _c !== void 0 ? _c : key;
+        };
         Shortcuts.getDisplayList = function () {
             return shortcuts_json_1.default[style].map(function (i) {
                 return ({
-                    keyss: i.shortcuts.map(function (j) { return j.keys.map(function (key) { return getDisplayKeyName(key); }); }),
+                    keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(key); }); }),
                     description: i.description,
                 });
             });
@@ -5651,8 +5791,8 @@ define("script/library/shortcuts", ["require", "exports", "resource/shortcuts"],
                 var shortcutKeys_1 = getShortcutKeys(type, normalizedKey);
                 if (!isInputElementFocused()) {
                     var commandKeys = shortcuts_json_1.default[style].reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
-                        return shortcut.keys.length === shortcutKeys_1.length &&
-                            shortcut.keys.every(function (key) { return shortcutKeys_1.includes(key); }) &&
+                        return getKeys(shortcut).length === shortcutKeys_1.length &&
+                            getKeys(shortcut).every(function (key) { return shortcutKeys_1.includes(key); }) &&
                             type === shortcut.type;
                     })
                         .map(function (i) { return i.command; });
@@ -5896,26 +6036,6 @@ define("script/tools/timer", ["require", "exports"], function (require, exports)
         }());
         Timer.ExtendableTimer = ExtendableTimer;
     })(Timer || (exports.Timer = Timer = {}));
-});
-define("script/tools/environment", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Environment = void 0;
-    var Environment;
-    (function (Environment) {
-        Environment.isApple = function () {
-            return /Macintosh|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        };
-        Environment.isSafari = function () {
-            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        };
-        Environment.isMobile = function () {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        };
-        Environment.isTouchDevice = function () {
-            return "ontouchstart" in window || 0 < navigator.maxTouchPoints;
-        };
-    })(Environment || (exports.Environment = Environment = {}));
 });
 define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte", "script/tools/timer", "script/tools/environment"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte, ImportedTimer, ImportedEnvironment) {
     "use strict";
@@ -8944,10 +9064,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 },
                 "goPreviousMedia": function () { return _features_2.Features.Player.previous(); },
                 "goNextMedia": function () { return _features_2.Features.Player.next(); },
-                "togglePadding": function () {
-                    ui_11.UI.paddingCheckbox.toggle();
-                    _features_2.Features.Player.updateStretch();
-                },
                 "toggleFullscreen": function () {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         ui_11.UI.withFullscreenCheckbox.toggle();
@@ -8956,95 +9072,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
             });
             _library_9.Library.Shortcuts.setStyle("YouTube");
-            /*
-            window.addEventListener
-            (
-                "keydown",
-                event =>
-                {
-                    if (["Space", " "].includes(event.key) && ! event.repeat)
-                    {
-                        event.preventDefault();
-                        if (Features.Player.isPlaying())
-                        {
-                            Features.Player.pause();
-                            MediaList.updateMediaListDisplay();
-                            MediaList.updateInformationDisplay();
-                        }
-                        else
-                        {
-                            Features.Player.play();
-                        }
-                    }
-                    if (["ArrowLeft"].includes(event.key) && ! event.repeat)
-                    {
-                        event.preventDefault();
-                        if (Features.Player.isPlaying())
-                        {
-                            Features.Player.previous();
-                        }
-                        else
-                        {
-                            Features.Player.play();
-                        }
-                    }
-                    if (["ArrowRight"].includes(event.key) && ! event.repeat)
-                    {
-                        event.preventDefault();
-                        if (Features.Player.isPlaying())
-                        {
-                            Features.Player.next();
-                        }
-                        else
-                        {
-                            Features.Player.play();
-                        }
-                    }
-                    if (["ArrowUp"].includes(event.key))
-                    {
-                        event.preventDefault();
-                        UI.volumeRange.set(UI.volumeRange.get() + 5);
-                        UI.volumeRange.fire();
-                    }
-                    if (["ArrowDown"].includes(event.key))
-                    {
-                        event.preventDefault();
-                        UI.volumeRange.set(UI.volumeRange.get() - 5);
-                        UI.volumeRange.fire();
-                    }
-                    if (["Escape"].includes(event.key) && ! event.repeat)
-                    {
-                        event.preventDefault();
-                        UI.settingsButton.toggle(false, "preventOnChange");
-                        UI.volumeButton.toggle(false, "preventOnChange");
-                    }
-                    if ("F" === event.key.toUpperCase() && ! event.repeat)
-                    {
-                        event.preventDefault();
-                        if (Library.UI.fullscreenEnabled)
-                        {
-                            UI.withFullscreenCheckbox.toggle();
-                            Features.Player.updateFullscreenState();
-                        }
-                    }
-                    if ("P" === event.key.toUpperCase() && ! event.repeat)
-                    {
-                        //event.preventDefault();
-                        UI.paddingCheckbox.toggle();
-                        Features.Player.updateStretch();
-                    }
-                    if ("R" === event.key.toUpperCase() && ! event.repeat)
-                    {
-                        //event.preventDefault();
-                        UI.repeat.toggle();
-                    }
-                    if ("S" === event.key.toUpperCase() && ! event.repeat)
-                    {
-                        //event.preventDefault();
-                        UI.shuffle.toggle();
-                    }
-                }
-            );*/
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
             //document.body.className = "play";
