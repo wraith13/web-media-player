@@ -125,6 +125,19 @@ export namespace Events
             button.dom.classList.toggle("on", "true" === value.toLowerCase());
         }
     };
+    let lastVolume = 100;
+    export const toggleMute = () =>
+    {
+        if (UI.volumeRange.get() <= 0)
+        {
+            UI.volumeRange.set(lastVolume);
+        }
+        else
+        {
+            lastVolume = UI.volumeRange.get();
+            UI.volumeRange.set(0);
+        }
+    };
     export const initialize = () =>
     {
         window.addEventListener("dragover", event => event.preventDefault());
@@ -148,6 +161,7 @@ export namespace Events
                     Features.Player.play();
                 }
             },
+            "toggleMute": () => toggleMute(),
             "volumeUp": () =>
             {
                 UI.volumeRange.set(UI.volumeRange.get() + 5);

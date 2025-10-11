@@ -37,6 +37,18 @@
             ]
         },
         {
+            "description": "Mute / Unmute",
+            "shortcuts": [
+                {
+                    "command": "toggleMute",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "M"
+                    ]
+                }
+            ]
+        },
+        {
             "description": "Volume Up / Down",
             "shortcuts": [
                 {
@@ -104,7 +116,7 @@
             "description": "FullScreen",
             "shortcuts": [
                 {
-                    "command": "toggleFullScreen",
+                    "command": "toggleFullscreen",
                     "type": "onKeyUp",
                     "keys": [
                         "F"
@@ -215,7 +227,7 @@
             "description": "FullScreen",
             "shortcuts": [
                 {
-                    "command": "toggleFullScreen",
+                    "command": "toggleFullscreen",
                     "type": "onKeyUp",
                     "keys": [
                         "F"

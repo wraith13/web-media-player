@@ -94,6 +94,7 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            "Mute / Unmute": string;
             "Volume Up / Down": string;
             Seek: string;
             "Go to Previous/Next Media": string;
@@ -172,6 +173,7 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            "Mute / Unmute": string;
             "Volume Up / Down": string;
             Seek: string;
             "Go to Previous/Next Media": string;
@@ -255,6 +257,7 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                "Mute / Unmute": string;
                 "Volume Up / Down": string;
                 Seek: string;
                 "Go to Previous/Next Media": string;
@@ -333,6 +336,7 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                "Mute / Unmute": string;
                 "Volume Up / Down": string;
                 Seek: string;
                 "Go to Previous/Next Media": string;
@@ -1117,6 +1121,7 @@ declare module "script/events" {
         const updateBrightness: () => void;
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
+        const toggleMute: () => void;
         const initialize: () => void;
     }
 }

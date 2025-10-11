@@ -241,6 +241,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Shuffle": "Shuffle",
             "Repeat": "Repeat",
             "Play / Pause": "Play / Pause",
+            "Mute / Unmute": "Mute / Unmute",
             "Volume Up / Down": "Volume Up / Down",
             "Seek": "Seek",
             "Go to Previous/Next Media": "Go to Previous/Next Media",
@@ -319,6 +320,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Shuffle": "シャッフル",
             "Repeat": "リピート",
             "Play / Pause": "再生 / 一時停止",
+            "Mute / Unmute": "ミュート / ミュート解除",
             "Volume Up / Down": "音量アップ / ダウン",
             "Seek": "再生位置移動",
             "Go to Previous/Next Media": "前後のメディアへ移動",
@@ -1060,6 +1062,18 @@ define("resource/shortcuts", [], {
             ]
         },
         {
+            "description": "Mute / Unmute",
+            "shortcuts": [
+                {
+                    "command": "toggleMute",
+                    "type": "onKeyUp",
+                    "keys": [
+                        "M"
+                    ]
+                }
+            ]
+        },
+        {
             "description": "Volume Up / Down",
             "shortcuts": [
                 {
@@ -1127,7 +1141,7 @@ define("resource/shortcuts", [], {
             "description": "FullScreen",
             "shortcuts": [
                 {
-                    "command": "toggleFullScreen",
+                    "command": "toggleFullscreen",
                     "type": "onKeyUp",
                     "keys": [
                         "F"
@@ -1238,7 +1252,7 @@ define("resource/shortcuts", [], {
             "description": "FullScreen",
             "shortcuts": [
                 {
-                    "command": "toggleFullScreen",
+                    "command": "toggleFullscreen",
                     "type": "onKeyUp",
                     "keys": [
                         "F"
@@ -4552,6 +4566,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.classList.toggle("on", "true" === value.toLowerCase());
             }
         };
+        var lastVolume = 100;
+        Events.toggleMute = function () {
+            if (ui_11.UI.volumeRange.get() <= 0) {
+                ui_11.UI.volumeRange.set(lastVolume);
+            }
+            else {
+                lastVolume = ui_11.UI.volumeRange.get();
+                ui_11.UI.volumeRange.set(0);
+            }
+        };
         Events.initialize = function () {
             var _a, _b, _c, _d, _e, _f;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
@@ -4571,6 +4595,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         _features_2.Features.Player.play();
                     }
                 },
+                "toggleMute": function () { return Events.toggleMute(); },
                 "volumeUp": function () {
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + 5);
                     ui_11.UI.volumeRange.fire();
