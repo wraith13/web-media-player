@@ -183,14 +183,12 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "description": "Web-based media player that runs in a web browser",
             "media-count-label": "Media Count:",
             "media-length-label": "Media Length:",
+            "with-fullscreen-label": "FullScreen:",
+            "brightness-label": "Brightness:",
+            "stretch-label": "Stretch:",
+            "padding-label": "Padding:",
             "cross-fade-label": "Cross Fade:",
             "cross-fade-0": "None",
-            "colorspace-label": "Color Space:",
-            "coloring-label": "Coloring:",
-            "pattern-label": "Pattern:",
-            "lines": "Lines",
-            "spots": "Spots",
-            "both": "Both",
             "image-span-label": "Image Display Time:",
             "loop-short-media-label": "Loop Short Media:",
             "visualizer-label": "Visualizer:",
@@ -203,8 +201,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
-            "with-fullscreen-label": "FullScreen:",
-            "show-fps-label": "Show FPS:",
             "overlay-style-label": "Overlay Style:",
             "hide": "Hide",
             "blend": "Blend",
@@ -227,9 +223,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "with-clock-label": "Clock:",
             "with-date-label": "Date:",
             "with-calendar-label": "Calendar:",
-            "brightness-label": "Brightness:",
-            "stretch-label": "Stretch:",
-            "padding-label": "Padding:",
+            "show-fps-label": "Show FPS:",
+            "shortcuts-label": "Keyboard Shortcuts:",
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "timeUnitMs": "ms",
@@ -244,6 +239,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Mute / Unmute": "Mute / Unmute",
             "Volume Up / Down": "Volume Up / Down",
             "Seek": "Seek",
+            "Seek Backward": "Seek Backward",
+            "Seek Forward": "Seek Forward",
             "Go to Previous/Next Media": "Go to Previous/Next Media",
             "Go to Previous Media": "Go to Previous Media",
             "Go to Next Media": "Go to Next Media",
@@ -262,14 +259,12 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "media-count-label": "メディア数:",
             "media-length-label": "メディア長:",
+            "with-fullscreen-label": "フルスクリーン:",
+            "brightness-label": "明るさ:",
+            "stretch-label": "ストレッチ:",
+            "padding-label": "パディング:",
             "cross-fade-label": "クロスフェード:",
             "cross-fade-0": "なし",
-            "colorspace-label": "色空間:",
-            "coloring-label": "カラーリング:",
-            "pattern-label": "パターン:",
-            "lines": "ライン",
-            "spots": "スポット",
-            "both": "両方",
             "image-span-label": "画像表示時間:",
             "loop-short-media-label": "短いメディアをループ再生:",
             "visualizer-label": "ビジュアライザー:",
@@ -282,8 +277,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "ステレオアーク周波数",
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
-            "with-fullscreen-label": "フルスクリーン:",
-            "show-fps-label": "FPS を表示:",
             "overlay-style-label": "オーバーレイスタイル:",
             "hide": "非表示",
             "blend": "ブレンド",
@@ -306,9 +299,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "with-clock-label": "時計:",
             "with-date-label": "日付:",
             "with-calendar-label": "カレンダー:",
-            "brightness-label": "明るさ:",
-            "stretch-label": "ストレッチ:",
-            "padding-label": "パディング:",
+            "show-fps-label": "FPS を表示:",
+            "shortcuts-label": "キーボードショートカット:",
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "timeUnitMs": "ミリ秒",
@@ -323,6 +315,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Mute / Unmute": "ミュート / ミュート解除",
             "Volume Up / Down": "音量アップ / ダウン",
             "Seek": "再生位置移動",
+            "Seek Backward": "巻き戻し",
+            "Seek Forward": "早送り",
             "Go to Previous/Next Media": "前後のメディアへ移動",
             "Go to Previous Media": "前のメディアへ移動",
             "Go to Next Media": "次のメディアへ移動",
@@ -1024,243 +1018,422 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
     })(Environment || (exports.Environment = Environment = {}));
 });
 define("resource/shortcuts", [], {
-    "YouTube": [
-        {
-            "description": "Shuffle",
-            "shortcuts": [
-                {
-                    "command": "toggleShuffle",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Repeat",
-            "shortcuts": [
-                {
-                    "command": "toggleRepeat",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "R"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Play / Pause",
-            "shortcuts": [
-                {
-                    "command": "togglePlay",
-                    "type": "onKeyUp",
-                    "keys": [
-                        " "
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Mute / Unmute",
-            "shortcuts": [
-                {
-                    "command": "toggleMute",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "M"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Volume Up / Down",
-            "shortcuts": [
-                {
-                    "command": "volumeUp",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowUp"
-                    ]
-                },
-                {
-                    "command": "volumeDown",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowDown"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Seek",
-            "shortcuts": [
-                {
-                    "command": "seekBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowLeft"
-                    ]
-                },
-                {
-                    "command": "seekForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowRight"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Previous Media",
-            "shortcuts": [
-                {
-                    "command": "goPreviousMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "P"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Next Media",
-            "shortcuts": [
-                {
-                    "command": "goNextMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "N"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "FullScreen",
-            "shortcuts": [
-                {
-                    "command": "toggleFullscreen",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "F"
-                    ]
-                }
-            ]
-        }
-    ],
-    "Spotify": [
-        {
-            "description": "Shuffle",
-            "shortcuts": [
-                {
-                    "command": "toggleShuffle",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "Control",
-                        "S"
-                    ],
-                    "appleKeys": [
-                        "Alt",
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Repeat",
-            "shortcuts": [
-                {
-                    "command": "toggleRepeat",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "Control",
-                        "R"
-                    ],
-                    "appleKeys": [
-                        "Alt",
-                        "R"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Play / Pause",
-            "shortcuts": [
-                {
-                    "command": "togglePlay",
-                    "type": "onKeyUp",
-                    "keys": [
-                        " "
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Volume Up / Down",
-            "shortcuts": [
-                {
-                    "command": "volumeUp",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowRight"
-                    ]
-                },
-                {
-                    "command": "volumeDown",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowLeft"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Seek",
-            "shortcuts": [
-                {
-                    "command": "seekBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowDown"
-                    ]
-                },
-                {
-                    "command": "seekForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowUp"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Previous/Next Media",
-            "shortcuts": [
-                {
-                    "command": "goNextMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowUp"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "FullScreen",
-            "shortcuts": [
-                {
-                    "command": "toggleFullscreen",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "F"
-                    ]
-                }
-            ]
-        }
-    ]
+    "youtube": {
+        "label": "YouTube",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowUp"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "P"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "N"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "spotify": {
+        "label": "Spotify",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "S"
+                        ],
+                        "appleKeys": [
+                            "Alt",
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "R"
+                        ],
+                        "appleKeys": [
+                            "Alt",
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Backward",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowUp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Forward",
+                "shortcuts": [
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowUp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "apple": {
+        "label": "Apple Music",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "S"
+                        ],
+                        "appleKeys": [
+                            "Meta",
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "R"
+                        ],
+                        "appleKeys": [
+                            "Meta",
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowUp"
+                        ],
+                        "appleKeys": [
+                            "ArrowUp"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowDown"
+                        ],
+                        "appleKeys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Backward",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowLeft"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Forward",
+                "shortcuts": [
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous/Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowLeft"
+                        ],
+                        "appleKeys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowRight"
+                        ],
+                        "appleKeys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 });
 define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "resource/shortcuts"], function (require, exports, environment_1, shortcuts_json_1) {
     "use strict";
@@ -1269,7 +1442,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
     shortcuts_json_1 = __importDefault(shortcuts_json_1);
     var Shortcuts;
     (function (Shortcuts) {
-        var style = "YouTube";
+        var style = "youtube";
         var currentCommandMap = null;
         var keyDisplayNames = {
             "ArrowUp": "↑",
@@ -1295,7 +1468,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
                 (_c = keyDisplayNames[key]) !== null && _c !== void 0 ? _c : key;
         };
         Shortcuts.getDisplayList = function () {
-            return shortcuts_json_1.default[style].map(function (i) {
+            return shortcuts_json_1.default[style].items.map(function (i) {
                 return ({
                     keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(key); }); }),
                     description: i.description,
@@ -1327,7 +1500,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
                 var normalizedKey = normalizeKey(event.key, event.code);
                 var shortcutKeys_1 = getShortcutKeys(type, normalizedKey);
                 if (!isInputElementFocused()) {
-                    var commandKeys = shortcuts_json_1.default[style].reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
+                    var commandKeys = shortcuts_json_1.default[style].items.reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
                         return getKeys(shortcut).length === shortcutKeys_1.length &&
                             getKeys(shortcut).every(function (key) { return shortcutKeys_1.includes(key); }) &&
                             type === shortcut.type;
@@ -1899,11 +2072,12 @@ define("resource/powered-by", [], {
     "evil-commonjs": "https://github.com/wraith13/evil-commonjs",
     "evil-timer.js": "https://github.com/wraith13/evil-timer.js"
 });
-define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, powered_by_json_1) {
+define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2, powered_by_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
     control_json_1 = __importDefault(control_json_1);
+    shortcuts_json_2 = __importDefault(shortcuts_json_2);
     powered_by_json_1 = __importDefault(powered_by_json_1);
     var UI;
     (function (UI) {
@@ -1957,6 +2131,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
         UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
+        UI.shortcutsSelect = new _library_2.Library.Control.Select({
+            id: "shortcuts",
+            enum: Object.keys(shortcuts_json_2.default),
+            default: Object.keys(shortcuts_json_2.default)[0],
+        }, {
+            makeLabel: function (i) { return shortcuts_json_2.default[i].label; },
+        });
         UI.languageSelect = new _library_2.Library.Control.Select({
             id: control_json_1.default.language.id,
             enum: _library_2.Library.Locale.getLocaleList(),
@@ -1975,16 +2156,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.date = _library_2.Library.UI.getElementById("span", "date");
         UI.time = _library_2.Library.UI.getElementById("span", "time");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
-        UI.updateLanguage = function () {
-            _library_2.Library.Locale.setLocale(UI.languageSelect.get());
-            var lang = _library_2.Library.Locale.getLocale();
-            document.documentElement.setAttribute("lang", lang);
-            document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
-            UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
-            UI.overlayStyleSelect.reloadOptions();
-            UI.languageSelect.reloadOptions();
-            _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
-                .forEach(function (i) { return UI.updateLabel(i); });
+        UI.updateShortcuts = function () {
             _library_2.Library.UI.replaceChildren(UI.keyboardShortcut, _library_2.Library.Shortcuts.getDisplayList().map(function (i) {
                 return [
                     {
@@ -1999,6 +2171,18 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 ];
             })
                 .reduce(function (a, b) { return a.concat(b); }, []));
+        };
+        UI.updateLanguage = function () {
+            _library_2.Library.Locale.setLocale(UI.languageSelect.get());
+            var lang = _library_2.Library.Locale.getLocale();
+            document.documentElement.setAttribute("lang", lang);
+            document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
+            UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
+            UI.overlayStyleSelect.reloadOptions();
+            UI.languageSelect.reloadOptions();
+            _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
+                .forEach(function (i) { return UI.updateLabel(i); });
+            UI.updateShortcuts();
         };
         UI.initialize = function () {
             UI.noscript.style.setProperty("display", "none");
@@ -4507,6 +4691,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Location.requestToGetGeolocation();
             }
         };
+        var updateShortcuts = function () {
+            var value = ui_11.UI.shortcutsSelect.get();
+            console.log("⌨️ Keyboard Shortcuts style changed:", value);
+            _library_9.Library.Shortcuts.setStyle(value);
+            ui_11.UI.updateShortcuts();
+        };
         var updateUrlAnchor = function (params) {
             return ui_11.UI.urlAnchor.href = url_3.Url.make(params);
         };
@@ -4619,7 +4809,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             });
-            _library_9.Library.Shortcuts.setStyle("YouTube");
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);
             //document.body.className = "play";
@@ -4781,6 +4970,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
+            ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
             ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_8.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
@@ -4808,6 +4998,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             updateOverlayStyle();
             updateOverlayPosition();
             ui_11.UI.updateLanguage();
+            updateShortcuts();
             updateUrlAnchor(url_3.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
@@ -4829,6 +5020,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_11.UI.withDateCheckbox,
                         ui_11.UI.withCalenderCheckbox,
                         ui_11.UI.showFpsCheckbox,
+                        ui_11.UI.shortcutsSelect,
                         ui_11.UI.languageSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });

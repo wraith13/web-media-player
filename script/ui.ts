@@ -1,6 +1,7 @@
 import { Tools } from "@tools";
 import { Library } from "@library";
 import control from "@resource/control.json";
+import shortcuts from "@resource/shortcuts.json";
 import poweredBy from "@resource/powered-by.json";
 export namespace UI
 {
@@ -98,6 +99,17 @@ export namespace UI
         new Library.Control.Checkbox(control.withCalendar);
     export const showFpsCheckbox =
         new Library.Control.Checkbox(control.showFps);
+    export const shortcutsSelect = new Library.Control.Select
+    (
+        {
+            id: "shortcuts",
+            enum: Object.keys(shortcuts),
+            default: Object.keys(shortcuts)[0],
+        },
+        {
+            makeLabel: i => shortcuts[i as keyof typeof shortcuts].label,
+        }
+    );
     export const languageSelect =
         new Library.Control.Select
         (
@@ -135,17 +147,8 @@ export namespace UI
         Library.UI.getElementById("span", "time");
     export const keyboardShortcut =
         Library.UI.getElementById("div", "keyboard-shortcut");
-    export const updateLanguage = () =>
+    export const updateShortcuts = () =>
     {
-        Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
-        const lang = Library.Locale.getLocale();
-        document.documentElement.setAttribute("lang", lang);
-        document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
-        manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
-        UI.overlayStyleSelect.reloadOptions();
-        UI.languageSelect.reloadOptions();
-        Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
-            .forEach(i => updateLabel(i));
         Library.UI.replaceChildren
         (
             UI.keyboardShortcut,
@@ -173,6 +176,19 @@ export namespace UI
             )
             .reduce((a, b) => a.concat(b), [])
         );
+    };
+    export const updateLanguage = () =>
+    {
+        Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
+        const lang = Library.Locale.getLocale();
+        document.documentElement.setAttribute("lang", lang);
+        document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
+        manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
+        UI.overlayStyleSelect.reloadOptions();
+        UI.languageSelect.reloadOptions();
+        Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
+            .forEach(i => updateLabel(i));
+        updateShortcuts();
     }
     export const initialize = () =>
     {

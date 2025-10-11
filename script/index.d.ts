@@ -36,14 +36,12 @@ declare module "locale/generated/master" {
             description: string;
             "media-count-label": string;
             "media-length-label": string;
+            "with-fullscreen-label": string;
+            "brightness-label": string;
+            "stretch-label": string;
+            "padding-label": string;
             "cross-fade-label": string;
             "cross-fade-0": string;
-            "colorspace-label": string;
-            "coloring-label": string;
-            "pattern-label": string;
-            lines: string;
-            spots: string;
-            both: string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -56,8 +54,6 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-frequency": string;
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
-            "with-fullscreen-label": string;
-            "show-fps-label": string;
             "overlay-style-label": string;
             hide: string;
             blend: string;
@@ -80,9 +76,8 @@ declare module "locale/generated/master" {
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
-            "brightness-label": string;
-            "stretch-label": string;
-            "padding-label": string;
+            "show-fps-label": string;
+            "shortcuts-label": string;
             "language-label": string;
             "url-label": string;
             timeUnitMs: string;
@@ -97,6 +92,8 @@ declare module "locale/generated/master" {
             "Mute / Unmute": string;
             "Volume Up / Down": string;
             Seek: string;
+            "Seek Backward": string;
+            "Seek Forward": string;
             "Go to Previous/Next Media": string;
             "Go to Previous Media": string;
             "Go to Next Media": string;
@@ -115,14 +112,12 @@ declare module "locale/generated/master" {
             description: string;
             "media-count-label": string;
             "media-length-label": string;
+            "with-fullscreen-label": string;
+            "brightness-label": string;
+            "stretch-label": string;
+            "padding-label": string;
             "cross-fade-label": string;
             "cross-fade-0": string;
-            "colorspace-label": string;
-            "coloring-label": string;
-            "pattern-label": string;
-            lines: string;
-            spots: string;
-            both: string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -135,8 +130,6 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-frequency": string;
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
-            "with-fullscreen-label": string;
-            "show-fps-label": string;
             "overlay-style-label": string;
             hide: string;
             blend: string;
@@ -159,9 +152,8 @@ declare module "locale/generated/master" {
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
-            "brightness-label": string;
-            "stretch-label": string;
-            "padding-label": string;
+            "show-fps-label": string;
+            "shortcuts-label": string;
             "language-label": string;
             "url-label": string;
             timeUnitMs: string;
@@ -176,6 +168,8 @@ declare module "locale/generated/master" {
             "Mute / Unmute": string;
             "Volume Up / Down": string;
             Seek: string;
+            "Seek Backward": string;
+            "Seek Forward": string;
             "Go to Previous/Next Media": string;
             "Go to Previous Media": string;
             "Go to Next Media": string;
@@ -199,14 +193,12 @@ declare module "script/library/locale" {
                 description: string;
                 "media-count-label": string;
                 "media-length-label": string;
+                "with-fullscreen-label": string;
+                "brightness-label": string;
+                "stretch-label": string;
+                "padding-label": string;
                 "cross-fade-label": string;
                 "cross-fade-0": string;
-                "colorspace-label": string;
-                "coloring-label": string;
-                "pattern-label": string;
-                lines: string;
-                spots: string;
-                both: string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -219,8 +211,6 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-frequency": string;
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
-                "with-fullscreen-label": string;
-                "show-fps-label": string;
                 "overlay-style-label": string;
                 hide: string;
                 blend: string;
@@ -243,9 +233,8 @@ declare module "script/library/locale" {
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
-                "brightness-label": string;
-                "stretch-label": string;
-                "padding-label": string;
+                "show-fps-label": string;
+                "shortcuts-label": string;
                 "language-label": string;
                 "url-label": string;
                 timeUnitMs: string;
@@ -260,6 +249,8 @@ declare module "script/library/locale" {
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
                 Seek: string;
+                "Seek Backward": string;
+                "Seek Forward": string;
                 "Go to Previous/Next Media": string;
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
@@ -278,14 +269,12 @@ declare module "script/library/locale" {
                 description: string;
                 "media-count-label": string;
                 "media-length-label": string;
+                "with-fullscreen-label": string;
+                "brightness-label": string;
+                "stretch-label": string;
+                "padding-label": string;
                 "cross-fade-label": string;
                 "cross-fade-0": string;
-                "colorspace-label": string;
-                "coloring-label": string;
-                "pattern-label": string;
-                lines: string;
-                spots: string;
-                both: string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -298,8 +287,6 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-frequency": string;
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
-                "with-fullscreen-label": string;
-                "show-fps-label": string;
                 "overlay-style-label": string;
                 hide: string;
                 blend: string;
@@ -322,9 +309,8 @@ declare module "script/library/locale" {
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
-                "brightness-label": string;
-                "stretch-label": string;
-                "padding-label": string;
+                "show-fps-label": string;
+                "shortcuts-label": string;
                 "language-label": string;
                 "url-label": string;
                 timeUnitMs: string;
@@ -339,6 +325,8 @@ declare module "script/library/locale" {
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
                 Seek: string;
+                "Seek Backward": string;
+                "Seek Forward": string;
                 "Go to Previous/Next Media": string;
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
@@ -553,8 +541,10 @@ declare module "script/tools/environment" {
 declare module "script/library/shortcuts" {
     import shortcuts from "resource/shortcuts";
     export namespace Shortcuts {
-        type Group = (typeof shortcuts)[keyof typeof shortcuts][number];
-        type Entry = Group["shortcuts"][number];
+        type StyleKey = keyof typeof shortcuts;
+        type Style = (typeof shortcuts)[StyleKey];
+        type Item = Style["items"][number];
+        type Entry = Item["shortcuts"][number];
         type CommandKey = Entry["command"];
         type CommandMap = {
             [key in Shortcuts.CommandKey]-?: () => void;
@@ -734,6 +724,7 @@ declare module "script/ui" {
         const withDateCheckbox: Library.Control.Checkbox;
         const withCalenderCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
+        const shortcutsSelect: Library.Control.Select<string>;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
         const fpsDisplay: HTMLDivElement;
@@ -743,6 +734,7 @@ declare module "script/ui" {
         const date: HTMLSpanElement;
         const time: HTMLSpanElement;
         const keyboardShortcut: HTMLDivElement;
+        const updateShortcuts: () => void;
         const updateLanguage: () => void;
         const initialize: () => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;

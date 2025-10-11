@@ -54,7 +54,14 @@ export namespace Events
         {
             Features.Location.requestToGetGeolocation();
         }
-    }
+    };
+    const updateShortcuts = () =>
+    {
+        const value = UI.shortcutsSelect.get();
+        console.log("⌨️ Keyboard Shortcuts style changed:", value);
+        Library.Shortcuts.setStyle(value as Library.Shortcuts.StyleKey);
+        UI.updateShortcuts();
+    };
     const updateUrlAnchor = (params: Record<string, string>) =>
         UI.urlAnchor.href = Url.make(params);
     const dragover = (event: DragEvent): void =>
@@ -191,7 +198,6 @@ export namespace Events
                 }
             }
         });
-        Library.Shortcuts.setStyle("YouTube");
         document.body.addEventListener("dragover", dragover);
         document.body.addEventListener("drop", drop);
         //document.body.className = "play";
@@ -406,6 +412,7 @@ export namespace Events
         UI.withDateCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
+        UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
         document.body.addEventListener
         (
@@ -444,6 +451,7 @@ export namespace Events
         updateOverlayStyle();
         updateOverlayPosition();
         UI.updateLanguage();
+        updateShortcuts();
         updateUrlAnchor(Url.params);
         document.addEventListener
         (
@@ -471,6 +479,7 @@ export namespace Events
                         UI.withDateCheckbox,
                         UI.withCalenderCheckbox,
                         UI.showFpsCheckbox,
+                        UI.shortcutsSelect,
                         UI.languageSelect,
                     ]
                     .forEach(i => i.catchUpRestore(Url.params)),

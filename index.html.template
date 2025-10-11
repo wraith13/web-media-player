@@ -179,6 +179,10 @@ DUMMYSTYLE
                 <input id="show-fps" type="checkbox" />
                 <span class="load-status" id="show-fps-load-status"></span>
             </label>
+            <label for="shortcuts">
+                <span data-lang-key="shortcuts-label"></span>
+                <select id="shortcuts"></select>
+            </label>
             <label for="language">
                 <span data-lang-key="language-label"></span>
                 <select id="language"></select>

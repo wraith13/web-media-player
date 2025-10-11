@@ -2,11 +2,13 @@ import { Environment } from "@tools/environment";
 import shortcuts from "@resource/shortcuts.json";
 export namespace Shortcuts
 {
-    export type Group = (typeof shortcuts)[keyof typeof shortcuts][number];
-    export type Entry = Group["shortcuts"][number];
+    export type StyleKey = keyof typeof shortcuts;
+    export type Style = (typeof shortcuts)[StyleKey];
+    export type Item = Style["items"][number];
+    export type Entry = Item["shortcuts"][number];
     export type CommandKey = Entry["command"];
     export type CommandMap = { [key in Shortcuts.CommandKey]-?: () => void };
-    let style: keyof typeof shortcuts = "YouTube";
+    let style: StyleKey = "youtube";
     let currentCommandMap: CommandMap | null = null;
     const keyDisplayNames =
     {
@@ -31,7 +33,7 @@ export namespace Shortcuts
             appleKeyDisplayNames[key as keyof typeof appleKeyDisplayNames] ?? keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key:
             keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
     export const getDisplayList = () =>
-        shortcuts[style].map
+        shortcuts[style].items.map
         (
             i =>
             ({
@@ -68,7 +70,7 @@ export namespace Shortcuts
             const shortcutKeys = getShortcutKeys(type, normalizedKey);
             if ( ! isInputElementFocused())
             {
-                const commandKeys = (shortcuts[style] as Group[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
+                const commandKeys = (shortcuts[style].items as Item[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
                 (
                     (shortcut: Entry) =>
                         getKeys(shortcut).length === shortcutKeys.length &&

@@ -1,239 +1,418 @@
 {
-    "YouTube": [
-        {
-            "description": "Shuffle",
-            "shortcuts": [
-                {
-                    "command": "toggleShuffle",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Repeat",
-            "shortcuts": [
-                {
-                    "command": "toggleRepeat",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "R"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Play / Pause",
-            "shortcuts": [
-                {
-                    "command": "togglePlay",
-                    "type": "onKeyUp",
-                    "keys": [
-                        " "
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Mute / Unmute",
-            "shortcuts": [
-                {
-                    "command": "toggleMute",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "M"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Volume Up / Down",
-            "shortcuts": [
-                {
-                    "command": "volumeUp",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowUp"
-                    ]
-                },
-                {
-                    "command": "volumeDown",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowDown"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Seek",
-            "shortcuts": [
-                {
-                    "command": "seekBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowLeft"
-                    ]
-                },
-                {
-                    "command": "seekForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowRight"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Previous Media",
-            "shortcuts": [
-                {
-                    "command": "goPreviousMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "P"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Next Media",
-            "shortcuts": [
-                {
-                    "command": "goNextMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "N"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "FullScreen",
-            "shortcuts": [
-                {
-                    "command": "toggleFullscreen",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "F"
-                    ]
-                }
-            ]
-        }
-    ],
-    "Spotify": [
-        {
-            "description": "Shuffle",
-            "shortcuts": [
-                {
-                    "command": "toggleShuffle",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "Control",
-                        "S"
-                    ],
-                    "appleKeys": [
-                        "Alt",
-                        "S"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Repeat",
-            "shortcuts": [
-                {
-                    "command": "toggleRepeat",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "Control",
-                        "R"
-                    ],
-                    "appleKeys": [
-                        "Alt",
-                        "R"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Play / Pause",
-            "shortcuts": [
-                {
-                    "command": "togglePlay",
-                    "type": "onKeyUp",
-                    "keys": [
-                        " "
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Volume Up / Down",
-            "shortcuts": [
-                {
-                    "command": "volumeUp",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowRight"
-                    ]
-                },
-                {
-                    "command": "volumeDown",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowLeft"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Seek",
-            "shortcuts": [
-                {
-                    "command": "seekBackward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowDown"
-                    ]
-                },
-                {
-                    "command": "seekForward",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "ArrowUp"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "Go to Previous/Next Media",
-            "shortcuts": [
-                {
-                    "command": "goNextMedia",
-                    "type": "onKeyDown",
-                    "keys": [
-                        "Shift",
-                        "ArrowUp"
-                    ]
-                }
-            ]
-        },
-        {
-            "description": "FullScreen",
-            "shortcuts": [
-                {
-                    "command": "toggleFullscreen",
-                    "type": "onKeyUp",
-                    "keys": [
-                        "F"
-                    ]
-                }
-            ]
-        }
-    ]
+    "youtube": {
+        "label": "YouTube",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowUp"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "P"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "N"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "spotify": {
+        "label": "Spotify",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "S"
+                        ],
+                        "appleKeys": [
+                            "Alt",
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "R"
+                        ],
+                        "appleKeys": [
+                            "Alt",
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Backward",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowUp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Forward",
+                "shortcuts": [
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowUp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "apple": {
+        "label": "Apple Music",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "S"
+                        ],
+                        "appleKeys": [
+                            "Meta",
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "R"
+                        ],
+                        "appleKeys": [
+                            "Meta",
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowUp"
+                        ],
+                        "appleKeys": [
+                            "ArrowUp"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowDown"
+                        ],
+                        "appleKeys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Backward",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowLeft"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Forward",
+                "shortcuts": [
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous/Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowLeft"
+                        ],
+                        "appleKeys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "ArrowRight"
+                        ],
+                        "appleKeys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
