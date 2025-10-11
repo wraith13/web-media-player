@@ -76,6 +76,7 @@ declare module "locale/generated/master" {
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
+            "with-visualizer-label": string;
             "show-fps-label": string;
             "shortcuts-label": string;
             "language-label": string;
@@ -152,6 +153,7 @@ declare module "locale/generated/master" {
             "with-clock-label": string;
             "with-date-label": string;
             "with-calendar-label": string;
+            "with-visualizer-label": string;
             "show-fps-label": string;
             "shortcuts-label": string;
             "language-label": string;
@@ -233,6 +235,7 @@ declare module "script/library/locale" {
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
+                "with-visualizer-label": string;
                 "show-fps-label": string;
                 "shortcuts-label": string;
                 "language-label": string;
@@ -309,6 +312,7 @@ declare module "script/library/locale" {
                 "with-clock-label": string;
                 "with-date-label": string;
                 "with-calendar-label": string;
+                "with-visualizer-label": string;
                 "show-fps-label": string;
                 "shortcuts-label": string;
                 "language-label": string;
@@ -723,6 +727,7 @@ declare module "script/ui" {
         const withClockCheckbox: Library.Control.Checkbox;
         const withDateCheckbox: Library.Control.Checkbox;
         const withCalenderCheckbox: Library.Control.Checkbox;
+        const withVisualizerCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
         const shortcutsSelect: Library.Control.Select<string>;
         const languageSelect: Library.Control.Select<string>;

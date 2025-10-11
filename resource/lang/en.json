@@ -45,6 +45,7 @@
     "with-clock-label": "Clock:",
     "with-date-label": "Date:",
     "with-calendar-label": "Calendar:",
+    "with-visualizer-label": "Visualizer(Overlay):",
     "show-fps-label": "Show FPS:",
     "shortcuts-label": "Keyboard Shortcuts:",
     "language-label": "Language:",

@@ -414,5 +414,136 @@
                 ]
             }
         ]
+    },
+    "windows": {
+        "label": "Windows Media Player",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "H"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "T"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F7"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "F9"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "F8"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "F"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F11"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }

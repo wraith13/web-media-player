@@ -165,6 +165,10 @@
         "id": "with-calendar",
         "default": false
     },
+    "withVisualizer": {
+        "id": "with-visualizer",
+        "default": false
+    },
     "showFps": {
         "id": "show-fps",
         "default": false

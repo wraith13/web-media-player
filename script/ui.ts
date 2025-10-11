@@ -97,6 +97,8 @@ export namespace UI
         new Library.Control.Checkbox(control.withDate);
     export const withCalenderCheckbox =
         new Library.Control.Checkbox(control.withCalendar);
+    export const withVisualizerCheckbox =
+        new Library.Control.Checkbox(control.withVisualizer);
     export const showFpsCheckbox =
         new Library.Control.Checkbox(control.showFps);
     export const shortcutsSelect = new Library.Control.Select

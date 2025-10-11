@@ -223,6 +223,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "with-clock-label": "Clock:",
             "with-date-label": "Date:",
             "with-calendar-label": "Calendar:",
+            "with-visualizer-label": "Visualizer(Overlay):",
             "show-fps-label": "Show FPS:",
             "shortcuts-label": "Keyboard Shortcuts:",
             "language-label": "Language:",
@@ -299,6 +300,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "with-clock-label": "時計:",
             "with-date-label": "日付:",
             "with-calendar-label": "カレンダー:",
+            "with-visualizer-label": "ビジュアライザー(オーバーレイ):",
             "show-fps-label": "FPS を表示:",
             "shortcuts-label": "キーボードショートカット:",
             "language-label": "言語:",
@@ -1433,6 +1435,137 @@ define("resource/shortcuts", [], {
                 ]
             }
         ]
+    },
+    "windows": {
+        "label": "Windows Media Player",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "H"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "Control",
+                            "T"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F7"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "F9"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "F8"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "B"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Control",
+                            "F"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F11"
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 });
 define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "resource/shortcuts"], function (require, exports, environment_1, shortcuts_json_1) {
@@ -2055,6 +2188,10 @@ define("resource/control", [], {
         "id": "with-calendar",
         "default": false
     },
+    "withVisualizer": {
+        "id": "with-visualizer",
+        "default": false
+    },
     "showFps": {
         "id": "show-fps",
         "default": false
@@ -2130,6 +2267,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.withClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withClock);
         UI.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
         UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
+        UI.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
         UI.shortcutsSelect = new _library_2.Library.Control.Select({
             id: "shortcuts",
