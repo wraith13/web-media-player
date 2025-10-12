@@ -2234,6 +2234,10 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #overlay-panel #calendar .week .day:not(.current-month) {
   opacity: 0.4;
 }
+#overlay-panel #visualizer {
+  width: calc(20 * var(--diagonal));
+  height: calc(20 * var(--diagonal));
+}
 #overlay-panel.top-right, #overlay-panel.top-left {
   display: flex;
   flex-direction: column;

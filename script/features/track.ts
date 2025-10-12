@@ -228,6 +228,14 @@ export class Track
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
         }
+        if (this.playerElement instanceof HTMLMediaElement && ! (this.visualElement instanceof Visualizer.VisualizerDom) && UI.withVisualizerCheckbox.get())
+        {
+            Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
+        }
+        else
+        {
+
+        }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
             UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();

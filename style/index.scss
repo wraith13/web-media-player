@@ -1326,6 +1326,11 @@ label[for="volume-button"]
                 }
             }
         }
+        #visualizer
+        {
+            width: calc(20 * var(--diagonal));
+            height: calc(20 * var(--diagonal));
+        }
         &.top-right, &.top-left
         {
             display: flex;

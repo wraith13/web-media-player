@@ -2126,7 +2126,7 @@ define("resource/control", [], {
         "default": false
     },
     "visualizer": {
-        "id": "visualizer",
+        "id": "visualizer-type",
         "enum": [
             "simple",
             "plane-frequency",
@@ -2289,6 +2289,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
         UI.overlay = _library_2.Library.UI.getElementById("div", "overlay-panel");
+        UI.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
         UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
         UI.weather = _library_2.Library.UI.getElementById("div", "weather");
         UI.date = _library_2.Library.UI.getElementById("span", "date");
@@ -2698,33 +2699,35 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
                 this.frequencyDataArray = { left: null, right: null, mono: null, };
                 this.timeDomainDataArray = { left: null, right: null, mono: null, };
-                if (mediaElement instanceof HTMLVideoElement) {
-                    this.gainNode = Analyser.audioContext.createGain();
-                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                    this.mediaElementAudioSourceNode.connect(this.gainNode);
-                    this.gainNode.connect(Analyser.audioContext.destination);
-                }
-                else {
-                    this.splitter = Analyser.audioContext.createChannelSplitter(2);
-                    this.analyserNodes =
-                        {
-                            left: Analyser.audioContext.createAnalyser(),
-                            right: Analyser.audioContext.createAnalyser(),
-                            mono: Analyser.audioContext.createAnalyser(),
-                        };
-                    this.analyserNodes.left.fftSize = Analyser.fftSize;
-                    this.analyserNodes.right.fftSize = Analyser.fftSize;
-                    this.gainNode = Analyser.audioContext.createGain();
-                    this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
-                    this.mediaElementAudioSourceNode.connect(this.splitter);
-                    this.splitter.connect(this.analyserNodes.left, 0);
-                    this.splitter.connect(this.analyserNodes.right, 1);
-                    this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
-                    this.mediaElementAudioSourceNode.connect(this.gainNode);
-                    this.gainNode.connect(Analyser.audioContext.destination);
-                    //this.analyserNode.connect(audioContext.destination);
-                    //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
-                }
+                // if (mediaElement instanceof HTMLVideoElement)
+                // {
+                //     this.gainNode = audioContext.createGain();
+                //     this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
+                //     this.mediaElementAudioSourceNode.connect(this.gainNode);
+                //     this.gainNode.connect(audioContext.destination);
+                // }
+                // else
+                // {
+                this.splitter = Analyser.audioContext.createChannelSplitter(2);
+                this.analyserNodes =
+                    {
+                        left: Analyser.audioContext.createAnalyser(),
+                        right: Analyser.audioContext.createAnalyser(),
+                        mono: Analyser.audioContext.createAnalyser(),
+                    };
+                this.analyserNodes.left.fftSize = Analyser.fftSize;
+                this.analyserNodes.right.fftSize = Analyser.fftSize;
+                this.gainNode = Analyser.audioContext.createGain();
+                this.mediaElementAudioSourceNode = Analyser.audioContext.createMediaElementSource(mediaElement);
+                this.mediaElementAudioSourceNode.connect(this.splitter);
+                this.splitter.connect(this.analyserNodes.left, 0);
+                this.splitter.connect(this.analyserNodes.right, 1);
+                this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
+                this.mediaElementAudioSourceNode.connect(this.gainNode);
+                this.gainNode.connect(Analyser.audioContext.destination);
+                //this.analyserNode.connect(audioContext.destination);
+                //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
+                // }
             }
             Entry.prototype.destroy = function () {
                 var _a, _b, _c, _d, _e, _f, _g;
@@ -3855,6 +3858,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.step();
             if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
+            }
+            if (this.playerElement instanceof HTMLMediaElement && !(this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) && ui_7.UI.withVisualizerCheckbox.get()) {
+                visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
+            }
+            else {
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_7.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();

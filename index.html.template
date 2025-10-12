@@ -55,6 +55,7 @@ DUMMYSTYLE
             <span id="time"></span>
             <span id="date"></span>
             <div id="calendar"></div>
+            <div id="visualizer"></div>
         </div>
     </div>
     <div id="background-screen">
@@ -141,9 +142,9 @@ DUMMYSTYLE
                 <span data-lang-key="loop-short-media-label"></span>
                 <input id="loop-short-media" type="checkbox" />
             </label>
-            <label for="visualizer">
+            <label for="visualizer-type">
                 <span data-lang-key="visualizer-label"></span>
-                <select id="visualizer"></select>
+                <select id="visualizer-type"></select>
             </label>
             <label for="overlay-style">
                 <span data-lang-key="overlay-style-label"></span>

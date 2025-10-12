@@ -734,6 +734,7 @@ declare module "script/ui" {
         const urlAnchor: HTMLAnchorElement;
         const fpsDisplay: HTMLDivElement;
         const overlay: HTMLDivElement;
+        const visualizer: HTMLDivElement;
         const calendar: HTMLDivElement;
         const weather: HTMLDivElement;
         const date: HTMLSpanElement;

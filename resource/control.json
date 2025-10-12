@@ -103,7 +103,7 @@
         "default": false
     },
     "visualizer": {
-        "id": "visualizer",
+        "id": "visualizer-type",
         "enum": [
             "simple",
             "plane-frequency",

@@ -139,6 +139,8 @@ export namespace UI
         Library.UI.getElementById("div", "fps");
     export const overlay =
         Library.UI.getElementById("div", "overlay-panel");
+    export const visualizer =
+        Library.UI.getElementById("div", "visualizer");
     export const calendar =
         Library.UI.getElementById("div", "calendar");
     export const weather =

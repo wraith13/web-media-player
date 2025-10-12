@@ -33,15 +33,15 @@ export namespace Analyser
         timeDomainDataArray: Channels<Uint8Array<ArrayBuffer> | null> = { left: null, right: null, mono: null, };
         constructor(public mediaElement: HTMLMediaElement)
         {
-            if (mediaElement instanceof HTMLVideoElement)
-            {
-                this.gainNode = audioContext.createGain();
-                this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
-                this.mediaElementAudioSourceNode.connect(this.gainNode);
-                this.gainNode.connect(audioContext.destination);
-            }
-            else
-            {
+            // if (mediaElement instanceof HTMLVideoElement)
+            // {
+            //     this.gainNode = audioContext.createGain();
+            //     this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
+            //     this.mediaElementAudioSourceNode.connect(this.gainNode);
+            //     this.gainNode.connect(audioContext.destination);
+            // }
+            // else
+            // {
                 this.splitter = audioContext.createChannelSplitter(2);
                 this.analyserNodes =
                 {
@@ -61,7 +61,7 @@ export namespace Analyser
                 this.gainNode.connect(audioContext.destination);
                 //this.analyserNode.connect(audioContext.destination);
                 //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
-            }
+            // }
         }
         destroy(): void
         {
