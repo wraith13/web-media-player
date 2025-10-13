@@ -377,10 +377,13 @@ export namespace Visualizer
     };
     export const step = (_media: Media.Entry, playerDom: HTMLMediaElement, visualDom: VisualizerDom, analyser: Analyser.Entry | null): void =>
     {
-        makeSureAudioIcon(visualDom).catch(console.error);
-        if (playerDom.muted)
+        if (playerDom instanceof HTMLAudioElement)
         {
-            makeSureMuteIcon(visualDom).catch(console.error);
+            makeSureAudioIcon(visualDom).catch(console.error);
+            if (playerDom.muted)
+            {
+                makeSureMuteIcon(visualDom).catch(console.error);
+            }
         }
         if (isSimpleMode())
         {

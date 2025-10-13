@@ -253,7 +253,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
-#screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer {
+#screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
   inset-block-start: 50%;
   inset-inline-start: 50%;
@@ -274,38 +274,11 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen .padding {
   filter: blur(calc(0.5vw + 0.5vh));
 }
-#screen-body #media-screen .visualizer {
+#screen-body #media-screen > .visualizer {
   color: rgb(230, 237, 243);
   background-color: black;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
 }
-#screen-body #media-screen .visualizer .viaul-text {
-  z-index: 100;
-}
-#screen-body #media-screen .visualizer .visual-progress-circle {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
-  height: calc(25vw + 25vh);
-  width: calc(25vw + 25vh);
-  border-radius: 50%;
-  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
-  filter: drop-shadow(black 0px 0px 0.5rem);
-  border-color: hsl(160, 100%, 50%);
-  border-width: 0.125rem;
-  border-style: solid;
-  z-index: 50;
-}
-#screen-body #media-screen .visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
-}
-#screen-body #media-screen .visualizer .visual-canvas {
+#screen-body #media-screen > .visualizer .visual-canvas {
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -316,7 +289,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-#screen-body #media-screen .visualizer svg {
+#screen-body #media-screen > .visualizer svg {
   position: absolute;
   height: calc(15vw + 15vh);
   width: calc(15vw + 15vh);
@@ -327,13 +300,13 @@ body.list #screen-body #media-screen:not(.show)::before {
   filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
   z-index: 100;
 }
-#screen-body #media-screen .visualizer.muted svg {
+#screen-body #media-screen > .visualizer.muted svg {
   fill: red;
 }
-#screen-body #media-screen .visualizer.muted svg.audio-icon {
+#screen-body #media-screen > .visualizer.muted svg.audio-icon {
   display: none;
 }
-#screen-body #media-screen .visualizer:not(.muted) svg.mute-icon {
+#screen-body #media-screen > .visualizer:not(.muted) svg.mute-icon {
   display: none;
 }
 #screen-body #media-screen:not(.simple) .visual-progress-circle {
@@ -700,6 +673,36 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 #screen-body.black #canvas {
   display: none;
+}
+
+.visualizer {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.visualizer .viaul-text {
+  z-index: 100;
+}
+.visualizer .visual-progress-circle {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  height: calc(25vw + 25vh);
+  width: calc(25vw + 25vh);
+  border-radius: 50%;
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
+  filter: drop-shadow(black 0px 0px 0.5rem);
+  border-color: hsl(160, 100%, 50%);
+  border-width: 0.125rem;
+  border-style: solid;
+  z-index: 50;
+}
+.visualizer.odd .visual-progress-circle {
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {
@@ -2217,6 +2220,9 @@ body:not(.play) #overlay-panel:not(.show)::before {
   gap: calc(0.5 * var(--diagonal));
   padding: calc(0.5 * var(--diagonal));
 }
+#overlay-panel #calendar:empty {
+  display: none;
+}
 #overlay-panel #calendar .week {
   display: flex;
   flex-direction: row;
@@ -2235,8 +2241,12 @@ body:not(.play) #overlay-panel:not(.show)::before {
   opacity: 0.4;
 }
 #overlay-panel #visualizer {
-  width: calc(20 * var(--diagonal));
-  height: calc(20 * var(--diagonal));
+  width: calc(12 * var(--diagonal));
+  height: calc(12 * var(--diagonal));
+}
+#overlay-panel #visualizer canvas {
+  width: 100%;
+  height: 100%;
 }
 #overlay-panel.top-right, #overlay-panel.top-left {
   display: flex;

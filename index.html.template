@@ -55,7 +55,7 @@ DUMMYSTYLE
             <span id="time"></span>
             <span id="date"></span>
             <div id="calendar"></div>
-            <div id="visualizer"></div>
+            <div id="visualizer" class="visualizer"></div>
         </div>
     </div>
     <div id="background-screen">

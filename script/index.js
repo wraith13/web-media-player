@@ -3333,9 +3333,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
         Visualizer.step = function (_media, playerDom, visualDom, analyser) {
             var _a;
-            Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
-            if (playerDom.muted) {
-                Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
+            if (playerDom instanceof HTMLAudioElement) {
+                Visualizer.makeSureAudioIcon(visualDom).catch(console.error);
+                if (playerDom.muted) {
+                    Visualizer.makeSureMuteIcon(visualDom).catch(console.error);
+                }
             }
             if (Visualizer.isSimpleMode()) {
                 var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
@@ -3856,14 +3858,18 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         Track.prototype.step = function () {
             var _a;
             (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.step();
-            if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+            if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
-            if (this.playerElement instanceof HTMLMediaElement && !(this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) && ui_7.UI.withVisualizerCheckbox.get()) {
+            //if (isCurrentTrack)
+            //{
+            if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
             }
             else {
+                //Visualizer.clear(UI.visualizer);
             }
+            //}
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_7.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }

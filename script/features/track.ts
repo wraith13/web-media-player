@@ -224,18 +224,21 @@ export class Track
     step(): void
     {
         this.analyser?.step();
-        if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
+        if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
         }
-        if (this.playerElement instanceof HTMLMediaElement && ! (this.visualElement instanceof Visualizer.VisualizerDom) && UI.withVisualizerCheckbox.get())
-        {
-            Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
-        }
-        else
-        {
-
-        }
+        //if (isCurrentTrack)
+        //{
+            if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
+            {
+                Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
+            }
+            else
+            {
+                //Visualizer.clear(UI.visualizer);
+            }
+        //}
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
             UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
