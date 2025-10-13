@@ -221,15 +221,15 @@ export class Track
             position: this.getElapsedTime() /1000,
         });
     }
-    step(): void
+    step(truckType: "current" | "fadeouting"): void
     {
         this.analyser?.step();
         if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof Visualizer.VisualizerDom)
         {
             Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
         }
-        //if (isCurrentTrack)
-        //{
+        if ("current" === truckType)
+        {
             if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
             {
                 Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
@@ -238,7 +238,7 @@ export class Track
             {
                 //Visualizer.clear(UI.visualizer);
             }
-        //}
+        }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
             UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();

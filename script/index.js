@@ -3855,21 +3855,20 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 position: this.getElapsedTime() / 1000,
             });
         };
-        Track.prototype.step = function () {
+        Track.prototype.step = function (truckType) {
             var _a;
             (_a = this.analyser) === null || _a === void 0 ? void 0 : _a.step();
             if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
-            //if (isCurrentTrack)
-            //{
-            if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
-                visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
+            if ("current" === truckType) {
+                if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
+                }
+                else {
+                    //Visualizer.clear(UI.visualizer);
+                }
             }
-            else {
-                //Visualizer.clear(UI.visualizer);
-            }
-            //}
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
                 ui_7.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }
@@ -4372,11 +4371,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
-                fadeoutingTrack.step();
+                fadeoutingTrack.step("fadeouting");
             }
             if (null !== currentTrack) {
                 _library_7.Library.UI.setTextContent(ui_8.UI.mediaTime, Player.makeTimeText(currentTrack));
-                currentTrack.step();
+                currentTrack.step("current");
                 currentTrack.setPositionState();
             }
         };

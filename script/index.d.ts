@@ -1000,7 +1000,7 @@ declare module "script/features/track" {
         fastForward(): void;
         rewind(): void;
         setPositionState(): void;
-        step(): void;
+        step(truckType: "current" | "fadeouting"): void;
         isLoop(): boolean;
         getImageDuration(): number;
         getDuration(): number;

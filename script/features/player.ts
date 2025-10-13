@@ -362,12 +362,12 @@ export namespace Player
     {
         if (null !== fadeoutingTrack)
         {
-            fadeoutingTrack.step();
+            fadeoutingTrack.step("fadeouting");
         }
         if (null !== currentTrack)
         {
             Library.UI.setTextContent(UI.mediaTime, makeTimeText(currentTrack));
-            currentTrack.step();
+            currentTrack.step("current");
             currentTrack.setPositionState();
         }
     };
