@@ -3940,7 +3940,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
             return false;
         };
-        Track.prototype.updateStretch = function () {
+        Track.prototype.updateStretch = function (truckType) {
             var _this = this;
             if (this.visualElement) {
                 if (this.media.area) {
@@ -3989,6 +3989,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
                 }
+            }
+            if ("current" === truckType) {
+                visualizer_1.Visualizer.updateStretch(ui_7.UI.visualizer);
             }
         };
         Track.prototype.updateLoopShortMedia = function (isPlaying) {
@@ -4325,7 +4328,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
                         currentTrack.crossFadeStep(1);
-                        currentTrack.updateStretch();
+                        currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
                     case 1:
@@ -4406,9 +4409,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 artwork: [{ src: entry.thumbnail, }],
             });
             if (resume && currentTrack && entry === currentTrack.media) {
-                currentTrack.updateStretch();
+                currentTrack.updateStretch("current");
                 currentTrack.play();
-                fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
+                fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
                 fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.play();
             }
             else {
@@ -4437,7 +4440,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 }
                 if (currentTrack.visualElement) {
                     ui_8.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_8.UI.overlay);
-                    currentTrack.updateStretch();
+                    currentTrack.updateStretch("current");
                 }
             }
         };
@@ -4457,8 +4460,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.updateStretch = function () {
             var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
             document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(innerWidth, innerHeight) * 0.01, "px"));
-            currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch();
-            fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch();
+            currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
+            fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
         };
         Player.updateLoopShortMedia = function () {
             if (null !== currentTrack) {

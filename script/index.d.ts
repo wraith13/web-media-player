@@ -1009,7 +1009,7 @@ declare module "script/features/track" {
         getElapsedTime(): number;
         getRemainingTime(): number;
         appleyStretch(dom: HTMLImageElement | HTMLVideoElement, StretchRate: number): boolean;
-        updateStretch(): void;
+        updateStretch(truckType: "current" | "fadeouting"): void;
         updateLoopShortMedia(isPlaying: boolean): void;
         isMuteCondition(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): boolean;
         setVolume(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): void;

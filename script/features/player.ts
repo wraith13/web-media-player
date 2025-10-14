@@ -316,7 +316,7 @@ export namespace Player
                     removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
                     currentTrack.crossFadeStep(1);
-                    currentTrack.updateStretch();
+                    currentTrack.updateStretch("current");
                     if ( ! currentTrack.isPlaying())
                     {
                         await currentTrack.play();
@@ -404,9 +404,9 @@ export namespace Player
         });
         if (resume && currentTrack && entry === currentTrack.media)
         {
-            currentTrack.updateStretch();
+            currentTrack.updateStretch("current");
             currentTrack.play();
-            fadeoutingTrack?.updateStretch();
+            fadeoutingTrack?.updateStretch("fadeouting");
             fadeoutingTrack?.play();
         }
         else
@@ -441,7 +441,7 @@ export namespace Player
             if (currentTrack.visualElement)
             {
                 UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.overlay);
-                currentTrack.updateStretch();
+                currentTrack.updateStretch("current");
             }
         }
     };
@@ -466,8 +466,8 @@ export namespace Player
     {
         const { innerWidth, innerHeight } = window;
         document.documentElement.style.setProperty('--diagonal', `${Math.hypot(innerWidth, innerHeight) *0.01}px`);
-        currentTrack?.updateStretch();
-        fadeoutingTrack?.updateStretch();
+        currentTrack?.updateStretch("current");
+        fadeoutingTrack?.updateStretch("fadeouting");
     }
     export const updateLoopShortMedia = () =>
     {

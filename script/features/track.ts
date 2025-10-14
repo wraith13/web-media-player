@@ -328,7 +328,7 @@ export class Track
         }
         return false;
     }
-    updateStretch(): void
+    updateStretch(truckType: "current" | "fadeouting"): void
     {
         if (this.visualElement)
         {
@@ -393,6 +393,10 @@ export class Track
                 Visualizer.updateStretch(this.visualElement);
                 Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
+        }
+        if ("current" === truckType)
+        {
+            Visualizer.updateStretch(UI.visualizer);
         }
     }
     updateLoopShortMedia(isPlaying: boolean): void
