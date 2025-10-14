@@ -1336,6 +1336,10 @@ label[for="volume-button"]
         }
         #visualizer
         {
+            &:not(.on)
+            {
+                display: none;
+            }
             width: calc(12 * var(--diagonal));
             height: calc(12 * var(--diagonal));
             canvas

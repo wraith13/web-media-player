@@ -232,11 +232,12 @@ export class Track
         {
             if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
             {
+                UI.visualizer.classList.toggle("on", true);
                 Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
             }
             else
             {
-                //Visualizer.clear(UI.visualizer);
+                UI.visualizer.classList.toggle("on", false);
             }
         }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())

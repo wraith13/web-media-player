@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Oct 14 2025 00:13:24 GMT+0900 (日本標準時)
+    build at: Wed Oct 15 2025 07:18:15 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2300,6 +2300,9 @@ body:not(.play) #overlay-panel:not(.show)::before {
   width: calc(12 * var(--diagonal));
   height: calc(12 * var(--diagonal));
 }
+#overlay-panel #visualizer:not(.on) {
+  display: none;
+}
 #overlay-panel #visualizer canvas {
   width: 100%;
   height: 100%;
@@ -2935,8 +2938,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Oct 14 2025 00:13:24 GMT+0900 (日本標準時)",
-    tick: 1760368404218
+    at: "Wed Oct 15 2025 07:18:15 GMT+0900 (日本標準時)",
+    tick: 1760480295449
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8363,10 +8366,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
             if ("current" === truckType) {
                 if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
+                    ui_7.UI.visualizer.classList.toggle("on", true);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
                 }
                 else {
-                    //Visualizer.clear(UI.visualizer);
+                    ui_7.UI.visualizer.classList.toggle("on", false);
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {

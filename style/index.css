@@ -2244,6 +2244,9 @@ body:not(.play) #overlay-panel:not(.show)::before {
   width: calc(12 * var(--diagonal));
   height: calc(12 * var(--diagonal));
 }
+#overlay-panel #visualizer:not(.on) {
+  display: none;
+}
 #overlay-panel #visualizer canvas {
   width: 100%;
   height: 100%;

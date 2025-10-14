@@ -3863,10 +3863,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
             if ("current" === truckType) {
                 if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
+                    ui_7.UI.visualizer.classList.toggle("on", true);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
                 }
                 else {
-                    //Visualizer.clear(UI.visualizer);
+                    ui_7.UI.visualizer.classList.toggle("on", false);
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
