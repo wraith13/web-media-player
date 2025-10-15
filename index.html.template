@@ -224,9 +224,13 @@ DUMMYSTYLE
     <div id="supplementary-line">
         <div id="keyboard-shortcut">
         </div>
-        <div id="powered-by">
-            <span class="title"></span>
-            <ul></ul>
+        <div id="information">
+            <div id="repository">
+            </div>
+            <div id="powered-by">
+                <span class="title"></span>
+                <ul></ul>
+            </div>
         </div>
     </div>
 </div>

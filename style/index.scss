@@ -1447,55 +1447,88 @@ label[for="volume-button"]
                 }
             }
         }
-        #powered-by
+        #information
         {
             @include fade-transition("body.play", "body.show-paused-media");
-            @include black-pop-panel-style();
-            @include font();
-            &
+            #repository
             {
-                margin-block: 0.5rem;
-                margin-inline: 0.5rem;
-                margin-inline-end: calc(0.5rem + env(safe-area-inset-right)) ;
-                border-radius: 0.5rem;
-                padding-block: 0.5rem;
-                padding-inline: 1.0rem;
-                display: block;
-                direction: ltr;
-                text-align: start;
-                pointer-events: initial;
-                .title
+                @include black-pop-panel-style();
+                @include font();
+                &
                 {
-                    @include solid-box();
+                    margin-block: 0.5rem;
+                    margin-inline: 0.5rem;
+                    margin-inline-end: calc(0.5rem + env(safe-area-inset-right)) ;
+                    border-radius: 0.5rem;
+                    padding-block: 0.5rem;
+                    padding-inline: 1.0rem;
+                    display: block;
+                    direction: ltr;
+                    text-align: start;
+                    pointer-events: initial;
+                    a
+                    {
+                        color: white-color(0.7);
+                        cursor: pointer;
+                        @media (hover: hover)
+                        {
+                            &:hover
+                            {
+                                color: $white-color;
+                            }
+                        }
+                    }
                 }
-                ul
+            }
+            #powered-by
+            {
+                @include black-pop-panel-style();
+                @include font();
+                &
                 {
-                    @include solid-box();
-                    padding-inline-start: 1.0rem;
-                    li
+                    margin-block: 0.5rem;
+                    margin-inline: 0.5rem;
+                    margin-inline-end: calc(0.5rem + env(safe-area-inset-right)) ;
+                    border-radius: 0.5rem;
+                    padding-block: 0.5rem;
+                    padding-inline: 1.0rem;
+                    display: block;
+                    direction: ltr;
+                    text-align: start;
+                    pointer-events: initial;
+                    .title
                     {
                         @include solid-box();
-                        a
+                    }
+                    ul
+                    {
+                        @include solid-box();
+                        padding-inline-start: 1.0rem;
+                        li
                         {
-                            color: white-color(0.7);
-                            cursor: pointer;
-                            @media (hover: hover)
+                            @include solid-box();
+                            a
                             {
-                                &:hover
+                                color: white-color(0.7);
+                                cursor: pointer;
+                                @media (hover: hover)
                                 {
-                                    color: $white-color;
+                                    &:hover
+                                    {
+                                        color: $white-color;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                @media (max-width: 760px) or (max-height: 840px)
-                {
-                    pointer-events: none;
-                    visibility: hidden;
-                    width: 0px;
-                    height: 0px;
-                }
+            }
+            @media (max-width: 760px) or (max-height: 840px)
+            {
+                pointer-events: none;
+                visibility: hidden;
+                width: 0px;
+                height: 0px;
             }
         }
     }
