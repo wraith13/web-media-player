@@ -228,6 +228,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "shortcuts-label": "Keyboard Shortcuts:",
             "language-label": "Language:",
             "url-label": "Link to this setting",
+            "repository-label": "repository",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -305,6 +306,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "shortcuts-label": "キーボードショートカット:",
             "language-label": "言語:",
             "url-label": "この設定のリンク",
+            "repository-label": "リポジトリ",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -2204,18 +2206,12 @@ define("resource/control", [], {
         "default": "Auto"
     }
 });
-define("resource/powered-by", [], {
-    "build.js": "https://github.com/wraith13/build.js",
-    "evil-commonjs": "https://github.com/wraith13/evil-commonjs",
-    "evil-timer.js": "https://github.com/wraith13/evil-timer.js"
-});
-define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts", "resource/powered-by"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2, powered_by_json_1) {
+define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
     control_json_1 = __importDefault(control_json_1);
     shortcuts_json_2 = __importDefault(shortcuts_json_2);
-    powered_by_json_1 = __importDefault(powered_by_json_1);
     var UI;
     (function (UI) {
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
@@ -2328,11 +2324,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && UI.withFullscreenCheckbox.dom.parentElement) {
                 UI.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
-            _library_2.Library.UI.setTextContent(_library_2.Library.UI.querySelector("span", "#powered-by .title"), "powered by");
-            _library_2.Library.UI.replaceChildren(_library_2.Library.UI.querySelector("ul", "#powered-by ul"), Object.entries(powered_by_json_1.default).map(function (_a) {
-                var text = _a[0], href = _a[1];
-                return ({ tag: "li", children: [_library_2.Library.UI.createElement({ tag: "a", text: text, attributes: { href: href, } }),], });
-            }));
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -5238,7 +5229,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "resource/powered-by", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_9, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, powered_by_json_2, url_4, ui_13, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_9, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_13, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_9 = __importDefault(config_json_9);
@@ -5246,7 +5237,6 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
-    powered_by_json_2 = __importDefault(powered_by_json_2);
     url_4.Url.initialize();
     ui_13.UI.initialize();
     events_1.Events.initialize();
@@ -5263,7 +5253,6 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
         locale: _library_11.Library.Locale.master,
-        poweredBy: powered_by_json_2.default
     };
     var modules = {
         Tools: _tools_9.Tools,

@@ -50,6 +50,7 @@
     "shortcuts-label": "Keyboard Shortcuts:",
     "language-label": "Language:",
     "url-label": "Link to this setting",
+    "repository-label": "repository",
     "timeUnitMs": "ms",
     "timeUnitS": "s",
     "timeUnitM": "m",

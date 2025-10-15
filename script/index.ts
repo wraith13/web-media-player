@@ -6,7 +6,6 @@ import control from "@resource/control.json";
 import evilCommonJsConfig from "@resource/evil-commonjs.config.json";
 import evilTimerJsConfig from "@resource/evil-timer.js.config.json";
 import images from "@resource/images.json";
-import poweredBy from "@resource/powered-by.json";
 import { Url } from "./url";
 import { UI } from "./ui";
 import { MediaList } from "./medialist";
@@ -35,7 +34,6 @@ const Resource =
     evilTimerJsConfig,
     images,
     locale: Library.Locale.master,
-    poweredBy
 };
 const modules =
 {

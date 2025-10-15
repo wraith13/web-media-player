@@ -196,6 +196,9 @@ DUMMYSTYLE
             <label for="url">
                 <a id="url" href="?"><span data-lang-key="url-label"></span></a>
             </label>
+            <label for="repository">
+                <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository-label"></span></a>
+            </label>
         </div>
         __COG_ICON__
     </label>
@@ -223,15 +226,6 @@ DUMMYSTYLE
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">
-        </div>
-        <div id="information">
-            <div id="repository">
-            <a href="__REPOSITORY_URL__">repository</a>
-            </div>
-            <div id="powered-by">
-                <span class="title"></span>
-                <ul></ul>
-            </div>
         </div>
     </div>
 </div>

@@ -81,6 +81,7 @@ declare module "locale/generated/master" {
             "shortcuts-label": string;
             "language-label": string;
             "url-label": string;
+            "repository-label": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -158,6 +159,7 @@ declare module "locale/generated/master" {
             "shortcuts-label": string;
             "language-label": string;
             "url-label": string;
+            "repository-label": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -240,6 +242,7 @@ declare module "script/library/locale" {
                 "shortcuts-label": string;
                 "language-label": string;
                 "url-label": string;
+                "repository-label": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;
@@ -317,6 +320,7 @@ declare module "script/library/locale" {
                 "shortcuts-label": string;
                 "language-label": string;
                 "url-label": string;
+                "repository-label": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;

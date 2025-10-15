@@ -2,7 +2,6 @@ import { Tools } from "@tools";
 import { Library } from "@library";
 import control from "@resource/control.json";
 import shortcuts from "@resource/shortcuts.json";
-import poweredBy from "@resource/powered-by.json";
 export namespace UI
 {
     export const manifest =
@@ -201,15 +200,6 @@ export namespace UI
         {
             withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
-        Library.UI.setTextContent(Library.UI.querySelector("span", "#powered-by .title"), "powered by");
-        Library.UI.replaceChildren
-        (
-            Library.UI.querySelector("ul", "#powered-by ul"),
-            Object.entries(poweredBy).map
-            (
-                ([ text, href, ]) => ({ tag: "li", children: [ Library.UI.createElement({ tag: "a", text, attributes: { href, } }), ], })
-            )
-        );
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;
