@@ -226,6 +226,7 @@ DUMMYSTYLE
         </div>
         <div id="information">
             <div id="repository">
+            <a href="__REPOSITORY_URL__">repository</a>
             </div>
             <div id="powered-by">
                 <span class="title"></span>
