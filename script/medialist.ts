@@ -4,6 +4,7 @@ import { Features } from "@features";
 import { Media } from "@features/media";
 import { UI } from "./ui";
 import { Progress } from "./progress";
+import config from "@resource/config.json";
 export namespace MediaList
 {
     const notSupportedMediaTimer = new Library.UI.ToggleClassForWhileTimer();
@@ -27,7 +28,7 @@ export namespace MediaList
         else
         {
             console.warn("🚫 Invalid media file:", file);
-            notSupportedMediaTimer.start(document.body, "not-supported-media", 5000);
+            notSupportedMediaTimer.start(document.body, "not-supported-media", config.player.notSupportedMediaMessageSpan);
         }
     };
     let addMediaQueue: Promise<void> = Promise.resolve();

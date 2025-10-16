@@ -171,12 +171,12 @@ export namespace Events
             "toggleMute": () => toggleMute(),
             "volumeUp": () =>
             {
-                UI.volumeRange.set(UI.volumeRange.get() + 5);
+                UI.volumeRange.set(UI.volumeRange.get() +config.volume.step);
                 UI.volumeRange.fire();
             },
             "volumeDown": () =>
             {
-                UI.volumeRange.set(UI.volumeRange.get() - 5);
+                UI.volumeRange.set(UI.volumeRange.get() -config.volume.step);
                 UI.volumeRange.fire();
             },
             "seekBackward": () =>

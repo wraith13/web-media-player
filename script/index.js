@@ -407,6 +407,9 @@ define("resource/config", [], {
     "ui": {
         "mousemoveTimeout": 1500
     },
+    "volume": {
+        "step": 5
+    },
     "analyser": {
         "fftSize": 4096
     },
@@ -433,7 +436,8 @@ define("resource/config", [], {
     },
     "player": {
         "fastFowardSpan": 5000,
-        "rewindSpan": 5000
+        "rewindSpan": 5000,
+        "notSupportedMediaMessageSpan": 5000
     },
     "clock": {
         "alternate": {
@@ -4585,10 +4589,11 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_10, progress_1) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_10, progress_1, config_json_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
+    config_json_8 = __importDefault(config_json_8);
     var MediaList;
     (function (MediaList) {
         var _this = this;
@@ -4618,7 +4623,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", 5000);
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_8.default.player.notSupportedMediaMessageSpan);
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -4799,11 +4804,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_11, url_3, config_json_8, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_11, url_3, config_json_9, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_8 = __importDefault(config_json_8);
+    config_json_9 = __importDefault(config_json_9);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -4894,7 +4899,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", config_json_8.default.ui.mousemoveTimeout);
+            return mouseMoveTimer.start(document.body, "mousemove", config_json_9.default.ui.mousemoveTimeout);
         };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
@@ -4933,11 +4938,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 },
                 "toggleMute": function () { return Events.toggleMute(); },
                 "volumeUp": function () {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + 5);
+                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + config_json_9.default.volume.step);
                     ui_11.UI.volumeRange.fire();
                 },
                 "volumeDown": function () {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() - 5);
+                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() - config_json_9.default.volume.step);
                     ui_11.UI.volumeRange.fire();
                 },
                 "seekBackward": function () {
@@ -5119,7 +5124,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
             ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.updateLanguage);
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_8.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
+                if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_11.UI.screenBody);
                 }
                 Events.mousemove();
@@ -5229,10 +5234,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_9, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_13, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_13, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_9 = __importDefault(config_json_9);
+    config_json_10 = __importDefault(config_json_10);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -5247,7 +5252,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_9.default,
+        config: config_json_10.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,

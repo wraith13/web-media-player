@@ -18,6 +18,9 @@
     "ui": {
         "mousemoveTimeout": 1500
     },
+    "volume": {
+        "step": 5
+    },
     "analyser": {
         "fftSize": 4096
     },
@@ -45,7 +48,8 @@
     },
     "player": {
         "fastFowardSpan": 5000,
-        "rewindSpan": 5000
+        "rewindSpan": 5000,
+        "notSupportedMediaMessageSpan": 5000
     },
     "clock":
     {
