@@ -313,11 +313,12 @@ export namespace Events
         {
             const value = range.get();
             console.log("🔊 Volume changed:", value);
-            UI.volumeLabel.classList.toggle("volume-mute", value <= 0);
-            UI.volumeLabel.classList.toggle("volume-0", 0 < value && value <= 25);
-            UI.volumeLabel.classList.toggle("volume-1", 25 < value && value <= 50);
-            UI.volumeLabel.classList.toggle("volume-2", 50 < value && value <= 75);
-            UI.volumeLabel.classList.toggle("volume-3", 75 < value);
+            const rank = Math.ceil(value / 25);
+            UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
+            UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
+            UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
+            UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
+            UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
             //Media.setVolume(value);
             mousemove();
         };
