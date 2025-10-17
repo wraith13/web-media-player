@@ -2,12 +2,12 @@ import { Library } from "@library";
 import { NumberTools } from "./number";
 export namespace Timespan
 {
-    export const toDisplayString = (value: number, maximumFractionDigits?: number) =>
-        value < 1000 ? `${NumberTools.toString(value, maximumFractionDigits)} ${Library.Locale.map("timeUnitMs")}`:
-        value < 60 *1000 ? `${NumberTools.toString(value /1000, maximumFractionDigits)} ${Library.Locale.map("timeUnitS")}`:
-        value < 60 *60 *1000 ?`${NumberTools.toString(value /(60 *1000), maximumFractionDigits)} ${Library.Locale.map("timeUnitM")}`:
-        value < 24 *60 *60 *1000 ?`${NumberTools.toString(value /(60 *60 *1000), maximumFractionDigits)} ${Library.Locale.map("timeUnitH")}`:
-            `${NumberTools.toString(value /(24 *60 *60 *1000), maximumFractionDigits)} ${Library.Locale.map("timeUnitD")}`;
+    export const toDisplayString = (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) =>
+        value < 1000 ? `${NumberTools.toString(value, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitMs")}`:
+        value < 60 *1000 ? `${NumberTools.toString(value /1000, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitS")}`:
+        value < 60 *60 *1000 ?`${NumberTools.toString(value /(60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitM")}`:
+        value < 24 *60 *60 *1000 ?`${NumberTools.toString(value /(60 *60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitH")}`:
+            `${NumberTools.toString(value /(24 *60 *60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitD")}`;
     export const toMediaTimeString = (value: number): string =>
     {
         if (Number.isNaN(value))

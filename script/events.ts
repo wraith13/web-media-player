@@ -312,8 +312,8 @@ export namespace Events
         UI.volumeRange.options.change = (_event, range) =>
         {
             const value = range.get();
-            console.log("🔊 Volume changed:", value);
             const rank = Math.ceil(value / 25);
+            console.log("🔊 Volume changed:", value, rank);
             UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
             UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
             UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
