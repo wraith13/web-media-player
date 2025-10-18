@@ -688,6 +688,7 @@ declare module "script/features/fps" {
 declare module "script/ui" {
     import { Library } from "script/library/index";
     export namespace UI {
+        let locale: string | undefined;
         const manifest: HTMLLinkElement;
         const noscript: HTMLDivElement;
         const screenBody: HTMLDivElement;
@@ -746,7 +747,7 @@ declare module "script/ui" {
         const keyboardShortcut: HTMLDivElement;
         const updateShortcuts: () => void;
         const updateLanguage: () => void;
-        const initialize: () => void;
+        const initialize: (params: Record<string, string>) => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;
         const updateLabel: (element: HTMLSpanElement) => void;
         const setLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;

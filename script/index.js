@@ -2219,6 +2219,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
     shortcuts_json_2 = __importDefault(shortcuts_json_2);
     var UI;
     (function (UI) {
+        UI.locale = undefined;
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
         UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
@@ -2256,9 +2257,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
             makeLabel: function (value) { return value <= 0 ?
                 _library_2.Library.Locale.map("cross-fade-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value); }
+                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
         });
-        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: _tools_2.Tools.Timespan.toDisplayString });
+        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); } });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -2329,7 +2330,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 .forEach(function (i) { return UI.updateLabel(i); });
             UI.updateShortcuts();
         };
-        UI.initialize = function () {
+        UI.initialize = function (params) {
+            UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");
             if (!_library_2.Library.UI.fullscreenEnabled && UI.withFullscreenCheckbox.dom.parentElement) {
                 UI.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
@@ -5249,7 +5251,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     url_4.Url.initialize();
-    ui_13.UI.initialize();
+    ui_13.UI.initialize(url_4.Url.params);
     events_1.Events.initialize();
     _library_11.Library.Shortcuts.initialize();
     medialist_2.MediaList.initialize();

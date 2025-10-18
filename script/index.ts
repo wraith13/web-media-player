@@ -12,7 +12,7 @@ import { MediaList } from "./medialist";
 import { Events } from "./events";
 import { Screenshot } from "./screenshot";
 Url.initialize();
-UI.initialize();
+UI.initialize(Url.params);
 Events.initialize();
 Library.Shortcuts.initialize();
 MediaList.initialize();

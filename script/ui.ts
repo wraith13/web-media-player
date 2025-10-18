@@ -4,6 +4,7 @@ import control from "@resource/control.json";
 import shortcuts from "@resource/shortcuts.json";
 export namespace UI
 {
+    export let locale: string | undefined = undefined;
     export const manifest =
         Library.UI.getElementById("link", "manifest");
     export const noscript =
@@ -73,11 +74,11 @@ export namespace UI
         {
             makeLabel: value => value <= 0 ?
                 Library.Locale.map("cross-fade-0"):
-                Tools.Timespan.toDisplayString(value)
+                Tools.Timespan.toDisplayString(value, undefined, locale)
         }
     );
     export const imageSpanSelect =
-        new Library.Control.Select(control.imageSpan, { makeLabel: Tools.Timespan.toDisplayString });
+        new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toDisplayString(value, undefined, locale) });
     export const loopShortMediaCheckbox =
         new Library.Control.Checkbox(control.loopShortMedia);
     export const visualizerSelect =
@@ -198,8 +199,9 @@ export namespace UI
             .forEach(i => updateLabel(i));
         updateShortcuts();
     }
-    export const initialize = () =>
+    export const initialize = (params: Record<string, string>) =>
     {
+        locale = params["locale"];
         noscript.style.setProperty("display", "none");
         if ( ! Library.UI.fullscreenEnabled && withFullscreenCheckbox.dom.parentElement)
         {
