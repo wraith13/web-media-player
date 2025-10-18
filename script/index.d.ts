@@ -7,7 +7,7 @@ declare module "script/tools/type-guards" {
 declare module "script/tools/number" {
     export namespace NumberTools {
         const getIntegralDigits: (value: number) => number;
-        const toString: (value: number, maximumFractionDigits?: number) => string;
+        const toString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
         const parseInt: (text: string) => number | undefined;
     }
 }
@@ -583,7 +583,7 @@ declare module "script/library/index" {
 }
 declare module "script/tools/timespan" {
     export namespace Timespan {
-        const toDisplayString: (value: number, maximumFractionDigits?: number) => string;
+        const toDisplayString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
         const toMediaTimeString: (value: number) => string;
         const parse: (timespan: string) => number | null;
     }

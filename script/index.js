@@ -120,8 +120,9 @@ define("script/tools/number", ["require", "exports"], function (require, exports
         NumberTools.getIntegralDigits = function (value) {
             return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
         };
-        NumberTools.toString = function (value, maximumFractionDigits) {
-            return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
+        NumberTools.toString = function (value, maximumFractionDigits, locales) {
+            if (locales === void 0) { locales = "en-US"; }
+            return value.toLocaleString(locales, { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
         NumberTools.parseInt = function (text) {
             var value = Number.parseInt(text, 10);
@@ -1704,12 +1705,12 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
     exports.Timespan = void 0;
     var Timespan;
     (function (Timespan) {
-        Timespan.toDisplayString = function (value, maximumFractionDigits) {
-            return value < 1000 ? "".concat(number_1.NumberTools.toString(value, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitMs")) :
-                value < 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / 1000, maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitS")) :
-                    value < 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitM")) :
-                        value < 24 * 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
-                            "".concat(number_1.NumberTools.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
+        Timespan.toDisplayString = function (value, maximumFractionDigits, locales) {
+            return value < 1000 ? "".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitMs")) :
+                value < 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / 1000, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitS")) :
+                    value < 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitM")) :
+                        value < 24 * 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
+                            "".concat(number_1.NumberTools.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
         };
         Timespan.toMediaTimeString = function (value) {
             if (Number.isNaN(value)) {
@@ -5042,12 +5043,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
-                console.log("🔊 Volume changed:", value);
-                ui_11.UI.volumeLabel.classList.toggle("volume-mute", value <= 0);
-                ui_11.UI.volumeLabel.classList.toggle("volume-0", 0 < value && value <= 25);
-                ui_11.UI.volumeLabel.classList.toggle("volume-1", 25 < value && value <= 50);
-                ui_11.UI.volumeLabel.classList.toggle("volume-2", 50 < value && value <= 75);
-                ui_11.UI.volumeLabel.classList.toggle("volume-3", 75 < value);
+                var rank = Math.ceil(value / 25);
+                console.log("🔊 Volume changed:", value, rank);
+                ui_11.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
+                ui_11.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
+                ui_11.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
+                ui_11.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
+                ui_11.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
                 //Media.setVolume(value);
                 Events.mousemove();
             };
