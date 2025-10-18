@@ -793,7 +793,6 @@ declare module "script/features/overlay" {
         const updateDate: (date: Date) => void;
         const updateCalendar: (date: Date) => void;
         const setColor: (color: string | undefined) => void;
-        let cloclLocale: string | undefined;
         const update: (now: number) => void;
         const initialize: (params: Record<string, string>) => void;
     }

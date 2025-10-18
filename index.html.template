@@ -115,12 +115,10 @@ DUMMYSTYLE
             <label for="with-fullscreen">
                 <span data-lang-key="with-fullscreen-label"></span>
                 <input id="with-fullscreen" type="checkbox" />
-                <span class="load-status" id="with-fullscreen-load-status"></span>
             </label>
             <label for="brightness">
                 <span data-lang-key="brightness-label"></span>
                 <input id="brightness" type="range" />
-                <span class="load-status" id="brightness-load-status"></span>
             </label>
             <label for="stretch">
                 <span data-lang-key="stretch-label"></span>
@@ -149,7 +147,6 @@ DUMMYSTYLE
             <label for="overlay-style">
                 <span data-lang-key="overlay-style-label"></span>
                 <select id="overlay-style"></select>
-                <span class="load-status" id="overlay-style-load-status"></span>
             </label>
             <label for="overlay-position">
                 <span data-lang-key="overlay-position-label"></span>
@@ -182,7 +179,6 @@ DUMMYSTYLE
             <label for="show-fps">
                 <span data-lang-key="show-fps-label"></span>
                 <input id="show-fps" type="checkbox" />
-                <span class="load-status" id="show-fps-load-status"></span>
             </label>
             <label for="shortcuts">
                 <span data-lang-key="shortcuts-label"></span>
@@ -191,7 +187,6 @@ DUMMYSTYLE
             <label for="language">
                 <span data-lang-key="language-label"></span>
                 <select id="language"></select>
-                <span class="load-status" id="language-load-status"></span>
             </label>
             <label for="url">
                 <a id="url" href="?"><span data-lang-key="url-label"></span></a>

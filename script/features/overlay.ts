@@ -149,7 +149,6 @@ export namespace Overlay
         Library.UI.setStyle(UI.date, "color", color);
         Library.UI.setStyle(UI.time, "color", color);
     };
-    export let cloclLocale: string | undefined = undefined;
     export const update = (now: number) =>
     {
         const overlayOption = UI.overlayStyleSelect.get();

@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Oct 17 2025 23:34:45 GMT+0900 (日本標準時)
+    build at: Sun Oct 19 2025 02:05:58 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2033,21 +2033,6 @@ body #settings-button:not(:checked) + #settings-panel:not(.show) {
   background-color: rgb(32, 28, 38);
   text-align: end;
 }
-#settings-panel label .load-status {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  position: absolute;
-  inset-inline-start: calc(100% + 0.25rem);
-  padding-block: 0.125rem;
-  padding-inline: 0.5rem;
-  border-radius: 1rem;
-  word-break: keep-all;
-  white-space: nowrap;
-}
-#settings-panel label .load-status:empty {
-  display: none;
-}
 #settings-panel label[for=url]:not(:hover) {
   background-color: rgba(32, 28, 38, 0.4);
 }
@@ -2807,12 +2792,10 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
             <label for="with-fullscreen">
                 <span data-lang-key="with-fullscreen-label"></span>
                 <input id="with-fullscreen" type="checkbox" />
-                <span class="load-status" id="with-fullscreen-load-status"></span>
             </label>
             <label for="brightness">
                 <span data-lang-key="brightness-label"></span>
                 <input id="brightness" type="range" />
-                <span class="load-status" id="brightness-load-status"></span>
             </label>
             <label for="stretch">
                 <span data-lang-key="stretch-label"></span>
@@ -2841,7 +2824,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
             <label for="overlay-style">
                 <span data-lang-key="overlay-style-label"></span>
                 <select id="overlay-style"></select>
-                <span class="load-status" id="overlay-style-load-status"></span>
             </label>
             <label for="overlay-position">
                 <span data-lang-key="overlay-position-label"></span>
@@ -2874,7 +2856,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
             <label for="show-fps">
                 <span data-lang-key="show-fps-label"></span>
                 <input id="show-fps" type="checkbox" />
-                <span class="load-status" id="show-fps-load-status"></span>
             </label>
             <label for="shortcuts">
                 <span data-lang-key="shortcuts-label"></span>
@@ -2883,7 +2864,6 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
             <label for="language">
                 <span data-lang-key="language-label"></span>
                 <select id="language"></select>
-                <span class="load-status" id="language-load-status"></span>
             </label>
             <label for="url">
                 <a id="url" href="?"><span data-lang-key="url-label"></span></a>
@@ -2980,8 +2960,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Oct 17 2025 23:34:45 GMT+0900 (日本標準時)",
-    tick: 1760711685256
+    at: "Sun Oct 19 2025 02:05:58 GMT+0900 (日本標準時)",
+    tick: 1760807158802
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6863,7 +6843,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             document.documentElement.setAttribute("lang", lang);
             document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
+            UI.crossFadeSelect.reloadOptions();
+            UI.imageSpanSelect.reloadOptions();
+            UI.visualizerSelect.reloadOptions();
             UI.overlayStyleSelect.reloadOptions();
+            UI.overlayPositionSelect.reloadOptions();
+            UI.weatherLocationSelect.reloadOptions();
             UI.languageSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
                 .forEach(function (i) { return UI.updateLabel(i); });
@@ -7165,7 +7150,6 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             library_1.Library.UI.setStyle(ui_3.UI.date, "color", color);
             library_1.Library.UI.setStyle(ui_3.UI.time, "color", color);
         };
-        Overlay.cloclLocale = undefined;
         Overlay.update = function (now) {
             var overlayOption = ui_3.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {

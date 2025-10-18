@@ -2318,7 +2318,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             document.documentElement.setAttribute("lang", lang);
             document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
+            UI.crossFadeSelect.reloadOptions();
+            UI.imageSpanSelect.reloadOptions();
+            UI.visualizerSelect.reloadOptions();
             UI.overlayStyleSelect.reloadOptions();
+            UI.overlayPositionSelect.reloadOptions();
+            UI.weatherLocationSelect.reloadOptions();
             UI.languageSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
                 .forEach(function (i) { return UI.updateLabel(i); });
@@ -2620,7 +2625,6 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             library_1.Library.UI.setStyle(ui_3.UI.date, "color", color);
             library_1.Library.UI.setStyle(ui_3.UI.time, "color", color);
         };
-        Overlay.cloclLocale = undefined;
         Overlay.update = function (now) {
             var overlayOption = ui_3.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {

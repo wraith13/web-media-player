@@ -187,7 +187,12 @@ export namespace UI
         document.documentElement.setAttribute("lang", lang);
         document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
+        UI.crossFadeSelect.reloadOptions();
+        UI.imageSpanSelect.reloadOptions();
+        UI.visualizerSelect.reloadOptions();
         UI.overlayStyleSelect.reloadOptions();
+        UI.overlayPositionSelect.reloadOptions();
+        UI.weatherLocationSelect.reloadOptions();
         UI.languageSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));

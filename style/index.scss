@@ -1134,21 +1134,6 @@ label[for="volume-button"]
                         }
                     }
                 }
-                .load-status
-                {
-                    @include black-pop-panel-style();
-                    position: absolute;
-                    inset-inline-start: calc(100% + 0.25rem);
-                    padding-block: 0.125rem;
-                    padding-inline: 0.5rem;
-                    border-radius: 1rem;
-                    word-break: keep-all;
-                    white-space: nowrap;
-                    &:empty
-                    {
-                        display: none;
-                    }
-                }
                 &[for="url"]:not(:hover)
                 {
                     background-color: black-color(0.4);
