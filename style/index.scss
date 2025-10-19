@@ -337,15 +337,16 @@
                 }
                 #add-media
                 {
-                    border-width: 1px;
+                    border-width: 2px;
                     border-radius: 2.25rem;
                     border-color: white;
                     border-style: solid;
                     background-color: black-color(0.9);
-                    padding-block: 1.0rem;
-                    padding-inline: 1.0rem;
-                    width: 4.5rem;
-                    height: 4.5rem;
+                    padding-block: calc(1.0rem - 2px);
+                    padding-inline: calc(1.0rem - 2px);
+                    width: calc(4.5rem - 2px);
+                    height: calc(4.5rem - 2px);
+                    vertical-align: baseline;
                     cursor: pointer;
                     svg
                     {
@@ -682,9 +683,9 @@ body:not(.not-supported-media)
             &
             {
                 border-style: solid;
-                border-width: 1px;
-                padding-block: calc(0.75rem - 1px);
-                padding-inline: calc(0.75rem - 1px);
+                border-width: 2px;
+                padding-block: calc(0.75rem - 2px);
+                padding-inline: calc(0.75rem - 2px);
                 &.on
                 {
                     border-color: $white-color;
@@ -714,10 +715,10 @@ body:not(.not-supported-media)
         #play-button
         {
             border-color: $white-color;
-            border-width: 1px;
+            border-width: 2px;
             border-radius: 2.25rem;
-            padding-block: calc(1.0rem - 1px);
-            padding-inline: calc(1.0rem - 1px);
+            padding-block: calc(1.0rem - 2px);
+            padding-inline: calc(1.0rem - 2px);
             width: 4.5rem;
             height: 4.5rem;
             margin-top: -1.125rem;

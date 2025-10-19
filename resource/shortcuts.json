@@ -138,11 +138,6 @@
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "S"
                         ]
                     }
@@ -155,11 +150,6 @@
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "R"
                         ]
                     }
@@ -270,11 +260,6 @@
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "S"
                         ]
                     }
@@ -287,11 +272,6 @@
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "R"
                         ]
                     }
@@ -328,10 +308,6 @@
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowUp"
-                        ],
-                        "appleKeys": [
                             "ArrowUp"
                         ]
                     },
@@ -339,10 +315,6 @@
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowDown"
-                        ],
-                        "appleKeys": [
                             "ArrowDown"
                         ]
                     }
@@ -381,10 +353,6 @@
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowLeft"
-                        ],
-                        "appleKeys": [
                             "ArrowLeft"
                         ]
                     },
@@ -392,10 +360,6 @@
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowRight"
-                        ],
-                        "appleKeys": [
                             "ArrowRight"
                         ]
                     }
@@ -425,7 +389,6 @@
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "H"
                         ]
                     }
@@ -438,7 +401,6 @@
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "T"
                         ]
                     }
@@ -463,7 +425,7 @@
                         "command": "toggleMute",
                         "type": "onKeyUp",
                         "keys": [
-                            "F7"
+                            "M"
                         ]
                     }
                 ]
@@ -475,14 +437,14 @@
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "F9"
+                            "ArrowUp"
                         ]
                     },
                     {
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "F8"
+                            "ArrowDown"
                         ]
                     }
                 ]
@@ -513,7 +475,6 @@
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "B"
                         ]
                     }
@@ -526,7 +487,6 @@
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "F"
                         ]
                     }
@@ -539,7 +499,7 @@
                         "command": "toggleFullscreen",
                         "type": "onKeyUp",
                         "keys": [
-                            "F11"
+                            "S"
                         ]
                     }
                 ]

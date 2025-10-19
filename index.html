@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Oct 19 2025 02:13:01 GMT+0900 (日本標準時)
+    build at: Sun Oct 19 2025 08:27:37 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -686,15 +686,16 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   pointer-events: none;
 }
 #screen-body #media-list .item.add #add-media {
-  border-width: 1px;
+  border-width: 2px;
   border-radius: 2.25rem;
   border-color: white;
   border-style: solid;
   background-color: rgba(32, 28, 38, 0.9);
-  padding-block: 1rem;
-  padding-inline: 1rem;
-  width: 4.5rem;
-  height: 4.5rem;
+  padding-block: calc(1rem - 2px);
+  padding-inline: calc(1rem - 2px);
+  width: calc(4.5rem - 2px);
+  height: calc(4.5rem - 2px);
+  vertical-align: baseline;
   cursor: pointer;
 }
 #screen-body #media-list .item.add #add-media svg {
@@ -1177,9 +1178,9 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel label.icon-button svg,
 #control-panel button {
   border-style: solid;
-  border-width: 1px;
-  padding-block: calc(0.75rem - 1px);
-  padding-inline: calc(0.75rem - 1px);
+  border-width: 2px;
+  padding-block: calc(0.75rem - 2px);
+  padding-inline: calc(0.75rem - 2px);
   border-color: rgba(32, 28, 38, 0.9);
   border-radius: 1.5rem;
   transition: opacity 750ms, filter 125ms;
@@ -1207,10 +1208,10 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 }
 #control-panel #play-button {
   border-color: rgb(230, 237, 243);
-  border-width: 1px;
+  border-width: 2px;
   border-radius: 2.25rem;
-  padding-block: calc(1rem - 1px);
-  padding-inline: calc(1rem - 1px);
+  padding-block: calc(1rem - 2px);
+  padding-inline: calc(1rem - 2px);
   width: 4.5rem;
   height: 4.5rem;
   margin-top: -1.125rem;
@@ -2960,8 +2961,8 @@ In addition, Kaleidoscope Web Screensaver　also includes a benchmark feature th
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Oct 19 2025 02:13:01 GMT+0900 (日本標準時)",
-    tick: 1760807581938
+    at: "Sun Oct 19 2025 08:27:37 GMT+0900 (日本標準時)",
+    tick: 1760830057512
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5691,11 +5692,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "S"
                         ]
                     }
@@ -5708,11 +5704,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "R"
                         ]
                     }
@@ -5823,11 +5814,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "S"
                         ]
                     }
@@ -5840,11 +5826,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "R"
                         ]
                     }
@@ -5881,10 +5862,6 @@ define("resource/shortcuts", [], {
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowUp"
-                        ],
-                        "appleKeys": [
                             "ArrowUp"
                         ]
                     },
@@ -5892,10 +5869,6 @@ define("resource/shortcuts", [], {
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowDown"
-                        ],
-                        "appleKeys": [
                             "ArrowDown"
                         ]
                     }
@@ -5934,10 +5907,6 @@ define("resource/shortcuts", [], {
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowLeft"
-                        ],
-                        "appleKeys": [
                             "ArrowLeft"
                         ]
                     },
@@ -5945,10 +5914,6 @@ define("resource/shortcuts", [], {
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowRight"
-                        ],
-                        "appleKeys": [
                             "ArrowRight"
                         ]
                     }
@@ -5978,7 +5943,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "H"
                         ]
                     }
@@ -5991,7 +5955,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "T"
                         ]
                     }
@@ -6016,7 +5979,7 @@ define("resource/shortcuts", [], {
                         "command": "toggleMute",
                         "type": "onKeyUp",
                         "keys": [
-                            "F7"
+                            "M"
                         ]
                     }
                 ]
@@ -6028,14 +5991,14 @@ define("resource/shortcuts", [], {
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "F9"
+                            "ArrowUp"
                         ]
                     },
                     {
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "F8"
+                            "ArrowDown"
                         ]
                     }
                 ]
@@ -6066,7 +6029,6 @@ define("resource/shortcuts", [], {
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "B"
                         ]
                     }
@@ -6079,7 +6041,6 @@ define("resource/shortcuts", [], {
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "F"
                         ]
                     }
@@ -6092,7 +6053,7 @@ define("resource/shortcuts", [], {
                         "command": "toggleFullscreen",
                         "type": "onKeyUp",
                         "keys": [
-                            "F11"
+                            "S"
                         ]
                     }
                 ]
@@ -6124,7 +6085,8 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
             "Shift": "⇧(shift)",
         };
         var getKeys = function (entry) {
-            return environment_1.Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+            //Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+            return entry.keys;
         };
         var getDisplayKeyName = function (key) {
             var _a, _b, _c;

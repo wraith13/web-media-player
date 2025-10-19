@@ -1166,11 +1166,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "S"
                         ]
                     }
@@ -1183,11 +1178,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Alt",
                             "R"
                         ]
                     }
@@ -1298,11 +1288,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "S"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "S"
                         ]
                     }
@@ -1315,11 +1300,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
-                            "R"
-                        ],
-                        "appleKeys": [
-                            "Meta",
                             "R"
                         ]
                     }
@@ -1356,10 +1336,6 @@ define("resource/shortcuts", [], {
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowUp"
-                        ],
-                        "appleKeys": [
                             "ArrowUp"
                         ]
                     },
@@ -1367,10 +1343,6 @@ define("resource/shortcuts", [], {
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowDown"
-                        ],
-                        "appleKeys": [
                             "ArrowDown"
                         ]
                     }
@@ -1409,10 +1381,6 @@ define("resource/shortcuts", [], {
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowLeft"
-                        ],
-                        "appleKeys": [
                             "ArrowLeft"
                         ]
                     },
@@ -1420,10 +1388,6 @@ define("resource/shortcuts", [], {
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
-                            "ArrowRight"
-                        ],
-                        "appleKeys": [
                             "ArrowRight"
                         ]
                     }
@@ -1453,7 +1417,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleShuffle",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "H"
                         ]
                     }
@@ -1466,7 +1429,6 @@ define("resource/shortcuts", [], {
                         "command": "toggleRepeat",
                         "type": "onKeyUp",
                         "keys": [
-                            "Control",
                             "T"
                         ]
                     }
@@ -1491,7 +1453,7 @@ define("resource/shortcuts", [], {
                         "command": "toggleMute",
                         "type": "onKeyUp",
                         "keys": [
-                            "F7"
+                            "M"
                         ]
                     }
                 ]
@@ -1503,14 +1465,14 @@ define("resource/shortcuts", [], {
                         "command": "volumeUp",
                         "type": "onKeyDown",
                         "keys": [
-                            "F9"
+                            "ArrowUp"
                         ]
                     },
                     {
                         "command": "volumeDown",
                         "type": "onKeyDown",
                         "keys": [
-                            "F8"
+                            "ArrowDown"
                         ]
                     }
                 ]
@@ -1541,7 +1503,6 @@ define("resource/shortcuts", [], {
                         "command": "goPreviousMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "B"
                         ]
                     }
@@ -1554,7 +1515,6 @@ define("resource/shortcuts", [], {
                         "command": "goNextMedia",
                         "type": "onKeyDown",
                         "keys": [
-                            "Control",
                             "F"
                         ]
                     }
@@ -1567,7 +1527,7 @@ define("resource/shortcuts", [], {
                         "command": "toggleFullscreen",
                         "type": "onKeyUp",
                         "keys": [
-                            "F11"
+                            "S"
                         ]
                     }
                 ]
@@ -1599,7 +1559,8 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
             "Shift": "⇧(shift)",
         };
         var getKeys = function (entry) {
-            return environment_1.Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+            //Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+            return entry.keys;
         };
         var getDisplayKeyName = function (key) {
             var _a, _b, _c;

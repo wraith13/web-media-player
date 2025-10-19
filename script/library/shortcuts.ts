@@ -27,7 +27,8 @@ export namespace Shortcuts
         "Shift": "⇧(shift)",
     };
     const getKeys = (entry: Entry) =>
-        Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+        //Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
+        entry.keys;
     const getDisplayKeyName = (key: string) =>
         Environment.isApple() ?
             appleKeyDisplayNames[key as keyof typeof appleKeyDisplayNames] ?? keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key:
