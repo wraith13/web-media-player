@@ -1053,6 +1053,9 @@ label[for="volume-button"]
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
         inset-inline-end: calc(50% - 9.5rem);
+        max-height: calc(100vh - 6.5rem);
+        max-height: calc(100vh - (6.5rem + env(safe-area-inset-top) + env(safe-area-inset-bottom)));
+        overflow-y: auto;
         //transform: translate(-50%, 0%);
         backdrop-filter: blur(0.5rem);
         position: fixed;
@@ -1135,7 +1138,7 @@ label[for="volume-button"]
                         }
                     }
                 }
-                &[for="url"]:not(:hover)
+                &.link-label:not(:hover)
                 {
                     background-color: black-color(0.4);
                     a
@@ -1334,7 +1337,7 @@ label[for="volume-button"]
                 height: 100%;
             }
         }
-        &.top-right, &.top-left
+        &.top-right, &.top-left, &.center
         {
             display: flex;
             flex-direction: column;
@@ -1351,6 +1354,10 @@ label[for="volume-button"]
         &.top-left, &.bottom-left
         {
             align-items: start;
+        }
+        &.center
+        {
+            align-items: center;
         }
     }
 }

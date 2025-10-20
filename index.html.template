@@ -188,10 +188,10 @@ DUMMYSTYLE
                 <span data-lang-key="language-label"></span>
                 <select id="language"></select>
             </label>
-            <label for="url">
+            <label for="url" class="link-label">
                 <a id="url" href="?"><span data-lang-key="url-label"></span></a>
             </label>
-            <label for="repository">
+            <label for="repository" class="link-label">
                 <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository-label"></span></a>
             </label>
         </div>
