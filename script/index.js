@@ -3539,11 +3539,13 @@ define("script/features/history", ["require", "exports", "script/features/media"
                     var index = media_1.Media.mediaList.indexOf(media);
                     if (ui_6.UI.shuffle.get()) {
                         history.push(index);
+                        currentIndex = 0;
                     }
                     else {
                         for (var i = 0; i <= index; ++i) {
                             history.push(i);
                         }
+                        currentIndex = index;
                     }
                     return media;
                 }

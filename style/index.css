@@ -715,6 +715,9 @@ body:not(.show-paused-media) #screen-body.paused #media-screen {
   opacity: 0.2;
 }
 
+body #screen-body.paused {
+  background-color: black;
+}
 body #screen-body.paused #media-list {
   padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
   padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));

@@ -449,6 +449,7 @@ body:not(.show-paused-media) #screen-body.paused
 }
 body #screen-body.paused
 {
+    background-color: $body-background-color;
     #media-list
     {
         padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));

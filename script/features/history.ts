@@ -55,6 +55,7 @@ export namespace History
                 if (UI.shuffle.get())
                 {
                     history.push(index);
+                    currentIndex = 0;
                 }
                 else
                 {
@@ -62,6 +63,7 @@ export namespace History
                     {
                         history.push(i);
                     }
+                    currentIndex = index;
                 }
                 return media;
             }
