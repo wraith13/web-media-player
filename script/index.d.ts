@@ -104,8 +104,6 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "not-supported-media-message": string;
             "noscript-message": string;
-            "noscript-introduction-title": string;
-            "noscript-introduction-description": string;
         };
         ja: {
             "lang-label": string;
@@ -182,8 +180,6 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "not-supported-media-message": string;
             "noscript-message": string;
-            "noscript-introduction-title": string;
-            "noscript-introduction-description": string;
         };
     };
 }
@@ -265,8 +261,6 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "not-supported-media-message": string;
                 "noscript-message": string;
-                "noscript-introduction-title": string;
-                "noscript-introduction-description": string;
             };
             ja: {
                 "lang-label": string;
@@ -343,8 +337,6 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "not-supported-media-message": string;
                 "noscript-message": string;
-                "noscript-introduction-title": string;
-                "noscript-introduction-description": string;
             };
         };
         type Label = (keyof (typeof master[keyof typeof master])) | "";

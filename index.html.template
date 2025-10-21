@@ -78,6 +78,10 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
+    <label for="wake-up" class="icon-button">
+        <input id="wake-up" type="checkbox">
+        __SUN_ICON__
+    </label>
     <label for="shuffle" class="icon-button">
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
@@ -196,6 +200,10 @@ DUMMYSTYLE
             </label>
         </div>
         __COG_ICON__
+    </label>
+    <label for="sleep" class="icon-button">
+        <input id="sleep" type="checkbox">
+        __MOON_ICON__
     </label>
 </div>
 <span id="media-index"></span>

@@ -111,6 +111,12 @@
                 "__COG_ICON__": {
                     "path": "./image/cog.svg"
                 },
+                "__SUN_ICON__": {
+                    "path": "./image/sun.svg"
+                },
+                "__MOON_ICON__": {
+                    "path": "./image/moon.svg"
+                },
                 "__SPEAKER_MUTE_ICON__": {
                     "path": "./image/speaker-mute.svg"
                 },
