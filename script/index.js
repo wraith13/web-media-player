@@ -4090,8 +4090,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.updateFullscreenState = function (fullscreen) {
             if (_library_7.Library.UI.fullscreenEnabled) {
                 if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_8.UI.withFullscreenCheckbox.get()) {
-                    _library_7.Library.UI.requestFullscreen(document.body);
-                    setTimeout(function () { return document.body.focus(); }, 100);
+                    if (Player.isPlaying()) {
+                        _library_7.Library.UI.requestFullscreen(document.body);
+                        setTimeout(function () { return document.body.focus(); }, 100);
+                    }
                 }
                 else {
                     _library_7.Library.UI.exitFullscreen();
@@ -4119,6 +4121,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 switch (_d.label) {
                     case 0:
                         document.body.classList.toggle("show-ui", false);
+                        document.body.classList.toggle("list", false);
+                        document.body.classList.toggle("play", true);
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
                                 image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
                                 audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
@@ -4140,8 +4144,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             ],
                         });
                         navigator.mediaSession.playbackState = "playing";
-                        document.body.classList.toggle("list", false);
-                        document.body.classList.toggle("play", true);
                         if (media_2.Media.mediaList.length <= 0) {
                             noMediaTimer.start(document.body, "no-media", 5000);
                         }

@@ -86,8 +86,11 @@ export namespace Player
         {
             if (fullscreen ?? UI.withFullscreenCheckbox.get())
             {
-                Library.UI.requestFullscreen(document.body);
-                setTimeout(() => document.body.focus(), 100);
+                if (isPlaying())
+                {
+                    Library.UI.requestFullscreen(document.body);
+                    setTimeout(() => document.body.focus(), 100);
+                }
             }
             else
             {
@@ -112,6 +115,8 @@ export namespace Player
     export const play = async (media?: Media.Entry) =>
     {
         document.body.classList.toggle("show-ui", false);
+        document.body.classList.toggle("list", false);
+        document.body.classList.toggle("play", true);
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -134,8 +139,6 @@ export namespace Player
             ],
         });
         navigator.mediaSession.playbackState = "playing";
-        document.body.classList.toggle("list", false);
-        document.body.classList.toggle("play", true);
         if (Media.mediaList.length <= 0)
         {
             noMediaTimer.start(document.body, "no-media", 5000);
