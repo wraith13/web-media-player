@@ -1026,6 +1026,25 @@ body.no-media
         display: none;
     }
 }
+#wakeup-panel
+{
+    @include fade-transition("body #wakeup:not(:checked) + &");
+    //@include slide-down-transition("body #volume-button:not(.on) + &");
+    @include black-pop-panel-style();
+    &
+    {
+        transition: transform 500ms, opacity 500ms, filter 500ms;
+        border-radius: 0.5rem;
+        inset-block-end: 7.5rem;
+        inset-inline-end: calc(50% - 8.625rem);
+        position: fixed;
+        z-index: 60;
+        padding: 0.5rem;
+        background-color: black-color(0.9);
+        transform: rotate(-90deg);
+        line-height: 0rem;
+    }
+}
 label[for="volume-button"]
 {
     &:not(.volume-mute) #speaker-mute-icon
@@ -1180,6 +1199,25 @@ label[for="volume-button"]
                 }
             }
         }
+    }
+}
+#sleep-panel
+{
+    @include fade-transition("body #sleep:not(:checked) + &");
+    //@include slide-down-transition("body #volume-button:not(.on) + &");
+    @include black-pop-panel-style();
+    &
+    {
+        transition: transform 500ms, opacity 500ms, filter 500ms;
+        border-radius: 0.5rem;
+        inset-block-end: 7.5rem;
+        inset-inline-end: calc(50% - 8.625rem);
+        position: fixed;
+        z-index: 60;
+        padding: 0.5rem;
+        background-color: black-color(0.9);
+        transform: rotate(-90deg);
+        line-height: 0rem;
     }
 }
 #overlay-panel

@@ -473,6 +473,56 @@ define("resource/config", [], {
             "en-LR",
             "en-FM"
         ]
+    },
+    "timers": {
+        "wakeUpSpans": [
+            "15m",
+            "30m",
+            "45m",
+            "1h",
+            "1.25h",
+            "1.5h",
+            "1.75h",
+            "2h",
+            "2.5h",
+            "3h",
+            "3.5h",
+            "4h",
+            "4.5h",
+            "5h",
+            "5.5h",
+            "6h",
+            "6.5h",
+            "7h",
+            "7.5h",
+            "8h",
+            "8.5h",
+            "9h",
+            "9.5h",
+            "10h",
+            "10.5h",
+            "11h",
+            "11.5h",
+            "12h"
+        ],
+        "sleepSpans": [
+            "15m",
+            "30m",
+            "45m",
+            "1h",
+            "1.25h",
+            "1.5h",
+            "1.75h",
+            "2h",
+            "2.5h",
+            "3h",
+            "3.5h",
+            "4h",
+            "4.5h",
+            "5h",
+            "5.5h",
+            "6h"
+        ]
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
