@@ -660,7 +660,7 @@ body:not(.not-supported-media)
         z-index: 60;
         padding: 0.25rem 0.25rem;
         gap: 0.25rem;
-        label[for="wake-up"].icon-button
+        label[for="wakeup"].icon-button
         {
             margin-left: -3.25rem;
         }
@@ -670,7 +670,7 @@ body:not(.not-supported-media)
         }
         @media (max-width: 420px)
         {
-            label[for="wake-up"].icon-button
+            label[for="wakeup"].icon-button
             {
                 margin-top: -7.0rem;
                 margin-right: -3.25rem;
@@ -1035,14 +1035,12 @@ body.no-media
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
-        inset-block-end: 7.5rem;
-        inset-inline-end: calc(50% - 8.625rem);
+        inset-block-end: 4.5rem;
+        inset-inline-start: calc(50% - 12rem);
         position: fixed;
         z-index: 60;
         padding: 0.5rem;
         background-color: black-color(0.9);
-        transform: rotate(-90deg);
-        line-height: 0rem;
     }
 }
 label[for="volume-button"]
@@ -1210,14 +1208,12 @@ label[for="volume-button"]
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
-        inset-block-end: 7.5rem;
-        inset-inline-end: calc(50% - 8.625rem);
+        inset-block-end: 4.5rem;
+        inset-inline-end: calc(50% - 12rem);
         position: fixed;
         z-index: 60;
         padding: 0.5rem;
         background-color: black-color(0.9);
-        transform: rotate(-90deg);
-        line-height: 0rem;
     }
 }
 #overlay-panel
