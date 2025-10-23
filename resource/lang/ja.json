@@ -51,6 +51,8 @@
     "language-label": "言語:",
     "url-label": "この設定のリンク",
     "repository-label": "リポジトリ",
+    "wakeup-timer-label": "起床タイマー:",
+    "sleep-timer-label": "スリープタイマー:",
     "timeUnitMs": "ミリ秒",
     "timeUnitS": "秒",
     "timeUnitM": "分",

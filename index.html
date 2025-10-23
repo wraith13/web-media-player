@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Oct 23 2025 04:06:12 GMT+0900 (日本標準時)
+    build at: Thu Oct 23 2025 05:13:18 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1973,140 +1973,6 @@ body #settings-button:not(:checked) + #settings-panel:not(.show) {
   padding: 0.25rem 0.5rem;
   gap: 0.25rem;
 }
-#settings-panel label {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #settings-panel label {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #settings-panel label {
-    font-size: 1rem;
-  }
-}
-#settings-panel label {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#settings-panel label {
-  position: relative;
-  cursor: pointer;
-  padding-block: 0.125rem;
-  padding-inline: 0.5rem;
-  margin-block-end: 1px;
-  background-color: rgba(32, 28, 38, 0.8);
-  border-radius: 0.25rem;
-  height: 1.5rem;
-  flex-grow: 1;
-  white-space: nowrap;
-}
-#settings-panel label.information {
-  background-color: rgba(230, 237, 243, 0.8);
-  color: rgba(32, 28, 38, 0.9);
-  cursor: default;
-  pointer-events: none;
-}
-@media (hover: hover) {
-  #settings-panel label:hover {
-    background-color: rgba(32, 28, 38, 0.95);
-  }
-}
-#settings-panel label * {
-  user-select: none;
-  cursor: pointer;
-}
-#settings-panel label .value-text {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #settings-panel label .value-text {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #settings-panel label .value-text {
-    font-size: 1rem;
-  }
-}
-#settings-panel label .value-text {
-  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
-}
-#settings-panel label .value-text {
-  text-align: end;
-  width: 100%;
-  padding-inline: 0.5rem;
-}
-#settings-panel label input {
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #settings-panel label input {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #settings-panel label input {
-    font-size: 1rem;
-  }
-}
-#settings-panel label input {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#settings-panel label input {
-  margin: 0.5rem;
-  padding: 0px;
-}
-#settings-panel label select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #settings-panel label select {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #settings-panel label select {
-    font-size: 1rem;
-  }
-}
-#settings-panel label select {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#settings-panel label select {
-  color: rgb(230, 237, 243);
-  background-color: transparent;
-  border: none;
-  border-radius: 0.5rem;
-  padding-block: 0.25rem;
-  padding-inline: 0.25rem;
-  text-align: end;
-  text-align-last: end;
-}
-#settings-panel label select option {
-  background-color: rgb(32, 28, 38);
-  text-align: end;
-}
-#settings-panel label.link-label:not(:hover) {
-  background-color: rgba(32, 28, 38, 0.4);
-}
-#settings-panel label.link-label:not(:hover) a {
-  width: 100%;
-}
 
 #sleep-panel {
   transition: opacity 750ms, filter 750ms;
@@ -2141,6 +2007,141 @@ body #sleep:not(:checked) + #sleep-panel:not(.show)::before {
   z-index: 60;
   padding: 0.5rem;
   background-color: rgba(32, 28, 38, 0.9);
+}
+
+label:not(.icon-button) {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  label:not(.icon-button) {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  label:not(.icon-button) {
+    font-size: 1rem;
+  }
+}
+label:not(.icon-button) {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+label:not(.icon-button) {
+  position: relative;
+  cursor: pointer;
+  padding-block: 0.125rem;
+  padding-inline: 0.5rem;
+  margin-block-end: 1px;
+  background-color: rgba(32, 28, 38, 0.8);
+  border-radius: 0.25rem;
+  height: 1.5rem;
+  flex-grow: 1;
+  white-space: nowrap;
+}
+label:not(.icon-button).information {
+  background-color: rgba(230, 237, 243, 0.8);
+  color: rgba(32, 28, 38, 0.9);
+  cursor: default;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  label:not(.icon-button):hover {
+    background-color: rgba(32, 28, 38, 0.95);
+  }
+}
+label:not(.icon-button) * {
+  user-select: none;
+  cursor: pointer;
+}
+label:not(.icon-button) .value-text {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  label:not(.icon-button) .value-text {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  label:not(.icon-button) .value-text {
+    font-size: 1rem;
+  }
+}
+label:not(.icon-button) .value-text {
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+label:not(.icon-button) .value-text {
+  text-align: end;
+  width: 100%;
+  padding-inline: 0.5rem;
+}
+label:not(.icon-button) input {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  label:not(.icon-button) input {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  label:not(.icon-button) input {
+    font-size: 1rem;
+  }
+}
+label:not(.icon-button) input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+label:not(.icon-button) input {
+  margin: 0.5rem;
+  padding: 0px;
+}
+label:not(.icon-button) select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  label:not(.icon-button) select {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  label:not(.icon-button) select {
+    font-size: 1rem;
+  }
+}
+label:not(.icon-button) select {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+label:not(.icon-button) select {
+  color: rgb(230, 237, 243);
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  padding-block: 0.25rem;
+  padding-inline: 0.25rem;
+  text-align: end;
+  text-align-last: end;
+}
+label:not(.icon-button) select option {
+  background-color: rgb(32, 28, 38);
+  text-align: end;
+}
+label:not(.icon-button).link-label:not(:hover) {
+  background-color: rgba(32, 28, 38, 0.4);
+}
+label:not(.icon-button).link-label:not(:hover) a {
+  width: 100%;
 }
 
 #overlay-panel {
@@ -2789,7 +2790,10 @@ DUMMYSTYLE
     <label for="wakeup" class="icon-button">
         <input id="wakeup" type="checkbox">
         <div id="wakeup-panel">
-            WAKEUP-DUMMY
+            <label for="wakeup-timer" class="information">
+                <span data-lang-key="wakeup-timer-label"></span>
+                <span id="wakeup-timer" class="value-text"></span>
+            </label>
         </div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -2988,7 +2992,10 @@ DUMMYSTYLE
     <label for="sleep" class="icon-button">
         <input id="sleep" type="checkbox">
         <div id="sleep-panel">
-            SLEEP-DUMMY
+            <label for="sleep-timer" class="information">
+                <span data-lang-key="sleep-timer-label"></span>
+                <span id="sleep-timer" class="value-text"></span>
+            </label>
         </div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3078,8 +3085,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Oct 23 2025 04:06:12 GMT+0900 (日本標準時)",
-    tick: 1761159972466
+    at: "Thu Oct 23 2025 05:13:18 GMT+0900 (日本標準時)",
+    tick: 1761163998516
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4873,6 +4880,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "repository-label": "repository",
+            "wakeup-timer-label": "Wake-up Timer:",
+            "sleep-timer-label": "Sleep Timer:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -4949,6 +4958,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
+            "wakeup-timer-label": "起床タイマー:",
+            "sleep-timer-label": "スリープタイマー:",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",

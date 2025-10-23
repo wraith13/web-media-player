@@ -82,6 +82,8 @@ declare module "locale/generated/master" {
             "language-label": string;
             "url-label": string;
             "repository-label": string;
+            "wakeup-timer-label": string;
+            "sleep-timer-label": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -158,6 +160,8 @@ declare module "locale/generated/master" {
             "language-label": string;
             "url-label": string;
             "repository-label": string;
+            "wakeup-timer-label": string;
+            "sleep-timer-label": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -239,6 +243,8 @@ declare module "script/library/locale" {
                 "language-label": string;
                 "url-label": string;
                 "repository-label": string;
+                "wakeup-timer-label": string;
+                "sleep-timer-label": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;
@@ -315,6 +321,8 @@ declare module "script/library/locale" {
                 "language-label": string;
                 "url-label": string;
                 "repository-label": string;
+                "wakeup-timer-label": string;
+                "sleep-timer-label": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;

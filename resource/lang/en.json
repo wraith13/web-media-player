@@ -51,6 +51,8 @@
     "language-label": "Language:",
     "url-label": "Link to this setting",
     "repository-label": "repository",
+    "wakeup-timer-label": "Wake-up Timer:",
+    "sleep-timer-label": "Sleep Timer:",
     "timeUnitMs": "ms",
     "timeUnitS": "s",
     "timeUnitM": "m",

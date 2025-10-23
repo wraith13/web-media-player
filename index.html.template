@@ -81,7 +81,10 @@ DUMMYSTYLE
     <label for="wakeup" class="icon-button">
         <input id="wakeup" type="checkbox">
         <div id="wakeup-panel">
-            WAKEUP-DUMMY
+            <label for="wakeup-timer" class="information">
+                <span data-lang-key="wakeup-timer-label"></span>
+                <span id="wakeup-timer" class="value-text"></span>
+            </label>
         </div>
         __SUN_ICON__
     </label>
@@ -207,7 +210,10 @@ DUMMYSTYLE
     <label for="sleep" class="icon-button">
         <input id="sleep" type="checkbox">
         <div id="sleep-panel">
-            SLEEP-DUMMY
+            <label for="sleep-timer" class="information">
+                <span data-lang-key="sleep-timer-label"></span>
+                <span id="sleep-timer" class="value-text"></span>
+            </label>
         </div>
         __MOON_ICON__
     </label>
