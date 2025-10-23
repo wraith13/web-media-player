@@ -230,8 +230,16 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "repository-label": "repository",
-            "wakeup-timer-label": "Wake-up Timer:",
-            "sleep-timer-label": "Sleep Timer:",
+            "wakeup-timer-label": "Time until Wake-up:",
+            "fade-in-label": "Fade-in Time:",
+            "fade-in-0": "None",
+            "wakeup-label": "Wake-up Timer:",
+            "wakeup-0": "None",
+            "sleep-timer-label": "Time until Sleep:",
+            "fade-out-label": "Fade-out Time:",
+            "fade-out-0": "None",
+            "sleep-label": "Sleep Timer:",
+            "sleep-0": "None",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -308,8 +316,16 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
-            "wakeup-timer-label": "起床タイマー:",
-            "sleep-timer-label": "スリープタイマー:",
+            "wakeup-timer-label": "起床まで:",
+            "fade-in-label": "フェードイン時間:",
+            "fade-in-0": "なし",
+            "wakeup-label": "起床タイマー:",
+            "wakeup-0": "なし",
+            "sleep-timer-label": "スリープまで:",
+            "fade-out-label": "フェードアウト時間:",
+            "fade-out-0": "なし",
+            "sleep-label": "スリープタイマー:",
+            "sleep-0": "なし",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -2220,6 +2236,64 @@ define("resource/control", [], {
             "Auto"
         ],
         "default": "Auto"
+    },
+    "fadeIn": {
+        "id": "fade-in",
+        "enum": [
+            2000,
+            1500,
+            1000,
+            750,
+            500,
+            250,
+            0
+        ],
+        "default": 2000
+    },
+    "wakeup": {
+        "id": "wakeup",
+        "enum": [
+            0,
+            300000,
+            600000,
+            900000,
+            1200000,
+            1800000,
+            3600000,
+            7200000,
+            14400000,
+            28800000
+        ],
+        "default": 0
+    },
+    "fadeOut": {
+        "id": "fade-out",
+        "enum": [
+            2000,
+            1500,
+            1000,
+            750,
+            500,
+            250,
+            0
+        ],
+        "default": 2000
+    },
+    "sleep": {
+        "id": "sleep",
+        "enum": [
+            0,
+            300000,
+            600000,
+            900000,
+            1200000,
+            1800000,
+            3600000,
+            7200000,
+            14400000,
+            28800000
+        ],
+        "default": 0
     }
 });
 define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2) {
@@ -2341,6 +2415,28 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 .forEach(function (i) { return UI.updateLabel(i); });
             UI.updateShortcuts();
         };
+        UI.wakeupTimerLabel = _library_2.Library.UI.getElementById("span", "wakeup-timer");
+        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
+            makeLabel: function (value) { return value <= 0 ?
+                _library_2.Library.Locale.map("fade-in-0") :
+                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+        });
+        UI.wakeup = new _library_2.Library.Control.Select(control_json_1.default.wakeup, {
+            makeLabel: function (value) { return value <= 0 ?
+                _library_2.Library.Locale.map("wakeup-0") :
+                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+        });
+        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
+        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+            makeLabel: function (value) { return value <= 0 ?
+                _library_2.Library.Locale.map("fade-out-0") :
+                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+        });
+        UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
+            makeLabel: function (value) { return value <= 0 ?
+                _library_2.Library.Locale.map("sleep-0") :
+                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+        });
         UI.initialize = function (params) {
             UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");

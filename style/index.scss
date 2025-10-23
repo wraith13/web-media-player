@@ -660,23 +660,23 @@ body:not(.not-supported-media)
         z-index: 60;
         padding: 0.25rem 0.25rem;
         gap: 0.25rem;
-        label[for="wakeup"].icon-button
+        label[for="wakeup-button"].icon-button
         {
             margin-left: -3.25rem;
         }
-        label[for="sleep"].icon-button
+        label[for="sleep-button"].icon-button
         {
             margin-right: -3.25rem;
         }
         @media (max-width: 420px)
         {
-            label[for="wakeup"].icon-button
+            label[for="wakeup-button"].icon-button
             {
                 margin-top: -7.0rem;
                 margin-right: -3.25rem;
                 margin-left: 0rem;
             }
-            label[for="sleep"].icon-button
+            label[for="sleep-button"].icon-button
             {
                 margin-top: -7.0rem;
                 margin-right: 0rem;
@@ -1028,19 +1028,20 @@ body.no-media
 }
 #wakeup-panel
 {
-    @include fade-transition("body #wakeup:not(:checked) + &");
-    //@include slide-down-transition("body #volume-button:not(.on) + &");
-    @include black-pop-panel-style();
+    @include fade-transition("body #wakeup-button:not(:checked) + &");
+    @include slide-down-transition("body #wakeup-button:not(:checked) + &");
+    //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
-        inset-inline-start: calc(50% - 12rem);
+        inset-inline-start: calc(50% - 12.5rem);
+        backdrop-filter: blur(0.5rem);
         position: fixed;
         z-index: 60;
-        padding: 0.5rem;
-        background-color: black-color(0.9);
+        padding: 0.25rem 0.5rem;
+        gap: 0.25rem;
     }
 }
 label[for="volume-button"]
@@ -1115,19 +1116,20 @@ label[for="volume-button"]
 }
 #sleep-panel
 {
-    @include fade-transition("body #sleep:not(:checked) + &");
-    //@include slide-down-transition("body #volume-button:not(.on) + &");
-    @include black-pop-panel-style();
+    @include fade-transition("body #sleep-button:not(:checked) + &");
+    @include slide-down-transition("body #sleep-button:not(:checked) + &");
+    //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
-        inset-inline-end: calc(50% - 12rem);
+        inset-inline-end: calc(50% - 12.5rem);
+        backdrop-filter: blur(0.5rem);
         position: fixed;
         z-index: 60;
-        padding: 0.5rem;
-        background-color: black-color(0.9);
+        padding: 0.25rem 0.5rem;
+        gap: 0.25rem;
     }
 }
 label:not(.icon-button)

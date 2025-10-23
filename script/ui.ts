@@ -198,7 +198,51 @@ export namespace UI
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));
         updateShortcuts();
-    }
+    };
+    export const wakeupTimerLabel =
+        Library.UI.getElementById("span", "wakeup-timer");
+    export const fadeIn =
+        new Library.Control.Select
+        (
+            control.fadeIn,
+            {
+                makeLabel: value => value <= 0 ?
+                    Library.Locale.map("fade-in-0"):
+                    Tools.Timespan.toDisplayString(value, undefined, locale)
+            }
+        );
+    export const wakeup =
+        new Library.Control.Select
+        (
+            control.wakeup,
+            {
+                makeLabel: value => value <= 0 ?
+                    Library.Locale.map("wakeup-0"):
+                    Tools.Timespan.toDisplayString(value, undefined, locale)
+            }
+        );
+    export const sleepTimerLabel =
+        Library.UI.getElementById("span", "sleep-timer");
+    export const fadeOut =
+        new Library.Control.Select
+        (
+            control.fadeOut,
+            {
+                makeLabel: value => value <= 0 ?
+                    Library.Locale.map("fade-out-0"):
+                    Tools.Timespan.toDisplayString(value, undefined, locale)
+            }
+        );
+    export const sleep =
+        new Library.Control.Select
+        (
+            control.sleep,
+            {
+                makeLabel: value => value <= 0 ?
+                    Library.Locale.map("sleep-0"):
+                    Tools.Timespan.toDisplayString(value, undefined, locale)
+            }
+        );
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];

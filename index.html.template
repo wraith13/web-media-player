@@ -78,12 +78,20 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
-    <label for="wakeup" class="icon-button">
-        <input id="wakeup" type="checkbox">
+    <label for="wakeup-button" class="icon-button">
+        <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
             <label for="wakeup-timer" class="information">
                 <span data-lang-key="wakeup-timer-label"></span>
                 <span id="wakeup-timer" class="value-text"></span>
+            </label>
+            <label for="fade-in">
+                <span data-lang-key="fade-in-label"></span>
+                <select id="fade-in"></select>
+            </label>
+            <label for="wakeup">
+                <span data-lang-key="wakeup-label"></span>
+                <select id="wakeup"></select>
             </label>
         </div>
         __SUN_ICON__
@@ -207,12 +215,20 @@ DUMMYSTYLE
         </div>
         __COG_ICON__
     </label>
-    <label for="sleep" class="icon-button">
-        <input id="sleep" type="checkbox">
+    <label for="sleep-button" class="icon-button">
+        <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
             <label for="sleep-timer" class="information">
                 <span data-lang-key="sleep-timer-label"></span>
                 <span id="sleep-timer" class="value-text"></span>
+            </label>
+            <label for="fade-out">
+                <span data-lang-key="fade-out-label"></span>
+                <select id="fade-out"></select>
+            </label>
+            <label for="sleep">
+                <span data-lang-key="sleep-label"></span>
+                <select id="sleep"></select>
             </label>
         </div>
         __MOON_ICON__
