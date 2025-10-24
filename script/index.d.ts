@@ -779,9 +779,11 @@ declare module "script/ui" {
         const keyboardShortcut: HTMLDivElement;
         const updateShortcuts: () => void;
         const updateLanguage: () => void;
+        const wakeupButton: Library.Control.Checkbox;
         const wakeupTimerLabel: HTMLSpanElement;
         const fadeIn: Library.Control.Select<number>;
         const wakeup: Library.Control.Select<number>;
+        const sleepButton: Library.Control.Checkbox;
         const sleepTimerLabel: HTMLSpanElement;
         const fadeOut: Library.Control.Select<number>;
         const sleep: Library.Control.Select<number>;
@@ -790,6 +792,8 @@ declare module "script/ui" {
         const updateLabel: (element: HTMLSpanElement) => void;
         const setLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
+        const popupCheckboxList: Library.Control.Checkbox[];
+        const closeOtherPopups: (except: Library.Control.Checkbox) => void;
     }
 }
 declare module "script/features/location" {

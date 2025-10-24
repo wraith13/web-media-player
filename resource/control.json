@@ -180,6 +180,10 @@
         ],
         "default": "Auto"
     },
+    "wakeupButton": {
+        "id": "wakeup-button",
+        "default": false
+    },
     "fadeIn": {
         "id": "fade-in",
         "enum": [
@@ -208,6 +212,10 @@
             28800000
         ],
         "default": 0
+    },
+    "sleepButton": {
+        "id": "sleep-button",
+        "default": false
     },
     "fadeOut": {
         "id": "fade-out",

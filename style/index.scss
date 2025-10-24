@@ -1042,6 +1042,11 @@ body.no-media
         z-index: 60;
         padding: 0.25rem 0.5rem;
         gap: 0.25rem;
+        @media (max-width: 420px)
+        {
+            inset-block-end: 7rem;
+            inset-inline-start: calc(50% - 9.5rem);
+        }
     }
 }
 label[for="volume-button"]
@@ -1130,6 +1135,11 @@ label[for="volume-button"]
         z-index: 60;
         padding: 0.25rem 0.5rem;
         gap: 0.25rem;
+        @media (max-width: 420px)
+        {
+            inset-block-end: 7rem;
+            inset-inline-end: calc(50% - 9.5rem);
+        }
     }
 }
 label:not(.icon-button)

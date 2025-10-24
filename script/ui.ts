@@ -199,6 +199,8 @@ export namespace UI
             .forEach(i => updateLabel(i));
         updateShortcuts();
     };
+    export const wakeupButton =
+        new Library.Control.Checkbox(control.wakeupButton);
     export const wakeupTimerLabel =
         Library.UI.getElementById("span", "wakeup-timer");
     export const fadeIn =
@@ -221,6 +223,8 @@ export namespace UI
                     Tools.Timespan.toDisplayString(value, undefined, locale)
             }
         );
+    export const sleepButton =
+        new Library.Control.Checkbox(control.sleepButton);
     export const sleepTimerLabel =
         Library.UI.getElementById("span", "sleep-timer");
     export const fadeOut =
@@ -263,4 +267,24 @@ export namespace UI
         setLabel(element, label);
         updateLabel(element);
     };
+    export const popupCheckboxList =
+    [
+        volumeButton,
+        settingsButton,
+        wakeupButton,
+        sleepButton,
+    ];
+    export const closeOtherPopups = (except: Library.Control.Checkbox) =>
+    {
+        popupCheckboxList.forEach
+        (
+            i =>
+            {
+                if (except !== i)
+                {
+                    i.toggle(false, "preventOnChange");
+                }
+            }
+        );
+    }
 }

@@ -305,7 +305,7 @@ export namespace Events
                     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
                     UI.volumeButton.toggle(false, "preventOnChange")
                 }
-                UI.settingsButton.toggle(false, "preventOnChange");
+                UI.closeOtherPopups(UI.volumeButton);
             }
         );
         UI.volumeRange.options ||= { }
@@ -328,7 +328,7 @@ export namespace Events
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.volumeButton.toggle(false, "preventOnChange");
+                UI.closeOtherPopups(UI.settingsButton);
             }
         );
         UI.mediaLength.click = () =>
@@ -389,6 +389,24 @@ export namespace Events
                 document.body.classList.toggle("show-seek-bar");
             }
         );
+        UI.wakeupButton.setChange
+        (
+            (event, button) =>
+            {
+                event?.stopPropagation();
+                button.dom.blur();
+                UI.closeOtherPopups(UI.wakeupButton);
+            }
+        );
+        UI.sleepButton.setChange
+        (
+            (event, button) =>
+            {
+                event?.stopPropagation();
+                button.dom.blur();
+                UI.closeOtherPopups(UI.sleepButton);
+            }
+        );
         UI.seekRange.addEventListener("click", event => event.stopPropagation());
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
@@ -415,6 +433,10 @@ export namespace Events
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
+        UI.fadeIn.loadParameter(Url.params, applyParam);
+        UI.wakeup.loadParameter(Url.params, applyParam);
+        UI.fadeOut.loadParameter(Url.params, applyParam);
+        UI.sleep.loadParameter(Url.params, applyParam);
         document.body.addEventListener
         (
             "mousemove",

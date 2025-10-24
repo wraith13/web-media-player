@@ -2237,6 +2237,10 @@ define("resource/control", [], {
         ],
         "default": "Auto"
     },
+    "wakeupButton": {
+        "id": "wakeup-button",
+        "default": false
+    },
     "fadeIn": {
         "id": "fade-in",
         "enum": [
@@ -2265,6 +2269,10 @@ define("resource/control", [], {
             28800000
         ],
         "default": 0
+    },
+    "sleepButton": {
+        "id": "sleep-button",
+        "default": false
     },
     "fadeOut": {
         "id": "fade-out",
@@ -2415,6 +2423,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 .forEach(function (i) { return UI.updateLabel(i); });
             UI.updateShortcuts();
         };
+        UI.wakeupButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeupButton);
         UI.wakeupTimerLabel = _library_2.Library.UI.getElementById("span", "wakeup-timer");
         UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) { return value <= 0 ?
@@ -2426,6 +2435,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 _library_2.Library.Locale.map("wakeup-0") :
                 _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
         });
+        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
         UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
             makeLabel: function (value) { return value <= 0 ?
@@ -2456,6 +2466,19 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.setAndUpdateLabel = function (element, label) {
             UI.setLabel(element, label);
             UI.updateLabel(element);
+        };
+        UI.popupCheckboxList = [
+            UI.volumeButton,
+            UI.settingsButton,
+            UI.wakeupButton,
+            UI.sleepButton,
+        ];
+        UI.closeOtherPopups = function (except) {
+            UI.popupCheckboxList.forEach(function (i) {
+                if (except !== i) {
+                    i.toggle(false, "preventOnChange");
+                }
+            });
         };
     })(UI || (exports.UI = UI = {}));
 });
@@ -5155,7 +5178,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
                     ui_11.UI.volumeButton.toggle(false, "preventOnChange");
                 }
-                ui_11.UI.settingsButton.toggle(false, "preventOnChange");
+                ui_11.UI.closeOtherPopups(ui_11.UI.volumeButton);
             });
             (_a = ui_11.UI.volumeRange).options || (_a.options = {});
             ui_11.UI.volumeRange.options.change = function (_event, range) {
@@ -5173,7 +5196,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.volumeButton.toggle(false, "preventOnChange");
+                ui_11.UI.closeOtherPopups(ui_11.UI.settingsButton);
             });
             ui_11.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
@@ -5216,6 +5239,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
+            ui_11.UI.wakeupButton.setChange(function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_11.UI.closeOtherPopups(ui_11.UI.wakeupButton);
+            });
+            ui_11.UI.sleepButton.setChange(function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                ui_11.UI.closeOtherPopups(ui_11.UI.sleepButton);
+            });
             ui_11.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
@@ -5242,6 +5275,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
             ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.updateLanguage);
+            ui_11.UI.fadeIn.loadParameter(url_3.Url.params, applyParam);
+            ui_11.UI.wakeup.loadParameter(url_3.Url.params, applyParam);
+            ui_11.UI.fadeOut.loadParameter(url_3.Url.params, applyParam);
+            ui_11.UI.sleep.loadParameter(url_3.Url.params, applyParam);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_11.UI.screenBody);
