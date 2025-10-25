@@ -493,56 +493,6 @@ define("resource/config", [], {
             "en-LR",
             "en-FM"
         ]
-    },
-    "timers": {
-        "wakeUpSpans": [
-            "15m",
-            "30m",
-            "45m",
-            "1h",
-            "1.25h",
-            "1.5h",
-            "1.75h",
-            "2h",
-            "2.5h",
-            "3h",
-            "3.5h",
-            "4h",
-            "4.5h",
-            "5h",
-            "5.5h",
-            "6h",
-            "6.5h",
-            "7h",
-            "7.5h",
-            "8h",
-            "8.5h",
-            "9h",
-            "9.5h",
-            "10h",
-            "10.5h",
-            "11h",
-            "11.5h",
-            "12h"
-        ],
-        "sleepSpans": [
-            "15m",
-            "30m",
-            "45m",
-            "1h",
-            "1.25h",
-            "1.5h",
-            "1.75h",
-            "2h",
-            "2.5h",
-            "3h",
-            "3.5h",
-            "4h",
-            "4.5h",
-            "5h",
-            "5.5h",
-            "6h"
-        ]
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -2257,18 +2207,37 @@ define("resource/control", [], {
     "wakeup": {
         "id": "wakeup",
         "enum": [
-            0,
-            300000,
-            600000,
-            900000,
-            1200000,
-            1800000,
-            3600000,
-            7200000,
-            14400000,
-            28800000
+            "off",
+            "15m",
+            "30m",
+            "45m",
+            "1h",
+            "1.25h",
+            "1.5h",
+            "1.75h",
+            "2h",
+            "2.5h",
+            "3h",
+            "3.5h",
+            "4h",
+            "4.5h",
+            "5h",
+            "5.5h",
+            "6h",
+            "6.5h",
+            "7h",
+            "7.5h",
+            "8h",
+            "8.5h",
+            "9h",
+            "9.5h",
+            "10h",
+            "10.5h",
+            "11h",
+            "11.5h",
+            "12h"
         ],
-        "default": 0
+        "default": "off"
     },
     "sleepButton": {
         "id": "sleep-button",
@@ -2290,18 +2259,25 @@ define("resource/control", [], {
     "sleep": {
         "id": "sleep",
         "enum": [
-            0,
-            300000,
-            600000,
-            900000,
-            1200000,
-            1800000,
-            3600000,
-            7200000,
-            14400000,
-            28800000
+            "off",
+            "15m",
+            "30m",
+            "45m",
+            "1h",
+            "1.25h",
+            "1.5h",
+            "1.75h",
+            "2h",
+            "2.5h",
+            "3h",
+            "3.5h",
+            "4h",
+            "4.5h",
+            "5h",
+            "5.5h",
+            "6h"
         ],
-        "default": 0
+        "default": "off"
     }
 });
 define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2) {
@@ -2431,9 +2407,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
         });
         UI.wakeup = new _library_2.Library.Control.Select(control_json_1.default.wakeup, {
-            makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("wakeup-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("wakeup-0") :
+                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
         });
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
@@ -2443,9 +2422,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
         });
         UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
-            makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("sleep-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("sleep-0") :
+                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
         });
         UI.initialize = function (params) {
             UI.locale = params["locale"];
