@@ -4611,7 +4611,122 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/index", ["require", "exports", "script/features/fps", "script/features/overlay", "script/features/location", "script/features/weather", "script/features/analyser", "script/features/visualizer", "script/features/player"], function (require, exports, ImportedFps, ImportedOverlay, ImportedLocation, ImportedWeather, ImportedAnalyser, ImportedVisualizer, ImportedPlayer) {
+define("script/features/timer", ["require", "exports", "script/features/player"], function (require, exports, player_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Timer = void 0;
+    var Timer;
+    (function (Timer) {
+        var wakeUpFadeInSpan = 0;
+        var wakeUpAt = null;
+        var wakeUpTimer = null;
+        var sleepFadeOutSpan = 0;
+        var sleepAt = null;
+        var sleepTimer = null;
+        var isSleeped = false;
+        Timer.setWakeUpFadeInSpan = function (timespan) {
+            wakeUpFadeInSpan = timespan;
+        };
+        Timer.setSleepFadeOutSpan = function (timespan) {
+            sleepFadeOutSpan = timespan;
+        };
+        Timer.setWakeUpTimer = function (timespan) {
+            if (null !== wakeUpTimer) {
+                clearTimeout(wakeUpTimer);
+                wakeUpTimer = null;
+            }
+            if (null !== timespan) {
+                wakeUpAt = Timer.getNow() + timespan;
+                wakeUpTimer = setTimeout(function () {
+                    wakeUpTimer = null;
+                    Timer.wakeUp("WithPlay");
+                }, timespan);
+                Timer.sleep();
+            }
+            else {
+                wakeUpAt = null;
+                Timer.wakeUp();
+            }
+        };
+        Timer.setSleepTimer = function (timespan) {
+            Timer.wakeUp();
+            if (null !== sleepTimer) {
+                clearTimeout(sleepTimer);
+                sleepTimer = null;
+            }
+            if (null !== timespan) {
+                sleepAt = Timer.getNow() + timespan;
+                sleepTimer = setTimeout(function () {
+                    sleepTimer = null;
+                    Timer.sleep("WithPause");
+                }, timespan);
+            }
+            else {
+                sleepAt = null;
+            }
+        };
+        Timer.wakeUp = function (withPlay) {
+            isSleeped = false;
+            if (withPlay === "WithPlay" && !player_1.Player.isPlaying()) {
+                player_1.Player.play();
+            }
+        };
+        Timer.sleep = function (withPause) {
+            isSleeped = true;
+            if (withPause === "WithPause" && player_1.Player.isPlaying()) {
+                player_1.Player.pause();
+            }
+        };
+        Timer.getNow = function () { return Date.now(); };
+        Timer.isInSleepedMode = function () {
+            return isSleeped;
+        };
+        Timer.isWaitingForWakeUp = function () {
+            return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
+        };
+        Timer.isWakeUpFading = function () {
+            return null !== Timer.getElapsedWakeUpTime();
+        };
+        Timer.getElapsedWakeUpTime = function () {
+            if (null !== wakeUpAt) {
+                var result = Timer.getNow() - wakeUpAt;
+                if (0 <= result && result <= wakeUpFadeInSpan) {
+                    return result;
+                }
+            }
+            return null;
+        };
+        Timer.getWakeUpFadeProgress = function () {
+            if (Timer.isWakeUpFading()) {
+                var wakeUpTime = Timer.getElapsedWakeUpTime();
+                if (null !== wakeUpTime) {
+                    return Math.min(wakeUpTime / wakeUpFadeInSpan, 1);
+                }
+            }
+            return null;
+        };
+        Timer.isSleepTimerActive = function () {
+            return null !== sleepAt;
+        };
+        Timer.isSleepFading = function () {
+            var timeUntilSleep = Timer.getTimeUntilSleep();
+            return null !== timeUntilSleep && timeUntilSleep <= sleepFadeOutSpan;
+        };
+        Timer.getTimeUntilSleep = function () {
+            return null !== sleepAt ? sleepAt - Timer.getNow() : null;
+        };
+        Timer.getSleepFadeProgress = function () {
+            if (Timer.isSleepFading()) {
+                var timeUntilSleep = Timer.getTimeUntilSleep();
+                if (null !== timeUntilSleep) {
+                    return Math.min((sleepFadeOutSpan - timeUntilSleep) / sleepFadeOutSpan, 1);
+                }
+            }
+            return null;
+        };
+    })(Timer || (exports.Timer = Timer = {}));
+});
+define("script/features/index", ["require", "exports", "script/features/fps", "script/features/overlay", "script/features/location", "script/features/weather", "script/features/analyser", "script/features/visualizer", "script/features/player", "script/features/timer"], function (require, exports, ImportedFps, ImportedOverlay, ImportedLocation, ImportedWeather, ImportedAnalyser, ImportedVisualizer, ImportedPlayer, ImportedTimer) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Features = void 0;
@@ -4622,6 +4737,7 @@ define("script/features/index", ["require", "exports", "script/features/fps", "s
     ImportedAnalyser = __importStar(ImportedAnalyser);
     ImportedVisualizer = __importStar(ImportedVisualizer);
     ImportedPlayer = __importStar(ImportedPlayer);
+    ImportedTimer = __importStar(ImportedTimer);
     var Features;
     (function (Features) {
         Features.Fps = ImportedFps.Fps;
@@ -4634,6 +4750,7 @@ define("script/features/index", ["require", "exports", "script/features/fps", "s
         //export import Track = ImportedTrack.Track;
         Features.Visualizer = ImportedVisualizer.Visualizer;
         Features.Player = ImportedPlayer.Player;
+        Features.Timer = ImportedTimer.Timer;
     })(Features || (exports.Features = Features = {}));
 });
 define("resource/evil-commonjs.config", [], {

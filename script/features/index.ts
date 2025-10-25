@@ -8,6 +8,7 @@ import * as ImportedAnalyser from "./analyser";
 //import * as ImportedTrack from "./track";
 import * as ImportedVisualizer from "./visualizer";
 import * as ImportedPlayer from "./player";
+import * as ImportedTimer from "./timer";
 export namespace Features
 {
     export import Fps = ImportedFps.Fps;
@@ -20,4 +21,5 @@ export namespace Features
     //export import Track = ImportedTrack.Track;
     export import Visualizer = ImportedVisualizer.Visualizer;
     export import Player = ImportedPlayer.Player;
+    export import Timer = ImportedTimer.Timer;
 }

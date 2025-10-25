@@ -1111,6 +1111,26 @@ declare module "script/features/player" {
         const clear: () => void;
     }
 }
+declare module "script/features/timer" {
+    export namespace Timer {
+        const setWakeUpFadeInSpan: (timespan: number) => void;
+        const setSleepFadeOutSpan: (timespan: number) => void;
+        const setWakeUpTimer: (timespan: number | null) => void;
+        const setSleepTimer: (timespan: number | null) => void;
+        const wakeUp: (withPlay?: "WithPlay") => void;
+        const sleep: (withPause?: "WithPause") => void;
+        const getNow: () => number;
+        const isInSleepedMode: () => boolean;
+        const isWaitingForWakeUp: () => boolean;
+        const isWakeUpFading: () => boolean;
+        const getElapsedWakeUpTime: () => number | null;
+        const getWakeUpFadeProgress: () => number | null;
+        const isSleepTimerActive: () => boolean;
+        const isSleepFading: () => boolean;
+        const getTimeUntilSleep: () => number | null;
+        const getSleepFadeProgress: () => number | null;
+    }
+}
 declare module "script/features/index" {
     import * as ImportedFps from "script/features/fps";
     import * as ImportedOverlay from "script/features/overlay";
@@ -1119,6 +1139,7 @@ declare module "script/features/index" {
     import * as ImportedAnalyser from "script/features/analyser";
     import * as ImportedVisualizer from "script/features/visualizer";
     import * as ImportedPlayer from "script/features/player";
+    import * as ImportedTimer from "script/features/timer";
     export namespace Features {
         export import Fps = ImportedFps.Fps;
         export import Overlay = ImportedOverlay.Overlay;
@@ -1127,6 +1148,7 @@ declare module "script/features/index" {
         export import Analyser = ImportedAnalyser.Analyser;
         export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
+        export import Timer = ImportedTimer.Timer;
     }
 }
 declare module "script/url" {
