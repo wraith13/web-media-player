@@ -1194,6 +1194,10 @@ declare module "script/events" {
         const updateWakeUpTimer: (remainingTime?: number | null) => void;
         const updateSleepTimer: (remainingTime?: number | null) => void;
         const wakeUpCountDownTimerLoop: () => void;
+        const updateFadeIn: () => void;
+        const updateWakeUp: () => void;
+        const updateFadeOut: () => void;
+        const updateSleep: () => void;
         const sleepCountDownTimerLoop: () => void;
         const updateLanguage: () => void;
         const mousemove: () => void;

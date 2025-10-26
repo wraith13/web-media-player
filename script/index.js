@@ -5097,7 +5097,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             return ui_11.UI.urlAnchor.href = url_3.Url.make(params);
         };
         Events.makeTimerLabel = function (remainingTime) {
-            if (null === remainingTime || remainingTime <= 0) {
+            if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
                 return _library_9.Library.Locale.map("off");
             }
             else {
@@ -5126,6 +5126,32 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     Events.wakeUpCountDownTimerLoop();
                 }, remainingTime % 1000 || 1000);
             }
+        };
+        Events.updateFadeIn = function () {
+            var _a;
+            var value = ui_11.UI.fadeIn.get();
+            console.log("🌅 Wake-up Fade-in Time changed:", value);
+            _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
+        };
+        Events.updateWakeUp = function () {
+            var value = ui_11.UI.wakeup.get();
+            console.log("⏰ Wake-up Timer changed:", value);
+            var timespan = _tools_8.Tools.Timespan.parse(value);
+            _features_2.Features.Timer.setWakeUpTimer(timespan);
+            Events.wakeUpCountDownTimerLoop();
+        };
+        Events.updateFadeOut = function () {
+            var _a;
+            var value = ui_11.UI.fadeOut.get();
+            console.log("🌃 Sleep Fade-out Time changed:", value);
+            _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
+        };
+        Events.updateSleep = function () {
+            var value = ui_11.UI.sleep.get();
+            console.log("💤 Sleep Timer changed:", value);
+            var timespan = _tools_8.Tools.Timespan.parse(value);
+            _features_2.Features.Timer.setSleepTimer(timespan);
+            Events.sleepCountDownTimerLoop();
         };
         var sleepCountDownTimer = null;
         Events.sleepCountDownTimerLoop = function () {
@@ -5430,10 +5456,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
             ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
-            ui_11.UI.fadeIn.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.wakeup.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.fadeOut.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.sleep.loadParameter(url_3.Url.params, applyParam);
+            ui_11.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeIn);
+            ui_11.UI.wakeup.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
+            ui_11.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeOut);
+            ui_11.UI.sleep.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_11.UI.screenBody);

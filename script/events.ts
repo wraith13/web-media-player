@@ -66,7 +66,7 @@ export namespace Events
         UI.urlAnchor.href = Url.make(params);
     export const makeTimerLabel = (remainingTime: number | null): string =>
     {
-        if (null === remainingTime || remainingTime <= 0)
+        if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime))
         {
             return Library.Locale.map("off");
         }
@@ -105,6 +105,34 @@ export namespace Events
                 remainingTime %1000 || 1000
             );
         }
+    };
+    export const updateFadeIn = (): void =>
+    {
+        const value = UI.fadeIn.get();
+        console.log("🌅 Wake-up Fade-in Time changed:", value);
+        Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(value) ?? 0);
+    };
+    export const updateWakeUp = (): void =>
+    {
+        const value = UI.wakeup.get();
+        console.log("⏰ Wake-up Timer changed:", value);
+        const timespan = Tools.Timespan.parse(value);
+        Features.Timer.setWakeUpTimer(timespan);
+        wakeUpCountDownTimerLoop();
+    }
+    export const updateFadeOut = (): void =>
+    {
+        const value = UI.fadeOut.get();
+        console.log("🌃 Sleep Fade-out Time changed:", value);
+        Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(value) ?? 0);
+    };
+    export const updateSleep = (): void =>
+    {
+        const value = UI.sleep.get();
+        console.log("💤 Sleep Timer changed:", value);
+        const timespan = Tools.Timespan.parse(value);
+        Features.Timer.setSleepTimer(timespan);
+        sleepCountDownTimerLoop();
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
     export const sleepCountDownTimerLoop = (): void =>
@@ -504,10 +532,10 @@ export namespace Events
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
-        UI.fadeIn.loadParameter(Url.params, applyParam);
-        UI.wakeup.loadParameter(Url.params, applyParam);
-        UI.fadeOut.loadParameter(Url.params, applyParam);
-        UI.sleep.loadParameter(Url.params, applyParam);
+        UI.fadeIn.loadParameter(Url.params, applyParam).setChange(updateFadeIn);
+        UI.wakeup.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
+        UI.fadeOut.loadParameter(Url.params, applyParam).setChange(updateFadeOut);
+        UI.sleep.loadParameter(Url.params, applyParam).setChange(updateSleep);
         document.body.addEventListener
         (
             "mousemove",
