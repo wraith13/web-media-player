@@ -83,6 +83,7 @@ declare module "locale/generated/master" {
             "url-label": string;
             "repository-label": string;
             "wakeup-timer-label": string;
+            off: string;
             "fade-in-label": string;
             "fade-in-0": string;
             "wakeup-label": string;
@@ -169,6 +170,7 @@ declare module "locale/generated/master" {
             "url-label": string;
             "repository-label": string;
             "wakeup-timer-label": string;
+            off: string;
             "fade-in-label": string;
             "fade-in-0": string;
             "wakeup-label": string;
@@ -260,6 +262,7 @@ declare module "script/library/locale" {
                 "url-label": string;
                 "repository-label": string;
                 "wakeup-timer-label": string;
+                off: string;
                 "fade-in-label": string;
                 "fade-in-0": string;
                 "wakeup-label": string;
@@ -346,6 +349,7 @@ declare module "script/library/locale" {
                 "url-label": string;
                 "repository-label": string;
                 "wakeup-timer-label": string;
+                off: string;
                 "fade-in-label": string;
                 "fade-in-0": string;
                 "wakeup-label": string;
@@ -1122,6 +1126,7 @@ declare module "script/features/timer" {
         const getNow: () => number;
         const isInSleepedMode: () => boolean;
         const isWaitingForWakeUp: () => boolean;
+        const getTimeUntilWakeUp: () => number | null;
         const isWakeUpFading: () => boolean;
         const getElapsedWakeUpTime: () => number | null;
         const getWakeUpFadeProgress: () => number | null;
@@ -1185,6 +1190,12 @@ declare module "script/events" {
     import { Library } from "script/library/index";
     export namespace Events {
         const updateBrightness: () => void;
+        const makeTimerLabel: (remainingTime: number | null) => string;
+        const updateWakeUpTimer: (remainingTime?: number | null) => void;
+        const updateSleepTimer: (remainingTime?: number | null) => void;
+        const wakeUpCountDownTimerLoop: () => void;
+        const sleepCountDownTimerLoop: () => void;
+        const updateLanguage: () => void;
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const toggleMute: () => void;

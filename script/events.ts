@@ -64,6 +64,77 @@ export namespace Events
     };
     const updateUrlAnchor = (params: Record<string, string>) =>
         UI.urlAnchor.href = Url.make(params);
+    export const makeTimerLabel = (remainingTime: number | null): string =>
+    {
+        if (null === remainingTime || remainingTime <= 0)
+        {
+            return Library.Locale.map("off");
+        }
+        else
+        {
+            return Tools.Timespan.toMediaTimeString(remainingTime);
+        }
+    };
+    export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
+    {
+        Library.UI.setTextContent(UI.wakeupTimerLabel, makeTimerLabel(remainingTime));
+    };
+    export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
+    {
+        Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime));
+    };
+    let wakeUpCountDownTimer: ReturnType<typeof setTimeout> | null = null;
+    export const wakeUpCountDownTimerLoop = (): void =>
+    {
+        if (null !== wakeUpCountDownTimer)
+        {
+            clearTimeout(wakeUpCountDownTimer);
+            wakeUpCountDownTimer = null;
+        }
+        const remainingTime = Features.Timer.getTimeUntilWakeUp();
+        updateWakeUpTimer(remainingTime);
+        if (null !== remainingTime && 0 < remainingTime)
+        {
+            wakeUpCountDownTimer = setTimeout
+            (
+                () =>
+                {
+                    wakeUpCountDownTimer = null;
+                    wakeUpCountDownTimerLoop();
+                },
+                remainingTime %1000 || 1000
+            );
+        }
+    };
+    let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
+    export const sleepCountDownTimerLoop = (): void =>
+    {
+        if (null !== sleepCountDownTimer)
+        {
+            clearTimeout(sleepCountDownTimer);
+            sleepCountDownTimer = null;
+        }
+        const remainingTime = Features.Timer.getTimeUntilSleep();
+        updateSleepTimer(remainingTime);
+        if (null !== remainingTime && 0 < remainingTime)
+        {
+            sleepCountDownTimer = setTimeout
+            (
+                () =>
+                {
+                    sleepCountDownTimer = null;
+                    sleepCountDownTimerLoop();
+                },
+                remainingTime %1000 || 1000
+            );
+        }
+    };
+    export const updateLanguage = () =>
+    {
+        UI.updateLanguage();
+        updateWakeUpTimer();
+        updateSleepTimer();
+    };
     const dragover = (event: DragEvent): void =>
     {
         const files = event.dataTransfer?.files;
@@ -432,7 +503,7 @@ export namespace Events
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
-        UI.languageSelect.loadParameter(Url.params, applyParam).setChange(UI.updateLanguage);
+        UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
         UI.fadeIn.loadParameter(Url.params, applyParam);
         UI.wakeup.loadParameter(Url.params, applyParam);
         UI.fadeOut.loadParameter(Url.params, applyParam);
@@ -473,7 +544,7 @@ export namespace Events
         updateVisualizer();
         updateOverlayStyle();
         updateOverlayPosition();
-        UI.updateLanguage();
+        updateLanguage();
         updateShortcuts();
         updateUrlAnchor(Url.params);
         document.addEventListener
@@ -520,7 +591,7 @@ export namespace Events
                 Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
                 if (old !== Library.Locale.getLocale())
                 {
-                    UI.updateLanguage();
+                    updateLanguage();
                 }
             }
         );

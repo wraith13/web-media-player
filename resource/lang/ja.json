@@ -52,6 +52,7 @@
     "url-label": "この設定のリンク",
     "repository-label": "リポジトリ",
     "wakeup-timer-label": "起床まで:",
+    "off": "オフ",
     "fade-in-label": "フェードイン時間:",
     "fade-in-0": "なし",
     "wakeup-label": "起床タイマー:",

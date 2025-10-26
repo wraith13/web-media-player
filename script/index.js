@@ -231,6 +231,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "url-label": "Link to this setting",
             "repository-label": "repository",
             "wakeup-timer-label": "Time until Wake-up:",
+            "off": "Off",
             "fade-in-label": "Fade-in Time:",
             "fade-in-0": "None",
             "wakeup-label": "Wake-up Timer:",
@@ -317,6 +318,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
             "wakeup-timer-label": "起床まで:",
+            "off": "オフ",
             "fade-in-label": "フェードイン時間:",
             "fade-in-0": "なし",
             "wakeup-label": "起床タイマー:",
@@ -4684,6 +4686,9 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
         Timer.isWaitingForWakeUp = function () {
             return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
         };
+        Timer.getTimeUntilWakeUp = function () {
+            return null !== wakeUpAt ? wakeUpAt - Timer.getNow() : null;
+        };
         Timer.isWakeUpFading = function () {
             return null !== Timer.getElapsedWakeUpTime();
         };
@@ -5091,6 +5096,57 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateUrlAnchor = function (params) {
             return ui_11.UI.urlAnchor.href = url_3.Url.make(params);
         };
+        Events.makeTimerLabel = function (remainingTime) {
+            if (null === remainingTime || remainingTime <= 0) {
+                return _library_9.Library.Locale.map("off");
+            }
+            else {
+                return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime);
+            }
+        };
+        Events.updateWakeUpTimer = function (remainingTime) {
+            if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
+            _library_9.Library.UI.setTextContent(ui_11.UI.wakeupTimerLabel, Events.makeTimerLabel(remainingTime));
+        };
+        Events.updateSleepTimer = function (remainingTime) {
+            if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
+            _library_9.Library.UI.setTextContent(ui_11.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
+        };
+        var wakeUpCountDownTimer = null;
+        Events.wakeUpCountDownTimerLoop = function () {
+            if (null !== wakeUpCountDownTimer) {
+                clearTimeout(wakeUpCountDownTimer);
+                wakeUpCountDownTimer = null;
+            }
+            var remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp();
+            Events.updateWakeUpTimer(remainingTime);
+            if (null !== remainingTime && 0 < remainingTime) {
+                wakeUpCountDownTimer = setTimeout(function () {
+                    wakeUpCountDownTimer = null;
+                    Events.wakeUpCountDownTimerLoop();
+                }, remainingTime % 1000 || 1000);
+            }
+        };
+        var sleepCountDownTimer = null;
+        Events.sleepCountDownTimerLoop = function () {
+            if (null !== sleepCountDownTimer) {
+                clearTimeout(sleepCountDownTimer);
+                sleepCountDownTimer = null;
+            }
+            var remainingTime = _features_2.Features.Timer.getTimeUntilSleep();
+            Events.updateSleepTimer(remainingTime);
+            if (null !== remainingTime && 0 < remainingTime) {
+                sleepCountDownTimer = setTimeout(function () {
+                    sleepCountDownTimer = null;
+                    Events.sleepCountDownTimerLoop();
+                }, remainingTime % 1000 || 1000);
+            }
+        };
+        Events.updateLanguage = function () {
+            ui_11.UI.updateLanguage();
+            Events.updateWakeUpTimer();
+            Events.updateSleepTimer();
+        };
         var dragover = function (event) {
             var _a;
             var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
@@ -5373,7 +5429,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
-            ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.updateLanguage);
+            ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
             ui_11.UI.fadeIn.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.wakeup.loadParameter(url_3.Url.params, applyParam);
             ui_11.UI.fadeOut.loadParameter(url_3.Url.params, applyParam);
@@ -5403,7 +5459,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             updateVisualizer();
             updateOverlayStyle();
             updateOverlayPosition();
-            ui_11.UI.updateLanguage();
+            Events.updateLanguage();
             updateShortcuts();
             updateUrlAnchor(url_3.Url.params);
             document.addEventListener("DOMContentLoaded", function () {
@@ -5437,7 +5493,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 var old = _library_9.Library.Locale.getLocale();
                 _library_9.Library.Locale.setLocale(ui_11.UI.languageSelect.get());
                 if (old !== _library_9.Library.Locale.getLocale()) {
-                    ui_11.UI.updateLanguage();
+                    Events.updateLanguage();
                 }
             });
         };

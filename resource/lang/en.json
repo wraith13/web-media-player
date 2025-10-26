@@ -52,6 +52,7 @@
     "url-label": "Link to this setting",
     "repository-label": "repository",
     "wakeup-timer-label": "Time until Wake-up:",
+    "off": "Off",
     "fade-in-label": "Fade-in Time:",
     "fade-in-0": "None",
     "wakeup-label": "Wake-up Timer:",

@@ -1,4 +1,4 @@
-import { Player } from "./player"
+import { Player } from "./player";
 export namespace Timer
 {
     let wakeUpFadeInSpan: number = 0;
@@ -90,6 +90,8 @@ export namespace Timer
         isSleeped;
     export const isWaitingForWakeUp = (): boolean =>
         null !== wakeUpAt && getNow() < wakeUpAt!;
+    export const getTimeUntilWakeUp = (): number | null =>
+        null !== wakeUpAt ? wakeUpAt! - getNow() : null;
     export const isWakeUpFading = (): boolean =>
         null !== getElapsedWakeUpTime();
     export const getElapsedWakeUpTime = (): number | null =>
