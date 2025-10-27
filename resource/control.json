@@ -180,7 +180,7 @@
         ],
         "default": "Auto"
     },
-    "wakeupButton": {
+    "wakeUpButton": {
         "id": "wakeup-button",
         "default": false
     },
@@ -197,7 +197,7 @@
         ],
         "default": 2000
     },
-    "wakeup": {
+    "wakeUp": {
         "id": "wakeup",
         "enum": [
             "off",

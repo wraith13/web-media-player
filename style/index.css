@@ -1132,7 +1132,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel .icon-button > input[type=checkbox] {
   display: none;
 }
-#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg {
+#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + svg {
   border-color: rgb(230, 237, 243);
 }
 #control-panel .icon-button > svg, #control-panel .icon-button > div > svg {
@@ -1195,6 +1195,20 @@ body.play #control-panel #play-button #play-icon {
 
 body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
+}
+
+#wakeup-progress-circle,
+#sleep-progress-circle {
+  position: absolute;
+  border-radius: 50%;
+  border-width: 2px;
+  margin: 2px;
+  border-color: transparent;
+  width: calc(3rem - 4px);
+  height: calc(3rem - 4px);
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), white var(--progress, 30deg));
+  mix-blend-mode: difference;
+  z-index: 50;
 }
 
 #media-index,

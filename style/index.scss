@@ -695,7 +695,8 @@ body:not(.not-supported-media)
             & > input[type="checkbox"]:checked + div + div + div + div svg,
             & > input[type="checkbox"]:checked + div + div + div + div + div svg,
             & > input[type="checkbox"]:checked + div + div + div + div + div + div svg,
-            & > input[type="checkbox"]:checked + div + svg
+            & > input[type="checkbox"]:checked + div + svg,
+            & > input[type="checkbox"]:checked + div + div + svg
             {
                 border-color: $white-color;
             }
@@ -764,6 +765,20 @@ body:not(.not-supported-media)
             }
         }
     }
+}
+#wakeup-progress-circle,
+#sleep-progress-circle
+{
+    position: absolute;
+    border-radius: 50%;
+    border-width: 2px;
+    margin: 2px;
+    border-color: transparent;
+    width: calc(3.0rem - 4px);
+    height: calc(3.0rem - 4px);
+    background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), white var(--progress, 30deg));
+    mix-blend-mode: difference;
+    z-index: 50;;
 }
 #media-index,
 #media-title,

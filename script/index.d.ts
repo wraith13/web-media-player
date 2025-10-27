@@ -783,11 +783,13 @@ declare module "script/ui" {
         const keyboardShortcut: HTMLDivElement;
         const updateShortcuts: () => void;
         const updateLanguage: () => void;
-        const wakeupButton: Library.Control.Checkbox;
-        const wakeupTimerLabel: HTMLSpanElement;
+        const wakeUpButton: Library.Control.Checkbox;
+        const wakeUpProgressCircle: HTMLDivElement;
+        const wakeUpTimerLabel: HTMLSpanElement;
         const fadeIn: Library.Control.Select<number>;
-        const wakeup: Library.Control.Select<string>;
+        const wakeUp: Library.Control.Select<string>;
         const sleepButton: Library.Control.Checkbox;
+        const sleepProgressCircle: HTMLDivElement;
         const sleepTimerLabel: HTMLSpanElement;
         const fadeOut: Library.Control.Select<number>;
         const sleep: Library.Control.Select<string>;
@@ -1127,12 +1129,14 @@ declare module "script/features/timer" {
         const isInSleepedMode: () => boolean;
         const isWaitingForWakeUp: () => boolean;
         const getTimeUntilWakeUp: () => number | null;
+        const getProgressUntilWakeUp: () => number | null;
         const isWakeUpFading: () => boolean;
         const getElapsedWakeUpTime: () => number | null;
         const getWakeUpFadeProgress: () => number | null;
         const isSleepTimerActive: () => boolean;
         const isSleepFading: () => boolean;
         const getTimeUntilSleep: () => number | null;
+        const getProgressUntilSleep: () => number | null;
         const getSleepFadeProgress: () => number | null;
     }
 }

@@ -77,11 +77,13 @@ export namespace Events
     };
     export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
     {
-        Library.UI.setTextContent(UI.wakeupTimerLabel, makeTimerLabel(remainingTime));
+        Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime));
+        UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilWakeUp() ?? 1) * 360}deg`);
     };
     export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
     {
         Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime));
+        UI.sleepProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilSleep() ?? 1) * 360}deg`);
     };
     let wakeUpCountDownTimer: ReturnType<typeof setTimeout> | null = null;
     export const wakeUpCountDownTimerLoop = (): void =>
@@ -114,7 +116,7 @@ export namespace Events
     };
     export const updateWakeUp = (): void =>
     {
-        const value = UI.wakeup.get();
+        const value = UI.wakeUp.get();
         console.log("⏰ Wake-up Timer changed:", value);
         const timespan = Tools.Timespan.parse(value);
         Features.Timer.setWakeUpTimer(timespan);
@@ -488,13 +490,13 @@ export namespace Events
                 document.body.classList.toggle("show-seek-bar");
             }
         );
-        UI.wakeupButton.setChange
+        UI.wakeUpButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.wakeupButton);
+                UI.closeOtherPopups(UI.wakeUpButton);
             }
         );
         UI.sleepButton.setChange
@@ -533,7 +535,7 @@ export namespace Events
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
         UI.fadeIn.loadParameter(Url.params, applyParam).setChange(updateFadeIn);
-        UI.wakeup.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
+        UI.wakeUp.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
         UI.fadeOut.loadParameter(Url.params, applyParam).setChange(updateFadeOut);
         UI.sleep.loadParameter(Url.params, applyParam).setChange(updateSleep);
         document.body.addEventListener

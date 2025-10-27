@@ -1,9 +1,11 @@
 import { Player } from "./player";
 export namespace Timer
 {
+    let wakeUpTimeSpan: number | null = null;
     let wakeUpFadeInSpan: number = 0;
     let wakeUpAt: number | null = null;
     let wakeUpTimer: ReturnType<typeof setTimeout> | null = null;
+    let sleepTimeSpan: number | null = null;
     let sleepFadeOutSpan: number = 0;
     let sleepAt: number | null = null;
     let sleepTimer: ReturnType<typeof setTimeout> | null = null;
@@ -18,14 +20,15 @@ export namespace Timer
     };
     export const setWakeUpTimer = (timespan: number | null): void =>
     {
+        wakeUpTimeSpan = timespan;
         if (null !== wakeUpTimer)
         {
             clearTimeout(wakeUpTimer);
             wakeUpTimer = null;
         }
-        if (null !== timespan)
+        if (null !== wakeUpTimeSpan)
         {
-            wakeUpAt = getNow() + timespan;
+            wakeUpAt = getNow() + wakeUpTimeSpan;
             wakeUpTimer = setTimeout
             (
                 () =>
@@ -33,7 +36,7 @@ export namespace Timer
                     wakeUpTimer = null;
                     wakeUp("WithPlay");
                 },
-                timespan
+                wakeUpTimeSpan
             );
             sleep();
         }
@@ -45,15 +48,16 @@ export namespace Timer
     };
     export const setSleepTimer = (timespan: number | null): void =>
     {
+        sleepTimeSpan = timespan;
         wakeUp();
         if (null !== sleepTimer)
         {
             clearTimeout(sleepTimer);
             sleepTimer = null;
         }
-        if (null !== timespan)
+        if (null !== sleepTimeSpan)
         {
-            sleepAt = getNow() + timespan;
+            sleepAt = getNow() + sleepTimeSpan;
             sleepTimer = setTimeout
             (
                 () =>
@@ -61,7 +65,7 @@ export namespace Timer
                     sleepTimer = null;
                     sleep("WithPause");
                 },
-                timespan
+                sleepTimeSpan
             );
         }
         else
@@ -92,6 +96,15 @@ export namespace Timer
         null !== wakeUpAt && getNow() < wakeUpAt!;
     export const getTimeUntilWakeUp = (): number | null =>
         null !== wakeUpAt ? wakeUpAt! - getNow() : null;
+    export const getProgressUntilWakeUp = (): number | null =>
+    {
+        const timeUntilWakeUp = getTimeUntilWakeUp();
+        if (null !== timeUntilWakeUp && null !== wakeUpTimeSpan)
+        {
+            return (wakeUpTimeSpan -timeUntilWakeUp) /wakeUpTimeSpan;
+        }
+        return null;
+    };
     export const isWakeUpFading = (): boolean =>
         null !== getElapsedWakeUpTime();
     export const getElapsedWakeUpTime = (): number | null =>
@@ -113,7 +126,7 @@ export namespace Timer
             const wakeUpTime = getElapsedWakeUpTime();
             if (null !== wakeUpTime)
             {
-                return Math.min(wakeUpTime / wakeUpFadeInSpan, 1);
+                return Math.min(wakeUpTime /wakeUpFadeInSpan, 1);
             }
         }
         return null;
@@ -127,6 +140,15 @@ export namespace Timer
     };
     export const getTimeUntilSleep = (): number | null =>
         null !== sleepAt ? sleepAt! - getNow() : null;
+    export const getProgressUntilSleep = (): number | null =>
+    {
+        const timeUntilSleep = getTimeUntilSleep();
+        if (null !== timeUntilSleep && null !== sleepTimeSpan)
+        {
+            return (sleepTimeSpan -timeUntilSleep) /sleepTimeSpan;
+        }
+        return null;
+    };
     export const getSleepFadeProgress = (): number | null =>
     {
         if (isSleepFading())

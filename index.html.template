@@ -94,6 +94,7 @@ DUMMYSTYLE
                 <select id="wakeup"></select>
             </label>
         </div>
+        <div id="wakeup-progress-circle"></div>
         __SUN_ICON__
     </label>
     <label for="shuffle" class="icon-button">
@@ -231,6 +232,7 @@ DUMMYSTYLE
                 <select id="sleep"></select>
             </label>
         </div>
+        <div id="sleep-progress-circle"></div>
         __MOON_ICON__
     </label>
 </div>
