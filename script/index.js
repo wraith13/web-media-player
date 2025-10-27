@@ -2196,48 +2196,59 @@ define("resource/control", [], {
     "fadeIn": {
         "id": "fade-in",
         "enum": [
-            2000,
-            1500,
-            1000,
-            750,
-            500,
-            250,
-            0
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "10m",
+            "5m",
+            "3m",
+            "2m",
+            "1m",
+            "45s",
+            "30s",
+            "15s",
+            "10s",
+            "5s",
+            "3s",
+            "2s",
+            "1s",
+            "off"
         ],
-        "default": 2000
+        "default": "5m"
     },
     "wakeUp": {
         "id": "wakeup",
         "enum": [
-            "off",
-            "15m",
-            "30m",
-            "45m",
-            "1h",
-            "1.25h",
-            "1.5h",
-            "1.75h",
-            "2h",
-            "2.5h",
-            "3h",
-            "3.5h",
-            "4h",
-            "4.5h",
-            "5h",
-            "5.5h",
-            "6h",
-            "6.5h",
-            "7h",
-            "7.5h",
-            "8h",
-            "8.5h",
-            "9h",
-            "9.5h",
-            "10h",
-            "10.5h",
-            "11h",
+            "12h",
             "11.5h",
-            "12h"
+            "11h",
+            "10.5h",
+            "10h",
+            "9.5h",
+            "9h",
+            "8.5h",
+            "8h",
+            "7.5h",
+            "7h",
+            "6.5h",
+            "6h",
+            "5.5h",
+            "5h",
+            "4.5h",
+            "4h",
+            "3.5h",
+            "3h",
+            "2.5h",
+            "2h",
+            "1.75h",
+            "1.5h",
+            "1.25h",
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "off"
         ],
         "default": "off"
     },
@@ -2248,15 +2259,26 @@ define("resource/control", [], {
     "fadeOut": {
         "id": "fade-out",
         "enum": [
-            2000,
-            1500,
-            1000,
-            750,
-            500,
-            250,
-            0
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "10m",
+            "5m",
+            "3m",
+            "2m",
+            "1m",
+            "45s",
+            "30s",
+            "15s",
+            "10s",
+            "5s",
+            "3s",
+            "2s",
+            "1s",
+            "off"
         ],
-        "default": 2000
+        "default": "5m"
     },
     "sleep": {
         "id": "sleep",
@@ -2405,9 +2427,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("span", "wakeup-timer");
         UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
-            makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("fade-in-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("fade-in-0") :
+                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
         });
         UI.wakeUp = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
             makeLabel: function (value) {
@@ -2421,9 +2446,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
         UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
-            makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("fade-out-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("fade-out-0") :
+                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
         });
         UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
             makeLabel: function (value) {

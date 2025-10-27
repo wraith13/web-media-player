@@ -786,12 +786,12 @@ declare module "script/ui" {
         const wakeUpButton: Library.Control.Checkbox;
         const wakeUpProgressCircle: HTMLDivElement;
         const wakeUpTimerLabel: HTMLSpanElement;
-        const fadeIn: Library.Control.Select<number>;
+        const fadeIn: Library.Control.Select<string>;
         const wakeUp: Library.Control.Select<string>;
         const sleepButton: Library.Control.Checkbox;
         const sleepProgressCircle: HTMLDivElement;
         const sleepTimerLabel: HTMLSpanElement;
-        const fadeOut: Library.Control.Select<number>;
+        const fadeOut: Library.Control.Select<string>;
         const sleep: Library.Control.Select<string>;
         const initialize: (params: Record<string, string>) => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;

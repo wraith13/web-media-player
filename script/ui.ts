@@ -210,9 +210,9 @@ export namespace UI
         (
             control.fadeIn,
             {
-                makeLabel: value => value <= 0 ?
+                makeLabel: value => "off" === value ?
                     Library.Locale.map("fade-in-0"):
-                    Tools.Timespan.toDisplayString(value, undefined, locale)
+                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const wakeUp =
@@ -236,9 +236,9 @@ export namespace UI
         (
             control.fadeOut,
             {
-                makeLabel: value => value <= 0 ?
+                makeLabel: value => "off" === value ?
                     Library.Locale.map("fade-out-0"):
-                    Tools.Timespan.toDisplayString(value, undefined, locale)
+                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const sleep =
