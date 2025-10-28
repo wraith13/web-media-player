@@ -4,6 +4,7 @@ export namespace Timer
     let wakeUpTimeSpan: number | null = null;
     let wakeUpFadeInSpan: number = 0;
     let wakeUpAt: number | null = null;
+    let wokeUpAt: number | null = null;
     let wakeUpTimer: ReturnType<typeof setTimeout> | null = null;
     let sleepTimeSpan: number | null = null;
     let sleepFadeOutSpan: number = 0;
@@ -34,6 +35,7 @@ export namespace Timer
                 () =>
                 {
                     wakeUpTimer = null;
+                    wokeUpAt = getNow();
                     wakeUp("WithPlay");
                 },
                 wakeUpTimeSpan
@@ -106,12 +108,12 @@ export namespace Timer
         return null;
     };
     export const isWakeUpFading = (): boolean =>
-        null !== getElapsedWakeUpTime();
-    export const getElapsedWakeUpTime = (): number | null =>
+        null !== getElapsedWokeUpTime();
+    export const getElapsedWokeUpTime = (): number | null =>
     {
-        if (null !== wakeUpAt)
+        if (null !== wokeUpAt)
         {
-            const result = getNow() - wakeUpAt;
+            const result = getNow() - wokeUpAt;
             if (0 <= result && result <= wakeUpFadeInSpan)
             {
                 return result;
@@ -123,7 +125,7 @@ export namespace Timer
     {
         if (isWakeUpFading())
         {
-            const wakeUpTime = getElapsedWakeUpTime();
+            const wakeUpTime = getElapsedWokeUpTime();
             if (null !== wakeUpTime)
             {
                 return Math.min(wakeUpTime /wakeUpFadeInSpan, 1);

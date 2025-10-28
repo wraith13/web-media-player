@@ -2,12 +2,38 @@ import { Library } from "@library";
 import { NumberTools } from "./number";
 export namespace Timespan
 {
-    export const toDisplayString = (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) =>
-        value < 1000 ? `${NumberTools.toString(value, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitMs")}`:
-        value < 60 *1000 ? `${NumberTools.toString(value /1000, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitS")}`:
-        value < 60 *60 *1000 ?`${NumberTools.toString(value /(60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitM")}`:
-        value < 24 *60 *60 *1000 ?`${NumberTools.toString(value /(60 *60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitH")}`:
-            `${NumberTools.toString(value /(24 *60 *60 *1000), maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitD")}`;
+    export const toHumanizedString = (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) =>
+    {
+        let result: string[] = [];
+        if (value < 1000)
+        {
+            result.push(`${NumberTools.toString(value, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitMs")}`);
+        }
+        else
+        {
+            const days = Math.floor(value /(24 *60 *60 *1000));
+            if (0 < days)
+            {
+                result.push(`${days} ${Library.Locale.map("timeUnitD")}`);
+            }
+            const hours = Math.floor(value /(60 *60 *1000)) %24;
+            if (0 < hours)
+            {
+                result.push(`${hours} ${Library.Locale.map("timeUnitH")}`);
+            }
+            const minutes = Math.floor(value /(60 *1000)) %60;
+            if (0 < minutes)
+            {
+                result.push(`${minutes} ${Library.Locale.map("timeUnitM")}`);
+            }
+            const seconds = Math.floor(value /1000) %60;
+            if (0 < seconds)
+            {
+                result.push(`${seconds} ${Library.Locale.map("timeUnitS")}`);
+            }
+        }
+        return result.join(" ");
+    };
     export const toMediaTimeString = (value: number): string =>
     {
         if (Number.isNaN(value))

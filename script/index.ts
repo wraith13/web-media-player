@@ -24,7 +24,7 @@ interface BuildInformation
     tick: number;
 }
 declare var build: BuildInformation;
-console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toDisplayString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
+console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 const consoleInterface = globalThis as any;
 const Resource =
 {

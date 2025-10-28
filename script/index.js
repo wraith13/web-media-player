@@ -1684,12 +1684,30 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
     exports.Timespan = void 0;
     var Timespan;
     (function (Timespan) {
-        Timespan.toDisplayString = function (value, maximumFractionDigits, locales) {
-            return value < 1000 ? "".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitMs")) :
-                value < 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / 1000, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitS")) :
-                    value < 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitM")) :
-                        value < 24 * 60 * 60 * 1000 ? "".concat(number_1.NumberTools.toString(value / (60 * 60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitH")) :
-                            "".concat(number_1.NumberTools.toString(value / (24 * 60 * 60 * 1000), maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitD"));
+        Timespan.toHumanizedString = function (value, maximumFractionDigits, locales) {
+            var result = [];
+            if (value < 1000) {
+                result.push("".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitMs")));
+            }
+            else {
+                var days = Math.floor(value / (24 * 60 * 60 * 1000));
+                if (0 < days) {
+                    result.push("".concat(days, " ").concat(_library_1.Library.Locale.map("timeUnitD")));
+                }
+                var hours = Math.floor(value / (60 * 60 * 1000)) % 24;
+                if (0 < hours) {
+                    result.push("".concat(hours, " ").concat(_library_1.Library.Locale.map("timeUnitH")));
+                }
+                var minutes = Math.floor(value / (60 * 1000)) % 60;
+                if (0 < minutes) {
+                    result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
+                }
+                var seconds = Math.floor(value / 1000) % 60;
+                if (0 < seconds) {
+                    result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
+                }
+            }
+            return result.join(" ");
         };
         Timespan.toMediaTimeString = function (value) {
             if (Number.isNaN(value)) {
@@ -2283,23 +2301,23 @@ define("resource/control", [], {
     "sleep": {
         "id": "sleep",
         "enum": [
-            "off",
-            "15m",
-            "30m",
-            "45m",
-            "1h",
-            "1.25h",
-            "1.5h",
-            "1.75h",
-            "2h",
-            "2.5h",
-            "3h",
-            "3.5h",
-            "4h",
-            "4.5h",
-            "5h",
+            "6h",
             "5.5h",
-            "6h"
+            "5h",
+            "4.5h",
+            "4h",
+            "3.5h",
+            "3h",
+            "2.5h",
+            "2h",
+            "1.75h",
+            "1.5h",
+            "1.25h",
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "off"
         ],
         "default": "off"
     }
@@ -2350,9 +2368,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
             makeLabel: function (value) { return value <= 0 ?
                 _library_2.Library.Locale.map("cross-fade-0") :
-                _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); }
+                _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
         });
-        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toDisplayString(value, undefined, UI.locale); } });
+        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -2431,7 +2449,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 var _a;
                 return "off" === value ?
                     _library_2.Library.Locale.map("fade-in-0") :
-                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
         UI.wakeUp = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
@@ -2439,7 +2457,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 var _a;
                 return "off" === value ?
                     _library_2.Library.Locale.map("wakeup-0") :
-                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
@@ -2450,7 +2468,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 var _a;
                 return "off" === value ?
                     _library_2.Library.Locale.map("fade-out-0") :
-                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
         UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
@@ -2458,7 +2476,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 var _a;
                 return "off" === value ?
                     _library_2.Library.Locale.map("sleep-0") :
-                    _tools_2.Tools.Timespan.toDisplayString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
         UI.initialize = function (params) {
@@ -4652,6 +4670,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
         var wakeUpTimeSpan = null;
         var wakeUpFadeInSpan = 0;
         var wakeUpAt = null;
+        var wokeUpAt = null;
         var wakeUpTimer = null;
         var sleepTimeSpan = null;
         var sleepFadeOutSpan = 0;
@@ -4674,6 +4693,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
                 wakeUpAt = Timer.getNow() + wakeUpTimeSpan;
                 wakeUpTimer = setTimeout(function () {
                     wakeUpTimer = null;
+                    wokeUpAt = Timer.getNow();
                     Timer.wakeUp("WithPlay");
                 }, wakeUpTimeSpan);
                 Timer.sleep();
@@ -4731,11 +4751,11 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             return null;
         };
         Timer.isWakeUpFading = function () {
-            return null !== Timer.getElapsedWakeUpTime();
+            return null !== Timer.getElapsedWokeUpTime();
         };
-        Timer.getElapsedWakeUpTime = function () {
-            if (null !== wakeUpAt) {
-                var result = Timer.getNow() - wakeUpAt;
+        Timer.getElapsedWokeUpTime = function () {
+            if (null !== wokeUpAt) {
+                var result = Timer.getNow() - wokeUpAt;
                 if (0 <= result && result <= wakeUpFadeInSpan) {
                     return result;
                 }
@@ -4744,7 +4764,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
         };
         Timer.getWakeUpFadeProgress = function () {
             if (Timer.isWakeUpFading()) {
-                var wakeUpTime = Timer.getElapsedWakeUpTime();
+                var wakeUpTime = Timer.getElapsedWokeUpTime();
                 if (null !== wakeUpTime) {
                     return Math.min(wakeUpTime / wakeUpFadeInSpan, 1);
                 }
@@ -5638,7 +5658,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     medialist_2.MediaList.initialize();
     _features_3.Features.Overlay.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toDisplayString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_10.default,

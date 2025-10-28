@@ -619,7 +619,7 @@ declare module "script/library/index" {
 }
 declare module "script/tools/timespan" {
     export namespace Timespan {
-        const toDisplayString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
+        const toHumanizedString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
         const toMediaTimeString: (value: number) => string;
         const parse: (timespan: string) => number | null;
     }
@@ -1131,7 +1131,7 @@ declare module "script/features/timer" {
         const getTimeUntilWakeUp: () => number | null;
         const getProgressUntilWakeUp: () => number | null;
         const isWakeUpFading: () => boolean;
-        const getElapsedWakeUpTime: () => number | null;
+        const getElapsedWokeUpTime: () => number | null;
         const getWakeUpFadeProgress: () => number | null;
         const isSleepTimerActive: () => boolean;
         const isSleepFading: () => boolean;

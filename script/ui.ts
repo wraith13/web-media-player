@@ -74,11 +74,11 @@ export namespace UI
         {
             makeLabel: value => value <= 0 ?
                 Library.Locale.map("cross-fade-0"):
-                Tools.Timespan.toDisplayString(value, undefined, locale)
+                Tools.Timespan.toHumanizedString(value, undefined, locale)
         }
     );
     export const imageSpanSelect =
-        new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toDisplayString(value, undefined, locale) });
+        new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
     export const loopShortMediaCheckbox =
         new Library.Control.Checkbox(control.loopShortMedia);
     export const visualizerSelect =
@@ -212,7 +212,7 @@ export namespace UI
             {
                 makeLabel: value => "off" === value ?
                     Library.Locale.map("fade-in-0"):
-                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const wakeUp =
@@ -222,7 +222,7 @@ export namespace UI
             {
                 makeLabel: value => "off" === value ?
                     Library.Locale.map("wakeup-0"):
-                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const sleepButton =
@@ -238,7 +238,7 @@ export namespace UI
             {
                 makeLabel: value => "off" === value ?
                     Library.Locale.map("fade-out-0"):
-                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const sleep =
@@ -248,7 +248,7 @@ export namespace UI
             {
                 makeLabel: value => "off" === value ?
                     Library.Locale.map("sleep-0"):
-                    Tools.Timespan.toDisplayString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const initialize = (params: Record<string, string>) =>
