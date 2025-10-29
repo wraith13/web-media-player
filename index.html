@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Oct 28 2025 07:38:57 GMT+0900 (日本標準時)
+    build at: Wed Oct 29 2025 09:52:03 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1899,6 +1899,70 @@ body #wakeup-button:not(:checked) + #wakeup-panel:not(.show) {
   }
 }
 
+label[for=wakeup-button].tip {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+label[for=wakeup-button].tip:empty:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+label[for=wakeup-button].tip:empty:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  transform: translate(0px, 100%);
+}
+label[for=wakeup-button].tip:empty:not(.show) {
+  transform: translate(0px, 100%);
+}
+label[for=wakeup-button].tip {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  border-radius: 0.5rem;
+  inset-block-end: 4.5rem;
+  inset-inline-start: calc(50% - 12.5rem);
+  backdrop-filter: blur(0.5rem);
+  position: fixed;
+  z-index: 60;
+  padding: 0.25rem 0.5rem;
+  gap: 0.25rem;
+}
+@media (max-width: 420px) {
+  label[for=wakeup-button].tip {
+    inset-block-end: 7rem;
+    inset-inline-start: calc(50% - 9.5rem);
+  }
+}
+
 label[for=volume-button]:not(.volume-mute) #speaker-mute-icon {
   display: none;
 }
@@ -2034,6 +2098,70 @@ body #sleep-button:not(:checked) + #sleep-panel:not(.show) {
 }
 @media (max-width: 420px) {
   #sleep-panel {
+    inset-block-end: 7rem;
+    inset-inline-end: calc(50% - 9.5rem);
+  }
+}
+
+label[for=sleep-button].tip {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+label[for=sleep-button].tip:empty:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+label[for=sleep-button].tip:empty:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  transform: translate(0px, 100%);
+}
+label[for=sleep-button].tip:empty:not(.show) {
+  transform: translate(0px, 100%);
+}
+label[for=sleep-button].tip {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  border-radius: 0.5rem;
+  inset-block-end: 4.5rem;
+  inset-inline-end: calc(50% - 12.5rem);
+  backdrop-filter: blur(0.5rem);
+  position: fixed;
+  z-index: 60;
+  padding: 0.25rem 0.5rem;
+  gap: 0.25rem;
+}
+@media (max-width: 420px) {
+  label[for=sleep-button].tip {
     inset-block-end: 7rem;
     inset-inline-end: calc(50% - 9.5rem);
   }
@@ -2820,10 +2948,6 @@ DUMMYSTYLE
     <label for="wakeup-button" class="icon-button">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
-            <label for="wakeup-timer" class="information">
-                <span data-lang-key="wakeup-timer-label"></span>
-                <span id="wakeup-timer" class="value-text"></span>
-            </label>
             <label for="fade-in">
                 <span data-lang-key="fade-in-label"></span>
                 <select id="fade-in"></select>
@@ -2833,6 +2957,7 @@ DUMMYSTYLE
                 <select id="wakeup"></select>
             </label>
         </div>
+        <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
         <div id="wakeup-progress-circle"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3031,10 +3156,6 @@ DUMMYSTYLE
     <label for="sleep-button" class="icon-button">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
-            <label for="sleep-timer" class="information">
-                <span data-lang-key="sleep-timer-label"></span>
-                <span id="sleep-timer" class="value-text"></span>
-            </label>
             <label for="fade-out">
                 <span data-lang-key="fade-out-label"></span>
                 <select id="fade-out"></select>
@@ -3044,6 +3165,7 @@ DUMMYSTYLE
                 <select id="sleep"></select>
             </label>
         </div>
+        <label id="sleep-timer" for="sleep-button" class="tip"></label>
         <div id="sleep-progress-circle"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3133,8 +3255,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Oct 28 2025 07:38:57 GMT+0900 (日本標準時)",
-    tick: 1761604737395
+    at: "Wed Oct 29 2025 09:52:03 GMT+0900 (日本標準時)",
+    tick: 1761699123551
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -4928,13 +5050,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "repository-label": "repository",
-            "wakeup-timer-label": "Time until Wake-up:",
             "off": "Off",
             "fade-in-label": "Fade-in Time:",
             "fade-in-0": "None",
             "wakeup-label": "Wake-up Timer:",
             "wakeup-0": "None",
-            "sleep-timer-label": "Time until Sleep:",
             "fade-out-label": "Fade-out Time:",
             "fade-out-0": "None",
             "sleep-label": "Sleep Timer:",
@@ -5015,13 +5135,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
-            "wakeup-timer-label": "起床まで:",
             "off": "オフ",
             "fade-in-label": "フェードイン時間:",
             "fade-in-0": "なし",
             "wakeup-label": "起床タイマー:",
             "wakeup-0": "なし",
-            "sleep-timer-label": "スリープまで:",
             "fade-out-label": "フェードアウト時間:",
             "fade-out-0": "なし",
             "sleep-label": "スリープタイマー:",
@@ -7141,7 +7259,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
-        UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("span", "wakeup-timer");
+        UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
         UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
                 var _a;
@@ -7160,7 +7278,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         });
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
-        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
+        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
         UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
             makeLabel: function (value) {
                 var _a;
@@ -9864,7 +9982,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.makeTimerLabel = function (remainingTime) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
-                return _library_9.Library.Locale.map("off");
+                //return Library.Locale.map("off");
+                return "";
             }
             else {
                 return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime);

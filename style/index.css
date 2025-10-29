@@ -1847,13 +1847,13 @@ label[for=wakeup-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body #wakeup-button:checked + label[for=wakeup-button].tip:not(.show) {
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #wakeup-button:checked + label[for=wakeup-button].tip:not(.show)::before {
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1865,13 +1865,13 @@ body #wakeup-button:checked + label[for=wakeup-button].tip:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=wakeup-button].tip:empty:not(.show) {
+label[for=wakeup-button].tip:empty:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=wakeup-button].tip:empty:not(.show)::before {
+label[for=wakeup-button].tip:empty:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1883,10 +1883,10 @@ body label[for=wakeup-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #wakeup-button:checked + label[for=wakeup-button].tip:not(.show) {
+body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
   transform: translate(0px, 100%);
 }
-body label[for=wakeup-button].tip:empty:not(.show) {
+label[for=wakeup-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
 }
 label[for=wakeup-button].tip {
@@ -2051,13 +2051,13 @@ label[for=sleep-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body #sleep-button:checked + label[for=sleep-button].tip:not(.show) {
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #sleep-button:checked + label[for=sleep-button].tip:not(.show)::before {
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2069,13 +2069,13 @@ body #sleep-button:checked + label[for=sleep-button].tip:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=sleep-button].tip:empty:not(.show) {
+label[for=sleep-button].tip:empty:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=sleep-button].tip:empty:not(.show)::before {
+label[for=sleep-button].tip:empty:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2087,10 +2087,10 @@ body label[for=sleep-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #sleep-button:checked + label[for=sleep-button].tip:not(.show) {
+body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
   transform: translate(0px, 100%);
 }
-body label[for=sleep-button].tip:empty:not(.show) {
+label[for=sleep-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
 }
 label[for=sleep-button].tip {

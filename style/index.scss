@@ -1066,8 +1066,8 @@ body.no-media
 }
 label[for="wakeup-button"].tip
 {
-    @include fade-transition("body #wakeup-button:checked + &", "body &:empty");
-    @include slide-down-transition("body #wakeup-button:checked + &", "body &:empty");
+    @include fade-transition("body #wakeup-button:checked + div + &", "&:empty");
+    @include slide-down-transition("body #wakeup-button:checked + div + &", "&:empty");
     //@include black-pop-panel-style();
     &
     {
@@ -1182,8 +1182,8 @@ label[for="volume-button"]
 }
 label[for="sleep-button"].tip
 {
-    @include fade-transition("body #sleep-button:checked + &", "body &:empty");
-    @include slide-down-transition("body #sleep-button:checked + &", "body &:empty");
+    @include fade-transition("body #sleep-button:checked + div + &", "&:empty");
+    @include slide-down-transition("body #sleep-button:checked + div + &", "&:empty");
     //@include black-pop-panel-style();
     &
     {
