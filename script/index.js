@@ -230,13 +230,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "repository-label": "repository",
-            "wakeup-timer-label": "Time until Wake-up:",
             "off": "Off",
             "fade-in-label": "Fade-in Time:",
             "fade-in-0": "None",
             "wakeup-label": "Wake-up Timer:",
             "wakeup-0": "None",
-            "sleep-timer-label": "Time until Sleep:",
             "fade-out-label": "Fade-out Time:",
             "fade-out-0": "None",
             "sleep-label": "Sleep Timer:",
@@ -317,13 +315,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
-            "wakeup-timer-label": "起床まで:",
             "off": "オフ",
             "fade-in-label": "フェードイン時間:",
             "fade-in-0": "なし",
             "wakeup-label": "起床タイマー:",
             "wakeup-0": "なし",
-            "sleep-timer-label": "スリープまで:",
             "fade-out-label": "フェードアウト時間:",
             "fade-out-0": "なし",
             "sleep-label": "スリープタイマー:",
@@ -2443,7 +2439,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
-        UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("span", "wakeup-timer");
+        UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
         UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
                 var _a;
@@ -2462,7 +2458,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         });
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
-        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("span", "sleep-timer");
+        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
         UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
             makeLabel: function (value) {
                 var _a;
@@ -5166,7 +5162,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.makeTimerLabel = function (remainingTime) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
-                return _library_9.Library.Locale.map("off");
+                //return Library.Locale.map("off");
+                return "";
             }
             else {
                 return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime);

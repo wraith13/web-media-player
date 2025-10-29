@@ -204,7 +204,7 @@ export namespace UI
     export const wakeUpProgressCircle =
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
-        Library.UI.getElementById("span", "wakeup-timer");
+        Library.UI.getElementById("label", "wakeup-timer");
     export const fadeIn =
         new Library.Control.Select
         (
@@ -230,7 +230,7 @@ export namespace UI
     export const sleepProgressCircle =
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
-        Library.UI.getElementById("span", "sleep-timer");
+        Library.UI.getElementById("label", "sleep-timer");
     export const fadeOut =
         new Library.Control.Select
         (

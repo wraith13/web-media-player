@@ -68,7 +68,8 @@ export namespace Events
     {
         if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime))
         {
-            return Library.Locale.map("off");
+            //return Library.Locale.map("off");
+            return "";
         }
         else
         {
