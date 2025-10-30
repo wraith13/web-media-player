@@ -1891,17 +1891,74 @@ label[for=wakeup-button].tip:empty:not(.show) {
 }
 label[for=wakeup-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
-  border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-inline-start: calc(50% - 12.5rem);
-  backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
-  gap: 0.25rem;
 }
 @media (max-width: 420px) {
   label[for=wakeup-button].tip {
+    inset-block-end: 7rem;
+    inset-inline-start: calc(50% - 9.5rem);
+  }
+}
+
+#no-media {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#no-media:empty:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#no-media:empty:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-media:empty:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-media {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  inset-block-end: 6.25rem;
+  inset-inline-start: calc(50% - 12.5rem);
+  position: fixed;
+  z-index: 60;
+  color: red;
+}
+@media (max-width: 420px) {
+  #no-media {
     inset-block-end: 7rem;
     inset-inline-start: calc(50% - 9.5rem);
   }
@@ -2095,19 +2152,76 @@ label[for=sleep-button].tip:empty:not(.show) {
 }
 label[for=sleep-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
-  border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-inline-end: calc(50% - 12.5rem);
-  backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
-  gap: 0.25rem;
 }
 @media (max-width: 420px) {
   label[for=sleep-button].tip {
     inset-block-end: 7rem;
     inset-inline-end: calc(50% - 9.5rem);
+  }
+}
+
+#no-repeat {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#no-repeat:empty:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#no-repeat:empty:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-repeat:empty:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-repeat {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  inset-block-end: 6.25rem;
+  inset-inline-end: calc(50% - 12.5rem);
+  position: fixed;
+  z-index: 60;
+  color: red;
+}
+@media (max-width: 420px) {
+  #no-repeat {
+    inset-block-end: 7rem;
+    inset-inline-start: calc(50% - 9.5rem);
   }
 }
 

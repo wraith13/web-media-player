@@ -91,6 +91,7 @@ DUMMYSTYLE
             </label>
         </div>
         <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
+        <label id="no-media" for="add-file" class="tip"><span data-lang-key="no-media-message"></span></label>
         <div id="wakeup-progress-circle"></div>
         __SUN_ICON__
     </label>
@@ -226,6 +227,7 @@ DUMMYSTYLE
             </label>
         </div>
         <label id="sleep-timer" for="sleep-button" class="tip"></label>
+        <label id="no-repeat" for="repeat" class="tip"><span data-lang-key="no-repeat-message"></span></label>
         <div id="sleep-progress-circle"></div>
         __MOON_ICON__
     </label>

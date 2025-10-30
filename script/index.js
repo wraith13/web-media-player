@@ -258,7 +258,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Go to Next Media": "Go to Next Media",
             "FullScreen": "FullScreen",
             "Switch Clock": "Switch Clock",
-            "no-media-message": "No media available. Please add media.",
+            "no-media-message": "Please add media.",
+            "no-repeat-message": "Please enable repeat.",
             "not-supported-media-message": "This media cannot be played.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript."
         },
@@ -343,7 +344,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Go to Next Media": "次のメディアへ移動",
             "FullScreen": "フルスクリーン",
             "Switch Clock": "時計切り替え",
-            "no-media-message": "メディアがありません。メディアを追加してください。",
+            "no-media-message": "メディアを追加してください。",
+            "no-repeat-message": "リピートを有効にしてください。",
             "not-supported-media-message": "再生できないメディアです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
         }

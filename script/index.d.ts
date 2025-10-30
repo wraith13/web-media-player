@@ -111,6 +111,7 @@ declare module "locale/generated/master" {
             FullScreen: string;
             "Switch Clock": string;
             "no-media-message": string;
+            "no-repeat-message": string;
             "not-supported-media-message": string;
             "noscript-message": string;
         };
@@ -196,6 +197,7 @@ declare module "locale/generated/master" {
             FullScreen: string;
             "Switch Clock": string;
             "no-media-message": string;
+            "no-repeat-message": string;
             "not-supported-media-message": string;
             "noscript-message": string;
         };
@@ -286,6 +288,7 @@ declare module "script/library/locale" {
                 FullScreen: string;
                 "Switch Clock": string;
                 "no-media-message": string;
+                "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "noscript-message": string;
             };
@@ -371,6 +374,7 @@ declare module "script/library/locale" {
                 FullScreen: string;
                 "Switch Clock": string;
                 "no-media-message": string;
+                "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "noscript-message": string;
             };
