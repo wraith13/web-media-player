@@ -205,16 +205,6 @@ export namespace UI
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
         Library.UI.getElementById("label", "wakeup-timer");
-    export const fadeIn =
-        new Library.Control.Select
-        (
-            control.fadeIn,
-            {
-                makeLabel: value => "off" === value ?
-                    Library.Locale.map("fade-in-0"):
-                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
-            }
-        );
     export const wakeUp =
         new Library.Control.Select
         (
@@ -225,22 +215,24 @@ export namespace UI
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
+    export const fadeIn =
+        new Library.Control.Select
+        (
+            control.fadeIn,
+            {
+                makeLabel: value => "off" === value ?
+                    Library.Locale.map("fade-in-0"):
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+            }
+        );
+    export const noMediaLabel =
+        Library.UI.getElementById("label", "no-media");
     export const sleepButton =
         new Library.Control.Checkbox(control.sleepButton);
     export const sleepProgressCircle =
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
         Library.UI.getElementById("label", "sleep-timer");
-    export const fadeOut =
-        new Library.Control.Select
-        (
-            control.fadeOut,
-            {
-                makeLabel: value => "off" === value ?
-                    Library.Locale.map("fade-out-0"):
-                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
-            }
-        );
     export const sleep =
         new Library.Control.Select
         (
@@ -251,6 +243,18 @@ export namespace UI
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
+    export const fadeOut =
+        new Library.Control.Select
+        (
+            control.fadeOut,
+            {
+                makeLabel: value => "off" === value ?
+                    Library.Locale.map("fade-out-0"):
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+            }
+        );
+    export const noRepeatLabel =
+        Library.UI.getElementById("label", "no-repeat");
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];

@@ -317,14 +317,14 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
             "off": "オフ",
-            "fade-in-label": "フェードイン時間:",
-            "fade-in-0": "なし",
             "wakeup-label": "起床タイマー:",
             "wakeup-0": "なし",
-            "fade-out-label": "フェードアウト時間:",
-            "fade-out-0": "なし",
+            "fade-in-label": "フェードイン時間:",
+            "fade-in-0": "なし",
             "sleep-label": "スリープタイマー:",
             "sleep-0": "なし",
+            "fade-out-label": "フェードアウト時間:",
+            "fade-out-0": "なし",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -2442,14 +2442,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
-        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
-            makeLabel: function (value) {
-                var _a;
-                return "off" === value ?
-                    _library_2.Library.Locale.map("fade-in-0") :
-                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
-            }
-        });
         UI.wakeUp = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
             makeLabel: function (value) {
                 var _a;
@@ -2458,17 +2450,18 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
-        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
-        UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
-        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
-        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("fade-out-0") :
+                    _library_2.Library.Locale.map("fade-in-0") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
+        UI.noMediaLabel = _library_2.Library.UI.getElementById("label", "no-media");
+        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+        UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
+        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
         UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
             makeLabel: function (value) {
                 var _a;
@@ -2477,6 +2470,15 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
+        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("fade-out-0") :
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
+        });
+        UI.noRepeatLabel = _library_2.Library.UI.getElementById("label", "no-repeat");
         UI.initialize = function (params) {
             UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");

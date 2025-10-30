@@ -1925,13 +1925,13 @@ body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-media:empty:not(.show) {
+#no-media.hide:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-media:empty:not(.show)::before {
+#no-media.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1946,7 +1946,7 @@ body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
 body #wakeup-button:checked + div + label + #no-media:not(.show) {
   transform: translate(0px, 100%);
 }
-#no-media:empty:not(.show) {
+#no-media.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-media {
@@ -2186,13 +2186,13 @@ body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-repeat:empty:not(.show) {
+#no-repeat.hide:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-repeat:empty:not(.show)::before {
+#no-repeat.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2207,7 +2207,7 @@ body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
 body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
   transform: translate(0px, 100%);
 }
-#no-repeat:empty:not(.show) {
+#no-repeat.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-repeat {

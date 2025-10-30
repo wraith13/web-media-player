@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Oct 29 2025 09:52:03 GMT+0900 (日本標準時)
+    build at: Thu Oct 30 2025 20:45:58 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1947,17 +1947,74 @@ label[for=wakeup-button].tip:empty:not(.show) {
 }
 label[for=wakeup-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
-  border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-inline-start: calc(50% - 12.5rem);
-  backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
-  gap: 0.25rem;
 }
 @media (max-width: 420px) {
   label[for=wakeup-button].tip {
+    inset-block-end: 7rem;
+    inset-inline-start: calc(50% - 9.5rem);
+  }
+}
+
+#no-media {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#no-media.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#no-media.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #wakeup-button:checked + div + label + #no-media:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-media.hide:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-media {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  inset-block-end: 6.25rem;
+  inset-inline-start: calc(50% - 12.5rem);
+  position: fixed;
+  z-index: 60;
+  color: red;
+}
+@media (max-width: 420px) {
+  #no-media {
     inset-block-end: 7rem;
     inset-inline-start: calc(50% - 9.5rem);
   }
@@ -2151,19 +2208,76 @@ label[for=sleep-button].tip:empty:not(.show) {
 }
 label[for=sleep-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
-  border-radius: 0.5rem;
   inset-block-end: 4.5rem;
   inset-inline-end: calc(50% - 12.5rem);
-  backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
-  gap: 0.25rem;
 }
 @media (max-width: 420px) {
   label[for=sleep-button].tip {
     inset-block-end: 7rem;
     inset-inline-end: calc(50% - 9.5rem);
+  }
+}
+
+#no-repeat {
+  transition: opacity 750ms, filter 750ms;
+  transition: transform 500ms;
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#no-repeat.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#no-repeat.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-repeat.hide:not(.show) {
+  transform: translate(0px, 100%);
+}
+#no-repeat {
+  transition: transform 500ms, opacity 500ms, filter 500ms;
+  inset-block-end: 6.25rem;
+  inset-inline-end: calc(50% - 12.5rem);
+  position: fixed;
+  z-index: 60;
+  color: red;
+}
+@media (max-width: 420px) {
+  #no-repeat {
+    inset-block-end: 7rem;
+    inset-inline-start: calc(50% - 9.5rem);
   }
 }
 
@@ -2948,16 +3062,17 @@ DUMMYSTYLE
     <label for="wakeup-button" class="icon-button">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
-            <label for="fade-in">
-                <span data-lang-key="fade-in-label"></span>
-                <select id="fade-in"></select>
-            </label>
             <label for="wakeup">
                 <span data-lang-key="wakeup-label"></span>
                 <select id="wakeup"></select>
             </label>
+            <label for="fade-in">
+                <span data-lang-key="fade-in-label"></span>
+                <select id="fade-in"></select>
+            </label>
         </div>
         <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
+        <label id="no-media" for="add-file" class="tip hide"><span data-lang-key="no-media-message"></span></label>
         <div id="wakeup-progress-circle"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3156,16 +3271,17 @@ DUMMYSTYLE
     <label for="sleep-button" class="icon-button">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
-            <label for="fade-out">
-                <span data-lang-key="fade-out-label"></span>
-                <select id="fade-out"></select>
-            </label>
             <label for="sleep">
                 <span data-lang-key="sleep-label"></span>
                 <select id="sleep"></select>
             </label>
+            <label for="fade-out">
+                <span data-lang-key="fade-out-label"></span>
+                <select id="fade-out"></select>
+            </label>
         </div>
         <label id="sleep-timer" for="sleep-button" class="tip"></label>
+        <label id="no-repeat" for="repeat" class="tip hide"><span data-lang-key="no-repeat-message"></span></label>
         <div id="sleep-progress-circle"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3255,8 +3371,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Oct 29 2025 09:52:03 GMT+0900 (日本標準時)",
-    tick: 1761699123551
+    at: "Thu Oct 30 2025 20:45:58 GMT+0900 (日本標準時)",
+    tick: 1761824758389
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5078,7 +5194,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Go to Next Media": "Go to Next Media",
             "FullScreen": "FullScreen",
             "Switch Clock": "Switch Clock",
-            "no-media-message": "No media available. Please add media.",
+            "no-media-message": "Please add media.",
+            "no-repeat-message": "Please enable repeat.",
             "not-supported-media-message": "This media cannot be played.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript."
         },
@@ -5136,14 +5253,14 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
             "off": "オフ",
-            "fade-in-label": "フェードイン時間:",
-            "fade-in-0": "なし",
             "wakeup-label": "起床タイマー:",
             "wakeup-0": "なし",
-            "fade-out-label": "フェードアウト時間:",
-            "fade-out-0": "なし",
+            "fade-in-label": "フェードイン時間:",
+            "fade-in-0": "なし",
             "sleep-label": "スリープタイマー:",
             "sleep-0": "なし",
+            "fade-out-label": "フェードアウト時間:",
+            "fade-out-0": "なし",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -5163,7 +5280,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Go to Next Media": "次のメディアへ移動",
             "FullScreen": "フルスクリーン",
             "Switch Clock": "時計切り替え",
-            "no-media-message": "メディアがありません。メディアを追加してください。",
+            "no-media-message": "メディアを追加してください。",
+            "no-repeat-message": "リピートを有効にしてください。",
             "not-supported-media-message": "再生できないメディアです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
         }
@@ -7260,14 +7378,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
-        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
-            makeLabel: function (value) {
-                var _a;
-                return "off" === value ?
-                    _library_2.Library.Locale.map("fade-in-0") :
-                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
-            }
-        });
         UI.wakeUp = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
             makeLabel: function (value) {
                 var _a;
@@ -7276,17 +7386,18 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
-        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
-        UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
-        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
-        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("fade-out-0") :
+                    _library_2.Library.Locale.map("fade-in-0") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
+        UI.noMediaLabel = _library_2.Library.UI.getElementById("label", "no-media");
+        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+        UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
+        UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
         UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
             makeLabel: function (value) {
                 var _a;
@@ -7295,6 +7406,15 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
+        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+            makeLabel: function (value) {
+                var _a;
+                return "off" === value ?
+                    _library_2.Library.Locale.map("fade-out-0") :
+                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
+            }
+        });
+        UI.noRepeatLabel = _library_2.Library.UI.getElementById("label", "no-repeat");
         UI.initialize = function (params) {
             UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");

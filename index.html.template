@@ -81,17 +81,17 @@ DUMMYSTYLE
     <label for="wakeup-button" class="icon-button">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
-            <label for="fade-in">
-                <span data-lang-key="fade-in-label"></span>
-                <select id="fade-in"></select>
-            </label>
             <label for="wakeup">
                 <span data-lang-key="wakeup-label"></span>
                 <select id="wakeup"></select>
             </label>
+            <label for="fade-in">
+                <span data-lang-key="fade-in-label"></span>
+                <select id="fade-in"></select>
+            </label>
         </div>
         <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
-        <label id="no-media" for="add-file" class="tip"><span data-lang-key="no-media-message"></span></label>
+        <label id="no-media" for="add-file" class="tip hide"><span data-lang-key="no-media-message"></span></label>
         <div id="wakeup-progress-circle"></div>
         __SUN_ICON__
     </label>
@@ -217,17 +217,17 @@ DUMMYSTYLE
     <label for="sleep-button" class="icon-button">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
-            <label for="fade-out">
-                <span data-lang-key="fade-out-label"></span>
-                <select id="fade-out"></select>
-            </label>
             <label for="sleep">
                 <span data-lang-key="sleep-label"></span>
                 <select id="sleep"></select>
             </label>
+            <label for="fade-out">
+                <span data-lang-key="fade-out-label"></span>
+                <select id="fade-out"></select>
+            </label>
         </div>
         <label id="sleep-timer" for="sleep-button" class="tip"></label>
-        <label id="no-repeat" for="repeat" class="tip"><span data-lang-key="no-repeat-message"></span></label>
+        <label id="no-repeat" for="repeat" class="tip hide"><span data-lang-key="no-repeat-message"></span></label>
         <div id="sleep-progress-circle"></div>
         __MOON_ICON__
     </label>
