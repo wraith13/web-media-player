@@ -27,7 +27,7 @@ export namespace Timer
             clearTimeout(wakeUpTimer);
             wakeUpTimer = null;
         }
-        if (null !== wakeUpTimeSpan)
+        if (null !== wakeUpTimeSpan && 0 < wakeUpTimeSpan)
         {
             wakeUpAt = getNow() + wakeUpTimeSpan;
             wakeUpTimer = setTimeout
@@ -57,7 +57,7 @@ export namespace Timer
             clearTimeout(sleepTimer);
             sleepTimer = null;
         }
-        if (null !== sleepTimeSpan)
+        if (null !== sleepTimeSpan && 0 < sleepTimeSpan)
         {
             sleepAt = getNow() + sleepTimeSpan;
             sleepTimer = setTimeout

@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Oct 30 2025 21:15:45 GMT+0900 (日本標準時)
+    build at: Fri Oct 31 2025 20:48:55 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3371,8 +3371,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Oct 30 2025 21:15:45 GMT+0900 (日本標準時)",
-    tick: 1761826545901
+    at: "Fri Oct 31 2025 20:48:55 GMT+0900 (日本標準時)",
+    tick: 1761911335099
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9625,7 +9625,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
                 clearTimeout(wakeUpTimer);
                 wakeUpTimer = null;
             }
-            if (null !== wakeUpTimeSpan) {
+            if (null !== wakeUpTimeSpan && 0 < wakeUpTimeSpan) {
                 wakeUpAt = Timer.getNow() + wakeUpTimeSpan;
                 wakeUpTimer = setTimeout(function () {
                     wakeUpTimer = null;
@@ -9646,7 +9646,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
                 clearTimeout(sleepTimer);
                 sleepTimer = null;
             }
-            if (null !== sleepTimeSpan) {
+            if (null !== sleepTimeSpan && 0 < sleepTimeSpan) {
                 sleepAt = Timer.getNow() + sleepTimeSpan;
                 sleepTimer = setTimeout(function () {
                     sleepTimer = null;
@@ -10145,7 +10145,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateWakeUp = function () {
             var value = ui_11.UI.wakeUp.get();
             console.log("⏰ Wake-up Timer changed:", value);
-            var timespan = _tools_8.Tools.Timespan.parse(value);
+            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
@@ -10168,7 +10168,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateSleep = function () {
             var value = ui_11.UI.sleep.get();
             console.log("💤 Sleep Timer changed:", value);
-            var timespan = _tools_8.Tools.Timespan.parse(value);
+            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setSleepTimer(timespan);
             Events.sleepCountDownTimerLoop();
             Events.updateNoRepeatLabel();

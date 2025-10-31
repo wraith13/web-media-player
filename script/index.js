@@ -4689,7 +4689,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
                 clearTimeout(wakeUpTimer);
                 wakeUpTimer = null;
             }
-            if (null !== wakeUpTimeSpan) {
+            if (null !== wakeUpTimeSpan && 0 < wakeUpTimeSpan) {
                 wakeUpAt = Timer.getNow() + wakeUpTimeSpan;
                 wakeUpTimer = setTimeout(function () {
                     wakeUpTimer = null;
@@ -4710,7 +4710,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
                 clearTimeout(sleepTimer);
                 sleepTimer = null;
             }
-            if (null !== sleepTimeSpan) {
+            if (null !== sleepTimeSpan && 0 < sleepTimeSpan) {
                 sleepAt = Timer.getNow() + sleepTimeSpan;
                 sleepTimer = setTimeout(function () {
                     sleepTimer = null;
@@ -5209,7 +5209,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateWakeUp = function () {
             var value = ui_11.UI.wakeUp.get();
             console.log("⏰ Wake-up Timer changed:", value);
-            var timespan = _tools_8.Tools.Timespan.parse(value);
+            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
@@ -5232,7 +5232,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateSleep = function () {
             var value = ui_11.UI.sleep.get();
             console.log("💤 Sleep Timer changed:", value);
-            var timespan = _tools_8.Tools.Timespan.parse(value);
+            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setSleepTimer(timespan);
             Events.sleepCountDownTimerLoop();
             Events.updateNoRepeatLabel();

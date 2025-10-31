@@ -113,7 +113,7 @@ export namespace Events
     {
         const value = UI.wakeUp.get();
         console.log("⏰ Wake-up Timer changed:", value);
-        const timespan = Tools.Timespan.parse(value);
+        const timespan = "off" === value ? null: Tools.Timespan.parse(value);
         Features.Timer.setWakeUpTimer(timespan);
         wakeUpCountDownTimerLoop();
         updateNoMediaLabel();
@@ -138,7 +138,7 @@ export namespace Events
     {
         const value = UI.sleep.get();
         console.log("💤 Sleep Timer changed:", value);
-        const timespan = Tools.Timespan.parse(value);
+        const timespan = "off" === value ? null: Tools.Timespan.parse(value);
         Features.Timer.setSleepTimer(timespan);
         sleepCountDownTimerLoop();
         updateNoRepeatLabel();
