@@ -109,12 +109,6 @@ export namespace Events
             );
         }
     };
-    export const updateFadeIn = (): void =>
-    {
-        const value = UI.fadeIn.get();
-        console.log("🌅 Wake-up Fade-in Time changed:", value);
-        Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(value) ?? 0);
-    };
     export const updateWakeUp = (): void =>
     {
         const value = UI.wakeUp.get();
@@ -122,7 +116,18 @@ export namespace Events
         const timespan = Tools.Timespan.parse(value);
         Features.Timer.setWakeUpTimer(timespan);
         wakeUpCountDownTimerLoop();
-    }
+        updateNoMediaLabel();
+    };
+    export const updateFadeIn = (): void =>
+    {
+        const value = UI.fadeIn.get();
+        console.log("🌅 Wake-up Fade-in Time changed:", value);
+        Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(value) ?? 0);
+    };
+    export const updateNoMediaLabel = () =>
+    {
+        MediaList.updateNoMediaLabel();
+    };
     export const updateFadeOut = (): void =>
     {
         const value = UI.fadeOut.get();
@@ -136,6 +141,12 @@ export namespace Events
         const timespan = Tools.Timespan.parse(value);
         Features.Timer.setSleepTimer(timespan);
         sleepCountDownTimerLoop();
+        updateNoRepeatLabel();
+    };
+    export const updateNoRepeatLabel = (): void =>
+    {
+        const noRepeat = "off" !== UI.sleep.get() && ! UI.repeat.get();
+        UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
     export const sleepCountDownTimerLoop = (): void =>
@@ -513,7 +524,7 @@ export namespace Events
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
         UI.shuffle.loadParameter(Url.params, applyParam);
-        UI.repeat.loadParameter(Url.params, applyParam);
+        UI.repeat.loadParameter(Url.params, applyParam).setChange(() => updateNoRepeatLabel());
         //UI.volumeButton.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
         //UI.settingsButton.loadParameter(Url.params, applyParam);
@@ -588,6 +599,8 @@ export namespace Events
                 (
                     () =>
                     [
+                        UI.shuffle,
+                        UI.repeat,
                         UI.withFullscreenCheckbox,
                         UI.brightnessRange,
                         UI.stretchRange,
@@ -606,6 +619,10 @@ export namespace Events
                         UI.showFpsCheckbox,
                         UI.shortcutsSelect,
                         UI.languageSelect,
+                        UI.wakeUp,
+                        UI.fadeIn,
+                        UI.sleep,
+                        UI.fadeOut,
                     ]
                     .forEach(i => i.catchUpRestore(Url.params)),
                     25

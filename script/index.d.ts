@@ -1184,6 +1184,7 @@ declare module "script/medialist" {
         const makeMediaEntryDom: (entry: Media.Entry) => Promise<HTMLDivElement>;
         const updateMediaListDisplay: () => Promise<void>;
         const updateInformationDisplay: () => void;
+        const updateNoMediaLabel: () => void;
         const initialize: () => void;
         const clearPlayState: () => void;
     }
@@ -1196,10 +1197,12 @@ declare module "script/events" {
         const updateWakeUpTimer: (remainingTime?: number | null) => void;
         const updateSleepTimer: (remainingTime?: number | null) => void;
         const wakeUpCountDownTimerLoop: () => void;
-        const updateFadeIn: () => void;
         const updateWakeUp: () => void;
+        const updateFadeIn: () => void;
+        const updateNoMediaLabel: () => void;
         const updateFadeOut: () => void;
         const updateSleep: () => void;
+        const updateNoRepeatLabel: () => void;
         const sleepCountDownTimerLoop: () => void;
         const updateLanguage: () => void;
         const mousemove: () => void;

@@ -17,6 +17,7 @@ export namespace MediaList
             console.log("✅ Valid media file:", file);
             Media.mediaList.push(entry);
             updateInformationDisplay();
+            updateNoMediaLabel();
             UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
             if (Features.Player.isPlaying())
             {
@@ -62,6 +63,7 @@ export namespace MediaList
                     Media.mediaList.splice(index, 1);
                     clearPlayState();
                     updateInformationDisplay();
+                    updateNoMediaLabel();
                     await updateMediaListDisplay();
                 }
             }
@@ -173,7 +175,12 @@ export namespace MediaList
         const imageSpan = parseInt(UI.imageSpanSelect.get());
         const totalDuration = Media.mediaList.reduce((sum, entry) => sum + (entry.duration ?? imageSpan), 0);
         Library.UI.setTextContent(UI.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration));
-    }
+    };
+    export const updateNoMediaLabel = () =>
+    {
+        const hasNoMedia = "off" !== UI.wakeUp.get() && Media.mediaList.length <= 0;
+        UI.noMediaLabel.classList.toggle("hide", ! hasNoMedia);
+    };
     export const initialize = (): void =>
     {
         updateInformationDisplay();

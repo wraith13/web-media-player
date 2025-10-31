@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Oct 30 2025 20:45:58 GMT+0900 (日本標準時)
+    build at: Thu Oct 30 2025 21:15:45 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3371,8 +3371,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Oct 30 2025 20:45:58 GMT+0900 (日本標準時)",
-    tick: 1761824758389
+    at: "Thu Oct 30 2025 21:15:45 GMT+0900 (日本標準時)",
+    tick: 1761826545901
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9860,6 +9860,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         console.log("✅ Valid media file:", file);
                         media_3.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
+                        MediaList.updateNoMediaLabel();
                         _b = (_a = ui_10.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
@@ -9913,6 +9914,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                                 media_3.Media.mediaList.splice(index, 1);
                                                 MediaList.clearPlayState();
                                                 MediaList.updateInformationDisplay();
+                                                MediaList.updateNoMediaLabel();
                                                 return [4 /*yield*/, MediaList.updateMediaListDisplay()];
                                             case 1:
                                                 _b.sent();
@@ -10044,6 +10046,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
             _library_8.Library.UI.setTextContent(ui_10.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
+        MediaList.updateNoMediaLabel = function () {
+            var hasNoMedia = "off" !== ui_10.UI.wakeUp.get() && media_3.Media.mediaList.length <= 0;
+            ui_10.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
+        };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
         };
@@ -10136,18 +10142,22 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }, remainingTime % 1000 || 1000);
             }
         };
-        Events.updateFadeIn = function () {
-            var _a;
-            var value = ui_11.UI.fadeIn.get();
-            console.log("🌅 Wake-up Fade-in Time changed:", value);
-            _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
-        };
         Events.updateWakeUp = function () {
             var value = ui_11.UI.wakeUp.get();
             console.log("⏰ Wake-up Timer changed:", value);
             var timespan = _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
+            Events.updateNoMediaLabel();
+        };
+        Events.updateFadeIn = function () {
+            var _a;
+            var value = ui_11.UI.fadeIn.get();
+            console.log("🌅 Wake-up Fade-in Time changed:", value);
+            _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
+        };
+        Events.updateNoMediaLabel = function () {
+            medialist_1.MediaList.updateNoMediaLabel();
         };
         Events.updateFadeOut = function () {
             var _a;
@@ -10161,6 +10171,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             var timespan = _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setSleepTimer(timespan);
             Events.sleepCountDownTimerLoop();
+            Events.updateNoRepeatLabel();
+        };
+        Events.updateNoRepeatLabel = function () {
+            var noRepeat = "off" !== ui_11.UI.sleep.get() && !ui_11.UI.repeat.get();
+            ui_11.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
         Events.sleepCountDownTimerLoop = function () {
@@ -10443,7 +10458,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
             ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
+            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateNoRepeatLabel(); });
             //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
             //UI.settingsButton.loadParameter(Url.params, applyParam);
@@ -10501,6 +10516,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
+                        ui_11.UI.shuffle,
+                        ui_11.UI.repeat,
                         ui_11.UI.withFullscreenCheckbox,
                         ui_11.UI.brightnessRange,
                         ui_11.UI.stretchRange,
@@ -10519,6 +10536,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_11.UI.showFpsCheckbox,
                         ui_11.UI.shortcutsSelect,
                         ui_11.UI.languageSelect,
+                        ui_11.UI.wakeUp,
+                        ui_11.UI.fadeIn,
+                        ui_11.UI.sleep,
+                        ui_11.UI.fadeOut,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
                 }, 25);
