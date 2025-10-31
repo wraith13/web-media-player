@@ -1132,7 +1132,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel .icon-button > input[type=checkbox] {
   display: none;
 }
-#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + svg {
+#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + label + label + div + svg {
   border-color: rgb(230, 237, 243);
 }
 #control-panel .icon-button > svg, #control-panel .icon-button > div > svg {
@@ -1157,7 +1157,6 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   transition: opacity 750ms, filter 125ms;
   width: 3rem;
   height: 3rem;
-  background-color: rgba(32, 28, 38, 0.9);
 }
 #control-panel label.icon-button svg.on,
 #control-panel button.on {
@@ -1172,6 +1171,18 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 }
 @media (hover: hover) {
   #control-panel label.icon-button svg:hover,
+  #control-panel button:hover {
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+@media (hover: hover) {
+  #control-panel label.icon-button:hover svg {
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+@media (hover: hover) {
   #control-panel button:hover {
     z-index: 100;
     filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
@@ -1644,12 +1655,12 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
   border-style: solid;
   border-width: 0px;
   border-color: rgb(230, 237, 243);
-  border-radius: 4.5rem;
-  padding-block: 1rem;
-  padding-inline: 1rem;
+  border-radius: 3rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
   transition: opacity 1500ms, filter 125ms;
-  width: 9.5rem;
-  height: 4.5rem;
+  width: 8rem;
+  height: 3rem;
   background-color: rgba(32, 28, 38, 0.6);
 }
 #next-button:active, #back-button:active {
@@ -1658,8 +1669,8 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
 #next-button svg, #back-button svg {
   color: rgb(230, 237, 243);
   fill: rgb(230, 237, 243);
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 @media (hover: hover) {
   #next-button:hover, #back-button:hover {
@@ -1753,7 +1764,7 @@ body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #
   transition: opacity 750ms, filter 125ms;
   width: 3rem;
   height: 3rem;
-  background-color: rgba(32, 28, 38, 0.9);
+  background-color: rgba(32, 28, 38, 0.6);
 }
 #fast-forward-button:active, #rewind-button:active {
   border-width: 1px;
