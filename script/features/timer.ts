@@ -107,6 +107,22 @@ export namespace Timer
         }
         return null;
     };
+    export const getWakeUpCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
+    {
+        if (null !== remainingTime && 0 < remainingTime && null !== wakeUpTimeSpan)
+        {
+            const minSteps = 500;
+            if (wakeUpTimeSpan <= minSteps *1000)
+            {
+                return wakeUpTimeSpan /minSteps;
+            }
+            else
+            {
+                return remainingTime %1000 || 1000;
+            }
+        }
+        return null;
+    };
     export const isWakeUpFading = (): boolean =>
         null !== getElapsedWokeUpTime();
     export const getElapsedWokeUpTime = (): number | null =>
@@ -148,6 +164,22 @@ export namespace Timer
         if (null !== timeUntilSleep && null !== sleepTimeSpan)
         {
             return (sleepTimeSpan -timeUntilSleep) /sleepTimeSpan;
+        }
+        return null;
+    };
+    export const getSleepCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
+    {
+        if (null !== remainingTime && 0 < remainingTime && null !== sleepTimeSpan)
+        {
+            const minSteps = 500;
+            if (sleepTimeSpan <= minSteps *1000)
+            {
+                return sleepTimeSpan /minSteps;
+            }
+            else
+            {
+                return remainingTime %1000 || 1000;
+            }
         }
         return null;
     };

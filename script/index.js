@@ -2209,30 +2209,6 @@ define("resource/control", [], {
         "id": "wakeup-button",
         "default": false
     },
-    "fadeIn": {
-        "id": "fade-in",
-        "enum": [
-            "1h",
-            "45m",
-            "30m",
-            "15m",
-            "10m",
-            "5m",
-            "3m",
-            "2m",
-            "1m",
-            "45s",
-            "30s",
-            "15s",
-            "10s",
-            "5s",
-            "3s",
-            "2s",
-            "1s",
-            "off"
-        ],
-        "default": "5m"
-    },
     "wakeUp": {
         "id": "wakeup",
         "enum": [
@@ -2264,13 +2240,64 @@ define("resource/control", [], {
             "45m",
             "30m",
             "15m",
+            "1m",
+            "5s",
             "off"
         ],
         "default": "off"
     },
+    "fadeIn": {
+        "id": "fade-in",
+        "enum": [
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "10m",
+            "5m",
+            "3m",
+            "2m",
+            "1m",
+            "45s",
+            "30s",
+            "15s",
+            "10s",
+            "5s",
+            "3s",
+            "2s",
+            "1s",
+            "off"
+        ],
+        "default": "5m"
+    },
     "sleepButton": {
         "id": "sleep-button",
         "default": false
+    },
+    "sleep": {
+        "id": "sleep",
+        "enum": [
+            "6h",
+            "5.5h",
+            "5h",
+            "4.5h",
+            "4h",
+            "3.5h",
+            "3h",
+            "2.5h",
+            "2h",
+            "1.75h",
+            "1.5h",
+            "1.25h",
+            "1h",
+            "45m",
+            "30m",
+            "15m",
+            "1m",
+            "5s",
+            "off"
+        ],
+        "default": "off"
     },
     "fadeOut": {
         "id": "fade-out",
@@ -2295,29 +2322,6 @@ define("resource/control", [], {
             "off"
         ],
         "default": "5m"
-    },
-    "sleep": {
-        "id": "sleep",
-        "enum": [
-            "6h",
-            "5.5h",
-            "5h",
-            "4.5h",
-            "4h",
-            "3.5h",
-            "3h",
-            "2.5h",
-            "2h",
-            "1.75h",
-            "1.5h",
-            "1.25h",
-            "1h",
-            "45m",
-            "30m",
-            "15m",
-            "off"
-        ],
-        "default": "off"
     }
 });
 define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2) {
@@ -4750,6 +4754,18 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             }
             return null;
         };
+        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
+            if (null !== remainingTime && 0 < remainingTime && null !== wakeUpTimeSpan) {
+                var minSteps = 500;
+                if (wakeUpTimeSpan <= minSteps * 1000) {
+                    return wakeUpTimeSpan / minSteps;
+                }
+                else {
+                    return remainingTime % 1000 || 1000;
+                }
+            }
+            return null;
+        };
         Timer.isWakeUpFading = function () {
             return null !== Timer.getElapsedWokeUpTime();
         };
@@ -4785,6 +4801,18 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             var timeUntilSleep = Timer.getTimeUntilSleep();
             if (null !== timeUntilSleep && null !== sleepTimeSpan) {
                 return (sleepTimeSpan - timeUntilSleep) / sleepTimeSpan;
+            }
+            return null;
+        };
+        Timer.getSleepCountDownTimerLoopSpan = function (remainingTime) {
+            if (null !== remainingTime && 0 < remainingTime && null !== sleepTimeSpan) {
+                var minSteps = 500;
+                if (sleepTimeSpan <= minSteps * 1000) {
+                    return sleepTimeSpan / minSteps;
+                }
+                else {
+                    return remainingTime % 1000 || 1000;
+                }
             }
             return null;
         };
@@ -5199,11 +5227,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
             var remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp();
             Events.updateWakeUpTimer(remainingTime);
-            if (null !== remainingTime && 0 < remainingTime) {
+            var loopSpan = _features_2.Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime);
+            if (null !== loopSpan) {
                 wakeUpCountDownTimer = setTimeout(function () {
                     wakeUpCountDownTimer = null;
                     Events.wakeUpCountDownTimerLoop();
-                }, remainingTime % 1000 || 1000);
+                }, loopSpan);
             }
         };
         Events.updateWakeUp = function () {
@@ -5249,11 +5278,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
             var remainingTime = _features_2.Features.Timer.getTimeUntilSleep();
             Events.updateSleepTimer(remainingTime);
-            if (null !== remainingTime && 0 < remainingTime) {
+            var loopSpan = _features_2.Features.Timer.getSleepCountDownTimerLoopSpan(remainingTime);
+            if (null !== loopSpan) {
                 sleepCountDownTimer = setTimeout(function () {
                     sleepCountDownTimer = null;
                     Events.sleepCountDownTimerLoop();
-                }, remainingTime % 1000 || 1000);
+                }, loopSpan);
+            }
+            else {
+                Events.updateNoRepeatLabel();
             }
         };
         Events.updateLanguage = function () {

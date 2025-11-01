@@ -1128,6 +1128,7 @@ declare module "script/features/timer" {
         const isWaitingForWakeUp: () => boolean;
         const getTimeUntilWakeUp: () => number | null;
         const getProgressUntilWakeUp: () => number | null;
+        const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
         const isWakeUpFading: () => boolean;
         const getElapsedWokeUpTime: () => number | null;
         const getWakeUpFadeProgress: () => number | null;
@@ -1135,6 +1136,7 @@ declare module "script/features/timer" {
         const isSleepFading: () => boolean;
         const getTimeUntilSleep: () => number | null;
         const getProgressUntilSleep: () => number | null;
+        const getSleepCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
         const getSleepFadeProgress: () => number | null;
     }
 }

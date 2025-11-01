@@ -96,7 +96,8 @@ export namespace Events
         }
         const remainingTime = Features.Timer.getTimeUntilWakeUp();
         updateWakeUpTimer(remainingTime);
-        if (null !== remainingTime && 0 < remainingTime)
+        const loopSpan = Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime);
+        if (null !== loopSpan)
         {
             wakeUpCountDownTimer = setTimeout
             (
@@ -105,7 +106,7 @@ export namespace Events
                     wakeUpCountDownTimer = null;
                     wakeUpCountDownTimerLoop();
                 },
-                remainingTime %1000 || 1000
+                loopSpan
             );
         }
     };
@@ -158,7 +159,8 @@ export namespace Events
         }
         const remainingTime = Features.Timer.getTimeUntilSleep();
         updateSleepTimer(remainingTime);
-        if (null !== remainingTime && 0 < remainingTime)
+        const loopSpan = Features.Timer.getSleepCountDownTimerLoopSpan(remainingTime);
+        if (null !== loopSpan)
         {
             sleepCountDownTimer = setTimeout
             (
@@ -167,8 +169,12 @@ export namespace Events
                     sleepCountDownTimer = null;
                     sleepCountDownTimerLoop();
                 },
-                remainingTime %1000 || 1000
+                loopSpan
             );
+        }
+        else
+        {
+            updateNoRepeatLabel();
         }
     };
     export const updateLanguage = () =>
