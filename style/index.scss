@@ -707,6 +707,14 @@ body:not(.not-supported-media)
                 @include svg-color($white-color);
                 vertical-align: middle;
             }
+            & > input[type="checkbox"]:checked + div + label + label
+            {
+                inset-block-end: 8.0rem;
+                @media (max-width: 420px)
+                {
+                    inset-block-end: 10.5rem;
+                }
+            }
         }
         label.icon-button svg,
         button
@@ -727,7 +735,7 @@ body:not(.not-supported-media)
                 transition: opacity 750ms, filter 125ms;
                 width: 3.0rem;
                 height: 3.0rem;
-                //background-color: black-color(0.9);
+                background-color: black-color(0.9);
             }
             svg
             {
@@ -1099,7 +1107,7 @@ label[for="wakeup-button"].tip
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         inset-block-end: 4.5rem;
-        inset-inline-start: calc(50% - 12.5rem);
+        inset-inline-start: calc(50% - 12rem);
         position: fixed;
         z-index: 60;
         @media (max-width: 420px)
@@ -1111,21 +1119,23 @@ label[for="wakeup-button"].tip
 }
 #no-media
 {
-    @include fade-transition("body #wakeup-button:checked + div + label + &", "&.hide");
-    @include slide-down-transition("body #wakeup-button:checked + div + label + &", "&.hide");
+    @include fade-transition("&.hide");
+    @include slide-down-transition("&.hide");
+    // @include fade-transition("body #wakeup-button:checked + div + label + &", "&.hide");
+    // @include slide-down-transition("body #wakeup-button:checked + div + label + &", "&.hide");
     //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         inset-block-end: 6.25rem;
-        inset-inline-start: calc(50% - 12.5rem);
+        inset-inline-start: calc(50% - 12rem);
         position: fixed;
-        z-index: 60;
+        z-index: 30;
         color: red;
         @media (max-width: 420px)
         {
-            inset-block-end: 7rem;
-            inset-inline-start: calc(50% - 9.5rem);
+            inset-block-end: 8.75rem;
+            inset-inline-start: calc(50% - 9rem);
         }
     }
 }
@@ -1231,28 +1241,30 @@ label[for="sleep-button"].tip
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         inset-block-end: 4.5rem;
-        inset-inline-end: calc(50% - 12.5rem);
+        inset-inline-end: calc(50% - 12rem);
         position: fixed;
         z-index: 60;
         @media (max-width: 420px)
         {
-            inset-block-end: 7rem;
-            inset-inline-end: calc(50% - 9.5rem);
+            inset-block-end: 8.75rem;
+            inset-inline-end: calc(50% - 9rem);
         }
     }
 }
 #no-repeat
 {
-    @include fade-transition("body #wakeup-button:checked + div + label + &", "&.hide");
-    @include slide-down-transition("body #wakeup-button:checked + div + label + &", "&.hide");
+    @include fade-transition("&.hide");
+    @include slide-down-transition("&.hide");
+    // @include fade-transition("body #wakeup-button:checked + div + label + &", "&.hide");
+    // @include slide-down-transition("body #wakeup-button:checked + div + label + &", "&.hide");
     //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         inset-block-end: 6.25rem;
-        inset-inline-end: calc(50% - 12.5rem);
+        inset-inline-end: calc(50% - 12rem);
         position: fixed;
-        z-index: 60;
+        z-index: 30;
         color: red;
         @media (max-width: 420px)
         {

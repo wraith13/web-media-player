@@ -90,5 +90,8 @@
             "en-LR",
             "en-FM"
         ]
+    },
+    "timers": {
+        "minSteps": 500
     }
 }

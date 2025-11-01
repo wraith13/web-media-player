@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Nov 01 2025 04:36:05 GMT+0900 (日本標準時)
+    build at: Sat Nov 01 2025 18:50:26 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1196,6 +1196,14 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   fill: rgb(230, 237, 243);
   vertical-align: middle;
 }
+#control-panel .icon-button > input[type=checkbox]:checked + div + label + label {
+  inset-block-end: 8rem;
+}
+@media (max-width: 420px) {
+  #control-panel .icon-button > input[type=checkbox]:checked + div + label + label {
+    inset-block-end: 10.5rem;
+  }
+}
 #control-panel label.icon-button svg,
 #control-panel button {
   backdrop-filter: blur(0.5rem);
@@ -1213,6 +1221,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   transition: opacity 750ms, filter 125ms;
   width: 3rem;
   height: 3rem;
+  background-color: rgba(32, 28, 38, 0.9);
 }
 #control-panel label.icon-button svg.on,
 #control-panel button.on {
@@ -1959,7 +1968,7 @@ label[for=wakeup-button].tip:empty:not(.show) {
 label[for=wakeup-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   inset-block-end: 4.5rem;
-  inset-inline-start: calc(50% - 12.5rem);
+  inset-inline-start: calc(50% - 12rem);
   position: fixed;
   z-index: 60;
 }
@@ -1973,24 +1982,6 @@ label[for=wakeup-button].tip {
 #no-media {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
-}
-body #wakeup-button:checked + div + label + #no-media:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #no-media.hide:not(.show) {
   opacity: 0;
@@ -2010,24 +2001,21 @@ body #wakeup-button:checked + div + label + #no-media:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #wakeup-button:checked + div + label + #no-media:not(.show) {
-  transform: translate(0px, 100%);
-}
 #no-media.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-media {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   inset-block-end: 6.25rem;
-  inset-inline-start: calc(50% - 12.5rem);
+  inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
   color: red;
 }
 @media (max-width: 420px) {
   #no-media {
     inset-block-end: 7rem;
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-inline-start: calc(50% - 9rem);
   }
 }
 
@@ -2220,38 +2208,20 @@ label[for=sleep-button].tip:empty:not(.show) {
 label[for=sleep-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   inset-block-end: 4.5rem;
-  inset-inline-end: calc(50% - 12.5rem);
+  inset-inline-end: calc(50% - 12rem);
   position: fixed;
   z-index: 60;
 }
 @media (max-width: 420px) {
   label[for=sleep-button].tip {
     inset-block-end: 7rem;
-    inset-inline-end: calc(50% - 9.5rem);
+    inset-inline-end: calc(50% - 9rem);
   }
 }
 
 #no-repeat {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
-}
-body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #no-repeat.hide:not(.show) {
   opacity: 0;
@@ -2271,18 +2241,15 @@ body #wakeup-button:checked + div + label + #no-repeat:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #wakeup-button:checked + div + label + #no-repeat:not(.show) {
-  transform: translate(0px, 100%);
-}
 #no-repeat.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-repeat {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   inset-block-end: 6.25rem;
-  inset-inline-end: calc(50% - 12.5rem);
+  inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
   color: red;
 }
 @media (max-width: 420px) {
@@ -3382,8 +3349,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Nov 01 2025 04:36:05 GMT+0900 (日本標準時)",
-    tick: 1761939365504
+    at: "Sat Nov 01 2025 18:50:26 GMT+0900 (日本標準時)",
+    tick: 1761990626862
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5440,6 +5407,9 @@ define("resource/config", [], {
             "en-LR",
             "en-FM"
         ]
+    },
+    "timers": {
+        "minSteps": 500
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -9612,10 +9582,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/timer", ["require", "exports", "script/features/player"], function (require, exports, player_1) {
+define("script/features/timer", ["require", "exports", "script/features/player", "resource/config"], function (require, exports, player_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Timer = void 0;
+    config = __importStar(config);
     var Timer;
     (function (Timer) {
         var wakeUpTimeSpan = null;
@@ -9701,17 +9672,16 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             }
             return null;
         };
-        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
-            if (null !== remainingTime && 0 < remainingTime && null !== wakeUpTimeSpan) {
-                var minSteps = 500;
-                if (wakeUpTimeSpan <= minSteps * 1000) {
-                    return wakeUpTimeSpan / minSteps;
-                }
-                else {
-                    return remainingTime % 1000 || 1000;
-                }
+        Timer.getCountDownTimerLoopSpan = function (timerSpan, remainingTime) {
+            if (null !== remainingTime && 0 < remainingTime && null !== timerSpan) {
+                var stabilizeSpan = remainingTime % 1000 || 1000;
+                var spanFromminSteps = timerSpan / config.timers.minSteps;
+                return Math.min(stabilizeSpan, spanFromminSteps);
             }
             return null;
+        };
+        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
+            return Timer.getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
         };
         Timer.isWakeUpFading = function () {
             return null !== Timer.getElapsedWokeUpTime();
@@ -9752,16 +9722,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             return null;
         };
         Timer.getSleepCountDownTimerLoopSpan = function (remainingTime) {
-            if (null !== remainingTime && 0 < remainingTime && null !== sleepTimeSpan) {
-                var minSteps = 500;
-                if (sleepTimeSpan <= minSteps * 1000) {
-                    return sleepTimeSpan / minSteps;
-                }
-                else {
-                    return remainingTime % 1000 || 1000;
-                }
-            }
-            return null;
+            return Timer.getCountDownTimerLoopSpan(sleepTimeSpan, remainingTime);
         };
         Timer.getSleepFadeProgress = function () {
             if (Timer.isSleepFading()) {

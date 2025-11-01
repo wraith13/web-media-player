@@ -1,4 +1,5 @@
 import { Player } from "./player";
+import * as config from "@resource/config.json";
 export namespace Timer
 {
     let wakeUpTimeSpan: number | null = null;
@@ -107,22 +108,18 @@ export namespace Timer
         }
         return null;
     };
-    export const getWakeUpCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
+    export const getCountDownTimerLoopSpan = (timerSpan: number | null, remainingTime: number | null): number | null =>
     {
-        if (null !== remainingTime && 0 < remainingTime && null !== wakeUpTimeSpan)
+        if (null !== remainingTime && 0 < remainingTime && null !== timerSpan)
         {
-            const minSteps = 500;
-            if (wakeUpTimeSpan <= minSteps *1000)
-            {
-                return wakeUpTimeSpan /minSteps;
-            }
-            else
-            {
-                return remainingTime %1000 || 1000;
-            }
+            const stabilizeSpan = remainingTime %1000 || 1000;
+            const spanFromminSteps = timerSpan /config.timers.minSteps;
+            return Math.min(stabilizeSpan, spanFromminSteps);
         }
         return null;
     };
+    export const getWakeUpCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
+        getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
     export const isWakeUpFading = (): boolean =>
         null !== getElapsedWokeUpTime();
     export const getElapsedWokeUpTime = (): number | null =>
@@ -168,21 +165,7 @@ export namespace Timer
         return null;
     };
     export const getSleepCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
-    {
-        if (null !== remainingTime && 0 < remainingTime && null !== sleepTimeSpan)
-        {
-            const minSteps = 500;
-            if (sleepTimeSpan <= minSteps *1000)
-            {
-                return sleepTimeSpan /minSteps;
-            }
-            else
-            {
-                return remainingTime %1000 || 1000;
-            }
-        }
-        return null;
-    };
+        getCountDownTimerLoopSpan(sleepTimeSpan, remainingTime);
     export const getSleepFadeProgress = (): number | null =>
     {
         if (isSleepFading())

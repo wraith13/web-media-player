@@ -493,6 +493,9 @@ define("resource/config", [], {
             "en-LR",
             "en-FM"
         ]
+    },
+    "timers": {
+        "minSteps": 500
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -4665,10 +4668,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
     })(Player || (exports.Player = Player = {}));
 });
-define("script/features/timer", ["require", "exports", "script/features/player"], function (require, exports, player_1) {
+define("script/features/timer", ["require", "exports", "script/features/player", "resource/config"], function (require, exports, player_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Timer = void 0;
+    config = __importStar(config);
     var Timer;
     (function (Timer) {
         var wakeUpTimeSpan = null;
@@ -4754,17 +4758,16 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             }
             return null;
         };
-        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
-            if (null !== remainingTime && 0 < remainingTime && null !== wakeUpTimeSpan) {
-                var minSteps = 500;
-                if (wakeUpTimeSpan <= minSteps * 1000) {
-                    return wakeUpTimeSpan / minSteps;
-                }
-                else {
-                    return remainingTime % 1000 || 1000;
-                }
+        Timer.getCountDownTimerLoopSpan = function (timerSpan, remainingTime) {
+            if (null !== remainingTime && 0 < remainingTime && null !== timerSpan) {
+                var stabilizeSpan = remainingTime % 1000 || 1000;
+                var spanFromminSteps = timerSpan / config.timers.minSteps;
+                return Math.min(stabilizeSpan, spanFromminSteps);
             }
             return null;
+        };
+        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
+            return Timer.getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
         };
         Timer.isWakeUpFading = function () {
             return null !== Timer.getElapsedWokeUpTime();
@@ -4805,16 +4808,7 @@ define("script/features/timer", ["require", "exports", "script/features/player"]
             return null;
         };
         Timer.getSleepCountDownTimerLoopSpan = function (remainingTime) {
-            if (null !== remainingTime && 0 < remainingTime && null !== sleepTimeSpan) {
-                var minSteps = 500;
-                if (sleepTimeSpan <= minSteps * 1000) {
-                    return sleepTimeSpan / minSteps;
-                }
-                else {
-                    return remainingTime % 1000 || 1000;
-                }
-            }
-            return null;
+            return Timer.getCountDownTimerLoopSpan(sleepTimeSpan, remainingTime);
         };
         Timer.getSleepFadeProgress = function () {
             if (Timer.isSleepFading()) {
