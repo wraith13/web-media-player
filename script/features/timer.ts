@@ -1,7 +1,12 @@
-import { Player } from "./player";
 import * as config from "@resource/config.json";
 export namespace Timer
 {
+    const Player =
+    {
+        isPlaying: undefined as unknown as () => boolean,
+        play: undefined as unknown as () => unknown,
+        pause: undefined as unknown as () => unknown,
+    };
     let wakeUpTimeSpan: number | null = null;
     let wakeUpFadeInSpan: number = 0;
     let wakeUpAt: number | null = null;
@@ -65,6 +70,7 @@ export namespace Timer
             (
                 () =>
                 {
+                    sleepAt = null;
                     sleepTimer = null;
                     sleep("WithPause");
                 },
@@ -180,20 +186,22 @@ export namespace Timer
     };
     export const getTimerFade = (): number =>
     {
+        const wakeUpFadeProgress = getWakeUpFadeProgress();
         const sleepFadeProgress = getSleepFadeProgress();
-        if (null !== sleepFadeProgress)
+        if (null !== wakeUpFadeProgress || null !== sleepFadeProgress)
         {
-            return 1 - sleepFadeProgress;
+            return (wakeUpFadeProgress ?? 1) * (1 -(sleepFadeProgress ?? 0));
         }
         if (isInSleepedMode())
         {
             return 0;
         }
-        const wakeUpFadeProgress = getWakeUpFadeProgress();
-        if (null !== wakeUpFadeProgress)
-        {
-            return wakeUpFadeProgress;
-        }
         return 1;
     }
+    export const initialize = (data: { isPlaying: () => boolean, play: () => unknown, pause: () => unknown, }): void =>
+    {
+        Player.isPlaying = data.isPlaying;
+        Player.play = data.play;
+        Player.pause = data.pause;
+    };
 }

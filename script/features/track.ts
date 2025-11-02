@@ -457,13 +457,20 @@ export class Track
     {
         if (this.playerElement instanceof HTMLMediaElement)
         {
+            const finalVolume = volume *(rate ?? 1.0);
             if (hasValidGainNode(this))
             {
-                this.analyser.gainNode.gain.value = volume *(rate ?? 1.0);
+                if (finalVolume !== this.analyser.gainNode.gain.value)
+                {
+                    this.analyser.gainNode.gain.value = finalVolume;
+                }
             }
             else
             {
-                this.playerElement.volume = volume *(rate ?? 1.0);
+                if (finalVolume !== this.playerElement.volume)
+                {
+                    this.playerElement.volume = finalVolume;
+                }
             }
             this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
         }
@@ -472,12 +479,13 @@ export class Track
             this.visualElement.classList.toggle("muted", this.playerElement.muted);
         }
     }
-    crossFadeStep(rate: number): void
+    setOpacity(rate: number): void
     {
-        this.fadeRate = rate;
+        const finalVolume = rate;
+        this.fadeRate = finalVolume;
         if (this.visualElement)
         {
-            this.visualElement.style.opacity = `${rate}`;
+            Library.UI.setStyle(this.visualElement, "opacity", `${finalVolume}`);
         }
     }
     release(): void

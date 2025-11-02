@@ -1064,8 +1064,40 @@ declare module "script/features/track" {
         updateLoopShortMedia(isPlaying: boolean): void;
         isMuteCondition(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): boolean;
         setVolume(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): void;
-        crossFadeStep(rate: number): void;
+        setOpacity(rate: number): void;
         release(): void;
+    }
+}
+declare module "script/features/timer" {
+    export namespace Timer {
+        const setWakeUpFadeInSpan: (timespan: number) => void;
+        const setSleepFadeOutSpan: (timespan: number) => void;
+        const setWakeUpTimer: (timespan: number | null) => void;
+        const setSleepTimer: (timespan: number | null) => void;
+        const wakeUp: (withPlay?: "WithPlay") => void;
+        const sleep: (withPause?: "WithPause") => void;
+        const getNow: () => number;
+        const isInSleepedMode: () => boolean;
+        const isWaitingForWakeUp: () => boolean;
+        const getTimeUntilWakeUp: () => number | null;
+        const getProgressUntilWakeUp: () => number | null;
+        const getCountDownTimerLoopSpan: (timerSpan: number | null, remainingTime: number | null) => number | null;
+        const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
+        const isWakeUpFading: () => boolean;
+        const getElapsedWokeUpTime: () => number | null;
+        const getWakeUpFadeProgress: () => number | null;
+        const isSleepTimerActive: () => boolean;
+        const isSleepFading: () => boolean;
+        const getTimeUntilSleep: () => number | null;
+        const getProgressUntilSleep: () => number | null;
+        const getSleepCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
+        const getSleepFadeProgress: () => number | null;
+        const getTimerFade: () => number;
+        const initialize: (data: {
+            isPlaying: () => boolean;
+            play: () => unknown;
+            pause: () => unknown;
+        }) => void;
     }
 }
 declare module "script/features/player" {
@@ -1114,32 +1146,6 @@ declare module "script/features/player" {
         const updateStretch: () => void;
         const updateLoopShortMedia: () => void;
         const clear: () => void;
-    }
-}
-declare module "script/features/timer" {
-    export namespace Timer {
-        const setWakeUpFadeInSpan: (timespan: number) => void;
-        const setSleepFadeOutSpan: (timespan: number) => void;
-        const setWakeUpTimer: (timespan: number | null) => void;
-        const setSleepTimer: (timespan: number | null) => void;
-        const wakeUp: (withPlay?: "WithPlay") => void;
-        const sleep: (withPause?: "WithPause") => void;
-        const getNow: () => number;
-        const isInSleepedMode: () => boolean;
-        const isWaitingForWakeUp: () => boolean;
-        const getTimeUntilWakeUp: () => number | null;
-        const getProgressUntilWakeUp: () => number | null;
-        const getCountDownTimerLoopSpan: (timerSpan: number | null, remainingTime: number | null) => number | null;
-        const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
-        const isWakeUpFading: () => boolean;
-        const getElapsedWokeUpTime: () => number | null;
-        const getWakeUpFadeProgress: () => number | null;
-        const isSleepTimerActive: () => boolean;
-        const isSleepFading: () => boolean;
-        const getTimeUntilSleep: () => number | null;
-        const getProgressUntilSleep: () => number | null;
-        const getSleepCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
-        const getSleepFadeProgress: () => number | null;
     }
 }
 declare module "script/features/index" {

@@ -7,6 +7,7 @@ import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { History } from "./history";
 import { Track } from "./track";
+import { Timer } from "./timer";
 import * as Config from "@resource/config.json";
 export namespace Player
 {
@@ -226,7 +227,7 @@ export namespace Player
                 CrossFade.clear();
                 removeFadeoutTrack();
                 currentTrack.setVolume(currentVolume);
-                currentTrack.crossFadeStep(1);
+                currentTrack.setOpacity(1);
             }
         }
     };
@@ -280,7 +281,6 @@ export namespace Player
             Library.UI.setTextContent(UI.fpsDisplay, Fps.getText());
         }
     }
-    let lastTimeVolume: number = 1.0;
     export const isNextTiming = (): boolean =>
     {
         if (null !== currentTrack)
@@ -304,55 +304,58 @@ export namespace Player
     }
     export const crossFade = async () =>
     {
-        if (null !== currentTrack && ! isSeeking())
+        if (null !== currentTrack)
         {
-            if (currentTrack.selfValidate())
+            const currentTimerFade = Timer.getTimerFade();
+            const currentVolume = (UI.volumeRange.get() /100) *currentTimerFade;
+            if ( ! isSeeking())
             {
-                UI.mediaLength.click();
-            }
-            const currentVolume = UI.volumeRange.get() /100;
-            if (CrossFade.isCrossFading())
-            {
-                if ((CrossFade.getEndAt() ?? 0) <= Date.now())
+                if (currentTrack.selfValidate())
                 {
-                    CrossFade.clear();
-                    removeFadeoutTrack();
-                    currentTrack.setVolume(currentVolume);
-                    currentTrack.crossFadeStep(1);
-                    currentTrack.updateStretch("current");
-                    if ( ! currentTrack.isPlaying())
+                    UI.mediaLength.click();
+                }
+                if (CrossFade.isCrossFading())
+                {
+                    if ((CrossFade.getEndAt() ?? 0) <= Date.now())
                     {
-                        await currentTrack.play();
+                        CrossFade.clear();
+                        removeFadeoutTrack();
+                        currentTrack.setVolume(currentVolume);
+                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.updateStretch("current");
+                        if ( ! currentTrack.isPlaying())
+                        {
+                            await currentTrack.play();
+                        }
+                    }
+                    else
+                    {
+                        const progress = CrossFade.getProgress();
+                        if (null !== fadeoutingTrack)
+                        {
+                            const fadeoutProgress = 1 - progress;
+                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
+                            fadeoutingTrack.setOpacity(fadeoutProgress *currentTimerFade);
+                        }
+                        currentTrack.setVolume(currentVolume, progress, "fadeIn");
+                        currentTrack.setOpacity(progress *currentTimerFade);
                     }
                 }
                 else
                 {
-                    const progress = CrossFade.getProgress();
-                    if (null !== fadeoutingTrack)
+                    currentTrack.setVolume(currentVolume);
+                    currentTrack.setOpacity(currentTimerFade);
+                    if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
                     {
-                        const fadeoutProgress = 1 - progress;
-                        fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                        //fadeoutingTrack.crossFadeStep(fadeoutProgress);
+                        next();
                     }
-                    currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                    currentTrack.crossFadeStep(progress);
                 }
             }
             else
             {
-                if (lastTimeVolume !== currentVolume)
-                {
-                    if (null !== currentTrack)
-                    {
-                        currentTrack.setVolume(currentVolume);
-                    }
-                }
-                if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
-                {
-                    next();
-                }
+                currentTrack.setVolume(currentVolume);
+                currentTrack.setOpacity(currentTimerFade);
             }
-            lastTimeVolume = currentVolume;
         }
     };
     export const makeIndexText = (track: Track): string =>
@@ -425,7 +428,7 @@ export namespace Player
                 CrossFade.start();
                 fadeoutingTrack?.setVolume(currentVolume, 1, "fadeOut");
                 currentTrack.setVolume(currentVolume, 0, "fadeIn");
-                currentTrack.crossFadeStep(0);
+                currentTrack.setOpacity(0);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
@@ -438,7 +441,7 @@ export namespace Player
                     removeFadeoutTrack();
                 }
                 currentTrack.setVolume(currentVolume);
-                currentTrack.crossFadeStep(1);
+                currentTrack.setOpacity(1);
                 currentTrack.play();
             }
             if (currentTrack.visualElement)

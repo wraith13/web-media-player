@@ -18,6 +18,12 @@ Library.Shortcuts.initialize();
 MediaList.initialize();
 Features.Overlay.initialize(Url.params);
 Screenshot.initialize(Url.params);
+Features.Timer.initialize
+({
+    isPlaying: Features.Player.isPlaying,
+    play: Features.Player.play,
+    pause: Features.Player.pause,
+});
 interface BuildInformation
 {
     at: string;

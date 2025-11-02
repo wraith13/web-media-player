@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Nov 02 2025 07:12:54 GMT+0900 (日本標準時)
+    build at: Mon Nov 03 2025 04:56:23 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3349,8 +3349,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Nov 02 2025 07:12:54 GMT+0900 (日本標準時)",
-    tick: 1762035174633
+    at: "Mon Nov 03 2025 04:56:23 GMT+0900 (日本標準時)",
+    tick: 1762113383696
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9130,11 +9130,16 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.setVolume = function (volume, rate, fade) {
             if (this.playerElement instanceof HTMLMediaElement) {
+                var finalVolume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
                 if ((0, exports.hasValidGainNode)(this)) {
-                    this.analyser.gainNode.gain.value = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                    if (finalVolume !== this.analyser.gainNode.gain.value) {
+                        this.analyser.gainNode.gain.value = finalVolume;
+                    }
                 }
                 else {
-                    this.playerElement.volume = volume * (rate !== null && rate !== void 0 ? rate : 1.0);
+                    if (finalVolume !== this.playerElement.volume) {
+                        this.playerElement.volume = finalVolume;
+                    }
                 }
                 this.playerElement.muted = this.isMuteCondition(volume, rate, fade);
             }
@@ -9142,10 +9147,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
-        Track.prototype.crossFadeStep = function (rate) {
-            this.fadeRate = rate;
+        Track.prototype.setOpacity = function (rate) {
+            var finalVolume = rate;
+            this.fadeRate = finalVolume;
             if (this.visualElement) {
-                this.visualElement.style.opacity = "".concat(rate);
+                _library_6.Library.UI.setStyle(this.visualElement, "opacity", "".concat(finalVolume));
             }
         };
         Track.prototype.release = function () {
@@ -9156,7 +9162,182 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
     }());
     exports.Track = Track;
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_8, elementpool_2, media_2, history_1, track_1, Config) {
+define("script/features/timer", ["require", "exports", "resource/config"], function (require, exports, config) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Timer = void 0;
+    config = __importStar(config);
+    var Timer;
+    (function (Timer) {
+        var Player = {
+            isPlaying: undefined,
+            play: undefined,
+            pause: undefined,
+        };
+        var wakeUpTimeSpan = null;
+        var wakeUpFadeInSpan = 0;
+        var wakeUpAt = null;
+        var wokeUpAt = null;
+        var wakeUpTimer = null;
+        var sleepTimeSpan = null;
+        var sleepFadeOutSpan = 0;
+        var sleepAt = null;
+        var sleepTimer = null;
+        var isSleeped = false;
+        Timer.setWakeUpFadeInSpan = function (timespan) {
+            wakeUpFadeInSpan = timespan;
+        };
+        Timer.setSleepFadeOutSpan = function (timespan) {
+            sleepFadeOutSpan = timespan;
+        };
+        Timer.setWakeUpTimer = function (timespan) {
+            wakeUpTimeSpan = timespan;
+            if (null !== wakeUpTimer) {
+                clearTimeout(wakeUpTimer);
+                wakeUpTimer = null;
+            }
+            if (null !== wakeUpTimeSpan && 0 < wakeUpTimeSpan) {
+                wakeUpAt = Timer.getNow() + wakeUpTimeSpan;
+                wakeUpTimer = setTimeout(function () {
+                    wakeUpTimer = null;
+                    wokeUpAt = Timer.getNow();
+                    Timer.wakeUp("WithPlay");
+                }, wakeUpTimeSpan);
+                Timer.sleep();
+            }
+            else {
+                wakeUpAt = null;
+                Timer.wakeUp();
+            }
+        };
+        Timer.setSleepTimer = function (timespan) {
+            sleepTimeSpan = timespan;
+            Timer.wakeUp();
+            if (null !== sleepTimer) {
+                clearTimeout(sleepTimer);
+                sleepTimer = null;
+            }
+            if (null !== sleepTimeSpan && 0 < sleepTimeSpan) {
+                sleepAt = Timer.getNow() + sleepTimeSpan;
+                sleepTimer = setTimeout(function () {
+                    sleepAt = null;
+                    sleepTimer = null;
+                    Timer.sleep("WithPause");
+                }, sleepTimeSpan);
+            }
+            else {
+                sleepAt = null;
+            }
+        };
+        Timer.wakeUp = function (withPlay) {
+            isSleeped = false;
+            if (withPlay === "WithPlay" && !Player.isPlaying()) {
+                Player.play();
+            }
+        };
+        Timer.sleep = function (withPause) {
+            isSleeped = true;
+            if (withPause === "WithPause" && Player.isPlaying()) {
+                Player.pause();
+            }
+        };
+        Timer.getNow = function () { return Date.now(); };
+        Timer.isInSleepedMode = function () {
+            return isSleeped;
+        };
+        Timer.isWaitingForWakeUp = function () {
+            return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
+        };
+        Timer.getTimeUntilWakeUp = function () {
+            return null !== wakeUpAt ? wakeUpAt - Timer.getNow() : null;
+        };
+        Timer.getProgressUntilWakeUp = function () {
+            var timeUntilWakeUp = Timer.getTimeUntilWakeUp();
+            if (null !== timeUntilWakeUp && null !== wakeUpTimeSpan) {
+                return (wakeUpTimeSpan - timeUntilWakeUp) / wakeUpTimeSpan;
+            }
+            return null;
+        };
+        Timer.getCountDownTimerLoopSpan = function (timerSpan, remainingTime) {
+            if (null !== remainingTime && 0 < remainingTime && null !== timerSpan) {
+                var stabilizeSpan = remainingTime % 1000 || 1000;
+                var spanFromminSteps = timerSpan / config.timers.minSteps;
+                return Math.min(stabilizeSpan, spanFromminSteps);
+            }
+            return null;
+        };
+        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
+            return Timer.getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
+        };
+        Timer.isWakeUpFading = function () {
+            return null !== Timer.getElapsedWokeUpTime();
+        };
+        Timer.getElapsedWokeUpTime = function () {
+            if (null !== wokeUpAt) {
+                var result = Timer.getNow() - wokeUpAt;
+                if (0 <= result && result <= wakeUpFadeInSpan) {
+                    return result;
+                }
+            }
+            return null;
+        };
+        Timer.getWakeUpFadeProgress = function () {
+            if (Timer.isWakeUpFading()) {
+                var wakeUpTime = Timer.getElapsedWokeUpTime();
+                if (null !== wakeUpTime) {
+                    return Math.min(wakeUpTime / wakeUpFadeInSpan, 1);
+                }
+            }
+            return null;
+        };
+        Timer.isSleepTimerActive = function () {
+            return null !== sleepAt;
+        };
+        Timer.isSleepFading = function () {
+            var timeUntilSleep = Timer.getTimeUntilSleep();
+            return null !== timeUntilSleep && timeUntilSleep <= sleepFadeOutSpan;
+        };
+        Timer.getTimeUntilSleep = function () {
+            return null !== sleepAt ? sleepAt - Timer.getNow() : null;
+        };
+        Timer.getProgressUntilSleep = function () {
+            var timeUntilSleep = Timer.getTimeUntilSleep();
+            if (null !== timeUntilSleep && null !== sleepTimeSpan) {
+                return (sleepTimeSpan - timeUntilSleep) / sleepTimeSpan;
+            }
+            return null;
+        };
+        Timer.getSleepCountDownTimerLoopSpan = function (remainingTime) {
+            return Timer.getCountDownTimerLoopSpan(sleepTimeSpan, remainingTime);
+        };
+        Timer.getSleepFadeProgress = function () {
+            if (Timer.isSleepFading()) {
+                var timeUntilSleep = Timer.getTimeUntilSleep();
+                if (null !== timeUntilSleep) {
+                    return Math.min((sleepFadeOutSpan - timeUntilSleep) / sleepFadeOutSpan, 1);
+                }
+            }
+            return null;
+        };
+        Timer.getTimerFade = function () {
+            var wakeUpFadeProgress = Timer.getWakeUpFadeProgress();
+            var sleepFadeProgress = Timer.getSleepFadeProgress();
+            if (null !== wakeUpFadeProgress || null !== sleepFadeProgress) {
+                return (wakeUpFadeProgress !== null && wakeUpFadeProgress !== void 0 ? wakeUpFadeProgress : 1) * (1 - (sleepFadeProgress !== null && sleepFadeProgress !== void 0 ? sleepFadeProgress : 0));
+            }
+            if (Timer.isInSleepedMode()) {
+                return 0;
+            }
+            return 1;
+        };
+        Timer.initialize = function (data) {
+            Player.isPlaying = data.isPlaying;
+            Player.play = data.play;
+            Player.pause = data.pause;
+        };
+    })(Timer || (exports.Timer = Timer = {}));
+});
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_8, elementpool_2, media_2, history_1, track_1, timer_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -9349,7 +9530,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     CrossFade.clear();
                     Player.removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
-                    currentTrack.crossFadeStep(1);
+                    currentTrack.setOpacity(1);
                 }
             }
         };
@@ -9391,7 +9572,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 _library_7.Library.UI.setTextContent(ui_8.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
-        var lastTimeVolume = 1.0;
         Player.isNextTiming = function () {
             if (null !== currentTrack) {
                 if (currentTrack.getRemainingTime() <= 0) {
@@ -9408,22 +9588,24 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return false;
         };
         Player.crossFade = function () { return __awaiter(_this, void 0, void 0, function () {
-            var currentVolume, progress, fadeoutProgress;
+            var currentTimerFade, currentVolume, progress, fadeoutProgress;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(null !== currentTrack && !Player.isSeeking())) return [3 /*break*/, 7];
+                        if (!(null !== currentTrack)) return [3 /*break*/, 8];
+                        currentTimerFade = timer_1.Timer.getTimerFade();
+                        currentVolume = (ui_8.UI.volumeRange.get() / 100) * currentTimerFade;
+                        if (!!Player.isSeeking()) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
                             ui_8.UI.mediaLength.click();
                         }
-                        currentVolume = ui_8.UI.volumeRange.get() / 100;
                         if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.crossFadeStep(1);
+                        currentTrack.setOpacity(currentTimerFade);
                         currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
@@ -9436,26 +9618,25 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            //fadeoutingTrack.crossFadeStep(fadeoutProgress);
+                            fadeoutingTrack.setOpacity(fadeoutProgress * currentTimerFade);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.crossFadeStep(progress);
+                        currentTrack.setOpacity(progress * currentTimerFade);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        if (lastTimeVolume !== currentVolume) {
-                            if (null !== currentTrack) {
-                                currentTrack.setVolume(currentVolume);
-                            }
-                        }
+                        currentTrack.setVolume(currentVolume);
+                        currentTrack.setOpacity(currentTimerFade);
                         if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
                         }
                         _b.label = 6;
-                    case 6:
-                        lastTimeVolume = currentVolume;
-                        _b.label = 7;
-                    case 7: return [2 /*return*/];
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
+                        currentTrack.setVolume(currentVolume);
+                        currentTrack.setOpacity(currentTimerFade);
+                        _b.label = 8;
+                    case 8: return [2 /*return*/];
                 }
             });
         }); };
@@ -9521,7 +9702,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     CrossFade.start();
                     fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
-                    currentTrack.crossFadeStep(0);
+                    currentTrack.setOpacity(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
@@ -9531,7 +9712,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         Player.removeFadeoutTrack();
                     }
                     currentTrack.setVolume(currentVolume);
-                    currentTrack.crossFadeStep(1);
+                    currentTrack.setOpacity(1);
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
@@ -9587,159 +9768,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
     })(Player || (exports.Player = Player = {}));
-});
-define("script/features/timer", ["require", "exports", "script/features/player", "resource/config"], function (require, exports, player_1, config) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Timer = void 0;
-    config = __importStar(config);
-    var Timer;
-    (function (Timer) {
-        var wakeUpTimeSpan = null;
-        var wakeUpFadeInSpan = 0;
-        var wakeUpAt = null;
-        var wokeUpAt = null;
-        var wakeUpTimer = null;
-        var sleepTimeSpan = null;
-        var sleepFadeOutSpan = 0;
-        var sleepAt = null;
-        var sleepTimer = null;
-        var isSleeped = false;
-        Timer.setWakeUpFadeInSpan = function (timespan) {
-            wakeUpFadeInSpan = timespan;
-        };
-        Timer.setSleepFadeOutSpan = function (timespan) {
-            sleepFadeOutSpan = timespan;
-        };
-        Timer.setWakeUpTimer = function (timespan) {
-            wakeUpTimeSpan = timespan;
-            if (null !== wakeUpTimer) {
-                clearTimeout(wakeUpTimer);
-                wakeUpTimer = null;
-            }
-            if (null !== wakeUpTimeSpan && 0 < wakeUpTimeSpan) {
-                wakeUpAt = Timer.getNow() + wakeUpTimeSpan;
-                wakeUpTimer = setTimeout(function () {
-                    wakeUpTimer = null;
-                    wokeUpAt = Timer.getNow();
-                    Timer.wakeUp("WithPlay");
-                }, wakeUpTimeSpan);
-                Timer.sleep();
-            }
-            else {
-                wakeUpAt = null;
-                Timer.wakeUp();
-            }
-        };
-        Timer.setSleepTimer = function (timespan) {
-            sleepTimeSpan = timespan;
-            Timer.wakeUp();
-            if (null !== sleepTimer) {
-                clearTimeout(sleepTimer);
-                sleepTimer = null;
-            }
-            if (null !== sleepTimeSpan && 0 < sleepTimeSpan) {
-                sleepAt = Timer.getNow() + sleepTimeSpan;
-                sleepTimer = setTimeout(function () {
-                    sleepTimer = null;
-                    Timer.sleep("WithPause");
-                }, sleepTimeSpan);
-            }
-            else {
-                sleepAt = null;
-            }
-        };
-        Timer.wakeUp = function (withPlay) {
-            isSleeped = false;
-            if (withPlay === "WithPlay" && !player_1.Player.isPlaying()) {
-                player_1.Player.play();
-            }
-        };
-        Timer.sleep = function (withPause) {
-            isSleeped = true;
-            if (withPause === "WithPause" && player_1.Player.isPlaying()) {
-                player_1.Player.pause();
-            }
-        };
-        Timer.getNow = function () { return Date.now(); };
-        Timer.isInSleepedMode = function () {
-            return isSleeped;
-        };
-        Timer.isWaitingForWakeUp = function () {
-            return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
-        };
-        Timer.getTimeUntilWakeUp = function () {
-            return null !== wakeUpAt ? wakeUpAt - Timer.getNow() : null;
-        };
-        Timer.getProgressUntilWakeUp = function () {
-            var timeUntilWakeUp = Timer.getTimeUntilWakeUp();
-            if (null !== timeUntilWakeUp && null !== wakeUpTimeSpan) {
-                return (wakeUpTimeSpan - timeUntilWakeUp) / wakeUpTimeSpan;
-            }
-            return null;
-        };
-        Timer.getCountDownTimerLoopSpan = function (timerSpan, remainingTime) {
-            if (null !== remainingTime && 0 < remainingTime && null !== timerSpan) {
-                var stabilizeSpan = remainingTime % 1000 || 1000;
-                var spanFromminSteps = timerSpan / config.timers.minSteps;
-                return Math.min(stabilizeSpan, spanFromminSteps);
-            }
-            return null;
-        };
-        Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
-            return Timer.getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
-        };
-        Timer.isWakeUpFading = function () {
-            return null !== Timer.getElapsedWokeUpTime();
-        };
-        Timer.getElapsedWokeUpTime = function () {
-            if (null !== wokeUpAt) {
-                var result = Timer.getNow() - wokeUpAt;
-                if (0 <= result && result <= wakeUpFadeInSpan) {
-                    return result;
-                }
-            }
-            return null;
-        };
-        Timer.getWakeUpFadeProgress = function () {
-            if (Timer.isWakeUpFading()) {
-                var wakeUpTime = Timer.getElapsedWokeUpTime();
-                if (null !== wakeUpTime) {
-                    return Math.min(wakeUpTime / wakeUpFadeInSpan, 1);
-                }
-            }
-            return null;
-        };
-        Timer.isSleepTimerActive = function () {
-            return null !== sleepAt;
-        };
-        Timer.isSleepFading = function () {
-            var timeUntilSleep = Timer.getTimeUntilSleep();
-            return null !== timeUntilSleep && timeUntilSleep <= sleepFadeOutSpan;
-        };
-        Timer.getTimeUntilSleep = function () {
-            return null !== sleepAt ? sleepAt - Timer.getNow() : null;
-        };
-        Timer.getProgressUntilSleep = function () {
-            var timeUntilSleep = Timer.getTimeUntilSleep();
-            if (null !== timeUntilSleep && null !== sleepTimeSpan) {
-                return (sleepTimeSpan - timeUntilSleep) / sleepTimeSpan;
-            }
-            return null;
-        };
-        Timer.getSleepCountDownTimerLoopSpan = function (remainingTime) {
-            return Timer.getCountDownTimerLoopSpan(sleepTimeSpan, remainingTime);
-        };
-        Timer.getSleepFadeProgress = function () {
-            if (Timer.isSleepFading()) {
-                var timeUntilSleep = Timer.getTimeUntilSleep();
-                if (null !== timeUntilSleep) {
-                    return Math.min((sleepFadeOutSpan - timeUntilSleep) / sleepFadeOutSpan, 1);
-                }
-            }
-            return null;
-        };
-    })(Timer || (exports.Timer = Timer = {}));
 });
 define("script/features/index", ["require", "exports", "script/features/fps", "script/features/overlay", "script/features/location", "script/features/weather", "script/features/analyser", "script/features/visualizer", "script/features/player", "script/features/timer"], function (require, exports, ImportedFps, ImportedOverlay, ImportedLocation, ImportedWeather, ImportedAnalyser, ImportedVisualizer, ImportedPlayer, ImportedTimer) {
     "use strict";
@@ -10635,6 +10663,11 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     medialist_2.MediaList.initialize();
     _features_3.Features.Overlay.initialize(url_4.Url.params);
     screenshot_1.Screenshot.initialize(url_4.Url.params);
+    _features_3.Features.Timer.initialize({
+        isPlaying: _features_3.Features.Player.isPlaying,
+        play: _features_3.Features.Player.play,
+        pause: _features_3.Features.Player.pause,
+    });
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
