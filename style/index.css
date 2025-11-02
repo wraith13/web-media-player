@@ -617,7 +617,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #screen-body #media-list .item.add:first-child::before {
-  position: fixed;
+  position: absolute;
   content: " ";
   margin-left: auto;
   margin-right: auto;
@@ -1132,7 +1132,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel .icon-button > input[type=checkbox] {
   display: none;
 }
-#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + label + label + div + svg {
+#control-panel .icon-button.checked svg {
   border-color: rgb(230, 237, 243);
 }
 #control-panel .icon-button > svg, #control-panel .icon-button > div > svg {
@@ -1914,12 +1914,12 @@ label[for=wakeup-button].tip {
   inset-block-end: 4.5rem;
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
 }
 @media (max-width: 420px) {
   label[for=wakeup-button].tip {
     inset-block-end: 7rem;
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-inline-start: calc(50% - 9rem);
   }
 }
 
@@ -1949,7 +1949,7 @@ label[for=wakeup-button].tip {
   transform: translate(0px, 100%);
 }
 #no-media {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
   inset-block-end: 6.25rem;
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
@@ -1958,7 +1958,7 @@ label[for=wakeup-button].tip {
 }
 @media (max-width: 420px) {
   #no-media {
-    inset-block-end: 7rem;
+    inset-block-end: 8.75rem;
     inset-inline-start: calc(50% - 9rem);
   }
 }
@@ -2154,7 +2154,7 @@ label[for=sleep-button].tip {
   inset-block-end: 4.5rem;
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
 }
 @media (max-width: 420px) {
   label[for=sleep-button].tip {
@@ -2189,7 +2189,7 @@ label[for=sleep-button].tip {
   transform: translate(0px, 100%);
 }
 #no-repeat {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
   inset-block-end: 6.25rem;
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
@@ -2198,8 +2198,8 @@ label[for=sleep-button].tip {
 }
 @media (max-width: 420px) {
   #no-repeat {
-    inset-block-end: 7rem;
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-block-end: 8.75rem;
+    inset-inline-end: calc(50% - 9rem);
   }
 }
 

@@ -282,8 +282,14 @@ export namespace UI
         wakeUpButton,
         sleepButton,
     ];
+    export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked?: boolean): void =>
+    {
+        const parent: HTMLElement = checkbox.dom.parentElement!;
+        parent.classList.toggle("checked", checked ?? checkbox.get());
+    };
     export const closeOtherPopups = (except: Library.Control.Checkbox) =>
     {
+        updateParentClassBasedOnCheckbox(except);
         popupCheckboxList.forEach
         (
             i =>
@@ -291,6 +297,7 @@ export namespace UI
                 if (except !== i)
                 {
                     i.toggle(false, "preventOnChange");
+                    updateParentClassBasedOnCheckbox(i);
                 }
             }
         );

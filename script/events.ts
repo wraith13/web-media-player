@@ -411,6 +411,18 @@ export namespace Events
                 event?.stopPropagation();
                 button.dom.blur();
                 applyParam("shuffle", `${UI.shuffle.get()}`);
+                UI.updateParentClassBasedOnCheckbox(UI.shuffle);
+            }
+        );
+        UI.repeat.setChange
+        (
+            (event, button) =>
+            {
+                event?.stopPropagation();
+                button.dom.blur();
+                applyParam("repeat", `${UI.repeat.get()}`);
+                UI.updateParentClassBasedOnCheckbox(UI.repeat);
+                updateNoRepeatLabel();
             }
         );
         UI.volumeButton.setChange
@@ -530,7 +542,7 @@ export namespace Events
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
         UI.shuffle.loadParameter(Url.params, applyParam);
-        UI.repeat.loadParameter(Url.params, applyParam).setChange(() => updateNoRepeatLabel());
+        UI.repeat.loadParameter(Url.params, applyParam);
         //UI.volumeButton.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
         //UI.settingsButton.loadParameter(Url.params, applyParam);

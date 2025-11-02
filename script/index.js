@@ -2512,10 +2512,16 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.wakeUpButton,
             UI.sleepButton,
         ];
+        UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
+            var parent = checkbox.dom.parentElement;
+            parent.classList.toggle("checked", checked !== null && checked !== void 0 ? checked : checkbox.get());
+        };
         UI.closeOtherPopups = function (except) {
+            UI.updateParentClassBasedOnCheckbox(except);
             UI.popupCheckboxList.forEach(function (i) {
                 if (except !== i) {
                     i.toggle(false, "preventOnChange");
+                    UI.updateParentClassBasedOnCheckbox(i);
                 }
             });
         };
@@ -5466,6 +5472,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
+                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.shuffle);
+            });
+            ui_11.UI.repeat.setChange(function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                applyParam("repeat", "".concat(ui_11.UI.repeat.get()));
+                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.repeat);
+                Events.updateNoRepeatLabel();
             });
             ui_11.UI.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -5549,7 +5563,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
             ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateNoRepeatLabel(); });
+            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
             //UI.settingsButton.loadParameter(Url.params, applyParam);

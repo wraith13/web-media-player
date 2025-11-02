@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Nov 01 2025 18:50:26 GMT+0900 (日本標準時)
+    build at: Sun Nov 02 2025 07:12:54 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -673,7 +673,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #screen-body #media-list .item.add:first-child::before {
-  position: fixed;
+  position: absolute;
   content: " ";
   margin-left: auto;
   margin-right: auto;
@@ -1188,7 +1188,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel .icon-button > input[type=checkbox] {
   display: none;
 }
-#control-panel .icon-button > input[type=checkbox]:checked + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + div + div + div + div svg, #control-panel .icon-button > input[type=checkbox]:checked + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + div + svg, #control-panel .icon-button > input[type=checkbox]:checked + div + label + label + div + svg {
+#control-panel .icon-button.checked svg {
   border-color: rgb(230, 237, 243);
 }
 #control-panel .icon-button > svg, #control-panel .icon-button > div > svg {
@@ -1970,12 +1970,12 @@ label[for=wakeup-button].tip {
   inset-block-end: 4.5rem;
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
 }
 @media (max-width: 420px) {
   label[for=wakeup-button].tip {
     inset-block-end: 7rem;
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-inline-start: calc(50% - 9rem);
   }
 }
 
@@ -2005,7 +2005,7 @@ label[for=wakeup-button].tip {
   transform: translate(0px, 100%);
 }
 #no-media {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
   inset-block-end: 6.25rem;
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
@@ -2014,7 +2014,7 @@ label[for=wakeup-button].tip {
 }
 @media (max-width: 420px) {
   #no-media {
-    inset-block-end: 7rem;
+    inset-block-end: 8.75rem;
     inset-inline-start: calc(50% - 9rem);
   }
 }
@@ -2210,7 +2210,7 @@ label[for=sleep-button].tip {
   inset-block-end: 4.5rem;
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 60;
+  z-index: 30;
 }
 @media (max-width: 420px) {
   label[for=sleep-button].tip {
@@ -2245,7 +2245,7 @@ label[for=sleep-button].tip {
   transform: translate(0px, 100%);
 }
 #no-repeat {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
   inset-block-end: 6.25rem;
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
@@ -2254,8 +2254,8 @@ label[for=sleep-button].tip {
 }
 @media (max-width: 420px) {
   #no-repeat {
-    inset-block-end: 7rem;
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-block-end: 8.75rem;
+    inset-inline-end: calc(50% - 9rem);
   }
 }
 
@@ -3011,7 +3011,7 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen">
-        <span>Web Media Player</span>
+        <span style="display:none;">Web Media Player</span>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -3349,8 +3349,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Nov 01 2025 18:50:26 GMT+0900 (日本標準時)",
-    tick: 1761990626862
+    at: "Sun Nov 02 2025 07:12:54 GMT+0900 (日本標準時)",
+    tick: 1762035174633
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7426,10 +7426,16 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.wakeUpButton,
             UI.sleepButton,
         ];
+        UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
+            var parent = checkbox.dom.parentElement;
+            parent.classList.toggle("checked", checked !== null && checked !== void 0 ? checked : checkbox.get());
+        };
         UI.closeOtherPopups = function (except) {
+            UI.updateParentClassBasedOnCheckbox(except);
             UI.popupCheckboxList.forEach(function (i) {
                 if (except !== i) {
                     i.toggle(false, "preventOnChange");
+                    UI.updateParentClassBasedOnCheckbox(i);
                 }
             });
         };
@@ -10380,6 +10386,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
+                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.shuffle);
+            });
+            ui_11.UI.repeat.setChange(function (event, button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                button.dom.blur();
+                applyParam("repeat", "".concat(ui_11.UI.repeat.get()));
+                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.repeat);
+                Events.updateNoRepeatLabel();
             });
             ui_11.UI.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
@@ -10463,7 +10477,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);
             ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateNoRepeatLabel(); });
+            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
             //UI.settingsButton.loadParameter(Url.params, applyParam);

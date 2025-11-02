@@ -178,4 +178,22 @@ export namespace Timer
         }
         return null;
     };
+    export const getTimerFade = (): number =>
+    {
+        const sleepFadeProgress = getSleepFadeProgress();
+        if (null !== sleepFadeProgress)
+        {
+            return 1 - sleepFadeProgress;
+        }
+        if (isInSleepedMode())
+        {
+            return 0;
+        }
+        const wakeUpFadeProgress = getWakeUpFadeProgress();
+        if (null !== wakeUpFadeProgress)
+        {
+            return wakeUpFadeProgress;
+        }
+        return 1;
+    }
 }

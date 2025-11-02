@@ -797,6 +797,7 @@ declare module "script/ui" {
         const setLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const popupCheckboxList: Library.Control.Checkbox[];
+        const updateParentClassBasedOnCheckbox: (checkbox: Library.Control.Checkbox, checked?: boolean) => void;
         const closeOtherPopups: (except: Library.Control.Checkbox) => void;
     }
 }
