@@ -1070,34 +1070,37 @@ declare module "script/features/track" {
 }
 declare module "script/features/timer" {
     export namespace Timer {
-        const setWakeUpFadeInSpan: (timespan: number) => void;
-        const setSleepFadeOutSpan: (timespan: number) => void;
-        const setWakeUpTimer: (timespan: number | null) => void;
-        const setSleepTimer: (timespan: number | null) => void;
-        const wakeUp: (withPlay?: "WithPlay") => void;
-        const sleep: (withPause?: "WithPause") => void;
-        const getNow: () => number;
-        const isInSleepedMode: () => boolean;
-        const isWaitingForWakeUp: () => boolean;
-        const getTimeUntilWakeUp: () => number | null;
-        const getProgressUntilWakeUp: () => number | null;
-        const getCountDownTimerLoopSpan: (timerSpan: number | null, remainingTime: number | null) => number | null;
-        const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
-        const isWakeUpFading: () => boolean;
-        const getElapsedWokeUpTime: () => number | null;
-        const getWakeUpFadeProgress: () => number | null;
-        const isSleepTimerActive: () => boolean;
-        const isSleepFading: () => boolean;
-        const getTimeUntilSleep: () => number | null;
-        const getProgressUntilSleep: () => number | null;
-        const getSleepCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
-        const getSleepFadeProgress: () => number | null;
-        const getTimerFade: () => number;
-        const initialize: (data: {
+        const Player: {
             isPlaying: () => boolean;
             play: () => unknown;
             pause: () => unknown;
-        }) => void;
+            onChangedSleepMode: (isSleeped: boolean) => unknown;
+        };
+        export const setWakeUpFadeInSpan: (timespan: number) => void;
+        export const setSleepFadeOutSpan: (timespan: number) => void;
+        export const setWakeUpTimer: (timespan: number | null) => void;
+        export const setSleepTimer: (timespan: number | null) => void;
+        export const wakeUp: (withPlay?: "WithPlay") => void;
+        export const sleep: (withPause?: "WithPause") => void;
+        export const getNow: () => number;
+        export const isInSleepedMode: () => boolean;
+        export const isWaitingForWakeUp: () => boolean;
+        export const getTimeUntilWakeUp: () => number | null;
+        export const getProgressUntilWakeUp: () => number | null;
+        export const getCountDownTimerLoopSpan: (timerSpan: number | null, remainingTime: number | null) => number | null;
+        export const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
+        export const isWakeUpFading: () => boolean;
+        export const getElapsedWokeUpTime: () => number | null;
+        export const getWakeUpFadeProgress: () => number | null;
+        export const isSleepTimerActive: () => boolean;
+        export const isSleepFading: () => boolean;
+        export const getTimeUntilSleep: () => number | null;
+        export const getProgressUntilSleep: () => number | null;
+        export const getSleepCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
+        export const getSleepFadeProgress: () => number | null;
+        export const getTimerFade: () => number;
+        export const initialize: (data: typeof Player) => void;
+        export {};
     }
 }
 declare module "script/features/player" {
@@ -1214,6 +1217,7 @@ declare module "script/events" {
         const updateSleep: () => void;
         const updateNoRepeatLabel: () => void;
         const sleepCountDownTimerLoop: () => void;
+        const onChangedSleepMode: (isSleeped: boolean) => void;
         const updateLanguage: () => void;
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;

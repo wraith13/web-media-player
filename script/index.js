@@ -4259,6 +4259,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             isPlaying: undefined,
             play: undefined,
             pause: undefined,
+            onChangedSleepMode: undefined,
         };
         var wakeUpTimeSpan = null;
         var wakeUpFadeInSpan = 0;
@@ -4316,13 +4317,13 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             }
         };
         Timer.wakeUp = function (withPlay) {
-            isSleeped = false;
+            Player.onChangedSleepMode(isSleeped = false);
             if (withPlay === "WithPlay" && !Player.isPlaying()) {
                 Player.play();
             }
         };
         Timer.sleep = function (withPause) {
-            isSleeped = true;
+            Player.onChangedSleepMode(isSleeped = true);
             if (withPause === "WithPause" && Player.isPlaying()) {
                 Player.pause();
             }
@@ -4420,6 +4421,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             Player.isPlaying = data.isPlaying;
             Player.play = data.play;
             Player.pause = data.pause;
+            Player.onChangedSleepMode = data.onChangedSleepMode;
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
@@ -5317,6 +5319,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 Events.updateNoRepeatLabel();
             }
         };
+        Events.onChangedSleepMode = function (isSleeped) {
+            document.body.classList.toggle("sleeped", isSleeped);
+        };
         Events.updateLanguage = function () {
             ui_11.UI.updateLanguage();
             Events.updateWakeUpTimer();
@@ -5753,6 +5758,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         isPlaying: _features_3.Features.Player.isPlaying,
         play: _features_3.Features.Player.play,
         pause: _features_3.Features.Player.pause,
+        onChangedSleepMode: events_1.Events.onChangedSleepMode,
     });
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;

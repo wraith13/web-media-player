@@ -23,6 +23,7 @@ Features.Timer.initialize
     isPlaying: Features.Player.isPlaying,
     play: Features.Player.play,
     pause: Features.Player.pause,
+    onChangedSleepMode: Events.onChangedSleepMode,
 });
 interface BuildInformation
 {

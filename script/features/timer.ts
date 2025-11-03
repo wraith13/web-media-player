@@ -6,6 +6,7 @@ export namespace Timer
         isPlaying: undefined as unknown as () => boolean,
         play: undefined as unknown as () => unknown,
         pause: undefined as unknown as () => unknown,
+        onChangedSleepMode: undefined as unknown as (isSleeped: boolean) => unknown,
     };
     let wakeUpTimeSpan: number | null = null;
     let wakeUpFadeInSpan: number = 0;
@@ -84,7 +85,7 @@ export namespace Timer
     };
     export const wakeUp = (withPlay?: "WithPlay"): void =>
     {
-        isSleeped = false;
+        Player.onChangedSleepMode(isSleeped = false);
         if (withPlay === "WithPlay" && ! Player.isPlaying())
         {
             Player.play();
@@ -92,7 +93,7 @@ export namespace Timer
     };
     export const sleep = (withPause?: "WithPause"): void =>
     {
-        isSleeped = true;
+        Player.onChangedSleepMode(isSleeped = true);
         if (withPause === "WithPause" && Player.isPlaying())
         {
             Player.pause();
@@ -198,10 +199,11 @@ export namespace Timer
         }
         return 1;
     }
-    export const initialize = (data: { isPlaying: () => boolean, play: () => unknown, pause: () => unknown, }): void =>
+    export const initialize = (data: typeof Player): void =>
     {
         Player.isPlaying = data.isPlaying;
         Player.play = data.play;
         Player.pause = data.pause;
+        Player.onChangedSleepMode = data.onChangedSleepMode;
     };
 }

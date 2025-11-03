@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Nov 03 2025 04:56:23 GMT+0900 (日本標準時)
+    build at: Mon Nov 03 2025 17:12:56 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -402,8 +402,8 @@ body.list #screen-body #media-screen:not(.show)::before {
   padding-left: calc(0.25rem + env(safe-area-inset-left));
   padding-right: 0.25rem;
   padding-right: calc(0.25rem + env(safe-area-inset-right));
-  padding-bottom: 5.5rem;
-  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
+  padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));
   position: absolute;
   counter-reset: item-num;
 }
@@ -773,10 +773,6 @@ body:not(.show-paused-media) #screen-body.paused #media-screen {
 
 body #screen-body.paused {
   background-color: black;
-}
-body #screen-body.paused #media-list {
-  padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
-  padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));
 }
 
 body.show-paused-media #screen-body #media-screen {
@@ -1271,6 +1267,22 @@ body.play #control-panel #play-button #play-icon {
 
 body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
+}
+
+body:not(.mousemove).sleeped #media-list,
+body:not(.mousemove).sleeped #media-index,
+body:not(.mousemove).sleeped #media-title,
+body:not(.mousemove).sleeped #media-time-frame,
+body:not(.mousemove).sleeped #media-screen,
+body:not(.mousemove).sleeped #control-panel,
+body:not(.mousemove).sleeped #next-button,
+body:not(.mousemove).sleeped #back-button,
+body:not(.mousemove).sleeped #fast-forward-button,
+body:not(.mousemove).sleeped #rewind-button {
+  opacity: 0.2;
+}
+body:not(.mousemove).sleeped #screen-footer {
+  opacity: 0;
 }
 
 #wakeup-progress-circle,
@@ -3349,8 +3361,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Nov 03 2025 04:56:23 GMT+0900 (日本標準時)",
-    tick: 1762113383696
+    at: "Mon Nov 03 2025 17:12:56 GMT+0900 (日本標準時)",
+    tick: 1762157576040
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9173,6 +9185,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             isPlaying: undefined,
             play: undefined,
             pause: undefined,
+            onChangedSleepMode: undefined,
         };
         var wakeUpTimeSpan = null;
         var wakeUpFadeInSpan = 0;
@@ -9230,13 +9243,13 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             }
         };
         Timer.wakeUp = function (withPlay) {
-            isSleeped = false;
+            Player.onChangedSleepMode(isSleeped = false);
             if (withPlay === "WithPlay" && !Player.isPlaying()) {
                 Player.play();
             }
         };
         Timer.sleep = function (withPause) {
-            isSleeped = true;
+            Player.onChangedSleepMode(isSleeped = true);
             if (withPause === "WithPause" && Player.isPlaying()) {
                 Player.pause();
             }
@@ -9334,6 +9347,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             Player.isPlaying = data.isPlaying;
             Player.play = data.play;
             Player.pause = data.pause;
+            Player.onChangedSleepMode = data.onChangedSleepMode;
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
@@ -10231,6 +10245,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 Events.updateNoRepeatLabel();
             }
         };
+        Events.onChangedSleepMode = function (isSleeped) {
+            document.body.classList.toggle("sleeped", isSleeped);
+        };
         Events.updateLanguage = function () {
             ui_11.UI.updateLanguage();
             Events.updateWakeUpTimer();
@@ -10667,6 +10684,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         isPlaying: _features_3.Features.Player.isPlaying,
         play: _features_3.Features.Player.play,
         pause: _features_3.Features.Player.pause,
+        onChangedSleepMode: events_1.Events.onChangedSleepMode,
     });
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;

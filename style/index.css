@@ -346,8 +346,8 @@ body.list #screen-body #media-screen:not(.show)::before {
   padding-left: calc(0.25rem + env(safe-area-inset-left));
   padding-right: 0.25rem;
   padding-right: calc(0.25rem + env(safe-area-inset-right));
-  padding-bottom: 5.5rem;
-  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
+  padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));
   position: absolute;
   counter-reset: item-num;
 }
@@ -717,10 +717,6 @@ body:not(.show-paused-media) #screen-body.paused #media-screen {
 
 body #screen-body.paused {
   background-color: black;
-}
-body #screen-body.paused #media-list {
-  padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
-  padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));
 }
 
 body.show-paused-media #screen-body #media-screen {
@@ -1215,6 +1211,22 @@ body.play #control-panel #play-button #play-icon {
 
 body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
+}
+
+body:not(.mousemove).sleeped #media-list,
+body:not(.mousemove).sleeped #media-index,
+body:not(.mousemove).sleeped #media-title,
+body:not(.mousemove).sleeped #media-time-frame,
+body:not(.mousemove).sleeped #media-screen,
+body:not(.mousemove).sleeped #control-panel,
+body:not(.mousemove).sleeped #next-button,
+body:not(.mousemove).sleeped #back-button,
+body:not(.mousemove).sleeped #fast-forward-button,
+body:not(.mousemove).sleeped #rewind-button {
+  opacity: 0.2;
+}
+body:not(.mousemove).sleeped #screen-footer {
+  opacity: 0;
 }
 
 #wakeup-progress-circle,

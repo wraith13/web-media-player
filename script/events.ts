@@ -177,6 +177,10 @@ export namespace Events
             updateNoRepeatLabel();
         }
     };
+    export const onChangedSleepMode = (isSleeped: boolean): void =>
+    {
+        document.body.classList.toggle("sleeped", isSleeped);
+    }
     export const updateLanguage = () =>
     {
         UI.updateLanguage();
