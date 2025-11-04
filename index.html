@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Nov 03 2025 17:12:56 GMT+0900 (日本標準時)
+    build at: Tue Nov 04 2025 01:05:25 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3361,8 +3361,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Nov 03 2025 17:12:56 GMT+0900 (日本標準時)",
-    tick: 1762157576040
+    at: "Tue Nov 04 2025 01:05:25 GMT+0900 (日本標準時)",
+    tick: 1762185925475
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9256,7 +9256,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
         Timer.getNow = function () { return Date.now(); };
         Timer.isInSleepedMode = function () {
-            return isSleeped;
+            return (!Player.isPlaying()) && isSleeped;
         };
         Timer.isWaitingForWakeUp = function () {
             return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
@@ -9338,9 +9338,10 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             if (null !== wakeUpFadeProgress || null !== sleepFadeProgress) {
                 return (wakeUpFadeProgress !== null && wakeUpFadeProgress !== void 0 ? wakeUpFadeProgress : 1) * (1 - (sleepFadeProgress !== null && sleepFadeProgress !== void 0 ? sleepFadeProgress : 0));
             }
-            if (Timer.isInSleepedMode()) {
-                return 0;
-            }
+            // if (isInSleepedMode())
+            // {
+            //     return 0;
+            // }
             return 1;
         };
         Timer.initialize = function (data) {

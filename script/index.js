@@ -4330,7 +4330,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
         Timer.getNow = function () { return Date.now(); };
         Timer.isInSleepedMode = function () {
-            return isSleeped;
+            return (!Player.isPlaying()) && isSleeped;
         };
         Timer.isWaitingForWakeUp = function () {
             return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
@@ -4412,9 +4412,10 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             if (null !== wakeUpFadeProgress || null !== sleepFadeProgress) {
                 return (wakeUpFadeProgress !== null && wakeUpFadeProgress !== void 0 ? wakeUpFadeProgress : 1) * (1 - (sleepFadeProgress !== null && sleepFadeProgress !== void 0 ? sleepFadeProgress : 0));
             }
-            if (Timer.isInSleepedMode()) {
-                return 0;
-            }
+            // if (isInSleepedMode())
+            // {
+            //     return 0;
+            // }
             return 1;
         };
         Timer.initialize = function (data) {

@@ -101,7 +101,7 @@ export namespace Timer
     };
     export const getNow = (): number => Date.now();
     export const isInSleepedMode = (): boolean =>
-        isSleeped;
+        (! Player.isPlaying()) && isSleeped;
     export const isWaitingForWakeUp = (): boolean =>
         null !== wakeUpAt && getNow() < wakeUpAt!;
     export const getTimeUntilWakeUp = (): number | null =>
@@ -193,10 +193,10 @@ export namespace Timer
         {
             return (wakeUpFadeProgress ?? 1) * (1 -(sleepFadeProgress ?? 0));
         }
-        if (isInSleepedMode())
-        {
-            return 0;
-        }
+        // if (isInSleepedMode())
+        // {
+        //     return 0;
+        // }
         return 1;
     }
     export const initialize = (data: typeof Player): void =>
