@@ -1113,7 +1113,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
 #control-panel label[for=sleep-button].icon-button {
   margin-right: -3.25rem;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   #control-panel label[for=wakeup-button].icon-button {
     margin-top: -7rem;
     margin-right: -3.25rem;
@@ -1868,7 +1868,7 @@ body #wakeup-button:not(:checked) + #wakeup-panel:not(.show) {
   padding: 0.25rem 0.5rem;
   gap: 0.25rem;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   #wakeup-panel {
     inset-block-end: 7rem;
     inset-inline-start: calc(50% - 9.5rem);
@@ -1878,24 +1878,6 @@ body #wakeup-button:not(:checked) + #wakeup-panel:not(.show) {
 label[for=wakeup-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
-}
-body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 label[for=wakeup-button].tip:empty:not(.show) {
   opacity: 0;
@@ -1915,11 +1897,35 @@ label[for=wakeup-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
-  transform: translate(0px, 100%);
-}
 label[for=wakeup-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
+}
+@media (max-width: 719.99px) {
+  label[for=wakeup-button].tip {
+    transition: opacity 750ms, filter 750ms;
+    transition: transform 500ms;
+  }
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+    opacity: 0;
+    cursor: none;
+    pointer-events: none;
+    filter: blur(1em);
+  }
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
+    content: "";
+    position: absolute;
+    top: -1em;
+    left: -1em;
+    right: -1em;
+    bottom: -1em;
+    background: inherit;
+    filter: blur(1em);
+    z-index: -1;
+    transition: filter 750ms;
+  }
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+    transform: translate(0px, 100%);
+  }
 }
 label[for=wakeup-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
@@ -1928,10 +1934,17 @@ label[for=wakeup-button].tip {
   position: fixed;
   z-index: 30;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   label[for=wakeup-button].tip {
     inset-block-end: 7rem;
     inset-inline-start: calc(50% - 9rem);
+  }
+}
+@media (min-width: 720px) {
+  label[for=wakeup-button].tip {
+    inset-block-end: 0.9rem;
+    inset-inline-start: initial;
+    inset-inline-end: calc(50% + 12.5rem);
   }
 }
 
@@ -1968,10 +1981,15 @@ label[for=wakeup-button].tip {
   z-index: 30;
   color: red;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   #no-media {
     inset-block-end: 8.75rem;
     inset-inline-start: calc(50% - 9rem);
+  }
+}
+@media (min-width: 720px) {
+  #no-media {
+    inset-block-end: 4.5rem;
   }
 }
 
@@ -2108,7 +2126,7 @@ body #sleep-button:not(:checked) + #sleep-panel:not(.show) {
   padding: 0.25rem 0.5rem;
   gap: 0.25rem;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   #sleep-panel {
     inset-block-end: 7rem;
     inset-inline-end: calc(50% - 9.5rem);
@@ -2118,24 +2136,6 @@ body #sleep-button:not(:checked) + #sleep-panel:not(.show) {
 label[for=sleep-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
-}
-body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 label[for=sleep-button].tip:empty:not(.show) {
   opacity: 0;
@@ -2155,11 +2155,35 @@ label[for=sleep-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
-  transform: translate(0px, 100%);
-}
 label[for=sleep-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
+}
+@media (max-width: 719.99px) {
+  label[for=sleep-button].tip {
+    transition: opacity 750ms, filter 750ms;
+    transition: transform 500ms;
+  }
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+    opacity: 0;
+    cursor: none;
+    pointer-events: none;
+    filter: blur(1em);
+  }
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
+    content: "";
+    position: absolute;
+    top: -1em;
+    left: -1em;
+    right: -1em;
+    bottom: -1em;
+    background: inherit;
+    filter: blur(1em);
+    z-index: -1;
+    transition: filter 750ms;
+  }
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+    transform: translate(0px, 100%);
+  }
 }
 label[for=sleep-button].tip {
   transition: transform 500ms, opacity 500ms, filter 500ms;
@@ -2168,10 +2192,17 @@ label[for=sleep-button].tip {
   position: fixed;
   z-index: 30;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   label[for=sleep-button].tip {
     inset-block-end: 7rem;
     inset-inline-end: calc(50% - 9rem);
+  }
+}
+@media (min-width: 720px) {
+  label[for=sleep-button].tip {
+    inset-block-end: 0.9rem;
+    inset-inline-start: calc(50% + 12.5rem);
+    inset-inline-end: initial;
   }
 }
 
@@ -2208,10 +2239,15 @@ label[for=sleep-button].tip {
   z-index: 30;
   color: red;
 }
-@media (max-width: 420px) {
+@media (max-width: 540px) {
   #no-repeat {
     inset-block-end: 8.75rem;
     inset-inline-end: calc(50% - 9rem);
+  }
+}
+@media (min-width: 720px) {
+  #no-repeat {
+    inset-block-end: 4.5rem;
   }
 }
 
