@@ -1213,19 +1213,18 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
-body:not(.mousemove).sleeped #media-list,
-body:not(.mousemove).sleeped #media-index,
-body:not(.mousemove).sleeped #media-title,
-body:not(.mousemove).sleeped #media-time-frame,
-body:not(.mousemove).sleeped #media-screen,
-body:not(.mousemove).sleeped #control-panel,
-body:not(.mousemove).sleeped #next-button,
-body:not(.mousemove).sleeped #back-button,
-body:not(.mousemove).sleeped #fast-forward-button,
-body:not(.mousemove).sleeped #rewind-button {
+body:not(.play):not(.mousemove).sleeped #screen-body,
+body:not(.play):not(.mousemove).sleeped #media-index,
+body:not(.play):not(.mousemove).sleeped #media-title,
+body:not(.play):not(.mousemove).sleeped #media-time-frame,
+body:not(.play):not(.mousemove).sleeped #control-panel,
+body:not(.play):not(.mousemove).sleeped #next-button,
+body:not(.play):not(.mousemove).sleeped #back-button,
+body:not(.play):not(.mousemove).sleeped #fast-forward-button,
+body:not(.play):not(.mousemove).sleeped #rewind-button {
   opacity: 0.2;
 }
-body:not(.mousemove).sleeped #screen-footer {
+body:not(.play):not(.mousemove).sleeped #screen-footer {
   opacity: 0;
 }
 

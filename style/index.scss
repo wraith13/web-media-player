@@ -787,13 +787,14 @@ body:not(.not-supported-media)
         }
     }
 }
-body:not(.mousemove).sleeped
+body:not(.play):not(.mousemove).sleeped
 {
-    #media-list,
+    #screen-body,
+    //#media-screen,
+    //#media-list,
     #media-index,
     #media-title,
     #media-time-frame,
-    #media-screen,
     #control-panel,
     #next-button,
     #back-button,
