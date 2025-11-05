@@ -206,7 +206,7 @@ export namespace UI
     export const wakeUpTimerLabel =
         Library.UI.getElementById("label", "wakeup-timer");
     export const wakeUp =
-        new Library.Control.Select
+        new Library.Control.Select<typeof control.wakeUp.enum[number]>
         (
             control.wakeUp,
             {
@@ -234,7 +234,7 @@ export namespace UI
     export const sleepTimerLabel =
         Library.UI.getElementById("label", "sleep-timer");
     export const sleep =
-        new Library.Control.Select
+        new Library.Control.Select<typeof control.sleep.enum[number]>
         (
             control.sleep,
             {

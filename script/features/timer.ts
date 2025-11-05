@@ -86,7 +86,7 @@ export namespace Timer
     export const wakeUp = (withPlay?: "WithPlay"): void =>
     {
         Player.onChangedSleepMode(isSleeped = false);
-        if (withPlay === "WithPlay" && ! Player.isPlaying())
+        if (withPlay === "WithPlay")
         {
             Player.play();
         }
@@ -94,7 +94,7 @@ export namespace Timer
     export const sleep = (withPause?: "WithPause"): void =>
     {
         Player.onChangedSleepMode(isSleeped = true);
-        if (withPause === "WithPause" && Player.isPlaying())
+        if (withPause === "WithPause")
         {
             Player.pause();
         }

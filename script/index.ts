@@ -21,8 +21,18 @@ Screenshot.initialize(Url.params);
 Features.Timer.initialize
 ({
     isPlaying: Features.Player.isPlaying,
-    play: Features.Player.play,
-    pause: Features.Player.pause,
+    play: () =>
+    {
+        console.log("⏰ Timer: Resuming playback for wake-up.");
+        UI.wakeUp.switch("off");
+        Features.Player.play();
+    },
+    pause: () =>
+    {
+        console.log("💤 Timer: Pausing playback for sleep mode.");
+        UI.sleep.switch("off");
+        Features.Player.pause();
+    },
     onChangedSleepMode: Events.onChangedSleepMode,
 });
 interface BuildInformation
