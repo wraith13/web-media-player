@@ -2660,6 +2660,72 @@ body:not(.play) #overlay-panel:not(.show)::before {
   transform: translate(50%, -50%);
 }
 
+#pressed-key {
+  transition: opacity 750ms, filter 750ms;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#pressed-key:empty:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#pressed-key:empty:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#pressed-key {
+  position: fixed;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5rem;
+  gap: 0.5rem 0.5rem;
+}
+#pressed-key kbd {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #pressed-key kbd {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #pressed-key kbd {
+    font-size: 1rem;
+  }
+}
+#pressed-key kbd {
+  font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+#pressed-key kbd {
+  font-size: 2rem;
+  display: inline-block;
+  contain: paint;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  padding-block: 2px;
+  padding-inline: 8px;
+  margin-block: 4px;
+  margin-inline: 4px;
+  color: rgb(230, 237, 243);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 #screen-footer {
   margin: 0px;
   inset-block-end: 0px;

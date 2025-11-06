@@ -151,6 +151,8 @@ export namespace UI
         Library.UI.getElementById("span", "time");
     export const keyboardShortcut =
         Library.UI.getElementById("div", "keyboard-shortcut");
+    export const pressedKey =
+        Library.UI.getElementById("div", "pressed-key");
     export const updateShortcuts = () =>
     {
         Library.UI.replaceChildren

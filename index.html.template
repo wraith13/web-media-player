@@ -252,6 +252,7 @@ DUMMYSTYLE
 <button id="fast-forward-button">
     <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
 </button>
+<div id="pressed-key"><kbd>shift</kbd><kbd>x</kbd></div>
 <div id="screen-footer">
     <div id="supplementary-line">
         <div id="keyboard-shortcut">
