@@ -155,6 +155,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: opacity 3000ms;
   position: fixed;
   z-index: 50;
 }
@@ -1213,7 +1214,6 @@ body:not(.play) #control-panel #play-button #pause-icon {
   display: none;
 }
 
-body:not(.play):not(.mousemove).sleeped #screen-body,
 body:not(.play):not(.mousemove).sleeped #media-index,
 body:not(.play):not(.mousemove).sleeped #media-title,
 body:not(.play):not(.mousemove).sleeped #media-time-frame,
@@ -1224,6 +1224,7 @@ body:not(.play):not(.mousemove).sleeped #fast-forward-button,
 body:not(.play):not(.mousemove).sleeped #rewind-button {
   opacity: 0.2;
 }
+body:not(.play):not(.mousemove).sleeped #screen-body,
 body:not(.play):not(.mousemove).sleeped #screen-footer {
   opacity: 0;
 }

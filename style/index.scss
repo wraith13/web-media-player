@@ -6,6 +6,7 @@
 {
     @include full-stretch-box();
     @include flex(column, center);
+    transition: opacity 3000ms;
     position: fixed;
     z-index: 50;
     @at-root body.play:not(.mousemove) &
@@ -789,7 +790,6 @@ body:not(.not-supported-media)
 }
 body:not(.play):not(.mousemove).sleeped
 {
-    #screen-body,
     //#media-screen,
     //#media-list,
     #media-index,
@@ -803,6 +803,7 @@ body:not(.play):not(.mousemove).sleeped
     {
         opacity: 0.2;
     }
+    #screen-body,
     #screen-footer
     {
         opacity: 0.0;
