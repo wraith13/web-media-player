@@ -1606,6 +1606,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
         var getShortcutKeys = function (type, normalizedKey) {
             switch (type) {
                 case "onKeyDown":
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
                     pressedKeys.push(normalizedKey);
                     return pressedKeys;
                 case "onKeyUp":

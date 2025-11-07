@@ -55,6 +55,7 @@ export namespace Shortcuts
         switch(type)
         {
         case "onKeyDown":
+            pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
             pressedKeys.push(normalizedKey);
             return pressedKeys;
         case "onKeyUp":

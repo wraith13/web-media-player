@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Nov 07 2025 01:53:15 GMT+0900 (日本標準時)
+    build at: Fri Nov 07 2025 21:00:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3448,8 +3448,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Nov 07 2025 01:53:15 GMT+0900 (日本標準時)",
-    tick: 1762447995882
+    at: "Fri Nov 07 2025 21:00:28 GMT+0900 (日本標準時)",
+    tick: 1762516828207
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6619,6 +6619,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
         var getShortcutKeys = function (type, normalizedKey) {
             switch (type) {
                 case "onKeyDown":
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
                     pressedKeys.push(normalizedKey);
                     return pressedKeys;
                 case "onKeyUp":
