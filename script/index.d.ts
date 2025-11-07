@@ -597,6 +597,7 @@ declare module "script/library/shortcuts" {
         const initialize: () => void;
         const setCommandMap: (commandMap: CommandMap | null) => void;
         const setStyle: (newStyle: keyof typeof shortcuts) => void;
+        const setPressedKeyDiv: (div: HTMLDivElement | null) => void;
     }
 }
 declare module "script/library/index" {
@@ -777,6 +778,7 @@ declare module "script/ui" {
         const date: HTMLSpanElement;
         const time: HTMLSpanElement;
         const keyboardShortcut: HTMLDivElement;
+        const pressedKey: HTMLDivElement;
         const updateShortcuts: () => void;
         const updateLanguage: () => void;
         const wakeUpButton: Library.Control.Checkbox;

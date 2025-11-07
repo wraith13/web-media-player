@@ -542,6 +542,7 @@ export namespace Events
                 UI.closeOtherPopups(UI.sleepButton);
             }
         );
+        Library.Shortcuts.setPressedKeyDiv(UI.pressedKey);
         UI.seekRange.addEventListener("click", event => event.stopPropagation());
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);

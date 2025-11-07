@@ -10,6 +10,7 @@ export namespace Shortcuts
     export type CommandMap = { [key in Shortcuts.CommandKey]-?: () => void };
     let style: StyleKey = "youtube";
     let currentCommandMap: CommandMap | null = null;
+    let pressedKeyDiv: HTMLDivElement | null = null;
     const keyDisplayNames =
     {
         "ArrowUp": "↑",
@@ -64,11 +65,15 @@ export namespace Shortcuts
     }
     export const handleKeyEvent = (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
     {
+        const normalizedKey = normalizeKey(event.key, event.code);
+        const shortcutKeys = getShortcutKeys(type, normalizedKey);
+        if (null !== pressedKeyDiv)
+        {
+            pressedKeyDiv.innerHTML = pressedKeys.map(key => `<kbd>${getDisplayKeyName(key)}</kbd>`).join("");
+        }
         const commandMap = currentCommandMap;
         if (null !== commandMap)
         {
-            const normalizedKey = normalizeKey(event.key, event.code);
-            const shortcutKeys = getShortcutKeys(type, normalizedKey);
             if ( ! isInputElementFocused())
             {
                 const commandKeys = (shortcuts[style].items as Item[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
@@ -124,4 +129,8 @@ export namespace Shortcuts
             style = newStyle;
         }
     };
+    export const setPressedKeyDiv = (div: HTMLDivElement | null) =>
+    {
+        pressedKeyDiv = div;
+    }
 }

@@ -1563,6 +1563,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
     (function (Shortcuts) {
         var style = "youtube";
         var currentCommandMap = null;
+        var pressedKeyDiv = null;
         var keyDisplayNames = {
             "ArrowUp": "↑",
             "ArrowDown": "↓",
@@ -1615,14 +1616,17 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
         };
         Shortcuts.handleKeyEvent = function (type, event) {
             var _a;
+            var normalizedKey = normalizeKey(event.key, event.code);
+            var shortcutKeys = getShortcutKeys(type, normalizedKey);
+            if (null !== pressedKeyDiv) {
+                pressedKeyDiv.innerHTML = pressedKeys.map(function (key) { return "<kbd>".concat(getDisplayKeyName(key), "</kbd>"); }).join("");
+            }
             var commandMap = currentCommandMap;
             if (null !== commandMap) {
-                var normalizedKey = normalizeKey(event.key, event.code);
-                var shortcutKeys_1 = getShortcutKeys(type, normalizedKey);
                 if (!isInputElementFocused()) {
                     var commandKeys = shortcuts_json_1.default[style].items.reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
-                        return getKeys(shortcut).length === shortcutKeys_1.length &&
-                            getKeys(shortcut).every(function (key) { return shortcutKeys_1.includes(key); }) &&
+                        return getKeys(shortcut).length === shortcutKeys.length &&
+                            getKeys(shortcut).every(function (key) { return shortcutKeys.includes(key); }) &&
                             type === shortcut.type;
                     })
                         .map(function (i) { return i.command; });
@@ -1658,6 +1662,9 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
             if (style !== newStyle && shortcuts_json_1.default[newStyle]) {
                 style = newStyle;
             }
+        };
+        Shortcuts.setPressedKeyDiv = function (div) {
+            pressedKeyDiv = div;
         };
     })(Shortcuts || (exports.Shortcuts = Shortcuts = {}));
 });
@@ -2413,6 +2420,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.date = _library_2.Library.UI.getElementById("span", "date");
         UI.time = _library_2.Library.UI.getElementById("span", "time");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
+        UI.pressedKey = _library_2.Library.UI.getElementById("div", "pressed-key");
         UI.updateShortcuts = function () {
             _library_2.Library.UI.replaceChildren(UI.keyboardShortcut, _library_2.Library.Shortcuts.getDisplayList().map(function (i) {
                 return [
@@ -5593,6 +5601,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 ui_11.UI.closeOtherPopups(ui_11.UI.sleepButton);
             });
+            _library_9.Library.Shortcuts.setPressedKeyDiv(ui_11.UI.pressedKey);
             ui_11.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_11.UI.seekRange.addEventListener("change", updateSeek);
             ui_11.UI.seekRange.addEventListener("input", updateSeek);

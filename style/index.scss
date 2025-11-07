@@ -1619,7 +1619,6 @@ label:not(.icon-button)
 }
 #pressed-key
 {
-    @include fade-transition("&:empty");
     @include flex(row, center, center);
     &
     {
@@ -1648,6 +1647,10 @@ label:not(.icon-button)
                 color: $white-color;
                 background-color: $kbd-background-color;
             }
+        }
+        &:empty
+        {
+            display: none;
         }
     }
 }

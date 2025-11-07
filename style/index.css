@@ -2661,29 +2661,10 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 
 #pressed-key {
-  transition: opacity 750ms, filter 750ms;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
-#pressed-key:empty:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-#pressed-key:empty:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #pressed-key {
   position: fixed;
@@ -2724,6 +2705,9 @@ body:not(.play) #overlay-panel:not(.show)::before {
   margin-inline: 4px;
   color: rgb(230, 237, 243);
   background-color: rgba(255, 255, 255, 0.15);
+}
+#pressed-key:empty {
+  display: none;
 }
 
 #screen-footer {
