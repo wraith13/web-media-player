@@ -1554,7 +1554,7 @@ define("resource/shortcuts", [], {
         ]
     }
 });
-define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "resource/shortcuts"], function (require, exports, environment_1, shortcuts_json_1) {
+define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "script/library/ui", "resource/shortcuts"], function (require, exports, environment_1, ui_2, shortcuts_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Shortcuts = void 0;
@@ -1608,20 +1608,29 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
                 case "onKeyDown":
                     pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
                     pressedKeys.push(normalizedKey);
+                    updatePressedKeyDiv();
                     return pressedKeys;
                 case "onKeyUp":
                     var result = __spreadArray([], pressedKeys, true);
                     pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
+                    updatePressedKeyDiv();
                     return result;
+            }
+        };
+        var updatePressedKeyDiv = function () {
+            if (null !== pressedKeyDiv) {
+                ui_2.UI.replaceChildren(pressedKeyDiv, pressedKeys.map(function (key) {
+                    return ({
+                        tag: "kbd",
+                        textContent: getDisplayKeyName(key),
+                    });
+                }));
             }
         };
         Shortcuts.handleKeyEvent = function (type, event) {
             var _a;
             var normalizedKey = normalizeKey(event.key, event.code);
             var shortcutKeys = getShortcutKeys(type, normalizedKey);
-            if (null !== pressedKeyDiv) {
-                pressedKeyDiv.innerHTML = pressedKeys.map(function (key) { return "<kbd>".concat(getDisplayKeyName(key), "</kbd>"); }).join("");
-            }
             var commandMap = currentCommandMap;
             if (null !== commandMap) {
                 if (!isInputElementFocused()) {
@@ -2536,7 +2545,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
     })(UI || (exports.UI = UI = {}));
 });
-define("script/features/location", ["require", "exports", "script/ui"], function (require, exports, ui_2) {
+define("script/features/location", ["require", "exports", "script/ui"], function (require, exports, ui_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Location = void 0;
@@ -2561,7 +2570,7 @@ define("script/features/location", ["require", "exports", "script/ui"], function
             }
         };
         Location.get = function () {
-            if ("geolocation" === ui_2.UI.weatherLocationSelect.get()) {
+            if ("geolocation" === ui_3.UI.weatherLocationSelect.get()) {
                 return coords;
             }
             return undefined;
@@ -2693,7 +2702,7 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         };
     })(Weather || (exports.Weather = Weather = {}));
 });
-define("script/features/overlay", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "script/features/weather", "resource/config"], function (require, exports, library_1, tools_1, ui_3, weather_1, config_json_3) {
+define("script/features/overlay", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "script/features/weather", "resource/config"], function (require, exports, library_1, tools_1, ui_4, weather_1, config_json_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Overlay = void 0;
@@ -2712,7 +2721,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             return date.toLocaleTimeString(locale, config_json_3.default.clock.timeFormat);
         };
         Overlay.updateLayout = function (date) {
-            if (ui_3.UI.overlay.classList.contains("rotate")) {
+            if (ui_4.UI.overlay.classList.contains("rotate")) {
                 var direction_1 = ((date.getHours() % 12) / 3) | 0;
                 [
                     "top-right",
@@ -2720,20 +2729,20 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     "bottom-left",
                     "top-left",
                 ]
-                    .forEach(function (i, ix) { return ui_3.UI.overlay.classList.toggle(i, direction_1 === ix); });
+                    .forEach(function (i, ix) { return ui_4.UI.overlay.classList.toggle(i, direction_1 === ix); });
             }
         };
         Overlay.updateWeather = function () {
             var _a, _b, _c;
-            if (ui_3.UI.withWeatherCheckbox.get()) {
+            if (ui_4.UI.withWeatherCheckbox.get()) {
                 var weather = weather_1.Weather.get();
-                if (((_a = ui_3.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
+                if (((_a = ui_4.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
                     var attribute = document.createAttribute("data-weather");
                     attribute.value = weather;
-                    ui_3.UI.weather.attributes.setNamedItem(attribute);
+                    ui_4.UI.weather.attributes.setNamedItem(attribute);
                     var firstLetter = (_c = (_b = weather.match(/\S+/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
                     var tail = weather.slice(firstLetter.length).trim();
-                    library_1.Library.UI.replaceChildren(ui_3.UI.weather, [
+                    library_1.Library.UI.replaceChildren(ui_4.UI.weather, [
                         {
                             tag: "span",
                             className: "first-letter",
@@ -2748,34 +2757,34 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 }
             }
             else {
-                library_1.Library.UI.setTextContent(ui_3.UI.weather, "");
+                library_1.Library.UI.setTextContent(ui_4.UI.weather, "");
             }
         };
         Overlay.updateTime = function (date) {
-            if (ui_3.UI.withClockCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_3.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
+            if (ui_4.UI.withClockCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_4.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
             }
             else {
-                library_1.Library.UI.setTextContent(ui_3.UI.time, "");
+                library_1.Library.UI.setTextContent(ui_4.UI.time, "");
             }
         };
         Overlay.updateDate = function (date) {
-            if (ui_3.UI.withDateCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_3.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
+            if (ui_4.UI.withDateCheckbox.get()) {
+                library_1.Library.UI.setTextContent(ui_4.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
             }
             else {
-                library_1.Library.UI.setTextContent(ui_3.UI.date, "");
+                library_1.Library.UI.setTextContent(ui_4.UI.date, "");
             }
         };
         Overlay.updateCalendar = function (date) {
             var _a;
-            var dateDate = ui_3.UI.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
-            if (((_a = ui_3.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
+            var dateDate = ui_4.UI.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
+            if (((_a = ui_4.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
                 attribute.value = dateDate;
-                ui_3.UI.calendar.attributes.setNamedItem(attribute);
+                ui_4.UI.calendar.attributes.setNamedItem(attribute);
                 if ("" === dateDate) {
-                    library_1.Library.UI.removeAllChildren(ui_3.UI.calendar);
+                    library_1.Library.UI.removeAllChildren(ui_4.UI.calendar);
                 }
                 else {
                     var weeks = [];
@@ -2801,18 +2810,18 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                             children: weekDays,
                         });
                     }
-                    library_1.Library.UI.replaceChildren(ui_3.UI.calendar, weeks);
+                    library_1.Library.UI.replaceChildren(ui_4.UI.calendar, weeks);
                 }
             }
         };
         Overlay.setColor = function (color) {
-            library_1.Library.UI.setStyle(ui_3.UI.calendar, "color", color);
-            library_1.Library.UI.setStyle(ui_3.UI.weather, "color", color);
-            library_1.Library.UI.setStyle(ui_3.UI.date, "color", color);
-            library_1.Library.UI.setStyle(ui_3.UI.time, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.calendar, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.weather, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.date, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.time, "color", color);
         };
         Overlay.update = function (now) {
-            var overlayOption = ui_3.UI.overlayStyleSelect.get();
+            var overlayOption = ui_4.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {
                 var date = new Date();
                 Overlay.updateLayout(date);
@@ -2823,8 +2832,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 switch (overlayOption) {
                     case "alternate":
                         var isWhite = (new Date().getTime() / config_json_3.default.clock.alternate.span) % 2 < 1.0;
-                        ui_3.UI.overlay.classList.toggle("white", isWhite);
-                        ui_3.UI.overlay.classList.toggle("black", !isWhite);
+                        ui_4.UI.overlay.classList.toggle("white", isWhite);
+                        ui_4.UI.overlay.classList.toggle("black", !isWhite);
                         Overlay.setColor(undefined);
                         break;
                     case "rainbow":
@@ -2842,7 +2851,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             Overlay.locale = params["locale"];
             Overlay.title = params["title"];
             Overlay.subtitle = params["subtitle"];
-            ui_3.UI.time.classList.toggle("text", undefined !== Overlay.title);
+            ui_4.UI.time.classList.toggle("text", undefined !== Overlay.title);
         };
     })(Overlay || (exports.Overlay = Overlay = {}));
 });
@@ -3195,7 +3204,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_4, config_json_5) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_5, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
@@ -3296,31 +3305,31 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.CanvasContext2D = CanvasContext2D;
         Visualizer.VisualizerDom = HTMLDivElement;
         Visualizer.isSimpleMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("simple");
+            return ui_5.UI.mediaScreen.classList.contains("simple");
         };
         Visualizer.isPlaneFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("plane-frequency");
+            return ui_5.UI.mediaScreen.classList.contains("plane-frequency");
         };
         Visualizer.isPlaneWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("plane-waveform");
+            return ui_5.UI.mediaScreen.classList.contains("plane-waveform");
         };
         Visualizer.isArcFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("arc-frequency");
+            return ui_5.UI.mediaScreen.classList.contains("arc-frequency");
         };
         Visualizer.isArcWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("arc-waveform");
+            return ui_5.UI.mediaScreen.classList.contains("arc-waveform");
         };
         Visualizer.isDoubleArcMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("double-arc");
+            return ui_5.UI.mediaScreen.classList.contains("double-arc");
         };
         Visualizer.isStereoArcFrequencyMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-arc-frequency");
+            return ui_5.UI.mediaScreen.classList.contains("stereo-arc-frequency");
         };
         Visualizer.isStereoArcWaveformMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-arc-waveform");
+            return ui_5.UI.mediaScreen.classList.contains("stereo-arc-waveform");
         };
         Visualizer.isStereoDoubleArcMode = function () {
-            return ui_4.UI.mediaScreen.classList.contains("stereo-double-arc");
+            return ui_5.UI.mediaScreen.classList.contains("stereo-double-arc");
         };
         Visualizer.make = function (media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
@@ -3580,7 +3589,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_5, analyser_1) {
+define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_6, analyser_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ElementPool = void 0;
@@ -3591,7 +3600,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.makeSure = function (data) {
             var result = Promise.resolve();
             if (data.image) {
-                while (ui_5.UI.elementPool.getElementsByTagName("img").length < 4) {
+                while (ui_6.UI.elementPool.getElementsByTagName("img").length < 4) {
                     var imgElement = _library_5.Library.UI.createElement({
                         tag: "img",
                         className: "player",
@@ -3600,12 +3609,12 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                             alt: data.image.name,
                         },
                     });
-                    ui_5.UI.elementPool.appendChild(imgElement);
+                    ui_6.UI.elementPool.appendChild(imgElement);
                 }
             }
             if (data.audio) {
                 var url_1 = data.audio.url;
-                var count = ui_5.UI.elementPool.getElementsByTagName("audio").length;
+                var count = ui_6.UI.elementPool.getElementsByTagName("audio").length;
                 while (count++ < 2) {
                     result = result.then(function () {
                         var audioElement = _library_5.Library.UI.createElement({
@@ -3617,7 +3626,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                                 autoplay: false,
                             },
                         });
-                        ui_5.UI.elementPool.appendChild(audioElement);
+                        ui_6.UI.elementPool.appendChild(audioElement);
                         audioElement.volume = 0;
                         audioElement.muted = false;
                         return audioElement.play().then(function () { audioElement.pause(); audioElement.currentTime = 0; });
@@ -3626,7 +3635,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
             }
             if (data.video) {
                 var url_2 = data.video.url;
-                var count = ui_5.UI.elementPool.getElementsByTagName("video").length;
+                var count = ui_6.UI.elementPool.getElementsByTagName("video").length;
                 while (count++ < 4) {
                     result = result.then(function () {
                         var videoElement = _library_5.Library.UI.createElement({
@@ -3640,7 +3649,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                                 webkitPlaysinline: true,
                             },
                         });
-                        ui_5.UI.elementPool.appendChild(videoElement);
+                        ui_6.UI.elementPool.appendChild(videoElement);
                         videoElement.volume = 0;
                         videoElement.muted = false;
                         return videoElement.play().then(function () { videoElement.pause(); videoElement.currentTime = 0; });
@@ -3671,7 +3680,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.get = function (media) {
             switch (media.category) {
                 case "image":
-                    var imgElement = ui_5.UI.elementPool.getElementsByTagName("img")[0];
+                    var imgElement = ui_6.UI.elementPool.getElementsByTagName("img")[0];
                     if (imgElement) {
                         imgElement.src = media.url;
                         imgElement.alt = media.name;
@@ -3679,7 +3688,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                     }
                     break;
                 case "audio":
-                    var audioElement = ui_5.UI.elementPool.getElementsByTagName("audio")[0];
+                    var audioElement = ui_6.UI.elementPool.getElementsByTagName("audio")[0];
                     if (audioElement) {
                         audioElement.src = media.url;
                         audioElement.controls = false;
@@ -3691,7 +3700,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                     }
                     break;
                 case "video":
-                    var videoElement = ui_5.UI.elementPool.getElementsByTagName("video")[0];
+                    var videoElement = ui_6.UI.elementPool.getElementsByTagName("video")[0];
                     if (videoElement) {
                         videoElement.src = media.url;
                         videoElement.autoplay = false;
@@ -3711,12 +3720,12 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
         ElementPool.release = function (element) {
             if (element) {
                 element.className = "player";
-                ui_5.UI.elementPool.appendChild(element);
+                ui_6.UI.elementPool.appendChild(element);
             }
         };
     })(ElementPool || (exports.ElementPool = ElementPool = {}));
 });
-define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_6, Config) {
+define("script/features/history", ["require", "exports", "script/features/media", "script/tools/index", "script/ui", "resource/config"], function (require, exports, media_1, _tools_4, ui_7, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.History = void 0;
@@ -3764,7 +3773,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 if (media) {
                     History.clear();
                     var index = media_1.Media.mediaList.indexOf(media);
-                    if (ui_6.UI.shuffle.get()) {
+                    if (ui_7.UI.shuffle.get()) {
                         history.push(index);
                         currentIndex = 0;
                     }
@@ -3794,7 +3803,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 ++currentIndex;
                 if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    if (ui_6.UI.shuffle.get()) {
+                    if (ui_7.UI.shuffle.get()) {
                         history.push(History.getShuffleNext());
                     }
                     else {
@@ -3810,7 +3819,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < media_1.Media.mediaList.length ||
                     0 < History.getStraightNext(nextIndex) ||
-                    ui_6.UI.repeat.get()) {
+                    ui_7.UI.repeat.get()) {
                     return false;
                 }
             }
@@ -3851,7 +3860,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_7, elementpool_1, analyser_2, visualizer_1, config_json_6) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, config_json_6) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
@@ -4050,28 +4059,28 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
             if ("current" === truckType) {
-                if (this.playerElement instanceof HTMLVideoElement && ui_7.UI.withVisualizerCheckbox.get()) {
-                    ui_7.UI.visualizer.classList.toggle("on", true);
-                    visualizer_1.Visualizer.step(this.media, this.playerElement, ui_7.UI.visualizer, this.analyser);
+                if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
+                    ui_8.UI.visualizer.classList.toggle("on", true);
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
                 }
                 else {
-                    ui_7.UI.visualizer.classList.toggle("on", false);
+                    ui_8.UI.visualizer.classList.toggle("on", false);
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
-                ui_7.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
+                ui_8.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }
             else {
-                ui_7.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+                ui_8.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
             }
         };
         Track.prototype.isLoop = function () {
-            var loopShortMedia = ui_7.UI.loopShortMediaCheckbox.get();
+            var loopShortMedia = ui_8.UI.loopShortMediaCheckbox.get();
             var imageSpan = this.getImageDuration();
             return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
         };
         Track.prototype.getImageDuration = function () {
-            return parseFloat(ui_7.UI.imageSpanSelect.get());
+            return parseFloat(ui_8.UI.imageSpanSelect.get());
         };
         Track.prototype.getDuration = function () {
             if (this.isLoop()) {
@@ -4133,9 +4142,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (this.visualElement) {
                 if (this.media.area) {
-                    var StretchRate = ui_7.UI.stretchRange.get() / 100;
+                    var StretchRate = ui_8.UI.stretchRange.get() / 100;
                     var isFit = this.appleyStretch(this.playerElement, StretchRate);
-                    if (ui_7.UI.paddingCheckbox.get()) {
+                    if (ui_8.UI.paddingCheckbox.get()) {
                         if (!isFit) {
                             if (null === this.paddingElement) {
                                 this.paddingElement = this.makePlayerElement();
@@ -4180,7 +4189,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
             if ("current" === truckType) {
-                visualizer_1.Visualizer.updateStretch(ui_7.UI.visualizer);
+                visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
             }
         };
         Track.prototype.updateLoopShortMedia = function (isPlaying) {
@@ -4435,7 +4444,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_8, elementpool_2, media_2, history_1, track_1, timer_1, Config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, Config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -4448,7 +4457,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             CrossFade.startAt = null;
             CrossFade.elapsedTime = null;
             CrossFade.getDuration = function () {
-                return parseFloat(ui_8.UI.crossFadeSelect.get());
+                return parseFloat(ui_9.UI.crossFadeSelect.get());
             };
             CrossFade.clear = function () {
                 CrossFade.startAt = null;
@@ -4502,7 +4511,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         var loopHandle = null;
         Player.updateFullscreenState = function (fullscreen) {
             if (_library_7.Library.UI.fullscreenEnabled) {
-                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_8.UI.withFullscreenCheckbox.get()) {
+                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_9.UI.withFullscreenCheckbox.get()) {
                     if (Player.isPlaying()) {
                         _library_7.Library.UI.requestFullscreen(document.body);
                         setTimeout(function () { return document.body.focus(); }, 100);
@@ -4571,7 +4580,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (currentMedia) {
                             Player.playMedia(currentMedia, "resume");
                         }
-                        else if (!ui_8.UI.repeat.get()) {
+                        else if (!ui_9.UI.repeat.get()) {
                             Player.pause();
                         }
                         return [2 /*return*/];
@@ -4587,7 +4596,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
             }
-            ui_8.UI.overlay.style.removeProperty("opacity");
+            ui_9.UI.overlay.style.removeProperty("opacity");
             Player.updateFullscreenState(false);
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
@@ -4596,9 +4605,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
             var isResumable = 0 < media_2.Media.mediaList.length && null !== currentTrack;
-            ui_8.UI.screenBody.classList.toggle("paused", isResumable);
+            ui_9.UI.screenBody.classList.toggle("paused", isResumable);
             if (isResumable) {
-                ui_8.UI.mediaList.scrollTop = ui_8.UI.mediaList.scrollHeight;
+                ui_9.UI.mediaList.scrollTop = ui_9.UI.mediaList.scrollHeight;
                 document.body.classList.toggle("show-paused-media", true);
             }
         };
@@ -4624,7 +4633,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.clearCrossFade = function () {
             if (null !== currentTrack) {
                 if (CrossFade.isCrossFading()) {
-                    var currentVolume = ui_8.UI.volumeRange.get() / 100;
+                    var currentVolume = ui_9.UI.volumeRange.get() / 100;
                     CrossFade.clear();
                     Player.removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
@@ -4666,8 +4675,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.updateFps = function () {
-            if (ui_8.UI.showFpsCheckbox.get()) {
-                _library_7.Library.UI.setTextContent(ui_8.UI.fpsDisplay, fps_1.Fps.getText());
+            if (ui_9.UI.showFpsCheckbox.get()) {
+                _library_7.Library.UI.setTextContent(ui_9.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
         Player.isNextTiming = function () {
@@ -4675,7 +4684,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 if (currentTrack.getRemainingTime() <= 0) {
                     return true;
                 }
-                if (0 < parseFloat(ui_8.UI.crossFadeSelect.get())) {
+                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get())) {
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
                             return true;
@@ -4693,10 +4702,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 0:
                         if (!(null !== currentTrack)) return [3 /*break*/, 8];
                         currentTimerFade = timer_1.Timer.getTimerFade();
-                        currentVolume = (ui_8.UI.volumeRange.get() / 100) * currentTimerFade;
+                        currentVolume = (ui_9.UI.volumeRange.get() / 100) * currentTimerFade;
                         if (!!Player.isSeeking()) return [3 /*break*/, 7];
                         if (currentTrack.selfValidate()) {
-                            ui_8.UI.mediaLength.click();
+                            ui_9.UI.mediaLength.click();
                         }
                         if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
@@ -4752,7 +4761,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack.step("fadeouting");
             }
             if (null !== currentTrack) {
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaTime, Player.makeTimeText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_9.UI.mediaTime, Player.makeTimeText(currentTrack));
                 currentTrack.step("current");
                 currentTrack.setPositionState();
             }
@@ -4793,10 +4802,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaIndex, Player.makeIndexText(currentTrack));
-                _library_7.Library.UI.setTextContent(ui_8.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                var currentVolume = ui_8.UI.volumeRange.get() / 100;
-                if (0 < parseFloat(ui_8.UI.crossFadeSelect.get()) && fadeoutingTrack) {
+                _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
+                var currentVolume = ui_9.UI.volumeRange.get() / 100;
+                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
                     fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
@@ -4814,7 +4823,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
-                    ui_8.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_8.UI.overlay);
+                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.overlay);
                     currentTrack.updateStretch("current");
                 }
             }
@@ -4823,7 +4832,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (track) {
                 track.pause();
                 if (track.visualElement) {
-                    ui_8.UI.mediaScreen.removeChild(track.visualElement);
+                    ui_9.UI.mediaScreen.removeChild(track.visualElement);
                 }
                 track.release();
             }
@@ -4844,10 +4853,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.clear = function () {
-            ui_8.UI.screenBody.classList.toggle("paused", false);
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaIndex, "");
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaTitle, "");
-            _library_7.Library.UI.setTextContent(ui_8.UI.mediaTime, "");
+            ui_9.UI.screenBody.classList.toggle("paused", false);
+            _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, "");
+            _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, "");
+            _library_7.Library.UI.setTextContent(ui_9.UI.mediaTime, "");
             history_1.History.clear();
             CrossFade.clear();
             Player.removeFadeoutTrack();
@@ -4942,7 +4951,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
         Url.params = Url.parseParameter(window.location.href);
     })(Url || (exports.Url = Url = {}));
 });
-define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_9) {
+define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_10) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Progress = void 0;
@@ -4962,7 +4971,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
         Progress.updateProgress = function () {
             document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
-            ui_9.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
+            ui_10.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -4970,7 +4979,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_10, progress_1, config_json_8) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -4993,10 +5002,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         media_3.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
                         MediaList.updateNoMediaLabel();
-                        _b = (_a = ui_10.UI.mediaList).insertBefore;
+                        _b = (_a = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_10.UI.addMediaButton.dom.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -5091,7 +5100,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 _d)]);
                         item.addEventListener("dragstart", function (event) {
                             var _a;
-                            ui_10.UI.mediaList.classList.add("dragging");
+                            ui_11.UI.mediaList.classList.add("dragging");
                             item.classList.add("dragging");
                             (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", String(ix));
                         });
@@ -5099,7 +5108,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
-                                        ui_10.UI.mediaList.classList.remove("dragging");
+                                        ui_11.UI.mediaList.classList.remove("dragging");
                                         item.classList.remove("dragging");
                                         return [4 /*yield*/, MediaList.updateMediaListDisplay()];
                                     case 1:
@@ -5149,7 +5158,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        Array.from(ui_10.UI.mediaList.children).forEach(function (child) {
+                        Array.from(ui_11.UI.mediaList.children).forEach(function (child) {
                             if (child instanceof HTMLDivElement && !child.classList.contains("add")) {
                                 child.remove();
                             }
@@ -5160,10 +5169,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
                         entry = _a[_i];
-                        _c = (_b = ui_10.UI.mediaList).insertBefore;
+                        _c = (_b = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_10.UI.addMediaButton.dom.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -5173,25 +5182,25 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_10.UI.mediaCount, media_3.Media.mediaList.length.toString());
-            var imageSpan = parseInt(ui_10.UI.imageSpanSelect.get());
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            var imageSpan = parseInt(ui_11.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_10.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.updateNoMediaLabel = function () {
-            var hasNoMedia = "off" !== ui_10.UI.wakeUp.get() && media_3.Media.mediaList.length <= 0;
-            ui_10.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
+            var hasNoMedia = "off" !== ui_11.UI.wakeUp.get() && media_3.Media.mediaList.length <= 0;
+            ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
         };
         MediaList.initialize = function () {
             MediaList.updateInformationDisplay();
         };
         MediaList.clearPlayState = function () {
             _features_1.Features.Player.clear();
-            ui_10.UI.mediaList.classList.toggle("paused", false);
+            ui_11.UI.mediaList.classList.toggle("paused", false);
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_11, url_3, config_json_9, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_3, config_json_9, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -5201,42 +5210,42 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     (function (Events) {
         var _this = this;
         var updateShowFps = function () {
-            ui_11.UI.fpsDisplay.classList.toggle("hide", !ui_11.UI.showFpsCheckbox.get());
+            ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.showFpsCheckbox.get());
         };
         var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function () {
-            var value = ui_11.UI.brightnessRange.get();
+            var value = ui_12.UI.brightnessRange.get();
             console.log("💡 Brightness changed:", value);
-            brightnessTimer.start(ui_11.UI.mediaScreen, "disable-transition", 100);
-            _library_9.Library.UI.setStyle(ui_11.UI.mediaScreen, "opacity", "".concat(value / 100));
+            brightnessTimer.start(ui_12.UI.mediaScreen, "disable-transition", 100);
+            _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "opacity", "".concat(value / 100));
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {
             _features_2.Features.Player.updateLoopShortMedia();
         };
         var updateVisualizer = function () {
-            var value = ui_11.UI.visualizerSelect.get();
-            control_json_2.default.visualizer.enum.forEach(function (i) { return ui_11.UI.mediaScreen.classList.toggle(i, i === value); });
+            var value = ui_12.UI.visualizerSelect.get();
+            control_json_2.default.visualizer.enum.forEach(function (i) { return ui_12.UI.mediaScreen.classList.toggle(i, i === value); });
         };
         var updateOverlayStyle = function () {
-            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_11.UI.overlay.classList.toggle(i, i === ui_11.UI.overlayStyleSelect.get()); });
+            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.overlayStyleSelect.get()); });
         };
         var updateOverlayPosition = function () {
-            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_11.UI.overlay.classList.toggle(i, i === ui_11.UI.overlayPositionSelect.get()); });
+            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.overlayPositionSelect.get()); });
         };
         var updateWeatherLocation = function () {
-            if ("geolocation" === ui_11.UI.weatherLocationSelect.get()) {
+            if ("geolocation" === ui_12.UI.weatherLocationSelect.get()) {
                 _features_2.Features.Location.requestToGetGeolocation();
             }
         };
         var updateShortcuts = function () {
-            var value = ui_11.UI.shortcutsSelect.get();
+            var value = ui_12.UI.shortcutsSelect.get();
             console.log("⌨️ Keyboard Shortcuts style changed:", value);
             _library_9.Library.Shortcuts.setStyle(value);
-            ui_11.UI.updateShortcuts();
+            ui_12.UI.updateShortcuts();
         };
         var updateUrlAnchor = function (params) {
-            return ui_11.UI.urlAnchor.href = url_3.Url.make(params);
+            return ui_12.UI.urlAnchor.href = url_3.Url.make(params);
         };
         Events.makeTimerLabel = function (remainingTime) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
@@ -5250,14 +5259,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateWakeUpTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
-            _library_9.Library.UI.setTextContent(ui_11.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
-            ui_11.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
+            ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
         };
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
-            _library_9.Library.UI.setTextContent(ui_11.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
-            ui_11.UI.sleepProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
+            ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
         };
         var wakeUpCountDownTimer = null;
         Events.wakeUpCountDownTimerLoop = function () {
@@ -5276,7 +5285,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.updateWakeUp = function () {
-            var value = ui_11.UI.wakeUp.get();
+            var value = ui_12.UI.wakeUp.get();
             console.log("⏰ Wake-up Timer changed:", value);
             var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setWakeUpTimer(timespan);
@@ -5285,7 +5294,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.updateFadeIn = function () {
             var _a;
-            var value = ui_11.UI.fadeIn.get();
+            var value = ui_12.UI.fadeIn.get();
             console.log("🌅 Wake-up Fade-in Time changed:", value);
             _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
@@ -5294,12 +5303,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.updateFadeOut = function () {
             var _a;
-            var value = ui_11.UI.fadeOut.get();
+            var value = ui_12.UI.fadeOut.get();
             console.log("🌃 Sleep Fade-out Time changed:", value);
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateSleep = function () {
-            var value = ui_11.UI.sleep.get();
+            var value = ui_12.UI.sleep.get();
             console.log("💤 Sleep Timer changed:", value);
             var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setSleepTimer(timespan);
@@ -5307,8 +5316,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.updateNoRepeatLabel();
         };
         Events.updateNoRepeatLabel = function () {
-            var noRepeat = "off" !== ui_11.UI.sleep.get() && !ui_11.UI.repeat.get();
-            ui_11.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
+            var noRepeat = "off" !== ui_12.UI.sleep.get() && !ui_12.UI.repeat.get();
+            ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
         Events.sleepCountDownTimerLoop = function () {
@@ -5333,7 +5342,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.classList.toggle("sleeped", isSleeped);
         };
         Events.updateLanguage = function () {
-            ui_11.UI.updateLanguage();
+            ui_12.UI.updateLanguage();
             Events.updateWakeUpTimer();
             Events.updateSleepTimer();
         };
@@ -5345,7 +5354,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_11.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_12.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -5376,12 +5385,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.classList.remove("is-seeking");
             if (_features_2.Features.Player.isPlaying()) {
                 _features_2.Features.Player.temporaryResume();
-                _features_2.Features.Player.seek(ui_11.UI.seekRange.valueAsNumber);
+                _features_2.Features.Player.seek(ui_12.UI.seekRange.valueAsNumber);
             }
         }, 500);
         var updateSeek = function () {
             isSeekingTimer.kick();
-            _features_2.Features.Player.seek(ui_11.UI.seekRange.valueAsNumber);
+            _features_2.Features.Player.seek(ui_12.UI.seekRange.valueAsNumber);
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
@@ -5395,12 +5404,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var lastVolume = 100;
         Events.toggleMute = function () {
-            if (ui_11.UI.volumeRange.get() <= 0) {
-                ui_11.UI.volumeRange.set(lastVolume);
+            if (ui_12.UI.volumeRange.get() <= 0) {
+                ui_12.UI.volumeRange.set(lastVolume);
             }
             else {
-                lastVolume = ui_11.UI.volumeRange.get();
-                ui_11.UI.volumeRange.set(0);
+                lastVolume = ui_12.UI.volumeRange.get();
+                ui_12.UI.volumeRange.set(0);
             }
         };
         Events.initialize = function () {
@@ -5410,8 +5419,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             _library_9.Library.Shortcuts.setCommandMap({
-                "toggleShuffle": function () { return ui_11.UI.shuffle.toggle(); },
-                "toggleRepeat": function () { return ui_11.UI.repeat.toggle(); },
+                "toggleShuffle": function () { return ui_12.UI.shuffle.toggle(); },
+                "toggleRepeat": function () { return ui_12.UI.repeat.toggle(); },
                 "togglePlay": function () {
                     if (_features_2.Features.Player.isPlaying()) {
                         _features_2.Features.Player.pause();
@@ -5424,12 +5433,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 },
                 "toggleMute": function () { return Events.toggleMute(); },
                 "volumeUp": function () {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() + config_json_9.default.volume.step);
-                    ui_11.UI.volumeRange.fire();
+                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_9.default.volume.step);
+                    ui_12.UI.volumeRange.fire();
                 },
                 "volumeDown": function () {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() - config_json_9.default.volume.step);
-                    ui_11.UI.volumeRange.fire();
+                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_9.default.volume.step);
+                    ui_12.UI.volumeRange.fire();
                 },
                 "seekBackward": function () {
                     _features_2.Features.Player.rewind();
@@ -5441,7 +5450,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 "goNextMedia": function () { return _features_2.Features.Player.next(); },
                 "toggleFullscreen": function () {
                     if (_library_9.Library.UI.fullscreenEnabled) {
-                        ui_11.UI.withFullscreenCheckbox.toggle();
+                        ui_12.UI.withFullscreenCheckbox.toggle();
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
@@ -5450,7 +5459,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.addEventListener("drop", drop);
             //document.body.className = "play";
             document.body.className = "list";
-            ui_11.UI.screenBody.addEventListener("click", function () { return document.body.classList.toggle("show-ui"); });
+            ui_12.UI.screenBody.addEventListener("click", function () { return document.body.classList.toggle("show-ui"); });
             var applyParam = function (key, value) {
                 url_3.Url.addParameter(url_3.Url.params, key, value);
                 updateUrlAnchor(url_3.Url.params);
@@ -5459,27 +5468,27 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
-            ui_11.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_11.UI.screenBody.classList.contains("paused") && ui_11.UI.isScrolledToMediaListBottom()); });
-            ui_11.UI.addMediaButton.data.click = function (event, button) {
+            ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
+            ui_12.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.inputFile.click();
+                ui_12.UI.inputFile.click();
             };
-            ui_11.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
-            ui_11.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
+            ui_12.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_12.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
                 return __generator(this, function (_b) {
-                    files = ui_11.UI.inputFile.files;
+                    files = ui_12.UI.inputFile.files;
                     for (_i = 0, _a = Array.from(files !== null && files !== void 0 ? files : []); _i < _a.length; _i++) {
                         file = _a[_i];
                         console.log("📂 File selected:", file);
                         medialist_1.MediaList.addMediaSerial(file);
                     }
-                    ui_11.UI.inputFile.value = "";
+                    ui_12.UI.inputFile.value = "";
                     return [2 /*return*/];
                 });
             }); });
-            ui_11.UI.playButton.data.click = function (event, button) {
+            ui_12.UI.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_features_2.Features.Player.isPlaying()) {
@@ -5491,160 +5500,160 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_2.Features.Player.play();
                 }
             };
-            ui_11.UI.nextButton.data.click = function (event, button) {
+            ui_12.UI.nextButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.next();
             };
-            ui_11.UI.backBUtton.data.click = function (event, button) {
+            ui_12.UI.backBUtton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.previous();
             };
-            ui_11.UI.fastForwardButton.data.click = function (event, button) {
+            ui_12.UI.fastForwardButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.fastForward();
             };
-            ui_11.UI.rewindButton.data.click = function (event, button) {
+            ui_12.UI.rewindButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_11.UI.shuffle.setChange(function (event, button) {
+            ui_12.UI.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("shuffle", "".concat(ui_11.UI.shuffle.get()));
-                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.shuffle);
+                applyParam("shuffle", "".concat(ui_12.UI.shuffle.get()));
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.shuffle);
             });
-            ui_11.UI.repeat.setChange(function (event, button) {
+            ui_12.UI.repeat.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("repeat", "".concat(ui_11.UI.repeat.get()));
-                ui_11.UI.updateParentClassBasedOnCheckbox(ui_11.UI.repeat);
+                applyParam("repeat", "".concat(ui_12.UI.repeat.get()));
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.repeat);
                 Events.updateNoRepeatLabel();
             });
-            ui_11.UI.volumeButton.setChange(function (event, button) {
+            ui_12.UI.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
-                    ui_11.UI.volumeRange.set(ui_11.UI.volumeRange.get() <= 0 ? 100 : 0);
-                    ui_11.UI.volumeButton.toggle(false, "preventOnChange");
+                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() <= 0 ? 100 : 0);
+                    ui_12.UI.volumeButton.toggle(false, "preventOnChange");
                 }
-                ui_11.UI.closeOtherPopups(ui_11.UI.volumeButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.volumeButton);
             });
-            (_a = ui_11.UI.volumeRange).options || (_a.options = {});
-            ui_11.UI.volumeRange.options.change = function (_event, range) {
+            (_a = ui_12.UI.volumeRange).options || (_a.options = {});
+            ui_12.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 var rank = Math.ceil(value / 25);
                 console.log("🔊 Volume changed:", value, rank);
-                ui_11.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-                ui_11.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-                ui_11.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-                ui_11.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-                ui_11.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+                ui_12.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
+                ui_12.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
+                ui_12.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
+                ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
+                ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
                 //Media.setVolume(value);
                 Events.mousemove();
             };
-            ui_11.UI.settingsButton.setChange(function (event, button) {
+            ui_12.UI.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.closeOtherPopups(ui_11.UI.settingsButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.settingsButton);
             });
-            ui_11.UI.mediaLength.click = function () {
+            ui_12.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_b = ui_11.UI.withFullscreenCheckbox).options || (_b.options = {});
-            ui_11.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
+            (_b = ui_12.UI.withFullscreenCheckbox).options || (_b.options = {});
+            ui_12.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
             };
-            (_c = ui_11.UI.brightnessRange).options || (_c.options = {});
-            ui_11.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_d = ui_11.UI.stretchRange).options || (_d.options = {});
-            ui_11.UI.stretchRange.options.change = function (_event, range) {
+            (_c = ui_12.UI.brightnessRange).options || (_c.options = {});
+            ui_12.UI.brightnessRange.options.change = Events.updateBrightness;
+            (_d = ui_12.UI.stretchRange).options || (_d.options = {});
+            ui_12.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_e = ui_11.UI.imageSpanSelect).options || (_e.options = {});
-            ui_11.UI.imageSpanSelect.options.change = function (_event, select) {
+            (_e = ui_12.UI.imageSpanSelect).options || (_e.options = {});
+            ui_12.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_f = ui_11.UI.loopShortMediaCheckbox).options || (_f.options = {});
-            ui_11.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
-                console.log("🔁 Loop short media changed:", ui_11.UI.loopShortMediaCheckbox.get());
+            (_f = ui_12.UI.loopShortMediaCheckbox).options || (_f.options = {});
+            ui_12.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
+                console.log("🔁 Loop short media changed:", ui_12.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
             };
-            ui_11.UI.mediaTitle.addEventListener("click", function (event) {
+            ui_12.UI.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_11.UI.mediaTime.addEventListener("click", function (event) {
+            ui_12.UI.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_11.UI.wakeUpButton.setChange(function (event, button) {
+            ui_12.UI.wakeUpButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.closeOtherPopups(ui_11.UI.wakeUpButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.wakeUpButton);
             });
-            ui_11.UI.sleepButton.setChange(function (event, button) {
+            ui_12.UI.sleepButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_11.UI.closeOtherPopups(ui_11.UI.sleepButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.sleepButton);
             });
-            _library_9.Library.Shortcuts.setPressedKeyDiv(ui_11.UI.pressedKey);
-            ui_11.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
-            ui_11.UI.seekRange.addEventListener("change", updateSeek);
-            ui_11.UI.seekRange.addEventListener("input", updateSeek);
-            ui_11.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.repeat.loadParameter(url_3.Url.params, applyParam);
+            _library_9.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
+            ui_12.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_12.UI.seekRange.addEventListener("change", updateSeek);
+            ui_12.UI.seekRange.addEventListener("input", updateSeek);
+            ui_12.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.repeat.loadParameter(url_3.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
-            ui_11.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.volumeRange.options.change);
+            ui_12.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.volumeRange.options.change);
             //UI.settingsButton.loadParameter(Url.params, applyParam);
-            ui_11.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.withFullscreenCheckbox.options.change);
-            ui_11.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.brightnessRange.options.change);
-            ui_11.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.stretchRange.options.change);
-            ui_11.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_11.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_11.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_11.UI.imageSpanSelect.options.change);
-            ui_11.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
-            ui_11.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
-            ui_11.UI.overlayPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
-            ui_11.UI.withWeatherCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.weatherLocationSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateWeatherLocation);
-            ui_11.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_11.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
-            ui_11.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
-            ui_11.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
-            ui_11.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeIn);
-            ui_11.UI.wakeUp.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
-            ui_11.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeOut);
-            ui_11.UI.sleep.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
+            ui_12.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.withFullscreenCheckbox.options.change);
+            ui_12.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.brightnessRange.options.change);
+            ui_12.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.stretchRange.options.change);
+            ui_12.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_12.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_12.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
+            ui_12.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
+            ui_12.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
+            ui_12.UI.overlayPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_12.UI.withWeatherCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.weatherLocationSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateWeatherLocation);
+            ui_12.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
+            ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
+            ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
+            ui_12.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeIn);
+            ui_12.UI.wakeUp.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
+            ui_12.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeOut);
+            ui_12.UI.sleep.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
-                    console.log("🖱️ MouseMove:", event, ui_11.UI.screenBody);
+                    console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
                 }
                 Events.mousemove();
             });
             _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
-                ui_11.UI.volumeRange,
+                ui_12.UI.volumeRange,
                 // UI.withFullscreen,
-                ui_11.UI.showFpsCheckbox,
+                ui_12.UI.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
             document.addEventListener("visibilitychange", function () {
                 console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
@@ -5665,30 +5674,30 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_11.UI.shuffle,
-                        ui_11.UI.repeat,
-                        ui_11.UI.withFullscreenCheckbox,
-                        ui_11.UI.brightnessRange,
-                        ui_11.UI.stretchRange,
-                        ui_11.UI.paddingCheckbox,
-                        ui_11.UI.crossFadeSelect,
-                        ui_11.UI.imageSpanSelect,
-                        ui_11.UI.loopShortMediaCheckbox,
-                        ui_11.UI.visualizerSelect,
-                        ui_11.UI.overlayStyleSelect,
-                        ui_11.UI.overlayPositionSelect,
-                        ui_11.UI.withWeatherCheckbox,
-                        ui_11.UI.weatherLocationSelect,
-                        ui_11.UI.withClockCheckbox,
-                        ui_11.UI.withDateCheckbox,
-                        ui_11.UI.withCalenderCheckbox,
-                        ui_11.UI.showFpsCheckbox,
-                        ui_11.UI.shortcutsSelect,
-                        ui_11.UI.languageSelect,
-                        ui_11.UI.wakeUp,
-                        ui_11.UI.fadeIn,
-                        ui_11.UI.sleep,
-                        ui_11.UI.fadeOut,
+                        ui_12.UI.shuffle,
+                        ui_12.UI.repeat,
+                        ui_12.UI.withFullscreenCheckbox,
+                        ui_12.UI.brightnessRange,
+                        ui_12.UI.stretchRange,
+                        ui_12.UI.paddingCheckbox,
+                        ui_12.UI.crossFadeSelect,
+                        ui_12.UI.imageSpanSelect,
+                        ui_12.UI.loopShortMediaCheckbox,
+                        ui_12.UI.visualizerSelect,
+                        ui_12.UI.overlayStyleSelect,
+                        ui_12.UI.overlayPositionSelect,
+                        ui_12.UI.withWeatherCheckbox,
+                        ui_12.UI.weatherLocationSelect,
+                        ui_12.UI.withClockCheckbox,
+                        ui_12.UI.withDateCheckbox,
+                        ui_12.UI.withCalenderCheckbox,
+                        ui_12.UI.showFpsCheckbox,
+                        ui_12.UI.shortcutsSelect,
+                        ui_12.UI.languageSelect,
+                        ui_12.UI.wakeUp,
+                        ui_12.UI.fadeIn,
+                        ui_12.UI.sleep,
+                        ui_12.UI.fadeOut,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
                 }, 25);
@@ -5696,7 +5705,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 var old = _library_9.Library.Locale.getLocale();
-                _library_9.Library.Locale.setLocale(ui_11.UI.languageSelect.get());
+                _library_9.Library.Locale.setLocale(ui_12.UI.languageSelect.get());
                 if (old !== _library_9.Library.Locale.getLocale()) {
                     Events.updateLanguage();
                 }
@@ -5704,7 +5713,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_12) {
+define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_13) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Screenshot = void 0;
@@ -5733,15 +5742,15 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
             }
         }); };
         Screenshot.fixCanvasSize = function (width, height) {
-            ui_12.UI.screenBody.style.setProperty("background-color", "white");
-            ui_12.UI.screenBody.style.setProperty("display", "flex");
-            ui_12.UI.screenBody.style.setProperty("flex-direction", "column");
-            ui_12.UI.screenBody.style.setProperty("align-items", "center");
-            ui_12.UI.screenBody.style.setProperty("justify-content", "center");
-            ui_12.UI.mediaList.style.setProperty("position", "relative");
-            ui_12.UI.mediaList.style.setProperty("background-color", "black");
-            ["min-width", "max-width",].forEach(function (i) { return ui_12.UI.mediaList.style.setProperty(i, width); });
-            ["min-height", "max-height",].forEach(function (i) { return ui_12.UI.mediaList.style.setProperty(i, height); });
+            ui_13.UI.screenBody.style.setProperty("background-color", "white");
+            ui_13.UI.screenBody.style.setProperty("display", "flex");
+            ui_13.UI.screenBody.style.setProperty("flex-direction", "column");
+            ui_13.UI.screenBody.style.setProperty("align-items", "center");
+            ui_13.UI.screenBody.style.setProperty("justify-content", "center");
+            ui_13.UI.mediaList.style.setProperty("position", "relative");
+            ui_13.UI.mediaList.style.setProperty("background-color", "black");
+            ["min-width", "max-width",].forEach(function (i) { return ui_13.UI.mediaList.style.setProperty(i, width); });
+            ["min-height", "max-height",].forEach(function (i) { return ui_13.UI.mediaList.style.setProperty(i, height); });
         };
         Screenshot.toCenterControlPanel = function (rate) {
             var controlPanel = _library_10.Library.UI.getElementById("div", "control-panel");
@@ -5750,7 +5759,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_13, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_14, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_10 = __importDefault(config_json_10);
@@ -5759,7 +5768,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     url_4.Url.initialize();
-    ui_13.UI.initialize(url_4.Url.params);
+    ui_14.UI.initialize(url_4.Url.params);
     events_1.Events.initialize();
     _library_11.Library.Shortcuts.initialize();
     medialist_2.MediaList.initialize();
@@ -5769,12 +5778,12 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         isPlaying: _features_3.Features.Player.isPlaying,
         play: function () {
             console.log("⏰ Timer: Resuming playback for wake-up.");
-            ui_13.UI.wakeUp.switch("off");
+            ui_14.UI.wakeUp.switch("off");
             _features_3.Features.Player.play();
         },
         pause: function () {
             console.log("💤 Timer: Pausing playback for sleep mode.");
-            ui_13.UI.sleep.switch("off");
+            ui_14.UI.sleep.switch("off");
             _features_3.Features.Player.pause();
         },
         onChangedSleepMode: events_1.Events.onChangedSleepMode,
@@ -5794,7 +5803,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Library: _library_11.Library,
         Features: _features_3.Features,
         Url: url_4.Url,
-        UI: ui_13.UI,
+        UI: ui_14.UI,
         Events: events_1.Events,
         Resource: Resource
     };

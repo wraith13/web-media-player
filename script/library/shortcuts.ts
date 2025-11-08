@@ -1,4 +1,5 @@
 import { Environment } from "@tools/environment";
+import { UI } from "./ui";
 import shortcuts from "@resource/shortcuts.json";
 export namespace Shortcuts
 {
@@ -57,21 +58,37 @@ export namespace Shortcuts
         case "onKeyDown":
             pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
             pressedKeys.push(normalizedKey);
+            updatePressedKeyDiv();
             return pressedKeys;
         case "onKeyUp":
             const result = [...pressedKeys];
             pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
+            updatePressedKeyDiv();
             return result;
         }
-    }
+    };
+    const updatePressedKeyDiv = () =>
+    {
+        if (null !== pressedKeyDiv)
+        {
+            UI.replaceChildren
+            (
+                pressedKeyDiv,
+                pressedKeys.map
+                (
+                    key =>
+                    ({
+                        tag: "kbd",
+                        textContent: getDisplayKeyName(key),
+                    })
+                )
+            );
+        }
+    };
     export const handleKeyEvent = (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
     {
         const normalizedKey = normalizeKey(event.key, event.code);
         const shortcutKeys = getShortcutKeys(type, normalizedKey);
-        if (null !== pressedKeyDiv)
-        {
-            pressedKeyDiv.innerHTML = pressedKeys.map(key => `<kbd>${getDisplayKeyName(key)}</kbd>`).join("");
-        }
         const commandMap = currentCommandMap;
         if (null !== commandMap)
         {
