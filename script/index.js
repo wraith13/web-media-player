@@ -1025,6 +1025,70 @@ define("script/library/svg", ["require", "exports"], function (require, exports)
         }); };
     })(Svg || (exports.Svg = Svg = {}));
 });
+define("script/tools/comparer", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Comparer = void 0;
+    var Comparer;
+    (function (Comparer) {
+        Comparer.basic = function (a, b) {
+            return a < b ? -1 :
+                b < a ? 1 :
+                    0;
+        };
+        Comparer.make = function (source) {
+            var _a;
+            var invoker = function (i) {
+                var f = i;
+                if ("function" === typeof f) {
+                    return function (a, b) { return Comparer.basic(f(a), f(b)); };
+                }
+                var r = i;
+                if (undefined !== (r === null || r === void 0 ? void 0 : r.raw)) {
+                    return r.raw;
+                }
+                var s = i;
+                if (undefined !== (s === null || s === void 0 ? void 0 : s.getter)) {
+                    var body_1 = function (a, b) { return Comparer.basic(s.getter(a), s.getter(b)); };
+                    if (undefined === s.condition) {
+                        return body_1;
+                    }
+                    else {
+                        var f_1 = s.condition;
+                        if ("function" === typeof f_1) {
+                            return function (a, b) { return f_1(a, b) ? body_1(a, b) : 0; };
+                        }
+                        else {
+                            var t_1 = s.condition;
+                            var getter_1 = t_1.getter;
+                            if (undefined === getter_1) {
+                                return function (a, b) { return t_1.type === typeof a && t_1.type === typeof b ? body_1(a, b) : 0; };
+                            }
+                            else {
+                                return function (a, b) { return t_1.type === typeof getter_1(a) && t_1.type === typeof getter_1(b) ? body_1(a, b) : 0; };
+                            }
+                        }
+                    }
+                }
+                return undefined;
+            };
+            if (Array.isArray(source)) {
+                var comparerList_1 = source.map(invoker).filter(function (i) { return undefined !== i; });
+                return function (a, b) {
+                    var result = 0;
+                    for (var i = 0; i < comparerList_1.length && 0 === result; ++i) {
+                        result = comparerList_1[i](a, b);
+                    }
+                    return result;
+                };
+            }
+            else {
+                return (_a = invoker(source)) !== null && _a !== void 0 ? _a : (function () { return 0; });
+            }
+        };
+        Comparer.lowerCase = Comparer.make([function (a) { return a.toLowerCase(); }, { raw: Comparer.basic }]);
+    })(Comparer || (exports.Comparer = Comparer = {}));
+});
 define("script/tools/environment", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -1554,7 +1618,7 @@ define("resource/shortcuts", [], {
         ]
     }
 });
-define("script/library/shortcuts", ["require", "exports", "script/tools/environment", "script/library/ui", "resource/shortcuts"], function (require, exports, environment_1, ui_2, shortcuts_json_1) {
+define("script/library/shortcuts", ["require", "exports", "script/tools/comparer", "script/tools/environment", "script/library/ui", "resource/shortcuts"], function (require, exports, comparer_1, environment_1, ui_2, shortcuts_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Shortcuts = void 0;
@@ -1564,6 +1628,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
         var style = "youtube";
         var currentCommandMap = null;
         var pressedKeyDiv = null;
+        var displayedKeys = {};
         var keyDisplayNames = {
             "ArrowUp": "↑",
             "ArrowDown": "↓",
@@ -1608,21 +1673,32 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/environm
                 case "onKeyDown":
                     pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
                     pressedKeys.push(normalizedKey);
+                    displayedKeys[normalizedKey] = { pressedAt: Date.now() };
                     updatePressedKeyDiv();
                     return pressedKeys;
                 case "onKeyUp":
                     var result = __spreadArray([], pressedKeys, true);
                     pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
-                    updatePressedKeyDiv();
+                    if (displayedKeys[normalizedKey]) {
+                        if (displayedKeys[normalizedKey].removeTimer) {
+                            clearTimeout(displayedKeys[normalizedKey].removeTimer);
+                        }
+                        displayedKeys[normalizedKey].removeTimer = setTimeout(function () {
+                            delete displayedKeys[normalizedKey];
+                            updatePressedKeyDiv();
+                        }, 250);
+                    }
                     return result;
             }
         };
         var updatePressedKeyDiv = function () {
             if (null !== pressedKeyDiv) {
-                ui_2.UI.replaceChildren(pressedKeyDiv, pressedKeys.map(function (key) {
+                ui_2.UI.replaceChildren(pressedKeyDiv, Object.entries(displayedKeys)
+                    .sort(function (a, b) { return comparer_1.Comparer.basic(a[1].pressedAt, b[1].pressedAt); })
+                    .map(function (kvp) {
                     return ({
                         tag: "kbd",
-                        textContent: getDisplayKeyName(key),
+                        text: getDisplayKeyName(kvp[0]),
                     });
                 }));
             }
@@ -1902,7 +1978,7 @@ define("script/tools/timer", ["require", "exports"], function (require, exports)
         Timer.ExtendableTimer = ExtendableTimer;
     })(Timer || (exports.Timer = Timer = {}));
 });
-define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/hash", "script/tools/byte", "script/tools/timer", "script/tools/environment"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedHash, ImportedByte, ImportedTimer, ImportedEnvironment) {
+define("script/tools/index", ["require", "exports", "script/tools/type-guards", "script/tools/number", "script/tools/timespan", "script/tools/math", "script/tools/random", "script/tools/array", "script/tools/comparer", "script/tools/hash", "script/tools/byte", "script/tools/timer", "script/tools/environment"], function (require, exports, ImportedTypeGuards, ImportedNumber, ImportedTimespan, ImportedMath, ImportedRandom, ImportedArray, ImportedComparer, ImportedHash, ImportedByte, ImportedTimer, ImportedEnvironment) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Tools = void 0;
@@ -1912,6 +1988,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
     ImportedMath = __importStar(ImportedMath);
     ImportedRandom = __importStar(ImportedRandom);
     ImportedArray = __importStar(ImportedArray);
+    ImportedComparer = __importStar(ImportedComparer);
     ImportedHash = __importStar(ImportedHash);
     ImportedByte = __importStar(ImportedByte);
     ImportedTimer = __importStar(ImportedTimer);
@@ -1924,6 +2001,7 @@ define("script/tools/index", ["require", "exports", "script/tools/type-guards", 
         Tools.Math = ImportedMath.Math;
         Tools.Random = ImportedRandom.Random;
         Tools.Array = ImportedArray.Array;
+        Tools.Comparer = ImportedComparer.Comparer;
         Tools.Hash = ImportedHash.Hash;
         Tools.Byte = ImportedByte.Byte;
         Tools.Timer = ImportedTimer.Timer;
@@ -5301,12 +5379,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateNoMediaLabel = function () {
             medialist_1.MediaList.updateNoMediaLabel();
         };
-        Events.updateFadeOut = function () {
-            var _a;
-            var value = ui_12.UI.fadeOut.get();
-            console.log("🌃 Sleep Fade-out Time changed:", value);
-            _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
-        };
         Events.updateSleep = function () {
             var value = ui_12.UI.sleep.get();
             console.log("💤 Sleep Timer changed:", value);
@@ -5314,6 +5386,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Timer.setSleepTimer(timespan);
             Events.sleepCountDownTimerLoop();
             Events.updateNoRepeatLabel();
+        };
+        Events.updateFadeOut = function () {
+            var _a;
+            var value = ui_12.UI.fadeOut.get();
+            console.log("🌃 Sleep Fade-out Time changed:", value);
+            _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
             var noRepeat = "off" !== ui_12.UI.sleep.get() && !ui_12.UI.repeat.get();
@@ -5413,7 +5491,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a, _b, _c, _d, _e, _f;
+            var _a, _b;
+            var _c, _d, _e, _f, _g, _h;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -5542,7 +5621,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_12.UI.closeOtherPopups(ui_12.UI.volumeButton);
             });
-            (_a = ui_12.UI.volumeRange).options || (_a.options = {});
+            (_c = ui_12.UI.volumeRange).options || (_c.options = {});
             ui_12.UI.volumeRange.options.change = function (_event, range) {
                 var value = range.get();
                 var rank = Math.ceil(value / 25);
@@ -5564,7 +5643,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_b = ui_12.UI.withFullscreenCheckbox).options || (_b.options = {});
+            (_d = ui_12.UI.withFullscreenCheckbox).options || (_d.options = {});
             ui_12.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -5572,9 +5651,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_c = ui_12.UI.brightnessRange).options || (_c.options = {});
+            (_e = ui_12.UI.brightnessRange).options || (_e.options = {});
             ui_12.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_d = ui_12.UI.stretchRange).options || (_d.options = {});
+            (_f = ui_12.UI.stretchRange).options || (_f.options = {});
             ui_12.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -5582,13 +5661,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_e = ui_12.UI.imageSpanSelect).options || (_e.options = {});
+            (_g = ui_12.UI.imageSpanSelect).options || (_g.options = {});
             ui_12.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_f = ui_12.UI.loopShortMediaCheckbox).options || (_f.options = {});
+            (_h = ui_12.UI.loopShortMediaCheckbox).options || (_h.options = {});
             ui_12.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
                 console.log("🔁 Loop short media changed:", ui_12.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
@@ -5670,6 +5749,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.updateLanguage();
             updateShortcuts();
             updateUrlAnchor(url_3.Url.params);
+            _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(ui_12.UI.fadeIn.get())) !== null && _a !== void 0 ? _a : 0);
+            _features_2.Features.Timer.setSleepFadeOutSpan((_b = _tools_8.Tools.Timespan.parse(ui_12.UI.fadeOut.get())) !== null && _b !== void 0 ? _b : 0);
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {

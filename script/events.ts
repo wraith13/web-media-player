@@ -129,12 +129,6 @@ export namespace Events
     {
         MediaList.updateNoMediaLabel();
     };
-    export const updateFadeOut = (): void =>
-    {
-        const value = UI.fadeOut.get();
-        console.log("🌃 Sleep Fade-out Time changed:", value);
-        Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(value) ?? 0);
-    };
     export const updateSleep = (): void =>
     {
         const value = UI.sleep.get();
@@ -143,6 +137,12 @@ export namespace Events
         Features.Timer.setSleepTimer(timespan);
         sleepCountDownTimerLoop();
         updateNoRepeatLabel();
+    };
+    export const updateFadeOut = (): void =>
+    {
+        const value = UI.fadeOut.get();
+        console.log("🌃 Sleep Fade-out Time changed:", value);
+        Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(value) ?? 0);
     };
     export const updateNoRepeatLabel = (): void =>
     {
@@ -612,6 +612,8 @@ export namespace Events
         updateLanguage();
         updateShortcuts();
         updateUrlAnchor(Url.params);
+        Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(UI.fadeIn.get()) ?? 0);
+        Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(UI.fadeOut.get()) ?? 0);
         document.addEventListener
         (
             "DOMContentLoaded",

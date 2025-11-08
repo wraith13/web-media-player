@@ -570,6 +570,26 @@ declare module "script/library/svg" {
         const loadSvg: (key: KeyType) => Promise<SVGElement>;
     }
 }
+declare module "script/tools/comparer" {
+    export namespace Comparer {
+        type TypeOfResultType = "unknown" | "object" | "boolean" | "number" | "bigint" | "string" | "symbol" | "function" | string;
+        type CompareResultType = -1 | 0 | 1;
+        const basic: <valueT>(a: valueT, b: valueT) => CompareResultType;
+        interface RawSource<objectT> {
+            raw: (a: objectT, b: objectT) => CompareResultType;
+        }
+        interface Source<objectT, valueT, valueT2> {
+            condition?: ((a: objectT, b: objectT) => boolean) | TypeSource<objectT, valueT2>;
+            getter: (object: objectT) => valueT;
+        }
+        interface TypeSource<objectT, valueT> {
+            getter?: (object: objectT) => valueT;
+            type: TypeOfResultType;
+        }
+        const make: <objectT, valueT = unknown, valueT2 = unknown>(source: ((object: objectT) => valueT) | RawSource<objectT> | Source<objectT, valueT, valueT2> | ((((object: objectT) => valueT) | RawSource<objectT> | Source<objectT, valueT, valueT2>)[])) => ((a: objectT, b: objectT) => CompareResultType);
+        const lowerCase: (a: string, b: string) => CompareResultType;
+    }
+}
 declare module "script/tools/environment" {
     export namespace Environment {
         const isApple: () => boolean;
@@ -670,6 +690,7 @@ declare module "script/tools/index" {
     import * as ImportedMath from "script/tools/math";
     import * as ImportedRandom from "script/tools/random";
     import * as ImportedArray from "script/tools/array";
+    import * as ImportedComparer from "script/tools/comparer";
     import * as ImportedHash from "script/tools/hash";
     import * as ImportedByte from "script/tools/byte";
     import * as ImportedTimer from "script/tools/timer";
@@ -681,6 +702,7 @@ declare module "script/tools/index" {
         export import Math = ImportedMath.Math;
         export import Random = ImportedRandom.Random;
         export import Array = ImportedArray.Array;
+        export import Comparer = ImportedComparer.Comparer;
         export import Hash = ImportedHash.Hash;
         export import Byte = ImportedByte.Byte;
         export import Timer = ImportedTimer.Timer;
@@ -1215,8 +1237,8 @@ declare module "script/events" {
         const updateWakeUp: () => void;
         const updateFadeIn: () => void;
         const updateNoMediaLabel: () => void;
-        const updateFadeOut: () => void;
         const updateSleep: () => void;
+        const updateFadeOut: () => void;
         const updateNoRepeatLabel: () => void;
         const sleepCountDownTimerLoop: () => void;
         const onChangedSleepMode: (isSleeped: boolean) => void;

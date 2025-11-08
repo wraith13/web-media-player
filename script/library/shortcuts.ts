@@ -1,3 +1,4 @@
+import { Comparer } from "@tools/comparer";
 import { Environment } from "@tools/environment";
 import { UI } from "./ui";
 import shortcuts from "@resource/shortcuts.json";
@@ -12,6 +13,7 @@ export namespace Shortcuts
     let style: StyleKey = "youtube";
     let currentCommandMap: CommandMap | null = null;
     let pressedKeyDiv: HTMLDivElement | null = null;
+    const displayedKeys: { [key: string]: { pressedAt: number, removeTimer?: ReturnType<typeof setTimeout>, } } = {};
     const keyDisplayNames =
     {
         "ArrowUp": "↑",
@@ -58,12 +60,28 @@ export namespace Shortcuts
         case "onKeyDown":
             pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
             pressedKeys.push(normalizedKey);
+            displayedKeys[normalizedKey] = { pressedAt: Date.now() };
             updatePressedKeyDiv();
             return pressedKeys;
         case "onKeyUp":
             const result = [...pressedKeys];
             pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
-            updatePressedKeyDiv();
+            if (displayedKeys[normalizedKey])
+            {
+                if (displayedKeys[normalizedKey].removeTimer)
+                {
+                    clearTimeout(displayedKeys[normalizedKey].removeTimer!);
+                }
+                displayedKeys[normalizedKey].removeTimer = setTimeout
+                (
+                    () =>
+                    {
+                        delete displayedKeys[normalizedKey];
+                        updatePressedKeyDiv();
+                    },
+                    250
+                );
+            }
             return result;
         }
     };
@@ -74,14 +92,16 @@ export namespace Shortcuts
             UI.replaceChildren
             (
                 pressedKeyDiv,
-                pressedKeys.map
-                (
-                    key =>
-                    ({
-                        tag: "kbd",
-                        textContent: getDisplayKeyName(key),
-                    })
-                )
+                Object.entries(displayedKeys)
+                    .sort((a, b) => Comparer.basic(a[1].pressedAt, b[1].pressedAt))
+                    .map
+                    (
+                        kvp =>
+                        ({
+                            tag: "kbd",
+                            text: getDisplayKeyName(kvp[0]),
+                        })
+                    )
             );
         }
     };
