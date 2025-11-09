@@ -20,12 +20,6 @@ const noscriptMessage =
     separetor: "\n",
     output: `${outputDirectory}/noscript-message.html`,
 };
-const noscriptIntroduction =
-{
-    template: `<div lang="__LANG__" dir="__LANG_DIRECTION__"><h2>__NOSCRIPT_INTRODUCTION_TITLE__</h2><div>__NOSCRIPT_INTRODUCTION_DESCRIPTION__</div></div>`,
-    separetor: "\n",
-    output: `${outputDirectory}/noscript-introduction.html`,
-};
 const makeMasterFromSource = async () =>
 {
     const temporaryMaster = { } as MasterType;
@@ -161,6 +155,5 @@ const main = async () =>
     writeHtmlPart(master, description);
     writeHtmlPart(master, twitterDescription);
     writeHtmlPart(master, noscriptMessage);
-    writeHtmlPart(master, noscriptIntroduction);
 };
 main();

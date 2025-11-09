@@ -43,9 +43,6 @@ DUMMYSTYLE
             <h2>NOSCRIPT</h2>
             __NOSCRIPT_MESSAGE__
         </noscript>
-        <div class="section">
-            __NOSCRIPT_INTRODUCTION__
-        </div>
     </div>
 </div>
 <div id="screen-body">

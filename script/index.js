@@ -5287,13 +5287,29 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     var Events;
     (function (Events) {
         var _this = this;
+        Events.updateVolume = function (disableLog) {
+            var value = ui_12.UI.volumeRange.get();
+            var rank = Math.ceil(value / 25);
+            if ("disableLog" !== disableLog) {
+                console.log("🔊 Volume changed:", value, rank);
+            }
+            ui_12.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
+            ui_12.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
+            ui_12.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
+            ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
+            ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+            //Media.setVolume(value);
+            Events.mousemove();
+        };
         var updateShowFps = function () {
             ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.showFpsCheckbox.get());
         };
         var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
-        Events.updateBrightness = function () {
+        Events.updateBrightness = function (disableLog) {
             var value = ui_12.UI.brightnessRange.get();
-            console.log("💡 Brightness changed:", value);
+            if ("disableLog" !== disableLog) {
+                console.log("💡 Brightness changed:", value);
+            }
             brightnessTimer.start(ui_12.UI.mediaScreen, "disable-transition", 100);
             _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "opacity", "".concat(value / 100));
             Events.mousemove();
@@ -5316,9 +5332,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Location.requestToGetGeolocation();
             }
         };
-        var updateShortcuts = function () {
+        var updateShortcuts = function (disableLog) {
             var value = ui_12.UI.shortcutsSelect.get();
-            console.log("⌨️ Keyboard Shortcuts style changed:", value);
+            if ("disableLog" !== disableLog) {
+                console.log("⌨️ Keyboard Shortcuts style changed:", value);
+            }
             _library_9.Library.Shortcuts.setStyle(value);
             ui_12.UI.updateShortcuts();
         };
@@ -5370,10 +5388,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
         };
-        Events.updateFadeIn = function () {
+        Events.updateFadeIn = function (disableLog) {
             var _a;
             var value = ui_12.UI.fadeIn.get();
-            console.log("🌅 Wake-up Fade-in Time changed:", value);
+            if ("disableLog" !== disableLog) {
+                console.log("🌅 Wake-up Fade-in Time changed:", value);
+            }
             _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoMediaLabel = function () {
@@ -5387,10 +5407,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.sleepCountDownTimerLoop();
             Events.updateNoRepeatLabel();
         };
-        Events.updateFadeOut = function () {
+        Events.updateFadeOut = function (disableLog) {
             var _a;
             var value = ui_12.UI.fadeOut.get();
-            console.log("🌃 Sleep Fade-out Time changed:", value);
+            if ("disableLog" !== disableLog) {
+                console.log("🌃 Sleep Fade-out Time changed:", value);
+            }
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
@@ -5491,8 +5513,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.initialize = function () {
-            var _a, _b;
-            var _c, _d, _e, _f, _g, _h;
+            var _a, _b, _c, _d, _e;
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -5621,19 +5642,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_12.UI.closeOtherPopups(ui_12.UI.volumeButton);
             });
-            (_c = ui_12.UI.volumeRange).options || (_c.options = {});
-            ui_12.UI.volumeRange.options.change = function (_event, range) {
-                var value = range.get();
-                var rank = Math.ceil(value / 25);
-                console.log("🔊 Volume changed:", value, rank);
-                ui_12.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-                ui_12.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-                ui_12.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-                ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-                ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
-                //Media.setVolume(value);
-                Events.mousemove();
-            };
+            // UI.volumeRange.options ||= { }
+            // UI.volumeRange.options.change = () => updateVolume();
             ui_12.UI.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -5643,7 +5653,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_d = ui_12.UI.withFullscreenCheckbox).options || (_d.options = {});
+            (_a = ui_12.UI.withFullscreenCheckbox).options || (_a.options = {});
             ui_12.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
@@ -5651,9 +5661,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 }
             };
-            (_e = ui_12.UI.brightnessRange).options || (_e.options = {});
-            ui_12.UI.brightnessRange.options.change = Events.updateBrightness;
-            (_f = ui_12.UI.stretchRange).options || (_f.options = {});
+            (_b = ui_12.UI.brightnessRange).options || (_b.options = {});
+            ui_12.UI.brightnessRange.options.change = function () { return Events.updateBrightness(); };
+            (_c = ui_12.UI.stretchRange).options || (_c.options = {});
             ui_12.UI.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
@@ -5661,13 +5671,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_g = ui_12.UI.imageSpanSelect).options || (_g.options = {});
+            (_d = ui_12.UI.imageSpanSelect).options || (_d.options = {});
             ui_12.UI.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_h = ui_12.UI.loopShortMediaCheckbox).options || (_h.options = {});
+            (_e = ui_12.UI.loopShortMediaCheckbox).options || (_e.options = {});
             ui_12.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
                 console.log("🔁 Loop short media changed:", ui_12.UI.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
@@ -5697,7 +5707,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.repeat.loadParameter(url_3.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
-            ui_12.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.volumeRange.options.change);
+            ui_12.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateVolume(); });
             //UI.settingsButton.loadParameter(Url.params, applyParam);
             ui_12.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.withFullscreenCheckbox.options.change);
             ui_12.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.brightnessRange.options.change);
@@ -5715,11 +5725,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
-            ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateShortcuts);
+            ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
-            ui_12.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeIn);
+            ui_12.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
             ui_12.UI.wakeUp.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
-            ui_12.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateFadeOut);
+            ui_12.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
             ui_12.UI.sleep.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
@@ -5730,7 +5740,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)"])
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
-                ui_12.UI.volumeRange,
                 // UI.withFullscreen,
                 ui_12.UI.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
@@ -5741,16 +5750,17 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_2.Features.Player.resume();
                 }
             });
-            Events.updateBrightness();
+            Events.updateVolume("disableLog");
+            Events.updateBrightness("disableLog");
             _features_2.Features.Player.updateStretch();
             updateVisualizer();
             updateOverlayStyle();
             updateOverlayPosition();
             Events.updateLanguage();
-            updateShortcuts();
+            updateShortcuts("disableLog");
             updateUrlAnchor(url_3.Url.params);
-            _features_2.Features.Timer.setWakeUpFadeInSpan((_a = _tools_8.Tools.Timespan.parse(ui_12.UI.fadeIn.get())) !== null && _a !== void 0 ? _a : 0);
-            _features_2.Features.Timer.setSleepFadeOutSpan((_b = _tools_8.Tools.Timespan.parse(ui_12.UI.fadeOut.get())) !== null && _b !== void 0 ? _b : 0);
+            Events.updateFadeIn("disableLog");
+            Events.updateFadeOut("disableLog");
             document.addEventListener("DOMContentLoaded", function () {
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
@@ -5848,6 +5858,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     url_4.Url.initialize();
     ui_14.UI.initialize(url_4.Url.params);
     events_1.Events.initialize();
@@ -5869,7 +5880,6 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         },
         onChangedSleepMode: events_1.Events.onChangedSleepMode,
     });
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     var consoleInterface = globalThis;
     var Resource = {
         config: config_json_10.default,

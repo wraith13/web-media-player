@@ -57,11 +57,6 @@ var noscriptMessage = {
     separetor: "\n",
     output: "".concat(outputDirectory, "/noscript-message.html"),
 };
-var noscriptIntroduction = {
-    template: "<div lang=\"__LANG__\" dir=\"__LANG_DIRECTION__\"><h2>__NOSCRIPT_INTRODUCTION_TITLE__</h2><div>__NOSCRIPT_INTRODUCTION_DESCRIPTION__</div></div>",
-    separetor: "\n",
-    output: "".concat(outputDirectory, "/noscript-introduction.html"),
-};
 var makeMasterFromSource = function () { return __awaiter(void 0, void 0, void 0, function () {
     var temporaryMaster, master;
     return __generator(this, function (_a) {
@@ -170,7 +165,6 @@ var main = function () { return __awaiter(void 0, void 0, void 0, function () {
                 writeHtmlPart(master, description);
                 writeHtmlPart(master, twitterDescription);
                 writeHtmlPart(master, noscriptMessage);
-                writeHtmlPart(master, noscriptIntroduction);
                 return [2 /*return*/];
         }
     });

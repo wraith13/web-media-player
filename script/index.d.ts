@@ -1229,16 +1229,17 @@ declare module "script/medialist" {
 declare module "script/events" {
     import { Library } from "script/library/index";
     export namespace Events {
-        const updateBrightness: () => void;
+        const updateVolume: (disableLog?: "disableLog") => void;
+        const updateBrightness: (disableLog?: "disableLog") => void;
         const makeTimerLabel: (remainingTime: number | null) => string;
         const updateWakeUpTimer: (remainingTime?: number | null) => void;
         const updateSleepTimer: (remainingTime?: number | null) => void;
         const wakeUpCountDownTimerLoop: () => void;
         const updateWakeUp: () => void;
-        const updateFadeIn: () => void;
+        const updateFadeIn: (disableLog?: "disableLog") => void;
         const updateNoMediaLabel: () => void;
         const updateSleep: () => void;
-        const updateFadeOut: () => void;
+        const updateFadeOut: (disableLog?: "disableLog") => void;
         const updateNoRepeatLabel: () => void;
         const sleepCountDownTimerLoop: () => void;
         const onChangedSleepMode: (isSleeped: boolean) => void;

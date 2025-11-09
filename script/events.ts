@@ -9,15 +9,34 @@ import config from "@resource/config.json";
 import control from "@resource/control.json";
 export namespace Events
 {
+    export const updateVolume = (disableLog?: "disableLog") =>
+    {
+        const value = UI.volumeRange.get();
+        const rank = Math.ceil(value / 25);
+        if ("disableLog" !== disableLog)
+        {
+            console.log("🔊 Volume changed:", value, rank);
+        }
+        UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
+        UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
+        UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
+        UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
+        UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+        //Media.setVolume(value);
+        mousemove();
+    };
     const updateShowFps = () =>
     {
         UI.fpsDisplay.classList.toggle("hide", ! UI.showFpsCheckbox.get());
     }
     const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
-    export const updateBrightness = () =>
+    export const updateBrightness = (disableLog?: "disableLog") =>
     {
         const value = UI.brightnessRange.get();
-        console.log("💡 Brightness changed:", value);
+        if ("disableLog" !== disableLog)
+        {
+            console.log("💡 Brightness changed:", value);
+        }
         brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
         Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
         mousemove();
@@ -55,10 +74,13 @@ export namespace Events
             Features.Location.requestToGetGeolocation();
         }
     };
-    const updateShortcuts = () =>
+    const updateShortcuts = (disableLog?: "disableLog") =>
     {
         const value = UI.shortcutsSelect.get();
-        console.log("⌨️ Keyboard Shortcuts style changed:", value);
+        if ("disableLog" !== disableLog)
+        {
+            console.log("⌨️ Keyboard Shortcuts style changed:", value);
+        }
         Library.Shortcuts.setStyle(value as Library.Shortcuts.StyleKey);
         UI.updateShortcuts();
     };
@@ -119,10 +141,13 @@ export namespace Events
         wakeUpCountDownTimerLoop();
         updateNoMediaLabel();
     };
-    export const updateFadeIn = (): void =>
+    export const updateFadeIn = (disableLog?: "disableLog"): void =>
     {
         const value = UI.fadeIn.get();
-        console.log("🌅 Wake-up Fade-in Time changed:", value);
+        if ("disableLog" !== disableLog)
+        {
+            console.log("🌅 Wake-up Fade-in Time changed:", value);
+        }
         Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(value) ?? 0);
     };
     export const updateNoMediaLabel = () =>
@@ -138,10 +163,13 @@ export namespace Events
         sleepCountDownTimerLoop();
         updateNoRepeatLabel();
     };
-    export const updateFadeOut = (): void =>
+    export const updateFadeOut = (disableLog?: "disableLog"): void =>
     {
         const value = UI.fadeOut.get();
-        console.log("🌃 Sleep Fade-out Time changed:", value);
+        if ("disableLog" !== disableLog)
+        {
+            console.log("🌃 Sleep Fade-out Time changed:", value);
+        }
         Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(value) ?? 0);
     };
     export const updateNoRepeatLabel = (): void =>
@@ -443,20 +471,8 @@ export namespace Events
                 UI.closeOtherPopups(UI.volumeButton);
             }
         );
-        UI.volumeRange.options ||= { }
-        UI.volumeRange.options.change = (_event, range) =>
-        {
-            const value = range.get();
-            const rank = Math.ceil(value / 25);
-            console.log("🔊 Volume changed:", value, rank);
-            UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-            UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-            UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-            UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-            UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
-            //Media.setVolume(value);
-            mousemove();
-        };
+        // UI.volumeRange.options ||= { }
+        // UI.volumeRange.options.change = () => updateVolume();
         UI.settingsButton.setChange
         (
             (event, button) =>
@@ -483,7 +499,7 @@ export namespace Events
             }
         };
         UI.brightnessRange.options ||= { }
-        UI.brightnessRange.options.change = updateBrightness;
+        UI.brightnessRange.options.change = () => updateBrightness();
         UI.stretchRange.options ||= { }
         UI.stretchRange.options.change = (_event, range) =>
         {
@@ -549,7 +565,7 @@ export namespace Events
         UI.shuffle.loadParameter(Url.params, applyParam);
         UI.repeat.loadParameter(Url.params, applyParam);
         //UI.volumeButton.loadParameter(Url.params, applyParam);
-        UI.volumeRange.loadParameter(Url.params, applyParam).setChange(UI.volumeRange.options.change);
+        UI.volumeRange.loadParameter(Url.params, applyParam).setChange(() => updateVolume());
         //UI.settingsButton.loadParameter(Url.params, applyParam);
         UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
         UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);
@@ -567,11 +583,11 @@ export namespace Events
         UI.withDateCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
-        UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(updateShortcuts);
+        UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
-        UI.fadeIn.loadParameter(Url.params, applyParam).setChange(updateFadeIn);
+        UI.fadeIn.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
         UI.wakeUp.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
-        UI.fadeOut.loadParameter(Url.params, applyParam).setChange(updateFadeOut);
+        UI.fadeOut.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
         UI.sleep.loadParameter(Url.params, applyParam).setChange(updateSleep);
         document.body.addEventListener
         (
@@ -588,7 +604,6 @@ export namespace Events
         Library.UI.querySelectorAllWithFallback("label", [ "label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)" ])
             .forEach(label => Library.UI.showPickerOnLabel(label));
         [
-            UI.volumeRange,
             // UI.withFullscreen,
             UI.showFpsCheckbox,
         ].forEach(i => i.fire());
@@ -604,16 +619,17 @@ export namespace Events
                 }
             }
         );
-        updateBrightness();
+        updateVolume("disableLog");
+        updateBrightness("disableLog");
         Features.Player.updateStretch();
         updateVisualizer();
         updateOverlayStyle();
         updateOverlayPosition();
         updateLanguage();
-        updateShortcuts();
+        updateShortcuts("disableLog");
         updateUrlAnchor(Url.params);
-        Features.Timer.setWakeUpFadeInSpan(Tools.Timespan.parse(UI.fadeIn.get()) ?? 0);
-        Features.Timer.setSleepFadeOutSpan(Tools.Timespan.parse(UI.fadeOut.get()) ?? 0);
+        updateFadeIn("disableLog");
+        updateFadeOut("disableLog");
         document.addEventListener
         (
             "DOMContentLoaded",

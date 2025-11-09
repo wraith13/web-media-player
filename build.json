@@ -57,9 +57,6 @@
                 "__NOSCRIPT_MESSAGE__": {
                     "path": "./locale/generated/noscript-message.html"
                 },
-                "__NOSCRIPT_INTRODUCTION__": {
-                    "path": "./locale/generated/noscript-introduction.html"
-                },
                 "__STYLE__": {
                     "path": "./style/index.css"
                 },

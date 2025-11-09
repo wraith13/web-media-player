@@ -11,6 +11,13 @@ import { UI } from "./ui";
 import { MediaList } from "./medialist";
 import { Events } from "./events";
 import { Screenshot } from "./screenshot";
+interface BuildInformation
+{
+    at: string;
+    tick: number;
+}
+declare var build: BuildInformation;
+console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 Url.initialize();
 UI.initialize(Url.params);
 Events.initialize();
@@ -35,13 +42,6 @@ Features.Timer.initialize
     },
     onChangedSleepMode: Events.onChangedSleepMode,
 });
-interface BuildInformation
-{
-    at: string;
-    tick: number;
-}
-declare var build: BuildInformation;
-console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 const consoleInterface = globalThis as any;
 const Resource =
 {
