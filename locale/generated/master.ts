@@ -83,6 +83,7 @@ export const localeMaster = {
         "no-media-message": "Please add media.",
         "no-repeat-message": "Please enable repeat.",
         "not-supported-media-message": "This media cannot be played.",
+        "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
         "noscript-message": "JavaScript is disabled. Please enable JavaScript."
     },
     "ja": {
@@ -169,6 +170,7 @@ export const localeMaster = {
         "no-media-message": "メディアを追加してください。",
         "no-repeat-message": "リピートを有効にしてください。",
         "not-supported-media-message": "再生できないメディアです。",
+        "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
         "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
     }
 };

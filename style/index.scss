@@ -599,7 +599,8 @@ body:not(.progress-circle)
     }
 }
 #no-media-panel,
-#not-supported-media-panel
+#not-supported-media-panel,
+#wake-up-timer-not-working-panel
 {
     @include black-pop-panel-style();
     @include font();
@@ -639,6 +640,15 @@ body:not(.not-supported-media)
     {
         transition: opacity 3000ms, filter 3000ms !important;
     }
+}
+#wake-up-timer-not-working-panel
+{
+    @include fade-transition("body:not(.wake-up-timer-not-working)");
+    z-index: 50;
+}
+body:not(.play):not(.mousemove).sleeped #wake-up-timer-not-working-panel
+{
+    opacity: 0.4;
 }
 #control-panel
 {

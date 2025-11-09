@@ -31,13 +31,13 @@ Features.Timer.initialize
     play: () =>
     {
         console.log("⏰ Timer: Resuming playback for wake-up.");
-        UI.wakeUp.switch("off");
+        UI.wakeUpSelect.switch("off");
         Features.Player.play();
     },
     pause: () =>
     {
         console.log("💤 Timer: Pausing playback for sleep mode.");
-        UI.sleep.switch("off");
+        UI.sleepSelect.switch("off");
         Features.Player.pause();
     },
     onChangedSleepMode: Events.onChangedSleepMode,

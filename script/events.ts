@@ -134,16 +134,21 @@ export namespace Events
     };
     export const updateWakeUp = (): void =>
     {
-        const value = UI.wakeUp.get();
+        const value = UI.wakeUpSelect.get();
         console.log("⏰ Wake-up Timer changed:", value);
         const timespan = "off" === value ? null: Tools.Timespan.parse(value);
         Features.Timer.setWakeUpTimer(timespan);
         wakeUpCountDownTimerLoop();
         updateNoMediaLabel();
+        document.body.classList.toggle
+        (
+            "wake-up-timer-not-working",
+            "off" !== value && ! Tools.Environment.canAutoplay()
+        );
     };
     export const updateFadeIn = (disableLog?: "disableLog"): void =>
     {
-        const value = UI.fadeIn.get();
+        const value = UI.fadeInSelect.get();
         if ("disableLog" !== disableLog)
         {
             console.log("🌅 Wake-up Fade-in Time changed:", value);
@@ -156,7 +161,7 @@ export namespace Events
     };
     export const updateSleep = (): void =>
     {
-        const value = UI.sleep.get();
+        const value = UI.sleepSelect.get();
         console.log("💤 Sleep Timer changed:", value);
         const timespan = "off" === value ? null: Tools.Timespan.parse(value);
         Features.Timer.setSleepTimer(timespan);
@@ -165,7 +170,7 @@ export namespace Events
     };
     export const updateFadeOut = (disableLog?: "disableLog"): void =>
     {
-        const value = UI.fadeOut.get();
+        const value = UI.fadeOutSelect.get();
         if ("disableLog" !== disableLog)
         {
             console.log("🌃 Sleep Fade-out Time changed:", value);
@@ -174,7 +179,7 @@ export namespace Events
     };
     export const updateNoRepeatLabel = (): void =>
     {
-        const noRepeat = "off" !== UI.sleep.get() && ! UI.repeat.get();
+        const noRepeat = "off" !== UI.sleepSelect.get() && ! UI.repeat.get();
         UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -585,10 +590,10 @@ export namespace Events
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
-        UI.fadeIn.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
-        UI.wakeUp.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
-        UI.fadeOut.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
-        UI.sleep.loadParameter(Url.params, applyParam).setChange(updateSleep);
+        UI.fadeInSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
+        UI.wakeUpSelect.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
+        UI.fadeOutSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
+        UI.sleepSelect.loadParameter(Url.params, applyParam).setChange(updateSleep);
         document.body.addEventListener
         (
             "mousemove",
@@ -660,10 +665,10 @@ export namespace Events
                         UI.showFpsCheckbox,
                         UI.shortcutsSelect,
                         UI.languageSelect,
-                        UI.wakeUp,
-                        UI.fadeIn,
-                        UI.sleep,
-                        UI.fadeOut,
+                        UI.wakeUpSelect,
+                        UI.fadeInSelect,
+                        UI.sleepSelect,
+                        UI.fadeOutSelect,
                     ]
                     .forEach(i => i.catchUpRestore(Url.params)),
                     25

@@ -73,6 +73,9 @@ DUMMYSTYLE
 <div id="not-supported-media-panel">
     <span data-lang-key="not-supported-media-message"></span>
 </div>
+<div id="wake-up-timer-not-working-panel">
+    <span data-lang-key="wake-up-timer-not-working"></span>
+</div>
 <div id="fps"></div>
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button">

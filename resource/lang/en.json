@@ -82,5 +82,6 @@
     "no-media-message": "Please add media.",
     "no-repeat-message": "Please enable repeat.",
     "not-supported-media-message": "This media cannot be played.",
+    "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
     "noscript-message": "JavaScript is disabled. Please enable JavaScript."
 }

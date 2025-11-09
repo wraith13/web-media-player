@@ -979,7 +979,8 @@ body:not(.progress-circle) #progress-circle {
 }
 
 #no-media-panel,
-#not-supported-media-panel {
+#not-supported-media-panel,
+#wake-up-timer-not-working-panel {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
@@ -988,22 +989,26 @@ body:not(.progress-circle) #progress-circle {
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
   #no-media-panel,
-  #not-supported-media-panel {
+  #not-supported-media-panel,
+  #wake-up-timer-not-working-panel {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
   #no-media-panel,
-  #not-supported-media-panel {
+  #not-supported-media-panel,
+  #wake-up-timer-not-working-panel {
     font-size: 1rem;
   }
 }
 #no-media-panel,
-#not-supported-media-panel {
+#not-supported-media-panel,
+#wake-up-timer-not-working-panel {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #no-media-panel,
-#not-supported-media-panel {
+#not-supported-media-panel,
+#wake-up-timer-not-working-panel {
   font-size: 1.25rem;
   position: fixed;
   inset-block-start: 50%;
@@ -1067,6 +1072,33 @@ body:not(.not-supported-media) #not-supported-media-panel:not(.show)::before {
 
 body:not(.not-supported-media) #not-supported-media-panel {
   transition: opacity 3000ms, filter 3000ms !important;
+}
+
+#wake-up-timer-not-working-panel {
+  transition: opacity 750ms, filter 750ms;
+  z-index: 50;
+}
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.play):not(.mousemove).sleeped #wake-up-timer-not-working-panel {
+  opacity: 0.4;
 }
 
 #control-panel {

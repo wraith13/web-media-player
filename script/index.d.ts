@@ -113,6 +113,7 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
+            "wake-up-timer-not-working": string;
             "noscript-message": string;
         };
         ja: {
@@ -199,6 +200,7 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
+            "wake-up-timer-not-working": string;
             "noscript-message": string;
         };
     };
@@ -290,6 +292,7 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
+                "wake-up-timer-not-working": string;
                 "noscript-message": string;
             };
             ja: {
@@ -376,6 +379,7 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
+                "wake-up-timer-not-working": string;
                 "noscript-message": string;
             };
         };
@@ -596,6 +600,8 @@ declare module "script/tools/environment" {
         const isSafari: () => boolean;
         const isMobile: () => boolean;
         const isTouchDevice: () => boolean;
+        const isAppleTouchDevice: () => boolean;
+        const canAutoplay: () => boolean;
     }
 }
 declare module "script/library/shortcuts" {
@@ -806,14 +812,14 @@ declare module "script/ui" {
         const wakeUpButton: Library.Control.Checkbox;
         const wakeUpProgressCircle: HTMLDivElement;
         const wakeUpTimerLabel: HTMLLabelElement;
-        const wakeUp: Library.Control.Select<string>;
-        const fadeIn: Library.Control.Select<string>;
+        const wakeUpSelect: Library.Control.Select<string>;
+        const fadeInSelect: Library.Control.Select<string>;
         const noMediaLabel: HTMLLabelElement;
         const sleepButton: Library.Control.Checkbox;
         const sleepProgressCircle: HTMLDivElement;
         const sleepTimerLabel: HTMLLabelElement;
-        const sleep: Library.Control.Select<string>;
-        const fadeOut: Library.Control.Select<string>;
+        const sleepSelect: Library.Control.Select<string>;
+        const fadeOutSelect: Library.Control.Select<string>;
         const noRepeatLabel: HTMLLabelElement;
         const initialize: (params: Record<string, string>) => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;

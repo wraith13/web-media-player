@@ -16,4 +16,8 @@ export namespace Environment
     {
         return "ontouchstart" in window || 0 < navigator.maxTouchPoints;
     };
+    export const isAppleTouchDevice = (): boolean =>
+        isApple() && isTouchDevice();
+    export const canAutoplay = (): boolean =>
+        ! isMobile() && ! isAppleTouchDevice();
 }

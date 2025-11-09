@@ -178,7 +178,7 @@ export namespace MediaList
     };
     export const updateNoMediaLabel = () =>
     {
-        const hasNoMedia = "off" !== UI.wakeUp.get() && Media.mediaList.length <= 0;
+        const hasNoMedia = "off" !== UI.wakeUpSelect.get() && Media.mediaList.length <= 0;
         UI.noMediaLabel.classList.toggle("hide", ! hasNoMedia);
     };
     export const initialize = (): void =>

@@ -261,6 +261,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Please add media.",
             "no-repeat-message": "Please enable repeat.",
             "not-supported-media-message": "This media cannot be played.",
+            "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript."
         },
         "ja": {
@@ -347,6 +348,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "メディアを追加してください。",
             "no-repeat-message": "リピートを有効にしてください。",
             "not-supported-media-message": "再生できないメディアです。",
+            "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
         }
     };
@@ -1106,6 +1108,12 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
         };
         Environment.isTouchDevice = function () {
             return "ontouchstart" in window || 0 < navigator.maxTouchPoints;
+        };
+        Environment.isAppleTouchDevice = function () {
+            return Environment.isApple() && Environment.isTouchDevice();
+        };
+        Environment.canAutoplay = function () {
+            return !Environment.isMobile() && !Environment.isAppleTouchDevice();
         };
     })(Environment || (exports.Environment = Environment = {}));
 });
@@ -2400,6 +2408,10 @@ define("resource/control", [], {
     "fadeOut": {
         "id": "fade-out",
         "enum": [
+            "2h",
+            "1.75h",
+            "1.5h",
+            "1.25h",
             "1h",
             "45m",
             "30m",
@@ -2538,6 +2550,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.overlayPositionSelect.reloadOptions();
             UI.weatherLocationSelect.reloadOptions();
             UI.languageSelect.reloadOptions();
+            UI.wakeUpSelect.reloadOptions();
+            UI.fadeInSelect.reloadOptions();
+            UI.sleepSelect.reloadOptions();
+            UI.fadeOutSelect.reloadOptions();
             _library_2.Library.UI.querySelectorAllWithFallback("span", ["[data-lang-key]"])
                 .forEach(function (i) { return UI.updateLabel(i); });
             UI.updateShortcuts();
@@ -2545,7 +2561,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
-        UI.wakeUp = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
+        UI.wakeUpSelect = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
@@ -2553,7 +2569,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
-        UI.fadeIn = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
+        UI.fadeInSelect = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
@@ -2565,7 +2581,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
-        UI.sleep = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
+        UI.sleepSelect = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
@@ -2573,7 +2589,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
-        UI.fadeOut = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
+        UI.fadeOutSelect = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
@@ -5266,7 +5282,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.updateNoMediaLabel = function () {
-            var hasNoMedia = "off" !== ui_11.UI.wakeUp.get() && media_3.Media.mediaList.length <= 0;
+            var hasNoMedia = "off" !== ui_11.UI.wakeUpSelect.get() && media_3.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
         };
         MediaList.initialize = function () {
@@ -5381,16 +5397,17 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.updateWakeUp = function () {
-            var value = ui_12.UI.wakeUp.get();
+            var value = ui_12.UI.wakeUpSelect.get();
             console.log("⏰ Wake-up Timer changed:", value);
             var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
+            document.body.classList.toggle("wake-up-timer-not-working", "off" !== value && !_tools_8.Tools.Environment.canAutoplay());
         };
         Events.updateFadeIn = function (disableLog) {
             var _a;
-            var value = ui_12.UI.fadeIn.get();
+            var value = ui_12.UI.fadeInSelect.get();
             if ("disableLog" !== disableLog) {
                 console.log("🌅 Wake-up Fade-in Time changed:", value);
             }
@@ -5400,7 +5417,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             medialist_1.MediaList.updateNoMediaLabel();
         };
         Events.updateSleep = function () {
-            var value = ui_12.UI.sleep.get();
+            var value = ui_12.UI.sleepSelect.get();
             console.log("💤 Sleep Timer changed:", value);
             var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
             _features_2.Features.Timer.setSleepTimer(timespan);
@@ -5409,14 +5426,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         Events.updateFadeOut = function (disableLog) {
             var _a;
-            var value = ui_12.UI.fadeOut.get();
+            var value = ui_12.UI.fadeOutSelect.get();
             if ("disableLog" !== disableLog) {
                 console.log("🌃 Sleep Fade-out Time changed:", value);
             }
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
-            var noRepeat = "off" !== ui_12.UI.sleep.get() && !ui_12.UI.repeat.get();
+            var noRepeat = "off" !== ui_12.UI.sleepSelect.get() && !ui_12.UI.repeat.get();
             ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
@@ -5727,10 +5744,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
-            ui_12.UI.fadeIn.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
-            ui_12.UI.wakeUp.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
-            ui_12.UI.fadeOut.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
-            ui_12.UI.sleep.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
+            ui_12.UI.fadeInSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
+            ui_12.UI.wakeUpSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
+            ui_12.UI.fadeOutSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
+            ui_12.UI.sleepSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
@@ -5785,10 +5802,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.showFpsCheckbox,
                         ui_12.UI.shortcutsSelect,
                         ui_12.UI.languageSelect,
-                        ui_12.UI.wakeUp,
-                        ui_12.UI.fadeIn,
-                        ui_12.UI.sleep,
-                        ui_12.UI.fadeOut,
+                        ui_12.UI.wakeUpSelect,
+                        ui_12.UI.fadeInSelect,
+                        ui_12.UI.sleepSelect,
+                        ui_12.UI.fadeOutSelect,
                     ]
                         .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
                 }, 25);
@@ -5870,12 +5887,12 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         isPlaying: _features_3.Features.Player.isPlaying,
         play: function () {
             console.log("⏰ Timer: Resuming playback for wake-up.");
-            ui_14.UI.wakeUp.switch("off");
+            ui_14.UI.wakeUpSelect.switch("off");
             _features_3.Features.Player.play();
         },
         pause: function () {
             console.log("💤 Timer: Pausing playback for sleep mode.");
-            ui_14.UI.sleep.switch("off");
+            ui_14.UI.sleepSelect.switch("off");
             _features_3.Features.Player.pause();
         },
         onChangedSleepMode: events_1.Events.onChangedSleepMode,

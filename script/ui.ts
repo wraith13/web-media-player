@@ -197,6 +197,10 @@ export namespace UI
         UI.overlayPositionSelect.reloadOptions();
         UI.weatherLocationSelect.reloadOptions();
         UI.languageSelect.reloadOptions();
+        UI.wakeUpSelect.reloadOptions();
+        UI.fadeInSelect.reloadOptions();
+        UI.sleepSelect.reloadOptions();
+        UI.fadeOutSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));
         updateShortcuts();
@@ -207,7 +211,7 @@ export namespace UI
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
         Library.UI.getElementById("label", "wakeup-timer");
-    export const wakeUp =
+    export const wakeUpSelect =
         new Library.Control.Select<typeof control.wakeUp.enum[number]>
         (
             control.wakeUp,
@@ -217,7 +221,7 @@ export namespace UI
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
-    export const fadeIn =
+    export const fadeInSelect =
         new Library.Control.Select
         (
             control.fadeIn,
@@ -235,7 +239,7 @@ export namespace UI
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
         Library.UI.getElementById("label", "sleep-timer");
-    export const sleep =
+    export const sleepSelect =
         new Library.Control.Select<typeof control.sleep.enum[number]>
         (
             control.sleep,
@@ -245,7 +249,7 @@ export namespace UI
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
-    export const fadeOut =
+    export const fadeOutSelect =
         new Library.Control.Select
         (
             control.fadeOut,
