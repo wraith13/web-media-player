@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Nov 10 2025 02:51:46 GMT+0900 (日本標準時)
+    build at: Mon Nov 10 2025 08:20:17 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1133,6 +1133,7 @@ body:not(.not-supported-media) #not-supported-media-panel {
 #wake-up-timer-not-working-panel {
   transition: opacity 750ms, filter 750ms;
   z-index: 50;
+  color: orange;
 }
 body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
   opacity: 0;
@@ -1153,7 +1154,7 @@ body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.play):not(.mousemove).sleeped #wake-up-timer-not-working-panel {
+body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer-not-working-panel {
   opacity: 0.4;
 }
 
@@ -2326,7 +2327,7 @@ label[for=sleep-button].tip {
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
   z-index: 30;
-  color: red;
+  color: orange;
 }
 @media (max-width: 540px) {
   #no-repeat {
@@ -3481,8 +3482,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Nov 10 2025 02:51:46 GMT+0900 (日本標準時)",
-    tick: 1762710706512
+    at: "Mon Nov 10 2025 08:20:17 GMT+0900 (日本標準時)",
+    tick: 1762730417787
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {

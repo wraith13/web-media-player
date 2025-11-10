@@ -645,8 +645,9 @@ body:not(.not-supported-media)
 {
     @include fade-transition("body:not(.wake-up-timer-not-working)");
     z-index: 50;
+    color: $warning-color;
 }
-body:not(.play):not(.mousemove).sleeped #wake-up-timer-not-working-panel
+body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer-not-working-panel
 {
     opacity: 0.4;
 }
@@ -1163,7 +1164,7 @@ label[for="wakeup-button"].tip
         inset-inline-start: calc(50% - 12rem);
         position: fixed;
         z-index: 30;
-        color: red;
+        color: $error-color;
         @media (max-width: 540px)
         {
             inset-block-end: 8.75rem;
@@ -1314,7 +1315,7 @@ label[for="sleep-button"].tip
         inset-inline-end: calc(50% - 12rem);
         position: fixed;
         z-index: 30;
-        color: red;
+        color: $warning-color;
         @media (max-width: 540px)
         {
             inset-block-end: 8.75rem;
