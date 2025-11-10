@@ -1804,7 +1804,8 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                 if (0 < minutes) {
                     result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
                 }
-                var seconds = Math.floor(value / 1000) % 60;
+                // const seconds = Math.floor(value /1000) %60;
+                var seconds = (value % (60 * 1000)) / 1000;
                 if (0 < seconds) {
                     result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
                 }

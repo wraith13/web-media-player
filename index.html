@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Nov 10 2025 08:20:17 GMT+0900 (日本標準時)
+    build at: Tue Nov 11 2025 04:13:29 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3482,8 +3482,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Nov 10 2025 08:20:17 GMT+0900 (日本標準時)",
-    tick: 1762730417787
+    at: "Tue Nov 11 2025 04:13:29 GMT+0900 (日本標準時)",
+    tick: 1762802009142
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6851,7 +6851,8 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                 if (0 < minutes) {
                     result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
                 }
-                var seconds = Math.floor(value / 1000) % 60;
+                // const seconds = Math.floor(value /1000) %60;
+                var seconds = (value % (60 * 1000)) / 1000;
                 if (0 < seconds) {
                     result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
                 }

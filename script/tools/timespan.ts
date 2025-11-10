@@ -26,7 +26,7 @@ export namespace Timespan
             {
                 result.push(`${minutes} ${Library.Locale.map("timeUnitM")}`);
             }
-            const seconds = Math.floor(value /1000) %60;
+            const seconds = (value %(60 *1000)) /1000;
             if (0 < seconds)
             {
                 result.push(`${seconds} ${Library.Locale.map("timeUnitS")}`);
