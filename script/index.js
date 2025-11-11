@@ -5822,12 +5822,12 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
                     Screenshot.fixCanvasSize("1024px", "1024px");
                     Screenshot.toCenterControlPanel(10);
                     _library_10.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle-button", "#repeat-button", "#volume-button", "#settings-button",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=shuffle]", "label[for=repeat]", "label[for=volume-button]", "label[for=settings-button]", "label[for=wakeup-button]", "label[for=sleep-button]",]);
                     break;
                 case "twitter-card":
                     Screenshot.fixCanvasSize("1200px", "630px");
                     Screenshot.toCenterControlPanel(3.5);
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=wakeup-button]", "label[for=sleep-button]",]);
                     break;
             }
         };
@@ -5835,6 +5835,9 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
             var element = document.querySelector(selector);
             if (element) {
                 element.style.setProperty("display", "none");
+            }
+            else {
+                console.error("\uD83D\uDEAB Screenshot.setDisplayNone: Element not found for selector \"".concat(selector, "\"."));
             }
         }); };
         Screenshot.fixCanvasSize = function (width, height) {

@@ -26,6 +26,11 @@ Playing a video on an iPhone Air
 
 ## Options Available via URL Parameters
 
+The following options cannot be set via the UI.
+
+- `locale`: Specifies the locale. (Example: [`?locale=en-us`](https://wraith13.github.io/web-media-player/?locale=en-us))
+- `screenshot`: Specifies the screenshot mode. Accepts one of `favicon` or `twitter-card`. (Example: [`?screenshot=twitter-card`](https://wraith13.github.io/web-media-player/?screenshot=twitter-card))
+
 ## How to build
 
 ### Prerequisites
