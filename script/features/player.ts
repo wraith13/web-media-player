@@ -87,11 +87,8 @@ export namespace Player
         {
             if (fullscreen ?? UI.withFullscreenCheckbox.get())
             {
-                if (isPlaying())
-                {
-                    Library.UI.requestFullscreen(document.body);
-                    setTimeout(() => document.body.focus(), 100);
-                }
+                Library.UI.requestFullscreen(document.body);
+                setTimeout(() => document.body.focus(), 100);
             }
             else
             {
@@ -177,7 +174,7 @@ export namespace Player
             window.cancelAnimationFrame(loopHandle);
         }
         UI.overlay.style.removeProperty("opacity");
-        updateFullscreenState(false);
+        //updateFullscreenState(false);
         navigator.mediaSession.playbackState = "paused";
         document.body.classList.toggle("list", true);
         document.body.classList.toggle("play", false);

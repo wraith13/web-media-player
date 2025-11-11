@@ -73,7 +73,7 @@ export namespace UI
         control.crossFade,
         {
             makeLabel: value => value <= 0 ?
-                Library.Locale.map("cross-fade-0"):
+                Library.Locale.map("off"):
                 Tools.Timespan.toHumanizedString(value, undefined, locale)
         }
     );
@@ -217,7 +217,7 @@ export namespace UI
             control.wakeUp,
             {
                 makeLabel: value => "off" === value ?
-                    Library.Locale.map("wakeup-0"):
+                    Library.Locale.map("off"):
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
@@ -227,7 +227,7 @@ export namespace UI
             control.fadeIn,
             {
                 makeLabel: value => "off" === value ?
-                    Library.Locale.map("fade-in-0"):
+                    Library.Locale.map("off"):
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
@@ -245,7 +245,7 @@ export namespace UI
             control.sleep,
             {
                 makeLabel: value => "off" === value ?
-                    Library.Locale.map("sleep-0"):
+                    Library.Locale.map("off"):
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
@@ -255,7 +255,7 @@ export namespace UI
             control.fadeOut,
             {
                 makeLabel: value => "off" === value ?
-                    Library.Locale.map("fade-out-0"):
+                    Library.Locale.map("off"):
                     Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );

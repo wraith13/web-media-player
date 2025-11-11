@@ -189,7 +189,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Stretch:",
             "padding-label": "Padding:",
             "cross-fade-label": "Cross Fade:",
-            "cross-fade-0": "None",
             "image-span-label": "Image Display Time:",
             "loop-short-media-label": "Loop Short Media:",
             "visualizer-label": "Visualizer:",
@@ -232,13 +231,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "repository-label": "repository",
             "off": "Off",
             "fade-in-label": "Fade-in Time:",
-            "fade-in-0": "None",
             "wakeup-label": "Wake-up Timer:",
-            "wakeup-0": "None",
             "fade-out-label": "Fade-out Time:",
-            "fade-out-0": "None",
             "sleep-label": "Sleep Timer:",
-            "sleep-0": "None",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -276,7 +271,6 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "ストレッチ:",
             "padding-label": "パディング:",
             "cross-fade-label": "クロスフェード:",
-            "cross-fade-0": "なし",
             "image-span-label": "画像表示時間:",
             "loop-short-media-label": "短いメディアをループ再生:",
             "visualizer-label": "ビジュアライザー:",
@@ -319,13 +313,9 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "repository-label": "リポジトリ",
             "off": "オフ",
             "wakeup-label": "起床タイマー:",
-            "wakeup-0": "なし",
             "fade-in-label": "フェードイン時間:",
-            "fade-in-0": "なし",
             "sleep-label": "スリープタイマー:",
-            "sleep-0": "なし",
             "fade-out-label": "フェードアウト時間:",
-            "fade-out-0": "なし",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -1804,7 +1794,6 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                 if (0 < minutes) {
                     result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
                 }
-                // const seconds = Math.floor(value /1000) %60;
                 var seconds = (value % (60 * 1000)) / 1000;
                 if (0 < seconds) {
                     result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
@@ -2480,7 +2469,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
         UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
             makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("cross-fade-0") :
+                _library_2.Library.Locale.map("off") :
                 _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
         });
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
@@ -2566,7 +2555,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("wakeup-0") :
+                    _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
@@ -2574,7 +2563,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("fade-in-0") :
+                    _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
@@ -2586,7 +2575,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("sleep-0") :
+                    _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
@@ -2594,7 +2583,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             makeLabel: function (value) {
                 var _a;
                 return "off" === value ?
-                    _library_2.Library.Locale.map("fade-out-0") :
+                    _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
             }
         });
@@ -4607,10 +4596,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.updateFullscreenState = function (fullscreen) {
             if (_library_7.Library.UI.fullscreenEnabled) {
                 if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_9.UI.withFullscreenCheckbox.get()) {
-                    if (Player.isPlaying()) {
-                        _library_7.Library.UI.requestFullscreen(document.body);
-                        setTimeout(function () { return document.body.focus(); }, 100);
-                    }
+                    _library_7.Library.UI.requestFullscreen(document.body);
+                    setTimeout(function () { return document.body.focus(); }, 100);
                 }
                 else {
                     _library_7.Library.UI.exitFullscreen();
@@ -4692,7 +4679,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 window.cancelAnimationFrame(loopHandle);
             }
             ui_9.UI.overlay.style.removeProperty("opacity");
-            Player.updateFullscreenState(false);
+            //updateFullscreenState(false);
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
             document.body.classList.toggle("play", false);

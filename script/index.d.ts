@@ -41,7 +41,6 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
-            "cross-fade-0": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -84,13 +83,9 @@ declare module "locale/generated/master" {
             "repository-label": string;
             off: string;
             "fade-in-label": string;
-            "fade-in-0": string;
             "wakeup-label": string;
-            "wakeup-0": string;
             "fade-out-label": string;
-            "fade-out-0": string;
             "sleep-label": string;
-            "sleep-0": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -128,7 +123,6 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
-            "cross-fade-0": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -171,13 +165,9 @@ declare module "locale/generated/master" {
             "repository-label": string;
             off: string;
             "wakeup-label": string;
-            "wakeup-0": string;
             "fade-in-label": string;
-            "fade-in-0": string;
             "sleep-label": string;
-            "sleep-0": string;
             "fade-out-label": string;
-            "fade-out-0": string;
             timeUnitMs: string;
             timeUnitS: string;
             timeUnitM: string;
@@ -220,7 +210,6 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
-                "cross-fade-0": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -263,13 +252,9 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 off: string;
                 "fade-in-label": string;
-                "fade-in-0": string;
                 "wakeup-label": string;
-                "wakeup-0": string;
                 "fade-out-label": string;
-                "fade-out-0": string;
                 "sleep-label": string;
-                "sleep-0": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;
@@ -307,7 +292,6 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
-                "cross-fade-0": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -350,13 +334,9 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 off: string;
                 "wakeup-label": string;
-                "wakeup-0": string;
                 "fade-in-label": string;
-                "fade-in-0": string;
                 "sleep-label": string;
-                "sleep-0": string;
                 "fade-out-label": string;
-                "fade-out-0": string;
                 timeUnitMs: string;
                 timeUnitS: string;
                 timeUnitM: string;

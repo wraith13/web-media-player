@@ -19,6 +19,11 @@
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
 - ✅ Multi-language Support: __LANG_LABEL_LIST__
 
+## Screenshot
+
+Playing a video on an iPhone Air
+![AC6](./screenshot/ac6.png)
+
 ## Options Available via URL Parameters
 
 ## How to build
