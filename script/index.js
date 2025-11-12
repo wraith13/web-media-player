@@ -145,6 +145,9 @@ define("script/tools/math", ["require", "exports"], function (require, exports) 
         Math.mod = function (n, m) {
             return m === 0 ? n : ((n % m) + m) % m;
         };
+        Math.clip = function (min, value, max) {
+            return global.Math.min(global.Math.max(min, value), max);
+        };
     })(Math || (exports.Math = Math = {}));
 });
 define("script/tools/array", ["require", "exports", "script/tools/type-guards", "script/tools/math"], function (require, exports, type_guards_1, math_1) {
@@ -4848,20 +4851,31 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 currentTrack.setPositionState();
             }
         };
-        Player.loop = function (now) {
+        Player.updateMediaSessionPositionState = function () {
             var _a, _b;
+            try {
+                var duration = Math.max(0, ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000);
+                var playbackRate = (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0;
+                var position = _tools_6.Tools.Math.clip(0, ((_b = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getElapsedTime()) !== null && _b !== void 0 ? _b : 0) / 1000, duration);
+                navigator.mediaSession.setPositionState({ duration: duration, playbackRate: playbackRate, position: position, });
+            }
+            catch (error) {
+                console.error("🚫 Player.loop: Failed to set position state.", error);
+            }
+        };
+        Player.loop = function (now) {
             if (Player.isPlaying()) {
-                overlay_1.Overlay.update(now);
-                fps_1.Fps.step(now);
-                Player.updateFps();
-                Player.crossFade();
-                Player.step();
-                navigator.mediaSession.setPositionState({
-                    duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
-                    playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
-                    position: ((_b = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getElapsedTime()) !== null && _b !== void 0 ? _b : 0) / 1000,
-                });
-                loopHandle = window.requestAnimationFrame(Player.loop);
+                try {
+                    overlay_1.Overlay.update(now);
+                    fps_1.Fps.step(now);
+                    Player.updateFps();
+                    Player.crossFade();
+                    Player.step();
+                    Player.updateMediaSessionPositionState();
+                }
+                finally {
+                    loopHandle = window.requestAnimationFrame(Player.loop);
+                }
             }
             else {
                 loopHandle = null;

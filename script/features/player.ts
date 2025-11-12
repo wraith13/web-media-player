@@ -374,22 +374,37 @@ export namespace Player
             currentTrack.setPositionState();
         }
     };
+    export const updateMediaSessionPositionState = () =>
+    {
+        try
+        {
+            const duration = Math.max(0, (currentTrack?.getDuration() ?? 0) /1000);
+            const playbackRate = currentTrack?.playerElement instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0;
+            const position = Tools.Math.clip(0, (currentTrack?.getElapsedTime() ?? 0) /1000, duration);
+            navigator.mediaSession.setPositionState({ duration, playbackRate, position, });
+        }
+        catch(error)
+        {
+            console.error("🚫 Player.loop: Failed to set position state.", error);
+        }
+    };
     export const loop = (now: number) =>
     {
         if (isPlaying())
         {
-            Overlay.update(now);
-            Fps.step(now);
-            updateFps();
-            crossFade();
-            step();
-            navigator.mediaSession.setPositionState
-            ({
-                duration: (currentTrack?.getDuration() ?? 0) /1000,
-                playbackRate: currentTrack?.playerElement instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
-                position: (currentTrack?.getElapsedTime() ?? 0) /1000,
-            });
-            loopHandle = window.requestAnimationFrame(loop);
+            try
+            {
+                Overlay.update(now);
+                Fps.step(now);
+                updateFps();
+                crossFade();
+                step();
+                updateMediaSessionPositionState();
+            }
+            finally
+            {
+                loopHandle = window.requestAnimationFrame(loop);
+            }
         }
         else
         {

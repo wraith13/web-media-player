@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Nov 11 2025 18:37:42 GMT+0900 (日本標準時)
+    build at: Wed Nov 12 2025 06:07:11 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3482,8 +3482,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Nov 11 2025 18:37:42 GMT+0900 (日本標準時)",
-    tick: 1762853862515
+    at: "Wed Nov 12 2025 06:07:11 GMT+0900 (日本標準時)",
+    tick: 1762895231553
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5191,6 +5191,9 @@ define("script/tools/math", ["require", "exports"], function (require, exports) 
         };
         Math.mod = function (n, m) {
             return m === 0 ? n : ((n % m) + m) % m;
+        };
+        Math.clip = function (min, value, max) {
+            return global.Math.min(global.Math.max(min, value), max);
         };
     })(Math || (exports.Math = Math = {}));
 });
@@ -9895,20 +9898,31 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 currentTrack.setPositionState();
             }
         };
-        Player.loop = function (now) {
+        Player.updateMediaSessionPositionState = function () {
             var _a, _b;
+            try {
+                var duration = Math.max(0, ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000);
+                var playbackRate = (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0;
+                var position = _tools_6.Tools.Math.clip(0, ((_b = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getElapsedTime()) !== null && _b !== void 0 ? _b : 0) / 1000, duration);
+                navigator.mediaSession.setPositionState({ duration: duration, playbackRate: playbackRate, position: position, });
+            }
+            catch (error) {
+                console.error("🚫 Player.loop: Failed to set position state.", error);
+            }
+        };
+        Player.loop = function (now) {
             if (Player.isPlaying()) {
-                overlay_1.Overlay.update(now);
-                fps_1.Fps.step(now);
-                Player.updateFps();
-                Player.crossFade();
-                Player.step();
-                navigator.mediaSession.setPositionState({
-                    duration: ((_a = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getDuration()) !== null && _a !== void 0 ? _a : 0) / 1000,
-                    playbackRate: (currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.playerElement) instanceof HTMLMediaElement ? currentTrack.playerElement.playbackRate : 1.0,
-                    position: ((_b = currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.getElapsedTime()) !== null && _b !== void 0 ? _b : 0) / 1000,
-                });
-                loopHandle = window.requestAnimationFrame(Player.loop);
+                try {
+                    overlay_1.Overlay.update(now);
+                    fps_1.Fps.step(now);
+                    Player.updateFps();
+                    Player.crossFade();
+                    Player.step();
+                    Player.updateMediaSessionPositionState();
+                }
+                finally {
+                    loopHandle = window.requestAnimationFrame(Player.loop);
+                }
             }
             else {
                 loopHandle = null;

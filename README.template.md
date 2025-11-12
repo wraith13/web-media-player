@@ -21,6 +21,9 @@
 
 ## Screenshot
 
+Playing a audio
+![Audio](./screenshot/audio.png)
+
 Playing a video on an iPhone Air
 ![AC6](./screenshot/ac6.png)
 

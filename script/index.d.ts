@@ -16,6 +16,7 @@ declare module "script/tools/math" {
         const scale: (min: number, max: number) => (r: number) => number;
         const sum: (numbers: number[]) => number;
         const mod: (n: number, m: number) => number;
+        const clip: (min: number, value: number, max: number) => number;
     }
 }
 declare module "script/tools/array" {
@@ -1152,6 +1153,7 @@ declare module "script/features/player" {
         const makeTitleText: (track: Track) => string;
         const makeTimeText: (track: Track) => string;
         const step: () => void;
+        const updateMediaSessionPositionState: () => void;
         const loop: (now: number) => void;
         const playMedia: (entry: Media.Entry, resume?: "resume") => void;
         const removeTrack: (track: Track | null) => void;
