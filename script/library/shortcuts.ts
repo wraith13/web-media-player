@@ -105,8 +105,45 @@ export namespace Shortcuts
             );
         }
     };
+    export const clearPressedKeys = () =>
+    {
+        if (0 < pressedKeys.length)
+        {
+            console.log("🧼 Shortcuts: Clearing pressed keys.", pressedKeys);
+            pressedKeys = [];
+            Object.keys(displayedKeys).forEach
+            (
+                key =>
+                {
+                    if (displayedKeys[key].removeTimer)
+                    {
+                        clearTimeout(displayedKeys[key].removeTimer!);
+                    }
+                }
+            );
+            for (const key in displayedKeys)
+            {
+                delete displayedKeys[key];
+            }
+            updatePressedKeyDiv();
+        }
+    };
+    export const pruneStaleKeys = () =>
+    {
+        const now = Date.now();
+        for(const key in displayedKeys)
+        {
+            if (15000 < now -displayedKeys[key].pressedAt)
+            {
+                console.log("🧼 Shortcuts: Pruning stale key.", key);
+                delete displayedKeys[key];
+            }
+        }
+        updatePressedKeyDiv();
+    };
     export const handleKeyEvent = (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
     {
+        pruneStaleKeys();
         const normalizedKey = normalizeKey(event.key, event.code);
         const shortcutKeys = getShortcutKeys(type, normalizedKey);
         const commandMap = currentCommandMap;
@@ -153,8 +190,12 @@ export namespace Shortcuts
     }
     export const initialize = () =>
     {
-        window.addEventListener("keydown", (event) => Shortcuts.handleKeyEvent("onKeyDown", event));
-        window.addEventListener("keyup", (event) => Shortcuts.handleKeyEvent("onKeyUp", event));
+        window.addEventListener("keydown", (event) => handleKeyEvent("onKeyDown", event));
+        window.addEventListener("keyup", (event) => handleKeyEvent("onKeyUp", event));
+        window.addEventListener("blur", () => clearPressedKeys());
+        window.addEventListener("visibilitychange", () => clearPressedKeys());
+        document.addEventListener("mousedown", () => clearPressedKeys());
+        document.addEventListener("touchstart", () => clearPressedKeys());
     };
     export const setCommandMap = (commandMap: CommandMap | null) =>
     {

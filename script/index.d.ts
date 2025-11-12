@@ -600,6 +600,8 @@ declare module "script/library/shortcuts" {
             keyss: string[][];
             description: string;
         }[];
+        const clearPressedKeys: () => void;
+        const pruneStaleKeys: () => void;
         const handleKeyEvent: (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => void;
         const initialize: () => void;
         const setCommandMap: (commandMap: CommandMap | null) => void;

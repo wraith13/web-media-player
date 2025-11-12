@@ -1704,8 +1704,34 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 }));
             }
         };
+        Shortcuts.clearPressedKeys = function () {
+            if (0 < pressedKeys.length) {
+                console.log("🧼 Shortcuts: Clearing pressed keys.", pressedKeys);
+                pressedKeys = [];
+                Object.keys(displayedKeys).forEach(function (key) {
+                    if (displayedKeys[key].removeTimer) {
+                        clearTimeout(displayedKeys[key].removeTimer);
+                    }
+                });
+                for (var key in displayedKeys) {
+                    delete displayedKeys[key];
+                }
+                updatePressedKeyDiv();
+            }
+        };
+        Shortcuts.pruneStaleKeys = function () {
+            var now = Date.now();
+            for (var key in displayedKeys) {
+                if (15000 < now - displayedKeys[key].pressedAt) {
+                    console.log("🧼 Shortcuts: Pruning stale key.", key);
+                    delete displayedKeys[key];
+                }
+            }
+            updatePressedKeyDiv();
+        };
         Shortcuts.handleKeyEvent = function (type, event) {
             var _a;
+            Shortcuts.pruneStaleKeys();
             var normalizedKey = normalizeKey(event.key, event.code);
             var shortcutKeys = getShortcutKeys(type, normalizedKey);
             var commandMap = currentCommandMap;
@@ -1741,6 +1767,10 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         Shortcuts.initialize = function () {
             window.addEventListener("keydown", function (event) { return Shortcuts.handleKeyEvent("onKeyDown", event); });
             window.addEventListener("keyup", function (event) { return Shortcuts.handleKeyEvent("onKeyUp", event); });
+            window.addEventListener("blur", function () { return Shortcuts.clearPressedKeys(); });
+            window.addEventListener("visibilitychange", function () { return Shortcuts.clearPressedKeys(); });
+            document.addEventListener("mousedown", function () { return Shortcuts.clearPressedKeys(); });
+            document.addEventListener("touchstart", function () { return Shortcuts.clearPressedKeys(); });
         };
         Shortcuts.setCommandMap = function (commandMap) {
             currentCommandMap = commandMap;
