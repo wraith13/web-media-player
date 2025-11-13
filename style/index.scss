@@ -141,8 +141,9 @@
         padding-left: calc(0.25rem + env(safe-area-inset-left));
         padding-right: 0.25rem;
         padding-right: calc(0.25rem + env(safe-area-inset-right));
-        padding-bottom: calc(100vh - (5.5rem + env(safe-area-inset-top)));
-        padding-bottom: calc(100dvh - (5.5rem + env(safe-area-inset-top)));
+        padding-bottom: calc(100vh - 2.5rem);
+        padding-bottom: calc(100vh - (2.5rem + env(safe-area-inset-top)));
+        padding-bottom: calc(100dvh - (2.5rem + env(safe-area-inset-top)));
         position: absolute;
         counter-reset: item-num;
         .item
@@ -465,6 +466,20 @@ body.show-paused-media #screen-body
     }
     #media-list
     {
+        .item.add
+        {
+            opacity: 0.7;
+            filter: blur(0.1rem);
+            transition: opacity 1000ms, filter 1000ms;
+            @media (hover: hover)
+            {
+                &:hover
+                {
+                    opacity: 1.0;
+                    filter: none;
+                }
+            }
+        }
         .item:not(.add)
         {
             opacity: 0.3;

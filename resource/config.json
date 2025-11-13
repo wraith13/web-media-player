@@ -93,5 +93,9 @@
     },
     "timers": {
         "minSteps": 500
+    },
+    "shortcuts": {
+        "displayedKeysTimeout": 250,
+        "pressedKeysTimeout": 15000
     }
 }

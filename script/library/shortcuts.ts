@@ -2,6 +2,7 @@ import { Comparer } from "@tools/comparer";
 import { Environment } from "@tools/environment";
 import { UI } from "./ui";
 import shortcuts from "@resource/shortcuts.json";
+import config from "@resource/config.json";
 export namespace Shortcuts
 {
     export type StyleKey = keyof typeof shortcuts;
@@ -79,7 +80,7 @@ export namespace Shortcuts
                         delete displayedKeys[normalizedKey];
                         updatePressedKeyDiv();
                     },
-                    250
+                    config.shortcuts.displayedKeysTimeout
                 );
             }
             return result;
@@ -133,7 +134,7 @@ export namespace Shortcuts
         const now = Date.now();
         for(const key in displayedKeys)
         {
-            if (15000 < now -displayedKeys[key].pressedAt)
+            if (config.shortcuts.pressedKeysTimeout < now -displayedKeys[key].pressedAt)
             {
                 console.log("🧼 Shortcuts: Pruning stale key.", key);
                 delete displayedKeys[key];

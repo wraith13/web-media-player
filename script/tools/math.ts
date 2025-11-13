@@ -7,5 +7,5 @@ export namespace Math
     export const mod = (n: number, m: number): number =>
         m === 0 ? n: ((n %m) +m) %m;
     export const clip = (min: number, value: number, max: number): number =>
-        global.Math.min(global.Math.max(min, value), max);
+        value < min ? min: (max < value ? max: value);
 }

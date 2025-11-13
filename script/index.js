@@ -146,7 +146,7 @@ define("script/tools/math", ["require", "exports"], function (require, exports) 
             return m === 0 ? n : ((n % m) + m) % m;
         };
         Math.clip = function (min, value, max) {
-            return global.Math.min(global.Math.max(min, value), max);
+            return value < min ? min : (max < value ? max : value);
         };
     })(Math || (exports.Math = Math = {}));
 });
@@ -491,6 +491,10 @@ define("resource/config", [], {
     },
     "timers": {
         "minSteps": 500
+    },
+    "shortcuts": {
+        "displayedKeysTimeout": 250,
+        "pressedKeysTimeout": 15000
     }
 });
 define("script/library/ui", ["require", "exports", "resource/config", "script/tools/type-guards"], function (require, exports, config_json_1, type_guards_2) {
@@ -1619,11 +1623,12 @@ define("resource/shortcuts", [], {
         ]
     }
 });
-define("script/library/shortcuts", ["require", "exports", "script/tools/comparer", "script/tools/environment", "script/library/ui", "resource/shortcuts"], function (require, exports, comparer_1, environment_1, ui_2, shortcuts_json_1) {
+define("script/library/shortcuts", ["require", "exports", "script/tools/comparer", "script/tools/environment", "script/library/ui", "resource/shortcuts", "resource/config"], function (require, exports, comparer_1, environment_1, ui_2, shortcuts_json_1, config_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Shortcuts = void 0;
     shortcuts_json_1 = __importDefault(shortcuts_json_1);
+    config_json_2 = __importDefault(config_json_2);
     var Shortcuts;
     (function (Shortcuts) {
         var style = "youtube";
@@ -1687,7 +1692,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                         displayedKeys[normalizedKey].removeTimer = setTimeout(function () {
                             delete displayedKeys[normalizedKey];
                             updatePressedKeyDiv();
-                        }, 250);
+                        }, config_json_2.default.shortcuts.displayedKeysTimeout);
                     }
                     return result;
             }
@@ -1722,7 +1727,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         Shortcuts.pruneStaleKeys = function () {
             var now = Date.now();
             for (var key in displayedKeys) {
-                if (15000 < now - displayedKeys[key].pressedAt) {
+                if (config_json_2.default.shortcuts.pressedKeysTimeout < now - displayedKeys[key].pressedAt) {
                     console.log("🧼 Shortcuts: Pruning stale key.", key);
                     delete displayedKeys[key];
                 }
@@ -2694,16 +2699,16 @@ define("script/features/location", ["require", "exports", "script/ui"], function
         };
     })(Location || (exports.Location = Location = {}));
 });
-define("script/features/weather", ["require", "exports", "script/tools/index", "script/features/location", "resource/config"], function (require, exports, _tools_3, location_1, config_json_2) {
+define("script/features/weather", ["require", "exports", "script/tools/index", "script/features/location", "resource/config"], function (require, exports, _tools_3, location_1, config_json_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Weather = void 0;
-    config_json_2 = __importDefault(config_json_2);
+    config_json_3 = __importDefault(config_json_3);
     var Weather;
     (function (Weather) {
         var _this = this;
-        Weather.site = config_json_2.default.weather.site;
-        Weather.format = config_json_2.default.weather.format;
+        Weather.site = config_json_3.default.weather.site;
+        Weather.format = config_json_3.default.weather.format;
         Weather.separator = "|";
         Weather.extractFixedText = function (format) { var _a; return (_a = format.replace(/%\S+/g, "").trim().match(/\S+/g)) !== null && _a !== void 0 ? _a : []; };
         Weather.isRegularResponse = function (text) {
@@ -2711,7 +2716,7 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         };
         Weather.getTemperatureUnit = function (locale) {
             if (locale === void 0) { locale = navigator.language; }
-            return config_json_2.default.weather.fahrenheitLocales.includes(locale) ? "imperial" : "metric";
+            return config_json_3.default.weather.fahrenheitLocales.includes(locale) ? "imperial" : "metric";
         };
         Weather.getTemperatureParam = function (locale) {
             if (locale === void 0) { locale = navigator.language; }
@@ -2776,28 +2781,28 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                 }
             });
         }); };
-        Weather.cache = config_json_2.default.weather.na;
+        Weather.cache = config_json_3.default.weather.na;
         Weather.lastTimestamp = 0;
         Weather.setCache = function (data) {
-            Weather.cache = data !== null && data !== void 0 ? data : config_json_2.default.weather.na;
+            Weather.cache = data !== null && data !== void 0 ? data : config_json_3.default.weather.na;
             Weather.lastTimestamp = new Date().getTime();
         };
         Weather.isWeatherFetchAllowed = function () {
             var _a;
             var now = Date.now();
-            var retryInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.retryInterval)) !== null && _a !== void 0 ? _a : (3 * 60 * 1000);
+            var retryInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_3.default.weather.retryInterval)) !== null && _a !== void 0 ? _a : (3 * 60 * 1000);
             return lastRequestTimestamp + retryInterval < now;
         };
         Weather.isUpdateRequired = function () {
             var _a;
             var now = Date.now();
-            var updateInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.updateInterval)) !== null && _a !== void 0 ? _a : (30 * 60 * 1000);
+            var updateInterval = (_a = _tools_3.Tools.Timespan.parse(config_json_3.default.weather.updateInterval)) !== null && _a !== void 0 ? _a : (30 * 60 * 1000);
             return Weather.lastTimestamp + updateInterval < now;
         };
         Weather.isExpired = function () {
             var _a;
             var now = Date.now();
-            var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_2.default.weather.expire)) !== null && _a !== void 0 ? _a : (60 * 60 * 1000);
+            var expire = (_a = _tools_3.Tools.Timespan.parse(config_json_3.default.weather.expire)) !== null && _a !== void 0 ? _a : (60 * 60 * 1000);
             return Weather.lastTimestamp + expire < now;
         };
         Weather.get = function () {
@@ -2811,7 +2816,7 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                 }
             }
             if (Weather.isExpired()) {
-                return config_json_2.default.weather.na;
+                return config_json_3.default.weather.na;
             }
             else {
                 return Weather.cache;
@@ -2819,23 +2824,23 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         };
     })(Weather || (exports.Weather = Weather = {}));
 });
-define("script/features/overlay", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "script/features/weather", "resource/config"], function (require, exports, library_1, tools_1, ui_4, weather_1, config_json_3) {
+define("script/features/overlay", ["require", "exports", "script/library/index", "script/tools/index", "script/ui", "script/features/weather", "resource/config"], function (require, exports, library_1, tools_1, ui_4, weather_1, config_json_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Overlay = void 0;
-    config_json_3 = __importDefault(config_json_3);
+    config_json_4 = __importDefault(config_json_4);
     var phi = (1 + Math.sqrt(5)) / 2;
     var Overlay;
     (function (Overlay) {
-        Overlay.firstDayOfWeek = config_json_3.default.clock.firstDayOfWeek;
+        Overlay.firstDayOfWeek = config_json_4.default.clock.firstDayOfWeek;
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
         Overlay.makeDate = function (date, locale) {
-            return date.toLocaleDateString(locale, config_json_3.default.clock.dateFormat);
+            return date.toLocaleDateString(locale, config_json_4.default.clock.dateFormat);
         };
         Overlay.makeTime = function (date, locale) {
-            return date.toLocaleTimeString(locale, config_json_3.default.clock.timeFormat);
+            return date.toLocaleTimeString(locale, config_json_4.default.clock.timeFormat);
         };
         Overlay.updateLayout = function (date) {
             if (ui_4.UI.overlay.classList.contains("rotate")) {
@@ -2948,7 +2953,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 Overlay.updateCalendar(date);
                 switch (overlayOption) {
                     case "alternate":
-                        var isWhite = (new Date().getTime() / config_json_3.default.clock.alternate.span) % 2 < 1.0;
+                        var isWhite = (new Date().getTime() / config_json_4.default.clock.alternate.span) % 2 < 1.0;
                         ui_4.UI.overlay.classList.toggle("white", isWhite);
                         ui_4.UI.overlay.classList.toggle("black", !isWhite);
                         Overlay.setColor(undefined);
@@ -2964,7 +2969,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         Overlay.initialize = function (params) {
             var _a;
-            Overlay.firstDayOfWeek = ((_a = tools_1.Tools.Number.parseInt(params["first-day-of-week"])) !== null && _a !== void 0 ? _a : config_json_3.default.clock.firstDayOfWeek) % 7;
+            Overlay.firstDayOfWeek = ((_a = tools_1.Tools.Number.parseInt(params["first-day-of-week"])) !== null && _a !== void 0 ? _a : config_json_4.default.clock.firstDayOfWeek) % 7;
             Overlay.locale = params["locale"];
             Overlay.title = params["title"];
             Overlay.subtitle = params["subtitle"];
@@ -2972,17 +2977,17 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
     })(Overlay || (exports.Overlay = Overlay = {}));
 });
-define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_4) {
+define("script/features/analyser", ["require", "exports", "resource/config"], function (require, exports, config_json_5) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Analyser = void 0;
-    config_json_4 = __importDefault(config_json_4);
+    config_json_5 = __importDefault(config_json_5);
     var Analyser;
     (function (Analyser) {
         var _this = this;
         var _a;
         Analyser.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        Analyser.fftSize = (_a = config_json_4.default.analyser.fftSize) !== null && _a !== void 0 ? _a : 1024;
+        Analyser.fftSize = (_a = config_json_5.default.analyser.fftSize) !== null && _a !== void 0 ? _a : 1024;
         Analyser.isSupported = function () {
             return Boolean(Analyser.audioContext) &&
                 "function" === typeof Analyser.audioContext.createGain &&
@@ -3321,13 +3326,13 @@ define("script/features/media", ["require", "exports", "script/library/index", "
         }); };
     })(Media || (exports.Media = Media = {}));
 });
-define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_5, config_json_5) {
+define("script/features/visualizer", ["require", "exports", "script/library/index", "script/ui", "resource/config"], function (require, exports, _library_4, ui_5, config_json_6) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Visualizer = void 0;
-    config_json_5 = __importDefault(config_json_5);
+    config_json_6 = __importDefault(config_json_6);
     var circleRadians = 2 * Math.PI;
-    var arcConfig = config_json_5.default.visualizer.arc[config_json_5.default.visualizer.arcType];
+    var arcConfig = config_json_6.default.visualizer.arc[config_json_6.default.visualizer.arcType];
     var Visualizer;
     (function (Visualizer) {
         var _this = this;
@@ -3522,13 +3527,13 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             var _a;
             var frequencyDataArray = (_a = analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && frequencyDataArray) {
-                var maxIndex = frequencyDataArray.length * config_json_5.default.visualizer.frequencyDataLengthRate;
+                var maxIndex = frequencyDataArray.length * config_json_6.default.visualizer.frequencyDataLengthRate;
                 var zeroLevel = 1;
                 if (rect.height <= rect.width) {
                     var barWidth = rect.width / maxIndex;
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
-                        var hue = (i / maxIndex) * config_json_5.default.visualizer.maxHue;
+                        var hue = (i / maxIndex) * config_json_6.default.visualizer.maxHue;
                         var barHeight = zeroLevel + (scale * value * (rect.height - zeroLevel));
                         var point = Visualizer.makePoint(i * barWidth, (rect.height - barHeight) / 2);
                         context.fill("hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
@@ -3538,7 +3543,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                     var barHeight = rect.height / maxIndex;
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = frequencyDataArray[i] / 255.0;
-                        var hue = (i / maxIndex) * config_json_5.default.visualizer.maxHue;
+                        var hue = (i / maxIndex) * config_json_6.default.visualizer.maxHue;
                         var barWidth = zeroLevel + (scale * value * (rect.width - zeroLevel));
                         var point = Visualizer.makePoint((rect.width - barWidth) / 2, rect.height - ((i + 1) * barHeight));
                         context.fill("hsl(".concat(hue, ", 100%, 50%)"), Visualizer.makeRect(Visualizer.addPoints(rect, point), Visualizer.makeSize(barWidth, barHeight)));
@@ -3551,7 +3556,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             var timeDomainDataArray = (_a = analyser.getByteTimeDomainData("mono")) !== null && _a !== void 0 ? _a : null;
             if (context && timeDomainDataArray) {
                 var maxIndex = timeDomainDataArray.length;
-                context.beginPath(config_json_5.default.visualizer.waveform);
+                context.beginPath(config_json_6.default.visualizer.waveform);
                 if (rect.height <= rect.width) {
                     var sliceWidth = rect.width / maxIndex;
                     context.moveTo(Visualizer.offsetPointY(rect, rect.height / 2));
@@ -3607,11 +3612,11 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var startAngle = Visualizer.getStartAngle(channel);
                 var radius = (rect.width + rect.height) * arcConfig.radiusRate;
                 var center = Visualizer.getCenterPoint(rect);
-                var maxIndex = frequencyDataArray.length * config_json_5.default.visualizer.frequencyDataLengthRate;
+                var maxIndex = frequencyDataArray.length * config_json_6.default.visualizer.frequencyDataLengthRate;
                 var lineWidth = (circleRadians * radius) / maxIndex * 0.8;
                 var zeroLevel = 1;
                 for (var i = 0; i < maxIndex; i++) {
-                    var hue = (i / maxIndex) * config_json_5.default.visualizer.maxHue;
+                    var hue = (i / maxIndex) * config_json_6.default.visualizer.maxHue;
                     var angle = startAngle + Visualizer.getAngle(channel, i / maxIndex);
                     var value = frequencyDataArray[i] / 255.0;
                     var barLength = scale * radius * value + zeroLevel;
@@ -3631,7 +3636,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 var radius = (rect.width + rect.height) * arcConfig.radiusRate;
                 var center = Visualizer.getCenterPoint(rect);
                 var maxIndex = timeDomainDataArray.length;
-                context.beginPath(config_json_5.default.visualizer.waveform);
+                context.beginPath(config_json_6.default.visualizer.waveform);
                 context.moveTo(Visualizer.getPointAtAngle(center, startAngle + Visualizer.getAngle(channel, 1.0), radius));
                 for (var i = 0; i < maxIndex; i++) {
                     var value = timeDomainDataArray[i] / 255.0;
@@ -3977,11 +3982,11 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, config_json_6) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, config_json_7) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
-    config_json_6 = __importDefault(config_json_6);
+    config_json_7 = __importDefault(config_json_7);
     var hasValidGainNode = function (track) {
         return track.analyser instanceof analyser_2.Analyser.Entry && track.analyser.gainNode instanceof GainNode;
     };
@@ -4157,10 +4162,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.seek(this.getDuration() * rate);
         };
         Track.prototype.fastForward = function () {
-            this.diffSeek(config_json_6.default.player.fastFowardSpan);
+            this.diffSeek(config_json_7.default.player.fastFowardSpan);
         };
         Track.prototype.rewind = function () {
-            this.diffSeek(-config_json_6.default.player.rewindSpan);
+            this.diffSeek(-config_json_7.default.player.rewindSpan);
         };
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
@@ -5042,11 +5047,11 @@ define("resource/evil-commonjs.config", [], {
 define("resource/evil-timer.js.config", [], {
     "debug": true
 });
-define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_7) {
+define("script/url", ["require", "exports", "resource/config"], function (require, exports, config_json_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Url = void 0;
-    config_json_7 = __importDefault(config_json_7);
+    config_json_8 = __importDefault(config_json_8);
     var Url;
     (function (Url) {
         Url.parseParameter = function (url) {
@@ -5057,7 +5062,7 @@ define("script/url", ["require", "exports", "resource/config"], function (requir
             return result;
         };
         Url.make = function (params) {
-            var url = new URL(config_json_7.default.canonicalUrl || window.location.href);
+            var url = new URL(config_json_8.default.canonicalUrl || window.location.href);
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -5105,11 +5110,11 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_8) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_9) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
-    config_json_8 = __importDefault(config_json_8);
+    config_json_9 = __importDefault(config_json_9);
     var MediaList;
     (function (MediaList) {
         var _this = this;
@@ -5140,7 +5145,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_8.default.player.notSupportedMediaMessageSpan);
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan);
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -5326,11 +5331,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_3, config_json_9, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_3, config_json_10, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_9 = __importDefault(config_json_9);
+    config_json_10 = __importDefault(config_json_10);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -5543,7 +5548,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", config_json_9.default.ui.mousemoveTimeout);
+            return mouseMoveTimer.start(document.body, "mousemove", config_json_10.default.ui.mousemoveTimeout);
         };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
@@ -5582,11 +5587,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 },
                 "toggleMute": function () { return Events.toggleMute(); },
                 "volumeUp": function () {
-                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_9.default.volume.step);
+                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_10.default.volume.step);
                     ui_12.UI.volumeRange.fire();
                 },
                 "volumeDown": function () {
-                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_9.default.volume.step);
+                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_10.default.volume.step);
                     ui_12.UI.volumeRange.fire();
                 },
                 "seekBackward": function () {
@@ -5781,7 +5786,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.fadeOutSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
             ui_12.UI.sleepSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
+                if (config_json_10.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
                 }
                 Events.mousemove();
@@ -5902,10 +5907,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_14, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_11, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_14, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_10 = __importDefault(config_json_10);
+    config_json_11 = __importDefault(config_json_11);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -5934,7 +5939,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     });
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_10.default,
+        config: config_json_11.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
