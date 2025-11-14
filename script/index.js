@@ -1094,6 +1094,9 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
     exports.Environment = void 0;
     var Environment;
     (function (Environment) {
+        Environment.isWindows = function () {
+            return /Windows/i.test(navigator.userAgent);
+        };
         Environment.isApple = function () {
             return /Macintosh|iPhone|iPad|iPod/i.test(navigator.userAgent);
         };
@@ -2522,10 +2525,20 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
         UI.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
         UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
+        UI.getDefaultShortcut = function () {
+            switch (true) {
+                case _tools_2.Tools.Environment.isWindows():
+                    return "windows";
+                case _tools_2.Tools.Environment.isApple():
+                    return "apple";
+                default:
+                    return "youtube";
+            }
+        };
         UI.shortcutsSelect = new _library_2.Library.Control.Select({
             id: "shortcuts",
             enum: Object.keys(shortcuts_json_2.default),
-            default: Object.keys(shortcuts_json_2.default)[0],
+            default: UI.getDefaultShortcut(),
         }, {
             makeLabel: function (i) { return shortcuts_json_2.default[i].label; },
         });

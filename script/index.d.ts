@@ -577,6 +577,7 @@ declare module "script/tools/comparer" {
 }
 declare module "script/tools/environment" {
     export namespace Environment {
+        const isWindows: () => boolean;
         const isApple: () => boolean;
         const isSafari: () => boolean;
         const isMobile: () => boolean;
@@ -731,6 +732,7 @@ declare module "script/features/fps" {
 }
 declare module "script/ui" {
     import { Library } from "script/library/index";
+    import shortcuts from "resource/shortcuts";
     export namespace UI {
         let locale: string | undefined;
         const manifest: HTMLLinkElement;
@@ -778,6 +780,7 @@ declare module "script/ui" {
         const withCalenderCheckbox: Library.Control.Checkbox;
         const withVisualizerCheckbox: Library.Control.Checkbox;
         const showFpsCheckbox: Library.Control.Checkbox;
+        const getDefaultShortcut: () => keyof typeof shortcuts;
         const shortcutsSelect: Library.Control.Select<string>;
         const languageSelect: Library.Control.Select<string>;
         const urlAnchor: HTMLAnchorElement;
