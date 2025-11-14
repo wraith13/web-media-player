@@ -168,6 +168,18 @@
                 ]
             },
             {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
                 "description": "Volume Up / Down",
                 "shortcuts": [
                     {
@@ -213,7 +225,7 @@
                 ]
             },
             {
-                "description": "Go to Previous Media",
+                "description": "Go to Previous/Next Media",
                 "shortcuts": [
                     {
                         "command": "goPreviousMedia",
@@ -221,12 +233,7 @@
                         "keys": [
                             "ArrowUp"
                         ]
-                    }
-                ]
-            },
-            {
-                "description": "Go to Next Media",
-                "shortcuts": [
+                    },
                     {
                         "command": "goNextMedia",
                         "type": "onKeyDown",

@@ -19,17 +19,6 @@
         @include solid-box();
         @include full-stretch-box();
         @include flex(row, center, center);
-        span
-        {
-            @include font();
-            &
-            {
-                color: white-color(0.7);
-                text-shadow: 0px 0px 0.25rem black;
-                user-select: none;
-                transform: scale(1.25);
-            }
-        }
     }
     #media-screen
     {
@@ -1681,6 +1670,75 @@ label:not(.icon-button)
         }
     }
 }
+#keyboard-shortcut
+{
+    @include fade-transition("body.play", "body.show-paused-media");
+    //@include black-pop-panel-style();
+    @include font();
+    &
+    {
+        color: $white-color;
+        text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+        position: fixed;
+        z-index: 20;
+        margin-block: 0.5rem;
+        margin-inline: 0.5rem;
+        margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
+        border-radius: 0.5rem;
+        padding-block: 0.5rem;
+        padding-inline: 1.0rem;
+        display: grid;
+        grid-template-columns: minmax(0, max-content) minmax(0, max-content);
+        gap: 0.5rem 0.5rem;
+        align-items: center;
+        pointer-events: none;
+        span
+        {
+            white-space: nowrap;
+            &:nth-child(2n + 1)
+            {
+                justify-self: end;
+            }
+            kbd
+            {
+                @include monospace-font();
+                &
+                {
+                    display: inline-block;
+                    contain: paint;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: $kbd-border-color;
+                    border-radius: 4px;
+                    padding-block: 1px;
+                    padding-inline: 4px;
+                    margin-block: 2px;
+                    margin-inline: 2px;
+                    background-color: $kbd-background-color;
+                }
+            }
+            .separator
+            {
+                @include monospace-font();
+                &
+                {
+                    display: inline-block;
+                    padding-block: 1px;
+                    padding-inline: 4px;
+                    margin-block: 2px;
+                    margin-inline: 2px;
+                }
+            }
+        }
+        // @media (max-width: 760px) or (max-height: 840px)
+        // {
+        //     pointer-events: none;
+        //     visibility: hidden;
+        //     width: 0px;
+        //     height: 0px;
+        // }
+    }
+}
 #screen-footer
 {
     @include bottom-stretch-box();
@@ -1691,71 +1749,6 @@ label:not(.icon-button)
     #supplementary-line
     {
         @include flex(row, space-between, end);
-        #keyboard-shortcut
-        {
-            @include fade-transition("body.play", "body.show-paused-media");
-            @include black-pop-panel-style();
-            @include font();
-            &
-            {
-                margin-block: 0.5rem;
-                margin-inline: 0.5rem;
-                margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
-                border-radius: 0.5rem;
-                padding-block: 0.5rem;
-                padding-inline: 1.0rem;
-                display: grid;
-                grid-template-columns: minmax(0, max-content) minmax(0, max-content);
-                gap: 0.5rem 0.5rem;
-                align-items: center;
-                pointer-events: initial;
-                span
-                {
-                    white-space: nowrap;
-                    &:nth-child(2n + 1)
-                    {
-                        justify-self: end;
-                    }
-                    kbd
-                    {
-                        @include monospace-font();
-                        &
-                        {
-                            display: inline-block;
-                            contain: paint;
-                            border-style: solid;
-                            border-width: 1px;
-                            border-color: $kbd-border-color;
-                            border-radius: 4px;
-                            padding-block: 1px;
-                            padding-inline: 4px;
-                            margin-block: 2px;
-                            margin-inline: 2px;
-                            background-color: $kbd-background-color;
-                        }
-                    }
-                    .separator
-                    {
-                        @include monospace-font();
-                        &
-                        {
-                            display: inline-block;
-                            padding-block: 1px;
-                            padding-inline: 4px;
-                            margin-block: 2px;
-                            margin-inline: 2px;
-                        }
-                    }
-                }
-                @media (max-width: 760px) or (max-height: 840px)
-                {
-                    pointer-events: none;
-                    visibility: hidden;
-                    width: 0px;
-                    height: 0px;
-                }
-            }
-        }
         #information
         {
             @include fade-transition("body.play", "body.show-paused-media");

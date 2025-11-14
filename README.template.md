@@ -24,7 +24,7 @@
 Playing a audio
 ![Audio](./screenshot/audio.png)
 
-Playing a video on an iPhone Air
+Playing a video on an iPhone Air (installed and running as a App)
 ![AC6](./screenshot/ac6.png)
 
 ## Options Available via URL Parameters

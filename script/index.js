@@ -1287,6 +1287,18 @@ define("resource/shortcuts", [], {
                 ]
             },
             {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
                 "description": "Volume Up / Down",
                 "shortcuts": [
                     {
@@ -1332,7 +1344,7 @@ define("resource/shortcuts", [], {
                 ]
             },
             {
-                "description": "Go to Previous Media",
+                "description": "Go to Previous/Next Media",
                 "shortcuts": [
                     {
                         "command": "goPreviousMedia",
@@ -1340,12 +1352,7 @@ define("resource/shortcuts", [], {
                         "keys": [
                             "ArrowUp"
                         ]
-                    }
-                ]
-            },
-            {
-                "description": "Go to Next Media",
-                "shortcuts": [
+                    },
                     {
                         "command": "goNextMedia",
                         "type": "onKeyDown",

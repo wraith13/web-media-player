@@ -56,6 +56,8 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen">
+        <div id="keyboard-shortcut">
+        </div>
         <span style="display:none;">__APPLICATION_TITLE__</span>
     </div>
     <div id="media-list">
