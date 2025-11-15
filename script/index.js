@@ -1669,8 +1669,11 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 (_b = (_a = appleKeyDisplayNames[key]) !== null && _a !== void 0 ? _a : keyDisplayNames[key]) !== null && _b !== void 0 ? _b : key :
                 (_c = keyDisplayNames[key]) !== null && _c !== void 0 ? _c : key;
         };
-        Shortcuts.getDisplayList = function () {
-            return shortcuts_json_1.default[style].items.map(function (i) {
+        Shortcuts.getDisplayList = function (filter) {
+            if (filter === void 0) { filter = function () { return true; }; }
+            return shortcuts_json_1.default[style].items
+                .filter(filter)
+                .map(function (i) {
                 return ({
                     keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(key); }); }),
                     description: i.description,
@@ -2570,7 +2573,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
         UI.pressedKey = _library_2.Library.UI.getElementById("div", "pressed-key");
         UI.updateShortcuts = function () {
-            _library_2.Library.UI.replaceChildren(UI.keyboardShortcut, _library_2.Library.Shortcuts.getDisplayList().map(function (i) {
+            _library_2.Library.UI.replaceChildren(UI.keyboardShortcut, _library_2.Library.Shortcuts.getDisplayList(function (i) {
+                switch (i.description) {
+                    case "FullScreen":
+                        return _library_2.Library.UI.fullscreenEnabled;
+                    default:
+                        return true;
+                }
+            }).map(function (i) {
                 return [
                     {
                         tag: "span",

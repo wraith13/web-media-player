@@ -170,7 +170,19 @@ export namespace UI
         Library.UI.replaceChildren
         (
             UI.keyboardShortcut,
-            Library.Shortcuts.getDisplayList().map
+            Library.Shortcuts.getDisplayList
+            (
+                i =>
+                {
+                    switch(i.description)
+                    {
+                    case "FullScreen":
+                        return Library.UI.fullscreenEnabled;
+                    default:
+                        return true;
+                    }
+                }
+            ).map
             (
                 i =>
                 [

@@ -38,15 +38,17 @@ export namespace Shortcuts
         Environment.isApple() ?
             appleKeyDisplayNames[key as keyof typeof appleKeyDisplayNames] ?? keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key:
             keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
-    export const getDisplayList = () =>
-        shortcuts[style].items.map
-        (
-            i =>
-            ({
-                keyss: i.shortcuts.map(j => getKeys(j).map(key => getDisplayKeyName(key))),
-                description: i.description,
-            })
-        );
+    export const getDisplayList = (filter: (i: Item) => boolean = () => true) =>
+        shortcuts[style].items
+            .filter(filter)
+            .map
+            (
+                i =>
+                ({
+                    keyss: i.shortcuts.map(j => getKeys(j).map(key => getDisplayKeyName(key))),
+                    description: i.description,
+                })
+            );
     const isInputElementFocused = () =>
         ["input", "textarea", "button"].includes(document.activeElement?.tagName?.toLowerCase() ?? "");
     const normalizeKey = (key: string, code: string) =>

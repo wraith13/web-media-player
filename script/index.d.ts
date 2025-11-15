@@ -597,7 +597,7 @@ declare module "script/library/shortcuts" {
         type CommandMap = {
             [key in Shortcuts.CommandKey]-?: () => void;
         };
-        const getDisplayList: () => {
+        const getDisplayList: (filter?: (i: Item) => boolean) => {
             keyss: string[][];
             description: string;
         }[];
