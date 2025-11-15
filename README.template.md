@@ -21,7 +21,10 @@
 
 ## Screenshot
 
-Playing a audio
+Playing an image with padding and overlays
+![Tokyo Metropolitan Government Building](./screenshot/tokyo_metropolitan_government_building.png)
+
+Playing an audio
 ![Audio](./screenshot/audio.png)
 
 Playing a video on an iPhone Air (installed and running as a App)

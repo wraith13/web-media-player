@@ -332,7 +332,7 @@ export namespace Player
                         {
                             const fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(fadeoutProgress *currentTimerFade);
+                            fadeoutingTrack.setOpacity(1 *currentTimerFade);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.setOpacity(progress *currentTimerFade);

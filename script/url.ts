@@ -1,4 +1,4 @@
-import config from "@resource/config.json";
+//import config from "@resource/config.json";
 export namespace Url
 {
     export const parseParameter = (url: string): Record<string, string> =>
@@ -14,7 +14,8 @@ export namespace Url
     };
     export const make = (params: Record<string, string>) =>
     {
-        const url = new URL(config.canonicalUrl || window.location.href);
+        //const url = new URL(config.canonicalUrl || window.location.href);
+        const url = new URL(window.location.href);
         for (const [ key, value ] of Object.entries(params))
         {
             url.searchParams.set(key, value);
@@ -28,8 +29,6 @@ export namespace Url
         params[key] = value;
         return params;
     };
-    // export const applyParam = (key: string, value: string): void =>
-    //     update(addParameter(parseParameter(window.location.href), key, value));
     export const initialize = () =>
     {
     };
