@@ -5722,6 +5722,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_12.UI.closeOtherPopups(ui_12.UI.settingsButton);
+                document.body.classList.toggle("show-settings-panel", ui_12.UI.settingsButton.get());
             });
             ui_12.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();

@@ -14,7 +14,10 @@ html
 {
     -webkit-text-size-adjust: auto;
     height: 100%;
+    min-height: 100vh;
     min-height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
     box-sizing: border-box;
     padding-block-start: env(safe-area-inset-top);
     padding-block-end: env(safe-area-inset-bottom);
@@ -28,7 +31,10 @@ body
     padding: 0px;
     overflow: hidden;
     height: auto;
+    min-height: 100vh;
     min-height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
     box-sizing: border-box;
     padding-block-start: env(safe-area-inset-top);
     padding-block-end: env(safe-area-inset-bottom);

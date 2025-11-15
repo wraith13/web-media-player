@@ -485,6 +485,7 @@ export namespace Events
                 event?.stopPropagation();
                 button.dom.blur();
                 UI.closeOtherPopups(UI.settingsButton);
+                document.body.classList.toggle("show-settings-panel", UI.settingsButton.get());
             }
         );
         UI.mediaLength.click = () =>

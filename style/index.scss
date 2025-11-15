@@ -8,6 +8,7 @@
     @include flex(column, center);
     transition: opacity 3000ms;
     position: fixed;
+    overflow: hidden;
     z-index: 50;
     @at-root body.play:not(.mousemove) &
     {
@@ -15,10 +16,22 @@
     }
     #background-screen
     {
-        @include fade-transition("body.play");
+        @include fade-transition("body.play", "body.show-paused-media", "body.show-settings-panel");
         @include solid-box();
         @include full-stretch-box();
-        @include flex(row, center, center);
+        @include flex(column, center, center);
+        @include font();
+        &
+        {
+            color: $white-color;
+            text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+            z-index: 20;
+            gap: 1.5rem 1.5rem;
+            padding: 1.5rem;
+            max-width: 100vw;
+            max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+            //max-width: calc(100dvw - env(safe-area-inset-left) - env(safe-area-inset-right));
+        }
     }
     #media-screen
     {
@@ -133,6 +146,10 @@
         padding-bottom: calc(100vh - 2.5rem);
         padding-bottom: calc(100vh - (2.5rem + env(safe-area-inset-top)));
         padding-bottom: calc(100dvh - (2.5rem + env(safe-area-inset-top)));
+        &:not(:has(.item:not(.add)))
+        {
+            padding-bottom: 0px;
+        }
         position: absolute;
         counter-reset: item-num;
         .item
@@ -314,7 +331,7 @@
                 min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
                 &:first-child::before
                 {
-                    position: absolute;
+                    position: fixed;
                     content: " ";
                     margin-left: auto;
                     margin-right: auto;
@@ -501,82 +518,6 @@ body.show-paused-media #screen-body
         white-space: pre;
         will-change: contents opacity filter;
         @include fade-transition("body:not(.play)", "&.hide");
-    }
-}
-#background-introduction-panel
-{
-    @include fade-transition("body.play");
-    @include flex(column, center, center);
-    @include font();
-    &
-    {
-        display: none; // 🔥
-        position: absolute;
-        z-index: 10;
-        //color: white;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 50%;
-        padding: 1rem;
-        transition: opacity 1000ms;
-        .section
-        {
-            max-width: 100%;
-            width: 48rem;
-            p
-            {
-                @include font-size(1rem);
-                white-space: pre-wrap;
-            }
-        }
-        @media (max-width: 1400px) or (max-height: 1024px)
-        {
-            opacity: 0.0;
-        }
-    }
-}
-#popup-introduction-panel
-{
-    @include fade-transition("body.play");
-    @include black-pop-panel-style();
-    @include full-stretch-box();
-    @include flex(column, center, center);
-    @include font();
-    &
-    {
-        display: none; // 🔥
-        position: fixed;
-        z-index: 10;
-        transition: opacity 1000ms;
-        opacity: 0.0;
-        .section
-        {
-            max-width: 100%;
-            width: 48rem;
-            p
-            {
-                @include font-size(1rem);
-                white-space: pre-wrap;
-            }
-        }
-        @media (max-width: 1400px) or (max-height: 1024px)
-        {
-            &
-            {
-                user-select: none;
-                pointer-events: none;
-                z-index: 9999;
-                //color: white;
-                //background-color: black;
-                padding: 1rem;
-            }
-            &.force-show
-            {
-                pointer-events: all;
-                opacity: 1.0;
-            }
-        }
     }
 }
 #progress-circle
@@ -1634,10 +1575,12 @@ label:not(.icon-button)
 }
 #pressed-key
 {
+    @include black-pop-panel-style();
     @include flex(row, center, center);
     &
     {
         position: fixed;
+        border-radius: 0.5rem;
         inset-block-start: 50%;
         inset-inline-start: 50%;
         transform: translate(-50%, -50%);
@@ -1660,8 +1603,6 @@ label:not(.icon-button)
                 padding-inline: 8px;
                 margin-block: 4px;
                 margin-inline: 4px;
-                color: $white-color;
-                background-color: black-color(0.6);
             }
         }
         &:empty
@@ -1672,166 +1613,60 @@ label:not(.icon-button)
 }
 #keyboard-shortcut
 {
-    @include fade-transition("body.play", "body.show-paused-media");
-    //@include black-pop-panel-style();
-    @include font();
-    &
-    {
-        color: $white-color;
-        text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
-        position: fixed;
-        z-index: 20;
-        margin-block: 0.5rem;
-        margin-inline: 0.5rem;
-        margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
-        border-radius: 0.5rem;
-        padding-block: 0.5rem;
-        padding-inline: 1.0rem;
-        display: grid;
-        grid-template-columns: minmax(0, max-content) minmax(0, max-content);
-        gap: 0.5rem 0.5rem;
-        align-items: center;
-        pointer-events: none;
-        span
-        {
-            white-space: nowrap;
-            &:nth-child(2n + 1)
-            {
-                justify-self: end;
-            }
-            kbd
-            {
-                @include monospace-font();
-                &
-                {
-                    display: inline-block;
-                    contain: paint;
-                    border-style: solid;
-                    border-width: 1px;
-                    border-color: $kbd-border-color;
-                    border-radius: 4px;
-                    padding-block: 1px;
-                    padding-inline: 4px;
-                    margin-block: 2px;
-                    margin-inline: 2px;
-                    background-color: $kbd-background-color;
-                }
-            }
-            .separator
-            {
-                @include monospace-font();
-                &
-                {
-                    display: inline-block;
-                    padding-block: 1px;
-                    padding-inline: 4px;
-                    margin-block: 2px;
-                    margin-inline: 2px;
-                }
-            }
-        }
-        // @media (max-width: 760px) or (max-height: 840px)
-        // {
-        //     pointer-events: none;
-        //     visibility: hidden;
-        //     width: 0px;
-        //     height: 0px;
-        // }
-    }
-}
-#screen-footer
-{
-    @include bottom-stretch-box();
-    @include flex(column, start, stretch);
-    position: fixed;
-    z-index: 20;
+    margin-block: 0.5rem;
+    margin-inline: 0.5rem;
+    margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
+    border-radius: 0.5rem;
+    padding-block: 0.5rem;
+    padding-inline: 1.0rem;
+    display: grid;
+    grid-template-columns: minmax(0, max-content) minmax(0, max-content);
+    gap: 0.5rem 0.5rem;
+    align-items: center;
     pointer-events: none;
-    #supplementary-line
+    span
     {
-        @include flex(row, space-between, end);
-        #information
+        white-space: nowrap;
+        &:nth-child(2n + 1)
         {
-            @include fade-transition("body.play", "body.show-paused-media");
-            #repository
+            justify-self: end;
+        }
+        kbd
+        {
+            @include monospace-font();
+            &
             {
-                @include black-pop-panel-style();
-                @include font();
-                &
-                {
-                    margin-block: 0.5rem;
-                    margin-inline: 0.5rem;
-                    margin-inline-end: calc(0.5rem + env(safe-area-inset-right)) ;
-                    border-radius: 0.5rem;
-                    padding-block: 0.5rem;
-                    padding-inline: 1.0rem;
-                    display: block;
-                    direction: ltr;
-                    text-align: start;
-                    pointer-events: initial;
-                    a
-                    {
-                        color: white-color(0.7);
-                        cursor: pointer;
-                        @media (hover: hover)
-                        {
-                            &:hover
-                            {
-                                color: $white-color;
-                            }
-                        }
-                    }
-                }
-            }
-            #powered-by
-            {
-                @include black-pop-panel-style();
-                @include font();
-                &
-                {
-                    margin-block: 0.5rem;
-                    margin-inline: 0.5rem;
-                    margin-inline-end: calc(0.5rem + env(safe-area-inset-right)) ;
-                    border-radius: 0.5rem;
-                    padding-block: 0.5rem;
-                    padding-inline: 1.0rem;
-                    display: block;
-                    direction: ltr;
-                    text-align: start;
-                    pointer-events: initial;
-                    .title
-                    {
-                        @include solid-box();
-                    }
-                    ul
-                    {
-                        @include solid-box();
-                        padding-inline-start: 1.0rem;
-                        li
-                        {
-                            @include solid-box();
-                            a
-                            {
-                                color: white-color(0.7);
-                                cursor: pointer;
-                                @media (hover: hover)
-                                {
-                                    &:hover
-                                    {
-                                        color: $white-color;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            @media (max-width: 760px) or (max-height: 840px)
-            {
-                pointer-events: none;
-                visibility: hidden;
-                width: 0px;
-                height: 0px;
+                display: inline-block;
+                contain: paint;
+                border-style: solid;
+                border-width: 1px;
+                border-color: $kbd-border-color;
+                border-radius: 4px;
+                padding-block: 1px;
+                padding-inline: 4px;
+                margin-block: 2px;
+                margin-inline: 2px;
+                background-color: $kbd-background-color;
             }
         }
+        .separator
+        {
+            @include monospace-font();
+            &
+            {
+                display: inline-block;
+                padding-block: 1px;
+                padding-inline: 4px;
+                margin-block: 2px;
+                margin-inline: 2px;
+            }
+        }
+    }
+    @media (max-height: 640px)
+    {
+        pointer-events: none;
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
     }
 }

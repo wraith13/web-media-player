@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Nov 14 2025 22:27:34 GMT+0900 (日本標準時)
+    build at: Sat Nov 15 2025 04:15:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -99,7 +99,10 @@ DEALINGS IN THE SOFTWARE.
 html {
   -webkit-text-size-adjust: auto;
   height: 100%;
+  min-height: 100vh;
   min-height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   box-sizing: border-box;
   padding-block-start: env(safe-area-inset-top);
   padding-block-end: env(safe-area-inset-bottom);
@@ -113,7 +116,10 @@ body {
   padding: 0px;
   overflow: hidden;
   height: auto;
+  min-height: 100vh;
   min-height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   box-sizing: border-box;
   padding-block-start: env(safe-area-inset-top);
   padding-block-end: env(safe-area-inset-bottom);
@@ -214,6 +220,7 @@ button {
   align-items: center;
   transition: opacity 3000ms;
   position: fixed;
+  overflow: hidden;
   z-index: 50;
 }
 body.play:not(.mousemove) #screen-body {
@@ -232,9 +239,11 @@ body.play:not(.mousemove) #screen-body {
   inset-inline-start: 0px;
   inset-inline-end: 0px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 0.75rem;
+  font-weight: 400;
 }
 body.play #screen-body #background-screen:not(.show) {
   opacity: 0;
@@ -255,6 +264,66 @@ body.play #screen-body #background-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
+body.show-paused-media #screen-body #background-screen:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.show-paused-media #screen-body #background-screen:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body.show-settings-panel #screen-body #background-screen:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.show-settings-panel #screen-body #background-screen:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+  #screen-body #background-screen {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 1600px) {
+  #screen-body #background-screen {
+    font-size: 1rem;
+  }
+}
+#screen-body #background-screen {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+#screen-body #background-screen {
+  color: rgb(230, 237, 243);
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  z-index: 20;
+  gap: 1.5rem 1.5rem;
+  padding: 1.5rem;
+  max-width: 100vw;
+  max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+}
 #screen-body #media-screen {
   transition: opacity 750ms, filter 750ms;
   display: block;
@@ -406,6 +475,9 @@ body.play #screen-body #media-list:not(.show)::before {
   transition: filter 750ms;
 }
 
+#screen-body #media-list:not(:has(.item:not(.add))) {
+  padding-bottom: 0px;
+}
 #screen-body #media-list .item {
   display: block;
   margin: 0px;
@@ -653,7 +725,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #screen-body #media-list .item.add:first-child::before {
-  position: absolute;
+  position: fixed;
   content: " ";
   margin-left: auto;
   margin-right: auto;
@@ -858,149 +930,6 @@ body:not(.play) #fps:not(.show)::before {
   filter: blur(1em);
   z-index: -1;
   transition: filter 750ms;
-}
-
-#background-introduction-panel {
-  transition: opacity 750ms, filter 750ms;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-body.play #background-introduction-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.play #background-introduction-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #background-introduction-panel {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #background-introduction-panel {
-    font-size: 1rem;
-  }
-}
-#background-introduction-panel {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#background-introduction-panel {
-  display: none;
-  position: absolute;
-  z-index: 10;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 50%;
-  padding: 1rem;
-  transition: opacity 1000ms;
-}
-#background-introduction-panel .section {
-  max-width: 100%;
-  width: 48rem;
-}
-#background-introduction-panel .section p {
-  font-size: 1rem;
-  white-space: pre-wrap;
-}
-@media (max-width: 1400px) or (max-height: 1024px) {
-  #background-introduction-panel {
-    opacity: 0;
-  }
-}
-
-#popup-introduction-panel {
-  transition: opacity 750ms, filter 750ms;
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  margin: 0px;
-  inset-block-start: 0px;
-  inset-block-end: 0px;
-  inset-inline-start: 0px;
-  inset-inline-end: 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-body.play #popup-introduction-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.play #popup-introduction-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #popup-introduction-panel {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #popup-introduction-panel {
-    font-size: 1rem;
-  }
-}
-#popup-introduction-panel {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#popup-introduction-panel {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  transition: opacity 1000ms;
-  opacity: 0;
-}
-#popup-introduction-panel .section {
-  max-width: 100%;
-  width: 48rem;
-}
-#popup-introduction-panel .section p {
-  font-size: 1rem;
-  white-space: pre-wrap;
-}
-@media (max-width: 1400px) or (max-height: 1024px) {
-  #popup-introduction-panel {
-    user-select: none;
-    pointer-events: none;
-    z-index: 9999;
-    padding: 1rem;
-  }
-  #popup-introduction-panel.force-show {
-    pointer-events: all;
-    opacity: 1;
-  }
 }
 
 #progress-circle {
@@ -2740,6 +2669,9 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 
 #pressed-key {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -2747,6 +2679,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 #pressed-key {
   position: fixed;
+  border-radius: 0.5rem;
   inset-block-start: 50%;
   inset-inline-start: 50%;
   transform: translate(-50%, -50%);
@@ -2783,74 +2716,12 @@ body:not(.play) #overlay-panel:not(.show)::before {
   padding-inline: 8px;
   margin-block: 4px;
   margin-inline: 4px;
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
 }
 #pressed-key:empty {
   display: none;
 }
 
 #keyboard-shortcut {
-  transition: opacity 750ms, filter 750ms;
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-body.play #keyboard-shortcut:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.play #keyboard-shortcut:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.show-paused-media #keyboard-shortcut:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.show-paused-media #keyboard-shortcut:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #keyboard-shortcut {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #keyboard-shortcut {
-    font-size: 1rem;
-  }
-}
-#keyboard-shortcut {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#keyboard-shortcut {
-  color: rgb(230, 237, 243);
-  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
-  position: fixed;
-  z-index: 20;
   margin-block: 0.5rem;
   margin-inline: 0.5rem;
   margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
@@ -2923,170 +2794,8 @@ body.show-paused-media #keyboard-shortcut:not(.show)::before {
   margin-block: 2px;
   margin-inline: 2px;
 }
-
-#screen-footer {
-  margin: 0px;
-  inset-block-end: 0px;
-  inset-inline-start: 0px;
-  inset-inline-end: 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: stretch;
-  position: fixed;
-  z-index: 20;
-  pointer-events: none;
-}
-#screen-footer #supplementary-line {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: end;
-}
-#screen-footer #supplementary-line #information {
-  transition: opacity 750ms, filter 750ms;
-}
-body.play #screen-footer #supplementary-line #information:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.play #screen-footer #supplementary-line #information:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.show-paused-media #screen-footer #supplementary-line #information:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.show-paused-media #screen-footer #supplementary-line #information:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#screen-footer #supplementary-line #information #repository {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-footer #supplementary-line #information #repository {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #screen-footer #supplementary-line #information #repository {
-    font-size: 1rem;
-  }
-}
-#screen-footer #supplementary-line #information #repository {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#screen-footer #supplementary-line #information #repository {
-  margin-block: 0.5rem;
-  margin-inline: 0.5rem;
-  margin-inline-end: calc(0.5rem + env(safe-area-inset-right));
-  border-radius: 0.5rem;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  display: block;
-  direction: ltr;
-  text-align: start;
-  pointer-events: initial;
-}
-#screen-footer #supplementary-line #information #repository a {
-  color: rgba(230, 237, 243, 0.7);
-  cursor: pointer;
-}
-@media (hover: hover) {
-  #screen-footer #supplementary-line #information #repository a:hover {
-    color: rgb(230, 237, 243);
-  }
-}
-#screen-footer #supplementary-line #information #powered-by {
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-@media (min-width: 1024px) and (max-width: 1599px) {
-  #screen-footer #supplementary-line #information #powered-by {
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1600px) {
-  #screen-footer #supplementary-line #information #powered-by {
-    font-size: 1rem;
-  }
-}
-#screen-footer #supplementary-line #information #powered-by {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-}
-#screen-footer #supplementary-line #information #powered-by {
-  margin-block: 0.5rem;
-  margin-inline: 0.5rem;
-  margin-inline-end: calc(0.5rem + env(safe-area-inset-right));
-  border-radius: 0.5rem;
-  padding-block: 0.5rem;
-  padding-inline: 1rem;
-  display: block;
-  direction: ltr;
-  text-align: start;
-  pointer-events: initial;
-}
-#screen-footer #supplementary-line #information #powered-by .title {
-  display: block;
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-}
-#screen-footer #supplementary-line #information #powered-by ul {
-  display: block;
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-  padding-inline-start: 1rem;
-}
-#screen-footer #supplementary-line #information #powered-by ul li {
-  display: block;
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-}
-#screen-footer #supplementary-line #information #powered-by ul li a {
-  color: rgba(230, 237, 243, 0.7);
-  cursor: pointer;
-}
-@media (hover: hover) {
-  #screen-footer #supplementary-line #information #powered-by ul li a:hover {
-    color: rgb(230, 237, 243);
-  }
-}
-@media (max-width: 760px) or (max-height: 840px) {
-  #screen-footer #supplementary-line #information {
+@media (max-height: 640px) {
+  #keyboard-shortcut {
     pointer-events: none;
     visibility: hidden;
     width: 0px;
@@ -3123,9 +2832,7 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen">
-        <div id="keyboard-shortcut">
-        </div>
-        <span style="display:none;">Web Media Player</span>
+        <div id="keyboard-shortcut"></div>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -3141,7 +2848,7 @@ DUMMYSTYLE
         </div>
     </div>
 </div>
-<div id="element-pool"></div>
+<div id="element-pool" style="display:none;"></div>
 <div id="progress-circle"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
@@ -3435,13 +3142,7 @@ DUMMYSTYLE
 <div>
 </button>
 <div id="pressed-key"></div>
-<div id="screen-footer">
-    <div id="supplementary-line">
-        <div id="keyboard-shortcut">
-        </div>
-    </div>
-</div>
-<div id="images" style="display: none;"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<div id="images" style="display:none;"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <path d="M512,96C741.597,96 928,282.403 928,512C928,741.597 741.597,928 512,928C282.403,928 96,741.597 96,512C96,282.403 282.403,96 512,96ZM254.314,322.332L701.824,769.571C648.693,808.805 583.034,832 512,832C335.387,832 192,688.613 192,512C192,441.037 215.149,375.438 254.314,322.332ZM769.686,701.668L322.176,254.429C375.307,215.195 440.966,192 512,192C688.613,192 832,335.387 832,512C832,582.963 808.851,648.562 769.686,701.668Z"/>
 </svg>
 </div><div id="audio-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3467,8 +3168,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Nov 14 2025 22:27:34 GMT+0900 (日本標準時)",
-    tick: 1763126854996
+    at: "Sat Nov 15 2025 04:15:28 GMT+0900 (日本標準時)",
+    tick: 1763147728469
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -10754,6 +10455,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 ui_12.UI.closeOtherPopups(ui_12.UI.settingsButton);
+                document.body.classList.toggle("show-settings-panel", ui_12.UI.settingsButton.get());
             });
             ui_12.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();

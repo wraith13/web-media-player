@@ -56,9 +56,7 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen">
-        <div id="keyboard-shortcut">
-        </div>
-        <span style="display:none;">__APPLICATION_TITLE__</span>
+        <div id="keyboard-shortcut"></div>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -67,7 +65,7 @@ DUMMYSTYLE
         </div>
     </div>
 </div>
-<div id="element-pool"></div>
+<div id="element-pool" style="display:none;"></div>
 <div id="progress-circle"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
@@ -255,13 +253,7 @@ DUMMYSTYLE
     <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
 </button>
 <div id="pressed-key"></div>
-<div id="screen-footer">
-    <div id="supplementary-line">
-        <div id="keyboard-shortcut">
-        </div>
-    </div>
-</div>
-<div id="images" style="display: none;">__IMAGES__</div>
+<div id="images" style="display:none;">__IMAGES__</div>
 </body>
 <script type="text/javascript">
 const build =
