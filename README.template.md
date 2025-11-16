@@ -21,6 +21,12 @@
 
 ## Screenshot
 
+UI
+![UI](./screenshot/ui.png)
+
+Settings Panel
+![Settings Panel](./screenshot/settings.png)
+
 Playing an image with padding and overlays
 ![Tokyo Metropolitan Government Building](./screenshot/tokyo_metropolitan_government_building.png)
 

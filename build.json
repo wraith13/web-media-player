@@ -54,6 +54,10 @@
                 "__TWITTER_DESCRIPTION__": {
                     "path": "./locale/generated/twitter-description.html"
                 },
+                "__DESCRIPTION_EN__": {
+                    "json": "./resource/lang/en.json",
+                    "value": "description"
+                },
                 "__NOSCRIPT_MESSAGE__": {
                     "path": "./locale/generated/noscript-message.html"
                 },
