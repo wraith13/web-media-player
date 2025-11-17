@@ -1,5 +1,6 @@
 import { Tools } from "@tools";
 import { Library } from "@library";
+import { Url } from "./url";
 import control from "@resource/control.json";
 import shortcuts from "@resource/shortcuts.json";
 export namespace UI
@@ -209,7 +210,7 @@ export namespace UI
     };
     export const updateLanguage = () =>
     {
-        Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
+        Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto", Url.params["locale"]);
         const lang = Library.Locale.getLocale();
         document.documentElement.setAttribute("lang", lang);
         document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));

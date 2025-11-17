@@ -27,7 +27,8 @@
                 },
                 "__LICENSE__": {
                     "path": "./LICENSE_1_0.txt"
-                }
+                },
+                "__THEME_COLOR__": "black"
             }
         },
         "locale script": {
@@ -161,8 +162,7 @@
                         "value": "description"
                     },
                     "__LANG__": "__LOCALE__",
-                    "__BACKGROUND_COLOR__": "#FFFFFF",
-                    "__THEME_COLOR__": "#CC4488"
+                    "__BACKGROUND_COLOR__": "black"
                 }
             },
             "parameters": {

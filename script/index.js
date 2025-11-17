@@ -368,11 +368,17 @@ define("script/library/locale", ["require", "exports", "script/tools/array", "lo
         };
         var lang = getDefaultLang();
         Locale.getLocale = function () { return lang; };
-        Locale.setLocale = function (locale) {
+        Locale.setLocale = function (locale, urlLocale) {
+            var _a;
             switch (locale) {
                 case undefined:
                 case "Auto":
-                    lang = getDefaultLang();
+                    if (urlLocale) {
+                        lang = (_a = getMatchLang(urlLocale)) !== null && _a !== void 0 ? _a : getDefaultLang();
+                    }
+                    else {
+                        lang = getDefaultLang();
+                    }
                     break;
                 default:
                     lang = locale;
@@ -2170,6 +2176,40 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
         Fps.isUnderFuseFps = function () { return Fps.isValid && Fps.currentMaxFps.fps < Fps.fuseFps; };
     })(Fps || (exports.Fps = Fps = {}));
 });
+define("script/url", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Url = void 0;
+    //import config from "@resource/config.json";
+    var Url;
+    (function (Url) {
+        Url.parseParameter = function (url) {
+            var result = {};
+            var urlObj = new URL(url);
+            var params = urlObj.searchParams;
+            params.forEach(function (value, key) { return result[key] = value; });
+            return result;
+        };
+        Url.make = function (params) {
+            //const url = new URL(config.canonicalUrl || window.location.href);
+            var url = new URL(window.location.href);
+            for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
+                var _b = _a[_i], key = _b[0], value = _b[1];
+                url.searchParams.set(key, value);
+            }
+            return url.toString();
+        };
+        // export const update = (params: Record<string, string>): void =>
+        //     window.history.replaceState({}, "", make(params));
+        Url.addParameter = function (params, key, value) {
+            params[key] = value;
+            return params;
+        };
+        Url.initialize = function () {
+        };
+        Url.params = Url.parseParameter(window.location.href);
+    })(Url || (exports.Url = Url = {}));
+});
 define("resource/control", [], {
     "shuffle": {
         "id": "shuffle",
@@ -2372,21 +2412,37 @@ define("resource/control", [], {
             "7h",
             "6.5h",
             "6h",
+            "5.75h",
             "5.5h",
+            "5.25h",
             "5h",
+            "4.75h",
             "4.5h",
+            "4.25h",
             "4h",
+            "3.75h",
             "3.5h",
+            "3.25h",
             "3h",
+            "2.75h",
             "2.5h",
+            "2.25h",
             "2h",
             "1.75h",
             "1.5h",
             "1.25h",
             "1h",
+            "55m",
+            "50m",
             "45m",
+            "40m",
+            "35m",
             "30m",
+            "25m",
+            "20m",
             "15m",
+            "10m",
+            "5m",
             "1m",
             "5s",
             "off"
@@ -2425,21 +2481,37 @@ define("resource/control", [], {
         "id": "sleep",
         "enum": [
             "6h",
+            "5.75h",
             "5.5h",
+            "5.25h",
             "5h",
+            "4.75h",
             "4.5h",
+            "4.25h",
             "4h",
+            "3.75h",
             "3.5h",
+            "3.25h",
             "3h",
+            "2.75h",
             "2.5h",
+            "2.25h",
             "2h",
             "1.75h",
             "1.5h",
             "1.25h",
             "1h",
+            "55m",
+            "50m",
             "45m",
+            "40m",
+            "35m",
             "30m",
+            "25m",
+            "20m",
             "15m",
+            "10m",
+            "5m",
             "1m",
             "5s",
             "off"
@@ -2475,7 +2547,7 @@ define("resource/control", [], {
         "default": "5m"
     }
 });
-define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, control_json_1, shortcuts_json_2) {
+define("script/ui", ["require", "exports", "script/tools/index", "script/library/index", "script/url", "resource/control", "resource/shortcuts"], function (require, exports, _tools_2, _library_2, url_1, control_json_1, shortcuts_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.UI = void 0;
@@ -2596,7 +2668,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 .reduce(function (a, b) { return a.concat(b); }, []));
         };
         UI.updateLanguage = function () {
-            _library_2.Library.Locale.setLocale(UI.languageSelect.get());
+            _library_2.Library.Locale.setLocale(UI.languageSelect.get(), url_1.Url.params["locale"]);
             var lang = _library_2.Library.Locale.getLocale();
             document.documentElement.setAttribute("lang", lang);
             document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
@@ -3765,7 +3837,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                 }
             }
             if (data.audio) {
-                var url_1 = data.audio.url;
+                var url_2 = data.audio.url;
                 var count = ui_6.UI.elementPool.getElementsByTagName("audio").length;
                 while (count++ < 2) {
                     result = result.then(function () {
@@ -3773,7 +3845,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                             tag: "audio",
                             className: "player",
                             attributes: {
-                                src: url_1,
+                                src: url_2,
                                 //controls: false,
                                 autoplay: false,
                             },
@@ -3786,7 +3858,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                 }
             }
             if (data.video) {
-                var url_2 = data.video.url;
+                var url_3 = data.video.url;
                 var count = ui_6.UI.elementPool.getElementsByTagName("video").length;
                 while (count++ < 4) {
                     result = result.then(function () {
@@ -3794,7 +3866,7 @@ define("script/features/elementpool", ["require", "exports", "script/library/ind
                             tag: "video",
                             className: "player",
                             attributes: {
-                                src: url_2,
+                                src: url_3,
                                 //controls: false,
                                 autoplay: false,
                                 playsinline: true,
@@ -5077,40 +5149,6 @@ define("resource/evil-commonjs.config", [], {
 define("resource/evil-timer.js.config", [], {
     "debug": true
 });
-define("script/url", ["require", "exports"], function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Url = void 0;
-    //import config from "@resource/config.json";
-    var Url;
-    (function (Url) {
-        Url.parseParameter = function (url) {
-            var result = {};
-            var urlObj = new URL(url);
-            var params = urlObj.searchParams;
-            params.forEach(function (value, key) { return result[key] = value; });
-            return result;
-        };
-        Url.make = function (params) {
-            //const url = new URL(config.canonicalUrl || window.location.href);
-            var url = new URL(window.location.href);
-            for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
-                var _b = _a[_i], key = _b[0], value = _b[1];
-                url.searchParams.set(key, value);
-            }
-            return url.toString();
-        };
-        // export const update = (params: Record<string, string>): void =>
-        //     window.history.replaceState({}, "", make(params));
-        Url.addParameter = function (params, key, value) {
-            params[key] = value;
-            return params;
-        };
-        Url.initialize = function () {
-        };
-        Url.params = Url.parseParameter(window.location.href);
-    })(Url || (exports.Url = Url = {}));
-});
 define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_10) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -5360,7 +5398,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_3, config_json_9, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_4, config_json_9, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -5423,7 +5461,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.updateShortcuts();
         };
         var updateUrlAnchor = function (params) {
-            return ui_12.UI.urlAnchor.href = url_3.Url.make(params);
+            return ui_12.UI.urlAnchor.href = url_4.Url.make(params);
         };
         Events.makeTimerLabel = function (remainingTime) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
@@ -5644,8 +5682,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.className = "list";
             ui_12.UI.screenBody.addEventListener("click", function () { return document.body.classList.toggle("show-ui"); });
             var applyParam = function (key, value) {
-                url_3.Url.addParameter(url_3.Url.params, key, value);
-                updateUrlAnchor(url_3.Url.params);
+                url_4.Url.addParameter(url_4.Url.params, key, value);
+                updateUrlAnchor(url_4.Url.params);
             };
             navigator.mediaSession.setActionHandler("play", function () { return _features_2.Features.Player.play(); });
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
@@ -5786,34 +5824,34 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.seekRange.addEventListener("change", updateSeek);
             ui_12.UI.seekRange.addEventListener("input", updateSeek);
-            ui_12.UI.shuffle.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.repeat.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.shuffle.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.repeat.loadParameter(url_4.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
-            ui_12.UI.volumeRange.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateVolume(); });
+            ui_12.UI.volumeRange.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateVolume(); });
             //UI.settingsButton.loadParameter(Url.params, applyParam);
-            ui_12.UI.withFullscreenCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.withFullscreenCheckbox.options.change);
-            ui_12.UI.brightnessRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.brightnessRange.options.change);
-            ui_12.UI.stretchRange.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.stretchRange.options.change);
-            ui_12.UI.paddingCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_12.UI.crossFadeSelect.loadParameter(url_3.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_12.UI.imageSpanSelect.loadParameter(url_3.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
-            ui_12.UI.loopShortMediaCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.visualizerSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateVisualizer);
-            ui_12.UI.overlayStyleSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayStyle);
-            ui_12.UI.overlayPositionSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateOverlayPosition);
-            ui_12.UI.withWeatherCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.weatherLocationSelect.loadParameter(url_3.Url.params, applyParam).setChange(updateWeatherLocation);
-            ui_12.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.withVisualizerCheckbox.loadParameter(url_3.Url.params, applyParam);
-            ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
-            ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
-            ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
-            ui_12.UI.fadeInSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
-            ui_12.UI.wakeUpSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateWakeUp);
-            ui_12.UI.fadeOutSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
-            ui_12.UI.sleepSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateSleep);
+            ui_12.UI.withFullscreenCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.withFullscreenCheckbox.options.change);
+            ui_12.UI.brightnessRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.brightnessRange.options.change);
+            ui_12.UI.stretchRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.stretchRange.options.change);
+            ui_12.UI.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_12.UI.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_12.UI.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
+            ui_12.UI.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
+            ui_12.UI.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
+            ui_12.UI.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_12.UI.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.weatherLocationSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateWeatherLocation);
+            ui_12.UI.withClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.withDateCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.withCalenderCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.withVisualizerCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(updateShowFps);
+            ui_12.UI.shortcutsSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
+            ui_12.UI.languageSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateLanguage);
+            ui_12.UI.fadeInSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
+            ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateWakeUp);
+            ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
+            ui_12.UI.sleepSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateSleep);
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
@@ -5841,7 +5879,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             updateOverlayPosition();
             Events.updateLanguage();
             updateShortcuts("disableLog");
-            updateUrlAnchor(url_3.Url.params);
+            updateUrlAnchor(url_4.Url.params);
             Events.updateFadeIn("disableLog");
             Events.updateFadeOut("disableLog");
             document.addEventListener("DOMContentLoaded", function () {
@@ -5873,7 +5911,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.sleepSelect,
                         ui_12.UI.fadeOutSelect,
                     ]
-                        .forEach(function (i) { return i.catchUpRestore(url_3.Url.params); });
+                        .forEach(function (i) { return i.catchUpRestore(url_4.Url.params); });
                 }, 25);
             });
             window.addEventListener("languagechange", function () {
@@ -5936,7 +5974,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_4, ui_14, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_5, ui_14, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_10 = __importDefault(config_json_10);
@@ -5945,13 +5983,13 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
-    url_4.Url.initialize();
-    ui_14.UI.initialize(url_4.Url.params);
+    url_5.Url.initialize();
+    ui_14.UI.initialize(url_5.Url.params);
     events_1.Events.initialize();
     _library_11.Library.Shortcuts.initialize();
     medialist_2.MediaList.initialize();
-    _features_3.Features.Overlay.initialize(url_4.Url.params);
-    screenshot_1.Screenshot.initialize(url_4.Url.params);
+    _features_3.Features.Overlay.initialize(url_5.Url.params);
+    screenshot_1.Screenshot.initialize(url_5.Url.params);
     _features_3.Features.Timer.initialize({
         isPlaying: _features_3.Features.Player.isPlaying,
         play: function () {
@@ -5979,7 +6017,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         Tools: _tools_9.Tools,
         Library: _library_11.Library,
         Features: _features_3.Features,
-        Url: url_4.Url,
+        Url: url_5.Url,
         UI: ui_14.UI,
         Events: events_1.Events,
         Resource: Resource

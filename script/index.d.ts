@@ -367,7 +367,7 @@ declare module "script/library/locale" {
         type Label = (keyof (typeof master[keyof typeof master])) | "";
         type Language = string & keyof typeof master;
         const getLocale: () => Language;
-        const setLocale: (locale?: Language | "Auto") => void;
+        const setLocale: (locale?: Language | "Auto", urlLocale?: string) => void;
         const getDirection: (l?: Language) => string;
         const isRtl: (l?: Language) => boolean;
         const isLtr: (l?: Language) => boolean;
@@ -728,6 +728,15 @@ declare module "script/features/fps" {
         export const getText: () => string;
         export const isUnderFuseFps: () => boolean;
         export {};
+    }
+}
+declare module "script/url" {
+    export namespace Url {
+        const parseParameter: (url: string) => Record<string, string>;
+        const make: (params: Record<string, string>) => string;
+        const addParameter: (params: Record<string, string>, key: string, value: string) => Record<string, string>;
+        const initialize: () => void;
+        const params: Record<string, string>;
     }
 }
 declare module "script/ui" {
@@ -1186,15 +1195,6 @@ declare module "script/features/index" {
         export import Visualizer = ImportedVisualizer.Visualizer;
         export import Player = ImportedPlayer.Player;
         export import Timer = ImportedTimer.Timer;
-    }
-}
-declare module "script/url" {
-    export namespace Url {
-        const parseParameter: (url: string) => Record<string, string>;
-        const make: (params: Record<string, string>) => string;
-        const addParameter: (params: Record<string, string>, key: string, value: string) => Record<string, string>;
-        const initialize: () => void;
-        const params: Record<string, string>;
     }
 }
 declare module "script/progress" {

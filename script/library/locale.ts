@@ -17,13 +17,20 @@ export namespace Locale
         "en";
     let lang: Language = getDefaultLang();
     export const getLocale = () => lang;
-    export const setLocale = (locale?: Language | "Auto") =>
+    export const setLocale = (locale?: Language | "Auto", urlLocale?: string) =>
     {
         switch(locale)
         {
         case undefined:
         case "Auto":
-            lang = getDefaultLang();
+            if (urlLocale)
+            {
+                lang = getMatchLang(urlLocale) ?? getDefaultLang();
+            }
+            else
+            {
+                lang = getDefaultLang();
+            }
             break;
         default:
             lang = locale;

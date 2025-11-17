@@ -1,9 +1,6 @@
 # Web Media Player
 
-> [!WARNING]
-> **This software is currently under development.**
-
-🌐 live site: <https://wraith13.github.io/web-media-player/>
+▶️ live site: <https://wraith13.github.io/web-media-player/>
 
 ## Feature
 
