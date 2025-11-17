@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Nov 16 2025 15:47:39 GMT+0900 (日本標準時)
+    build at: Mon Nov 17 2025 03:59:40 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3178,8 +3178,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Nov 16 2025 15:47:39 GMT+0900 (日本標準時)",
-    tick: 1763275659068
+    at: "Mon Nov 17 2025 03:59:40 GMT+0900 (日本標準時)",
+    tick: 1763319580054
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -10449,13 +10449,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("shuffle", "".concat(ui_12.UI.shuffle.get()));
                 ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.shuffle);
             });
             ui_12.UI.repeat.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("repeat", "".concat(ui_12.UI.repeat.get()));
                 ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.repeat);
                 Events.updateNoRepeatLabel();
             });
@@ -10551,6 +10549,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.withVisualizerCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);

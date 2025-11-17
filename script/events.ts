@@ -447,7 +447,6 @@ export namespace Events
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                applyParam("shuffle", `${UI.shuffle.get()}`);
                 UI.updateParentClassBasedOnCheckbox(UI.shuffle);
             }
         );
@@ -457,7 +456,6 @@ export namespace Events
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                applyParam("repeat", `${UI.repeat.get()}`);
                 UI.updateParentClassBasedOnCheckbox(UI.repeat);
                 updateNoRepeatLabel();
             }
@@ -588,6 +586,7 @@ export namespace Events
         UI.withClockCheckbox.loadParameter(Url.params, applyParam);
         UI.withDateCheckbox.loadParameter(Url.params, applyParam);
         UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
+        UI.withVisualizerCheckbox.loadParameter(Url.params, applyParam);
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);

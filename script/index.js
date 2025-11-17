@@ -5706,13 +5706,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("shuffle", "".concat(ui_12.UI.shuffle.get()));
                 ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.shuffle);
             });
             ui_12.UI.repeat.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                applyParam("repeat", "".concat(ui_12.UI.repeat.get()));
                 ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.repeat);
                 Events.updateNoRepeatLabel();
             });
@@ -5808,6 +5806,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.withClockCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.withDateCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.withCalenderCheckbox.loadParameter(url_3.Url.params, applyParam);
+            ui_12.UI.withVisualizerCheckbox.loadParameter(url_3.Url.params, applyParam);
             ui_12.UI.showFpsCheckbox.loadParameter(url_3.Url.params, applyParam).setChange(updateShowFps);
             ui_12.UI.shortcutsSelect.loadParameter(url_3.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.languageSelect.loadParameter(url_3.Url.params, applyParam).setChange(Events.updateLanguage);
