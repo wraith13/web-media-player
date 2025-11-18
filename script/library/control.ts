@@ -168,12 +168,20 @@ export namespace Control
             }
             else
             {
-                this.dom.value = `${valueOrDirection}`;
+                if (this.hasOption(valueOrDirection))
+                {
+                    this.dom.value = `${valueOrDirection}`;
+                }
             }
             if (undefined === preventOnChange)
             {
                 this.fire();
             }
+        };
+        hasOption = (value: T) =>
+        {
+            const options = Array.from(this.dom.getElementsByTagName("option"));
+            return undefined !== options.find(i => i.value === `${value}`);
         };
         cycle = (direction: boolean, preventOnChange?: "preventOnChange") => this.switch
         (

@@ -814,11 +814,17 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                         }
                     }
                     else {
-                        _this.dom.value = "".concat(valueOrDirection);
+                        if (_this.hasOption(valueOrDirection)) {
+                            _this.dom.value = "".concat(valueOrDirection);
+                        }
                     }
                     if (undefined === preventOnChange) {
                         _this.fire();
                     }
+                };
+                this.hasOption = function (value) {
+                    var options = Array.from(_this.dom.getElementsByTagName("option"));
+                    return undefined !== options.find(function (i) { return i.value === "".concat(value); });
                 };
                 this.cycle = function (direction, preventOnChange) { return _this.switch(direction, preventOnChange, _this.getNextIndexCycle); };
                 this.get = function () { return _this.dom.value; };

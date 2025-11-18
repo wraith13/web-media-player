@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Nov 18 2025 00:26:46 GMT+0900 (日本標準時)
+    build at: Tue Nov 18 2025 06:46:53 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3178,8 +3178,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Nov 18 2025 00:26:46 GMT+0900 (日本標準時)",
-    tick: 1763393206635
+    at: "Tue Nov 18 2025 06:46:53 GMT+0900 (日本標準時)",
+    tick: 1763416013309
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5557,11 +5557,17 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                         }
                     }
                     else {
-                        _this.dom.value = "".concat(valueOrDirection);
+                        if (_this.hasOption(valueOrDirection)) {
+                            _this.dom.value = "".concat(valueOrDirection);
+                        }
                     }
                     if (undefined === preventOnChange) {
                         _this.fire();
                     }
+                };
+                this.hasOption = function (value) {
+                    var options = Array.from(_this.dom.getElementsByTagName("option"));
+                    return undefined !== options.find(function (i) { return i.value === "".concat(value); });
                 };
                 this.cycle = function (direction, preventOnChange) { return _this.switch(direction, preventOnChange, _this.getNextIndexCycle); };
                 this.get = function () { return _this.dom.value; };

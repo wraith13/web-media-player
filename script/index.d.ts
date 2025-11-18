@@ -485,6 +485,7 @@ declare module "script/library/control" {
             private getNextIndexClamp;
             private getNextIndexCycle;
             switch: (valueOrDirection: T | boolean, preventOnChange?: "preventOnChange", getNextIndex?: (length: number, index: number, direction: boolean) => number) => void;
+            hasOption: (value: T) => boolean;
             cycle: (direction: boolean, preventOnChange?: "preventOnChange") => void;
             get: () => string;
             fire: () => unknown;
