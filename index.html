@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Nov 18 2025 06:46:53 GMT+0900 (日本標準時)
+    build at: Tue Nov 18 2025 18:09:58 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3178,8 +3178,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Nov 18 2025 06:46:53 GMT+0900 (日本標準時)",
-    tick: 1763416013309
+    at: "Tue Nov 18 2025 18:09:58 GMT+0900 (日本標準時)",
+    tick: 1763456998076
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5575,7 +5575,12 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                 this.loadParameter = function (params, saveParameter) {
                     var value = params[_this.dom.id];
                     if (undefined !== value) {
-                        _this.switch(value);
+                        if (_this.hasOption(value)) {
+                            _this.switch(value);
+                        }
+                        else {
+                            console.warn("🚫 Select.loadParameter: Unknown option value:", _this.dom.id, value, _this);
+                        }
                     }
                     _this.saveParameter = saveParameter;
                     return _this;

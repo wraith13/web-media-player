@@ -169,6 +169,7 @@ graph TB;
 - [build.js](https://github.com/wraith13/build.js)
 - [evil-commonjs](https://github.com/wraith13/evil-commonjs)
 - [evil-timer.js](https://github.com/wraith13/evil-timer.js)
+- [wttr.in](https://github.com/chubin/wttr.in)
 
 ## License
 

@@ -832,7 +832,12 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                 this.loadParameter = function (params, saveParameter) {
                     var value = params[_this.dom.id];
                     if (undefined !== value) {
-                        _this.switch(value);
+                        if (_this.hasOption(value)) {
+                            _this.switch(value);
+                        }
+                        else {
+                            console.warn("🚫 Select.loadParameter: Unknown option value:", _this.dom.id, value, _this);
+                        }
                     }
                     _this.saveParameter = saveParameter;
                     return _this;

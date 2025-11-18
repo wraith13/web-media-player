@@ -196,7 +196,14 @@ export namespace Control
             const value = params[this.dom.id];
             if (undefined !== value)
             {
-                this.switch(value as T);
+                if (this.hasOption(value as T))
+                {
+                    this.switch(value as T);
+                }
+                else
+                {
+                    console.warn("🚫 Select.loadParameter: Unknown option value:", this.dom.id, value, this);
+                }
             }
             this.saveParameter = saveParameter;
             return this;
