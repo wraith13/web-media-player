@@ -222,3 +222,7 @@
         filter: blur(0.125rem);
     }
 }
+@mixin text-outline($color)
+{
+    text-shadow: -1px -1px 0px $color, 1px -1px 0px $color, -1px 1px 0px $color, 1px 1px 0px $color;
+}

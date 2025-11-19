@@ -78,26 +78,35 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 9s infinite;
+  animation: noscript-langs-fade 22.5s infinite;
 }
-#noscript *[lang=en] {
+#noscript *[lang=ar] {
   animation-delay: 1s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=de] {
   animation-delay: 5.5s;
+}
+#noscript *[lang=en] {
+  animation-delay: 10s;
+}
+#noscript *[lang=fr] {
+  animation-delay: 14.5s;
+}
+#noscript *[lang=ja] {
+  animation-delay: 19s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  10% {
+  4% {
     opacity: 1;
   }
-  50% {
+  20% {
     opacity: 1;
   }
-  60% {
+  24% {
     opacity: 0;
   }
   100% {
@@ -186,6 +195,7 @@ body.play:not(.mousemove) #screen-body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -261,7 +271,6 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
 }
 #screen-body #background-screen {
   color: rgb(230, 237, 243);
-  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   z-index: 20;
   gap: 1.5rem 1.5rem;
   padding: 1.5rem;
@@ -501,6 +510,7 @@ body.play #screen-body #media-list:not(.show)::before {
   fill: rgba(230, 237, 243, 0.4);
 }
 #screen-body #media-list .item > span {
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -519,7 +529,6 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > span {
   color: rgb(230, 237, 243);
-  text-shadow: 0px 0px 0.25rem black;
 }
 #screen-body #media-list .item > span.name {
   font-size: 1.25rem;
@@ -2416,23 +2425,31 @@ body:not(.play) #overlay-panel:not(.show)::before {
   color: white;
 }
 #overlay-panel.white span {
-  color: white;
   text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+}
+#overlay-panel.white span {
+  color: white;
+}
+#overlay-panel.black span {
+  text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
 }
 #overlay-panel.black span {
   color: black;
-  text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
 }
 @media (prefers-color-scheme: light) {
   #overlay-panel.system span {
-    color: white;
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  }
+  #overlay-panel.system span {
+    color: white;
   }
 }
 @media (prefers-color-scheme: dark) {
   #overlay-panel.system span {
-    color: black;
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+  }
+  #overlay-panel.system span {
+    color: black;
   }
 }
 #overlay-panel.rainbow span {

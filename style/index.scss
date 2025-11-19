@@ -20,11 +20,11 @@
         @include solid-box();
         @include full-stretch-box();
         @include flex(column, center, center);
+        @include text-outline(black);
         @include font();
         &
         {
             color: $white-color;
-            text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
             z-index: 20;
             gap: 1.5rem 1.5rem;
             padding: 1.5rem;
@@ -212,11 +212,11 @@
             }
             & > span
             {
+                @include text-outline(black);
                 @include font();
                 &
                 {
                     color: $white-color;
-                    text-shadow: 0px 0px 0.25rem black;
                 }
             }
             & > span.name
@@ -1410,16 +1410,22 @@ label:not(.icon-button)
         {
             span
             {
-                color: white;
-                text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+                @include text-outline(black);
+                &
+                {
+                    color: white;
+                }
             }
         }
         &.black
         {
             span
             {
-                color: black;
-                text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+                @include text-outline(white);
+                &
+                {
+                    color: black;
+                }
             }
         }
         &.system
@@ -1428,13 +1434,19 @@ label:not(.icon-button)
             {
                 @media (prefers-color-scheme: light)
                 {
-                    color: white;
-                    text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+                    @include text-outline(black);
+                    &
+                    {
+                        color: white;
+                    }
                 }
                 @media (prefers-color-scheme: dark)
                 {
-                    color: black;
-                    text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+                    @include text-outline(white);
+                    &
+                    {
+                        color: black;
+                    }
                 }
             }
         }
@@ -1442,8 +1454,8 @@ label:not(.icon-button)
         {
             span
             {
+                @include text-outline(black);
                 //color: Specified in JavaScript;
-                text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
             }
         }
         #time:not(.text)

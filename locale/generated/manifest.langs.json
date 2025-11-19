@@ -1,6 +1,15 @@
 [
     {
+        "__LOCALE__": "ar"
+    },
+    {
+        "__LOCALE__": "de"
+    },
+    {
         "__LOCALE__": "en"
+    },
+    {
+        "__LOCALE__": "fr"
     },
     {
         "__LOCALE__": "ja"
