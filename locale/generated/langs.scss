@@ -3,19 +3,20 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 22.5s infinite;
+        animation: noscript-langs-fade 27s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
     *[lang="de"] { animation-delay: 5.5s; }
     *[lang="en"] { animation-delay: 10s; }
     *[lang="fr"] { animation-delay: 14.5s; }
-    *[lang="ja"] { animation-delay: 19s; }
+    *[lang="it"] { animation-delay: 19s; }
+    *[lang="ja"] { animation-delay: 23.5s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    4% { opacity: 1; }
-    20% { opacity: 1; }
-    24% { opacity: 0; }
+    3.333333333333334% { opacity: 1; }
+    16.666666666666668% { opacity: 1; }
+    20% { opacity: 0; }
     100% { opacity: 0; }
 }

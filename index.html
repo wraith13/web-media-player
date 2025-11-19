@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Nov 19 2025 04:14:32 GMT+0900 (日本標準時)
+    build at: Wed Nov 19 2025 19:52:42 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -43,6 +43,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
 <meta name="description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
+<meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
@@ -57,6 +58,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
 <meta name="twitter:description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
+<meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
@@ -126,6 +128,9 @@ html {
   padding-inline-end: env(safe-area-inset-right);
   overflow: hidden;
 }
+html[dir=rtl] svg {
+  scale: -1 1;
+}
 
 body {
   margin: 0px;
@@ -150,7 +155,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 22.5s infinite;
+  animation: noscript-langs-fade 27s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -164,21 +169,24 @@ button {
 #noscript *[lang=fr] {
   animation-delay: 14.5s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 19s;
+}
+#noscript *[lang=ja] {
+  animation-delay: 23.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  4% {
+  3.333333333333334% {
+    opacity: 1;
+  }
+  16.666666666666668% {
     opacity: 1;
   }
   20% {
-    opacity: 1;
-  }
-  24% {
     opacity: 0;
   }
   100% {
@@ -384,8 +392,8 @@ body.list #screen-body #media-screen:not(.show)::before {
 
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
+  top: 50%;
+  left: 50%;
   object-fit: cover;
   transform: translate(-50%, -50%);
 }
@@ -415,9 +423,6 @@ body.list #screen-body #media-screen:not(.show)::before {
   inset-inline-start: 0px;
   inset-inline-end: 0px;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 #screen-body #media-screen > .visualizer svg {
   position: absolute;
@@ -425,8 +430,8 @@ body.list #screen-body #media-screen:not(.show)::before {
   height: calc(15dvw + 15dvh);
   width: calc(15vw + 15vh);
   width: calc(15dvw + 15dvh);
-  top: 50%;
-  left: 50%;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   fill: black;
   filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
@@ -1134,7 +1139,7 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   border-radius: 4.5rem;
   inset-block-end: 1.5rem;
   inset-block-end: calc(1.5rem + env(safe-area-inset-bottom));
-  inset-inline-start: 50%;
+  left: 50%;
   transform: translate(-50%, 0%);
   position: fixed;
   z-index: 60;
@@ -1142,10 +1147,10 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   gap: 0.25rem;
 }
 #control-panel label[for=wakeup-button].icon-button {
-  margin-left: -3.25rem;
+  margin-inline-start: -3.25rem;
 }
 #control-panel label[for=sleep-button].icon-button {
-  margin-right: -3.25rem;
+  margin-inline-end: -3.25rem;
 }
 @media (max-width: 540px) {
   #control-panel label[for=wakeup-button].icon-button {
@@ -1403,6 +1408,8 @@ body.show-seek-bar #media-index:not(.show)::before {
 #media-index {
   left: 0.5rem;
   left: calc(0.5rem + env(safe-area-inset-left));
+  unicode-bidi: embed;
+  direction: ltr;
 }
 
 #media-title {
@@ -1563,6 +1570,8 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   border-width: 0px;
   border-color: rgb(230, 237, 243);
   cursor: pointer;
+  unicode-bidi: embed;
+  direction: ltr;
 }
 #media-time-frame #seek-panel {
   transition: opacity 750ms, filter 750ms;
@@ -2080,6 +2089,9 @@ body #volume-button:not(:checked) + #volume-panel:not(.show)::before {
   background-color: rgba(32, 28, 38, 0.9);
   transform: rotate(-90deg);
   line-height: 0rem;
+}
+html[dir=rtl] #volume-panel {
+  transform: rotate(90deg);
 }
 
 #settings-panel {
@@ -2853,6 +2865,7 @@ DUMMYSTYLE
 <div lang="de" dir="ltr">JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript.</div>
 <div lang="en" dir="ltr">JavaScript is disabled. Please enable JavaScript.</div>
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
+<div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
         </noscript>
     </div>
@@ -3204,8 +3217,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Nov 19 2025 04:14:32 GMT+0900 (日本標準時)",
-    tick: 1763493272096
+    at: "Wed Nov 19 2025 19:52:42 GMT+0900 (日本標準時)",
+    tick: 1763549562084
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5276,6 +5289,88 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "Ce média ne peut pas être lu.",
             "wake-up-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
             "noscript-message": "JavaScript est désactivé. Veuillez activer JavaScript."
+        },
+        "it": {
+            "lang-label": "Italiano",
+            "lang-direction": "ltr",
+            "Auto": "Automatico",
+            "description": "Lettore multimediale web che viene eseguito nel browser",
+            "media-count-label": "Conteggio media:",
+            "media-length-label": "Durata media:",
+            "with-fullscreen-label": "Schermo intero:",
+            "brightness-label": "Luminosità:",
+            "stretch-label": "Allunga:",
+            "padding-label": "Imbottitura:",
+            "cross-fade-label": "Dissolvenza incrociata:",
+            "image-span-label": "Tempo di visualizzazione immagine:",
+            "loop-short-media-label": "Ripeti i media brevi:",
+            "visualizer-label": "Visualizzatore:",
+            "visualizer-simple": "Semplice",
+            "visualizer-plane-frequency": "Frequenza piano",
+            "visualizer-plane-waveform": "Forma d'onda piano",
+            "visualizer-arc-frequency": "Frequenza arco",
+            "visualizer-arc-waveform": "Forma d'onda arco",
+            "visualizer-double-arc": "Arco doppio",
+            "visualizer-stereo-arc-frequency": "Frequenza arco stereo",
+            "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
+            "visualizer-stereo-double-arc": "Arco stereo doppio",
+            "overlay-style-label": "Stile sovrapposizione:",
+            "hide": "Nascondi",
+            "blend": "Fondi",
+            "white": "Bianco",
+            "black": "Nero",
+            "system": "Sistema",
+            "alternate": "Alterna",
+            "rainbow": "Arcobaleno",
+            "overlay-position-label": "Posizione sovrapposizione:",
+            "center": "Centro",
+            "top-right": "In alto a destra",
+            "bottom-right": "In basso a destra",
+            "bottom-left": "In basso a sinistra",
+            "top-left": "In alto a sinistra",
+            "rotate": "Ruota",
+            "with-weather-label": "Meteo:",
+            "weather-location-label": "Posizione meteo:",
+            "ip-address": "Indirizzo IP (bassa precisione)",
+            "geolocation": "Geolocalizzazione (alta precisione)",
+            "with-clock-label": "Orologio:",
+            "with-date-label": "Data:",
+            "with-calendar-label": "Calendario:",
+            "with-visualizer-label": "Visualizzatore (sovrapposizione):",
+            "show-fps-label": "Mostra FPS:",
+            "shortcuts-label": "Scorciatoie da tastiera:",
+            "language-label": "Lingua:",
+            "url-label": "Link a questa impostazione",
+            "repository-label": "Repository",
+            "off": "Off",
+            "fade-in-label": "Durata fade-in:",
+            "wakeup-label": "Timer di risveglio:",
+            "fade-out-label": "Durata fade-out:",
+            "sleep-label": "Timer di sospensione:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "g",
+            "ago": "fa",
+            "Shuffle": "Casuale",
+            "Repeat": "Ripeti",
+            "Play / Pause": "Riproduci / Pausa",
+            "Mute / Unmute": "Muto / Disattiva muto",
+            "Volume Up / Down": "Alza volume / Abbassa volume",
+            "Seek": "Salta a",
+            "Seek Backward": "Salta indietro",
+            "Seek Forward": "Salta avanti",
+            "Go to Previous/Next Media": "Vai al media precedente/successivo",
+            "Go to Previous Media": "Vai al media precedente",
+            "Go to Next Media": "Vai al media successivo",
+            "FullScreen": "Schermo intero",
+            "Switch Clock": "Cambia orologio",
+            "no-media-message": "Aggiungi dei media.",
+            "no-repeat-message": "Abilita la ripetizione.",
+            "not-supported-media-message": "Questo media non può essere riprodotto.",
+            "wake-up-timer-not-working": "Il timer di risveglio probabilmente non funzionerà correttamente su questo dispositivo.",
+            "noscript-message": "JavaScript è disabilitato. Abilita JavaScript."
         },
         "ja": {
             "lang-label": "日本語",
