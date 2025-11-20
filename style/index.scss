@@ -40,11 +40,20 @@
         @include full-stretch-box();
         position: fixed;
         overflow: visible;
+        .track-frame
+        {
+            @include full-stretch-box();
+            position: fixed;
+            overflow: hidden;
+        }
         .player:not(audio):not(.sound-only),
         & > .visualizer
         {
             position: absolute;
             object-fit: cover;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
         }
         .track-frame.fade-out .player:not(audio):not(.sound-only), .visualizer.fade-out
         {
@@ -802,10 +811,18 @@ body:not(.play):not(.mousemove).sleeped
     @include monospace-font();
     &
     {
-        left: 0.5rem;
-        left: calc(0.5rem + env(safe-area-inset-left));
         unicode-bidi: embed;
         direction: ltr;
+        @at-root html:not([dir="rtl"]) &
+        {
+            left: 0.5rem;
+            left: calc(0.5rem + env(safe-area-inset-left));
+        }
+        @at-root html[dir="rtl"] &
+        {
+            right: 0.5rem;
+            right: calc(0.5rem + env(safe-area-inset-left));
+        }
     }
 }
 #media-title
@@ -935,23 +952,41 @@ body.show-seek-bar #media-time-frame
 }
 #back-button
 {
-    left: -5.75rem;
-    left: calc(-5.75rem + env(safe-area-inset-left));
-    padding-left: 6rem;
     display: flex;
     flex-direction: column;
     align-items: end;
     justify-content: center;
+    @at-root html:not([dir="rtl"]) &
+    {
+        left: -5.75rem;
+        left: calc(-5.75rem + env(safe-area-inset-left));
+        padding-left: 6rem;
+    }
+    @at-root html[dir="rtl"] &
+    {
+        right: -5.75rem;
+        right: calc(-5.75rem + env(safe-area-inset-right));
+        padding-right: 6rem;
+    }
 }
 #next-button
 {
-    right: -5.75rem;
-    right: calc(-5.75rem + env(safe-area-inset-right));
-    padding-right: 6rem;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    @at-root html:not([dir="rtl"]) &
+    {
+        right: -5.75rem;
+        right: calc(-5.75rem + env(safe-area-inset-right));
+        padding-right: 6rem;
+    }
+    @at-root html[dir="rtl"] &
+    {
+        left: -5.75rem;
+        left: calc(-5.75rem + env(safe-area-inset-left));
+        padding-left: 6rem;
+    }
 }
 body.no-media
 {
@@ -1004,21 +1039,39 @@ body.no-media
 }
 #rewind-button
 {
-    left: 1.75rem;
-    left: calc(1.75rem + env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
-    align-items: end;
     justify-content: center;
+    @at-root html:not([dir="rtl"]) &
+    {
+        left: 1.75rem;
+        left: calc(1.75rem + env(safe-area-inset-left));
+        align-items: end;
+    }
+    @at-root html[dir="rtl"] &
+    {
+        right: 1.75rem;
+        right: calc(1.75rem + env(safe-area-inset-right));
+        align-items: start;
+    }
 }
 #fast-forward-button
 {
-    right: 1.75rem;
-    right: calc(1.75rem + env(safe-area-inset-right));
     display: flex;
     flex-direction: column;
-    align-items: start;
     justify-content: center;
+    @at-root html:not([dir="rtl"]) &
+    {
+        right: 1.75rem;
+        right: calc(1.75rem + env(safe-area-inset-right));
+        align-items: start;
+    }
+    @at-root html[dir="rtl"] &
+    {
+        left: 1.75rem;
+        left: calc(1.75rem + env(safe-area-inset-left));
+        align-items: end;
+    }
 }
 body.no-media
 {

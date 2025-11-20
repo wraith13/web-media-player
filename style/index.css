@@ -81,7 +81,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 31.5s infinite;
+  animation: noscript-langs-fade 36s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -104,18 +104,21 @@ button {
 #noscript *[lang=ja] {
   animation-delay: 28s;
 }
+#noscript *[lang=pt] {
+  animation-delay: 32.5s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  2.8571428571428577% {
+  2.5% {
     opacity: 1;
   }
-  14.285714285714286% {
+  12.5% {
     opacity: 1;
   }
-  17.142857142857146% {
+  15% {
     opacity: 0;
   }
   100% {
@@ -323,9 +326,21 @@ body.list #screen-body #media-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
+#screen-body #media-screen .track-frame {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  overflow: hidden;
+}
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
   object-fit: cover;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }
 #screen-body #media-screen .track-frame.fade-out .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer.fade-out {
   transition: opacity 3000ms;
@@ -1346,10 +1361,17 @@ body.show-seek-bar #media-index:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #media-index {
-  left: 0.5rem;
-  left: calc(0.5rem + env(safe-area-inset-left));
   unicode-bidi: embed;
   direction: ltr;
+}
+html:not([dir=rtl]) #media-index {
+  left: 0.5rem;
+  left: calc(0.5rem + env(safe-area-inset-left));
+}
+
+html[dir=rtl] #media-index {
+  right: 0.5rem;
+  right: calc(0.5rem + env(safe-area-inset-left));
 }
 
 #media-title {
@@ -1685,23 +1707,39 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
 }
 
 #back-button {
-  left: -5.75rem;
-  left: calc(-5.75rem + env(safe-area-inset-left));
-  padding-left: 6rem;
   display: flex;
   flex-direction: column;
   align-items: end;
   justify-content: center;
 }
+html:not([dir=rtl]) #back-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
+}
 
-#next-button {
+html[dir=rtl] #back-button {
   right: -5.75rem;
   right: calc(-5.75rem + env(safe-area-inset-right));
   padding-right: 6rem;
+}
+
+#next-button {
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
+}
+html:not([dir=rtl]) #next-button {
+  right: -5.75rem;
+  right: calc(-5.75rem + env(safe-area-inset-right));
+  padding-right: 6rem;
+}
+
+html[dir=rtl] #next-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
 }
 
 body.no-media #next-button, body.no-media #back-button {
@@ -1788,21 +1826,37 @@ body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #
 }
 
 #rewind-button {
-  left: 1.75rem;
-  left: calc(1.75rem + env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
-  align-items: end;
   justify-content: center;
+}
+html:not([dir=rtl]) #rewind-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
+}
+
+html[dir=rtl] #rewind-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
 }
 
 #fast-forward-button {
-  right: 1.75rem;
-  right: calc(1.75rem + env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: center;
+}
+html:not([dir=rtl]) #fast-forward-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
+}
+
+html[dir=rtl] #fast-forward-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
 }
 
 body.no-media #fast-forward-button,

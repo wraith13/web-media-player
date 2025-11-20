@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Nov 20 2025 08:05:49 GMT+0900 (日本標準時)
+    build at: Thu Nov 20 2025 19:09:30 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -46,6 +46,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
+<meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,6 +63,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
+<meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
 <meta property="og:description" content="Web-based media player that runs in a web browser" />
@@ -157,7 +159,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 31.5s infinite;
+  animation: noscript-langs-fade 36s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -180,18 +182,21 @@ button {
 #noscript *[lang=ja] {
   animation-delay: 28s;
 }
+#noscript *[lang=pt] {
+  animation-delay: 32.5s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  2.8571428571428577% {
+  2.5% {
     opacity: 1;
   }
-  14.285714285714286% {
+  12.5% {
     opacity: 1;
   }
-  17.142857142857146% {
+  15% {
     opacity: 0;
   }
   100% {
@@ -399,9 +404,21 @@ body.list #screen-body #media-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
+#screen-body #media-screen .track-frame {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  overflow: hidden;
+}
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
   object-fit: cover;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }
 #screen-body #media-screen .track-frame.fade-out .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer.fade-out {
   transition: opacity 3000ms;
@@ -1422,10 +1439,17 @@ body.show-seek-bar #media-index:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #media-index {
-  left: 0.5rem;
-  left: calc(0.5rem + env(safe-area-inset-left));
   unicode-bidi: embed;
   direction: ltr;
+}
+html:not([dir=rtl]) #media-index {
+  left: 0.5rem;
+  left: calc(0.5rem + env(safe-area-inset-left));
+}
+
+html[dir=rtl] #media-index {
+  right: 0.5rem;
+  right: calc(0.5rem + env(safe-area-inset-left));
 }
 
 #media-title {
@@ -1761,23 +1785,39 @@ body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-but
 }
 
 #back-button {
-  left: -5.75rem;
-  left: calc(-5.75rem + env(safe-area-inset-left));
-  padding-left: 6rem;
   display: flex;
   flex-direction: column;
   align-items: end;
   justify-content: center;
 }
+html:not([dir=rtl]) #back-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
+}
 
-#next-button {
+html[dir=rtl] #back-button {
   right: -5.75rem;
   right: calc(-5.75rem + env(safe-area-inset-right));
   padding-right: 6rem;
+}
+
+#next-button {
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: center;
+}
+html:not([dir=rtl]) #next-button {
+  right: -5.75rem;
+  right: calc(-5.75rem + env(safe-area-inset-right));
+  padding-right: 6rem;
+}
+
+html[dir=rtl] #next-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
 }
 
 body.no-media #next-button, body.no-media #back-button {
@@ -1864,21 +1904,37 @@ body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #
 }
 
 #rewind-button {
-  left: 1.75rem;
-  left: calc(1.75rem + env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
-  align-items: end;
   justify-content: center;
+}
+html:not([dir=rtl]) #rewind-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
+}
+
+html[dir=rtl] #rewind-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
 }
 
 #fast-forward-button {
-  right: 1.75rem;
-  right: calc(1.75rem + env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
-  align-items: start;
   justify-content: center;
+}
+html:not([dir=rtl]) #fast-forward-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
+}
+
+html[dir=rtl] #fast-forward-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
 }
 
 body.no-media #fast-forward-button,
@@ -3074,6 +3130,7 @@ DUMMYSTYLE
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
+<div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
         </noscript>
     </div>
 </div>
@@ -3424,8 +3481,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Nov 20 2025 08:05:49 GMT+0900 (日本標準時)",
-    tick: 1763593549590
+    at: "Thu Nov 20 2025 19:09:30 GMT+0900 (日本標準時)",
+    tick: 1763633370749
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5742,6 +5799,88 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "再生できないメディアです。",
             "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
+        },
+        "pt": {
+            "lang-label": "Português",
+            "lang-direction": "ltr",
+            "Auto": "Automático",
+            "description": "Reprodutor de mídia baseado na web que roda em um navegador",
+            "media-count-label": "Contagem de mídias:",
+            "media-length-label": "Duração da mídia:",
+            "with-fullscreen-label": "Tela cheia:",
+            "brightness-label": "Brilho:",
+            "stretch-label": "Esticar:",
+            "padding-label": "Preenchimento:",
+            "cross-fade-label": "Dissolução cruzada:",
+            "image-span-label": "Tempo de exibição da imagem:",
+            "loop-short-media-label": "Repetir mídias curtas:",
+            "visualizer-label": "Visualizador:",
+            "visualizer-simple": "Simples",
+            "visualizer-plane-frequency": "Frequência de plano",
+            "visualizer-plane-waveform": "Forma de onda de plano",
+            "visualizer-arc-frequency": "Frequência de arco",
+            "visualizer-arc-waveform": "Forma de onda de arco",
+            "visualizer-double-arc": "Arco duplo",
+            "visualizer-stereo-arc-frequency": "Frequência de arco estéreo",
+            "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
+            "visualizer-stereo-double-arc": "Arco estéreo duplo",
+            "overlay-style-label": "Estilo de sobreposição:",
+            "hide": "Ocultar",
+            "blend": "Mesclar",
+            "white": "Branco",
+            "black": "Preto",
+            "system": "Sistema",
+            "alternate": "Alternar",
+            "rainbow": "Arco-íris",
+            "overlay-position-label": "Posição da sobreposição:",
+            "center": "Centro",
+            "top-right": "Canto superior direito",
+            "bottom-right": "Canto inferior direito",
+            "bottom-left": "Canto inferior esquerdo",
+            "top-left": "Canto superior esquerdo",
+            "rotate": "Girar",
+            "with-weather-label": "Clima:",
+            "weather-location-label": "Local do clima:",
+            "ip-address": "Endereço IP (baixa precisão)",
+            "geolocation": "Geolocalização (alta precisão)",
+            "with-clock-label": "Relógio:",
+            "with-date-label": "Data:",
+            "with-calendar-label": "Calendário:",
+            "with-visualizer-label": "Visualizador (sobreposição):",
+            "show-fps-label": "Mostrar FPS:",
+            "shortcuts-label": "Atalhos de teclado:",
+            "language-label": "Idioma:",
+            "url-label": "Link para esta configuração",
+            "repository-label": "repositório",
+            "off": "Desligado",
+            "fade-in-label": "Tempo de fade-in:",
+            "wakeup-label": "Timer de despertar:",
+            "fade-out-label": "Tempo de fade-out:",
+            "sleep-label": "Timer de suspensão:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "atrás",
+            "Shuffle": "Aleatório",
+            "Repeat": "Repetir",
+            "Play / Pause": "Reproduzir / Pausar",
+            "Mute / Unmute": "Silenciar / Desmutar",
+            "Volume Up / Down": "Aumentar / Diminuir volume",
+            "Seek": "Buscar",
+            "Seek Backward": "Retroceder",
+            "Seek Forward": "Avançar",
+            "Go to Previous/Next Media": "Ir para mídia anterior/próxima",
+            "Go to Previous Media": "Ir para mídia anterior",
+            "Go to Next Media": "Ir para mídia seguinte",
+            "FullScreen": "Tela cheia",
+            "Switch Clock": "Alternar relógio",
+            "no-media-message": "Por favor, adicione mídia.",
+            "no-repeat-message": "Por favor, ative a repetição.",
+            "not-supported-media-message": "Esta mídia não pode ser reproduzida.",
+            "wake-up-timer-not-working": "O timer de despertar provavelmente não funcionará corretamente neste dispositivo.",
+            "noscript-message": "JavaScript está desativado. Por favor, ative o JavaScript."
         }
     };
 });
@@ -5856,7 +5995,7 @@ define("resource/config", [], {
         "rewindSpan": 5000,
         "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 0.1,
-        "maxBlur": 10
+        "maxBlur": 100
     },
     "clock": {
         "alternate": {
