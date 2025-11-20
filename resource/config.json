@@ -49,7 +49,9 @@
     "player": {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
-        "notSupportedMediaMessageSpan": 5000
+        "notSupportedMediaMessageSpan": 5000,
+        "blurEasing": 0.1,
+        "maxBlur": 10
     },
     "clock":
     {

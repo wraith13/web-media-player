@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Nov 19 2025 19:52:42 GMT+0900 (日本標準時)
+    build at: Thu Nov 20 2025 08:05:49 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -42,6 +42,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="ar" content="مشغل وسائط يعمل في متصفح الويب">
 <meta name="description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
 <meta name="description" lang="en" content="Web-based media player that runs in a web browser">
+<meta name="description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
@@ -57,6 +58,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="ar" content="مشغل وسائط يعمل في متصفح الويب">
 <meta name="twitter:description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
 <meta name="twitter:description" lang="en" content="Web-based media player that runs in a web browser">
+<meta name="twitter:description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
@@ -155,7 +157,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 27s infinite;
+  animation: noscript-langs-fade 31.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -166,27 +168,30 @@ button {
 #noscript *[lang=en] {
   animation-delay: 10s;
 }
-#noscript *[lang=fr] {
+#noscript *[lang=es] {
   animation-delay: 14.5s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=fr] {
   animation-delay: 19s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 23.5s;
+}
+#noscript *[lang=ja] {
+  animation-delay: 28s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  3.333333333333334% {
+  2.8571428571428577% {
     opacity: 1;
   }
-  16.666666666666668% {
+  14.285714285714286% {
     opacity: 1;
   }
-  20% {
+  17.142857142857146% {
     opacity: 0;
   }
   100% {
@@ -275,9 +280,6 @@ body.play:not(.mousemove) #screen-body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
-  font-size: 0.75rem;
-  font-weight: 400;
 }
 body.play #screen-body #background-screen:not(.show) {
   opacity: 0;
@@ -336,6 +338,13 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
+#screen-body #background-screen {
+  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+}
+#screen-body #background-screen {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
 @media (min-width: 1024px) and (max-width: 1599px) {
   #screen-body #background-screen {
     font-size: 0.9rem;
@@ -392,10 +401,7 @@ body.list #screen-body #media-screen:not(.show)::before {
 
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
-  top: 50%;
-  left: 50%;
   object-fit: cover;
-  transform: translate(-50%, -50%);
 }
 #screen-body #media-screen .track-frame.fade-out .player:not(audio):not(.sound-only), #screen-body #media-screen .visualizer.fade-out {
   transition: opacity 3000ms;
@@ -588,6 +594,8 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > span {
   text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+}
+#screen-body #media-list .item > span {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -988,6 +996,10 @@ body:not(.progress-circle) #progress-circle {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
+}
+#no-media-panel,
+#not-supported-media-panel,
+#wake-up-timer-not-working-panel {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -1287,6 +1299,10 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
+}
+#media-index,
+#media-title,
+#media-time {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -1414,8 +1430,6 @@ body.show-seek-bar #media-index:not(.show)::before {
 
 #media-title {
   transition: opacity 750ms, filter 750ms;
-  font-size: 0.75rem;
-  font-weight: 400;
 }
 body:not(.play):not(.show-paused-media) #media-title:not(.show) {
   opacity: 0;
@@ -1474,6 +1488,10 @@ body.show-seek-bar #media-title:not(.show)::before {
   transition: filter 750ms;
 }
 
+#media-title {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
 @media (min-width: 1024px) and (max-width: 1599px) {
   #media-title {
     font-size: 0.9rem;
@@ -2304,6 +2322,8 @@ label:not(.icon-button) {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+label:not(.icon-button) {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -2394,6 +2414,8 @@ label:not(.icon-button) select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+label:not(.icon-button) select {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -2509,35 +2531,217 @@ body:not(.play) #overlay-panel:not(.show)::before {
   color: white;
 }
 #overlay-panel.white span {
-  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
+}
+@media (min-width: 750px) {
+  #overlay-panel.white span {
+    text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  }
+}
+@media (min-width: 1500px) {
+  #overlay-panel.white span {
+    text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
+  }
+}
+@media (min-width: 3000px) {
+  #overlay-panel.white span {
+    text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
+  }
+}
+@media (min-width: 4500px) {
+  #overlay-panel.white span {
+    text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
+  }
+}
+@media (min-width: 6000px) {
+  #overlay-panel.white span {
+    text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
+  }
+}
+@media (min-width: 7500px) {
+  #overlay-panel.white span {
+    text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
+  }
+}
+@media (min-width: 9000px) {
+  #overlay-panel.white span {
+    text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
+  }
 }
 #overlay-panel.white span {
   color: white;
 }
 #overlay-panel.black span {
-  text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+  text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
+}
+@media (min-width: 750px) {
+  #overlay-panel.black span {
+    text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
+  }
+}
+@media (min-width: 1500px) {
+  #overlay-panel.black span {
+    text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
+  }
+}
+@media (min-width: 3000px) {
+  #overlay-panel.black span {
+    text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
+  }
+}
+@media (min-width: 4500px) {
+  #overlay-panel.black span {
+    text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
+  }
+}
+@media (min-width: 6000px) {
+  #overlay-panel.black span {
+    text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
+  }
+}
+@media (min-width: 7500px) {
+  #overlay-panel.black span {
+    text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
+  }
+}
+@media (min-width: 9000px) {
+  #overlay-panel.black span {
+    text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
+  }
 }
 #overlay-panel.black span {
   color: black;
 }
 @media (prefers-color-scheme: light) {
   #overlay-panel.system span {
+    text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 750px) {
+  #overlay-panel.system span {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
+}
+@media (prefers-color-scheme: light) and (min-width: 1500px) {
+  #overlay-panel.system span {
+    text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 3000px) {
+  #overlay-panel.system span {
+    text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 4500px) {
+  #overlay-panel.system span {
+    text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 6000px) {
+  #overlay-panel.system span {
+    text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 7500px) {
+  #overlay-panel.system span {
+    text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) and (min-width: 9000px) {
+  #overlay-panel.system span {
+    text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
+  }
+}
+@media (prefers-color-scheme: light) {
   #overlay-panel.system span {
     color: white;
   }
 }
 @media (prefers-color-scheme: dark) {
   #overlay-panel.system span {
+    text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 750px) {
+  #overlay-panel.system span {
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
+}
+@media (prefers-color-scheme: dark) and (min-width: 1500px) {
+  #overlay-panel.system span {
+    text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 3000px) {
+  #overlay-panel.system span {
+    text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 4500px) {
+  #overlay-panel.system span {
+    text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 6000px) {
+  #overlay-panel.system span {
+    text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 7500px) {
+  #overlay-panel.system span {
+    text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) and (min-width: 9000px) {
+  #overlay-panel.system span {
+    text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
+  }
+}
+@media (prefers-color-scheme: dark) {
   #overlay-panel.system span {
     color: black;
   }
 }
 #overlay-panel.rainbow span {
-  text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
+}
+@media (min-width: 750px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
+  }
+}
+@media (min-width: 1500px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
+  }
+}
+@media (min-width: 3000px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
+  }
+}
+@media (min-width: 4500px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
+  }
+}
+@media (min-width: 6000px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
+  }
+}
+@media (min-width: 7500px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
+  }
+}
+@media (min-width: 9000px) {
+  #overlay-panel.rainbow span {
+    text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
+  }
+}
+#overlay-panel.rainbow span {
+  transition: color 300ms, text-shadow 3000ms;
 }
 #overlay-panel #time:not(.text) {
   font-size: 0.75rem;
@@ -2609,6 +2813,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+#overlay-panel #weather {
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -2623,7 +2829,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   }
 }
 #overlay-panel #weather {
-  font-family: -apple-system, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #weather {
   font-size: calc(2.1 * var(--diagonal));
@@ -2864,6 +3070,7 @@ DUMMYSTYLE
             <div lang="ar" dir="rtl">تم تعطيل JavaScript. الرجاء تمكين JavaScript.</div>
 <div lang="de" dir="ltr">JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript.</div>
 <div lang="en" dir="ltr">JavaScript is disabled. Please enable JavaScript.</div>
+<div lang="es" dir="ltr">JavaScript está deshabilitado. Por favor, habilita JavaScript.</div>
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
@@ -3217,8 +3424,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Nov 19 2025 19:52:42 GMT+0900 (日本標準時)",
-    tick: 1763549562084
+    at: "Thu Nov 20 2025 08:05:49 GMT+0900 (日本標準時)",
+    tick: 1763593549590
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5208,6 +5415,88 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript."
         },
+        "es": {
+            "lang-label": "Español",
+            "lang-direction": "ltr",
+            "Auto": "Automático",
+            "description": "Reproductor multimedia web que se ejecuta en un navegador",
+            "media-count-label": "Cantidad de medios:",
+            "media-length-label": "Duración de los medios:",
+            "with-fullscreen-label": "Pantalla completa:",
+            "brightness-label": "Brillo:",
+            "stretch-label": "Estirar:",
+            "padding-label": "Relleno:",
+            "cross-fade-label": "Fundido cruzado:",
+            "image-span-label": "Tiempo de visualización de la imagen:",
+            "loop-short-media-label": "Repetir medios cortos:",
+            "visualizer-label": "Visualizador:",
+            "visualizer-simple": "Simple",
+            "visualizer-plane-frequency": "Frecuencia de plano",
+            "visualizer-plane-waveform": "Forma de onda de plano",
+            "visualizer-arc-frequency": "Frecuencia de arco",
+            "visualizer-arc-waveform": "Forma de onda de arco",
+            "visualizer-double-arc": "Arco doble",
+            "visualizer-stereo-arc-frequency": "Frecuencia de arco estéreo",
+            "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
+            "visualizer-stereo-double-arc": "Arco estéreo doble",
+            "overlay-style-label": "Estilo de superposición:",
+            "hide": "Ocultar",
+            "blend": "Mezclar",
+            "white": "Blanco",
+            "black": "Negro",
+            "system": "Sistema",
+            "alternate": "Alternar",
+            "rainbow": "Arcoíris",
+            "overlay-position-label": "Posición de la superposición:",
+            "center": "Centro",
+            "top-right": "Arriba a la derecha",
+            "bottom-right": "Abajo a la derecha",
+            "bottom-left": "Abajo a la izquierda",
+            "top-left": "Arriba a la izquierda",
+            "rotate": "Rotar",
+            "with-weather-label": "Clima:",
+            "weather-location-label": "Ubicación del clima:",
+            "ip-address": "Dirección IP (baja precisión)",
+            "geolocation": "Geolocalización (alta precisión)",
+            "with-clock-label": "Reloj:",
+            "with-date-label": "Fecha:",
+            "with-calendar-label": "Calendario:",
+            "with-visualizer-label": "Visualizador (superposición):",
+            "show-fps-label": "Mostrar FPS:",
+            "shortcuts-label": "Atajos de teclado:",
+            "language-label": "Idioma:",
+            "url-label": "Enlace a esta configuración",
+            "repository-label": "repositorio",
+            "off": "Desactivado",
+            "fade-in-label": "Tiempo de entrada:",
+            "wakeup-label": "Temporizador de despertador:",
+            "fade-out-label": "Tiempo de salida:",
+            "sleep-label": "Temporizador de suspensión:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "hace",
+            "Shuffle": "Aleatorio",
+            "Repeat": "Repetir",
+            "Play / Pause": "Reproducir / Pausar",
+            "Mute / Unmute": "Silenciar / Activar sonido",
+            "Volume Up / Down": "Subir volumen / Bajar volumen",
+            "Seek": "Buscar",
+            "Seek Backward": "Retroceder",
+            "Seek Forward": "Avanzar",
+            "Go to Previous/Next Media": "Ir al medio anterior/siguiente",
+            "Go to Previous Media": "Ir al medio anterior",
+            "Go to Next Media": "Ir al medio siguiente",
+            "FullScreen": "Pantalla completa",
+            "Switch Clock": "Cambiar reloj",
+            "no-media-message": "Por favor, añade medios.",
+            "no-repeat-message": "Por favor, activa la repetición.",
+            "not-supported-media-message": "Este medio no se puede reproducir.",
+            "wake-up-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
+            "noscript-message": "JavaScript está deshabilitado. Por favor, habilita JavaScript."
+        },
         "fr": {
             "lang-label": "Français",
             "lang-direction": "ltr",
@@ -5565,7 +5854,9 @@ define("resource/config", [], {
     "player": {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
-        "notSupportedMediaMessageSpan": 5000
+        "notSupportedMediaMessageSpan": 5000,
+        "blurEasing": 0.1,
+        "maxBlur": 10
     },
     "clock": {
         "alternate": {
@@ -9597,10 +9888,20 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.setOpacity = function (rate) {
-            var finalVolume = rate;
-            this.fadeRate = finalVolume;
+            var finalOpacity = rate;
+            this.fadeRate = finalOpacity;
             if (this.visualElement) {
-                _library_6.Library.UI.setStyle(this.visualElement, "opacity", "".concat(finalVolume));
+                _library_6.Library.UI.setStyle(this.visualElement, "opacity", "".concat(finalOpacity));
+            }
+        };
+        Track.prototype.easingForBlur = function (rate) {
+            return Math.pow(rate, config_json_7.default.player.blurEasing);
+        };
+        Track.prototype.setBlur = function (rate) {
+            var maxBlur = config_json_7.default.player.maxBlur;
+            var finalBlur = maxBlur * (1 - this.easingForBlur(rate)) / 2;
+            if (this.visualElement) {
+                _library_6.Library.UI.setStyle(this.visualElement, "filter", "blur(calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh))"));
             }
         };
         Track.prototype.release = function () {
@@ -9981,6 +10282,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     Player.removeFadeoutTrack();
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(1);
+                    currentTrack.setBlur(1);
                 }
             }
         };
@@ -10056,6 +10358,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
                         currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setBlur(1);
                         currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
@@ -10069,14 +10372,17 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                             fadeoutingTrack.setOpacity(1 * currentTimerFade);
+                            fadeoutingTrack.setBlur(fadeoutProgress);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.setOpacity(progress * currentTimerFade);
+                        currentTrack.setBlur(progress);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         currentTrack.setVolume(currentVolume);
                         currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setBlur(1);
                         if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
                         }
@@ -10085,6 +10391,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 7:
                         currentTrack.setVolume(currentVolume);
                         currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setBlur(1);
                         _b.label = 8;
                     case 8: return [2 /*return*/];
                 }
@@ -10164,6 +10471,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
                     currentTrack.setOpacity(0);
+                    currentTrack.setBlur(1);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
@@ -10174,6 +10482,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     }
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(1);
+                    currentTrack.setBlur(1);
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {

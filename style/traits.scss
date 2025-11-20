@@ -143,14 +143,6 @@
         font-family: $default-font;
     }
 }
-@mixin monochrome-font()
-{
-    @include font-base();
-    &
-    {
-        font-family: $monochrome-font;
-    }
-}
 @mixin monospace-font()
 {
     @include font-base();
@@ -222,7 +214,39 @@
         filter: blur(0.125rem);
     }
 }
+@mixin fixed-text-outline($color, $thickness: 1px)
+{
+    text-shadow: -$thickness (-$thickness) 0px $color, $thickness (-$thickness) 0px $color, -$thickness $thickness 0px $color, $thickness $thickness 0px $color;
+}
 @mixin text-outline($color)
 {
-    text-shadow: -1px -1px 0px $color, 1px -1px 0px $color, -1px 1px 0px $color, 1px 1px 0px $color;
+    @include fixed-text-outline($color, 0.5px);
+    @media (min-width: 750px)
+    {
+        @include fixed-text-outline($color, 1.0px);
+    }
+    @media (min-width: 1500px)
+    {
+        @include fixed-text-outline($color, 1.5px);
+    }
+    @media (min-width: 3000px)
+    {
+        @include fixed-text-outline($color, 2.0px);
+    }
+    @media (min-width: 4500px)
+    {
+        @include fixed-text-outline($color, 2.5px);
+    }
+    @media (min-width: 6000px)
+    {
+        @include fixed-text-outline($color, 3.0px);
+    }
+    @media (min-width: 7500px)
+    {
+        @include fixed-text-outline($color, 3.5px);
+    }
+    @media (min-width: 9000px)
+    {
+        @include fixed-text-outline($color, 4.0px);
+    }
 }

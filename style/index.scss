@@ -20,8 +20,8 @@
         @include solid-box();
         @include full-stretch-box();
         @include flex(column, center, center);
-        @include text-outline(black);
-        @include font();
+        & { @include fixed-text-outline(black); }
+        & { @include font(); }
         &
         {
             color: $white-color;
@@ -44,10 +44,7 @@
         & > .visualizer
         {
             position: absolute;
-            top: 50%;
-            left: 50%;
             object-fit: cover;
-            transform: translate(-50%, -50%);
         }
         .track-frame.fade-out .player:not(audio):not(.sound-only), .visualizer.fade-out
         {
@@ -207,8 +204,8 @@
             }
             & > span
             {
-                @include text-outline(black);
-                @include font();
+                @include fixed-text-outline(black);
+                & { @include font(); }
                 &
                 {
                     color: $white-color;
@@ -543,7 +540,7 @@ body:not(.progress-circle)
 #wake-up-timer-not-working-panel
 {
     @include black-pop-panel-style();
-    @include font();
+    & { @include font(); }
     &
     {
         font-size: 1.25rem;
@@ -779,7 +776,7 @@ body:not(.play):not(.mousemove).sleeped
 #media-time
 {
     @include black-pop-panel-style();
-    @include font();
+    & { @include font(); }
     &
     {
         padding: 0.25rem 0.75rem;
@@ -814,7 +811,7 @@ body:not(.play):not(.mousemove).sleeped
 #media-title
 {
     @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)", "body.show-seek-bar");
-    @include font();
+    & { @include font(); }
     &
     {
         left: 50%;
@@ -1279,7 +1276,7 @@ label:not(.icon-button)
 {
     @include black-pop-panel-style();
     @include flex(row, space-between);
-    @include font();
+    & { @include font(); }
     &
     {
         position: relative;
@@ -1323,7 +1320,7 @@ label:not(.icon-button)
         }
         input
         {
-            @include font();
+            & { @include font(); }
             &
             {
                 margin: 0.5rem;
@@ -1333,7 +1330,7 @@ label:not(.icon-button)
         select
         {
             @include reset-appearance();
-            @include font();
+            & { @include font(); }
             &
             {
                 color: $white-color;
@@ -1458,12 +1455,16 @@ label:not(.icon-button)
             span
             {
                 @include text-outline(black);
-                //color: Specified in JavaScript;
+                &
+                {
+                    //color: Specified in JavaScript;
+                    transition: color 300ms, text-shadow 3000ms;
+                }
             }
         }
         #time:not(.text)
         {
-            @include monospace-font();
+            & { @include monospace-font(); }
             &
             {
                 @include font-size(calc(7.4 * var(--diagonal)));
@@ -1472,7 +1473,7 @@ label:not(.icon-button)
         }
         #time.text
         {
-            @include font();
+            & { @include font(); }
             &
             {
                 @include font-size(calc(7.4 * var(--diagonal)));
@@ -1484,7 +1485,7 @@ label:not(.icon-button)
         }
         #date
         {
-            @include font();
+            & { @include font(); }
             &
             {
                 @include font-size(calc(2.1 * var(--diagonal)));
@@ -1494,7 +1495,7 @@ label:not(.icon-button)
         #weather
         {
             @include flex(row, center);
-            @include monochrome-font();
+            & { @include font(); }
             &
             {
                 @include font-size(calc(2.1 * var(--diagonal)));
@@ -1509,7 +1510,7 @@ label:not(.icon-button)
         }
         #calendar
         {
-            @include monospace-font();
+            & { @include monospace-font(); }
             &
             {
                 &:empty

@@ -481,11 +481,24 @@ export class Track
     }
     setOpacity(rate: number): void
     {
-        const finalVolume = rate;
-        this.fadeRate = finalVolume;
+        const finalOpacity = rate;
+        this.fadeRate = finalOpacity;
         if (this.visualElement)
         {
-            Library.UI.setStyle(this.visualElement, "opacity", `${finalVolume}`);
+            Library.UI.setStyle(this.visualElement, "opacity", `${finalOpacity}`);
+        }
+    }
+    easingForBlur(rate: number): number
+    {
+        return Math.pow(rate, config.player.blurEasing);
+    }
+    setBlur(rate: number): void
+    {
+        const maxBlur = config.player.maxBlur;
+        const finalBlur = maxBlur *(1 - this.easingForBlur(rate)) /2;
+        if (this.visualElement)
+        {
+            Library.UI.setStyle(this.visualElement, "filter", `blur(calc(${finalBlur}vw + ${finalBlur}vh))`);
         }
     }
     release(): void

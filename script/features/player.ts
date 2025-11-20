@@ -225,6 +225,7 @@ export namespace Player
                 removeFadeoutTrack();
                 currentTrack.setVolume(currentVolume);
                 currentTrack.setOpacity(1);
+                currentTrack.setBlur(1);
             }
         }
     };
@@ -319,6 +320,7 @@ export namespace Player
                         removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
                         currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setBlur(1);
                         currentTrack.updateStretch("current");
                         if ( ! currentTrack.isPlaying())
                         {
@@ -333,15 +335,18 @@ export namespace Player
                             const fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                             fadeoutingTrack.setOpacity(1 *currentTimerFade);
+                            fadeoutingTrack.setBlur(fadeoutProgress);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.setOpacity(progress *currentTimerFade);
+                        currentTrack.setBlur(progress);
                     }
                 }
                 else
                 {
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(currentTimerFade);
+                    currentTrack.setBlur(1);
                     if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
                     {
                         next();
@@ -352,6 +357,7 @@ export namespace Player
             {
                 currentTrack.setVolume(currentVolume);
                 currentTrack.setOpacity(currentTimerFade);
+                currentTrack.setBlur(1);
             }
         }
     };
@@ -441,6 +447,7 @@ export namespace Player
                 fadeoutingTrack?.setVolume(currentVolume, 1, "fadeOut");
                 currentTrack.setVolume(currentVolume, 0, "fadeIn");
                 currentTrack.setOpacity(0);
+                currentTrack.setBlur(1);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
@@ -454,6 +461,7 @@ export namespace Player
                 }
                 currentTrack.setVolume(currentVolume);
                 currentTrack.setOpacity(1);
+                currentTrack.setBlur(1);
                 currentTrack.play();
             }
             if (currentTrack.visualElement)
