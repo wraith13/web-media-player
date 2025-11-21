@@ -51,7 +51,7 @@
         "rewindSpan": 5000,
         "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 0.1,
-        "maxBlur": 100
+        "maxBlur": 50
     },
     "clock":
     {

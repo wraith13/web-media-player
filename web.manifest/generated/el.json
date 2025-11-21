@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Web Media Player",
+    "short_name": "Web Media Player",
+    "start_url": "https://wraith13.github.io/web-media-player/",
+    "display": "standalone",
+    "background_color": "black",
+    "theme_color": "black",
+    "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
+    "icons": [{
+        "src": "https://wraith13.github.io/web-media-player/image/appicon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+    }],
+    "lang": "el",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "scope": "/",
+    "offline_access": true
+}

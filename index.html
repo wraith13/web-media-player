@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Nov 20 2025 19:09:30 GMT+0900 (日本標準時)
+    build at: Fri Nov 21 2025 04:54:15 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -41,8 +41,10 @@ DEALINGS IN THE SOFTWARE.
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="description" lang="ar" content="مشغل وسائط يعمل في متصفح الويب">
 <meta name="description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
+<meta name="description" lang="el" content="Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού">
 <meta name="description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
+<meta name="description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
@@ -58,8 +60,10 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:title" content="Web Media Player">
 <meta name="twitter:description" lang="ar" content="مشغل وسائط يعمل في متصفح الويب">
 <meta name="twitter:description" lang="de" content="Webbasierter Mediaplayer, der im Webbrowser läuft">
+<meta name="twitter:description" lang="el" content="Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού">
 <meta name="twitter:description" lang="en" content="Web-based media player that runs in a web browser">
 <meta name="twitter:description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
+<meta name="twitter:description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
@@ -159,7 +163,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 36s infinite;
+  animation: noscript-langs-fade 45s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -167,36 +171,42 @@ button {
 #noscript *[lang=de] {
   animation-delay: 5.5s;
 }
-#noscript *[lang=en] {
+#noscript *[lang=el] {
   animation-delay: 10s;
 }
-#noscript *[lang=es] {
+#noscript *[lang=en] {
   animation-delay: 14.5s;
 }
-#noscript *[lang=fr] {
+#noscript *[lang=es] {
   animation-delay: 19s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=fa] {
   animation-delay: 23.5s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=fr] {
   animation-delay: 28s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=it] {
   animation-delay: 32.5s;
+}
+#noscript *[lang=ja] {
+  animation-delay: 37s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 41.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  2.5% {
+  2% {
     opacity: 1;
   }
-  12.5% {
+  10% {
     opacity: 1;
   }
-  15% {
+  12% {
     opacity: 0;
   }
   100% {
@@ -3125,8 +3135,10 @@ DUMMYSTYLE
             <h2>NOSCRIPT</h2>
             <div lang="ar" dir="rtl">تم تعطيل JavaScript. الرجاء تمكين JavaScript.</div>
 <div lang="de" dir="ltr">JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript.</div>
+<div lang="el" dir="ltr">Η JavaScript είναι απενεργοποιημένη. Παρακαλώ ενεργοποιήστε την JavaScript.</div>
 <div lang="en" dir="ltr">JavaScript is disabled. Please enable JavaScript.</div>
 <div lang="es" dir="ltr">JavaScript está deshabilitado. Por favor, habilita JavaScript.</div>
+<div lang="fa" dir="rtl">جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید.</div>
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
@@ -3481,8 +3493,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Nov 20 2025 19:09:30 GMT+0900 (日本標準時)",
-    tick: 1763633370749
+    at: "Fri Nov 21 2025 04:54:15 GMT+0900 (日本標準時)",
+    tick: 1763668455789
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5390,6 +5402,88 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "Der Wecktimer funktioniert auf diesem Gerät wahrscheinlich nicht korrekt.",
             "noscript-message": "JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript."
         },
+        "el": {
+            "lang-label": "Ελληνικά",
+            "lang-direction": "ltr",
+            "Auto": "Αυτόματο",
+            "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
+            "media-count-label": "Αριθμός μέσων:",
+            "media-length-label": "Διάρκεια μέσων:",
+            "with-fullscreen-label": "Πλήρης οθόνη:",
+            "brightness-label": "Φωτεινότητα:",
+            "stretch-label": "Τέντωμα:",
+            "padding-label": "Εσοχή:",
+            "cross-fade-label": "Σταυρωτό ξεθώριασμα:",
+            "image-span-label": "Χρόνος εμφάνισης εικόνας:",
+            "loop-short-media-label": "Επανάληψη σύντομων μέσων:",
+            "visualizer-label": "Οπτικοποιητής:",
+            "visualizer-simple": "Απλό",
+            "visualizer-plane-frequency": "Επίπεδη Συχνότητα",
+            "visualizer-plane-waveform": "Επίπεδη Κυματομορφή",
+            "visualizer-arc-frequency": "Καμπυλωτή Συχνότητα",
+            "visualizer-arc-waveform": "Καμπυλωτή Κυματομορφή",
+            "visualizer-double-arc": "Διπλή Καμπύλη",
+            "visualizer-stereo-arc-frequency": "Στερεο Καμπυλωτή Συχνότητα",
+            "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
+            "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
+            "overlay-style-label": "Στυλ επικάλυψης:",
+            "hide": "Απόκρυψη",
+            "blend": "Ανάμειξη",
+            "white": "Άσπρο",
+            "black": "Μαύρο",
+            "system": "Σύστημα",
+            "alternate": "Εναλλαγή",
+            "rainbow": "Ουράνιο τόξο",
+            "overlay-position-label": "Θέση επικάλυψης:",
+            "center": "Κέντρο",
+            "top-right": "Άνω Δεξιά",
+            "bottom-right": "Κάτω Δεξιά",
+            "bottom-left": "Κάτω Αριστερά",
+            "top-left": "Άνω Αριστερά",
+            "rotate": "Περιστροφή",
+            "with-weather-label": "Καιρός:",
+            "weather-location-label": "Τοποθεσία καιρού:",
+            "ip-address": "Διεύθυνση IP (Χαμηλή ακρίβεια)",
+            "geolocation": "Γεωτοποθεσία (Υψηλή ακρίβεια)",
+            "with-clock-label": "Ρολόι:",
+            "with-date-label": "Ημερομηνία:",
+            "with-calendar-label": "Ημερολόγιο:",
+            "with-visualizer-label": "Οπτικοποιητής (επικάλυψη):",
+            "show-fps-label": "Εμφάνιση FPS:",
+            "shortcuts-label": "Πλήκτρα συντόμευσης:",
+            "language-label": "Γλώσσα:",
+            "url-label": "Σύνδεσμος σε αυτή τη ρύθμιση",
+            "repository-label": "αποθετήριο",
+            "off": "Απενεργοποιημένο",
+            "fade-in-label": "Χρόνος fade-in:",
+            "wakeup-label": "Χρονοδιακόπτης αφύπνισης:",
+            "fade-out-label": "Χρόνος fade-out:",
+            "sleep-label": "Χρονοδιακόπτης ύπνου:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "πριν",
+            "Shuffle": "Τυχαία",
+            "Repeat": "Επανάληψη",
+            "Play / Pause": "Αναπαραγωγή / Παύση",
+            "Mute / Unmute": "Σίγαση / Κατάργηση σίγασης",
+            "Volume Up / Down": "Αύξηση / Μείωση έντασης",
+            "Seek": "Μετάβαση",
+            "Seek Backward": "Αναζήτηση προς τα πίσω",
+            "Seek Forward": "Αναζήτηση προς τα εμπρός",
+            "Go to Previous/Next Media": "Μετάβαση στο προηγούμενο/επόμενο μέσο",
+            "Go to Previous Media": "Μετάβαση στο προηγούμενο μέσο",
+            "Go to Next Media": "Μετάβαση στο επόμενο μέσο",
+            "FullScreen": "Πλήρης οθόνη",
+            "Switch Clock": "Εναλλαγή ρολογιού",
+            "no-media-message": "Παρακαλώ προσθέστε μέσα.",
+            "no-repeat-message": "Παρακαλώ ενεργοποιήστε την επανάληψη.",
+            "not-supported-media-message": "Αυτό το μέσο δεν μπορεί να αναπαραχθεί.",
+            "wake-up-timer-not-working": "Ο χρονοδιακόπτης αφύπνισης πιθανόν να μην λειτουργεί σωστά σε αυτή τη συσκευή.",
+            "noscript-message": "Η JavaScript είναι απενεργοποιημένη. Παρακαλώ ενεργοποιήστε την JavaScript."
+        },
         "en": {
             "lang-label": "English",
             "lang-direction": "ltr",
@@ -5553,6 +5647,88 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "Este medio no se puede reproducir.",
             "wake-up-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
             "noscript-message": "JavaScript está deshabilitado. Por favor, habilita JavaScript."
+        },
+        "fa": {
+            "lang-label": "فارسی",
+            "lang-direction": "rtl",
+            "Auto": "خودکار",
+            "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
+            "media-count-label": "تعداد رسانه:",
+            "media-length-label": "مدت رسانه:",
+            "with-fullscreen-label": "تمام‌صفحه:",
+            "brightness-label": "روشنایی:",
+            "stretch-label": "کشیدن:",
+            "padding-label": "فاصله (Padding):",
+            "cross-fade-label": "محو شدن متقابل:",
+            "image-span-label": "زمان نمایش تصویر:",
+            "loop-short-media-label": "پخش حلقه‌ای رسانه‌های کوتاه:",
+            "visualizer-label": "ویژوالایزر:",
+            "visualizer-simple": "ساده",
+            "visualizer-plane-frequency": "فرکانس صفحه",
+            "visualizer-plane-waveform": "موج‌نمای صفحه",
+            "visualizer-arc-frequency": "فرکانس قوس",
+            "visualizer-arc-waveform": "موج‌نمای قوس",
+            "visualizer-double-arc": "قوس دوگانه",
+            "visualizer-stereo-arc-frequency": "فرکانس قوس استریو",
+            "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
+            "visualizer-stereo-double-arc": "قوس دوگانه استریو",
+            "overlay-style-label": "سبک پوشش:",
+            "hide": "مخفی",
+            "blend": "ترکیب",
+            "white": "سفید",
+            "black": "سیاه",
+            "system": "سیستم",
+            "alternate": "جایگزین",
+            "rainbow": "رنگین‌کمان",
+            "overlay-position-label": "موقعیت پوشش:",
+            "center": "مرکز",
+            "top-right": "بالا-راست",
+            "bottom-right": "پایین-راست",
+            "bottom-left": "پایین-چپ",
+            "top-left": "بالا-چپ",
+            "rotate": "چرخش",
+            "with-weather-label": "آب‌وهوا:",
+            "weather-location-label": "مکان آب‌وهوا:",
+            "ip-address": "آدرس IP (دقت پایین)",
+            "geolocation": "موقعیت‌یابی (دقت بالا)",
+            "with-clock-label": "ساعت:",
+            "with-date-label": "تاریخ:",
+            "with-calendar-label": "تقویم:",
+            "with-visualizer-label": "ویژوالایزر (پوشش):",
+            "show-fps-label": "نمایش FPS:",
+            "shortcuts-label": "میانبرهای صفحه‌کلید:",
+            "language-label": "زبان:",
+            "url-label": "پیوند به این تنظیم",
+            "repository-label": "مخزن",
+            "off": "خاموش",
+            "fade-in-label": "زمان محو شدن ورود:",
+            "wakeup-label": "تایمر بیدارباش:",
+            "fade-out-label": "زمان محو شدن خروج:",
+            "sleep-label": "تایمر خواب:",
+            "timeUnitMs": "می‌ثانیه",
+            "timeUnitS": "ثانیه",
+            "timeUnitM": "دقیقه",
+            "timeUnitH": "ساعت",
+            "timeUnitD": "روز",
+            "ago": "پیش",
+            "Shuffle": "درهم‌ریزی",
+            "Repeat": "تکرار",
+            "Play / Pause": "پخش / مکث",
+            "Mute / Unmute": "بی‌صدا / فعال‌سازی صدا",
+            "Volume Up / Down": "افزایش / کاهش صدا",
+            "Seek": "پرش",
+            "Seek Backward": "پرش به عقب",
+            "Seek Forward": "پرش به جلو",
+            "Go to Previous/Next Media": "رفتن به رسانه قبلی/بعدی",
+            "Go to Previous Media": "رفتن به رسانه قبلی",
+            "Go to Next Media": "رفتن به رسانه بعدی",
+            "FullScreen": "تمام‌صفحه",
+            "Switch Clock": "تغییر ساعت",
+            "no-media-message": "لطفاً رسانه اضافه کنید.",
+            "no-repeat-message": "لطفاً تکرار را فعال کنید.",
+            "not-supported-media-message": "این رسانه قابل پخش نیست.",
+            "wake-up-timer-not-working": "تایمر بیدارباش احتمالاً در این دستگاه به‌درستی کار نخواهد کرد.",
+            "noscript-message": "جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید."
         },
         "fr": {
             "lang-label": "Français",
@@ -5995,7 +6171,7 @@ define("resource/config", [], {
         "rewindSpan": 5000,
         "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 0.1,
-        "maxBlur": 100
+        "maxBlur": 50
     },
     "clock": {
         "alternate": {
@@ -8004,8 +8180,14 @@ define("resource/control", [], {
         "id": "fade-in",
         "enum": [
             "1h",
+            "55m",
+            "50m",
             "45m",
+            "40m",
+            "35m",
             "30m",
+            "25m",
+            "20m",
             "15m",
             "10m",
             "5m",
@@ -8077,8 +8259,14 @@ define("resource/control", [], {
             "1.5h",
             "1.25h",
             "1h",
+            "55m",
+            "50m",
             "45m",
+            "40m",
+            "35m",
             "30m",
+            "25m",
+            "20m",
             "15m",
             "10m",
             "5m",
@@ -8728,7 +8916,7 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                         this.timeDomainDataArray[channel] = new Uint8Array(this.analyserNodes[channel].fftSize);
                     }
                     this.analyserNodes[channel].getByteTimeDomainData(this.timeDomainDataArray[channel]);
-                    this.isValidFrequencyData[channel] = true;
+                    this.isValidTimeDomainData[channel] = true;
                 }
                 return this.timeDomainDataArray[channel];
             };

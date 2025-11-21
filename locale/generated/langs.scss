@@ -3,22 +3,24 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 36s infinite;
+        animation: noscript-langs-fade 45s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
     *[lang="de"] { animation-delay: 5.5s; }
-    *[lang="en"] { animation-delay: 10s; }
-    *[lang="es"] { animation-delay: 14.5s; }
-    *[lang="fr"] { animation-delay: 19s; }
-    *[lang="it"] { animation-delay: 23.5s; }
-    *[lang="ja"] { animation-delay: 28s; }
-    *[lang="pt"] { animation-delay: 32.5s; }
+    *[lang="el"] { animation-delay: 10s; }
+    *[lang="en"] { animation-delay: 14.5s; }
+    *[lang="es"] { animation-delay: 19s; }
+    *[lang="fa"] { animation-delay: 23.5s; }
+    *[lang="fr"] { animation-delay: 28s; }
+    *[lang="it"] { animation-delay: 32.5s; }
+    *[lang="ja"] { animation-delay: 37s; }
+    *[lang="pt"] { animation-delay: 41.5s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    2.5% { opacity: 1; }
-    12.5% { opacity: 1; }
-    15% { opacity: 0; }
+    2% { opacity: 1; }
+    10% { opacity: 1; }
+    12% { opacity: 0; }
     100% { opacity: 0; }
 }

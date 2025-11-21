@@ -99,7 +99,7 @@ export namespace Analyser
                     this.timeDomainDataArray[channel] = new Uint8Array(this.analyserNodes[channel].fftSize);
                 }
                 this.analyserNodes[channel].getByteTimeDomainData(this.timeDomainDataArray[channel]);
-                this.isValidFrequencyData[channel] = true;
+                this.isValidTimeDomainData[channel] = true;
             }
             return this.timeDomainDataArray[channel];
         }

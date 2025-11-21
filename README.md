@@ -14,7 +14,7 @@
 - ✅ Crossfade support
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
-- ✅ Multi-language Support: العربية(ar), Deutsch(de), English(en), Español(es), Français(fr), Italiano(it), 日本語(ja), Português(pt)
+- ✅ Multi-language Support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), Italiano(it), 日本語(ja), Português(pt)
 
 ## Screenshot
 

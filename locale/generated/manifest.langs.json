@@ -6,10 +6,16 @@
         "__LOCALE__": "de"
     },
     {
+        "__LOCALE__": "el"
+    },
+    {
         "__LOCALE__": "en"
     },
     {
         "__LOCALE__": "es"
+    },
+    {
+        "__LOCALE__": "fa"
     },
     {
         "__LOCALE__": "fr"
