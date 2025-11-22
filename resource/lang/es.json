@@ -10,6 +10,7 @@
     "stretch-label": "Estirar:",
     "padding-label": "Relleno:",
     "cross-fade-label": "Fundido cruzado:",
+    "cross-fade-with-blur-label": "Fundido cruzado con desenfoque:",
     "image-span-label": "Tiempo de visualización de la imagen:",
     "loop-short-media-label": "Repetir medios cortos:",
     "visualizer-label": "Visualizador:",

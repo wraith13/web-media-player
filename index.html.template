@@ -159,6 +159,10 @@ DUMMYSTYLE
                 <span data-lang-key="cross-fade-label"></span>
                 <select id="cross-fade"></select>
             </label>
+            <label for="cross-fade-with-blur">
+                <span data-lang-key="cross-fade-with-blur-label"></span>
+                <input id="cross-fade-with-blur" type="checkbox" />
+            </label>
             <label for="image-span">
                 <span data-lang-key="image-span-label"></span>
                 <select id="image-span"></select>

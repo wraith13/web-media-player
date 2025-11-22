@@ -10,6 +10,7 @@
     "stretch-label": "Stretch:",
     "padding-label": "Padding:",
     "cross-fade-label": "Cross Fade:",
+    "cross-fade-with-blur-label": "Cross Fade with Blur:",
     "image-span-label": "Image Display Time:",
     "loop-short-media-label": "Loop Short Media:",
     "visualizer-label": "Visualizer:",

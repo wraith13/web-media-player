@@ -1231,7 +1231,9 @@ label[for="volume-button"]
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
         inset-block-end: 4.5rem;
-        inset-inline-end: calc(50% - 9.5rem);
+        //inset-inline-end: calc(50% - 9.5rem);
+        left: 50%;
+        translate: -50% 0%;
         max-height: calc(100vh - 6.5rem);
         max-height: calc(100vh - (6.5rem + env(safe-area-inset-top) + env(safe-area-inset-bottom)));
         max-height: calc(100dvh - (6.5rem + env(safe-area-inset-top) + env(safe-area-inset-bottom)));

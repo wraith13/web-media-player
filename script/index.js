@@ -192,6 +192,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "توسيع:",
             "padding-label": "المسافة الداخلية:",
             "cross-fade-label": "تلاشي متقاطع:",
+            "cross-fade-with-blur-label": "تلاشي متقاطع مع ضبابية:",
             "image-span-label": "مدة عرض الصورة:",
             "loop-short-media-label": "تكرار الوسائط القصيرة:",
             "visualizer-label": "المصوِّر:",
@@ -274,6 +275,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Dehnen:",
             "padding-label": "Innenabstand:",
             "cross-fade-label": "Überblenden:",
+            "cross-fade-with-blur-label": "Überblenden mit Weichzeichnung:",
             "image-span-label": "Bildanzeigedauer:",
             "loop-short-media-label": "Kurze Medien wiederholen:",
             "visualizer-label": "Visualizer:",
@@ -356,6 +358,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Τέντωμα:",
             "padding-label": "Εσοχή:",
             "cross-fade-label": "Σταυρωτό ξεθώριασμα:",
+            "cross-fade-with-blur-label": "Σταυρωτό ξεθώριασμα με θόλωση:",
             "image-span-label": "Χρόνος εμφάνισης εικόνας:",
             "loop-short-media-label": "Επανάληψη σύντομων μέσων:",
             "visualizer-label": "Οπτικοποιητής:",
@@ -438,6 +441,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Stretch:",
             "padding-label": "Padding:",
             "cross-fade-label": "Cross Fade:",
+            "cross-fade-with-blur-label": "Cross Fade with Blur:",
             "image-span-label": "Image Display Time:",
             "loop-short-media-label": "Loop Short Media:",
             "visualizer-label": "Visualizer:",
@@ -520,6 +524,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Estirar:",
             "padding-label": "Relleno:",
             "cross-fade-label": "Fundido cruzado:",
+            "cross-fade-with-blur-label": "Fundido cruzado con desenfoque:",
             "image-span-label": "Tiempo de visualización de la imagen:",
             "loop-short-media-label": "Repetir medios cortos:",
             "visualizer-label": "Visualizador:",
@@ -602,6 +607,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "کشیدن:",
             "padding-label": "فاصله (Padding):",
             "cross-fade-label": "محو شدن متقابل:",
+            "cross-fade-with-blur-label": "محو شدن متقابل با تاری:",
             "image-span-label": "زمان نمایش تصویر:",
             "loop-short-media-label": "پخش حلقه‌ای رسانه‌های کوتاه:",
             "visualizer-label": "ویژوالایزر:",
@@ -684,6 +690,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Étirement :",
             "padding-label": "Rembourrage :",
             "cross-fade-label": "Fondu enchaîné :",
+            "cross-fade-with-blur-label": "Fondu enchaîné avec flou :",
             "image-span-label": "Durée d'affichage de l'image :",
             "loop-short-media-label": "Boucler les médias courts :",
             "visualizer-label": "Visualiseur :",
@@ -766,6 +773,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Allunga:",
             "padding-label": "Imbottitura:",
             "cross-fade-label": "Dissolvenza incrociata:",
+            "cross-fade-with-blur-label": "Dissolvenza incrociata con sfocatura:",
             "image-span-label": "Tempo di visualizzazione immagine:",
             "loop-short-media-label": "Ripeti i media brevi:",
             "visualizer-label": "Visualizzatore:",
@@ -848,6 +856,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "ストレッチ:",
             "padding-label": "パディング:",
             "cross-fade-label": "クロスフェード:",
+            "cross-fade-with-blur-label": "ぼかし付きクロスフェード:",
             "image-span-label": "画像表示時間:",
             "loop-short-media-label": "短いメディアをループ再生:",
             "visualizer-label": "ビジュアライザー:",
@@ -930,6 +939,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "stretch-label": "Esticar:",
             "padding-label": "Preenchimento:",
             "cross-fade-label": "Dissolução cruzada:",
+            "cross-fade-with-blur-label": "Dissolução cruzada com desfoque:",
             "image-span-label": "Tempo de exibição da imagem:",
             "loop-short-media-label": "Repetir mídias curtas:",
             "visualizer-label": "Visualizador:",
@@ -2949,6 +2959,10 @@ define("resource/control", [], {
         ],
         "default": 1500
     },
+    "crossFadeWithBlur": {
+        "id": "cross-fade-with-blur",
+        "default": true
+    },
     "imageSpan": {
         "id": "image-span",
         "enum": [
@@ -3276,6 +3290,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 _library_2.Library.Locale.map("off") :
                 _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
         });
+        UI.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
@@ -5641,11 +5656,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                             fadeoutingTrack.setOpacity(1 * currentTimerFade);
-                            fadeoutingTrack.setBlur(fadeoutProgress);
+                            fadeoutingTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress : 1);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.setOpacity(progress * currentTimerFade);
-                        currentTrack.setBlur(progress);
+                        currentTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? progress : 1);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
@@ -6533,6 +6548,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.stretchRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.stretchRange.options.change);
             ui_12.UI.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_12.UI.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_12.UI.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
             ui_12.UI.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
@@ -6592,6 +6608,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.stretchRange,
                         ui_12.UI.paddingCheckbox,
                         ui_12.UI.crossFadeSelect,
+                        ui_12.UI.crossFadeWithBlurCheckbox,
                         ui_12.UI.imageSpanSelect,
                         ui_12.UI.loopShortMediaCheckbox,
                         ui_12.UI.visualizerSelect,

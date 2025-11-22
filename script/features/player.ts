@@ -335,11 +335,11 @@ export namespace Player
                             const fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
                             fadeoutingTrack.setOpacity(1 *currentTimerFade);
-                            fadeoutingTrack.setBlur(fadeoutProgress);
+                            fadeoutingTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress: 1);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
                         currentTrack.setOpacity(progress *currentTimerFade);
-                        currentTrack.setBlur(progress);
+                        currentTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? progress: 1);
                     }
                 }
                 else

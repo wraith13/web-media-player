@@ -576,6 +576,7 @@ export namespace Events
         UI.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.stretchRange.options.change);
         UI.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
         UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
@@ -652,6 +653,7 @@ export namespace Events
                         UI.stretchRange,
                         UI.paddingCheckbox,
                         UI.crossFadeSelect,
+                        UI.crossFadeWithBlurCheckbox,
                         UI.imageSpanSelect,
                         UI.loopShortMediaCheckbox,
                         UI.visualizerSelect,

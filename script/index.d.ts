@@ -42,6 +42,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -124,6 +125,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -206,6 +208,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -288,6 +291,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -370,6 +374,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -452,6 +457,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -534,6 +540,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -616,6 +623,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -698,6 +706,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -780,6 +789,7 @@ declare module "locale/generated/master" {
             "stretch-label": string;
             "padding-label": string;
             "cross-fade-label": string;
+            "cross-fade-with-blur-label": string;
             "image-span-label": string;
             "loop-short-media-label": string;
             "visualizer-label": string;
@@ -867,6 +877,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -949,6 +960,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1031,6 +1043,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1113,6 +1126,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1195,6 +1209,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1277,6 +1292,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1359,6 +1375,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1441,6 +1458,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1523,6 +1541,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -1605,6 +1624,7 @@ declare module "script/library/locale" {
                 "stretch-label": string;
                 "padding-label": string;
                 "cross-fade-label": string;
+                "cross-fade-with-blur-label": string;
                 "image-span-label": string;
                 "loop-short-media-label": string;
                 "visualizer-label": string;
@@ -2090,6 +2110,7 @@ declare module "script/ui" {
         const stretchRange: Library.Control.Range;
         const paddingCheckbox: Library.Control.Checkbox;
         const crossFadeSelect: Library.Control.Select<number>;
+        const crossFadeWithBlurCheckbox: Library.Control.Checkbox;
         const imageSpanSelect: Library.Control.Select<number>;
         const loopShortMediaCheckbox: Library.Control.Checkbox;
         const visualizerSelect: Library.Control.Select<string>;

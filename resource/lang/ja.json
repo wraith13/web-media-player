@@ -10,6 +10,7 @@
     "stretch-label": "ストレッチ:",
     "padding-label": "パディング:",
     "cross-fade-label": "クロスフェード:",
+    "cross-fade-with-blur-label": "ぼかし付きクロスフェード:",
     "image-span-label": "画像表示時間:",
     "loop-short-media-label": "短いメディアをループ再生:",
     "visualizer-label": "ビジュアライザー:",

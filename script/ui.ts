@@ -78,6 +78,8 @@ export namespace UI
                 Tools.Timespan.toHumanizedString(value, undefined, locale)
         }
     );
+    export const crossFadeWithBlurCheckbox =
+        new Library.Control.Checkbox(control.crossFadeWithBlur);
     export const imageSpanSelect =
         new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
     export const loopShortMediaCheckbox =
