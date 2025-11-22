@@ -136,8 +136,8 @@ graph TB;
     ./image/*.svg-->bh([build html]);
     ./index.html.template-->bh([build html]);
     bh([build html])-->ih[[./index.html]];
-    README.template.md-->bl([build locale]);
-    bl([build locale])-->rdm[[README.md]];
+    ./README.template.md-->bl([build locale]);
+    bl([build locale])-->rdm[[./README.md]];
 ```
 ( You can see this diagram in VS code with [Markdown Preview Mermaid Support extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). )
 

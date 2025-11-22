@@ -14,7 +14,7 @@
 - ✅ Crossfade support
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
-- ✅ Multi-language Support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), Italiano(it), 日本語(ja), Português(pt)
+- ✅ Multi-language Support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Italiano(it), 日本語(ja), Português(pt)
 
 ## Screenshot
 
@@ -136,8 +136,8 @@ graph TB;
     ./image/*.svg-->bh([build html]);
     ./index.html.template-->bh([build html]);
     bh([build html])-->ih[[./index.html]];
-    README.template.md-->bl([build locale]);
-    bl([build locale])-->rdm[[README.md]];
+    ./README.template.md-->bl([build locale]);
+    bl([build locale])-->rdm[[./README.md]];
 ```
 ( You can see this diagram in VS code with [Markdown Preview Mermaid Support extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). )
 

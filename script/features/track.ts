@@ -16,6 +16,7 @@ export class Track
     paddingElement: HTMLImageElement | HTMLVideoElement | null = null;
     visualElement: HTMLDivElement | Visualizer.VisualizerDom | null;
     media: Media.Entry;
+    index: number;
     startTime: number | null = null;
     elapsedTime: number | null = null;
     fadeRate: number = 0.0;
@@ -24,6 +25,7 @@ export class Track
     constructor(media: Media.Entry, index: number)
     {
         this.media = media;
+        this.index = index;
         switch(media.category)
         {
         case "image":
@@ -233,6 +235,7 @@ export class Track
             if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
             {
                 UI.visualizer.classList.toggle("on", true);
+                UI.visualizer.classList.toggle("odd", 0 !== (this.index %2));
                 Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
             }
             else

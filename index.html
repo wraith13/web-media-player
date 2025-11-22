@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Nov 21 2025 22:26:22 GMT+0900 (日本標準時)
+    build at: Sat Nov 22 2025 21:52:26 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -46,6 +46,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
 <meta name="description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
+<meta name="description" lang="hi" content="वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
@@ -65,6 +66,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="es" content="Reproductor multimedia web que se ejecuta en un navegador">
 <meta name="twitter:description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
+<meta name="twitter:description" lang="hi" content="वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
@@ -163,7 +165,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 45s infinite;
+  animation: noscript-langs-fade 49.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -186,27 +188,30 @@ button {
 #noscript *[lang=fr] {
   animation-delay: 28s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=hi] {
   animation-delay: 32.5s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 37s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ja] {
   animation-delay: 41.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 46s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  2% {
+  1.8181818181818183% {
     opacity: 1;
   }
-  10% {
+  9.090909090909092% {
     opacity: 1;
   }
-  12% {
+  10.90909090909091% {
     opacity: 0;
   }
   100% {
@@ -2964,6 +2969,18 @@ body:not(.play) #overlay-panel:not(.show)::before {
   width: 100%;
   height: 100%;
 }
+#overlay-panel #visualizer .visual-progress-circle {
+  position: static;
+  left: initial;
+  top: initial;
+  transform: scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  width: 75%;
+  height: 75%;
+  opacity: 0.7;
+}
+#overlay-panel #visualizer.odd .visual-progress-circle {
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
+}
 #overlay-panel.top-right, #overlay-panel.top-left, #overlay-panel.center {
   display: flex;
   flex-direction: column;
@@ -3141,6 +3158,7 @@ DUMMYSTYLE
 <div lang="es" dir="ltr">JavaScript está deshabilitado. Por favor, habilita JavaScript.</div>
 <div lang="fa" dir="rtl">جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید.</div>
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
+<div lang="hi" dir="ltr">JavaScript अक्षम है। कृपया JavaScript सक्षम करें।</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
@@ -3498,8 +3516,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Nov 21 2025 22:26:22 GMT+0900 (日本標準時)",
-    tick: 1763731582627
+    at: "Sat Nov 22 2025 21:52:26 GMT+0900 (日本標準時)",
+    tick: 1763815946408
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5823,6 +5841,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "Ce média ne peut pas être lu.",
             "wake-up-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
             "noscript-message": "JavaScript est désactivé. Veuillez activer JavaScript."
+        },
+        "hi": {
+            "lang-label": "हिन्दी",
+            "lang-direction": "ltr",
+            "Auto": "स्वचालित",
+            "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
+            "media-count-label": "मीडिया गिनती:",
+            "media-length-label": "मीडिया अवधि:",
+            "with-fullscreen-label": "फ़ुलस्क्रीन:",
+            "brightness-label": "उजाला:",
+            "stretch-label": "स्ट्रेच:",
+            "padding-label": "पैडिंग:",
+            "cross-fade-label": "क्रॉस फेड:",
+            "cross-fade-with-blur-label": "ब्लर के साथ क्रॉस फेड:",
+            "image-span-label": "छवि प्रदर्शन समय:",
+            "loop-short-media-label": "छोटे मीडिया को लूप करें:",
+            "visualizer-label": "विज़ुअलाइज़र:",
+            "visualizer-simple": "सरल",
+            "visualizer-plane-frequency": "समतल आवृत्ति",
+            "visualizer-plane-waveform": "समतल तरंगरूप",
+            "visualizer-arc-frequency": "आर्क आवृत्ति",
+            "visualizer-arc-waveform": "आर्क तरंगरूप",
+            "visualizer-double-arc": "डबल आर्क",
+            "visualizer-stereo-arc-frequency": "स्टीरियो आर्क आवृत्ति",
+            "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
+            "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
+            "overlay-style-label": "ओवरले शैली:",
+            "hide": "छिपाएँ",
+            "blend": "ब्लेंड",
+            "white": "सफ़ेद",
+            "black": "काला",
+            "system": "सिस्टम",
+            "alternate": "वैकल्पिक",
+            "rainbow": "इंद्रधनुष",
+            "overlay-position-label": "ओवरले स्थिति:",
+            "center": "केंद्र",
+            "top-right": "ऊपर-दायाँ",
+            "bottom-right": "नीचे-दायाँ",
+            "bottom-left": "नीचे-बायाँ",
+            "top-left": "ऊपर-बायाँ",
+            "rotate": "घुमाएँ",
+            "with-weather-label": "मौसम:",
+            "weather-location-label": "मौसम स्थान:",
+            "ip-address": "IP पता (कम सटीकता)",
+            "geolocation": "जियोलोकेशन (उच्च सटीकता)",
+            "with-clock-label": "घड़ी:",
+            "with-date-label": "तारीख:",
+            "with-calendar-label": "कैलेंडर:",
+            "with-visualizer-label": "विज़ुअलाइज़र (ओवरले):",
+            "show-fps-label": "FPS दिखाएँ:",
+            "shortcuts-label": "कीबोर्ड शॉर्टकट:",
+            "language-label": "भाषा:",
+            "url-label": "इस सेटिंग का लिंक",
+            "repository-label": "रिपॉज़िटरी",
+            "off": "बंद",
+            "fade-in-label": "फेड-इन समय:",
+            "wakeup-label": "वेक-अप टाइमर:",
+            "fade-out-label": "फेड-आउट समय:",
+            "sleep-label": "स्लीप टाइमर:",
+            "timeUnitMs": "मिलीसेकंड",
+            "timeUnitS": "सेक",
+            "timeUnitM": "मिन",
+            "timeUnitH": "घं",
+            "timeUnitD": "दिन",
+            "ago": "पहले",
+            "Shuffle": "शफल",
+            "Repeat": "दोहराएँ",
+            "Play / Pause": "प्ले / पॉज़",
+            "Mute / Unmute": "म्यूट / अनम्यूट",
+            "Volume Up / Down": "वॉल्यूम ऊपर / नीचे",
+            "Seek": "खोजें",
+            "Seek Backward": "पीछे जाएँ",
+            "Seek Forward": "आगे जाएँ",
+            "Go to Previous/Next Media": "पिछले/अगले मीडिया पर जाएँ",
+            "Go to Previous Media": "पिछले मीडिया पर जाएँ",
+            "Go to Next Media": "अगले मीडिया पर जाएँ",
+            "FullScreen": "पूर्ण स्क्रीन",
+            "Switch Clock": "घड़ी बदलें",
+            "no-media-message": "कृपया मीडिया जोड़ें।",
+            "no-repeat-message": "कृपया रिपीट सक्षम करें।",
+            "not-supported-media-message": "यह मीडिया प्ले नहीं किया जा सकता।",
+            "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
+            "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
         },
         "it": {
             "lang-label": "Italiano",
@@ -8198,6 +8299,10 @@ define("resource/control", [], {
     "fadeIn": {
         "id": "fade-in",
         "enum": [
+            "2h",
+            "1.75h",
+            "1.5h",
+            "1.25h",
             "1h",
             "55m",
             "50m",
@@ -8232,6 +8337,18 @@ define("resource/control", [], {
     "sleep": {
         "id": "sleep",
         "enum": [
+            "12h",
+            "11.5h",
+            "11h",
+            "10.5h",
+            "10h",
+            "9.5h",
+            "9h",
+            "8.5h",
+            "8h",
+            "7.5h",
+            "7h",
+            "6.5h",
             "6h",
             "5.75h",
             "5.5h",
@@ -9862,6 +9979,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.currentTimeForValidation = 0.0;
             this.analyser = null;
             this.media = media;
+            this.index = index;
             switch (media.category) {
                 case "image":
                     this.playerElement = this.makePlayerElement();
@@ -10044,6 +10162,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             if ("current" === truckType) {
                 if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
                     ui_8.UI.visualizer.classList.toggle("on", true);
+                    ui_8.UI.visualizer.classList.toggle("odd", 0 !== (this.index % 2));
                     visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
                 }
                 else {

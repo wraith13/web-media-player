@@ -81,7 +81,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 45s infinite;
+  animation: noscript-langs-fade 49.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -104,27 +104,30 @@ button {
 #noscript *[lang=fr] {
   animation-delay: 28s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=hi] {
   animation-delay: 32.5s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 37s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ja] {
   animation-delay: 41.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 46s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  2% {
+  1.8181818181818183% {
     opacity: 1;
   }
-  10% {
+  9.090909090909092% {
     opacity: 1;
   }
-  12% {
+  10.90909090909091% {
     opacity: 0;
   }
   100% {
@@ -2881,6 +2884,18 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #overlay-panel #visualizer canvas {
   width: 100%;
   height: 100%;
+}
+#overlay-panel #visualizer .visual-progress-circle {
+  position: static;
+  left: initial;
+  top: initial;
+  transform: scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  width: 75%;
+  height: 75%;
+  opacity: 0.7;
+}
+#overlay-panel #visualizer.odd .visual-progress-circle {
+  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
 }
 #overlay-panel.top-right, #overlay-panel.top-left, #overlay-panel.center {
   display: flex;

@@ -3,7 +3,7 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 45s infinite;
+        animation: noscript-langs-fade 49.5s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
     *[lang="de"] { animation-delay: 5.5s; }
@@ -12,15 +12,16 @@
     *[lang="es"] { animation-delay: 19s; }
     *[lang="fa"] { animation-delay: 23.5s; }
     *[lang="fr"] { animation-delay: 28s; }
-    *[lang="it"] { animation-delay: 32.5s; }
-    *[lang="ja"] { animation-delay: 37s; }
-    *[lang="pt"] { animation-delay: 41.5s; }
+    *[lang="hi"] { animation-delay: 32.5s; }
+    *[lang="it"] { animation-delay: 37s; }
+    *[lang="ja"] { animation-delay: 41.5s; }
+    *[lang="pt"] { animation-delay: 46s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    2% { opacity: 1; }
-    10% { opacity: 1; }
-    12% { opacity: 0; }
+    1.8181818181818183% { opacity: 1; }
+    9.090909090909092% { opacity: 1; }
+    10.90909090909091% { opacity: 0; }
     100% { opacity: 0; }
 }
