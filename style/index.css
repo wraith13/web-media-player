@@ -81,7 +81,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 49.5s infinite;
+  animation: noscript-langs-fade 54s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -107,27 +107,30 @@ button {
 #noscript *[lang=hi] {
   animation-delay: 32.5s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=id] {
   animation-delay: 37s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 41.5s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ja] {
   animation-delay: 46s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 50.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.8181818181818183% {
+  1.666666666666667% {
     opacity: 1;
   }
-  9.090909090909092% {
+  8.333333333333334% {
     opacity: 1;
   }
-  10.90909090909091% {
+  10% {
     opacity: 0;
   }
   100% {
@@ -2931,8 +2934,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #pressed-key {
   position: fixed;
   border-radius: 0.5rem;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   padding: 0.5rem;
   gap: 0.5rem 0.5rem;
@@ -2975,7 +2978,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #keyboard-shortcut {
   margin-block: 0.5rem;
   margin-inline: 0.5rem;
-  margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
   border-radius: 0.5rem;
   padding-block: 0.5rem;
   padding-inline: 1rem;

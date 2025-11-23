@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Nov 22 2025 21:52:26 GMT+0900 (日本標準時)
+    build at: Sun Nov 23 2025 01:56:07 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -47,6 +47,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="description" lang="hi" content="वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर">
+<meta name="description" lang="id" content="Pemutar media berbasis web yang berjalan di peramban">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
@@ -67,6 +68,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="fa" content="پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود">
 <meta name="twitter:description" lang="fr" content="Lecteur multimédia basé sur le web qui s'exécute dans un navigateur">
 <meta name="twitter:description" lang="hi" content="वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर">
+<meta name="twitter:description" lang="id" content="Pemutar media berbasis web yang berjalan di peramban">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
@@ -165,7 +167,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 49.5s infinite;
+  animation: noscript-langs-fade 54s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -191,27 +193,30 @@ button {
 #noscript *[lang=hi] {
   animation-delay: 32.5s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=id] {
   animation-delay: 37s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 41.5s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ja] {
   animation-delay: 46s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 50.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.8181818181818183% {
+  1.666666666666667% {
     opacity: 1;
   }
-  9.090909090909092% {
+  8.333333333333334% {
     opacity: 1;
   }
-  10.90909090909091% {
+  10% {
     opacity: 0;
   }
   100% {
@@ -3015,8 +3020,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #pressed-key {
   position: fixed;
   border-radius: 0.5rem;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   padding: 0.5rem;
   gap: 0.5rem 0.5rem;
@@ -3059,7 +3064,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #keyboard-shortcut {
   margin-block: 0.5rem;
   margin-inline: 0.5rem;
-  margin-inline-start: calc(0.5rem + env(safe-area-inset-left));
   border-radius: 0.5rem;
   padding-block: 0.5rem;
   padding-inline: 1rem;
@@ -3159,6 +3163,7 @@ DUMMYSTYLE
 <div lang="fa" dir="rtl">جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید.</div>
 <div lang="fr" dir="ltr">JavaScript est désactivé. Veuillez activer JavaScript.</div>
 <div lang="hi" dir="ltr">JavaScript अक्षम है। कृपया JavaScript सक्षम करें।</div>
+<div lang="id" dir="ltr">JavaScript dinonaktifkan. Aktifkan JavaScript.</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
@@ -3516,8 +3521,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Nov 22 2025 21:52:26 GMT+0900 (日本標準時)",
-    tick: 1763815946408
+    at: "Sun Nov 23 2025 01:56:07 GMT+0900 (日本標準時)",
+    tick: 1763830567773
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5925,6 +5930,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
             "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
         },
+        "id": {
+            "lang-label": "Bahasa Indonesia",
+            "lang-direction": "ltr",
+            "Auto": "Otomatis",
+            "description": "Pemutar media berbasis web yang berjalan di peramban",
+            "media-count-label": "Jumlah Media:",
+            "media-length-label": "Durasi Media:",
+            "with-fullscreen-label": "Layar Penuh:",
+            "brightness-label": "Kecerahan:",
+            "stretch-label": "Stretch:",
+            "padding-label": "Padding:",
+            "cross-fade-label": "Cross Fade:",
+            "cross-fade-with-blur-label": "Cross Fade dengan Blur:",
+            "image-span-label": "Waktu Tampil Gambar:",
+            "loop-short-media-label": "Loop Media Pendek:",
+            "visualizer-label": "Visualizer:",
+            "visualizer-simple": "Sederhana",
+            "visualizer-plane-frequency": "Frekuensi Datar",
+            "visualizer-plane-waveform": "Bentuk Gelombang Datar",
+            "visualizer-arc-frequency": "Frekuensi Busur",
+            "visualizer-arc-waveform": "Bentuk Gelombang Busur",
+            "visualizer-double-arc": "Busur Ganda",
+            "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
+            "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
+            "visualizer-stereo-double-arc": "Busur Stereo Ganda",
+            "overlay-style-label": "Gaya Overlay:",
+            "hide": "Sembunyikan",
+            "blend": "Campur",
+            "white": "Putih",
+            "black": "Hitam",
+            "system": "Sistem",
+            "alternate": "Bergantian",
+            "rainbow": "Pelangi",
+            "overlay-position-label": "Posisi Overlay:",
+            "center": "Tengah",
+            "top-right": "Kanan Atas",
+            "bottom-right": "Kanan Bawah",
+            "bottom-left": "Kiri Bawah",
+            "top-left": "Kiri Atas",
+            "rotate": "Putar",
+            "with-weather-label": "Cuaca:",
+            "weather-location-label": "Lokasi Cuaca:",
+            "ip-address": "Alamat IP (Akurasi Rendah)",
+            "geolocation": "Geolokasi (Akurasi Tinggi)",
+            "with-clock-label": "Jam:",
+            "with-date-label": "Tanggal:",
+            "with-calendar-label": "Kalender:",
+            "with-visualizer-label": "Visualizer (Overlay):",
+            "show-fps-label": "Tampilkan FPS:",
+            "shortcuts-label": "Shortcut Keyboard:",
+            "language-label": "Bahasa:",
+            "url-label": "Tautkan ke pengaturan ini",
+            "repository-label": "repositori",
+            "off": "Mati",
+            "fade-in-label": "Waktu Fade-in:",
+            "wakeup-label": "Timer Bangun:",
+            "fade-out-label": "Waktu Fade-out:",
+            "sleep-label": "Timer Tidur:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "lalu",
+            "Shuffle": "Acak",
+            "Repeat": "Ulangi",
+            "Play / Pause": "Putar / Jeda",
+            "Mute / Unmute": "Diam / Bunyikan",
+            "Volume Up / Down": "Naikkan / Turunkan Volume",
+            "Seek": "Loncat",
+            "Seek Backward": "Mundur",
+            "Seek Forward": "Maju",
+            "Go to Previous/Next Media": "Ke Media Sebelumnya/Berikutnya",
+            "Go to Previous Media": "Ke Media Sebelumnya",
+            "Go to Next Media": "Ke Media Berikutnya",
+            "FullScreen": "Layar Penuh",
+            "Switch Clock": "Ganti Jam",
+            "no-media-message": "Silakan tambahkan media.",
+            "no-repeat-message": "Silakan aktifkan ulang.",
+            "not-supported-media-message": "Media ini tidak dapat diputar.",
+            "wake-up-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
+            "noscript-message": "JavaScript dinonaktifkan. Aktifkan JavaScript."
+        },
         "it": {
             "lang-label": "Italiano",
             "lang-direction": "ltr",
@@ -7493,6 +7581,19 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         var style = "youtube";
         var currentCommandMap = null;
         var pressedKeyDiv = null;
+        var localeDirection = "ltr";
+        Shortcuts.setLocaleDirection = function (direction) {
+            localeDirection = direction;
+        };
+        var swapLeftRight = function (key, reversed) {
+            var _a;
+            if (reversed === void 0) { reversed = true; }
+            return reversed ?
+                ((_a = {
+                    "ArrowLeft": "ArrowRight",
+                    "ArrowRight": "ArrowLeft",
+                }[key]) !== null && _a !== void 0 ? _a : key) : key;
+        };
         var displayedKeys = {};
         var keyDisplayNames = {
             "ArrowUp": "↑",
@@ -7524,7 +7625,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 .filter(filter)
                 .map(function (i) {
                 return ({
-                    keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(key); }); }),
+                    keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(swapLeftRight(key, "rtl" === localeDirection)); }); }),
                     description: i.description,
                 });
             });
@@ -7537,16 +7638,17 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         };
         var pressedKeys = [];
         var getShortcutKeys = function (type, normalizedKey) {
+            var adjustedDirectionKey = swapLeftRight(normalizedKey, "rtl" === localeDirection);
             switch (type) {
                 case "onKeyDown":
-                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
-                    pressedKeys.push(normalizedKey);
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== adjustedDirectionKey; });
+                    pressedKeys.push(adjustedDirectionKey);
                     displayedKeys[normalizedKey] = { pressedAt: Date.now() };
                     updatePressedKeyDiv();
                     return pressedKeys;
                 case "onKeyUp":
                     var result = __spreadArray([], pressedKeys, true);
-                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== adjustedDirectionKey; });
                     if (displayedKeys[normalizedKey]) {
                         if (displayedKeys[normalizedKey].removeTimer) {
                             clearTimeout(displayedKeys[normalizedKey].removeTimer);
@@ -8547,7 +8649,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             _library_2.Library.Locale.setLocale(UI.languageSelect.get(), url_1.Url.params["locale"]);
             var lang = _library_2.Library.Locale.getLocale();
             document.documentElement.setAttribute("lang", lang);
-            document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
+            var localeDirection = _library_2.Library.Locale.getDirection(lang);
+            document.documentElement.setAttribute("dir", localeDirection);
+            _library_2.Library.Shortcuts.setLocaleDirection(localeDirection);
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
             UI.crossFadeSelect.reloadOptions();
             UI.imageSpanSelect.reloadOptions();

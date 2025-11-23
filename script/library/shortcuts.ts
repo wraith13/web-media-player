@@ -14,6 +14,20 @@ export namespace Shortcuts
     let style: StyleKey = "youtube";
     let currentCommandMap: CommandMap | null = null;
     let pressedKeyDiv: HTMLDivElement | null = null;
+    let localeDirection: "ltr" | "rtl" = "ltr";
+    export const setLocaleDirection = (direction: "ltr" | "rtl") =>
+    {
+        localeDirection = direction;
+    };
+    const swapLeftRight = (key: string, reversed: boolean = true): string =>
+        reversed ?
+            (
+                (
+                    {
+                        "ArrowLeft": "ArrowRight",
+                        "ArrowRight": "ArrowLeft",
+                    } as { [key: string]: string })[key] ?? key
+            ): key;
     const displayedKeys: { [key: string]: { pressedAt: number, removeTimer?: ReturnType<typeof setTimeout>, } } = {};
     const keyDisplayNames =
     {
@@ -45,7 +59,7 @@ export namespace Shortcuts
             (
                 i =>
                 ({
-                    keyss: i.shortcuts.map(j => getKeys(j).map(key => getDisplayKeyName(key))),
+                    keyss: i.shortcuts.map(j => getKeys(j).map(key => getDisplayKeyName(swapLeftRight(key, "rtl" === localeDirection)))),
                     description: i.description,
                 })
             );
@@ -58,17 +72,18 @@ export namespace Shortcuts
     let pressedKeys: string[] = [];
     const getShortcutKeys = (type: "onKeyDown" | "onKeyUp", normalizedKey: string) =>
     {
+        const adjustedDirectionKey = swapLeftRight(normalizedKey, "rtl" === localeDirection);
         switch(type)
         {
         case "onKeyDown":
-            pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
-            pressedKeys.push(normalizedKey);
+            pressedKeys = pressedKeys.filter(i => i !== adjustedDirectionKey);
+            pressedKeys.push(adjustedDirectionKey);
             displayedKeys[normalizedKey] = { pressedAt: Date.now() };
             updatePressedKeyDiv();
             return pressedKeys;
         case "onKeyUp":
             const result = [...pressedKeys];
-            pressedKeys = pressedKeys.filter(i => i !== normalizedKey);
+            pressedKeys = pressedKeys.filter(i => i !== adjustedDirectionKey);
             if (displayedKeys[normalizedKey])
             {
                 if (displayedKeys[normalizedKey].removeTimer)

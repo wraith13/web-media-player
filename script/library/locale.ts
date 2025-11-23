@@ -38,7 +38,7 @@ export namespace Locale
         }
     };
     export const getDirection = (l?: Language) =>
-        master[l ?? lang]["lang-direction"];
+        master[l ?? lang]["lang-direction"] as "ltr" | "rtl";
     export const isRtl = (l?: Language) =>
         "rtl" === getDirection(l);
     export const isLtr = (l?: Language) =>

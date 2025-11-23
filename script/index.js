@@ -844,6 +844,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
             "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
         },
+        "id": {
+            "lang-label": "Bahasa Indonesia",
+            "lang-direction": "ltr",
+            "Auto": "Otomatis",
+            "description": "Pemutar media berbasis web yang berjalan di peramban",
+            "media-count-label": "Jumlah Media:",
+            "media-length-label": "Durasi Media:",
+            "with-fullscreen-label": "Layar Penuh:",
+            "brightness-label": "Kecerahan:",
+            "stretch-label": "Stretch:",
+            "padding-label": "Padding:",
+            "cross-fade-label": "Cross Fade:",
+            "cross-fade-with-blur-label": "Cross Fade dengan Blur:",
+            "image-span-label": "Waktu Tampil Gambar:",
+            "loop-short-media-label": "Loop Media Pendek:",
+            "visualizer-label": "Visualizer:",
+            "visualizer-simple": "Sederhana",
+            "visualizer-plane-frequency": "Frekuensi Datar",
+            "visualizer-plane-waveform": "Bentuk Gelombang Datar",
+            "visualizer-arc-frequency": "Frekuensi Busur",
+            "visualizer-arc-waveform": "Bentuk Gelombang Busur",
+            "visualizer-double-arc": "Busur Ganda",
+            "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
+            "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
+            "visualizer-stereo-double-arc": "Busur Stereo Ganda",
+            "overlay-style-label": "Gaya Overlay:",
+            "hide": "Sembunyikan",
+            "blend": "Campur",
+            "white": "Putih",
+            "black": "Hitam",
+            "system": "Sistem",
+            "alternate": "Bergantian",
+            "rainbow": "Pelangi",
+            "overlay-position-label": "Posisi Overlay:",
+            "center": "Tengah",
+            "top-right": "Kanan Atas",
+            "bottom-right": "Kanan Bawah",
+            "bottom-left": "Kiri Bawah",
+            "top-left": "Kiri Atas",
+            "rotate": "Putar",
+            "with-weather-label": "Cuaca:",
+            "weather-location-label": "Lokasi Cuaca:",
+            "ip-address": "Alamat IP (Akurasi Rendah)",
+            "geolocation": "Geolokasi (Akurasi Tinggi)",
+            "with-clock-label": "Jam:",
+            "with-date-label": "Tanggal:",
+            "with-calendar-label": "Kalender:",
+            "with-visualizer-label": "Visualizer (Overlay):",
+            "show-fps-label": "Tampilkan FPS:",
+            "shortcuts-label": "Shortcut Keyboard:",
+            "language-label": "Bahasa:",
+            "url-label": "Tautkan ke pengaturan ini",
+            "repository-label": "repositori",
+            "off": "Mati",
+            "fade-in-label": "Waktu Fade-in:",
+            "wakeup-label": "Timer Bangun:",
+            "fade-out-label": "Waktu Fade-out:",
+            "sleep-label": "Timer Tidur:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "lalu",
+            "Shuffle": "Acak",
+            "Repeat": "Ulangi",
+            "Play / Pause": "Putar / Jeda",
+            "Mute / Unmute": "Diam / Bunyikan",
+            "Volume Up / Down": "Naikkan / Turunkan Volume",
+            "Seek": "Loncat",
+            "Seek Backward": "Mundur",
+            "Seek Forward": "Maju",
+            "Go to Previous/Next Media": "Ke Media Sebelumnya/Berikutnya",
+            "Go to Previous Media": "Ke Media Sebelumnya",
+            "Go to Next Media": "Ke Media Berikutnya",
+            "FullScreen": "Layar Penuh",
+            "Switch Clock": "Ganti Jam",
+            "no-media-message": "Silakan tambahkan media.",
+            "no-repeat-message": "Silakan aktifkan ulang.",
+            "not-supported-media-message": "Media ini tidak dapat diputar.",
+            "wake-up-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
+            "noscript-message": "JavaScript dinonaktifkan. Aktifkan JavaScript."
+        },
         "it": {
             "lang-label": "Italiano",
             "lang-direction": "ltr",
@@ -2412,6 +2495,19 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         var style = "youtube";
         var currentCommandMap = null;
         var pressedKeyDiv = null;
+        var localeDirection = "ltr";
+        Shortcuts.setLocaleDirection = function (direction) {
+            localeDirection = direction;
+        };
+        var swapLeftRight = function (key, reversed) {
+            var _a;
+            if (reversed === void 0) { reversed = true; }
+            return reversed ?
+                ((_a = {
+                    "ArrowLeft": "ArrowRight",
+                    "ArrowRight": "ArrowLeft",
+                }[key]) !== null && _a !== void 0 ? _a : key) : key;
+        };
         var displayedKeys = {};
         var keyDisplayNames = {
             "ArrowUp": "↑",
@@ -2443,7 +2539,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 .filter(filter)
                 .map(function (i) {
                 return ({
-                    keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(key); }); }),
+                    keyss: i.shortcuts.map(function (j) { return getKeys(j).map(function (key) { return getDisplayKeyName(swapLeftRight(key, "rtl" === localeDirection)); }); }),
                     description: i.description,
                 });
             });
@@ -2456,16 +2552,17 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
         };
         var pressedKeys = [];
         var getShortcutKeys = function (type, normalizedKey) {
+            var adjustedDirectionKey = swapLeftRight(normalizedKey, "rtl" === localeDirection);
             switch (type) {
                 case "onKeyDown":
-                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
-                    pressedKeys.push(normalizedKey);
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== adjustedDirectionKey; });
+                    pressedKeys.push(adjustedDirectionKey);
                     displayedKeys[normalizedKey] = { pressedAt: Date.now() };
                     updatePressedKeyDiv();
                     return pressedKeys;
                 case "onKeyUp":
                     var result = __spreadArray([], pressedKeys, true);
-                    pressedKeys = pressedKeys.filter(function (i) { return i !== normalizedKey; });
+                    pressedKeys = pressedKeys.filter(function (i) { return i !== adjustedDirectionKey; });
                     if (displayedKeys[normalizedKey]) {
                         if (displayedKeys[normalizedKey].removeTimer) {
                             clearTimeout(displayedKeys[normalizedKey].removeTimer);
@@ -3466,7 +3563,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             _library_2.Library.Locale.setLocale(UI.languageSelect.get(), url_1.Url.params["locale"]);
             var lang = _library_2.Library.Locale.getLocale();
             document.documentElement.setAttribute("lang", lang);
-            document.documentElement.setAttribute("dir", _library_2.Library.Locale.getDirection(lang));
+            var localeDirection = _library_2.Library.Locale.getDirection(lang);
+            document.documentElement.setAttribute("dir", localeDirection);
+            _library_2.Library.Shortcuts.setLocaleDirection(localeDirection);
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
             UI.crossFadeSelect.reloadOptions();
             UI.imageSpanSelect.reloadOptions();

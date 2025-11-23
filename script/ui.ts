@@ -215,7 +215,9 @@ export namespace UI
         Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto", Url.params["locale"]);
         const lang = Library.Locale.getLocale();
         document.documentElement.setAttribute("lang", lang);
-        document.documentElement.setAttribute("dir", Library.Locale.getDirection(lang));
+        const localeDirection = Library.Locale.getDirection(lang);
+        document.documentElement.setAttribute("dir", localeDirection);
+        Library.Shortcuts.setLocaleDirection(localeDirection);
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
         UI.crossFadeSelect.reloadOptions();
         UI.imageSpanSelect.reloadOptions();
