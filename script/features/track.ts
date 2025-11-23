@@ -482,6 +482,13 @@ export class Track
             this.visualElement.classList.toggle("muted", this.playerElement.muted);
         }
     }
+    setBrightness(rate: number): void
+    {
+        if (this.visualElement)
+        {
+            Library.UI.setStyle(this.visualElement, "--brightness", `${rate}`);
+        }
+    }
     setOpacity(rate: number): void
     {
         const finalOpacity = rate;
@@ -501,7 +508,7 @@ export class Track
         const finalBlur = maxBlur *(1 - this.easingForBlur(rate)) /2;
         if (this.visualElement)
         {
-            Library.UI.setStyle(this.visualElement, "filter", `blur(calc(${finalBlur}vw + ${finalBlur}vh))`);
+            Library.UI.setStyle(this.visualElement, "--blur", `calc(${finalBlur}vw + ${finalBlur}vh)`);
         }
     }
     release(): void

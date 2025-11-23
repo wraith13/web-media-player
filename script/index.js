@@ -1093,6 +1093,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
         },
+        "ko": {
+            "lang-label": "한국어",
+            "lang-direction": "ltr",
+            "Auto": "자동",
+            "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
+            "media-count-label": "미디어 수:",
+            "media-length-label": "미디어 길이:",
+            "with-fullscreen-label": "전체화면:",
+            "brightness-label": "밝기:",
+            "stretch-label": "스트레치:",
+            "padding-label": "여백:",
+            "cross-fade-label": "크로스 페이드:",
+            "cross-fade-with-blur-label": "블러 포함 크로스 페이드:",
+            "image-span-label": "이미지 표시 시간:",
+            "loop-short-media-label": "짧은 미디어 반복 재생:",
+            "visualizer-label": "시각화:",
+            "visualizer-simple": "단순",
+            "visualizer-plane-frequency": "평면 주파수",
+            "visualizer-plane-waveform": "평면 파형",
+            "visualizer-arc-frequency": "아크 주파수",
+            "visualizer-arc-waveform": "아크 파형",
+            "visualizer-double-arc": "더블 아크",
+            "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
+            "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
+            "visualizer-stereo-double-arc": "스테레오 더블 아크",
+            "overlay-style-label": "오버레이 스타일:",
+            "hide": "숨기기",
+            "blend": "블렌드",
+            "white": "화이트",
+            "black": "블랙",
+            "system": "시스템",
+            "alternate": "교대",
+            "rainbow": "무지개",
+            "overlay-position-label": "오버레이 위치:",
+            "center": "가운데",
+            "top-right": "오른쪽 위",
+            "bottom-right": "오른쪽 아래",
+            "bottom-left": "왼쪽 아래",
+            "top-left": "왼쪽 위",
+            "rotate": "회전",
+            "with-weather-label": "날씨:",
+            "weather-location-label": "날씨 위치:",
+            "ip-address": "IP 주소(저정밀)",
+            "geolocation": "위치정보(고정밀)",
+            "with-clock-label": "시계:",
+            "with-date-label": "날짜:",
+            "with-calendar-label": "달력:",
+            "with-visualizer-label": "시각화(오버레이):",
+            "show-fps-label": "FPS 표시:",
+            "shortcuts-label": "단축키:",
+            "language-label": "언어:",
+            "url-label": "이 설정으로 링크",
+            "repository-label": "저장소",
+            "off": "끔",
+            "fade-in-label": "페이드 인 시간:",
+            "wakeup-label": "알람 타이머:",
+            "fade-out-label": "페이드 아웃 시간:",
+            "sleep-label": "슬립 타이머:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "전",
+            "Shuffle": "셔플",
+            "Repeat": "반복",
+            "Play / Pause": "재생 / 일시정지",
+            "Mute / Unmute": "음소거 / 음소거 해제",
+            "Volume Up / Down": "볼륨 높임 / 낮춤",
+            "Seek": "탐색",
+            "Seek Backward": "뒤로 탐색",
+            "Seek Forward": "앞으로 탐색",
+            "Go to Previous/Next Media": "이전/다음 미디어로 이동",
+            "Go to Previous Media": "이전 미디어로 이동",
+            "Go to Next Media": "다음 미디어로 이동",
+            "FullScreen": "전체화면",
+            "Switch Clock": "시계 전환",
+            "no-media-message": "미디어를 추가하세요.",
+            "no-repeat-message": "반복을 활성화하세요.",
+            "not-supported-media-message": "이 미디어는 재생할 수 없습니다.",
+            "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
+            "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
+        },
         "pt": {
             "lang-label": "Português",
             "lang-direction": "ltr",
@@ -5371,6 +5454,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
+        Track.prototype.setBrightness = function (rate) {
+            if (this.visualElement) {
+                _library_6.Library.UI.setStyle(this.visualElement, "--brightness", "".concat(rate));
+            }
+        };
         Track.prototype.setOpacity = function (rate) {
             var finalOpacity = rate;
             this.fadeRate = finalOpacity;
@@ -5385,7 +5473,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var maxBlur = config_json_7.default.player.maxBlur;
             var finalBlur = maxBlur * (1 - this.easingForBlur(rate)) / 2;
             if (this.visualElement) {
-                _library_6.Library.UI.setStyle(this.visualElement, "filter", "blur(calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh))"));
+                _library_6.Library.UI.setStyle(this.visualElement, "--blur", "calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh)"));
             }
         };
         Track.prototype.release = function () {
@@ -5841,7 +5929,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
@@ -5855,17 +5943,17 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(1 * currentTimerFade);
+                            fadeoutingTrack.setOpacity(1);
                             fadeoutingTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress : 1);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.setOpacity(progress * currentTimerFade);
+                        currentTrack.setOpacity(progress);
                         currentTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? progress : 1);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
@@ -5874,13 +5962,22 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 6: return [3 /*break*/, 8];
                     case 7:
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         _b.label = 8;
                     case 8: return [2 /*return*/];
                 }
             });
         }); };
+        Player.timerFade = function () {
+            var currentTimerFade = timer_1.Timer.getTimerFade();
+            if (null !== currentTrack) {
+                currentTrack.setBrightness(currentTimerFade);
+            }
+            if (null !== fadeoutingTrack) {
+                fadeoutingTrack.setBrightness(currentTimerFade);
+            }
+        };
         Player.makeIndexText = function (track) {
             return "".concat(media_2.Media.mediaList.indexOf(track.media) + 1, " / ").concat(media_2.Media.mediaList.length);
         };
@@ -5919,6 +6016,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     fps_1.Fps.step(now);
                     Player.updateFps();
                     Player.crossFade();
+                    Player.timerFade();
                     Player.step();
                     Player.updateMediaSessionPositionState();
                 }
@@ -5944,18 +6042,20 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.play();
             }
             else {
+                var currentTimerFade = timer_1.Timer.getTimerFade();
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
+                currentTrack.setBrightness(currentTimerFade);
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                var currentVolume = ui_9.UI.volumeRange.get() / 100;
+                var currentVolume = (ui_9.UI.volumeRange.get() / 100) * currentTimerFade;
                 if (0 < parseFloat(ui_9.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
-                    fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
+                    fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
                     currentTrack.setOpacity(0);
-                    currentTrack.setBlur(1);
+                    currentTrack.setBlur(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }

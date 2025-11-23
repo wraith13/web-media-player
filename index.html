@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Nov 23 2025 01:56:07 GMT+0900 (日本標準時)
+    build at: Sun Nov 23 2025 17:26:08 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -50,6 +50,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="id" content="Pemutar media berbasis web yang berjalan di peramban">
 <meta name="description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
+<meta name="description" lang="ko" content="웹 브라우저에서 실행되는 웹 기반 미디어 플레이어">
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
@@ -71,6 +72,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="id" content="Pemutar media berbasis web yang berjalan di peramban">
 <meta name="twitter:description" lang="it" content="Lettore multimediale web che viene eseguito nel browser">
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
+<meta name="twitter:description" lang="ko" content="웹 브라우저에서 실행되는 웹 기반 미디어 플레이어">
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
@@ -84,6 +86,31 @@ DEALINGS IN THE SOFTWARE.
 <meta property="og:locale" content="en_US" />
 <link rel="image_src" href="https://wraith13.github.io/web-media-player/image/twitter-card.png" />
 <style>
+@property --diagonal {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: calc(70vw + 70vh);
+}
+@property --volume {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --blur {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --brightness {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 .pixelated {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -167,7 +194,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 54s infinite;
+  animation: noscript-langs-fade 58.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -202,21 +229,24 @@ button {
 #noscript *[lang=ja] {
   animation-delay: 46s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ko] {
   animation-delay: 50.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 55s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.666666666666667% {
+  1.5384615384615385% {
     opacity: 1;
   }
-  8.333333333333334% {
+  7.6923076923076925% {
     opacity: 1;
   }
-  10% {
+  9.230769230769232% {
     opacity: 0;
   }
   100% {
@@ -432,6 +462,10 @@ body.list #screen-body #media-screen:not(.show)::before {
   inset-inline-end: 0px;
   position: fixed;
   overflow: hidden;
+}
+#screen-body #media-screen .track-frame,
+#screen-body #media-screen .visualizer {
+  filter: blur(var(--blur)) brightness(var(--brightness));
 }
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
@@ -877,13 +911,13 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume)));
   height: calc(25vw + 25vh);
   height: calc(25dvw + 25dvh);
   width: calc(25vw + 25vh);
   width: calc(25dvw + 25dvh);
   border-radius: 50%;
-  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress), hsl(160, 100%, 50%) var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: hsl(160, 100%, 50%);
   border-width: 0.125rem;
@@ -891,7 +925,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   z-index: 50;
 }
 .visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {
@@ -1015,7 +1049,7 @@ body:not(.play) #fps:not(.show)::before {
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
-  background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(#fff var(--progress), #fff var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: #fff;
   border-width: 0.125rem;
@@ -1325,7 +1359,7 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   border-color: transparent;
   width: calc(3rem - 4px);
   height: calc(3rem - 4px);
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), white var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
   mix-blend-mode: difference;
   z-index: 50;
 }
@@ -2978,13 +3012,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   position: static;
   left: initial;
   top: initial;
-  transform: scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  transform: scale(calc(0.75 + 0.5 * var(--volume)));
   width: 75%;
   height: 75%;
   opacity: 0.7;
 }
 #overlay-panel #visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
 }
 #overlay-panel.top-right, #overlay-panel.top-left, #overlay-panel.center {
   display: flex;
@@ -3166,6 +3200,7 @@ DUMMYSTYLE
 <div lang="id" dir="ltr">JavaScript dinonaktifkan. Aktifkan JavaScript.</div>
 <div lang="it" dir="ltr">JavaScript è disabilitato. Abilita JavaScript.</div>
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
+<div lang="ko" dir="ltr">JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요.</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
         </noscript>
     </div>
@@ -3521,8 +3556,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Nov 23 2025 01:56:07 GMT+0900 (日本標準時)",
-    tick: 1763830567773
+    at: "Sun Nov 23 2025 17:26:08 GMT+0900 (日本標準時)",
+    tick: 1763886368948
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6178,6 +6213,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "再生できないメディアです。",
             "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
+        },
+        "ko": {
+            "lang-label": "한국어",
+            "lang-direction": "ltr",
+            "Auto": "자동",
+            "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
+            "media-count-label": "미디어 수:",
+            "media-length-label": "미디어 길이:",
+            "with-fullscreen-label": "전체화면:",
+            "brightness-label": "밝기:",
+            "stretch-label": "스트레치:",
+            "padding-label": "여백:",
+            "cross-fade-label": "크로스 페이드:",
+            "cross-fade-with-blur-label": "블러 포함 크로스 페이드:",
+            "image-span-label": "이미지 표시 시간:",
+            "loop-short-media-label": "짧은 미디어 반복 재생:",
+            "visualizer-label": "시각화:",
+            "visualizer-simple": "단순",
+            "visualizer-plane-frequency": "평면 주파수",
+            "visualizer-plane-waveform": "평면 파형",
+            "visualizer-arc-frequency": "아크 주파수",
+            "visualizer-arc-waveform": "아크 파형",
+            "visualizer-double-arc": "더블 아크",
+            "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
+            "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
+            "visualizer-stereo-double-arc": "스테레오 더블 아크",
+            "overlay-style-label": "오버레이 스타일:",
+            "hide": "숨기기",
+            "blend": "블렌드",
+            "white": "화이트",
+            "black": "블랙",
+            "system": "시스템",
+            "alternate": "교대",
+            "rainbow": "무지개",
+            "overlay-position-label": "오버레이 위치:",
+            "center": "가운데",
+            "top-right": "오른쪽 위",
+            "bottom-right": "오른쪽 아래",
+            "bottom-left": "왼쪽 아래",
+            "top-left": "왼쪽 위",
+            "rotate": "회전",
+            "with-weather-label": "날씨:",
+            "weather-location-label": "날씨 위치:",
+            "ip-address": "IP 주소(저정밀)",
+            "geolocation": "위치정보(고정밀)",
+            "with-clock-label": "시계:",
+            "with-date-label": "날짜:",
+            "with-calendar-label": "달력:",
+            "with-visualizer-label": "시각화(오버레이):",
+            "show-fps-label": "FPS 표시:",
+            "shortcuts-label": "단축키:",
+            "language-label": "언어:",
+            "url-label": "이 설정으로 링크",
+            "repository-label": "저장소",
+            "off": "끔",
+            "fade-in-label": "페이드 인 시간:",
+            "wakeup-label": "알람 타이머:",
+            "fade-out-label": "페이드 아웃 시간:",
+            "sleep-label": "슬립 타이머:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "전",
+            "Shuffle": "셔플",
+            "Repeat": "반복",
+            "Play / Pause": "재생 / 일시정지",
+            "Mute / Unmute": "음소거 / 음소거 해제",
+            "Volume Up / Down": "볼륨 높임 / 낮춤",
+            "Seek": "탐색",
+            "Seek Backward": "뒤로 탐색",
+            "Seek Forward": "앞으로 탐색",
+            "Go to Previous/Next Media": "이전/다음 미디어로 이동",
+            "Go to Previous Media": "이전 미디어로 이동",
+            "Go to Next Media": "다음 미디어로 이동",
+            "FullScreen": "전체화면",
+            "Switch Clock": "시계 전환",
+            "no-media-message": "미디어를 추가하세요.",
+            "no-repeat-message": "반복을 활성화하세요.",
+            "not-supported-media-message": "이 미디어는 재생할 수 없습니다.",
+            "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
+            "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
         },
         "pt": {
             "lang-label": "Português",
@@ -10457,6 +10575,11 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
+        Track.prototype.setBrightness = function (rate) {
+            if (this.visualElement) {
+                _library_6.Library.UI.setStyle(this.visualElement, "--brightness", "".concat(rate));
+            }
+        };
         Track.prototype.setOpacity = function (rate) {
             var finalOpacity = rate;
             this.fadeRate = finalOpacity;
@@ -10471,7 +10594,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var maxBlur = config_json_7.default.player.maxBlur;
             var finalBlur = maxBlur * (1 - this.easingForBlur(rate)) / 2;
             if (this.visualElement) {
-                _library_6.Library.UI.setStyle(this.visualElement, "filter", "blur(calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh))"));
+                _library_6.Library.UI.setStyle(this.visualElement, "--blur", "calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh)"));
             }
         };
         Track.prototype.release = function () {
@@ -10927,7 +11050,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
@@ -10941,17 +11064,17 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (null !== fadeoutingTrack) {
                             fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(1 * currentTimerFade);
+                            fadeoutingTrack.setOpacity(1);
                             fadeoutingTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress : 1);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.setOpacity(progress * currentTimerFade);
+                        currentTrack.setOpacity(progress);
                         currentTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? progress : 1);
                         _b.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
@@ -10960,13 +11083,22 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 6: return [3 /*break*/, 8];
                     case 7:
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         _b.label = 8;
                     case 8: return [2 /*return*/];
                 }
             });
         }); };
+        Player.timerFade = function () {
+            var currentTimerFade = timer_1.Timer.getTimerFade();
+            if (null !== currentTrack) {
+                currentTrack.setBrightness(currentTimerFade);
+            }
+            if (null !== fadeoutingTrack) {
+                fadeoutingTrack.setBrightness(currentTimerFade);
+            }
+        };
         Player.makeIndexText = function (track) {
             return "".concat(media_2.Media.mediaList.indexOf(track.media) + 1, " / ").concat(media_2.Media.mediaList.length);
         };
@@ -11005,6 +11137,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     fps_1.Fps.step(now);
                     Player.updateFps();
                     Player.crossFade();
+                    Player.timerFade();
                     Player.step();
                     Player.updateMediaSessionPositionState();
                 }
@@ -11030,18 +11163,20 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.play();
             }
             else {
+                var currentTimerFade = timer_1.Timer.getTimerFade();
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
+                currentTrack.setBrightness(currentTimerFade);
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                var currentVolume = ui_9.UI.volumeRange.get() / 100;
+                var currentVolume = (ui_9.UI.volumeRange.get() / 100) * currentTimerFade;
                 if (0 < parseFloat(ui_9.UI.crossFadeSelect.get()) && fadeoutingTrack) {
                     CrossFade.start();
-                    fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
+                    fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                     currentTrack.setVolume(currentVolume, 0, "fadeIn");
                     currentTrack.setOpacity(0);
-                    currentTrack.setBlur(1);
+                    currentTrack.setBlur(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }

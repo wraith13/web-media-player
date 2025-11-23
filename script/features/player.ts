@@ -319,7 +319,7 @@ export namespace Player
                         CrossFade.clear();
                         removeFadeoutTrack();
                         currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(currentTimerFade);
+                        currentTrack.setOpacity(1);
                         currentTrack.setBlur(1);
                         currentTrack.updateStretch("current");
                         if ( ! currentTrack.isPlaying())
@@ -334,18 +334,18 @@ export namespace Player
                         {
                             const fadeoutProgress = 1 - progress;
                             fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(1 *currentTimerFade);
+                            fadeoutingTrack.setOpacity(1);
                             fadeoutingTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress: 1);
                         }
                         currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.setOpacity(progress *currentTimerFade);
+                        currentTrack.setOpacity(progress);
                         currentTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? progress: 1);
                     }
                 }
                 else
                 {
                     currentTrack.setVolume(currentVolume);
-                    currentTrack.setOpacity(currentTimerFade);
+                    currentTrack.setOpacity(1);
                     currentTrack.setBlur(1);
                     if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
                     {
@@ -356,9 +356,21 @@ export namespace Player
             else
             {
                 currentTrack.setVolume(currentVolume);
-                currentTrack.setOpacity(currentTimerFade);
+                currentTrack.setOpacity(1);
                 currentTrack.setBlur(1);
             }
+        }
+    };
+    export const timerFade = () =>
+    {
+        const currentTimerFade = Timer.getTimerFade();
+        if (null !== currentTrack)
+        {
+            currentTrack.setBrightness(currentTimerFade);
+        }
+        if (null !== fadeoutingTrack)
+        {
+            fadeoutingTrack.setBrightness(currentTimerFade);
         }
     };
     export const makeIndexText = (track: Track): string =>
@@ -404,6 +416,7 @@ export namespace Player
                 Fps.step(now);
                 updateFps();
                 crossFade();
+                timerFade();
                 step();
                 updateMediaSessionPositionState();
             }
@@ -435,19 +448,21 @@ export namespace Player
         }
         else
         {
+            const currentTimerFade = Timer.getTimerFade();
             removeFadeoutTrack();
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
+            currentTrack.setBrightness(currentTimerFade);
             Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
-            const currentVolume = UI.volumeRange.get() /100;
+            const currentVolume = (UI.volumeRange.get() /100) *currentTimerFade;
             if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
             {
                 CrossFade.start();
-                fadeoutingTrack?.setVolume(currentVolume, 1, "fadeOut");
+                fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
                 currentTrack.setVolume(currentVolume, 0, "fadeIn");
                 currentTrack.setOpacity(0);
-                currentTrack.setBlur(1);
+                currentTrack.setBlur(0);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();

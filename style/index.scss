@@ -46,6 +46,11 @@
             position: fixed;
             overflow: hidden;
         }
+        .track-frame,
+        .visualizer
+        {
+            filter: blur(var(--blur)) brightness(var(--brightness));
+        }
         .player:not(audio):not(.sound-only),
         & > .visualizer
         {
@@ -431,13 +436,13 @@
         position: fixed;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
+        transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume)));
         height: calc(25vw + 25vh);
         height: calc(25dvw + 25dvh);
         width: calc(25vw + 25vh);
         width: calc(25dvw + 25dvh);
         border-radius: 50%;
-        background: conic-gradient($visualizer-color var(--progress, 30deg), $visualizer-color var(--progress, 30deg), transparent var(--progress, 30deg));
+        background: conic-gradient($visualizer-color var(--progress), $visualizer-color var(--progress), transparent var(--progress));
         filter: drop-shadow(black 0px 0px 0.5rem);
         border-color: $visualizer-color;
         border-width: 0.125rem;
@@ -446,7 +451,7 @@
     }
     &.odd .visual-progress-circle
     {
-        background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), $visualizer-color var(--progress, 30deg));
+        background: conic-gradient(transparent var(--progress), transparent var(--progress), $visualizer-color var(--progress));
     }
 }
 body:not(.show-paused-media) #screen-body.paused
@@ -530,7 +535,7 @@ body.show-paused-media #screen-body
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
-    background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+    background: conic-gradient(#fff var(--progress), #fff var(--progress), transparent var(--progress));
     filter: drop-shadow(black 0px 0px 0.5rem);
     border-color: #fff;
     border-width: 0.125rem;
@@ -776,7 +781,7 @@ body:not(.play):not(.mousemove).sleeped
     border-color: transparent;
     width: calc(3.0rem - 4px);
     height: calc(3.0rem - 4px);
-    background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), white var(--progress, 30deg));
+    background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
     mix-blend-mode: difference;
     z-index: 50;;
 }
@@ -1620,14 +1625,14 @@ label:not(.icon-button)
                 position: static;
                 left: initial;
                 top: initial;
-                transform: scale(calc(0.75 + 0.5 * var(--volume, 0)));
+                transform: scale(calc(0.75 + 0.5 * var(--volume)));
                 width: 75%;
                 height: 75%;
                 opacity: 0.7;
             }
             &.odd .visual-progress-circle
             {
-                background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), $visualizer-color var(--progress, 30deg));
+                background: conic-gradient(transparent var(--progress), transparent var(--progress), $visualizer-color var(--progress));
             }
         }
         &.top-right, &.top-left, &.center

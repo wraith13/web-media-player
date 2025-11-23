@@ -1,3 +1,28 @@
+@property --diagonal {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: calc(70vw + 70vh);
+}
+@property --volume {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --blur {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --brightness {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 .pixelated {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -81,7 +106,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 54s infinite;
+  animation: noscript-langs-fade 58.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -116,21 +141,24 @@ button {
 #noscript *[lang=ja] {
   animation-delay: 46s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=ko] {
   animation-delay: 50.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 55s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.666666666666667% {
+  1.5384615384615385% {
     opacity: 1;
   }
-  8.333333333333334% {
+  7.6923076923076925% {
     opacity: 1;
   }
-  10% {
+  9.230769230769232% {
     opacity: 0;
   }
   100% {
@@ -346,6 +374,10 @@ body.list #screen-body #media-screen:not(.show)::before {
   inset-inline-end: 0px;
   position: fixed;
   overflow: hidden;
+}
+#screen-body #media-screen .track-frame,
+#screen-body #media-screen .visualizer {
+  filter: blur(var(--blur)) brightness(var(--brightness));
 }
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
@@ -791,13 +823,13 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  transform: translate(-50%, -50%) scale(calc(0.75 + 0.5 * var(--volume)));
   height: calc(25vw + 25vh);
   height: calc(25dvw + 25dvh);
   width: calc(25vw + 25vh);
   width: calc(25dvw + 25dvh);
   border-radius: 50%;
-  background: conic-gradient(hsl(160, 100%, 50%) var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress), hsl(160, 100%, 50%) var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: hsl(160, 100%, 50%);
   border-width: 0.125rem;
@@ -805,7 +837,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   z-index: 50;
 }
 .visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {
@@ -929,7 +961,7 @@ body:not(.play) #fps:not(.show)::before {
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
-  background: conic-gradient(#fff var(--progress, 30deg), #fff var(--progress, 30deg), transparent var(--progress, 30deg));
+  background: conic-gradient(#fff var(--progress), #fff var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: #fff;
   border-width: 0.125rem;
@@ -1239,7 +1271,7 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   border-color: transparent;
   width: calc(3rem - 4px);
   height: calc(3rem - 4px);
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), white var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
   mix-blend-mode: difference;
   z-index: 50;
 }
@@ -2892,13 +2924,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   position: static;
   left: initial;
   top: initial;
-  transform: scale(calc(0.75 + 0.5 * var(--volume, 0)));
+  transform: scale(calc(0.75 + 0.5 * var(--volume)));
   width: 75%;
   height: 75%;
   opacity: 0.7;
 }
 #overlay-panel #visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress, 30deg), transparent var(--progress, 30deg), hsl(160, 100%, 50%) var(--progress, 30deg));
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
 }
 #overlay-panel.top-right, #overlay-panel.top-left, #overlay-panel.center {
   display: flex;
