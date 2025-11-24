@@ -91,9 +91,14 @@ DUMMYSTYLE
     <label for="wakeup-button" class="icon-button">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
-            <label for="wakeup">
+            <label id="wakeup-toggle-label" class="toggle-label">
                 <span data-lang-key="wakeup-label"></span>
-                <select id="wakeup"></select>
+                <span data-lang-key="on" class="value-label"></span>
+                <span data-lang-key="off" class="value-label"></span>
+            </label>
+            <label for="wakeup-time">
+                <span data-lang-key="timer-label"></span>
+                <select id="wakeup-time"></select>
             </label>
             <label for="fade-in">
                 <span data-lang-key="fade-in-label"></span>
@@ -231,9 +236,14 @@ DUMMYSTYLE
     <label for="sleep-button" class="icon-button">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
-            <label for="sleep">
+            <label id="sleep-toggle-label" class="toggle-label">
                 <span data-lang-key="sleep-label"></span>
-                <select id="sleep"></select>
+                <span data-lang-key="on" class="value-label"></span>
+                <span data-lang-key="off" class="value-label"></span>
+            </label>
+            <label for="sleep-time">
+                <span data-lang-key="timer-label"></span>
+                <select id="sleep-time"></select>
             </label>
             <label for="fade-out">
                 <span data-lang-key="fade-out-label"></span>

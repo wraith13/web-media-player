@@ -240,14 +240,14 @@ export namespace UI
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
         Library.UI.getElementById("label", "wakeup-timer");
+    export const wakeUpToggle =
+        new Library.Control.ToggleLabel(control.wakeUpToggle);
     export const wakeUpSelect =
-        new Library.Control.Select<typeof control.wakeUp.enum[number]>
+        new Library.Control.Select<typeof control.wakeUpTime.enum[number]>
         (
-            control.wakeUp,
+            control.wakeUpTime,
             {
-                makeLabel: value => "off" === value ?
-                    Library.Locale.map("off"):
-                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                makeLabel: value => Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const fadeInSelect =
@@ -268,14 +268,14 @@ export namespace UI
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
         Library.UI.getElementById("label", "sleep-timer");
+    export const sleepToggle =
+        new Library.Control.ToggleLabel(control.sleepToggle);
     export const sleepSelect =
-        new Library.Control.Select<typeof control.sleep.enum[number]>
+        new Library.Control.Select<typeof control.sleepTime.enum[number]>
         (
-            control.sleep,
+            control.sleepTime,
             {
-                makeLabel: value => "off" === value ?
-                    Library.Locale.map("off"):
-                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                makeLabel: value => Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
     export const fadeOutSelect =

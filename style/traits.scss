@@ -250,3 +250,8 @@
         @include fixed-text-outline($color, 4.0px);
     }
 }
+@mixin progress-circle($color: white, $background-color: transparent)
+{
+    border-radius: 50%;
+    background: conic-gradient($color var(--progress), $color var(--progress), $background-color var(--progress));
+}

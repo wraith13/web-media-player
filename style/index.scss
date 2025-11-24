@@ -433,6 +433,7 @@
     }
     .visual-progress-circle
     {
+        @include progress-circle($visualizer-color, transparent);
         position: fixed;
         top: 50%;
         left: 50%;
@@ -441,8 +442,6 @@
         height: calc(25dvw + 25dvh);
         width: calc(25vw + 25vh);
         width: calc(25dvw + 25dvh);
-        border-radius: 50%;
-        background: conic-gradient($visualizer-color var(--progress), $visualizer-color var(--progress), transparent var(--progress));
         filter: drop-shadow(black 0px 0px 0.5rem);
         border-color: $visualizer-color;
         border-width: 0.125rem;
@@ -451,7 +450,7 @@
     }
     &.odd .visual-progress-circle
     {
-        background: conic-gradient(transparent var(--progress), transparent var(--progress), $visualizer-color var(--progress));
+        @include progress-circle(transparent, $visualizer-color);
     }
 }
 body:not(.show-paused-media) #screen-body.paused
@@ -528,14 +527,13 @@ body.show-paused-media #screen-body
 }
 #progress-circle
 {
+    @include progress-circle(white, transparent);
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 6rem;
     height: 6rem;
-    border-radius: 50%;
-    background: conic-gradient(#fff var(--progress), #fff var(--progress), transparent var(--progress));
     filter: drop-shadow(black 0px 0px 0.5rem);
     border-color: #fff;
     border-width: 0.125rem;
@@ -602,6 +600,27 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
 {
     opacity: 0.4;
 }
+.toggle-label
+{
+    &.on
+    {
+        .value-label:not([data-lang-key="on"])
+        {
+            display: none;
+        }
+    }
+    &:not(.on)
+    {
+        .value-label[data-lang-key="on"]
+        {
+            display: none;
+        }
+    }
+    .value-label
+    {
+        padding-inline: 0.25rem;
+    }
+}
 #control-panel
 {
     @include black-pop-panel-style();
@@ -659,10 +678,10 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
             }
             & > input[type="checkbox"]:checked + div + label + label
             {
-                inset-block-end: 8.0rem;
+                inset-block-end: 9.5rem;
                 @media (max-width: 420px)
                 {
-                    inset-block-end: 10.5rem;
+                    inset-block-end: 12.0rem;
                 }
             }
         }
@@ -774,16 +793,19 @@ body:not(.play):not(.mousemove).sleeped
 #wakeup-progress-circle,
 #sleep-progress-circle
 {
+    @include progress-circle(transparent, white);
     position: absolute;
-    border-radius: 50%;
     border-width: 2px;
     margin: 2px;
     border-color: transparent;
     width: calc(3.0rem - 4px);
     height: calc(3.0rem - 4px);
-    background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
     mix-blend-mode: difference;
-    z-index: 50;;
+    z-index: 50;
+}
+#wakeup-progress-circle.fading-in
+{
+    @include progress-circle(white, transparent);
 }
 #media-index,
 #media-title,

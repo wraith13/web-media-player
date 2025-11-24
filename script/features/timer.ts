@@ -115,12 +115,27 @@ export namespace Timer
         }
         return null;
     };
+    export const getProgressUntilFadeInComplete = (): number | null =>
+    {
+        const elapsedWokeUpTime = getElapsedWokeUpTime();
+        if (null !== elapsedWokeUpTime)
+        {
+            return Math.min(elapsedWokeUpTime /wakeUpFadeInSpan, 1);
+        }
+        return null;
+    }
     export const getCountDownTimerLoopSpan = (timerSpan: number | null, remainingTime: number | null): number | null =>
     {
         if (null !== remainingTime && 0 < remainingTime && null !== timerSpan)
         {
             const stabilizeSpan = remainingTime %1000 || 1000;
             const spanFromminSteps = timerSpan /config.timers.minSteps;
+            return Math.min(stabilizeSpan, spanFromminSteps);
+        }
+        if (isWakeUpFading())
+        {
+            const stabilizeSpan = 1000;
+            const spanFromminSteps = wakeUpFadeInSpan /config.timers.minSteps;
             return Math.min(stabilizeSpan, spanFromminSteps);
         }
         return null;

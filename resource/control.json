@@ -188,8 +188,12 @@
         "id": "wakeup-button",
         "default": false
     },
-    "wakeUp": {
-        "id": "wakeup",
+    "wakeUpToggle": {
+        "id": "wakeup-toggle-label",
+        "default": false
+    },
+    "wakeUpTime": {
+        "id": "wakeup-time",
         "enum": [
             "12h",
             "11.5h",
@@ -236,10 +240,9 @@
             "10m",
             "5m",
             "1m",
-            "5s",
-            "off"
+            "5s"
         ],
-        "default": "off"
+        "default": "7.5h"
     },
     "fadeIn": {
         "id": "fade-in",
@@ -279,8 +282,12 @@
         "id": "sleep-button",
         "default": false
     },
-    "sleep": {
-        "id": "sleep",
+    "sleepToggle": {
+        "id": "sleep-toggle-label",
+        "default": false
+    },
+    "sleepTime": {
+        "id": "sleep-time",
         "enum": [
             "12h",
             "11.5h",
@@ -327,10 +334,9 @@
             "10m",
             "5m",
             "1m",
-            "5s",
-            "off"
+            "5s"
         ],
-        "default": "off"
+        "default": "30m"
     },
     "fadeOut": {
         "id": "fade-out",

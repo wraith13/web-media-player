@@ -233,11 +233,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "اللغة:",
             "url-label": "رابط لهذا الإعداد",
             "repository-label": "المستودع",
+            "on": "تشغيل",
             "off": "إيقاف",
-            "fade-in-label": "مدة التلاشي للدخول:",
             "wakeup-label": "مؤقت الاستيقاظ:",
-            "fade-out-label": "مدة التلاشي للخروج:",
+            "timer-label": "المؤقت",
+            "fade-in-label": "مدة التلاشي للدخول:",
             "sleep-label": "مؤقت النوم:",
+            "fade-out-label": "مدة التلاشي للخروج:",
             "timeUnitMs": "ملِّيثانية",
             "timeUnitS": "ثانية",
             "timeUnitM": "دقيقة",
@@ -316,11 +318,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Sprache:",
             "url-label": "Link zu dieser Einstellung",
             "repository-label": "Repository",
+            "on": "An",
             "off": "Aus",
-            "fade-in-label": "Einblendzeit:",
             "wakeup-label": "Wecktimer:",
-            "fade-out-label": "Ausblendzeit:",
+            "timer-label": "Timer",
+            "fade-in-label": "Einblendzeit:",
             "sleep-label": "Schlaf-Timer:",
+            "fade-out-label": "Ausblendzeit:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -399,11 +403,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Γλώσσα:",
             "url-label": "Σύνδεσμος σε αυτή τη ρύθμιση",
             "repository-label": "αποθετήριο",
+            "on": "Ενεργοποιημένο",
             "off": "Απενεργοποιημένο",
-            "fade-in-label": "Χρόνος fade-in:",
             "wakeup-label": "Χρονοδιακόπτης αφύπνισης:",
-            "fade-out-label": "Χρόνος fade-out:",
+            "timer-label": "Χρονοδιακόπτης",
+            "fade-in-label": "Χρόνος fade-in:",
             "sleep-label": "Χρονοδιακόπτης ύπνου:",
+            "fade-out-label": "Χρόνος fade-out:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -482,11 +488,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Language:",
             "url-label": "Link to this setting",
             "repository-label": "repository",
+            "on": "On",
             "off": "Off",
-            "fade-in-label": "Fade-in Time:",
             "wakeup-label": "Wake-up Timer:",
-            "fade-out-label": "Fade-out Time:",
+            "timer-label": "Timer",
+            "fade-in-label": "Fade-in Time:",
             "sleep-label": "Sleep Timer:",
+            "fade-out-label": "Fade-out Time:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -565,11 +573,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Idioma:",
             "url-label": "Enlace a esta configuración",
             "repository-label": "repositorio",
+            "on": "Activado",
             "off": "Desactivado",
-            "fade-in-label": "Tiempo de entrada:",
             "wakeup-label": "Temporizador de despertador:",
-            "fade-out-label": "Tiempo de salida:",
+            "timer-label": "Temporizador",
+            "fade-in-label": "Tiempo de entrada:",
             "sleep-label": "Temporizador de suspensión:",
+            "fade-out-label": "Tiempo de salida:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -648,11 +658,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "زبان:",
             "url-label": "پیوند به این تنظیم",
             "repository-label": "مخزن",
+            "on": "روشن",
             "off": "خاموش",
-            "fade-in-label": "زمان محو شدن ورود:",
             "wakeup-label": "تایمر بیدارباش:",
-            "fade-out-label": "زمان محو شدن خروج:",
+            "timer-label": "تایمر",
+            "fade-in-label": "زمان محو شدن ورود:",
             "sleep-label": "تایمر خواب:",
+            "fade-out-label": "زمان محو شدن خروج:",
             "timeUnitMs": "می‌ثانیه",
             "timeUnitS": "ثانیه",
             "timeUnitM": "دقیقه",
@@ -731,11 +743,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Langue :",
             "url-label": "Lien vers ce réglage",
             "repository-label": "Dépôt",
+            "on": "Activé",
             "off": "Désactivé",
-            "fade-in-label": "Durée d'apparition :",
             "wakeup-label": "Minuterie de réveil :",
-            "fade-out-label": "Durée de disparition :",
+            "timer-label": "Minuterie",
+            "fade-in-label": "Durée d'apparition :",
             "sleep-label": "Minuteur de mise en veille :",
+            "fade-out-label": "Durée de disparition :",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "min",
@@ -814,11 +828,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "भाषा:",
             "url-label": "इस सेटिंग का लिंक",
             "repository-label": "रिपॉज़िटरी",
+            "on": "चालू",
             "off": "बंद",
-            "fade-in-label": "फेड-इन समय:",
             "wakeup-label": "वेक-अप टाइमर:",
-            "fade-out-label": "फेड-आउट समय:",
+            "timer-label": "टाइमर",
+            "fade-in-label": "फेड-इन समय:",
             "sleep-label": "स्लीप टाइमर:",
+            "fade-out-label": "फेड-आउट समय:",
             "timeUnitMs": "मिलीसेकंड",
             "timeUnitS": "सेक",
             "timeUnitM": "मिन",
@@ -897,11 +913,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Bahasa:",
             "url-label": "Tautkan ke pengaturan ini",
             "repository-label": "repositori",
+            "on": "Hidup",
             "off": "Mati",
-            "fade-in-label": "Waktu Fade-in:",
             "wakeup-label": "Timer Bangun:",
-            "fade-out-label": "Waktu Fade-out:",
+            "timer-label": "Timer",
+            "fade-in-label": "Waktu Fade-in:",
             "sleep-label": "Timer Tidur:",
+            "fade-out-label": "Waktu Fade-out:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -980,11 +998,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Lingua:",
             "url-label": "Link a questa impostazione",
             "repository-label": "Repository",
+            "on": "On",
             "off": "Off",
-            "fade-in-label": "Durata fade-in:",
             "wakeup-label": "Timer di risveglio:",
-            "fade-out-label": "Durata fade-out:",
+            "timer-label": "Timer",
+            "fade-in-label": "Durata fade-in:",
             "sleep-label": "Timer di sospensione:",
+            "fade-out-label": "Durata fade-out:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1063,8 +1083,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "言語:",
             "url-label": "この設定のリンク",
             "repository-label": "リポジトリ",
+            "on": "オン",
             "off": "オフ",
             "wakeup-label": "起床タイマー:",
+            "timer-label": "タイマー",
             "fade-in-label": "フェードイン時間:",
             "sleep-label": "スリープタイマー:",
             "fade-out-label": "フェードアウト時間:",
@@ -1146,11 +1168,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "언어:",
             "url-label": "이 설정으로 링크",
             "repository-label": "저장소",
+            "on": "켬",
             "off": "끔",
-            "fade-in-label": "페이드 인 시간:",
             "wakeup-label": "알람 타이머:",
-            "fade-out-label": "페이드 아웃 시간:",
+            "timer-label": "타이머",
+            "fade-in-label": "페이드 인 시간:",
             "sleep-label": "슬립 타이머:",
+            "fade-out-label": "페이드 아웃 시간:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1229,11 +1253,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Taal:",
             "url-label": "Link naar deze instelling",
             "repository-label": "repository",
+            "on": "Aan",
             "off": "Uit",
-            "fade-in-label": "Fade-in tijd:",
             "wakeup-label": "Wekker:",
-            "fade-out-label": "Fade-out tijd:",
+            "timer-label": "Timer",
+            "fade-in-label": "Fade-in tijd:",
             "sleep-label": "Slaaptimer:",
+            "fade-out-label": "Fade-out tijd:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1312,11 +1338,13 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language-label": "Idioma:",
             "url-label": "Link para esta configuração",
             "repository-label": "repositório",
+            "on": "Ligado",
             "off": "Desligado",
-            "fade-in-label": "Tempo de fade-in:",
             "wakeup-label": "Timer de despertar:",
-            "fade-out-label": "Tempo de fade-out:",
+            "timer-label": "Timer",
+            "fade-in-label": "Tempo de fade-in:",
             "sleep-label": "Timer de suspensão:",
+            "fade-out-label": "Tempo de fade-out:",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1803,6 +1831,7 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                 };
                 this.switch = function (valueOrDirection, preventOnChange, getNextIndex) {
                     if (getNextIndex === void 0) { getNextIndex = _this.getNextIndexClamp; }
+                    var oldValue = _this.get();
                     if ("boolean" === typeof valueOrDirection) {
                         var options = Array.from(_this.dom.getElementsByTagName("option"));
                         var optionValues = options.map(function (i) { return i.value; });
@@ -1818,7 +1847,7 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                             _this.dom.value = "".concat(valueOrDirection);
                         }
                     }
-                    if (undefined === preventOnChange) {
+                    if (undefined === preventOnChange && (oldValue !== _this.get() || "forceOnChange" === preventOnChange)) {
                         _this.fire();
                     }
                 };
@@ -1883,9 +1912,11 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                 };
                 this.toggle = function (checked, preventOnChange) {
                     var _a, _b;
-                    _this.dom.checked = checked !== null && checked !== void 0 ? checked : !_this.get();
-                    if (undefined === preventOnChange) {
-                        (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                    if (checked !== _this.get() || "forceOnChange" === preventOnChange) {
+                        _this.dom.checked = checked !== null && checked !== void 0 ? checked : !_this.get();
+                        if (undefined === preventOnChange) {
+                            (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                        }
                     }
                 };
                 this.get = function () { return _this.dom.checked; };
@@ -1915,6 +1946,64 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             return Checkbox;
         }());
         Control.Checkbox = Checkbox;
+        var ToggleLabel = /** @class */ (function () {
+            function ToggleLabel(data, options) {
+                var _this = this;
+                var _a;
+                this.data = data;
+                this.options = options;
+                this.catchUpRestore = function (params) {
+                    var _a, _b, _c, _d;
+                    var urlParam = params === null || params === void 0 ? void 0 : params[_this.dom.id];
+                    if ((undefined !== urlParam ?
+                        "true" === urlParam :
+                        ((_a = _this.data.default) !== null && _a !== void 0 ? _a : false)) !== _this.get()) {
+                        Control.eventLog({ control: _this, event: "catchUpRestore", message: "👆 Checkbox.Change:", value: _this.get() });
+                        (_c = (_b = _this.options) === null || _b === void 0 ? void 0 : _b.change) === null || _c === void 0 ? void 0 : _c.call(_b, null, _this);
+                        (_d = _this.saveParameter) === null || _d === void 0 ? void 0 : _d.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                    }
+                };
+                this.getId = function () { return Control.getDomId(_this.data); };
+                this.setChange = function (change) {
+                    return _this.options = __assign(__assign({}, _this.options), { change: change });
+                };
+                this.toggle = function (checked, preventOnChange) {
+                    var _a, _b;
+                    if (checked !== _this.get() || "forceOnChange" === preventOnChange) {
+                        _this.dom.classList.toggle("on", checked !== null && checked !== void 0 ? checked : !_this.get());
+                        if (undefined === preventOnChange) {
+                            (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                        }
+                    }
+                };
+                this.get = function () { return _this.dom.classList.contains("on"); };
+                this.fire = function () { var _a, _b; return (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this); };
+                this.loadParameter = function (params, saveParameter) {
+                    var value = params[_this.dom.id];
+                    if (undefined !== value) {
+                        _this.toggle("true" === value);
+                    }
+                    _this.saveParameter = saveParameter;
+                    return _this;
+                };
+                this.dom = Control.getDom(data);
+                if (!(this.dom instanceof HTMLLabelElement) || "label" !== this.dom.tagName.toLowerCase()) {
+                    console.error("🦋 FIXME: Contorl.ToggleLabel.InvalidDom", data, this.dom);
+                }
+                if (undefined !== this.data.default) {
+                    this.toggle(this.data.default, [Control.preventOnChange][false !== ((_a = this.options) === null || _a === void 0 ? void 0 : _a.preventOnChangeWhenNew) ? 0 : 1]);
+                }
+                this.dom.addEventListener("click", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 ToggleLabel.Click:", value: !_this.get() });
+                    _this.toggle();
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                });
+            }
+            return ToggleLabel;
+        }());
+        Control.ToggleLabel = ToggleLabel;
         var Range = /** @class */ (function () {
             function Range(data, options) {
                 var _this = this;
@@ -3425,8 +3514,12 @@ define("resource/control", [], {
         "id": "wakeup-button",
         "default": false
     },
-    "wakeUp": {
-        "id": "wakeup",
+    "wakeUpToggle": {
+        "id": "wakeup-toggle-label",
+        "default": false
+    },
+    "wakeUpTime": {
+        "id": "wakeup-time",
         "enum": [
             "12h",
             "11.5h",
@@ -3473,10 +3566,9 @@ define("resource/control", [], {
             "10m",
             "5m",
             "1m",
-            "5s",
-            "off"
+            "5s"
         ],
-        "default": "off"
+        "default": "7.5h"
     },
     "fadeIn": {
         "id": "fade-in",
@@ -3516,8 +3608,12 @@ define("resource/control", [], {
         "id": "sleep-button",
         "default": false
     },
-    "sleep": {
-        "id": "sleep",
+    "sleepToggle": {
+        "id": "sleep-toggle-label",
+        "default": false
+    },
+    "sleepTime": {
+        "id": "sleep-time",
         "enum": [
             "12h",
             "11.5h",
@@ -3564,10 +3660,9 @@ define("resource/control", [], {
             "10m",
             "5m",
             "1m",
-            "5s",
-            "off"
+            "5s"
         ],
-        "default": "off"
+        "default": "30m"
     },
     "fadeOut": {
         "id": "fade-out",
@@ -3751,13 +3846,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
-        UI.wakeUpSelect = new _library_2.Library.Control.Select(control_json_1.default.wakeUp, {
-            makeLabel: function (value) {
-                var _a;
-                return "off" === value ?
-                    _library_2.Library.Locale.map("off") :
-                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
-            }
+        UI.wakeUpToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.wakeUpToggle);
+        UI.wakeUpSelect = new _library_2.Library.Control.Select(control_json_1.default.wakeUpTime, {
+            makeLabel: function (value) { var _a; return _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale); }
         });
         UI.fadeInSelect = new _library_2.Library.Control.Select(control_json_1.default.fadeIn, {
             makeLabel: function (value) {
@@ -3771,13 +3862,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
-        UI.sleepSelect = new _library_2.Library.Control.Select(control_json_1.default.sleep, {
-            makeLabel: function (value) {
-                var _a;
-                return "off" === value ?
-                    _library_2.Library.Locale.map("off") :
-                    _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale);
-            }
+        UI.sleepToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.sleepToggle);
+        UI.sleepSelect = new _library_2.Library.Control.Select(control_json_1.default.sleepTime, {
+            makeLabel: function (value) { var _a; return _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale); }
         });
         UI.fadeOutSelect = new _library_2.Library.Control.Select(control_json_1.default.fadeOut, {
             makeLabel: function (value) {
@@ -5664,10 +5751,22 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             }
             return null;
         };
+        Timer.getProgressUntilFadeInComplete = function () {
+            var elapsedWokeUpTime = Timer.getElapsedWokeUpTime();
+            if (null !== elapsedWokeUpTime) {
+                return Math.min(elapsedWokeUpTime / wakeUpFadeInSpan, 1);
+            }
+            return null;
+        };
         Timer.getCountDownTimerLoopSpan = function (timerSpan, remainingTime) {
             if (null !== remainingTime && 0 < remainingTime && null !== timerSpan) {
                 var stabilizeSpan = remainingTime % 1000 || 1000;
                 var spanFromminSteps = timerSpan / config.timers.minSteps;
+                return Math.min(stabilizeSpan, spanFromminSteps);
+            }
+            if (Timer.isWakeUpFading()) {
+                var stabilizeSpan = 1000;
+                var spanFromminSteps = wakeUpFadeInSpan / config.timers.minSteps;
                 return Math.min(stabilizeSpan, spanFromminSteps);
             }
             return null;
@@ -6490,7 +6589,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
         };
         MediaList.updateNoMediaLabel = function () {
-            var hasNoMedia = "off" !== ui_11.UI.wakeUpSelect.get() && media_3.Media.mediaList.length <= 0;
+            var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
         };
         MediaList.initialize = function () {
@@ -6577,10 +6676,17 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             }
         };
         Events.updateWakeUpTimer = function (remainingTime) {
-            var _a;
+            var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
             _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
-            ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            if (_features_2.Features.Timer.isWaitingForWakeUp()) {
+                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
+                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            }
+            else {
+                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
+                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_b = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _b !== void 0 ? _b : 1) * 360, "deg"));
+            }
         };
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
@@ -6603,15 +6709,25 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     Events.wakeUpCountDownTimerLoop();
                 }, loopSpan);
             }
+            else {
+                ui_12.UI.wakeUpToggle.toggle(false);
+            }
         };
         Events.updateWakeUp = function () {
+            var isOn = ui_12.UI.wakeUpToggle.get();
             var value = ui_12.UI.wakeUpSelect.get();
-            console.log("⏰ Wake-up Timer changed:", value);
-            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
+            console.log("⏰ Wake-up Timer changed:", isOn, value);
+            var timespan = isOn ? _tools_8.Tools.Timespan.parse(value) : null;
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
-            document.body.classList.toggle("wake-up-timer-not-working", "off" !== value && !_tools_8.Tools.Environment.canAutoplay());
+            document.body.classList.toggle("wake-up-timer-not-working", isOn && !_tools_8.Tools.Environment.canAutoplay());
+        };
+        Events.updateWakeUpSelect = function () {
+            var value = ui_12.UI.wakeUpSelect.get();
+            console.log("⏰ Wake-up Select changed:", value);
+            ui_12.UI.wakeUpToggle.toggle(true, "preventOnChange");
+            Events.updateWakeUp();
         };
         Events.updateFadeIn = function (disableLog) {
             var _a;
@@ -6625,12 +6741,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             medialist_1.MediaList.updateNoMediaLabel();
         };
         Events.updateSleep = function () {
+            var isOn = ui_12.UI.sleepToggle.get();
             var value = ui_12.UI.sleepSelect.get();
-            console.log("💤 Sleep Timer changed:", value);
-            var timespan = "off" === value ? null : _tools_8.Tools.Timespan.parse(value);
+            console.log("💤 Sleep Timer changed:", isOn, value);
+            var timespan = isOn ? _tools_8.Tools.Timespan.parse(value) : null;
             _features_2.Features.Timer.setSleepTimer(timespan);
             Events.sleepCountDownTimerLoop();
             Events.updateNoRepeatLabel();
+        };
+        Events.updateSleepSelect = function () {
+            var value = ui_12.UI.sleepSelect.get();
+            console.log("💤 Sleep Select changed:", value);
+            ui_12.UI.sleepToggle.toggle(true, "preventOnChange");
+            Events.updateSleep();
         };
         Events.updateFadeOut = function (disableLog) {
             var _a;
@@ -6641,7 +6764,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
-            var noRepeat = "off" !== ui_12.UI.sleepSelect.get() && !ui_12.UI.repeat.get();
+            var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.repeat.get();
             ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
@@ -6953,10 +7076,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(updateShowFps);
             ui_12.UI.shortcutsSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.languageSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateLanguage);
+            ui_12.UI.wakeUpToggle.setChange(Events.updateWakeUp);
+            ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateWakeUpSelect);
             ui_12.UI.fadeInSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
-            ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateWakeUp);
-            ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
+            ui_12.UI.sleepToggle.setChange(Events.updateSleep);
             ui_12.UI.sleepSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateSleep);
+            ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
@@ -7100,12 +7225,12 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         isPlaying: _features_3.Features.Player.isPlaying,
         play: function () {
             console.log("⏰ Timer: Resuming playback for wake-up.");
-            ui_14.UI.wakeUpSelect.switch("off");
+            //UI.wakeUpToggle.toggle(false);
             _features_3.Features.Player.play();
         },
         pause: function () {
             console.log("💤 Timer: Pausing playback for sleep mode.");
-            ui_14.UI.sleepSelect.switch("off");
+            ui_14.UI.sleepToggle.toggle(false);
             _features_3.Features.Player.pause();
         },
         onChangedSleepMode: events_1.Events.onChangedSleepMode,

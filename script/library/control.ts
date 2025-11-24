@@ -150,10 +150,11 @@ export namespace Control
         switch =
         (
             valueOrDirection: T | boolean,
-            preventOnChange?: "preventOnChange",
+            preventOnChange?: "preventOnChange" | "forceOnChange",
             getNextIndex: (length: number, index: number, direction: boolean) => number = this.getNextIndexClamp
         ) =>
         {
+            const oldValue = this.get();
             if ("boolean" === typeof valueOrDirection)
             {
                 const options = Array.from(this.dom.getElementsByTagName("option"));
@@ -173,7 +174,7 @@ export namespace Control
                     this.dom.value = `${valueOrDirection}`;
                 }
             }
-            if (undefined === preventOnChange)
+            if (undefined === preventOnChange && (oldValue !== this.get() || "forceOnChange" === preventOnChange))
             {
                 this.fire();
             }
@@ -183,7 +184,7 @@ export namespace Control
             const options = Array.from(this.dom.getElementsByTagName("option"));
             return undefined !== options.find(i => i.value === `${value}`);
         };
-        cycle = (direction: boolean, preventOnChange?: "preventOnChange") => this.switch
+        cycle = (direction: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => this.switch
         (
             direction,
             preventOnChange,
@@ -269,15 +270,103 @@ export namespace Control
         getId = () => getDomId(this.data);
         setChange = (change: (event: Event | null, checked: Checkbox) => unknown) =>
             this.options = { ...this.options, change };
-        toggle = (checked?: boolean, preventOnChange?: "preventOnChange") =>
+        toggle = (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") =>
         {
-            this.dom.checked = checked ?? ! this.get();
-            if (undefined === preventOnChange)
+            if (checked !== this.get() || "forceOnChange" === preventOnChange)
             {
-                this.options?.change?.(null, this);
+                this.dom.checked = checked ?? ! this.get();
+                if (undefined === preventOnChange)
+                {
+                    this.options?.change?.(null, this);
+                }
             }
         };
         get = () => this.dom.checked;
+        fire = () => this.options?.change?.(null, this);
+        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        {
+            const value = params[this.dom.id];
+            if (undefined !== value)
+            {
+                this.toggle("true" === value);
+            }
+            this.saveParameter = saveParameter;
+            return this;
+        }
+    }
+    export interface ToggleLabelArgumentsBase
+    {
+        default?: boolean;
+    }
+    export interface ToggleLabelOptions
+    {
+        change?: (event: Event | null, toggleLabel: ToggleLabel) => unknown;
+        preventOnChangeWhenNew?: boolean;
+    }
+    export type ToggleLabelArguments = ArgumentsBase<HTMLLabelElement> & ToggleLabelArgumentsBase;
+    export class ToggleLabel
+    {
+        public dom: HTMLLabelElement;
+        public saveParameter?: (key: string, value: string) => unknown;
+        constructor(public data: ToggleLabelArguments, public options?: ToggleLabelOptions)
+        {
+            this.dom = getDom(data);
+            if ( ! (this.dom instanceof HTMLLabelElement) || "label" !== this.dom.tagName.toLowerCase())
+            {
+                console.error("🦋 FIXME: Contorl.ToggleLabel.InvalidDom", data, this.dom);
+            }
+            if (undefined !== this.data.default)
+            {
+                this.toggle
+                (
+                    this.data.default,
+                    [preventOnChange][false !== this.options?.preventOnChangeWhenNew ? 0: 1]
+                );
+            }
+            this.dom.addEventListener
+            (
+                "click",
+                event =>
+                {
+                    eventLog({ control: this, event, message: "👆 ToggleLabel.Click:", value: ! this.get() });
+                    this.toggle();
+                    this.options?.change?.(event, this);
+                    this.saveParameter?.(this.getId() as string, this.get() ? "true": "false");
+                }
+            );
+        }
+        catchUpRestore = (params?: Record<string, string>) =>
+        {
+            const urlParam = params?.[this.dom.id];
+            if
+            (
+                (
+                    undefined !== urlParam ?
+                        "true" === urlParam:
+                        (this.data.default ?? false)
+                ) !== this.get()
+            )
+            {
+                eventLog({ control: this, event: "catchUpRestore", message: "👆 Checkbox.Change:", value: this.get() });
+                this.options?.change?.(null, this);
+                this.saveParameter?.(this.getId() as string, this.get() ? "true": "false");
+            }
+        };
+        getId = () => getDomId(this.data);
+        setChange = (change: (event: Event | null, toggleLabel: ToggleLabel) => unknown) =>
+            this.options = { ...this.options, change };
+        toggle = (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") =>
+        {
+            if (checked !== this.get() || "forceOnChange" === preventOnChange)
+            {
+                this.dom.classList.toggle("on", checked ?? ! this.get());
+                if (undefined === preventOnChange)
+                {
+                    this.options?.change?.(null, this);
+                }
+            }
+        };
+        get = () => this.dom.classList.contains("on");
         fire = () => this.options?.change?.(null, this);
         loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
         {

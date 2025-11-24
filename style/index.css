@@ -823,6 +823,8 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   z-index: 100;
 }
 .visualizer .visual-progress-circle {
+  border-radius: 50%;
+  background: conic-gradient(hsl(160, 100%, 50%) var(--progress), hsl(160, 100%, 50%) var(--progress), transparent var(--progress));
   position: fixed;
   top: 50%;
   left: 50%;
@@ -831,8 +833,6 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   height: calc(25dvw + 25dvh);
   width: calc(25vw + 25vh);
   width: calc(25dvw + 25dvh);
-  border-radius: 50%;
-  background: conic-gradient(hsl(160, 100%, 50%) var(--progress), hsl(160, 100%, 50%) var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: hsl(160, 100%, 50%);
   border-width: 0.125rem;
@@ -840,6 +840,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   z-index: 50;
 }
 .visualizer.odd .visual-progress-circle {
+  border-radius: 50%;
   background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
 }
 
@@ -957,14 +958,14 @@ body:not(.play) #fps:not(.show)::before {
 }
 
 #progress-circle {
+  border-radius: 50%;
+  background: conic-gradient(white var(--progress), white var(--progress), transparent var(--progress));
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 6rem;
   height: 6rem;
-  border-radius: 50%;
-  background: conic-gradient(#fff var(--progress), #fff var(--progress), transparent var(--progress));
   filter: drop-shadow(black 0px 0px 0.5rem);
   border-color: #fff;
   border-width: 0.125rem;
@@ -1104,6 +1105,16 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
   opacity: 0.4;
 }
 
+.toggle-label.on .value-label:not([data-lang-key=on]) {
+  display: none;
+}
+.toggle-label:not(.on) .value-label[data-lang-key=on] {
+  display: none;
+}
+.toggle-label .value-label {
+  padding-inline: 0.25rem;
+}
+
 #control-panel {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
@@ -1174,11 +1185,11 @@ body.play:not(.show-ui) #control-panel:not(.show)::before {
   vertical-align: middle;
 }
 #control-panel .icon-button > input[type=checkbox]:checked + div + label + label {
-  inset-block-end: 8rem;
+  inset-block-end: 9.5rem;
 }
 @media (max-width: 420px) {
   #control-panel .icon-button > input[type=checkbox]:checked + div + label + label {
-    inset-block-end: 10.5rem;
+    inset-block-end: 12rem;
   }
 }
 #control-panel label.icon-button svg,
@@ -1267,16 +1278,21 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
 
 #wakeup-progress-circle,
 #sleep-progress-circle {
-  position: absolute;
   border-radius: 50%;
+  background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
+  position: absolute;
   border-width: 2px;
   margin: 2px;
   border-color: transparent;
   width: calc(3rem - 4px);
   height: calc(3rem - 4px);
-  background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
   mix-blend-mode: difference;
   z-index: 50;
+}
+
+#wakeup-progress-circle.fading-in {
+  border-radius: 50%;
+  background: conic-gradient(white var(--progress), white var(--progress), transparent var(--progress));
 }
 
 #media-index,

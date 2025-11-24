@@ -101,7 +101,16 @@ export namespace Events
     export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
     {
         Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime));
-        UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilWakeUp() ?? 1) * 360}deg`);
+        if (Features.Timer.isWaitingForWakeUp())
+        {
+            UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
+            UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilWakeUp() ?? 1) * 360}deg`);
+        }
+        else
+        {
+            UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
+            UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilFadeInComplete() ?? 1) * 360}deg`);
+        }
     };
     export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
     {
@@ -131,20 +140,32 @@ export namespace Events
                 loopSpan
             );
         }
+        else
+        {
+            UI.wakeUpToggle.toggle(false);
+        }
     };
     export const updateWakeUp = (): void =>
     {
+        const isOn = UI.wakeUpToggle.get();
         const value = UI.wakeUpSelect.get();
-        console.log("⏰ Wake-up Timer changed:", value);
-        const timespan = "off" === value ? null: Tools.Timespan.parse(value);
+        console.log("⏰ Wake-up Timer changed:", isOn, value);
+        const timespan = isOn ? Tools.Timespan.parse(value): null;
         Features.Timer.setWakeUpTimer(timespan);
         wakeUpCountDownTimerLoop();
         updateNoMediaLabel();
         document.body.classList.toggle
         (
             "wake-up-timer-not-working",
-            "off" !== value && ! Tools.Environment.canAutoplay()
+            isOn && ! Tools.Environment.canAutoplay()
         );
+    };
+    export const updateWakeUpSelect = (): void =>
+    {
+        const value = UI.wakeUpSelect.get();
+        console.log("⏰ Wake-up Select changed:", value);
+        UI.wakeUpToggle.toggle(true, "preventOnChange");
+        updateWakeUp();
     };
     export const updateFadeIn = (disableLog?: "disableLog"): void =>
     {
@@ -161,12 +182,20 @@ export namespace Events
     };
     export const updateSleep = (): void =>
     {
+        const isOn = UI.sleepToggle.get();
         const value = UI.sleepSelect.get();
-        console.log("💤 Sleep Timer changed:", value);
-        const timespan = "off" === value ? null: Tools.Timespan.parse(value);
+        console.log("💤 Sleep Timer changed:", isOn, value);
+        const timespan = isOn ? Tools.Timespan.parse(value): null;
         Features.Timer.setSleepTimer(timespan);
         sleepCountDownTimerLoop();
         updateNoRepeatLabel();
+    };
+    export const updateSleepSelect = (): void =>
+    {
+        const value = UI.sleepSelect.get();
+        console.log("💤 Sleep Select changed:", value);
+        UI.sleepToggle.toggle(true, "preventOnChange");
+        updateSleep();
     };
     export const updateFadeOut = (disableLog?: "disableLog"): void =>
     {
@@ -179,7 +208,7 @@ export namespace Events
     };
     export const updateNoRepeatLabel = (): void =>
     {
-        const noRepeat = "off" !== UI.sleepSelect.get() && ! UI.repeat.get();
+        const noRepeat = UI.sleepToggle.get() && ! UI.repeat.get();
         UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -591,10 +620,12 @@ export namespace Events
         UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
         UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
         UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
+        UI.wakeUpToggle.setChange(updateWakeUp);
+        UI.wakeUpSelect.loadParameter(Url.params, applyParam).setChange(updateWakeUpSelect);
         UI.fadeInSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
-        UI.wakeUpSelect.loadParameter(Url.params, applyParam).setChange(updateWakeUp);
-        UI.fadeOutSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
+        UI.sleepToggle.setChange(updateSleep);
         UI.sleepSelect.loadParameter(Url.params, applyParam).setChange(updateSleep);
+        UI.fadeOutSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
         document.body.addEventListener
         (
             "mousemove",
