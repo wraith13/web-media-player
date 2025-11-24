@@ -505,7 +505,7 @@ export class Track
     setBlur(rate: number): void
     {
         const maxBlur = config.player.maxBlur;
-        const finalBlur = maxBlur *(1 - this.easingForBlur(rate)) /2;
+        const finalBlur = maxBlur *this.easingForBlur(rate);
         if (this.visualElement)
         {
             Library.UI.setStyle(this.visualElement, "--blur", `calc(${finalBlur}vw + ${finalBlur}vh)`);

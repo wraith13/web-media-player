@@ -1176,6 +1176,89 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
             "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
         },
+        "nl": {
+            "lang-label": "Nederlands",
+            "lang-direction": "ltr",
+            "Auto": "Automatisch",
+            "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
+            "media-count-label": "Aantal media:",
+            "media-length-label": "Mediaduur:",
+            "with-fullscreen-label": "Volledig scherm:",
+            "brightness-label": "Helderheid:",
+            "stretch-label": "Uitrekken:",
+            "padding-label": "Opvulling:",
+            "cross-fade-label": "Crossfade:",
+            "cross-fade-with-blur-label": "Crossfade met vervaging:",
+            "image-span-label": "Afbeelding weergavetijd:",
+            "loop-short-media-label": "Korte media herhalen:",
+            "visualizer-label": "Visualizer:",
+            "visualizer-simple": "Eenvoudig",
+            "visualizer-plane-frequency": "Vlak frequentie",
+            "visualizer-plane-waveform": "Vlak golfvorm",
+            "visualizer-arc-frequency": "Boog frequentie",
+            "visualizer-arc-waveform": "Boog golfvorm",
+            "visualizer-double-arc": "Dubbele boog",
+            "visualizer-stereo-arc-frequency": "Stereo boog frequentie",
+            "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
+            "visualizer-stereo-double-arc": "Stereo dubbele boog",
+            "overlay-style-label": "Overlay-stijl:",
+            "hide": "Verbergen",
+            "blend": "Meng",
+            "white": "Wit",
+            "black": "Zwart",
+            "system": "Systeem",
+            "alternate": "Alternatief",
+            "rainbow": "Regenboog",
+            "overlay-position-label": "Overlay positie:",
+            "center": "Midden",
+            "top-right": "Boven rechts",
+            "bottom-right": "Onder rechts",
+            "bottom-left": "Onder links",
+            "top-left": "Boven links",
+            "rotate": "Draaien",
+            "with-weather-label": "Weer:",
+            "weather-location-label": "Weer locatie:",
+            "ip-address": "IP-adres (lage nauwkeurigheid)",
+            "geolocation": "Geolocatie (hoge nauwkeurigheid)",
+            "with-clock-label": "Klok:",
+            "with-date-label": "Datum:",
+            "with-calendar-label": "Kalender:",
+            "with-visualizer-label": "Visualizer (Overlay):",
+            "show-fps-label": "FPS tonen:",
+            "shortcuts-label": "Toetsenbordsnelkoppelingen:",
+            "language-label": "Taal:",
+            "url-label": "Link naar deze instelling",
+            "repository-label": "repository",
+            "off": "Uit",
+            "fade-in-label": "Fade-in tijd:",
+            "wakeup-label": "Wekker:",
+            "fade-out-label": "Fade-out tijd:",
+            "sleep-label": "Slaaptimer:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "geleden",
+            "Shuffle": "Willekeurig",
+            "Repeat": "Herhalen",
+            "Play / Pause": "Afspelen / Pauzeren",
+            "Mute / Unmute": "Dempen / Geluid aan",
+            "Volume Up / Down": "Volume omhoog / omlaag",
+            "Seek": "Zoeken",
+            "Seek Backward": "Terug",
+            "Seek Forward": "Vooruit",
+            "Go to Previous/Next Media": "Ga naar vorige/volgende media",
+            "Go to Previous Media": "Ga naar vorige media",
+            "Go to Next Media": "Ga naar volgende media",
+            "FullScreen": "Volledig scherm",
+            "Switch Clock": "Klok wisselen",
+            "no-media-message": "Voeg media toe.",
+            "no-repeat-message": "Schakel herhaling in.",
+            "not-supported-media-message": "Dit mediaformaat kan niet worden afgespeeld.",
+            "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
+            "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
+        },
         "pt": {
             "lang-label": "Português",
             "lang-direction": "ltr",
@@ -1371,8 +1454,8 @@ define("resource/config", [], {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
         "notSupportedMediaMessageSpan": 5000,
-        "blurEasing": 0.1,
-        "maxBlur": 50
+        "blurEasing": 2,
+        "maxBlur": 25
     },
     "clock": {
         "alternate": {
@@ -5471,7 +5554,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.setBlur = function (rate) {
             var maxBlur = config_json_7.default.player.maxBlur;
-            var finalBlur = maxBlur * (1 - this.easingForBlur(rate)) / 2;
+            var finalBlur = maxBlur * this.easingForBlur(rate);
             if (this.visualElement) {
                 _library_6.Library.UI.setStyle(this.visualElement, "--blur", "calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh)"));
             }
@@ -5710,15 +5793,20 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     return null;
                 }
             };
-            CrossFade.getProgress = function () {
-                if (null !== CrossFade.elapsedTime) {
-                    return Math.min(CrossFade.elapsedTime / CrossFade.getDuration(), 1);
-                }
-                else if (null !== CrossFade.startAt) {
-                    return Math.min((Date.now() - CrossFade.startAt) / CrossFade.getDuration(), 1);
+            CrossFade.getProgress = function (trackType) {
+                if ("current" === trackType) {
+                    if (null !== CrossFade.elapsedTime) {
+                        return Math.min(CrossFade.elapsedTime / CrossFade.getDuration(), 1);
+                    }
+                    else if (null !== CrossFade.startAt) {
+                        return Math.min((Date.now() - CrossFade.startAt) / CrossFade.getDuration(), 1);
+                    }
+                    else {
+                        return 1;
+                    }
                 }
                 else {
-                    return 0;
+                    return 1 - CrossFade.getProgress("current");
                 }
             };
             CrossFade.isHotCrossFadeTarget = function (target) {
@@ -5912,26 +6000,19 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return false;
         };
         Player.crossFade = function () { return __awaiter(_this, void 0, void 0, function () {
-            var currentTimerFade, currentVolume, progress, fadeoutProgress;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(null !== currentTrack)) return [3 /*break*/, 8];
-                        currentTimerFade = timer_1.Timer.getTimerFade();
-                        currentVolume = (ui_9.UI.volumeRange.get() / 100) * currentTimerFade;
-                        if (!!Player.isSeeking()) return [3 /*break*/, 7];
+                        if (!(null !== currentTrack)) return [3 /*break*/, 4];
+                        if (!!Player.isSeeking()) return [3 /*break*/, 4];
                         if (currentTrack.selfValidate()) {
                             ui_9.UI.mediaLength.click();
                         }
-                        if (!CrossFade.isCrossFading()) return [3 /*break*/, 5];
-                        if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 3];
+                        if (!CrossFade.isCrossFading()) return [3 /*break*/, 3];
+                        if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 2];
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
-                        currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(1);
-                        currentTrack.setBlur(1);
-                        currentTrack.updateStretch("current");
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
                     case 1:
@@ -5939,44 +6020,62 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         _b.label = 2;
                     case 2: return [3 /*break*/, 4];
                     case 3:
-                        progress = CrossFade.getProgress();
-                        if (null !== fadeoutingTrack) {
-                            fadeoutProgress = 1 - progress;
-                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(1);
-                            fadeoutingTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress : 1);
-                        }
-                        currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.setOpacity(progress);
-                        currentTrack.setBlur(ui_9.UI.crossFadeWithBlurCheckbox.get() ? progress : 1);
-                        _b.label = 4;
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
-                        currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(1);
-                        currentTrack.setBlur(1);
                         if (currentTrack.getRemainingTime() <= 0 || (Player.isNextTiming() && !history_1.History.isAtEnd())) {
                             Player.next();
                         }
-                        _b.label = 6;
-                    case 6: return [3 /*break*/, 8];
-                    case 7:
-                        currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(1);
-                        currentTrack.setBlur(1);
-                        _b.label = 8;
-                    case 8: return [2 /*return*/];
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         }); };
-        Player.timerFade = function () {
-            var currentTimerFade = timer_1.Timer.getTimerFade();
-            if (null !== currentTrack) {
-                currentTrack.setBrightness(currentTimerFade);
+        var updateTrackPropertiesBase = function (trackType) {
+            var track = "current" === trackType ? currentTrack : fadeoutingTrack;
+            if (null !== track) {
+                track.setVolume(Player.getVolume(trackType), Player.getVolumeRate(trackType), Player.getVolumeFade(trackType));
+                track.setBrightness(Player.getBrightness());
+                track.setOpacity(Player.getOpacity(trackType));
+                track.setBlur(Player.getBlur(trackType));
             }
-            if (null !== fadeoutingTrack) {
-                fadeoutingTrack.setBrightness(currentTimerFade);
+        };
+        var updateCurrentTrackProperties = function () {
+            return updateTrackPropertiesBase("current");
+        };
+        var updateFadeoutingTrackProperties = function () {
+            return updateTrackPropertiesBase("fadeouting");
+        };
+        Player.updateTrackProperties = function () {
+            updateCurrentTrackProperties();
+            updateFadeoutingTrackProperties();
+        };
+        Player.getBrightness = function () {
+            return timer_1.Timer.getTimerFade();
+        };
+        Player.getVolume = function (trackType) {
+            return (ui_9.UI.volumeRange.get() / 100) * CrossFade.getProgress(trackType);
+        };
+        Player.getVolumeRate = function (trackType) {
+            return CrossFade.getProgress(trackType);
+        };
+        Player.getVolumeFade = function (trackType) {
+            if (CrossFade.isCrossFading()) {
+                switch (trackType) {
+                    case "current":
+                        return "fadeIn";
+                    case "fadeouting":
+                        return "fadeOut";
+                }
             }
+            else {
+                return undefined;
+            }
+        };
+        Player.getOpacity = function (trackType) {
+            return CrossFade.getProgress(trackType);
+        };
+        Player.getBlur = function (trackType) {
+            return ui_9.UI.crossFadeWithBlurCheckbox.get() ?
+                (1 - CrossFade.getProgress(trackType)) :
+                0;
         };
         Player.makeIndexText = function (track) {
             return "".concat(media_2.Media.mediaList.indexOf(track.media) + 1, " / ").concat(media_2.Media.mediaList.length);
@@ -6016,7 +6115,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     fps_1.Fps.step(now);
                     Player.updateFps();
                     Player.crossFade();
-                    Player.timerFade();
+                    Player.updateTrackProperties();
                     Player.step();
                     Player.updateMediaSessionPositionState();
                 }
@@ -6042,20 +6141,14 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.play();
             }
             else {
-                var currentTimerFade = timer_1.Timer.getTimerFade();
                 Player.removeFadeoutTrack();
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
-                currentTrack.setBrightness(currentTimerFade);
+                updateCurrentTrackProperties();
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                var currentVolume = (ui_9.UI.volumeRange.get() / 100) * currentTimerFade;
-                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get()) && fadeoutingTrack) {
+                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get())) {
                     CrossFade.start();
-                    fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
-                    currentTrack.setVolume(currentVolume, 0, "fadeIn");
-                    currentTrack.setOpacity(0);
-                    currentTrack.setBlur(0);
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
@@ -6064,9 +6157,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     if (fadeoutingTrack) {
                         Player.removeFadeoutTrack();
                     }
-                    currentTrack.setVolume(currentVolume);
-                    currentTrack.setOpacity(1);
-                    currentTrack.setBlur(1);
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {

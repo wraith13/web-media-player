@@ -11,6 +11,7 @@ import { Timer } from "./timer";
 import * as Config from "@resource/config.json";
 export namespace Player
 {
+    export type TrackType = "current" | "fadeouting";
     export namespace CrossFade
     {
         export let startAt: number | null = null;
@@ -60,20 +61,27 @@ export namespace Player
                 return null;
             }
         }
-        export const getProgress = (): number =>
+        export const getProgress = (trackType: TrackType): number =>
         {
-            if (null !== elapsedTime)
+            if ("current" === trackType)
             {
-                return Math.min(elapsedTime / getDuration(), 1);
+                if (null !== elapsedTime)
+                {
+                    return Math.min(elapsedTime / getDuration(), 1);
+                }
+                else
+                if (null !== startAt)
+                {
+                    return Math.min((Date.now() - startAt) / getDuration(), 1);
+                }
+                else
+                {
+                    return 1;
+                }
             }
             else
-            if (null !== startAt)
             {
-                return Math.min((Date.now() - startAt) / getDuration(), 1);
-            }
-            else
-            {
-                return 0;
+                return 1 -getProgress("current");
             }
         };
         export const isHotCrossFadeTarget = (target: Track): boolean =>
@@ -304,8 +312,6 @@ export namespace Player
     {
         if (null !== currentTrack)
         {
-            const currentTimerFade = Timer.getTimerFade();
-            const currentVolume = (UI.volumeRange.get() /100) *currentTimerFade;
             if ( ! isSeeking())
             {
                 if (currentTrack.selfValidate())
@@ -318,61 +324,71 @@ export namespace Player
                     {
                         CrossFade.clear();
                         removeFadeoutTrack();
-                        currentTrack.setVolume(currentVolume);
-                        currentTrack.setOpacity(1);
-                        currentTrack.setBlur(1);
-                        currentTrack.updateStretch("current");
                         if ( ! currentTrack.isPlaying())
                         {
                             await currentTrack.play();
                         }
                     }
-                    else
-                    {
-                        const progress = CrossFade.getProgress();
-                        if (null !== fadeoutingTrack)
-                        {
-                            const fadeoutProgress = 1 - progress;
-                            fadeoutingTrack.setVolume(currentVolume, fadeoutProgress, "fadeOut");
-                            fadeoutingTrack.setOpacity(1);
-                            fadeoutingTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? fadeoutProgress: 1);
-                        }
-                        currentTrack.setVolume(currentVolume, progress, "fadeIn");
-                        currentTrack.setOpacity(progress);
-                        currentTrack.setBlur(UI.crossFadeWithBlurCheckbox.get() ? progress: 1);
-                    }
                 }
                 else
                 {
-                    currentTrack.setVolume(currentVolume);
-                    currentTrack.setOpacity(1);
-                    currentTrack.setBlur(1);
                     if (currentTrack.getRemainingTime() <= 0 || (isNextTiming() && ! History.isAtEnd()))
                     {
                         next();
                     }
                 }
             }
-            else
+        }
+    };
+    const updateTrackPropertiesBase = (trackType: TrackType) =>
+    {
+        const track = "current" === trackType ? currentTrack : fadeoutingTrack;
+        if (null !== track)
+        {
+            track.setVolume(getVolume(trackType), getVolumeRate(trackType), getVolumeFade(trackType));
+            track.setBrightness(getBrightness());
+            track.setOpacity(getOpacity(trackType));
+            track.setBlur(getBlur(trackType));
+        }
+    };
+    const updateCurrentTrackProperties = () =>
+        updateTrackPropertiesBase("current");
+    const updateFadeoutingTrackProperties = () =>
+        updateTrackPropertiesBase("fadeouting");
+    export const updateTrackProperties = () =>
+    {
+        updateCurrentTrackProperties();
+        updateFadeoutingTrackProperties();
+    };
+    export const getBrightness = (): number =>
+        Timer.getTimerFade();
+    export const getVolume = (trackType: TrackType): number =>
+        (UI.volumeRange.get() /100) *CrossFade.getProgress(trackType);
+    export const getVolumeRate = (trackType: TrackType): number =>
+        CrossFade.getProgress(trackType);
+    export const getVolumeFade = (trackType: TrackType): "fadeIn" | "fadeOut" | undefined =>
+    {
+        if (CrossFade.isCrossFading())
+        {
+            switch(trackType)
             {
-                currentTrack.setVolume(currentVolume);
-                currentTrack.setOpacity(1);
-                currentTrack.setBlur(1);
+            case "current":
+                return "fadeIn";
+            case "fadeouting":
+                return "fadeOut";
             }
         }
-    };
-    export const timerFade = () =>
-    {
-        const currentTimerFade = Timer.getTimerFade();
-        if (null !== currentTrack)
+        else
         {
-            currentTrack.setBrightness(currentTimerFade);
-        }
-        if (null !== fadeoutingTrack)
-        {
-            fadeoutingTrack.setBrightness(currentTimerFade);
+            return undefined;
         }
     };
+    export const getOpacity = (trackType: TrackType): number =>
+        CrossFade.getProgress(trackType);
+    export const getBlur = (trackType: TrackType): number =>
+        UI.crossFadeWithBlurCheckbox.get() ?
+            (1 -CrossFade.getProgress(trackType)):
+            0;
     export const makeIndexText = (track: Track): string =>
         `${Media.mediaList.indexOf(track.media) +1} / ${Media.mediaList.length}`;
     export const makeTitleText = (track: Track): string =>
@@ -416,7 +432,7 @@ export namespace Player
                 Fps.step(now);
                 updateFps();
                 crossFade();
-                timerFade();
+                updateTrackProperties();
                 step();
                 updateMediaSessionPositionState();
             }
@@ -448,21 +464,15 @@ export namespace Player
         }
         else
         {
-            const currentTimerFade = Timer.getTimerFade();
             removeFadeoutTrack();
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
-            currentTrack.setBrightness(currentTimerFade);
+            updateCurrentTrackProperties();
             Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
-            const currentVolume = (UI.volumeRange.get() /100) *currentTimerFade;
-            if (0 < parseFloat(UI.crossFadeSelect.get()) && fadeoutingTrack)
+            if (0 < parseFloat(UI.crossFadeSelect.get()))
             {
                 CrossFade.start();
-                fadeoutingTrack.setVolume(currentVolume, 1, "fadeOut");
-                currentTrack.setVolume(currentVolume, 0, "fadeIn");
-                currentTrack.setOpacity(0);
-                currentTrack.setBlur(0);
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
@@ -474,9 +484,6 @@ export namespace Player
                 {
                     removeFadeoutTrack();
                 }
-                currentTrack.setVolume(currentVolume);
-                currentTrack.setOpacity(1);
-                currentTrack.setBlur(1);
                 currentTrack.play();
             }
             if (currentTrack.visualElement)
