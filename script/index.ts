@@ -20,9 +20,10 @@ declare var build: BuildInformation;
 console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 Url.initialize();
 UI.initialize(Url.params);
-Events.initialize();
+Events.initialize(Url.params);
 Library.Shortcuts.initialize();
-MediaList.initialize();
+MediaList.initialize(Url.params);
+Features.Player.initialize(Url.params);
 Features.Overlay.initialize(Url.params);
 Screenshot.initialize(Url.params);
 Features.Timer.initialize

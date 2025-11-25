@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Nov 25 2025 02:47:05 GMT+0900 (日本標準時)
+    build at: Tue Nov 25 2025 14:04:54 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -88,10 +88,10 @@ DEALINGS IN THE SOFTWARE.
 <meta property="og:locale" content="en_US" />
 <link rel="image_src" href="https://wraith13.github.io/web-media-player/image/twitter-card.png" />
 <style>
-@property --diagonal {
+@property --short-side {
   syntax: "<length>";
   inherits: true;
-  initial-value: calc(70vw + 70vh);
+  initial-value: calc(30vw + 30vh);
 }
 @property --volume {
   syntax: "<number>";
@@ -639,7 +639,7 @@ body.play #screen-body #media-list:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-body #media-list .item:not(.add)::before {
-  content: counter(item-num);
+  content: attr(data-index);
   position: absolute;
   top: 0.125rem;
   left: 0.125rem;
@@ -2636,20 +2636,20 @@ body:not(.play) #overlay-panel:not(.show)::before {
   transform: translate(-50%, -50%);
 }
 #overlay-panel.top-left, #overlay-panel.top-right {
-  top: calc(1 * var(--diagonal));
-  top: calc(1 * var(--diagonal) + env(safe-area-inset-top));
+  top: calc(2 * var(--short-side));
+  top: calc(2 * var(--short-side) + env(safe-area-inset-top));
 }
 #overlay-panel.top-right, #overlay-panel.bottom-right {
-  right: calc(1 * var(--diagonal));
-  right: calc(1 * var(--diagonal) + env(safe-area-inset-right));
+  right: calc(2 * var(--short-side));
+  right: calc(2 * var(--short-side) + env(safe-area-inset-right));
 }
 #overlay-panel.top-left, #overlay-panel.bottom-left {
-  left: calc(1 * var(--diagonal));
-  left: calc(1 * var(--diagonal) + env(safe-area-inset-left));
+  left: calc(2 * var(--short-side));
+  left: calc(2 * var(--short-side) + env(safe-area-inset-left));
 }
 #overlay-panel.bottom-right, #overlay-panel.bottom-left {
-  bottom: calc(1 * var(--diagonal));
-  bottom: calc(1 * var(--diagonal) + env(safe-area-inset-bottom));
+  bottom: calc(2 * var(--short-side));
+  bottom: calc(2 * var(--short-side) + env(safe-area-inset-bottom));
 }
 #overlay-panel span {
   display: block;
@@ -2893,7 +2893,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #overlay-panel #time:not(.text) {
-  font-size: calc(7.4 * var(--diagonal));
+  font-size: calc(14.8 * var(--short-side));
   line-height: 100%;
 }
 #overlay-panel #time.text {
@@ -2914,7 +2914,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #time.text {
-  font-size: calc(7.4 * var(--diagonal));
+  font-size: calc(14.8 * var(--short-side));
 }
 #overlay-panel #time {
   white-space: nowrap;
@@ -2937,7 +2937,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #date {
-  font-size: calc(2.1 * var(--diagonal));
+  font-size: calc(4.2 * var(--short-side));
   white-space: nowrap;
 }
 #overlay-panel #weather {
@@ -2964,13 +2964,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #weather {
-  font-size: calc(2.1 * var(--diagonal));
+  font-size: calc(4.2 * var(--short-side));
 }
 #overlay-panel #weather .first-letter {
-  font-size: calc(3.15 * var(--diagonal));
-  margin-top: calc(-0.525 * var(--diagonal));
-  margin-bottom: calc(-0.525 * var(--diagonal));
-  padding-right: calc(0.525 * var(--diagonal));
+  font-size: calc(6.3 * var(--short-side));
+  margin-top: calc(-1.05 * var(--short-side));
+  margin-bottom: calc(-1.05 * var(--short-side));
+  padding-right: calc(1.05 * var(--short-side));
 }
 #overlay-panel #calendar {
   font-size: 0.75rem;
@@ -2990,13 +2990,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #overlay-panel #calendar {
-  font-size: calc(1 * var(--diagonal));
+  font-size: calc(2 * var(--short-side));
   line-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: calc(0.5 * var(--diagonal));
-  padding: calc(0.5 * var(--diagonal));
+  gap: calc(1 * var(--short-side));
+  padding: calc(1 * var(--short-side));
 }
 #overlay-panel #calendar:empty {
   display: none;
@@ -3005,11 +3005,11 @@ body:not(.play) #overlay-panel:not(.show)::before {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: calc(0.75 * var(--diagonal));
+  gap: calc(1.5 * var(--short-side));
 }
 #overlay-panel #calendar .week .day {
-  width: calc(1 * var(--diagonal));
-  height: calc(1 * var(--diagonal));
+  width: calc(2 * var(--short-side));
+  height: calc(2 * var(--short-side));
   text-align: center;
 }
 #overlay-panel #calendar .week .day.today {
@@ -3019,8 +3019,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   opacity: 0.4;
 }
 #overlay-panel #visualizer {
-  width: calc(12 * var(--diagonal));
-  height: calc(12 * var(--diagonal));
+  width: calc(24 * var(--short-side));
+  height: calc(24 * var(--short-side));
 }
 #overlay-panel #visualizer:not(.on) {
   display: none;
@@ -3589,8 +3589,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Nov 25 2025 02:47:05 GMT+0900 (日本標準時)",
-    tick: 1764006425122
+    at: "Tue Nov 25 2025 14:04:54 GMT+0900 (日本標準時)",
+    tick: 1764047094086
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5274,9 +5274,9 @@ define("script/tools/number", ["require", "exports"], function (require, exports
         NumberTools.getIntegralDigits = function (value) {
             return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
         };
-        NumberTools.toString = function (value, maximumFractionDigits, locales) {
-            if (locales === void 0) { locales = "en-US"; }
-            return value.toLocaleString(locales, { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
+        NumberTools.toString = function (value, maximumFractionDigits, locale) {
+            if (locale === void 0) { locale = "en-US"; }
+            return value.toLocaleString(locale, { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
         NumberTools.parseInt = function (text) {
             var value = Number.parseInt(text, 10);
@@ -8101,32 +8101,32 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
     exports.Timespan = void 0;
     var Timespan;
     (function (Timespan) {
-        Timespan.toHumanizedString = function (value, maximumFractionDigits, locales) {
+        Timespan.toHumanizedString = function (value, maximumFractionDigits, locale) {
             var result = [];
             if (value < 1000) {
-                result.push("".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitMs")));
+                result.push("".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locale), " ").concat(_library_1.Library.Locale.map("timeUnitMs")));
             }
             else {
                 var days = Math.floor(value / (24 * 60 * 60 * 1000));
                 if (0 < days) {
-                    result.push("".concat(days, " ").concat(_library_1.Library.Locale.map("timeUnitD")));
+                    result.push("".concat(number_1.NumberTools.toString(days, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitD")));
                 }
                 var hours = Math.floor(value / (60 * 60 * 1000)) % 24;
                 if (0 < hours) {
-                    result.push("".concat(hours, " ").concat(_library_1.Library.Locale.map("timeUnitH")));
+                    result.push("".concat(number_1.NumberTools.toString(hours, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitH")));
                 }
                 var minutes = Math.floor(value / (60 * 1000)) % 60;
                 if (0 < minutes) {
-                    result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
+                    result.push("".concat(number_1.NumberTools.toString(minutes, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitM")));
                 }
                 var seconds = (value % (60 * 1000)) / 1000;
                 if (0 < seconds) {
-                    result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
+                    result.push("".concat(number_1.NumberTools.toString(seconds, maximumFractionDigits, locale), " ").concat(_library_1.Library.Locale.map("timeUnitS")));
                 }
             }
             return result.join(" ");
         };
-        Timespan.toMediaTimeString = function (value) {
+        Timespan.toMediaTimeString = function (value, locale) {
             if (Number.isNaN(value)) {
                 return "NaN";
             }
@@ -8138,11 +8138,12 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                 var hours = Math.floor(seconds / 3600);
                 var minutes = Math.floor((seconds % 3600) / 60);
                 var secs = seconds % 60;
+                var nf = new Intl.NumberFormat(locale, { minimumIntegerDigits: 2, useGrouping: false });
                 if (hours === 0) {
-                    return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                    return "".concat(nf.format(minutes), ":").concat(nf.format(secs));
                 }
-                {
-                    return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                else {
+                    return "".concat(nf.format(hours), ":").concat(nf.format(minutes), ":").concat(nf.format(secs));
                 }
             }
         };
@@ -8250,18 +8251,18 @@ define("script/tools/byte", ["require", "exports", "script/tools/number"], funct
     exports.Byte = void 0;
     var Byte;
     (function (Byte) {
-        var toString = function (value, maximumDigits) {
-            return value.toLocaleString(undefined, {
+        var toString = function (value, maximumDigits, locale) {
+            return value.toLocaleString(locale, {
                 maximumFractionDigits: undefined === maximumDigits ? undefined :
                     Math.max(0, maximumDigits - number_2.NumberTools.getIntegralDigits(value)),
             });
         };
-        Byte.toDisplayString = function (value, maximumDigits) {
-            return value < 1024 ? "".concat(toString(value, maximumDigits), " B") :
-                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits), " KiB") :
-                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits), " MiB") :
-                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits), " GiB") :
-                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits), " TiB");
+        Byte.toDisplayString = function (value, maximumDigits, locale) {
+            return value < 1024 ? "".concat(toString(value, maximumDigits, locale), " B") :
+                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits, locale), " KiB") :
+                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits, locale), " MiB") :
+                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits, locale), " GiB") :
+                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits, locale), " TiB");
         };
     })(Byte || (exports.Byte = Byte = {}));
 });
@@ -11007,6 +11008,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
     var Player;
     (function (Player) {
         var _this = this;
+        Player.locale = undefined;
         var CrossFade;
         (function (CrossFade) {
             CrossFade.startAt = null;
@@ -11332,13 +11334,13 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 0;
         };
         Player.makeIndexText = function (track) {
-            return "".concat(media_2.Media.mediaList.indexOf(track.media) + 1, " / ").concat(media_2.Media.mediaList.length);
+            return "".concat((media_2.Media.mediaList.indexOf(track.media) + 1).toLocaleString(Player.locale), " / ").concat(media_2.Media.mediaList.length.toLocaleString(Player.locale));
         };
         Player.makeTitleText = function (track) {
             return "".concat(track.media.name);
         };
         Player.makeTimeText = function (track) {
-            return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration()));
+            return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime(), Player.locale), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration(), Player.locale));
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
@@ -11434,7 +11436,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.updateStretch = function () {
             var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
-            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(innerWidth, innerHeight) * 0.01, "px"));
+            document.documentElement.style.setProperty('--short-side', "".concat(Math.min(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
         };
@@ -11464,6 +11466,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     }
                 }, 3000);
             }
+        };
+        Player.initialize = function (params) {
+            Player.locale = params["locale"];
         };
     })(Player || (exports.Player = Player = {}));
 });
@@ -11543,6 +11548,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
     var MediaList;
     (function (MediaList) {
         var _this = this;
+        MediaList.locale = undefined;
         var notSupportedMediaTimer = new _library_8.Library.UI.ToggleClassForWhileTimer();
         MediaList.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
             var entry, _a, _b;
@@ -11637,7 +11643,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _d = {
                             tag: "div",
                             className: "item",
-                            attributes: { draggable: "true", "data-index": ix }
+                            attributes: { draggable: "true", "data-index": ix.toLocaleString(MediaList.locale) }
                         };
                         return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
                     case 1:
@@ -11645,8 +11651,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
-                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3), },
-                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3, MediaList.locale), },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration, MediaList.locale) : "", }
                         ];
                         return [4 /*yield*/, MediaList.removeButton(entry)];
                     case 2:
@@ -11747,7 +11753,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
         };
-        MediaList.initialize = function () {
+        MediaList.initialize = function (params) {
+            MediaList.locale = params["locale"];
             MediaList.updateInformationDisplay();
         };
         MediaList.clearPlayState = function () {
@@ -11765,6 +11772,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     var Events;
     (function (Events) {
         var _this = this;
+        Events.locale = undefined;
         Events.updateVolume = function (disableLog) {
             var value = ui_12.UI.volumeRange.get();
             var rank = Math.ceil(value / 25);
@@ -11821,19 +11829,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateUrlAnchor = function (params) {
             return ui_12.UI.urlAnchor.href = url_4.Url.make(params);
         };
-        Events.makeTimerLabel = function (remainingTime) {
+        Events.makeTimerLabel = function (remainingTime, locale) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
                 //return Library.Locale.map("off");
                 return "";
             }
             else {
-                return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime);
+                return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime, locale);
             }
         };
         Events.updateWakeUpTimer = function (remainingTime) {
             var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
+            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
             if (_features_2.Features.Timer.isWakeUpFading()) {
                 ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
                 ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _a !== void 0 ? _a : 1));
@@ -11846,7 +11854,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
+            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
             ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1));
         };
         var wakeUpCountDownTimer = null;
@@ -12016,8 +12024,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.volumeRange.set(0);
             }
         };
-        Events.initialize = function () {
+        Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
+            Events.locale = params["locale"];
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -12372,9 +12381,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     url_5.Url.initialize();
     ui_14.UI.initialize(url_5.Url.params);
-    events_1.Events.initialize();
+    events_1.Events.initialize(url_5.Url.params);
     _library_11.Library.Shortcuts.initialize();
-    medialist_2.MediaList.initialize();
+    medialist_2.MediaList.initialize(url_5.Url.params);
+    _features_3.Features.Player.initialize(url_5.Url.params);
     _features_3.Features.Overlay.initialize(url_5.Url.params);
     screenshot_1.Screenshot.initialize(url_5.Url.params);
     _features_3.Features.Timer.initialize({

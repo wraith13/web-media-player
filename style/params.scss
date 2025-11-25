@@ -17,11 +17,11 @@ $kbd-background-color: rgba(255, 255, 255, 0.15);
 $visualizer-color: hsl(160, 100%, 50%);
 $error-color: red;
 $warning-color: orange;
-@property --diagonal
+@property --short-side
 {
     syntax: '<length>';
     inherits: true;
-    initial-value: calc(70vw + 70vh);
+    initial-value: calc(30vw + 30vh);
 }
 @property --volume
 {

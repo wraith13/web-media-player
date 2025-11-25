@@ -9,6 +9,7 @@ import config from "@resource/config.json";
 import control from "@resource/control.json";
 export namespace Events
 {
+    export let locale: string | undefined = undefined;
     export const updateVolume = (disableLog?: "disableLog") =>
     {
         const value = UI.volumeRange.get();
@@ -86,7 +87,7 @@ export namespace Events
     };
     const updateUrlAnchor = (params: Record<string, string>) =>
         UI.urlAnchor.href = Url.make(params);
-    export const makeTimerLabel = (remainingTime: number | null): string =>
+    export const makeTimerLabel = (remainingTime: number | null, locale?: Intl.LocalesArgument): string =>
     {
         if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime))
         {
@@ -95,12 +96,12 @@ export namespace Events
         }
         else
         {
-            return Tools.Timespan.toMediaTimeString(remainingTime);
+            return Tools.Timespan.toMediaTimeString(remainingTime, locale);
         }
     };
     export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
     {
-        Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime));
+        Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime, locale));
         if (Features.Timer.isWakeUpFading())
         {
             UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
@@ -114,7 +115,7 @@ export namespace Events
     };
     export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
     {
-        Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime));
+        Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime, locale));
         UI.sleepProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilSleep() ?? 1}`);
     };
     let wakeUpCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -332,8 +333,9 @@ export namespace Events
             UI.volumeRange.set(0);
         }
     };
-    export const initialize = () =>
+    export const initialize = (params: Record<string, string>) =>
     {
+        locale = params["locale"];
         window.addEventListener("dragover", event => event.preventDefault());
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());

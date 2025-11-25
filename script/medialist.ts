@@ -7,6 +7,7 @@ import { Progress } from "./progress";
 import config from "@resource/config.json";
 export namespace MediaList
 {
+    export let locale: string | undefined = undefined;
     const notSupportedMediaTimer = new Library.UI.ToggleClassForWhileTimer();
     export const addMedia = async (file: File): Promise<void> =>
     {
@@ -76,14 +77,14 @@ export namespace MediaList
         ({
             tag: "div",
             className: "item",
-            attributes: { draggable: "true", "data-index": ix },
+            attributes: { draggable: "true", "data-index": ix.toLocaleString(locale) },
             children:
             [
                 await Media.makeThumbnailElement(entry),
                 { tag: "span", className: "name", text: entry.name, },
                 { tag: "span", className: "type", text: entry.category, },
-                { tag: "span", className: "size", text: Tools.Byte.toDisplayString(entry.size, 3), },
-                { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration): "", },
+                { tag: "span", className: "size", text: Tools.Byte.toDisplayString(entry.size, 3, locale), },
+                { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration, locale): "", },
                 await removeButton(entry),
             ]
         }) as HTMLDivElement;
@@ -181,8 +182,9 @@ export namespace MediaList
         const hasNoMedia = UI.wakeUpToggle.get() && Media.mediaList.length <= 0;
         UI.noMediaLabel.classList.toggle("hide", ! hasNoMedia);
     };
-    export const initialize = (): void =>
+    export const initialize = (params: Record<string, string>): void =>
     {
+        locale = params["locale"];
         updateInformationDisplay();
     };
     export const clearPlayState = (): void =>

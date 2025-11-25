@@ -120,9 +120,9 @@ define("script/tools/number", ["require", "exports"], function (require, exports
         NumberTools.getIntegralDigits = function (value) {
             return 1 <= value ? Math.floor(Math.log10(value)) + 1 : 0;
         };
-        NumberTools.toString = function (value, maximumFractionDigits, locales) {
-            if (locales === void 0) { locales = "en-US"; }
-            return value.toLocaleString(locales, { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
+        NumberTools.toString = function (value, maximumFractionDigits, locale) {
+            if (locale === void 0) { locale = "en-US"; }
+            return value.toLocaleString(locale, { useGrouping: false, maximumFractionDigits: maximumFractionDigits, });
         };
         NumberTools.parseInt = function (text) {
             var value = Number.parseInt(text, 10);
@@ -2947,32 +2947,32 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
     exports.Timespan = void 0;
     var Timespan;
     (function (Timespan) {
-        Timespan.toHumanizedString = function (value, maximumFractionDigits, locales) {
+        Timespan.toHumanizedString = function (value, maximumFractionDigits, locale) {
             var result = [];
             if (value < 1000) {
-                result.push("".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locales), " ").concat(_library_1.Library.Locale.map("timeUnitMs")));
+                result.push("".concat(number_1.NumberTools.toString(value, maximumFractionDigits, locale), " ").concat(_library_1.Library.Locale.map("timeUnitMs")));
             }
             else {
                 var days = Math.floor(value / (24 * 60 * 60 * 1000));
                 if (0 < days) {
-                    result.push("".concat(days, " ").concat(_library_1.Library.Locale.map("timeUnitD")));
+                    result.push("".concat(number_1.NumberTools.toString(days, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitD")));
                 }
                 var hours = Math.floor(value / (60 * 60 * 1000)) % 24;
                 if (0 < hours) {
-                    result.push("".concat(hours, " ").concat(_library_1.Library.Locale.map("timeUnitH")));
+                    result.push("".concat(number_1.NumberTools.toString(hours, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitH")));
                 }
                 var minutes = Math.floor(value / (60 * 1000)) % 60;
                 if (0 < minutes) {
-                    result.push("".concat(minutes, " ").concat(_library_1.Library.Locale.map("timeUnitM")));
+                    result.push("".concat(number_1.NumberTools.toString(minutes, 0, locale), " ").concat(_library_1.Library.Locale.map("timeUnitM")));
                 }
                 var seconds = (value % (60 * 1000)) / 1000;
                 if (0 < seconds) {
-                    result.push("".concat(seconds, " ").concat(_library_1.Library.Locale.map("timeUnitS")));
+                    result.push("".concat(number_1.NumberTools.toString(seconds, maximumFractionDigits, locale), " ").concat(_library_1.Library.Locale.map("timeUnitS")));
                 }
             }
             return result.join(" ");
         };
-        Timespan.toMediaTimeString = function (value) {
+        Timespan.toMediaTimeString = function (value, locale) {
             if (Number.isNaN(value)) {
                 return "NaN";
             }
@@ -2984,11 +2984,12 @@ define("script/tools/timespan", ["require", "exports", "script/library/index", "
                 var hours = Math.floor(seconds / 3600);
                 var minutes = Math.floor((seconds % 3600) / 60);
                 var secs = seconds % 60;
+                var nf = new Intl.NumberFormat(locale, { minimumIntegerDigits: 2, useGrouping: false });
                 if (hours === 0) {
-                    return "".concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                    return "".concat(nf.format(minutes), ":").concat(nf.format(secs));
                 }
-                {
-                    return "".concat(hours.toString().padStart(2, "0"), ":").concat(minutes.toString().padStart(2, "0"), ":").concat(secs.toString().padStart(2, "0"));
+                else {
+                    return "".concat(nf.format(hours), ":").concat(nf.format(minutes), ":").concat(nf.format(secs));
                 }
             }
         };
@@ -3096,18 +3097,18 @@ define("script/tools/byte", ["require", "exports", "script/tools/number"], funct
     exports.Byte = void 0;
     var Byte;
     (function (Byte) {
-        var toString = function (value, maximumDigits) {
-            return value.toLocaleString(undefined, {
+        var toString = function (value, maximumDigits, locale) {
+            return value.toLocaleString(locale, {
                 maximumFractionDigits: undefined === maximumDigits ? undefined :
                     Math.max(0, maximumDigits - number_2.NumberTools.getIntegralDigits(value)),
             });
         };
-        Byte.toDisplayString = function (value, maximumDigits) {
-            return value < 1024 ? "".concat(toString(value, maximumDigits), " B") :
-                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits), " KiB") :
-                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits), " MiB") :
-                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits), " GiB") :
-                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits), " TiB");
+        Byte.toDisplayString = function (value, maximumDigits, locale) {
+            return value < 1024 ? "".concat(toString(value, maximumDigits, locale), " B") :
+                value < 1024 * 1024 ? "".concat(toString(value / 1024, maximumDigits, locale), " KiB") :
+                    value < 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024), maximumDigits, locale), " MiB") :
+                        value < 1024 * 1024 * 1024 * 1024 ? "".concat(toString(value / (1024 * 1024 * 1024 * 1024), maximumDigits, locale), " GiB") :
+                            "".concat(toString(value / (1024 * 1024 * 1024 * 1024 * 1024), maximumDigits, locale), " TiB");
         };
     })(Byte || (exports.Byte = Byte = {}));
 });
@@ -5853,6 +5854,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
     var Player;
     (function (Player) {
         var _this = this;
+        Player.locale = undefined;
         var CrossFade;
         (function (CrossFade) {
             CrossFade.startAt = null;
@@ -6178,13 +6180,13 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 0;
         };
         Player.makeIndexText = function (track) {
-            return "".concat(media_2.Media.mediaList.indexOf(track.media) + 1, " / ").concat(media_2.Media.mediaList.length);
+            return "".concat((media_2.Media.mediaList.indexOf(track.media) + 1).toLocaleString(Player.locale), " / ").concat(media_2.Media.mediaList.length.toLocaleString(Player.locale));
         };
         Player.makeTitleText = function (track) {
             return "".concat(track.media.name);
         };
         Player.makeTimeText = function (track) {
-            return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime()), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration()));
+            return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime(), Player.locale), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration(), Player.locale));
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
@@ -6280,7 +6282,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.updateStretch = function () {
             var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
-            document.documentElement.style.setProperty('--diagonal', "".concat(Math.hypot(innerWidth, innerHeight) * 0.01, "px"));
+            document.documentElement.style.setProperty('--short-side', "".concat(Math.min(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
         };
@@ -6310,6 +6312,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     }
                 }, 3000);
             }
+        };
+        Player.initialize = function (params) {
+            Player.locale = params["locale"];
         };
     })(Player || (exports.Player = Player = {}));
 });
@@ -6389,6 +6394,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
     var MediaList;
     (function (MediaList) {
         var _this = this;
+        MediaList.locale = undefined;
         var notSupportedMediaTimer = new _library_8.Library.UI.ToggleClassForWhileTimer();
         MediaList.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
             var entry, _a, _b;
@@ -6483,7 +6489,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _d = {
                             tag: "div",
                             className: "item",
-                            attributes: { draggable: "true", "data-index": ix }
+                            attributes: { draggable: "true", "data-index": ix.toLocaleString(MediaList.locale) }
                         };
                         return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
                     case 1:
@@ -6491,8 +6497,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _e.sent(),
                             { tag: "span", className: "name", text: entry.name, },
                             { tag: "span", className: "type", text: entry.category, },
-                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3), },
-                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration) : "", }
+                            { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3, MediaList.locale), },
+                            { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration, MediaList.locale) : "", }
                         ];
                         return [4 /*yield*/, MediaList.removeButton(entry)];
                     case 2:
@@ -6593,7 +6599,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
         };
-        MediaList.initialize = function () {
+        MediaList.initialize = function (params) {
+            MediaList.locale = params["locale"];
             MediaList.updateInformationDisplay();
         };
         MediaList.clearPlayState = function () {
@@ -6611,6 +6618,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
     var Events;
     (function (Events) {
         var _this = this;
+        Events.locale = undefined;
         Events.updateVolume = function (disableLog) {
             var value = ui_12.UI.volumeRange.get();
             var rank = Math.ceil(value / 25);
@@ -6667,19 +6675,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateUrlAnchor = function (params) {
             return ui_12.UI.urlAnchor.href = url_4.Url.make(params);
         };
-        Events.makeTimerLabel = function (remainingTime) {
+        Events.makeTimerLabel = function (remainingTime, locale) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
                 //return Library.Locale.map("off");
                 return "";
             }
             else {
-                return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime);
+                return _tools_8.Tools.Timespan.toMediaTimeString(remainingTime, locale);
             }
         };
         Events.updateWakeUpTimer = function (remainingTime) {
             var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
+            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
             if (_features_2.Features.Timer.isWakeUpFading()) {
                 ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
                 ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _a !== void 0 ? _a : 1));
@@ -6692,7 +6700,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
+            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
             ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1));
         };
         var wakeUpCountDownTimer = null;
@@ -6862,8 +6870,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.volumeRange.set(0);
             }
         };
-        Events.initialize = function () {
+        Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
+            Events.locale = params["locale"];
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
@@ -7218,9 +7227,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
     url_5.Url.initialize();
     ui_14.UI.initialize(url_5.Url.params);
-    events_1.Events.initialize();
+    events_1.Events.initialize(url_5.Url.params);
     _library_11.Library.Shortcuts.initialize();
-    medialist_2.MediaList.initialize();
+    medialist_2.MediaList.initialize(url_5.Url.params);
+    _features_3.Features.Player.initialize(url_5.Url.params);
     _features_3.Features.Overlay.initialize(url_5.Url.params);
     screenshot_1.Screenshot.initialize(url_5.Url.params);
     _features_3.Features.Timer.initialize({

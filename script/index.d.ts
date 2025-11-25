@@ -7,7 +7,7 @@ declare module "script/tools/type-guards" {
 declare module "script/tools/number" {
     export namespace NumberTools {
         const getIntegralDigits: (value: number) => number;
-        const toString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
+        const toString: (value: number, maximumFractionDigits?: number, locale?: Intl.LocalesArgument) => string;
         const parseInt: (text: string) => number | undefined;
     }
 }
@@ -2705,8 +2705,8 @@ declare module "script/library/index" {
 }
 declare module "script/tools/timespan" {
     export namespace Timespan {
-        const toHumanizedString: (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) => string;
-        const toMediaTimeString: (value: number) => string;
+        const toHumanizedString: (value: number, maximumFractionDigits?: number, locale?: Intl.LocalesArgument) => string;
+        const toMediaTimeString: (value: number, locale?: Intl.LocalesArgument) => string;
         const parse: (timespan: string) => number | null;
     }
 }
@@ -2735,7 +2735,7 @@ declare module "script/tools/random" {
 }
 declare module "script/tools/byte" {
     export namespace Byte {
-        const toDisplayString: (value: number, maximumDigits?: number) => string;
+        const toDisplayString: (value: number, maximumDigits?: number, locale?: Intl.LocalesArgument) => string;
     }
 }
 declare module "script/tools/timer" {
@@ -3220,6 +3220,7 @@ declare module "script/features/player" {
     import { Media } from "script/features/media";
     import { Track } from "script/features/track";
     export namespace Player {
+        let locale: string | undefined;
         type TrackType = "current" | "fadeouting";
         namespace CrossFade {
             let startAt: number | null;
@@ -3271,6 +3272,7 @@ declare module "script/features/player" {
         const updateStretch: () => void;
         const updateLoopShortMedia: () => void;
         const clear: () => void;
+        const initialize: (params: Record<string, string>) => void;
     }
 }
 declare module "script/features/index" {
@@ -3304,6 +3306,7 @@ declare module "script/medialist" {
     import { Library } from "script/library/index";
     import { Media } from "script/features/media";
     export namespace MediaList {
+        let locale: string | undefined;
         const addMedia: (file: File) => Promise<void>;
         const addMediaSerial: (file: File) => void;
         const removeButton: (entry: Media.Entry) => Promise<Library.UI.ElementSource<"button">>;
@@ -3311,16 +3314,17 @@ declare module "script/medialist" {
         const updateMediaListDisplay: () => Promise<void>;
         const updateInformationDisplay: () => void;
         const updateNoMediaLabel: () => void;
-        const initialize: () => void;
+        const initialize: (params: Record<string, string>) => void;
         const clearPlayState: () => void;
     }
 }
 declare module "script/events" {
     import { Library } from "script/library/index";
     export namespace Events {
+        let locale: string | undefined;
         const updateVolume: (disableLog?: "disableLog") => void;
         const updateBrightness: (disableLog?: "disableLog") => void;
-        const makeTimerLabel: (remainingTime: number | null) => string;
+        const makeTimerLabel: (remainingTime: number | null, locale?: Intl.LocalesArgument) => string;
         const updateWakeUpTimer: (remainingTime?: number | null) => void;
         const updateSleepTimer: (remainingTime?: number | null) => void;
         const wakeUpCountDownTimerLoop: () => void;
@@ -3338,7 +3342,7 @@ declare module "script/events" {
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const toggleMute: () => void;
-        const initialize: () => void;
+        const initialize: (params: Record<string, string>) => void;
     }
 }
 declare module "script/screenshot" {

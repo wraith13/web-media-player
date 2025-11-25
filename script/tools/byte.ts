@@ -1,10 +1,10 @@
 import { NumberTools } from "./number";
 export namespace Byte
 {
-    const toString = (value: number, maximumDigits?: number) =>
+    const toString = (value: number, maximumDigits?: number, locale?: Intl.LocalesArgument) =>
         value.toLocaleString
         (
-            undefined,
+            locale,
             {
                 maximumFractionDigits:
                     undefined === maximumDigits ? undefined:
@@ -12,10 +12,10 @@ export namespace Byte
 
             }
         );
-    export const toDisplayString = (value: number, maximumDigits?: number) =>
-        value < 1024 ? `${toString(value, maximumDigits)} B`:
-        value < 1024 *1024 ? `${toString(value /1024, maximumDigits)} KiB`:
-        value < 1024 *1024 *1024 ? `${toString(value /(1024 *1024), maximumDigits)} MiB`:
-        value < 1024 *1024 *1024 *1024 ? `${toString(value /(1024 *1024 *1024 *1024), maximumDigits)} GiB`:
-            `${toString(value /(1024 *1024 *1024 *1024 *1024), maximumDigits)} TiB`;
+    export const toDisplayString = (value: number, maximumDigits?: number, locale?: Intl.LocalesArgument) =>
+        value < 1024 ? `${toString(value, maximumDigits, locale)} B`:
+        value < 1024 *1024 ? `${toString(value /1024, maximumDigits, locale)} KiB`:
+        value < 1024 *1024 *1024 ? `${toString(value /(1024 *1024), maximumDigits, locale)} MiB`:
+        value < 1024 *1024 *1024 *1024 ? `${toString(value /(1024 *1024 *1024 *1024), maximumDigits, locale)} GiB`:
+            `${toString(value /(1024 *1024 *1024 *1024 *1024), maximumDigits, locale)} TiB`;
 }

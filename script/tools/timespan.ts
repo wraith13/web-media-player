@@ -2,39 +2,39 @@ import { Library } from "@library";
 import { NumberTools } from "./number";
 export namespace Timespan
 {
-    export const toHumanizedString = (value: number, maximumFractionDigits?: number, locales?: Intl.LocalesArgument) =>
+    export const toHumanizedString = (value: number, maximumFractionDigits?: number, locale?: Intl.LocalesArgument) =>
     {
         let result: string[] = [];
         if (value < 1000)
         {
-            result.push(`${NumberTools.toString(value, maximumFractionDigits, locales)} ${Library.Locale.map("timeUnitMs")}`);
+            result.push(`${NumberTools.toString(value, maximumFractionDigits, locale)} ${Library.Locale.map("timeUnitMs")}`);
         }
         else
         {
             const days = Math.floor(value /(24 *60 *60 *1000));
             if (0 < days)
             {
-                result.push(`${days} ${Library.Locale.map("timeUnitD")}`);
+                result.push(`${NumberTools.toString(days, 0, locale)} ${Library.Locale.map("timeUnitD")}`);
             }
             const hours = Math.floor(value /(60 *60 *1000)) %24;
             if (0 < hours)
             {
-                result.push(`${hours} ${Library.Locale.map("timeUnitH")}`);
+                result.push(`${NumberTools.toString(hours, 0, locale)} ${Library.Locale.map("timeUnitH")}`);
             }
             const minutes = Math.floor(value /(60 *1000)) %60;
             if (0 < minutes)
             {
-                result.push(`${minutes} ${Library.Locale.map("timeUnitM")}`);
+                result.push(`${NumberTools.toString(minutes, 0, locale)} ${Library.Locale.map("timeUnitM")}`);
             }
             const seconds = (value %(60 *1000)) /1000;
             if (0 < seconds)
             {
-                result.push(`${seconds} ${Library.Locale.map("timeUnitS")}`);
+                result.push(`${NumberTools.toString(seconds, maximumFractionDigits, locale)} ${Library.Locale.map("timeUnitS")}`);
             }
         }
         return result.join(" ");
     };
-    export const toMediaTimeString = (value: number): string =>
+    export const toMediaTimeString = (value: number, locale?: Intl.LocalesArgument): string =>
     {
         if (Number.isNaN(value))
         {
@@ -51,12 +51,14 @@ export namespace Timespan
             const hours = Math.floor(seconds /3600);
             const minutes = Math.floor((seconds %3600) /60);
             const secs = seconds %60;
+            const nf = new Intl.NumberFormat(locale, { minimumIntegerDigits: 2, useGrouping: false });
             if (hours === 0)
             {
-                return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+                return `${nf.format(minutes)}:${nf.format(secs)}`;
             }
+            else
             {
-                return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+                return `${nf.format(hours)}:${nf.format(minutes)}:${nf.format(secs)}`;
             }
         }
     };

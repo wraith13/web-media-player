@@ -1,7 +1,7 @@
-@property --diagonal {
+@property --short-side {
   syntax: "<length>";
   inherits: true;
-  initial-value: calc(70vw + 70vh);
+  initial-value: calc(30vw + 30vh);
 }
 @property --volume {
   syntax: "<number>";
@@ -549,7 +549,7 @@ body.play #screen-body #media-list:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #screen-body #media-list .item:not(.add)::before {
-  content: counter(item-num);
+  content: attr(data-index);
   position: absolute;
   top: 0.125rem;
   left: 0.125rem;
@@ -2546,20 +2546,20 @@ body:not(.play) #overlay-panel:not(.show)::before {
   transform: translate(-50%, -50%);
 }
 #overlay-panel.top-left, #overlay-panel.top-right {
-  top: calc(1 * var(--diagonal));
-  top: calc(1 * var(--diagonal) + env(safe-area-inset-top));
+  top: calc(2 * var(--short-side));
+  top: calc(2 * var(--short-side) + env(safe-area-inset-top));
 }
 #overlay-panel.top-right, #overlay-panel.bottom-right {
-  right: calc(1 * var(--diagonal));
-  right: calc(1 * var(--diagonal) + env(safe-area-inset-right));
+  right: calc(2 * var(--short-side));
+  right: calc(2 * var(--short-side) + env(safe-area-inset-right));
 }
 #overlay-panel.top-left, #overlay-panel.bottom-left {
-  left: calc(1 * var(--diagonal));
-  left: calc(1 * var(--diagonal) + env(safe-area-inset-left));
+  left: calc(2 * var(--short-side));
+  left: calc(2 * var(--short-side) + env(safe-area-inset-left));
 }
 #overlay-panel.bottom-right, #overlay-panel.bottom-left {
-  bottom: calc(1 * var(--diagonal));
-  bottom: calc(1 * var(--diagonal) + env(safe-area-inset-bottom));
+  bottom: calc(2 * var(--short-side));
+  bottom: calc(2 * var(--short-side) + env(safe-area-inset-bottom));
 }
 #overlay-panel span {
   display: block;
@@ -2803,7 +2803,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #overlay-panel #time:not(.text) {
-  font-size: calc(7.4 * var(--diagonal));
+  font-size: calc(14.8 * var(--short-side));
   line-height: 100%;
 }
 #overlay-panel #time.text {
@@ -2824,7 +2824,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #time.text {
-  font-size: calc(7.4 * var(--diagonal));
+  font-size: calc(14.8 * var(--short-side));
 }
 #overlay-panel #time {
   white-space: nowrap;
@@ -2847,7 +2847,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #date {
-  font-size: calc(2.1 * var(--diagonal));
+  font-size: calc(4.2 * var(--short-side));
   white-space: nowrap;
 }
 #overlay-panel #weather {
@@ -2874,13 +2874,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #overlay-panel #weather {
-  font-size: calc(2.1 * var(--diagonal));
+  font-size: calc(4.2 * var(--short-side));
 }
 #overlay-panel #weather .first-letter {
-  font-size: calc(3.15 * var(--diagonal));
-  margin-top: calc(-0.525 * var(--diagonal));
-  margin-bottom: calc(-0.525 * var(--diagonal));
-  padding-right: calc(0.525 * var(--diagonal));
+  font-size: calc(6.3 * var(--short-side));
+  margin-top: calc(-1.05 * var(--short-side));
+  margin-bottom: calc(-1.05 * var(--short-side));
+  padding-right: calc(1.05 * var(--short-side));
 }
 #overlay-panel #calendar {
   font-size: 0.75rem;
@@ -2900,13 +2900,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 #overlay-panel #calendar {
-  font-size: calc(1 * var(--diagonal));
+  font-size: calc(2 * var(--short-side));
   line-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: calc(0.5 * var(--diagonal));
-  padding: calc(0.5 * var(--diagonal));
+  gap: calc(1 * var(--short-side));
+  padding: calc(1 * var(--short-side));
 }
 #overlay-panel #calendar:empty {
   display: none;
@@ -2915,11 +2915,11 @@ body:not(.play) #overlay-panel:not(.show)::before {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: calc(0.75 * var(--diagonal));
+  gap: calc(1.5 * var(--short-side));
 }
 #overlay-panel #calendar .week .day {
-  width: calc(1 * var(--diagonal));
-  height: calc(1 * var(--diagonal));
+  width: calc(2 * var(--short-side));
+  height: calc(2 * var(--short-side));
   text-align: center;
 }
 #overlay-panel #calendar .week .day.today {
@@ -2929,8 +2929,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   opacity: 0.4;
 }
 #overlay-panel #visualizer {
-  width: calc(12 * var(--diagonal));
-  height: calc(12 * var(--diagonal));
+  width: calc(24 * var(--short-side));
+  height: calc(24 * var(--short-side));
 }
 #overlay-panel #visualizer:not(.on) {
   display: none;

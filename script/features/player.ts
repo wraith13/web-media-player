@@ -11,6 +11,7 @@ import { Timer } from "./timer";
 import * as Config from "@resource/config.json";
 export namespace Player
 {
+    export let locale: string | undefined = undefined;
     export type TrackType = "current" | "fadeouting";
     export namespace CrossFade
     {
@@ -390,11 +391,11 @@ export namespace Player
             (1 -CrossFade.getProgress(trackType)):
             0;
     export const makeIndexText = (track: Track): string =>
-        `${Media.mediaList.indexOf(track.media) +1} / ${Media.mediaList.length}`;
+        `${(Media.mediaList.indexOf(track.media) +1).toLocaleString(locale)} / ${Media.mediaList.length.toLocaleString(locale)}`;
     export const makeTitleText = (track: Track): string =>
         `${track.media.name}`;
     export const makeTimeText = (track: Track): string =>
-        `${Tools.Timespan.toMediaTimeString(track.getElapsedTime())} / ${Tools.Timespan.toMediaTimeString(track.getDuration())}`;
+        `${Tools.Timespan.toMediaTimeString(track.getElapsedTime(), locale)} / ${Tools.Timespan.toMediaTimeString(track.getDuration(), locale)}`;
     export const step = () =>
     {
         if (null !== fadeoutingTrack)
@@ -513,7 +514,7 @@ export namespace Player
     export const updateStretch = () =>
     {
         const { innerWidth, innerHeight } = window;
-        document.documentElement.style.setProperty('--diagonal', `${Math.hypot(innerWidth, innerHeight) *0.01}px`);
+        document.documentElement.style.setProperty('--short-side', `${Math.min(innerWidth, innerHeight) *0.01}px`);
         currentTrack?.updateStretch("current");
         fadeoutingTrack?.updateStretch("fadeouting");
     }
@@ -555,4 +556,8 @@ export namespace Player
             );
         }
     }
+    export const initialize = (params: Record<string, string>): void =>
+    {
+        locale = params["locale"];
+    };
 }
