@@ -9,7 +9,7 @@
   initial-value: 1;
 }
 @property --progress {
-  syntax: "<angle>";
+  syntax: "<number>";
   inherits: false;
   initial-value: 0deg;
 }
@@ -824,7 +824,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 .visualizer .visual-progress-circle {
   border-radius: 50%;
-  background: conic-gradient(hsl(160, 100%, 50%) var(--progress), hsl(160, 100%, 50%) var(--progress), transparent var(--progress));
+  background: conic-gradient(hsl(160, 100%, 50%) calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg));
   position: fixed;
   top: 50%;
   left: 50%;
@@ -841,7 +841,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 .visualizer.odd .visual-progress-circle {
   border-radius: 50%;
-  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
+  background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg));
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {
@@ -959,7 +959,7 @@ body:not(.play) #fps:not(.show)::before {
 
 #progress-circle {
   border-radius: 50%;
-  background: conic-gradient(white var(--progress), white var(--progress), transparent var(--progress));
+  background: conic-gradient(white calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg));
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1279,7 +1279,7 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
 #wakeup-progress-circle,
 #sleep-progress-circle {
   border-radius: 50%;
-  background: conic-gradient(transparent var(--progress), transparent var(--progress), white var(--progress));
+  background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg));
   position: absolute;
   border-width: 2px;
   margin: 2px;
@@ -1292,7 +1292,7 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
 
 #wakeup-progress-circle.fading-in {
   border-radius: 50%;
-  background: conic-gradient(white var(--progress), white var(--progress), transparent var(--progress));
+  background: conic-gradient(white calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg));
 }
 
 #media-index,
@@ -2949,7 +2949,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   opacity: 0.7;
 }
 #overlay-panel #visualizer.odd .visual-progress-circle {
-  background: conic-gradient(transparent var(--progress), transparent var(--progress), hsl(160, 100%, 50%) var(--progress));
+  border-radius: 50%;
+  background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg));
 }
 #overlay-panel.top-right, #overlay-panel.top-left, #overlay-panel.center {
   display: flex;

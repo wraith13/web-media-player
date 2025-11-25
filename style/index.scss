@@ -1654,7 +1654,7 @@ label:not(.icon-button)
             }
             &.odd .visual-progress-circle
             {
-                background: conic-gradient(transparent var(--progress), transparent var(--progress), $visualizer-color var(--progress));
+                @include progress-circle(transparent, $visualizer-color);
             }
         }
         &.top-right, &.top-left, &.center

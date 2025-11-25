@@ -101,21 +101,21 @@ export namespace Events
     export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
     {
         Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime));
-        if (Features.Timer.isWaitingForWakeUp())
+        if (Features.Timer.isWakeUpFading())
         {
-            UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
-            UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilWakeUp() ?? 1) * 360}deg`);
+            UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
+            UI.wakeUpProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilFadeInComplete() ?? 1}`);
         }
         else
         {
-            UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
-            UI.wakeUpProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilFadeInComplete() ?? 1) * 360}deg`);
+            UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
+            UI.wakeUpProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilWakeUp() ?? 1}`);
         }
     };
     export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
     {
         Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime));
-        UI.sleepProgressCircle.style.setProperty("--progress", `${(Features.Timer.getProgressUntilSleep() ?? 1) * 360}deg`);
+        UI.sleepProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilSleep() ?? 1}`);
     };
     let wakeUpCountDownTimer: ReturnType<typeof setTimeout> | null = null;
     export const wakeUpCountDownTimerLoop = (): void =>
@@ -127,8 +127,8 @@ export namespace Events
         }
         const remainingTime = Features.Timer.getTimeUntilWakeUp();
         updateWakeUpTimer(remainingTime);
-        const loopSpan = Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime);
-        if (null !== loopSpan)
+        const isRunning = Features.Timer.isWaitingForWakeUp() || Features.Timer.isWakeUpFading();
+        if (isRunning)
         {
             wakeUpCountDownTimer = setTimeout
             (
@@ -137,12 +137,14 @@ export namespace Events
                     wakeUpCountDownTimer = null;
                     wakeUpCountDownTimerLoop();
                 },
-                loopSpan
+                Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime) ??
+                Features.Timer.getFadeInCountDownTimerLoopSpan() ??
+                100
             );
         }
         else
         {
-            UI.wakeUpToggle.toggle(false);
+            UI.wakeUpToggle.toggle(false, "preventOnChange");
         }
     };
     export const updateWakeUp = (): void =>
@@ -624,7 +626,7 @@ export namespace Events
         UI.wakeUpSelect.loadParameter(Url.params, applyParam).setChange(updateWakeUpSelect);
         UI.fadeInSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
         UI.sleepToggle.setChange(updateSleep);
-        UI.sleepSelect.loadParameter(Url.params, applyParam).setChange(updateSleep);
+        UI.sleepSelect.loadParameter(Url.params, applyParam).setChange(updateSleepSelect);
         UI.fadeOutSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeOut());
         document.body.addEventListener
         (

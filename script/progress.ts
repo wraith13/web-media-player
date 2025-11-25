@@ -16,7 +16,7 @@ export namespace Progress
     export const updateProgress = (): void =>
     {
         document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
-        UI.progressCircle.style.setProperty("--progress", `${(completedTasks / totalTasks) * 360}deg`);
+        UI.progressCircle.style.setProperty("--progress", `${completedTasks / totalTasks}`);
         if (totalTasks <= completedTasks)
         {
             totalTasks = 0;

@@ -31,7 +31,7 @@ $warning-color: orange;
 }
 @property --progress
 {
-    syntax: '<angle>';
+    syntax: '<number>';
     inherits: false;
     initial-value: 0deg;
 }

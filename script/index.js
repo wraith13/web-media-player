@@ -4907,7 +4907,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
             }
             if (Visualizer.isSimpleMode()) {
                 var frequencyDataArray = (_a = analyser === null || analyser === void 0 ? void 0 : analyser.getByteFrequencyData("mono")) !== null && _a !== void 0 ? _a : null;
-                Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat((playerDom.currentTime / playerDom.duration) * 360, "deg"));
+                Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--progress", "".concat(playerDom.currentTime / playerDom.duration));
                 Visualizer.makeSureProgressCircle(visualDom).style.setProperty("--volume", "".concat(Visualizer.getVolume(frequencyDataArray)));
             }
             else {
@@ -5684,6 +5684,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             sleepFadeOutSpan = timespan;
         };
         Timer.setWakeUpTimer = function (timespan) {
+            wokeUpAt = null;
             wakeUpTimeSpan = timespan;
             if (null !== wakeUpTimer) {
                 clearTimeout(wakeUpTimer);
@@ -5739,7 +5740,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
             return (!Player.isPlaying()) && isSleeped;
         };
         Timer.isWaitingForWakeUp = function () {
-            return null !== wakeUpAt && Timer.getNow() < wakeUpAt;
+            return null !== wakeUpAt && null === wokeUpAt;
         };
         Timer.getTimeUntilWakeUp = function () {
             return null !== wakeUpAt ? wakeUpAt - Timer.getNow() : null;
@@ -5764,15 +5765,15 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
                 var spanFromminSteps = timerSpan / config.timers.minSteps;
                 return Math.min(stabilizeSpan, spanFromminSteps);
             }
-            if (Timer.isWakeUpFading()) {
-                var stabilizeSpan = 1000;
-                var spanFromminSteps = wakeUpFadeInSpan / config.timers.minSteps;
-                return Math.min(stabilizeSpan, spanFromminSteps);
-            }
             return null;
         };
         Timer.getWakeUpCountDownTimerLoopSpan = function (remainingTime) {
+            if (remainingTime === void 0) { remainingTime = Timer.getTimeUntilWakeUp(); }
             return Timer.getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
+        };
+        Timer.getFadeInCountDownTimerLoopSpan = function (remainingTime) {
+            if (remainingTime === void 0) { remainingTime = Timer.getElapsedWokeUpTime(); }
+            return Timer.getCountDownTimerLoopSpan(wakeUpFadeInSpan, remainingTime);
         };
         Timer.isWakeUpFading = function () {
             return null !== Timer.getElapsedWokeUpTime();
@@ -6372,7 +6373,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
         Progress.updateProgress = function () {
             document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
-            ui_10.UI.progressCircle.style.setProperty("--progress", "".concat((completedTasks / totalTasks) * 360, "deg"));
+            ui_10.UI.progressCircle.style.setProperty("--progress", "".concat(completedTasks / totalTasks));
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -6679,38 +6680,39 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
             _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime));
-            if (_features_2.Features.Timer.isWaitingForWakeUp()) {
-                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
-                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            if (_features_2.Features.Timer.isWakeUpFading()) {
+                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
+                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _a !== void 0 ? _a : 1));
             }
             else {
-                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
-                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat(((_b = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _b !== void 0 ? _b : 1) * 360, "deg"));
+                ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", false);
+                ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat((_b = _features_2.Features.Timer.getProgressUntilWakeUp()) !== null && _b !== void 0 ? _b : 1));
             }
         };
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
             _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime));
-            ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat(((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1) * 360, "deg"));
+            ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1));
         };
         var wakeUpCountDownTimer = null;
         Events.wakeUpCountDownTimerLoop = function () {
+            var _a, _b;
             if (null !== wakeUpCountDownTimer) {
                 clearTimeout(wakeUpCountDownTimer);
                 wakeUpCountDownTimer = null;
             }
             var remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp();
             Events.updateWakeUpTimer(remainingTime);
-            var loopSpan = _features_2.Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime);
-            if (null !== loopSpan) {
+            var isRunning = _features_2.Features.Timer.isWaitingForWakeUp() || _features_2.Features.Timer.isWakeUpFading();
+            if (isRunning) {
                 wakeUpCountDownTimer = setTimeout(function () {
                     wakeUpCountDownTimer = null;
                     Events.wakeUpCountDownTimerLoop();
-                }, loopSpan);
+                }, (_b = (_a = _features_2.Features.Timer.getWakeUpCountDownTimerLoopSpan(remainingTime)) !== null && _a !== void 0 ? _a : _features_2.Features.Timer.getFadeInCountDownTimerLoopSpan()) !== null && _b !== void 0 ? _b : 100);
             }
             else {
-                ui_12.UI.wakeUpToggle.toggle(false);
+                ui_12.UI.wakeUpToggle.toggle(false, "preventOnChange");
             }
         };
         Events.updateWakeUp = function () {
@@ -7080,7 +7082,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateWakeUpSelect);
             ui_12.UI.fadeInSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
             ui_12.UI.sleepToggle.setChange(Events.updateSleep);
-            ui_12.UI.sleepSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateSleep);
+            ui_12.UI.sleepSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateSleepSelect);
             ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
             document.body.addEventListener("mousemove", function (event) {
                 if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {

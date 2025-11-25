@@ -3200,7 +3200,8 @@ declare module "script/features/timer" {
         export const getProgressUntilWakeUp: () => number | null;
         export const getProgressUntilFadeInComplete: () => number | null;
         export const getCountDownTimerLoopSpan: (timerSpan: number | null, remainingTime: number | null) => number | null;
-        export const getWakeUpCountDownTimerLoopSpan: (remainingTime: number | null) => number | null;
+        export const getWakeUpCountDownTimerLoopSpan: (remainingTime?: number | null) => number | null;
+        export const getFadeInCountDownTimerLoopSpan: (remainingTime?: number | null) => number | null;
         export const isWakeUpFading: () => boolean;
         export const getElapsedWokeUpTime: () => number | null;
         export const getWakeUpFadeProgress: () => number | null;

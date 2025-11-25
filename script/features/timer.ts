@@ -28,6 +28,7 @@ export namespace Timer
     };
     export const setWakeUpTimer = (timespan: number | null): void =>
     {
+        wokeUpAt = null;
         wakeUpTimeSpan = timespan;
         if (null !== wakeUpTimer)
         {
@@ -103,7 +104,7 @@ export namespace Timer
     export const isInSleepedMode = (): boolean =>
         (! Player.isPlaying()) && isSleeped;
     export const isWaitingForWakeUp = (): boolean =>
-        null !== wakeUpAt && getNow() < wakeUpAt!;
+        null !== wakeUpAt && null === wokeUpAt;
     export const getTimeUntilWakeUp = (): number | null =>
         null !== wakeUpAt ? wakeUpAt! - getNow() : null;
     export const getProgressUntilWakeUp = (): number | null =>
@@ -132,16 +133,12 @@ export namespace Timer
             const spanFromminSteps = timerSpan /config.timers.minSteps;
             return Math.min(stabilizeSpan, spanFromminSteps);
         }
-        if (isWakeUpFading())
-        {
-            const stabilizeSpan = 1000;
-            const spanFromminSteps = wakeUpFadeInSpan /config.timers.minSteps;
-            return Math.min(stabilizeSpan, spanFromminSteps);
-        }
         return null;
     };
-    export const getWakeUpCountDownTimerLoopSpan = (remainingTime: number | null): number | null =>
+    export const getWakeUpCountDownTimerLoopSpan = (remainingTime: number | null = getTimeUntilWakeUp()): number | null =>
         getCountDownTimerLoopSpan(wakeUpTimeSpan, remainingTime);
+    export const getFadeInCountDownTimerLoopSpan = (remainingTime: number | null = getElapsedWokeUpTime()): number | null =>
+        getCountDownTimerLoopSpan(wakeUpFadeInSpan, remainingTime);
     export const isWakeUpFading = (): boolean =>
         null !== getElapsedWokeUpTime();
     export const getElapsedWokeUpTime = (): number | null =>

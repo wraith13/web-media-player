@@ -388,7 +388,7 @@ export namespace Visualizer
         if (isSimpleMode())
         {
             const frequencyDataArray = analyser?.getByteFrequencyData("mono") ?? null;
-            makeSureProgressCircle(visualDom).style.setProperty("--progress", `${(playerDom.currentTime /playerDom.duration) *360}deg`);
+            makeSureProgressCircle(visualDom).style.setProperty("--progress", `${playerDom.currentTime /playerDom.duration}`);
             makeSureProgressCircle(visualDom).style.setProperty("--volume", `${getVolume(frequencyDataArray)}`);
         }
         else
