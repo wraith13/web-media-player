@@ -1,0 +1,17 @@
+[
+    "./web.manifest/generated/ar.json",
+    "./web.manifest/generated/de.json",
+    "./web.manifest/generated/el.json",
+    "./web.manifest/generated/en.json",
+    "./web.manifest/generated/es.json",
+    "./web.manifest/generated/fa.json",
+    "./web.manifest/generated/fr.json",
+    "./web.manifest/generated/hi.json",
+    "./web.manifest/generated/id.json",
+    "./web.manifest/generated/it.json",
+    "./web.manifest/generated/ja.json",
+    "./web.manifest/generated/ko.json",
+    "./web.manifest/generated/nl.json",
+    "./web.manifest/generated/pl.json",
+    "./web.manifest/generated/pt.json"
+]

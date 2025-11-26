@@ -15,7 +15,7 @@ __LICENSE__-->
 <link rel="canonical" href="__CANONICAL_URL__">
 <link rel="apple-touch-icon" href="./image/favicon.png">
 <meta name="theme-color" content="__THEME_COLOR__">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 __DESCRIPTION__
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="__APPLICATION_TITLE__">
@@ -292,5 +292,18 @@ __EVIL_TIMER_CONFIG__;
 __EVIL_COMMONJS__
 __EVIL_TIMER__
 __SCRIPT__
+if ("serviceWorker" in navigator)
+{
+    window.addEventListener
+    (
+        "load",
+        () =>
+        {
+            navigator.serviceWorker.register("/sw.js")
+                .then(reg => console.log("✅ SW registered:", reg.scope))
+                .catch(err => console.warn("🚫 SW registration failed:", err));
+        }
+    );
+}
 </script>
 </html>

@@ -151,6 +151,12 @@ const main = async () =>
         JSON.stringify(Object.keys(master).map(lang => ({ "__LOCALE__": lang})), null, 4),
         "utf8"
     );
+    fs.writeFileSync
+    (
+        `${outputDirectory}/web-manifest-assets.json`,
+        JSON.stringify(Object.keys(master).map(lang => `./web.manifest/generated/${lang}.json`), null, 4),
+        "utf8"
+    );
     writeSCSS(master);
     writeHtmlPart(master, description);
     writeHtmlPart(master, twitterDescription);

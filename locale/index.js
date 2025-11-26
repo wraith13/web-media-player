@@ -161,6 +161,7 @@ var main = function () { return __awaiter(void 0, void 0, void 0, function () {
                     .replace(/__LANG_LABEL_LIST__/g, Object.keys(master).map(function (key) { return "".concat(master[key]["lang-label"], "(").concat(key, ")"); }).join(", ")), "utf8");
                 fs_1.default.writeFileSync("".concat(outputDirectory, "/master.ts"), "export const localeMaster = ".concat(JSON.stringify(master, null, 4), ";"), "utf8");
                 fs_1.default.writeFileSync("".concat(outputDirectory, "/manifest.langs.json"), JSON.stringify(Object.keys(master).map(function (lang) { return ({ "__LOCALE__": lang }); }), null, 4), "utf8");
+                fs_1.default.writeFileSync("".concat(outputDirectory, "/web-manifest-assets.json"), JSON.stringify(Object.keys(master).map(function (lang) { return "./web.manifest/generated/".concat(lang, ".json"); }), null, 4), "utf8");
                 writeSCSS(master);
                 writeHtmlPart(master, description);
                 writeHtmlPart(master, twitterDescription);

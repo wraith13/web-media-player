@@ -71,6 +71,7 @@ graph TB;
             direction TB;
             lmt[[./locale/generated/master.ts]];
             lmls[[./locale/generated/manifest.langs.json]];
+            lwma[[./locale/generated/web-manifest-assets.json]];
             lh[[./locale/generated/*.html]];
         end
         ./locale/index.ts;
@@ -126,6 +127,7 @@ graph TB;
     ./resource/lang/*.json-->bwm([build web.manifest])
     bl([build locale])-->lmt[[./locale/generated/master.ts]];
     bl([build locale])-->lmls[[./locale/generated/manifest.langs.json]];
+    bl([build locale])-->lwma[[./locale/generated/web-manifest-assets.json]];
     bl([build locale])-->lh[[./locale/generated/*.html]];
     sts[[./style/*.scss]]-->bst([build style])-->stc[[./style/index.css]];
     lmt[[./locale/generated/master.ts]]-->bs([build script]);
@@ -141,6 +143,10 @@ graph TB;
     bh([build html])-->ih[[./index.html]];
     ./README.template.md-->bl([build locale]);
     bl([build locale])-->rdm[[./README.md]];
+    ./resource/*.json-->bsw([build service-worker]);
+    lwma[[./locale/generated/web-manifest-assets.json]]-->bsw([build service-worker]);
+    ./sw.js.template-->bsw([build service-worker]);
+    bsw([build service-worker])-->sw[[./sw.js]];
 ```
 ( You can see this diagram in VS code with [Markdown Preview Mermaid Support extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). )
 
@@ -148,6 +154,7 @@ graph TB;
 - `npm run-script "build locale script"`
 - `npm run-script "build locale"`
 - `npm run-script "build web.manifest"`
+- `npm run-script "build service-worker"`
 - `npm run-script "build style"`
 - `npm run-script "build script"`
 - `npm run-script "build html"`

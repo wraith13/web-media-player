@@ -7,6 +7,7 @@
         "build locale script": "tsc -p ./locale/tsconfig.json",
         "build locale": "node ./locale/index.js",
         "build web.manifest": "node ./build.js ../build.json web.manifest",
+        "build service-worker": "node ./build.js ../build.json service-worker",
         "build style": "sass --no-charset style/index.scss style/index.css",
         "build script": "tsc -p ./script/tsconfig.json",
         "build html": "node ./build.js ../build.json html"

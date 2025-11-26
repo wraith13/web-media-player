@@ -108,7 +108,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -193,7 +192,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -278,7 +276,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -363,7 +360,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -448,7 +444,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -533,7 +528,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -618,7 +612,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -703,7 +696,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -788,7 +780,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -873,7 +864,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -958,7 +948,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -1043,7 +1032,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -1128,7 +1116,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -1213,7 +1200,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -1298,7 +1284,6 @@ declare module "locale/generated/master" {
             "Go to Previous Media": string;
             "Go to Next Media": string;
             FullScreen: string;
-            "Switch Clock": string;
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
@@ -1388,7 +1373,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1473,7 +1457,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1558,7 +1541,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1643,7 +1625,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1728,7 +1709,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1813,7 +1793,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1898,7 +1877,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -1983,7 +1961,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2068,7 +2045,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2153,7 +2129,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2238,7 +2213,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2323,7 +2297,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2408,7 +2381,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2493,7 +2465,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
@@ -2578,7 +2549,6 @@ declare module "script/library/locale" {
                 "Go to Previous Media": string;
                 "Go to Next Media": string;
                 FullScreen: string;
-                "Switch Clock": string;
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
