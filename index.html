@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Nov 26 2025 21:54:58 GMT+0900 (日本標準時)
+    build at: Thu Nov 27 2025 07:19:49 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3586,8 +3586,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Nov 26 2025 21:54:58 GMT+0900 (日本標準時)",
-    tick: 1764161698245
+    at: "Thu Nov 27 2025 07:19:49 GMT+0900 (日本標準時)",
+    tick: 1764195589330
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -12506,7 +12506,7 @@ if ("serviceWorker" in navigator)
         "load",
         () =>
         {
-            navigator.serviceWorker.register("/sw.js")
+            navigator.serviceWorker.register("./sw.js")
                 .then(reg => console.log("✅ SW registered:", reg.scope))
                 .catch(err => console.warn("🚫 SW registration failed:", err));
         }
