@@ -39,6 +39,8 @@ Playing a video on an iPhone Air (installed and running as a App)
 The following options cannot be set via the UI.
 
 - `locale`: Specifies the locale. (Example: [`?locale=en-us`](https://wraith13.github.io/web-media-player/?locale=en-us))
+- `title`: Text displayed in place of the time. (Example: [`?title=Hello!`](https://wraith13.github.io/web-media-player/?title=Hello!&with-clock=true&with-date=true&overlay-position=center))
+- `subtitle`: Text displayed in place of the date. (Example: [`?subtitle=Have+a+nice+day!`](https://wraith13.github.io/web-media-player/?subtitle=Have+a+nice+day!&with-clock=true&with-date=true&overlay-position=center))
 - `screenshot`: Specifies the screenshot mode. Accepts one of `favicon` or `twitter-card`. (Example: [`?screenshot=twitter-card`](https://wraith13.github.io/web-media-player/?screenshot=twitter-card))
 
 ## How to build
@@ -149,7 +151,6 @@ graph TB;
 - `npm run-script "build style"`
 - `npm run-script "build script"`
 - `npm run-script "build html"`
-
 
 ## Files
 

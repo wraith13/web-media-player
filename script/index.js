@@ -1285,6 +1285,91 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
             "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
         },
+        "pl": {
+            "lang-label": "Polski",
+            "lang-direction": "ltr",
+            "Auto": "Automatycznie",
+            "description": "Odtwarzacz multimedialny działający w przeglądarce",
+            "media-count-label": "Liczba mediów:",
+            "media-length-label": "Długość mediów:",
+            "with-fullscreen-label": "Pełny ekran:",
+            "brightness-label": "Jasność:",
+            "stretch-label": "Rozciągnięcie:",
+            "padding-label": "Odstępy:",
+            "cross-fade-label": "Przenikanie:",
+            "cross-fade-with-blur-label": "Przenikanie z rozmyciem:",
+            "image-span-label": "Czas wyświetlania obrazu:",
+            "loop-short-media-label": "Powtarzaj krótkie media:",
+            "visualizer-label": "Wizualizer:",
+            "visualizer-simple": "Prosty",
+            "visualizer-plane-frequency": "Płaszczyzna częstotliwości",
+            "visualizer-plane-waveform": "Płaszczyzna przebiegu",
+            "visualizer-arc-frequency": "Łuk częstotliwości",
+            "visualizer-arc-waveform": "Łuk przebiegu",
+            "visualizer-double-arc": "Podwójny łuk",
+            "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
+            "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
+            "visualizer-stereo-double-arc": "Stereo podwójny łuk",
+            "overlay-style-label": "Styl nakładki:",
+            "hide": "Ukryj",
+            "blend": "Mieszaj",
+            "white": "Biały",
+            "black": "Czarny",
+            "system": "System",
+            "alternate": "Naprzemiennie",
+            "rainbow": "Tęczowy",
+            "overlay-position-label": "Pozycja nakładki:",
+            "center": "Środek",
+            "top-right": "Prawy górny",
+            "bottom-right": "Prawy dolny",
+            "bottom-left": "Lewy dolny",
+            "top-left": "Lewy górny",
+            "rotate": "Obróć",
+            "with-weather-label": "Pogoda:",
+            "weather-location-label": "Lokalizacja pogody:",
+            "ip-address": "Adres IP (nisk dokładność)",
+            "geolocation": "Geolokalizacja (wysoka dokładność)",
+            "with-clock-label": "Zegar:",
+            "with-date-label": "Data:",
+            "with-calendar-label": "Kalendarz:",
+            "with-visualizer-label": "Wizualizer (nakładka):",
+            "show-fps-label": "Pokaż FPS:",
+            "shortcuts-label": "Skróty klawiaturowe:",
+            "language-label": "Język:",
+            "url-label": "Link do tego ustawienia",
+            "repository-label": "repozytorium",
+            "on": "Włącz",
+            "off": "Wyłącz",
+            "wakeup-label": "Budzik:",
+            "timer-label": "Timer",
+            "fade-in-label": "Czas narastania:",
+            "sleep-label": "Timer usypiania:",
+            "fade-out-label": "Czas zanikania:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "temu",
+            "Shuffle": "Losowo",
+            "Repeat": "Powtarzaj",
+            "Play / Pause": "Odtwarzaj / Pauza",
+            "Mute / Unmute": "Wycisz / Wyłącz wyciszenie",
+            "Volume Up / Down": "Głośniej / Ciszej",
+            "Seek": "Przesuń",
+            "Seek Backward": "Cofnij",
+            "Seek Forward": "Przesuń do przodu",
+            "Go to Previous/Next Media": "Przejdź do poprzedniego/następnego mediów",
+            "Go to Previous Media": "Przejdź do poprzedniego",
+            "Go to Next Media": "Przejdź do następnego",
+            "FullScreen": "Pełny ekran",
+            "Switch Clock": "Zmień zegar",
+            "no-media-message": "Dodaj media.",
+            "no-repeat-message": "Włącz powtarzanie.",
+            "not-supported-media-message": "To media nie może zostać odtworzone.",
+            "wake-up-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
+            "noscript-message": "JavaScript jest wyłączony. Proszę włączyć JavaScript."
+        },
         "pt": {
             "lang-label": "Português",
             "lang-direction": "ltr",
@@ -5557,9 +5642,15 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 //     Library.UI.setStyle(this.visualElement, "width", `100%`);
                 //     Library.UI.setStyle(this.visualElement, "height", `100%`);
                 // }
-                if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+                if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                     visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
+                }
+                if ("current" === truckType) {
+                    if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
+                        visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
+                        visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
+                    }
                 }
             }
             if ("current" === truckType) {
@@ -6489,7 +6580,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _d = {
                             tag: "div",
                             className: "item",
-                            attributes: { draggable: "true", "data-index": ix.toLocaleString(MediaList.locale) }
+                            attributes: { draggable: "true", "data-index": (ix + 1).toLocaleString(MediaList.locale) }
                         };
                         return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
                     case 1:
@@ -6590,10 +6681,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
             var imageSpan = parseInt(ui_11.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };
         MediaList.updateNoMediaLabel = function () {
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;

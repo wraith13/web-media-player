@@ -77,7 +77,7 @@ export namespace MediaList
         ({
             tag: "div",
             className: "item",
-            attributes: { draggable: "true", "data-index": ix.toLocaleString(locale) },
+            attributes: { draggable: "true", "data-index": (ix +1).toLocaleString(locale) },
             children:
             [
                 await Media.makeThumbnailElement(entry),
@@ -172,10 +172,10 @@ export namespace MediaList
     };
     export const updateInformationDisplay = (): void =>
     {
-        Library.UI.setTextContent(UI.mediaCount, Media.mediaList.length.toString());
+        Library.UI.setTextContent(UI.mediaCount, Media.mediaList.length.toLocaleString(locale));
         const imageSpan = parseInt(UI.imageSpanSelect.get());
         const totalDuration = Media.mediaList.reduce((sum, entry) => sum + (entry.duration ?? imageSpan), 0);
-        Library.UI.setTextContent(UI.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration));
+        Library.UI.setTextContent(UI.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration, locale));
     };
     export const updateNoMediaLabel = () =>
     {

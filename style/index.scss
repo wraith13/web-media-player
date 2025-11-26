@@ -191,8 +191,8 @@
                 {
                     content: attr(data-index);
                     position: absolute;
-                    top: 0.125rem;
-                    left: 0.125rem;
+                    inset-block-start: 0.125rem;
+                    inset-inline-start: 0.125rem;
                     font-size: 1rem;
                     color: $white-color;
                     background-color: black-color(0.6);
@@ -240,13 +240,11 @@
             {
                 display: none;
                 font-size: 1rem;
-                width: 100%;
                 padding: 0.25rem;
-                text-align: left;
                 z-index: 100;
                 position: absolute;
-                top: 0rem;
-                left: 0rem;
+                inset-block-start: 0rem;
+                inset-inline-start: 0rem;
             }
             & > span.size
             {
@@ -255,11 +253,10 @@
                 {
                     font-size: 1rem;
                     padding: 0.25rem;
-                    text-align: left;
                     z-index: 100;
                     position: absolute;
-                    left: 0rem;
-                    bottom: 0rem;
+                    inset-inline-start: 0rem;
+                    inset-block-end: 0rem;
                 }
             }
             & > span.duration
@@ -268,13 +265,11 @@
                 &
                 {
                     font-size: 1rem;
-                    width: 100%;
                     padding: 0.25rem;
-                    text-align: right;
                     z-index: 100;
                     position: absolute;
-                    right: 0rem;
-                    bottom: 0rem;
+                    inset-inline-end: 0rem;
+                    inset-block-end: 0rem;
                 }
             }
             & > button.remove-button
@@ -283,8 +278,8 @@
                 &
                 {
                     position: absolute;
-                    top: 0.125rem;
-                    right: 0.125rem;
+                    inset-inline-end: 0.125rem;
+                    inset-block-start: 0.125rem;
                     font-size: 1.25rem;
                     background-color: black-color(0.3);
                     z-index: 150;
@@ -1450,8 +1445,8 @@ label:not(.icon-button)
         pointer-events: none;
         &.center
         {
-            inset-block-start: 50%;
-            inset-inline-start: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
         }
         &.top-left, &.top-right
@@ -1680,10 +1675,6 @@ label:not(.icon-button)
             align-items: center;
         }
     }
-}
-[dir="rtl"] #overlay-panel
-{
-    transform: translate(50%, -50%);
 }
 #pressed-key
 {

@@ -106,7 +106,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 63s infinite;
+  animation: noscript-langs-fade 67.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -147,21 +147,24 @@ button {
 #noscript *[lang=nl] {
   animation-delay: 55s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=pl] {
   animation-delay: 59.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 64s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.4285714285714288% {
+  1.3333333333333335% {
     opacity: 1;
   }
-  7.142857142857143% {
+  6.666666666666667% {
     opacity: 1;
   }
-  8.571428571428573% {
+  8% {
     opacity: 0;
   }
   100% {
@@ -551,8 +554,8 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item:not(.add)::before {
   content: attr(data-index);
   position: absolute;
-  top: 0.125rem;
-  left: 0.125rem;
+  inset-block-start: 0.125rem;
+  inset-inline-start: 0.125rem;
   font-size: 1rem;
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
@@ -614,13 +617,11 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item > span.type {
   display: none;
   font-size: 1rem;
-  width: 100%;
   padding: 0.25rem;
-  text-align: left;
   z-index: 100;
   position: absolute;
-  top: 0rem;
-  left: 0rem;
+  inset-block-start: 0rem;
+  inset-inline-start: 0rem;
 }
 #screen-body #media-list .item > span.size {
   font-size: 0.75rem;
@@ -642,11 +643,10 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item > span.size {
   font-size: 1rem;
   padding: 0.25rem;
-  text-align: left;
   z-index: 100;
   position: absolute;
-  left: 0rem;
-  bottom: 0rem;
+  inset-inline-start: 0rem;
+  inset-block-end: 0rem;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 0.75rem;
@@ -667,13 +667,11 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > span.duration {
   font-size: 1rem;
-  width: 100%;
   padding: 0.25rem;
-  text-align: right;
   z-index: 100;
   position: absolute;
-  right: 0rem;
-  bottom: 0rem;
+  inset-inline-end: 0rem;
+  inset-block-end: 0rem;
 }
 #screen-body #media-list .item > button.remove-button {
   display: flex;
@@ -683,8 +681,8 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > button.remove-button {
   position: absolute;
-  top: 0.125rem;
-  right: 0.125rem;
+  inset-inline-end: 0.125rem;
+  inset-block-start: 0.125rem;
   font-size: 1.25rem;
   background-color: rgba(32, 28, 38, 0.3);
   z-index: 150;
@@ -2541,8 +2539,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   pointer-events: none;
 }
 #overlay-panel.center {
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 #overlay-panel.top-left, #overlay-panel.top-right {
@@ -2968,10 +2966,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 #overlay-panel.center {
   align-items: center;
-}
-
-[dir=rtl] #overlay-panel {
-  transform: translate(50%, -50%);
 }
 
 #pressed-key {

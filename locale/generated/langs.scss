@@ -3,7 +3,7 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 63s infinite;
+        animation: noscript-langs-fade 67.5s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
     *[lang="de"] { animation-delay: 5.5s; }
@@ -18,13 +18,14 @@
     *[lang="ja"] { animation-delay: 46s; }
     *[lang="ko"] { animation-delay: 50.5s; }
     *[lang="nl"] { animation-delay: 55s; }
-    *[lang="pt"] { animation-delay: 59.5s; }
+    *[lang="pl"] { animation-delay: 59.5s; }
+    *[lang="pt"] { animation-delay: 64s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    1.4285714285714288% { opacity: 1; }
-    7.142857142857143% { opacity: 1; }
-    8.571428571428573% { opacity: 0; }
+    1.3333333333333335% { opacity: 1; }
+    6.666666666666667% { opacity: 1; }
+    8% { opacity: 0; }
     100% { opacity: 0; }
 }

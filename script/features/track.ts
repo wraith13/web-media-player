@@ -392,10 +392,18 @@ export class Track
             //     Library.UI.setStyle(this.visualElement, "width", `100%`);
             //     Library.UI.setStyle(this.visualElement, "height", `100%`);
             // }
-            if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof Visualizer.VisualizerDom)
+            if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof Visualizer.VisualizerDom)
             {
                 Visualizer.updateStretch(this.visualElement);
                 Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
+            }
+            if ("current" === truckType)
+            {
+                if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
+                {
+                    Visualizer.updateStretch(UI.visualizer);
+                    Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
+                }
             }
         }
         if ("current" === truckType)

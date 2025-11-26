@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Nov 25 2025 14:04:54 GMT+0900 (日本標準時)
+    build at: Wed Nov 26 2025 01:29:13 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -52,6 +52,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="description" lang="ko" content="웹 브라우저에서 실행되는 웹 기반 미디어 플레이어">
 <meta name="description" lang="nl" content="Webgebaseerde mediaspeler die in een webbrowser draait">
+<meta name="description" lang="pl" content="Odtwarzacz multimedialny działający w przeglądarce">
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
@@ -75,6 +76,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="ja" content="Web ブラウザ上で動作するメディアプレイヤー">
 <meta name="twitter:description" lang="ko" content="웹 브라우저에서 실행되는 웹 기반 미디어 플레이어">
 <meta name="twitter:description" lang="nl" content="Webgebaseerde mediaspeler die in een webbrowser draait">
+<meta name="twitter:description" lang="pl" content="Odtwarzacz multimedialny działający w przeglądarce">
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
@@ -196,7 +198,7 @@ button {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 63s infinite;
+  animation: noscript-langs-fade 67.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -237,21 +239,24 @@ button {
 #noscript *[lang=nl] {
   animation-delay: 55s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=pl] {
   animation-delay: 59.5s;
+}
+#noscript *[lang=pt] {
+  animation-delay: 64s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.4285714285714288% {
+  1.3333333333333335% {
     opacity: 1;
   }
-  7.142857142857143% {
+  6.666666666666667% {
     opacity: 1;
   }
-  8.571428571428573% {
+  8% {
     opacity: 0;
   }
   100% {
@@ -641,8 +646,8 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item:not(.add)::before {
   content: attr(data-index);
   position: absolute;
-  top: 0.125rem;
-  left: 0.125rem;
+  inset-block-start: 0.125rem;
+  inset-inline-start: 0.125rem;
   font-size: 1rem;
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
@@ -704,13 +709,11 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item > span.type {
   display: none;
   font-size: 1rem;
-  width: 100%;
   padding: 0.25rem;
-  text-align: left;
   z-index: 100;
   position: absolute;
-  top: 0rem;
-  left: 0rem;
+  inset-block-start: 0rem;
+  inset-inline-start: 0rem;
 }
 #screen-body #media-list .item > span.size {
   font-size: 0.75rem;
@@ -732,11 +735,10 @@ body.play #screen-body #media-list:not(.show)::before {
 #screen-body #media-list .item > span.size {
   font-size: 1rem;
   padding: 0.25rem;
-  text-align: left;
   z-index: 100;
   position: absolute;
-  left: 0rem;
-  bottom: 0rem;
+  inset-inline-start: 0rem;
+  inset-block-end: 0rem;
 }
 #screen-body #media-list .item > span.duration {
   font-size: 0.75rem;
@@ -757,13 +759,11 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > span.duration {
   font-size: 1rem;
-  width: 100%;
   padding: 0.25rem;
-  text-align: right;
   z-index: 100;
   position: absolute;
-  right: 0rem;
-  bottom: 0rem;
+  inset-inline-end: 0rem;
+  inset-block-end: 0rem;
 }
 #screen-body #media-list .item > button.remove-button {
   display: flex;
@@ -773,8 +773,8 @@ body.play #screen-body #media-list:not(.show)::before {
 }
 #screen-body #media-list .item > button.remove-button {
   position: absolute;
-  top: 0.125rem;
-  right: 0.125rem;
+  inset-inline-end: 0.125rem;
+  inset-block-start: 0.125rem;
   font-size: 1.25rem;
   background-color: rgba(32, 28, 38, 0.3);
   z-index: 150;
@@ -2631,8 +2631,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   pointer-events: none;
 }
 #overlay-panel.center {
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 #overlay-panel.top-left, #overlay-panel.top-right {
@@ -3060,10 +3060,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
   align-items: center;
 }
 
-[dir=rtl] #overlay-panel {
-  transform: translate(50%, -50%);
-}
-
 #pressed-key {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
@@ -3224,6 +3220,7 @@ DUMMYSTYLE
 <div lang="ja" dir="ltr">JavaScript が無効になっています。JavaScript を有効にしてください。</div>
 <div lang="ko" dir="ltr">JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요.</div>
 <div lang="nl" dir="ltr">JavaScript is uitgeschakeld. Schakel JavaScript in.</div>
+<div lang="pl" dir="ltr">JavaScript jest wyłączony. Proszę włączyć JavaScript.</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
         </noscript>
     </div>
@@ -3589,8 +3586,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Nov 25 2025 14:04:54 GMT+0900 (日本標準時)",
-    tick: 1764047094086
+    at: "Wed Nov 26 2025 01:29:13 GMT+0900 (日本標準時)",
+    tick: 1764088153582
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6438,6 +6435,91 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "not-supported-media-message": "Dit mediaformaat kan niet worden afgespeeld.",
             "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
             "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
+        },
+        "pl": {
+            "lang-label": "Polski",
+            "lang-direction": "ltr",
+            "Auto": "Automatycznie",
+            "description": "Odtwarzacz multimedialny działający w przeglądarce",
+            "media-count-label": "Liczba mediów:",
+            "media-length-label": "Długość mediów:",
+            "with-fullscreen-label": "Pełny ekran:",
+            "brightness-label": "Jasność:",
+            "stretch-label": "Rozciągnięcie:",
+            "padding-label": "Odstępy:",
+            "cross-fade-label": "Przenikanie:",
+            "cross-fade-with-blur-label": "Przenikanie z rozmyciem:",
+            "image-span-label": "Czas wyświetlania obrazu:",
+            "loop-short-media-label": "Powtarzaj krótkie media:",
+            "visualizer-label": "Wizualizer:",
+            "visualizer-simple": "Prosty",
+            "visualizer-plane-frequency": "Płaszczyzna częstotliwości",
+            "visualizer-plane-waveform": "Płaszczyzna przebiegu",
+            "visualizer-arc-frequency": "Łuk częstotliwości",
+            "visualizer-arc-waveform": "Łuk przebiegu",
+            "visualizer-double-arc": "Podwójny łuk",
+            "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
+            "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
+            "visualizer-stereo-double-arc": "Stereo podwójny łuk",
+            "overlay-style-label": "Styl nakładki:",
+            "hide": "Ukryj",
+            "blend": "Mieszaj",
+            "white": "Biały",
+            "black": "Czarny",
+            "system": "System",
+            "alternate": "Naprzemiennie",
+            "rainbow": "Tęczowy",
+            "overlay-position-label": "Pozycja nakładki:",
+            "center": "Środek",
+            "top-right": "Prawy górny",
+            "bottom-right": "Prawy dolny",
+            "bottom-left": "Lewy dolny",
+            "top-left": "Lewy górny",
+            "rotate": "Obróć",
+            "with-weather-label": "Pogoda:",
+            "weather-location-label": "Lokalizacja pogody:",
+            "ip-address": "Adres IP (nisk dokładność)",
+            "geolocation": "Geolokalizacja (wysoka dokładność)",
+            "with-clock-label": "Zegar:",
+            "with-date-label": "Data:",
+            "with-calendar-label": "Kalendarz:",
+            "with-visualizer-label": "Wizualizer (nakładka):",
+            "show-fps-label": "Pokaż FPS:",
+            "shortcuts-label": "Skróty klawiaturowe:",
+            "language-label": "Język:",
+            "url-label": "Link do tego ustawienia",
+            "repository-label": "repozytorium",
+            "on": "Włącz",
+            "off": "Wyłącz",
+            "wakeup-label": "Budzik:",
+            "timer-label": "Timer",
+            "fade-in-label": "Czas narastania:",
+            "sleep-label": "Timer usypiania:",
+            "fade-out-label": "Czas zanikania:",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "h",
+            "timeUnitD": "d",
+            "ago": "temu",
+            "Shuffle": "Losowo",
+            "Repeat": "Powtarzaj",
+            "Play / Pause": "Odtwarzaj / Pauza",
+            "Mute / Unmute": "Wycisz / Wyłącz wyciszenie",
+            "Volume Up / Down": "Głośniej / Ciszej",
+            "Seek": "Przesuń",
+            "Seek Backward": "Cofnij",
+            "Seek Forward": "Przesuń do przodu",
+            "Go to Previous/Next Media": "Przejdź do poprzedniego/następnego mediów",
+            "Go to Previous Media": "Przejdź do poprzedniego",
+            "Go to Next Media": "Przejdź do następnego",
+            "FullScreen": "Pełny ekran",
+            "Switch Clock": "Zmień zegar",
+            "no-media-message": "Dodaj media.",
+            "no-repeat-message": "Włącz powtarzanie.",
+            "not-supported-media-message": "To media nie może zostać odtworzone.",
+            "wake-up-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
+            "noscript-message": "JavaScript jest wyłączony. Proszę włączyć JavaScript."
         },
         "pt": {
             "lang-label": "Português",
@@ -10711,9 +10793,15 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 //     Library.UI.setStyle(this.visualElement, "width", `100%`);
                 //     Library.UI.setStyle(this.visualElement, "height", `100%`);
                 // }
-                if (this.playerElement instanceof HTMLMediaElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
+                if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                     visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
+                }
+                if ("current" === truckType) {
+                    if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
+                        visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
+                        visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
+                    }
                 }
             }
             if ("current" === truckType) {
@@ -11643,7 +11731,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _d = {
                             tag: "div",
                             className: "item",
-                            attributes: { draggable: "true", "data-index": ix.toLocaleString(MediaList.locale) }
+                            attributes: { draggable: "true", "data-index": (ix + 1).toLocaleString(MediaList.locale) }
                         };
                         return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
                     case 1:
@@ -11744,10 +11832,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toString());
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
             var imageSpan = parseInt(ui_11.UI.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration));
+            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };
         MediaList.updateNoMediaLabel = function () {
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
