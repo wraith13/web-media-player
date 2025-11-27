@@ -69,7 +69,7 @@ DUMMYSTYLE
         <div id="keyboard-shortcut"></div>
     </div>
     <div id="media-list">
-        <div class="item add">
+        <div class="item add" tabindex="0">
             <div id="add-media">__ADD_ICON__</div>
             <input id="add-file" type="file" multiple />
         </div>
@@ -88,7 +88,7 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
-    <label for="wakeup-button" class="icon-button">
+    <label for="wakeup-button" class="icon-button" tabindex="0">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
             <label id="wakeup-toggle-label" class="toggle-label">
@@ -110,19 +110,19 @@ DUMMYSTYLE
         <div id="wakeup-progress-circle"></div>
         __SUN_ICON__
     </label>
-    <label for="shuffle" class="icon-button">
+    <label for="shuffle" class="icon-button" tabindex="0">
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
     </label>
-    <label for="repeat" class="icon-button">
+    <label for="repeat" class="icon-button" tabindex="0">
         <input id="repeat" type="checkbox">
         __REPEAT_ICON__
     </label>
-    <button id="play-button">
+    <button id="play-button" tabindex="0">
         <div id="play-icon">__PLAY_ICON__</div>
         <div id="pause-icon">__PAUSE_ICON__</div>
     </button>
-    <label for="volume-button" class="icon-button">
+    <label for="volume-button" class="icon-button" tabindex="0">
         <input id="volume-button" type="checkbox">
         <div id="volume-panel">
             <input id="volume" type="range" />
@@ -133,7 +133,7 @@ DUMMYSTYLE
         <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
     </label>
-    <label for="settings-button" class="icon-button">
+    <label for="settings-button" class="icon-button" tabindex="0">
         <input id="settings-button" type="checkbox">
         <div id="settings-panel">
             <label for="media-count" class="information">
@@ -233,7 +233,7 @@ DUMMYSTYLE
         </div>
         __COG_ICON__
     </label>
-    <label for="sleep-button" class="icon-button">
+    <label for="sleep-button" class="icon-button" tabindex="0">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
             <label id="sleep-toggle-label" class="toggle-label">

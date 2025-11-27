@@ -3370,7 +3370,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
     (function (Url) {
         Url.parseParameter = function (url) {
             var result = {};
-            var urlObj = new URL(url);
+            var urlObj = new URL(url.replace(/#/g, "?"));
             var params = urlObj.searchParams;
             params.forEach(function (value, key) { return result[key] = value; });
             return result;
@@ -3382,7 +3382,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
             }
-            return url.toString();
+            return url.toString().replace(/\?/g, "#");
         };
         // export const update = (params: Record<string, string>): void =>
         //     window.history.replaceState({}, "", make(params));

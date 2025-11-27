@@ -4,7 +4,7 @@ export namespace Url
     export const parseParameter = (url: string): Record<string, string> =>
     {
         const result: Record<string, string> = {};
-        const urlObj = new URL(url);
+        const urlObj = new URL(url.replace(/#/g, "?"));
         const params = urlObj.searchParams;
         params.forEach
         (
@@ -20,7 +20,7 @@ export namespace Url
         {
             url.searchParams.set(key, value);
         }
-        return url.toString();
+        return url.toString().replace(/\?/g, "#");
     };
     // export const update = (params: Record<string, string>): void =>
     //     window.history.replaceState({}, "", make(params));

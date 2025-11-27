@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Nov 27 2025 07:19:49 GMT+0900 (日本標準時)
+    build at: Thu Nov 27 2025 09:20:41 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3194,6 +3194,19 @@ body:not(.play) #overlay-panel:not(.show)::before {
   }
 }
 
+:not(label):focus {
+  filter: drop-shadow(hsl(200, 100%, 50%) 0px 0px 0.25rem);
+}
+
+label:not(.icon-button):focus-within,
+label.icon-button:not(.checked):focus-within {
+  filter: drop-shadow(hsl(200, 100%, 50%) 0px 0px 0.25rem);
+}
+label:not(.icon-button):focus-within :focus,
+label.icon-button:not(.checked):focus-within :focus {
+  filter: initial;
+}
+
 /*# sourceMappingURL=index.css.map */
 
 DUMMYSTYLE
@@ -3239,7 +3252,7 @@ DUMMYSTYLE
         <div id="keyboard-shortcut"></div>
     </div>
     <div id="media-list">
-        <div class="item add">
+        <div class="item add" tabindex="0">
             <div id="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3265,7 +3278,7 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
-    <label for="wakeup-button" class="icon-button">
+    <label for="wakeup-button" class="icon-button" tabindex="0">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
             <label id="wakeup-toggle-label" class="toggle-label">
@@ -3292,7 +3305,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <label for="shuffle" class="icon-button">
+    <label for="shuffle" class="icon-button" tabindex="0">
         <input id="shuffle" type="checkbox">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3303,7 +3316,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <label for="repeat" class="icon-button">
+    <label for="repeat" class="icon-button" tabindex="0">
         <input id="repeat" type="checkbox">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3314,7 +3327,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <button id="play-button">
+    <button id="play-button" tabindex="0">
         <div id="play-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3332,7 +3345,7 @@ DUMMYSTYLE
 </svg>
 </div>
     </button>
-    <label for="volume-button" class="icon-button">
+    <label for="volume-button" class="icon-button" tabindex="0">
         <input id="volume-button" type="checkbox">
         <div id="volume-panel">
             <input id="volume" type="range" />
@@ -3378,7 +3391,7 @@ DUMMYSTYLE
 </svg>
 </div>
     </label>
-    <label for="settings-button" class="icon-button">
+    <label for="settings-button" class="icon-button" tabindex="0">
         <input id="settings-button" type="checkbox">
         <div id="settings-panel">
             <label for="media-count" class="information">
@@ -3483,7 +3496,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <label for="sleep-button" class="icon-button">
+    <label for="sleep-button" class="icon-button" tabindex="0">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
             <label id="sleep-toggle-label" class="toggle-label">
@@ -3586,8 +3599,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Nov 27 2025 07:19:49 GMT+0900 (日本標準時)",
-    tick: 1764195589330
+    at: "Thu Nov 27 2025 09:20:41 GMT+0900 (日本標準時)",
+    tick: 1764202841077
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8521,7 +8534,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
     (function (Url) {
         Url.parseParameter = function (url) {
             var result = {};
-            var urlObj = new URL(url);
+            var urlObj = new URL(url.replace(/#/g, "?"));
             var params = urlObj.searchParams;
             params.forEach(function (value, key) { return result[key] = value; });
             return result;
@@ -8533,7 +8546,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
             }
-            return url.toString();
+            return url.toString().replace(/\?/g, "#");
         };
         // export const update = (params: Record<string, string>): void =>
         //     window.history.replaceState({}, "", make(params));
