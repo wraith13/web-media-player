@@ -46,6 +46,12 @@ export namespace MediaList
     ({
         tag: "button",
         className: "remove-button",
+        attributes:
+        {
+            tabindex: "0",
+            "data-aria-lang-key": "remove-media",
+            "aria-label": Library.Locale.map("remove-media"),
+        },
         children:
         [
             await Library.Svg.getSvg("SVG:close"),
@@ -77,7 +83,12 @@ export namespace MediaList
         ({
             tag: "div",
             className: "item",
-            attributes: { draggable: "true", "data-index": (ix +1).toLocaleString(locale) },
+            attributes:
+            {
+                draggable: "true",
+                "data-index": (ix +1).toLocaleString(locale),
+                tabindex: "0",
+            },
             children:
             [
                 await Media.makeThumbnailElement(entry),

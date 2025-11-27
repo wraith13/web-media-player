@@ -255,3 +255,7 @@
     border-radius: 50%;
     background: conic-gradient($color calc(var(--progress) * 360deg), $color calc(var(--progress) * 360deg), $background-color calc(var(--progress) * 360deg));
 }
+@mixin focus-halo
+{
+    filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
+}

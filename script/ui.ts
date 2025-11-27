@@ -232,6 +232,8 @@ export namespace UI
         UI.fadeOutSelect.reloadOptions();
         Library.UI.querySelectorAllWithFallback("span", [ "[data-lang-key]" ])
             .forEach(i => updateLabel(i));
+        Array.from(document.querySelectorAll<HTMLElement>("[data-aria-lang-key]"))
+            .forEach(i => updateAriaLabel(i));
         updateShortcuts();
     };
     export const wakeUpButton =
@@ -303,6 +305,14 @@ export namespace UI
         element.getAttribute("data-lang-key") as Library.Locale.Label;
     export const updateLabel = (element: HTMLSpanElement) =>
         Library.UI.setTextContent(element, Library.Locale.map(getDataLangKey(element)));
+    export const updateAriaLabel = (element: HTMLElement) =>
+    {
+        const labelKey = element.getAttribute("data-aria-lang-key") as Library.Locale.Label;
+        if (labelKey)
+        {
+            element.setAttribute("aria-label", Library.Locale.map(labelKey));
+        }
+    };
     export const setLabel = (element: HTMLSpanElement, label: Library.Locale.Label) =>
         element.setAttribute("data-lang-key", label);
     export const setAndUpdateLabel = (element: HTMLSpanElement, label: Library.Locale.Label) =>

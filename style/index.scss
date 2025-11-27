@@ -1772,16 +1772,7 @@ label:not(.icon-button)
         height: 0px;
     }
 }
-:not(label):focus
+:focus
 {
-    filter: drop-shadow($accent-color 0px 0px 0.25rem);
-}
-label:not(.icon-button):focus-within,
-label.icon-button:not(.checked):focus-within
-{
-    filter: drop-shadow($accent-color 0px 0px 0.25rem);
-    :focus
-    {
-        filter: initial;
-    }
+    @include focus-halo();
 }

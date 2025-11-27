@@ -3102,17 +3102,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   }
 }
 
-:not(label):focus {
-  filter: drop-shadow(hsl(200, 100%, 50%) 0px 0px 0.25rem);
-}
-
-label:not(.icon-button):focus-within,
-label.icon-button:not(.checked):focus-within {
-  filter: drop-shadow(hsl(200, 100%, 50%) 0px 0px 0.25rem);
-}
-label:not(.icon-button):focus-within :focus,
-label.icon-button:not(.checked):focus-within :focus {
-  filter: initial;
+:focus {
+  filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -69,14 +69,14 @@ DUMMYSTYLE
         <div id="keyboard-shortcut"></div>
     </div>
     <div id="media-list">
-        <div class="item add" tabindex="0">
-            <div id="add-media">__ADD_ICON__</div>
+        <div class="item add">
+            <div id="add-media" role="button" tabindex="0" data-aria-lang-key="add-media">__ADD_ICON__</div>
             <input id="add-file" type="file" multiple />
         </div>
     </div>
 </div>
 <div id="element-pool" style="display:none;"></div>
-<div id="progress-circle"></div>
+<div id="progress-circle" role="progressbar"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
 </div>
@@ -88,7 +88,7 @@ DUMMYSTYLE
 </div>
 <div id="fps"></div>
 <div id="control-panel">
-    <label for="wakeup-button" class="icon-button" tabindex="0">
+    <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
         <div id="wakeup-panel">
             <label id="wakeup-toggle-label" class="toggle-label">
@@ -107,22 +107,22 @@ DUMMYSTYLE
         </div>
         <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
         <label id="no-media" for="add-file" class="tip hide"><span data-lang-key="no-media-message"></span></label>
-        <div id="wakeup-progress-circle"></div>
+        <div id="wakeup-progress-circle" role="progressbar"></div>
         __SUN_ICON__
     </label>
-    <label for="shuffle" class="icon-button" tabindex="0">
+    <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
     </label>
-    <label for="repeat" class="icon-button" tabindex="0">
+    <label for="repeat" class="icon-button" tabindex="0" data-aria-lang-key="Repeat">
         <input id="repeat" type="checkbox">
         __REPEAT_ICON__
     </label>
-    <button id="play-button" tabindex="0">
+    <button id="play-button" tabindex="0" data-aria-lang-key="Play / Pause">
         <div id="play-icon">__PLAY_ICON__</div>
         <div id="pause-icon">__PAUSE_ICON__</div>
     </button>
-    <label for="volume-button" class="icon-button" tabindex="0">
+    <label for="volume-button" class="icon-button" tabindex="0" data-aria-lang-key="Volume">
         <input id="volume-button" type="checkbox">
         <div id="volume-panel">
             <input id="volume" type="range" />
@@ -133,7 +133,7 @@ DUMMYSTYLE
         <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
     </label>
-    <label for="settings-button" class="icon-button" tabindex="0">
+    <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
         <input id="settings-button" type="checkbox">
         <div id="settings-panel">
             <label for="media-count" class="information">
@@ -233,7 +233,7 @@ DUMMYSTYLE
         </div>
         __COG_ICON__
     </label>
-    <label for="sleep-button" class="icon-button" tabindex="0">
+    <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
         <input id="sleep-button" type="checkbox">
         <div id="sleep-panel">
             <label id="sleep-toggle-label" class="toggle-label">
@@ -252,7 +252,7 @@ DUMMYSTYLE
         </div>
         <label id="sleep-timer" for="sleep-button" class="tip"></label>
         <label id="no-repeat" for="repeat" class="tip hide"><span data-lang-key="no-repeat-message"></span></label>
-        <div id="sleep-progress-circle"></div>
+        <div id="sleep-progress-circle" role="progressbar"></div>
         __MOON_ICON__
     </label>
 </div>
@@ -261,19 +261,19 @@ DUMMYSTYLE
 <div id="media-time-frame">
     <span id="media-time"></span>
     <div id="seek-panel">
-        <input id="seek" type="range" min="0" max="1" step="any" />
+        <input id="seek" type="range" data-aria-lang-key="Seek" min="0" max="1" step="any" />
     </div>
 </div>
-<button id="back-button">
+<button id="back-button" data-aria-lang-key="Go to Previous Media">
     <div id="back-icon">__BACK_ICON__<div>
 </button>
-<button id="next-button">
+<button id="next-button" data-aria-lang-key="Go to Next Media">
     <div id="next-icon">__NEXT_ICON__<div>
 </button>
-<button id="rewind-button">
+<button id="rewind-button" data-aria-lang-key="Seek Backward">
     <div id="rewind-icon">__REWIND_ICON__<div>
 </button>
-<button id="fast-forward-button">
+<button id="fast-forward-button" data-aria-lang-key="Seek Forward">
     <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
 </button>
 <div id="pressed-key"></div>

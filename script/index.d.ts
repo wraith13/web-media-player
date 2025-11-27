@@ -33,6 +33,8 @@ declare module "locale/generated/master" {
         ar: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -85,9 +87,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -99,8 +103,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -117,6 +123,8 @@ declare module "locale/generated/master" {
         de: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -169,9 +177,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -183,8 +193,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -201,6 +213,8 @@ declare module "locale/generated/master" {
         el: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -253,9 +267,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -267,8 +283,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -285,6 +303,8 @@ declare module "locale/generated/master" {
         en: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -337,9 +357,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -351,8 +373,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -369,6 +393,8 @@ declare module "locale/generated/master" {
         es: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -421,9 +447,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -435,8 +463,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -453,6 +483,8 @@ declare module "locale/generated/master" {
         fa: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -505,9 +537,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -519,8 +553,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -537,6 +573,8 @@ declare module "locale/generated/master" {
         fr: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -589,9 +627,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -603,8 +643,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -621,6 +663,8 @@ declare module "locale/generated/master" {
         hi: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -673,9 +717,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -687,8 +733,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -705,6 +753,8 @@ declare module "locale/generated/master" {
         id: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -757,9 +807,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -771,8 +823,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -789,6 +843,8 @@ declare module "locale/generated/master" {
         it: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -841,9 +897,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -855,8 +913,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -873,6 +933,8 @@ declare module "locale/generated/master" {
         ja: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -925,9 +987,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -939,8 +1003,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -957,6 +1023,8 @@ declare module "locale/generated/master" {
         ko: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1009,9 +1077,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -1023,8 +1093,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -1041,6 +1113,8 @@ declare module "locale/generated/master" {
         nl: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1093,9 +1167,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -1107,8 +1183,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -1125,6 +1203,8 @@ declare module "locale/generated/master" {
         pl: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1177,9 +1257,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -1191,8 +1273,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -1209,6 +1293,8 @@ declare module "locale/generated/master" {
         pt: {
             "lang-label": string;
             "lang-direction": string;
+            "add-media": string;
+            "remove-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1261,9 +1347,11 @@ declare module "locale/generated/master" {
             "repository-label": string;
             on: string;
             off: string;
+            wakeup: string;
             "wakeup-label": string;
             "timer-label": string;
             "fade-in-label": string;
+            sleep: string;
             "sleep-label": string;
             "fade-out-label": string;
             timeUnitMs: string;
@@ -1275,8 +1363,10 @@ declare module "locale/generated/master" {
             Shuffle: string;
             Repeat: string;
             "Play / Pause": string;
+            Volume: string;
             "Mute / Unmute": string;
             "Volume Up / Down": string;
+            Settings: string;
             Seek: string;
             "Seek Backward": string;
             "Seek Forward": string;
@@ -1298,6 +1388,8 @@ declare module "script/library/locale" {
             ar: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1350,9 +1442,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1364,8 +1458,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1382,6 +1478,8 @@ declare module "script/library/locale" {
             de: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1434,9 +1532,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1448,8 +1548,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1466,6 +1568,8 @@ declare module "script/library/locale" {
             el: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1518,9 +1622,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1532,8 +1638,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1550,6 +1658,8 @@ declare module "script/library/locale" {
             en: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1602,9 +1712,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1616,8 +1728,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1634,6 +1748,8 @@ declare module "script/library/locale" {
             es: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1686,9 +1802,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1700,8 +1818,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1718,6 +1838,8 @@ declare module "script/library/locale" {
             fa: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1770,9 +1892,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1784,8 +1908,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1802,6 +1928,8 @@ declare module "script/library/locale" {
             fr: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1854,9 +1982,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1868,8 +1998,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1886,6 +2018,8 @@ declare module "script/library/locale" {
             hi: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1938,9 +2072,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -1952,8 +2088,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -1970,6 +2108,8 @@ declare module "script/library/locale" {
             id: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2022,9 +2162,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2036,8 +2178,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2054,6 +2198,8 @@ declare module "script/library/locale" {
             it: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2106,9 +2252,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2120,8 +2268,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2138,6 +2288,8 @@ declare module "script/library/locale" {
             ja: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2190,9 +2342,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2204,8 +2358,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2222,6 +2378,8 @@ declare module "script/library/locale" {
             ko: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2274,9 +2432,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2288,8 +2448,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2306,6 +2468,8 @@ declare module "script/library/locale" {
             nl: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2358,9 +2522,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2372,8 +2538,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2390,6 +2558,8 @@ declare module "script/library/locale" {
             pl: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2442,9 +2612,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2456,8 +2628,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -2474,6 +2648,8 @@ declare module "script/library/locale" {
             pt: {
                 "lang-label": string;
                 "lang-direction": string;
+                "add-media": string;
+                "remove-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2526,9 +2702,11 @@ declare module "script/library/locale" {
                 "repository-label": string;
                 on: string;
                 off: string;
+                wakeup: string;
                 "wakeup-label": string;
                 "timer-label": string;
                 "fade-in-label": string;
+                sleep: string;
                 "sleep-label": string;
                 "fade-out-label": string;
                 timeUnitMs: string;
@@ -2540,8 +2718,10 @@ declare module "script/library/locale" {
                 Shuffle: string;
                 Repeat: string;
                 "Play / Pause": string;
+                Volume: string;
                 "Mute / Unmute": string;
                 "Volume Up / Down": string;
+                Settings: string;
                 Seek: string;
                 "Seek Backward": string;
                 "Seek Forward": string;
@@ -3041,6 +3221,7 @@ declare module "script/ui" {
         const initialize: (params: Record<string, string>) => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;
         const updateLabel: (element: HTMLSpanElement) => void;
+        const updateAriaLabel: (element: HTMLElement) => void;
         const setLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const popupCheckboxList: Library.Control.Checkbox[];
