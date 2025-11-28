@@ -1113,8 +1113,8 @@ body.no-media
 }
 #wakeup-panel
 {
-    @include fade-transition("body #wakeup-button:not(:checked) + &");
-    @include slide-down-transition("body #wakeup-button:not(:checked) + &");
+    @include fade-transition("body label[for=wakeup-button]:not(.checked):not(:focus-within) + &");
+    @include slide-down-transition("body label[for=wakeup-button]:not(.checked):not(:focus-within) + &");
     //@include black-pop-panel-style();
     &
     {
@@ -1221,8 +1221,8 @@ label[for="volume-button"]
 }
 #volume-panel
 {
-    @include fade-transition("body #volume-button:not(:checked) + &");
-    //@include slide-down-transition("body #volume-button:not(.on) + &");
+    @include fade-transition("body label[for=volume-button]:not(.checked):not(:focus-within) + &");
+    //@include slide-down-transition("body label[for=volume-button]:not(.checked):not(:focus-within) + &");
     @include black-pop-panel-style();
     &
     {
@@ -1245,8 +1245,8 @@ label[for="volume-button"]
 #settings-panel
 {
     //@include black-pop-panel-style();
-    @include fade-transition("body #settings-button:not(:checked) + &");
-    @include slide-down-transition("body #settings-button:not(:checked) + &");
+    @include fade-transition("body label[for=settings-button]:not(.checked):not(:focus-within) + &");
+    @include slide-down-transition("body label[for=settings-button]:not(.checked):not(:focus-within) + &");
     //@include flex(column);
     &
     {
@@ -1270,8 +1270,8 @@ label[for="volume-button"]
 }
 #sleep-panel
 {
-    @include fade-transition("body #sleep-button:not(:checked) + &");
-    @include slide-down-transition("body #sleep-button:not(:checked) + &");
+    @include fade-transition("body label[for=sleep-button]:not(.checked):not(:focus-within) + &");
+    @include slide-down-transition("body label[for=sleep-button]:not(.checked):not(:focus-within) + &");
     //@include black-pop-panel-style();
     &
     {
@@ -1772,7 +1772,11 @@ label:not(.icon-button)
         height: 0px;
     }
 }
-:focus
+#add-media:focus,
+label:focus-within,
+button:focus,
+#volume-panel:focus-within,
+#seek-panel:focus-within
 {
     @include focus-halo();
 }

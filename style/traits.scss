@@ -7,14 +7,14 @@
         $is-body: 1 == string.index($mode, "body.") or 1 == string.index($mode, "body:");
         @if $is-body
         {
-            @at-root #{$mode} &:not(.show)
+            @at-root #{$mode} &:not(.show):not(:focus-within)
             {
                 @content;
             }
         }
         @else
         {
-            #{$mode}:not(.show)
+            #{$mode}:not(.show):not(:focus-within)
             {
                 @content;
             }

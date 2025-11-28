@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Nov 27 2025 21:38:22 GMT+0900 (日本標準時)
+    build at: Fri Nov 28 2025 07:42:51 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -346,13 +346,13 @@ body.play:not(.mousemove) #screen-body {
   justify-content: center;
   align-items: center;
 }
-body.play #screen-body #background-screen:not(.show) {
+body.play #screen-body #background-screen:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play #screen-body #background-screen:not(.show)::before {
+body.play #screen-body #background-screen:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -365,13 +365,13 @@ body.play #screen-body #background-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
-body.show-paused-media #screen-body #background-screen:not(.show) {
+body.show-paused-media #screen-body #background-screen:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-paused-media #screen-body #background-screen:not(.show)::before {
+body.show-paused-media #screen-body #background-screen:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -384,13 +384,13 @@ body.show-paused-media #screen-body #background-screen:not(.show)::before {
   transition: filter 750ms;
 }
 
-body.show-settings-panel #screen-body #background-screen:not(.show) {
+body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-settings-panel #screen-body #background-screen:not(.show)::before {
+body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -445,13 +445,13 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   position: fixed;
   overflow: visible;
 }
-body.list #screen-body #media-screen:not(.show) {
+body.list #screen-body #media-screen:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.list #screen-body #media-screen:not(.show)::before {
+body.list #screen-body #media-screen:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -573,13 +573,13 @@ body.list #screen-body #media-screen:not(.show)::before {
   position: absolute;
   counter-reset: item-num;
 }
-body.play #screen-body #media-list:not(.show) {
+body.play #screen-body #media-list:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play #screen-body #media-list:not(.show)::before {
+body.play #screen-body #media-list:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -819,13 +819,13 @@ body.play #screen-body #media-list:not(.show)::before {
   min-width: calc(100% - 1rem);
   min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
-body.progress-circle #screen-body #media-list .item.add:not(.show) {
+body.progress-circle #screen-body #media-list .item.add:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
+body.progress-circle #screen-body #media-list .item.add:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1009,13 +1009,13 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   will-change: contents opacity filter;
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.play) #fps:not(.show) {
+body:not(.play) #fps:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play) #fps:not(.show)::before {
+body:not(.play) #fps:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1028,13 +1028,13 @@ body:not(.play) #fps:not(.show)::before {
   transition: filter 750ms;
 }
 
-#fps.hide:not(.show) {
+#fps.hide:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#fps.hide:not(.show)::before {
+#fps.hide:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1118,13 +1118,13 @@ body:not(.progress-circle) #progress-circle {
 #no-media-panel {
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.no-media) #no-media-panel:not(.show) {
+body:not(.no-media) #no-media-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.no-media) #no-media-panel:not(.show)::before {
+body:not(.no-media) #no-media-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1144,13 +1144,13 @@ body:not(.no-media) #no-media-panel {
 #not-supported-media-panel {
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.not-supported-media) #not-supported-media-panel:not(.show) {
+body:not(.not-supported-media) #not-supported-media-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.not-supported-media) #not-supported-media-panel:not(.show)::before {
+body:not(.not-supported-media) #not-supported-media-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1172,13 +1172,13 @@ body:not(.not-supported-media) #not-supported-media-panel {
   z-index: 50;
   color: orange;
 }
-body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show)::before {
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1215,13 +1215,13 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
   justify-content: center;
   align-items: center;
 }
-body.play:not(.show-ui) #control-panel:not(.show) {
+body.play:not(.show-ui) #control-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play:not(.show-ui) #control-panel:not(.show)::before {
+body.play:not(.show-ui) #control-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1443,13 +1443,13 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show) {
+body:not(.play):not(.show-paused-media) #media-index:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
+body:not(.play):not(.show-paused-media) #media-index:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1462,13 +1462,13 @@ body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-index:not(.show) {
+body:not(.show-ui) #media-index:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-index:not(.show)::before {
+body:not(.show-ui) #media-index:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1481,13 +1481,13 @@ body:not(.show-ui) #media-index:not(.show)::before {
   transition: filter 750ms;
 }
 
-body.show-seek-bar #media-index:not(.show) {
+body.show-seek-bar #media-index:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-seek-bar #media-index:not(.show)::before {
+body.show-seek-bar #media-index:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1530,13 +1530,13 @@ html[dir=rtl] #media-index {
 #media-title {
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show) {
+body:not(.play):not(.show-paused-media) #media-title:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
+body:not(.play):not(.show-paused-media) #media-title:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1549,13 +1549,13 @@ body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-title:not(.show) {
+body:not(.show-ui) #media-title:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-title:not(.show)::before {
+body:not(.show-ui) #media-title:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1568,13 +1568,13 @@ body:not(.show-ui) #media-title:not(.show)::before {
   transition: filter 750ms;
 }
 
-body.show-seek-bar #media-title:not(.show) {
+body.show-seek-bar #media-title:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-seek-bar #media-title:not(.show)::before {
+body.show-seek-bar #media-title:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1631,13 +1631,13 @@ body.show-seek-bar #media-title:not(.show)::before {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)::before {
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1650,13 +1650,13 @@ body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-time-frame #media-time:not(.show) {
+body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
+body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1700,13 +1700,13 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   justify-content: center;
   align-items: stretch;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)::before {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1719,13 +1719,13 @@ body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1738,13 +1738,13 @@ body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show)::before {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1789,13 +1789,13 @@ body.show-seek-bar #media-time-frame #media-time {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body:not(.play):not(.show-paused-media) #next-button:not(.show), body:not(.play):not(.show-paused-media) #back-button:not(.show) {
+body:not(.play):not(.show-paused-media) #next-button:not(.show):not(:focus-within), body:not(.play):not(.show-paused-media) #back-button:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:not(.play):not(.show-paused-media) #back-button:not(.show)::before {
+body:not(.play):not(.show-paused-media) #next-button:not(.show):not(:focus-within)::before, body:not(.play):not(.show-paused-media) #back-button:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1808,13 +1808,13 @@ body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:no
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
+body:not(.show-ui) #next-button:not(.show):not(:focus-within), body:not(.show-ui) #back-button:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-button:not(.show)::before {
+body:not(.show-ui) #next-button:not(.show):not(:focus-within)::before, body:not(.show-ui) #back-button:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1908,13 +1908,13 @@ body.no-media #next-button, body.no-media #back-button {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show):not(:focus-within), body:not(.play):not(.show-paused-media) #rewind-button:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show)::before {
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show):not(:focus-within)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1927,13 +1927,13 @@ body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before,
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
+body:not(.show-ui) #fast-forward-button:not(.show):not(:focus-within), body:not(.show-ui) #rewind-button:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #rewind-button:not(.show)::before {
+body:not(.show-ui) #fast-forward-button:not(.show):not(:focus-within)::before, body:not(.show-ui) #rewind-button:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2027,13 +2027,13 @@ body.no-media #rewind-button {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body #wakeup-button:not(:checked) + #wakeup-panel:not(.show) {
+body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #wakeup-button:not(:checked) + #wakeup-panel:not(.show)::before {
+body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2045,7 +2045,7 @@ body #wakeup-button:not(:checked) + #wakeup-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #wakeup-button:not(:checked) + #wakeup-panel:not(.show) {
+body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 #wakeup-panel {
@@ -2070,13 +2070,13 @@ label[for=wakeup-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-label[for=wakeup-button].tip:empty:not(.show) {
+label[for=wakeup-button].tip:empty:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-label[for=wakeup-button].tip:empty:not(.show)::before {
+label[for=wakeup-button].tip:empty:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2088,7 +2088,7 @@ label[for=wakeup-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-label[for=wakeup-button].tip:empty:not(.show) {
+label[for=wakeup-button].tip:empty:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 @media (max-width: 719.99px) {
@@ -2096,13 +2096,13 @@ label[for=wakeup-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2114,7 +2114,7 @@ label[for=wakeup-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within) {
     transform: translate(0px, 100%);
   }
 }
@@ -2143,13 +2143,13 @@ label[for=wakeup-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-#no-media.hide:not(.show) {
+#no-media.hide:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-media.hide:not(.show)::before {
+#no-media.hide:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2161,7 +2161,7 @@ label[for=wakeup-button].tip {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-media.hide:not(.show) {
+#no-media.hide:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 #no-media {
@@ -2209,13 +2209,13 @@ label[for=volume-button] #speaker-mute-icon svg {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body #volume-button:not(:checked) + #volume-panel:not(.show) {
+body label[for=volume-button]:not(.checked):not(:focus-within) + #volume-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #volume-button:not(:checked) + #volume-panel:not(.show)::before {
+body label[for=volume-button]:not(.checked):not(:focus-within) + #volume-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2247,13 +2247,13 @@ html[dir=rtl] #volume-panel {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body #settings-button:not(:checked) + #settings-panel:not(.show) {
+body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #settings-button:not(:checked) + #settings-panel:not(.show)::before {
+body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2265,7 +2265,7 @@ body #settings-button:not(:checked) + #settings-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #settings-button:not(:checked) + #settings-panel:not(.show) {
+body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 #settings-panel {
@@ -2289,13 +2289,13 @@ body #settings-button:not(:checked) + #settings-panel:not(.show) {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body #sleep-button:not(:checked) + #sleep-panel:not(.show) {
+body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body #sleep-button:not(:checked) + #sleep-panel:not(.show)::before {
+body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2307,7 +2307,7 @@ body #sleep-button:not(:checked) + #sleep-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body #sleep-button:not(:checked) + #sleep-panel:not(.show) {
+body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 #sleep-panel {
@@ -2332,13 +2332,13 @@ label[for=sleep-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-label[for=sleep-button].tip:empty:not(.show) {
+label[for=sleep-button].tip:empty:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-label[for=sleep-button].tip:empty:not(.show)::before {
+label[for=sleep-button].tip:empty:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2350,7 +2350,7 @@ label[for=sleep-button].tip:empty:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-label[for=sleep-button].tip:empty:not(.show) {
+label[for=sleep-button].tip:empty:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 @media (max-width: 719.99px) {
@@ -2358,13 +2358,13 @@ label[for=sleep-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2376,7 +2376,7 @@ label[for=sleep-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within) {
     transform: translate(0px, 100%);
   }
 }
@@ -2405,13 +2405,13 @@ label[for=sleep-button].tip {
   transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-#no-repeat.hide:not(.show) {
+#no-repeat.hide:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-repeat.hide:not(.show)::before {
+#no-repeat.hide:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2423,7 +2423,7 @@ label[for=sleep-button].tip {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-repeat.hide:not(.show) {
+#no-repeat.hide:not(.show):not(:focus-within) {
   transform: translate(0px, 100%);
 }
 #no-repeat {
@@ -2588,13 +2588,13 @@ label:not(.icon-button).link-label:not(:hover) a {
 #overlay-panel {
   transition: opacity 750ms, filter 750ms;
 }
-body:not(.play) #overlay-panel:not(.show) {
+body:not(.play) #overlay-panel:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play) #overlay-panel:not(.show)::before {
+body:not(.play) #overlay-panel:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2607,13 +2607,13 @@ body:not(.play) #overlay-panel:not(.show)::before {
   transition: filter 750ms;
 }
 
-#overlay-panel.hide:not(.show) {
+#overlay-panel.hide:not(.show):not(:focus-within) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#overlay-panel.hide:not(.show)::before {
+#overlay-panel.hide:not(.show):not(:focus-within)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -3194,7 +3194,11 @@ body:not(.play) #overlay-panel:not(.show)::before {
   }
 }
 
-:focus {
+#add-media:focus,
+label:focus-within,
+button:focus,
+#volume-panel:focus-within,
+#seek-panel:focus-within {
   filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
 }
 
@@ -3271,23 +3275,6 @@ DUMMYSTYLE
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
-        <div id="wakeup-panel">
-            <label id="wakeup-toggle-label" class="toggle-label">
-                <span data-lang-key="wakeup-label"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="wakeup-time">
-                <span data-lang-key="timer-label"></span>
-                <select id="wakeup-time"></select>
-            </label>
-            <label for="fade-in">
-                <span data-lang-key="fade-in-label"></span>
-                <select id="fade-in"></select>
-            </label>
-        </div>
-        <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
-        <label id="no-media" for="add-file" class="tip hide"><span data-lang-key="no-media-message"></span></label>
         <div id="wakeup-progress-circle" role="progressbar"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3296,6 +3283,23 @@ DUMMYSTYLE
 </svg>
 
     </label>
+    <div id="wakeup-panel">
+        <label id="wakeup-toggle-label" class="toggle-label" tabindex="0">
+            <span data-lang-key="wakeup-label"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="wakeup-time">
+            <span data-lang-key="timer-label"></span>
+            <select id="wakeup-time"></select>
+        </label>
+        <label for="fade-in">
+            <span data-lang-key="fade-in-label"></span>
+            <select id="fade-in"></select>
+        </label>
+    </div>
+    <label id="wakeup-timer" for="wakeup-button" class="tip" role="status"></label>
+    <label id="no-media" for="add-file" class="tip hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
     <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
         <input id="shuffle" type="checkbox">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -3338,9 +3342,6 @@ DUMMYSTYLE
     </button>
     <label for="volume-button" class="icon-button" tabindex="0" data-aria-lang-key="Volume">
         <input id="volume-button" type="checkbox">
-        <div id="volume-panel">
-            <input id="volume" type="range" />
-        </div>
         <div id="speaker-mute-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3382,104 +3383,11 @@ DUMMYSTYLE
 </svg>
 </div>
     </label>
+    <div id="volume-panel">
+        <input id="volume" type="range" />
+    </div>
     <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
         <input id="settings-button" type="checkbox">
-        <div id="settings-panel">
-            <label for="media-count" class="information">
-                <span data-lang-key="media-count-label"></span>
-                <span id="media-count" class="value-text"></span>
-            </label>
-            <label for="media-length" class="information">
-                <span data-lang-key="media-length-label"></span>
-                <span id="media-length" class="value-text"></span>
-            </label>
-            <label for="with-fullscreen">
-                <span data-lang-key="with-fullscreen-label"></span>
-                <input id="with-fullscreen" type="checkbox" />
-            </label>
-            <label for="brightness">
-                <span data-lang-key="brightness-label"></span>
-                <input id="brightness" type="range" />
-            </label>
-            <label for="stretch">
-                <span data-lang-key="stretch-label"></span>
-                <input id="stretch" type="range" />
-            </label>
-            <label for="padding">
-                <span data-lang-key="padding-label"></span>
-                <input id="padding" type="checkbox" />
-            </label>
-            <label for="cross-fade">
-                <span data-lang-key="cross-fade-label"></span>
-                <select id="cross-fade"></select>
-            </label>
-            <label for="cross-fade-with-blur">
-                <span data-lang-key="cross-fade-with-blur-label"></span>
-                <input id="cross-fade-with-blur" type="checkbox" />
-            </label>
-            <label for="image-span">
-                <span data-lang-key="image-span-label"></span>
-                <select id="image-span"></select>
-            </label>
-            <label for="loop-short-media">
-                <span data-lang-key="loop-short-media-label"></span>
-                <input id="loop-short-media" type="checkbox" />
-            </label>
-            <label for="visualizer-type">
-                <span data-lang-key="visualizer-label"></span>
-                <select id="visualizer-type"></select>
-            </label>
-            <label for="overlay-style">
-                <span data-lang-key="overlay-style-label"></span>
-                <select id="overlay-style"></select>
-            </label>
-            <label for="overlay-position">
-                <span data-lang-key="overlay-position-label"></span>
-                <select id="overlay-position"></select>
-            </label>
-            <label for="with-weather">
-                <span data-lang-key="with-weather-label"></span>
-                <input id="with-weather" type="checkbox" />
-            </label>
-            <label for="weather-location">
-                <span data-lang-key="weather-location-label"></span>
-                <select id="weather-location"></select>
-            </label>
-            <label for="with-clock">
-                <span data-lang-key="with-clock-label"></span>
-                <input id="with-clock" type="checkbox" />
-            </label>
-            <label for="with-date">
-                <span data-lang-key="with-date-label"></span>
-                <input id="with-date" type="checkbox" />
-            </label>
-            <label for="with-calendar">
-                <span data-lang-key="with-calendar-label"></span>
-                <input id="with-calendar" type="checkbox" />
-            </label>
-            <label for="with-visualizer">
-                <span data-lang-key="with-visualizer-label"></span>
-                <input id="with-visualizer" type="checkbox" />
-            </label>
-            <label for="show-fps">
-                <span data-lang-key="show-fps-label"></span>
-                <input id="show-fps" type="checkbox" />
-            </label>
-            <label for="shortcuts">
-                <span data-lang-key="shortcuts-label"></span>
-                <select id="shortcuts"></select>
-            </label>
-            <label for="language">
-                <span data-lang-key="language-label"></span>
-                <select id="language"></select>
-            </label>
-            <label for="url" class="link-label">
-                <a id="url" href="?"><span data-lang-key="url-label"></span></a>
-            </label>
-            <label for="repository" class="link-label">
-                <a id="repository" href="https://github.com/wraith13/web-media-player/"><span data-lang-key="repository-label"></span></a>
-            </label>
-        </div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3487,25 +3395,104 @@ DUMMYSTYLE
 </svg>
 
     </label>
+    <div id="settings-panel">
+        <label for="media-count" class="information">
+            <span data-lang-key="media-count-label"></span>
+            <span id="media-count" class="value-text"></span>
+        </label>
+        <label for="media-length" class="information">
+            <span data-lang-key="media-length-label"></span>
+            <span id="media-length" class="value-text"></span>
+        </label>
+        <label for="with-fullscreen">
+            <span data-lang-key="with-fullscreen-label"></span>
+            <input id="with-fullscreen" type="checkbox" />
+        </label>
+        <label for="brightness">
+            <span data-lang-key="brightness-label"></span>
+            <input id="brightness" type="range" />
+        </label>
+        <label for="stretch">
+            <span data-lang-key="stretch-label"></span>
+            <input id="stretch" type="range" />
+        </label>
+        <label for="padding">
+            <span data-lang-key="padding-label"></span>
+            <input id="padding" type="checkbox" />
+        </label>
+        <label for="cross-fade">
+            <span data-lang-key="cross-fade-label"></span>
+            <select id="cross-fade"></select>
+        </label>
+        <label for="cross-fade-with-blur">
+            <span data-lang-key="cross-fade-with-blur-label"></span>
+            <input id="cross-fade-with-blur" type="checkbox" />
+        </label>
+        <label for="image-span">
+            <span data-lang-key="image-span-label"></span>
+            <select id="image-span"></select>
+        </label>
+        <label for="loop-short-media">
+            <span data-lang-key="loop-short-media-label"></span>
+            <input id="loop-short-media" type="checkbox" />
+        </label>
+        <label for="visualizer-type">
+            <span data-lang-key="visualizer-label"></span>
+            <select id="visualizer-type"></select>
+        </label>
+        <label for="overlay-style">
+            <span data-lang-key="overlay-style-label"></span>
+            <select id="overlay-style"></select>
+        </label>
+        <label for="overlay-position">
+            <span data-lang-key="overlay-position-label"></span>
+            <select id="overlay-position"></select>
+        </label>
+        <label for="with-weather">
+            <span data-lang-key="with-weather-label"></span>
+            <input id="with-weather" type="checkbox" />
+        </label>
+        <label for="weather-location">
+            <span data-lang-key="weather-location-label"></span>
+            <select id="weather-location"></select>
+        </label>
+        <label for="with-clock">
+            <span data-lang-key="with-clock-label"></span>
+            <input id="with-clock" type="checkbox" />
+        </label>
+        <label for="with-date">
+            <span data-lang-key="with-date-label"></span>
+            <input id="with-date" type="checkbox" />
+        </label>
+        <label for="with-calendar">
+            <span data-lang-key="with-calendar-label"></span>
+            <input id="with-calendar" type="checkbox" />
+        </label>
+        <label for="with-visualizer">
+            <span data-lang-key="with-visualizer-label"></span>
+            <input id="with-visualizer" type="checkbox" />
+        </label>
+        <label for="show-fps">
+            <span data-lang-key="show-fps-label"></span>
+            <input id="show-fps" type="checkbox" />
+        </label>
+        <label for="shortcuts">
+            <span data-lang-key="shortcuts-label"></span>
+            <select id="shortcuts"></select>
+        </label>
+        <label for="language">
+            <span data-lang-key="language-label"></span>
+            <select id="language"></select>
+        </label>
+        <label for="url" class="link-label">
+            <a id="url" href="?"><span data-lang-key="url-label"></span></a>
+        </label>
+        <label for="repository" class="link-label">
+            <a id="repository" href="https://github.com/wraith13/web-media-player/"><span data-lang-key="repository-label"></span></a>
+        </label>
+    </div>
     <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
         <input id="sleep-button" type="checkbox">
-        <div id="sleep-panel">
-            <label id="sleep-toggle-label" class="toggle-label">
-                <span data-lang-key="sleep-label"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="sleep-time">
-                <span data-lang-key="timer-label"></span>
-                <select id="sleep-time"></select>
-            </label>
-            <label for="fade-out">
-                <span data-lang-key="fade-out-label"></span>
-                <select id="fade-out"></select>
-            </label>
-        </div>
-        <label id="sleep-timer" for="sleep-button" class="tip"></label>
-        <label id="no-repeat" for="repeat" class="tip hide"><span data-lang-key="no-repeat-message"></span></label>
         <div id="sleep-progress-circle" role="progressbar"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3514,6 +3501,23 @@ DUMMYSTYLE
 </svg>
 
     </label>
+    <div id="sleep-panel">
+        <label id="sleep-toggle-label" class="toggle-label" tabindex="0">
+            <span data-lang-key="sleep-label"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="sleep-time">
+            <span data-lang-key="timer-label"></span>
+            <select id="sleep-time"></select>
+        </label>
+        <label for="fade-out">
+            <span data-lang-key="fade-out-label"></span>
+            <select id="fade-out"></select>
+        </label>
+    </div>
+    <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
+    <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <span id="media-index"></span>
 <span id="media-title"></span>
@@ -3590,8 +3594,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Nov 27 2025 21:38:22 GMT+0900 (日本標準時)",
-    tick: 1764247102866
+    at: "Fri Nov 28 2025 07:42:51 GMT+0900 (日本標準時)",
+    tick: 1764283371007
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {

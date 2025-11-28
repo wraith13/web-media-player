@@ -90,26 +90,26 @@ DUMMYSTYLE
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
-        <div id="wakeup-panel">
-            <label id="wakeup-toggle-label" class="toggle-label">
-                <span data-lang-key="wakeup-label"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="wakeup-time">
-                <span data-lang-key="timer-label"></span>
-                <select id="wakeup-time"></select>
-            </label>
-            <label for="fade-in">
-                <span data-lang-key="fade-in-label"></span>
-                <select id="fade-in"></select>
-            </label>
-        </div>
-        <label id="wakeup-timer" for="wakeup-button" class="tip"></label>
-        <label id="no-media" for="add-file" class="tip hide"><span data-lang-key="no-media-message"></span></label>
         <div id="wakeup-progress-circle" role="progressbar"></div>
         __SUN_ICON__
     </label>
+    <div id="wakeup-panel">
+        <label id="wakeup-toggle-label" class="toggle-label" tabindex="0">
+            <span data-lang-key="wakeup-label"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="wakeup-time">
+            <span data-lang-key="timer-label"></span>
+            <select id="wakeup-time"></select>
+        </label>
+        <label for="fade-in">
+            <span data-lang-key="fade-in-label"></span>
+            <select id="fade-in"></select>
+        </label>
+    </div>
+    <label id="wakeup-timer" for="wakeup-button" class="tip" role="status"></label>
+    <label id="no-media" for="add-file" class="tip hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
     <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
@@ -124,137 +124,137 @@ DUMMYSTYLE
     </button>
     <label for="volume-button" class="icon-button" tabindex="0" data-aria-lang-key="Volume">
         <input id="volume-button" type="checkbox">
-        <div id="volume-panel">
-            <input id="volume" type="range" />
-        </div>
         <div id="speaker-mute-icon">__SPEAKER_MUTE_ICON__</div>
         <div id="speaker-0-icon">__SPEAKER_0_ICON__</div>
         <div id="speaker-1-icon">__SPEAKER_1_ICON__</div>
         <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
     </label>
+    <div id="volume-panel">
+        <input id="volume" type="range" />
+    </div>
     <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
         <input id="settings-button" type="checkbox">
-        <div id="settings-panel">
-            <label for="media-count" class="information">
-                <span data-lang-key="media-count-label"></span>
-                <span id="media-count" class="value-text"></span>
-            </label>
-            <label for="media-length" class="information">
-                <span data-lang-key="media-length-label"></span>
-                <span id="media-length" class="value-text"></span>
-            </label>
-            <label for="with-fullscreen">
-                <span data-lang-key="with-fullscreen-label"></span>
-                <input id="with-fullscreen" type="checkbox" />
-            </label>
-            <label for="brightness">
-                <span data-lang-key="brightness-label"></span>
-                <input id="brightness" type="range" />
-            </label>
-            <label for="stretch">
-                <span data-lang-key="stretch-label"></span>
-                <input id="stretch" type="range" />
-            </label>
-            <label for="padding">
-                <span data-lang-key="padding-label"></span>
-                <input id="padding" type="checkbox" />
-            </label>
-            <label for="cross-fade">
-                <span data-lang-key="cross-fade-label"></span>
-                <select id="cross-fade"></select>
-            </label>
-            <label for="cross-fade-with-blur">
-                <span data-lang-key="cross-fade-with-blur-label"></span>
-                <input id="cross-fade-with-blur" type="checkbox" />
-            </label>
-            <label for="image-span">
-                <span data-lang-key="image-span-label"></span>
-                <select id="image-span"></select>
-            </label>
-            <label for="loop-short-media">
-                <span data-lang-key="loop-short-media-label"></span>
-                <input id="loop-short-media" type="checkbox" />
-            </label>
-            <label for="visualizer-type">
-                <span data-lang-key="visualizer-label"></span>
-                <select id="visualizer-type"></select>
-            </label>
-            <label for="overlay-style">
-                <span data-lang-key="overlay-style-label"></span>
-                <select id="overlay-style"></select>
-            </label>
-            <label for="overlay-position">
-                <span data-lang-key="overlay-position-label"></span>
-                <select id="overlay-position"></select>
-            </label>
-            <label for="with-weather">
-                <span data-lang-key="with-weather-label"></span>
-                <input id="with-weather" type="checkbox" />
-            </label>
-            <label for="weather-location">
-                <span data-lang-key="weather-location-label"></span>
-                <select id="weather-location"></select>
-            </label>
-            <label for="with-clock">
-                <span data-lang-key="with-clock-label"></span>
-                <input id="with-clock" type="checkbox" />
-            </label>
-            <label for="with-date">
-                <span data-lang-key="with-date-label"></span>
-                <input id="with-date" type="checkbox" />
-            </label>
-            <label for="with-calendar">
-                <span data-lang-key="with-calendar-label"></span>
-                <input id="with-calendar" type="checkbox" />
-            </label>
-            <label for="with-visualizer">
-                <span data-lang-key="with-visualizer-label"></span>
-                <input id="with-visualizer" type="checkbox" />
-            </label>
-            <label for="show-fps">
-                <span data-lang-key="show-fps-label"></span>
-                <input id="show-fps" type="checkbox" />
-            </label>
-            <label for="shortcuts">
-                <span data-lang-key="shortcuts-label"></span>
-                <select id="shortcuts"></select>
-            </label>
-            <label for="language">
-                <span data-lang-key="language-label"></span>
-                <select id="language"></select>
-            </label>
-            <label for="url" class="link-label">
-                <a id="url" href="?"><span data-lang-key="url-label"></span></a>
-            </label>
-            <label for="repository" class="link-label">
-                <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository-label"></span></a>
-            </label>
-        </div>
         __COG_ICON__
     </label>
+    <div id="settings-panel">
+        <label for="media-count" class="information">
+            <span data-lang-key="media-count-label"></span>
+            <span id="media-count" class="value-text"></span>
+        </label>
+        <label for="media-length" class="information">
+            <span data-lang-key="media-length-label"></span>
+            <span id="media-length" class="value-text"></span>
+        </label>
+        <label for="with-fullscreen">
+            <span data-lang-key="with-fullscreen-label"></span>
+            <input id="with-fullscreen" type="checkbox" />
+        </label>
+        <label for="brightness">
+            <span data-lang-key="brightness-label"></span>
+            <input id="brightness" type="range" />
+        </label>
+        <label for="stretch">
+            <span data-lang-key="stretch-label"></span>
+            <input id="stretch" type="range" />
+        </label>
+        <label for="padding">
+            <span data-lang-key="padding-label"></span>
+            <input id="padding" type="checkbox" />
+        </label>
+        <label for="cross-fade">
+            <span data-lang-key="cross-fade-label"></span>
+            <select id="cross-fade"></select>
+        </label>
+        <label for="cross-fade-with-blur">
+            <span data-lang-key="cross-fade-with-blur-label"></span>
+            <input id="cross-fade-with-blur" type="checkbox" />
+        </label>
+        <label for="image-span">
+            <span data-lang-key="image-span-label"></span>
+            <select id="image-span"></select>
+        </label>
+        <label for="loop-short-media">
+            <span data-lang-key="loop-short-media-label"></span>
+            <input id="loop-short-media" type="checkbox" />
+        </label>
+        <label for="visualizer-type">
+            <span data-lang-key="visualizer-label"></span>
+            <select id="visualizer-type"></select>
+        </label>
+        <label for="overlay-style">
+            <span data-lang-key="overlay-style-label"></span>
+            <select id="overlay-style"></select>
+        </label>
+        <label for="overlay-position">
+            <span data-lang-key="overlay-position-label"></span>
+            <select id="overlay-position"></select>
+        </label>
+        <label for="with-weather">
+            <span data-lang-key="with-weather-label"></span>
+            <input id="with-weather" type="checkbox" />
+        </label>
+        <label for="weather-location">
+            <span data-lang-key="weather-location-label"></span>
+            <select id="weather-location"></select>
+        </label>
+        <label for="with-clock">
+            <span data-lang-key="with-clock-label"></span>
+            <input id="with-clock" type="checkbox" />
+        </label>
+        <label for="with-date">
+            <span data-lang-key="with-date-label"></span>
+            <input id="with-date" type="checkbox" />
+        </label>
+        <label for="with-calendar">
+            <span data-lang-key="with-calendar-label"></span>
+            <input id="with-calendar" type="checkbox" />
+        </label>
+        <label for="with-visualizer">
+            <span data-lang-key="with-visualizer-label"></span>
+            <input id="with-visualizer" type="checkbox" />
+        </label>
+        <label for="show-fps">
+            <span data-lang-key="show-fps-label"></span>
+            <input id="show-fps" type="checkbox" />
+        </label>
+        <label for="shortcuts">
+            <span data-lang-key="shortcuts-label"></span>
+            <select id="shortcuts"></select>
+        </label>
+        <label for="language">
+            <span data-lang-key="language-label"></span>
+            <select id="language"></select>
+        </label>
+        <label for="url" class="link-label">
+            <a id="url" href="?"><span data-lang-key="url-label"></span></a>
+        </label>
+        <label for="repository" class="link-label">
+            <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository-label"></span></a>
+        </label>
+    </div>
     <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
         <input id="sleep-button" type="checkbox">
-        <div id="sleep-panel">
-            <label id="sleep-toggle-label" class="toggle-label">
-                <span data-lang-key="sleep-label"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="sleep-time">
-                <span data-lang-key="timer-label"></span>
-                <select id="sleep-time"></select>
-            </label>
-            <label for="fade-out">
-                <span data-lang-key="fade-out-label"></span>
-                <select id="fade-out"></select>
-            </label>
-        </div>
-        <label id="sleep-timer" for="sleep-button" class="tip"></label>
-        <label id="no-repeat" for="repeat" class="tip hide"><span data-lang-key="no-repeat-message"></span></label>
         <div id="sleep-progress-circle" role="progressbar"></div>
         __MOON_ICON__
     </label>
+    <div id="sleep-panel">
+        <label id="sleep-toggle-label" class="toggle-label" tabindex="0">
+            <span data-lang-key="sleep-label"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="sleep-time">
+            <span data-lang-key="timer-label"></span>
+            <select id="sleep-time"></select>
+        </label>
+        <label for="fade-out">
+            <span data-lang-key="fade-out-label"></span>
+            <select id="fade-out"></select>
+        </label>
+    </div>
+    <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
+    <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <span id="media-index"></span>
 <span id="media-title"></span>
