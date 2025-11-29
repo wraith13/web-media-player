@@ -3,6 +3,7 @@
     "lang-direction": "rtl",
     "add-media": "إضافة وسائط",
     "remove-media": "إزالة وسائط",
+    "loading-media": "جارٍ تحميل الوسائط...",
     "Auto": "تلقائي",
     "description": "مشغل وسائط يعمل في متصفح الويب",
     "media-count-label": "عدد الوسائط:",

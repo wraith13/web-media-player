@@ -17,6 +17,9 @@ export namespace Progress
     {
         document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
         UI.progressCircle.style.setProperty("--progress", `${completedTasks / totalTasks}`);
+        UI.progressCircle.setAttribute("aria-volumemin", "0");
+        UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
+        UI.progressCircle.setAttribute("aria-valuenow", completedTasks.toString());
         if (totalTasks <= completedTasks)
         {
             totalTasks = 0;

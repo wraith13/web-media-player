@@ -35,6 +35,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -125,6 +126,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -215,6 +217,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -305,6 +308,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -395,6 +399,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -485,6 +490,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -575,6 +581,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -665,6 +672,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -755,6 +763,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -845,6 +854,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -935,6 +945,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1025,6 +1036,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1115,6 +1127,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1205,6 +1218,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1295,6 +1309,7 @@ declare module "locale/generated/master" {
             "lang-direction": string;
             "add-media": string;
             "remove-media": string;
+            "loading-media": string;
             Auto: string;
             description: string;
             "media-count-label": string;
@@ -1390,6 +1405,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1480,6 +1496,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1570,6 +1587,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1660,6 +1678,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1750,6 +1769,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1840,6 +1860,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -1930,6 +1951,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2020,6 +2042,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2110,6 +2133,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2200,6 +2224,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2290,6 +2315,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2380,6 +2406,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2470,6 +2497,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2560,6 +2588,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -2650,6 +2679,7 @@ declare module "script/library/locale" {
                 "lang-direction": string;
                 "add-media": string;
                 "remove-media": string;
+                "loading-media": string;
                 Auto: string;
                 description: string;
                 "media-count-label": string;
@@ -3663,6 +3693,7 @@ declare module "script/events" {
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const toggleMute: () => void;
+        const addKeyboardClickListener: (label: HTMLLabelElement) => void;
         const initialize: (params: Record<string, string>) => void;
     }
 }

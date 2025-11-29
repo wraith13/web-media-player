@@ -70,13 +70,13 @@ DUMMYSTYLE
     </div>
     <div id="media-list">
         <div class="item add">
-            <div id="add-media" role="button" tabindex="0" data-aria-lang-key="add-media">__ADD_ICON__</div>
+            <button id="add-media" data-aria-lang-key="add-media">__ADD_ICON__</button>
             <input id="add-file" type="file" multiple />
         </div>
     </div>
 </div>
-<div id="element-pool" style="display:none;"></div>
-<div id="progress-circle" role="progressbar"></div>
+<div id="element-pool" style="display:none;" aria-hidden="true"></div>
+<div id="progress-circle" role="progressbar" aria-live="polite" data-aria-lang-key="loading-media"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
 </div>
@@ -90,10 +90,10 @@ DUMMYSTYLE
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
-        <div id="wakeup-progress-circle" role="progressbar"></div>
+        <div id="wakeup-progress-circle" role="timer"></div>
         __SUN_ICON__
     </label>
-    <div id="wakeup-panel">
+    <div id="wakeup-panel" class="popup-panel">
         <label id="wakeup-toggle-label" class="toggle-label" tabindex="0">
             <span data-lang-key="wakeup-label"></span>
             <span data-lang-key="on" class="value-label"></span>
@@ -137,7 +137,7 @@ DUMMYSTYLE
         <input id="settings-button" type="checkbox">
         __COG_ICON__
     </label>
-    <div id="settings-panel">
+    <div id="settings-panel" class="popup-panel">
         <label for="media-count" class="information">
             <span data-lang-key="media-count-label"></span>
             <span id="media-count" class="value-text"></span>
@@ -235,10 +235,10 @@ DUMMYSTYLE
     </div>
     <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
         <input id="sleep-button" type="checkbox">
-        <div id="sleep-progress-circle" role="progressbar"></div>
+        <div id="sleep-progress-circle" role="timer"></div>
         __MOON_ICON__
     </label>
-    <div id="sleep-panel">
+    <div id="sleep-panel" class="popup-panel">
         <label id="sleep-toggle-label" class="toggle-label" tabindex="0">
             <span data-lang-key="sleep-label"></span>
             <span data-lang-key="on" class="value-label"></span>
@@ -277,7 +277,7 @@ DUMMYSTYLE
     <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
 </button>
 <div id="pressed-key"></div>
-<div id="images" style="display:none;">__IMAGES__</div>
+<div id="images" style="display:none;" aria-hidden="true">__IMAGES__</div>
 </body>
 <script type="text/javascript">
 const build =

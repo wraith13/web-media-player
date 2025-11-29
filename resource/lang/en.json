@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "Add Media",
     "remove-media": "Remove Media",
+    "loading-media": "Loading media...",
     "Auto": "Auto",
     "description": "Web-based media player that runs in a web browser",
     "media-count-label": "Media Count:",

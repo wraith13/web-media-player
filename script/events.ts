@@ -333,6 +333,22 @@ export namespace Events
             UI.volumeRange.set(0);
         }
     };
+    export const addKeyboardClickListener = (label: HTMLLabelElement) =>
+    {
+        label.addEventListener
+        (
+            "keydown",
+            event =>
+            {
+                if (" " === event.key || "Enter" === event.key)
+                {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    label.click();
+                }
+            }
+        );
+    };
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];
@@ -405,6 +421,12 @@ export namespace Events
         navigator.mediaSession.setActionHandler("pause", Features.Player.pause);
         navigator.mediaSession.setActionHandler("previoustrack", Features.Player.previous);
         navigator.mediaSession.setActionHandler("nexttrack", Features.Player.next);
+
+        addKeyboardClickListener(Library.UI.querySelector("label", "label[for='wakeup-button']"));
+        addKeyboardClickListener(Library.UI.querySelector("label", "label[for='volume-button']"));
+        addKeyboardClickListener(Library.UI.querySelector("label", "label[for='settings-button']"));
+        addKeyboardClickListener(Library.UI.querySelector("label", "label[for='sleep-button']"));
+
         UI.mediaList.addEventListener
         (
             "scroll",

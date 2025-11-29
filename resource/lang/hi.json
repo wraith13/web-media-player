@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "मीडिया जोड़ें",
     "remove-media": "मीडिया हटाएँ",
+    "loading-media": "मीडिया लोड हो रहा है...",
     "Auto": "स्वचालित",
     "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
     "media-count-label": "मीडिया गिनती:",

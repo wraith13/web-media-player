@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "Ajouter des médias",
     "remove-media": "Supprimer des médias",
+    "loading-media": "Chargement des médias...",
     "Auto": "Automatique",
     "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
     "media-count-label": "Nombre de médias\u00A0:",

@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "미디어 추가",
     "remove-media": "미디어 제거",
+    "loading-media": "미디어 로드 중...",
     "Auto": "자동",
     "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
     "media-count-label": "미디어 수:",

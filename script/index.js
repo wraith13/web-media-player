@@ -185,6 +185,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "rtl",
             "add-media": "إضافة وسائط",
             "remove-media": "إزالة وسائط",
+            "loading-media": "جارٍ تحميل الوسائط...",
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
             "media-count-label": "عدد الوسائط:",
@@ -275,6 +276,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Medien hinzufügen",
             "remove-media": "Medien entfernen",
+            "loading-media": "Medien werden geladen...",
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
             "media-count-label": "Medienanzahl:",
@@ -365,6 +367,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Προσθήκη μέσων",
             "remove-media": "Αφαίρεση μέσων",
+            "loading-media": "Φόρτωση μέσων...",
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
             "media-count-label": "Αριθμός μέσων:",
@@ -455,6 +458,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Add Media",
             "remove-media": "Remove Media",
+            "loading-media": "Loading media...",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
             "media-count-label": "Media Count:",
@@ -545,6 +549,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Agregar medios",
             "remove-media": "Eliminar medios",
+            "loading-media": "Cargando medios...",
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
             "media-count-label": "Cantidad de medios:",
@@ -635,6 +640,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "rtl",
             "add-media": "افزودن رسانه",
             "remove-media": "حذف رسانه",
+            "loading-media": "در حال بارگذاری رسانه...",
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
             "media-count-label": "تعداد رسانه:",
@@ -725,6 +731,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Ajouter des médias",
             "remove-media": "Supprimer des médias",
+            "loading-media": "Chargement des médias...",
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
             "media-count-label": "Nombre de médias :",
@@ -815,6 +822,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "मीडिया जोड़ें",
             "remove-media": "मीडिया हटाएँ",
+            "loading-media": "मीडिया लोड हो रहा है...",
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
             "media-count-label": "मीडिया गिनती:",
@@ -905,6 +913,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Tambah Media",
             "remove-media": "Hapus Media",
+            "loading-media": "Memuat media...",
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
             "media-count-label": "Jumlah Media:",
@@ -995,6 +1004,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Aggiungi media",
             "remove-media": "Rimuovi media",
+            "loading-media": "Caricamento media...",
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
             "media-count-label": "Conteggio media:",
@@ -1085,6 +1095,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "メディアを追加",
             "remove-media": "メディアを削除",
+            "loading-media": "メディアを読み込み中...",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "media-count-label": "メディア数:",
@@ -1175,6 +1186,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "미디어 추가",
             "remove-media": "미디어 제거",
+            "loading-media": "미디어 로드 중...",
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
             "media-count-label": "미디어 수:",
@@ -1265,6 +1277,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Media toevoegen",
             "remove-media": "Media verwijderen",
+            "loading-media": "Media laden...",
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
             "media-count-label": "Aantal media:",
@@ -1355,6 +1368,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Dodaj multimedia",
             "remove-media": "Usuń multimedia",
+            "loading-media": "Ładowanie multimediów...",
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
             "media-count-label": "Liczba mediów:",
@@ -1445,6 +1459,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Adicionar mídia",
             "remove-media": "Remover mídia",
+            "loading-media": "Carregando mídia...",
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
             "media-count-label": "Contagem de mídias:",
@@ -6553,6 +6568,9 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         Progress.updateProgress = function () {
             document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
             ui_10.UI.progressCircle.style.setProperty("--progress", "".concat(completedTasks / totalTasks));
+            ui_10.UI.progressCircle.setAttribute("aria-volumemin", "0");
+            ui_10.UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
+            ui_10.UI.progressCircle.setAttribute("aria-valuenow", completedTasks.toString());
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -7053,6 +7071,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.volumeRange.set(0);
             }
         };
+        Events.addKeyboardClickListener = function (label) {
+            label.addEventListener("keydown", function (event) {
+                if (" " === event.key || "Enter" === event.key) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    label.click();
+                }
+            });
+        };
         Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
             Events.locale = params["locale"];
@@ -7110,6 +7137,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='wakeup-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='volume-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='settings-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='sleep-button']"));
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
             ui_12.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

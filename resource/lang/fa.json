@@ -3,6 +3,7 @@
     "lang-direction": "rtl",
     "add-media": "افزودن رسانه",
     "remove-media": "حذف رسانه",
+    "loading-media": "در حال بارگذاری رسانه...",
     "Auto": "خودکار",
     "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
     "media-count-label": "تعداد رسانه:",

@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "Medien hinzufügen",
     "remove-media": "Medien entfernen",
+    "loading-media": "Medien werden geladen...",
     "Auto": "Automatisch",
     "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
     "media-count-label": "Medienanzahl:",

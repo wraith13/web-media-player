@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Nov 28 2025 07:42:51 GMT+0900 (日本標準時)
+    build at: Fri Nov 28 2025 22:55:40 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -114,6 +114,11 @@ DEALINGS IN THE SOFTWARE.
   syntax: "<number>";
   inherits: false;
   initial-value: 1;
+}
+@keyframes vanish {
+  100% {
+    display: none;
+  }
 }
 .pixelated {
   image-rendering: pixelated;
@@ -331,7 +336,7 @@ body.play:not(.mousemove) #screen-body {
 }
 
 #screen-body #background-screen {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -346,13 +351,21 @@ body.play:not(.mousemove) #screen-body {
   justify-content: center;
   align-items: center;
 }
-body.play #screen-body #background-screen:not(.show):not(:focus-within) {
+body.play #screen-body #background-screen:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play #screen-body #background-screen:not(.show):not(:focus-within)::before {
+body.play #screen-body #background-screen:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -365,13 +378,21 @@ body.play #screen-body #background-screen:not(.show):not(:focus-within)::before 
   transition: filter 750ms;
 }
 
-body.show-paused-media #screen-body #background-screen:not(.show):not(:focus-within) {
+body.show-paused-media #screen-body #background-screen:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-paused-media #screen-body #background-screen:not(.show):not(:focus-within)::before {
+body.show-paused-media #screen-body #background-screen:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -384,13 +405,21 @@ body.show-paused-media #screen-body #background-screen:not(.show):not(:focus-wit
   transition: filter 750ms;
 }
 
-body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-within) {
+body.show-settings-panel #screen-body #background-screen:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-within)::before {
+body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -432,7 +461,7 @@ body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-w
   max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
 #screen-body #media-screen {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -445,13 +474,21 @@ body.show-settings-panel #screen-body #background-screen:not(.show):not(:focus-w
   position: fixed;
   overflow: visible;
 }
-body.list #screen-body #media-screen:not(.show):not(:focus-within) {
+body.list #screen-body #media-screen:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.list #screen-body #media-screen:not(.show):not(:focus-within)::before {
+body.list #screen-body #media-screen:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -543,7 +580,7 @@ body.list #screen-body #media-screen:not(.show):not(:focus-within)::before {
   transition: none !important;
 }
 #screen-body #media-list {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -573,13 +610,21 @@ body.list #screen-body #media-screen:not(.show):not(:focus-within)::before {
   position: absolute;
   counter-reset: item-num;
 }
-body.play #screen-body #media-list:not(.show):not(:focus-within) {
+body.play #screen-body #media-list:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play #screen-body #media-list:not(.show):not(:focus-within)::before {
+body.play #screen-body #media-list:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -810,7 +855,7 @@ body.play #screen-body #media-list:not(.show):not(:focus-within)::before {
   }
 }
 #screen-body #media-list .item.add {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background-color: transparent;
   padding: 0px;
   cursor: default;
@@ -819,13 +864,21 @@ body.play #screen-body #media-list:not(.show):not(:focus-within)::before {
   min-width: calc(100% - 1rem);
   min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
-body.progress-circle #screen-body #media-list .item.add:not(.show):not(:focus-within) {
+body.progress-circle #screen-body #media-list .item.add:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.progress-circle #screen-body #media-list .item.add:not(.show):not(:focus-within)::before {
+body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1007,15 +1060,23 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   text-align: end;
   white-space: pre;
   will-change: contents opacity filter;
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.play) #fps:not(.show):not(:focus-within) {
+body:not(.play) #fps:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play) #fps:not(.show):not(:focus-within)::before {
+body:not(.play) #fps:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1028,13 +1089,21 @@ body:not(.play) #fps:not(.show):not(:focus-within)::before {
   transition: filter 750ms;
 }
 
-#fps.hide:not(.show):not(:focus-within) {
+#fps.hide:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#fps.hide:not(.show):not(:focus-within)::before {
+#fps.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1116,15 +1185,23 @@ body:not(.progress-circle) #progress-circle {
 }
 
 #no-media-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.no-media) #no-media-panel:not(.show):not(:focus-within) {
+body:not(.no-media) #no-media-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.no-media) #no-media-panel:not(.show):not(:focus-within)::before {
+body:not(.no-media) #no-media-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1142,15 +1219,23 @@ body:not(.no-media) #no-media-panel {
 }
 
 #not-supported-media-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.not-supported-media) #not-supported-media-panel:not(.show):not(:focus-within) {
+body:not(.not-supported-media) #not-supported-media-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.not-supported-media) #not-supported-media-panel:not(.show):not(:focus-within)::before {
+body:not(.not-supported-media) #not-supported-media-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1168,17 +1253,25 @@ body:not(.not-supported-media) #not-supported-media-panel {
 }
 
 #wake-up-timer-not-working-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   z-index: 50;
   color: orange;
 }
-body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show):not(:focus-within) {
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show):not(:focus-within)::before {
+body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1209,19 +1302,27 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-body.play:not(.show-ui) #control-panel:not(.show):not(:focus-within) {
+body.play:not(.show-ui) #control-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play:not(.show-ui) #control-panel:not(.show):not(:focus-within)::before {
+body.play:not(.show-ui) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1439,17 +1540,25 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
 }
 
 #media-index {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #media-index:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1462,13 +1571,21 @@ body:not(.play):not(.show-paused-media) #media-index:not(.show):not(:focus-withi
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-index:not(.show):not(:focus-within) {
+body:not(.show-ui) #media-index:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-index:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #media-index:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1481,13 +1598,21 @@ body:not(.show-ui) #media-index:not(.show):not(:focus-within)::before {
   transition: filter 750ms;
 }
 
-body.show-seek-bar #media-index:not(.show):not(:focus-within) {
+body.show-seek-bar #media-index:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-seek-bar #media-index:not(.show):not(:focus-within)::before {
+body.show-seek-bar #media-index:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1528,15 +1653,23 @@ html[dir=rtl] #media-index {
 }
 
 #media-title {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #media-title:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1549,13 +1682,21 @@ body:not(.play):not(.show-paused-media) #media-title:not(.show):not(:focus-withi
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-title:not(.show):not(:focus-within) {
+body:not(.show-ui) #media-title:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-title:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #media-title:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1568,13 +1709,21 @@ body:not(.show-ui) #media-title:not(.show):not(:focus-within)::before {
   transition: filter 750ms;
 }
 
-body.show-seek-bar #media-title:not(.show):not(:focus-within) {
+body.show-seek-bar #media-title:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.show-seek-bar #media-title:not(.show):not(:focus-within)::before {
+body.show-seek-bar #media-title:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1627,17 +1776,25 @@ body.show-seek-bar #media-title:not(.show):not(:focus-within)::before {
   gap: 0.25rem;
 }
 #media-time-frame #media-time {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1650,13 +1807,21 @@ body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within) {
+body:not(.show-ui) #media-time-frame #media-time:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1691,7 +1856,7 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within)::
   direction: ltr;
 }
 #media-time-frame #seek-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
@@ -1700,13 +1865,21 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show):not(:focus-within)::
   justify-content: center;
   align-items: stretch;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1719,13 +1892,21 @@ body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1738,13 +1919,21 @@ body:not(.show-ui) #media-time-frame #seek-panel:not(.show):not(:focus-within)::
   transition: filter 750ms;
 }
 
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show):not(:focus-within) {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show):not(:focus-within)::before {
+body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1784,18 +1973,26 @@ body.show-seek-bar #media-time-frame #media-time {
   }
 }
 #next-button, #back-button {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body:not(.play):not(.show-paused-media) #next-button:not(.show):not(:focus-within), body:not(.play):not(.show-paused-media) #back-button:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #next-button:not(.show), body:not(.play):not(.show-paused-media) #back-button:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #next-button:not(.show):not(:focus-within)::before, body:not(.play):not(.show-paused-media) #back-button:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:not(.play):not(.show-paused-media) #back-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1808,13 +2005,21 @@ body:not(.play):not(.show-paused-media) #next-button:not(.show):not(:focus-withi
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #next-button:not(.show):not(:focus-within), body:not(.show-ui) #back-button:not(.show):not(:focus-within) {
+body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #next-button:not(.show):not(:focus-within)::before, body:not(.show-ui) #back-button:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1900,7 +2105,7 @@ body.no-media #next-button, body.no-media #back-button {
 }
 
 #fast-forward-button, #rewind-button {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
@@ -1908,13 +2113,21 @@ body.no-media #next-button, body.no-media #back-button {
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show):not(:focus-within), body:not(.play):not(.show-paused-media) #rewind-button:not(.show):not(:focus-within) {
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show):not(:focus-within)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show):not(:focus-within)::before {
+body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1927,13 +2140,21 @@ body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show):not(:foc
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #fast-forward-button:not(.show):not(:focus-within), body:not(.show-ui) #rewind-button:not(.show):not(:focus-within) {
+body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.show-ui) #fast-forward-button:not(.show):not(:focus-within)::before, body:not(.show-ui) #rewind-button:not(.show):not(:focus-within)::before {
+body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #rewind-button:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2024,16 +2245,24 @@ body.no-media #rewind-button {
   }
 }
 #wakeup-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within) {
+body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within)::before {
+body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2045,7 +2274,7 @@ body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:n
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:not(.show):not(:focus-within) {
+body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
   transform: translate(0px, 100%);
 }
 #wakeup-panel {
@@ -2067,16 +2296,24 @@ body label[for=wakeup-button]:not(.checked):not(:focus-within) + #wakeup-panel:n
 }
 
 label[for=wakeup-button].tip {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-label[for=wakeup-button].tip:empty:not(.show):not(:focus-within) {
+label[for=wakeup-button].tip:empty:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-label[for=wakeup-button].tip:empty:not(.show):not(:focus-within)::before {
+label[for=wakeup-button].tip:empty:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2088,21 +2325,29 @@ label[for=wakeup-button].tip:empty:not(.show):not(:focus-within)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-label[for=wakeup-button].tip:empty:not(.show):not(:focus-within) {
+label[for=wakeup-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
 }
 @media (max-width: 719.99px) {
   label[for=wakeup-button].tip {
-    transition: opacity 750ms, filter 750ms;
+    transition: display 750ms, opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within) {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+    animation-name: vanish;
+    animation-duration: 750ms;
+    animation-timing-function: ease-in;
+    animation-delay: 0ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within)::before {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2114,7 +2359,7 @@ label[for=wakeup-button].tip:empty:not(.show):not(:focus-within) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show):not(:focus-within) {
+  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }
@@ -2140,16 +2385,24 @@ label[for=wakeup-button].tip {
 }
 
 #no-media {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-#no-media.hide:not(.show):not(:focus-within) {
+#no-media.hide:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-media.hide:not(.show):not(:focus-within)::before {
+#no-media.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2161,7 +2414,7 @@ label[for=wakeup-button].tip {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-media.hide:not(.show):not(:focus-within) {
+#no-media.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-media {
@@ -2204,18 +2457,26 @@ label[for=volume-button] #speaker-mute-icon svg {
 }
 
 #volume-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-body label[for=volume-button]:not(.checked):not(:focus-within) + #volume-panel:not(.show):not(:focus-within) {
+body label[for=volume-button]:not(.checked) + #volume-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=volume-button]:not(.checked):not(:focus-within) + #volume-panel:not(.show):not(:focus-within)::before {
+body label[for=volume-button]:not(.checked) + #volume-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2244,16 +2505,24 @@ html[dir=rtl] #volume-panel {
 }
 
 #settings-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within) {
+body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within)::before {
+body label[for=settings-button]:not(.checked) + #settings-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2265,7 +2534,7 @@ body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-pan
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-panel:not(.show):not(:focus-within) {
+body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   transform: translate(0px, 100%);
 }
 #settings-panel {
@@ -2286,16 +2555,24 @@ body label[for=settings-button]:not(.checked):not(:focus-within) + #settings-pan
 }
 
 #sleep-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within) {
+body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within)::before {
+body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2307,7 +2584,7 @@ body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not(.show):not(:focus-within) {
+body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
   transform: translate(0px, 100%);
 }
 #sleep-panel {
@@ -2329,16 +2606,24 @@ body label[for=sleep-button]:not(.checked):not(:focus-within) + #sleep-panel:not
 }
 
 label[for=sleep-button].tip {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-label[for=sleep-button].tip:empty:not(.show):not(:focus-within) {
+label[for=sleep-button].tip:empty:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-label[for=sleep-button].tip:empty:not(.show):not(:focus-within)::before {
+label[for=sleep-button].tip:empty:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2350,21 +2635,29 @@ label[for=sleep-button].tip:empty:not(.show):not(:focus-within)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-label[for=sleep-button].tip:empty:not(.show):not(:focus-within) {
+label[for=sleep-button].tip:empty:not(.show) {
   transform: translate(0px, 100%);
 }
 @media (max-width: 719.99px) {
   label[for=sleep-button].tip {
-    transition: opacity 750ms, filter 750ms;
+    transition: display 750ms, opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within) {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+    animation-name: vanish;
+    animation-duration: 750ms;
+    animation-timing-function: ease-in;
+    animation-delay: 0ms;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within)::before {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2376,7 +2669,7 @@ label[for=sleep-button].tip:empty:not(.show):not(:focus-within) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show):not(:focus-within) {
+  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }
@@ -2402,16 +2695,24 @@ label[for=sleep-button].tip {
 }
 
 #no-repeat {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-#no-repeat.hide:not(.show):not(:focus-within) {
+#no-repeat.hide:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#no-repeat.hide:not(.show):not(:focus-within)::before {
+#no-repeat.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2423,7 +2724,7 @@ label[for=sleep-button].tip {
   z-index: -1;
   transition: filter 750ms;
 }
-#no-repeat.hide:not(.show):not(:focus-within) {
+#no-repeat.hide:not(.show) {
   transform: translate(0px, 100%);
 }
 #no-repeat {
@@ -2586,15 +2887,23 @@ label:not(.icon-button).link-label:not(:hover) a {
 }
 
 #overlay-panel {
-  transition: opacity 750ms, filter 750ms;
+  transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.play) #overlay-panel:not(.show):not(:focus-within) {
+body:not(.play) #overlay-panel:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play) #overlay-panel:not(.show):not(:focus-within)::before {
+body:not(.play) #overlay-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2607,13 +2916,21 @@ body:not(.play) #overlay-panel:not(.show):not(:focus-within)::before {
   transition: filter 750ms;
 }
 
-#overlay-panel.hide:not(.show):not(:focus-within) {
+#overlay-panel.hide:not(.show) {
+  animation-name: vanish;
+  animation-duration: 750ms;
+  animation-timing-function: ease-in;
+  animation-delay: 0ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-#overlay-panel.hide:not(.show):not(:focus-within)::before {
+#overlay-panel.hide:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -3194,11 +3511,11 @@ body:not(.play) #overlay-panel:not(.show):not(:focus-within)::before {
   }
 }
 
-#add-media:focus,
-label:focus-within,
+label:focus,
 button:focus,
 #volume-panel:focus-within,
-#seek-panel:focus-within {
+#seek-panel:focus-within,
+.popup-panel > label:focus-within {
   filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
 }
 
@@ -3248,20 +3565,20 @@ DUMMYSTYLE
     </div>
     <div id="media-list">
         <div class="item add">
-            <div id="add-media" role="button" tabindex="0" data-aria-lang-key="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <button id="add-media" data-aria-lang-key="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(2.4647,0,0,2.46901,-1528.77,-1533.04)">
         <path d="M828,664C918.514,664 992,737.486 992,828C992,918.514 918.514,992 828,992C737.486,992 664,918.514 664,828C664,737.486 737.486,664 828,664ZM806.133,806.458L729.534,806.458C717.502,806.458 707.733,816.209 707.733,828.221L707.733,828.352C707.733,840.363 717.502,850.115 729.534,850.115L806.133,850.115L806.133,926.58C806.133,938.591 815.902,948.343 827.934,948.343L828.066,948.343C840.098,948.343 849.867,938.591 849.867,926.58L849.867,850.115L926.466,850.115C938.498,850.115 948.267,840.363 948.267,828.352L948.267,828.221C948.267,816.209 938.498,806.458 926.466,806.458L849.867,806.458L849.867,729.992C849.867,717.981 840.098,708.229 828.066,708.229L827.934,708.229C815.902,708.229 806.133,717.981 806.133,729.992L806.133,806.458Z"/>
     </g>
 </svg>
-</div>
+</button>
             <input id="add-file" type="file" multiple />
         </div>
     </div>
 </div>
-<div id="element-pool" style="display:none;"></div>
-<div id="progress-circle" role="progressbar"></div>
+<div id="element-pool" style="display:none;" aria-hidden="true"></div>
+<div id="progress-circle" role="progressbar" aria-live="polite" data-aria-lang-key="loading-media"></div>
 <div id="no-media-panel">
     <span data-lang-key="no-media-message"></span>
 </div>
@@ -3275,7 +3592,7 @@ DUMMYSTYLE
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
-        <div id="wakeup-progress-circle" role="progressbar"></div>
+        <div id="wakeup-progress-circle" role="timer"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3283,7 +3600,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <div id="wakeup-panel">
+    <div id="wakeup-panel" class="popup-panel">
         <label id="wakeup-toggle-label" class="toggle-label" tabindex="0">
             <span data-lang-key="wakeup-label"></span>
             <span data-lang-key="on" class="value-label"></span>
@@ -3395,7 +3712,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <div id="settings-panel">
+    <div id="settings-panel" class="popup-panel">
         <label for="media-count" class="information">
             <span data-lang-key="media-count-label"></span>
             <span id="media-count" class="value-text"></span>
@@ -3493,7 +3810,7 @@ DUMMYSTYLE
     </div>
     <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
         <input id="sleep-button" type="checkbox">
-        <div id="sleep-progress-circle" role="progressbar"></div>
+        <div id="sleep-progress-circle" role="timer"></div>
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3501,7 +3818,7 @@ DUMMYSTYLE
 </svg>
 
     </label>
-    <div id="sleep-panel">
+    <div id="sleep-panel" class="popup-panel">
         <label id="sleep-toggle-label" class="toggle-label" tabindex="0">
             <span data-lang-key="sleep-label"></span>
             <span data-lang-key="on" class="value-label"></span>
@@ -3568,7 +3885,7 @@ DUMMYSTYLE
 <div>
 </button>
 <div id="pressed-key"></div>
-<div id="images" style="display:none;"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<div id="images" style="display:none;" aria-hidden="true"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <path d="M512,96C741.597,96 928,282.403 928,512C928,741.597 741.597,928 512,928C282.403,928 96,741.597 96,512C96,282.403 282.403,96 512,96ZM254.314,322.332L701.824,769.571C648.693,808.805 583.034,832 512,832C335.387,832 192,688.613 192,512C192,441.037 215.149,375.438 254.314,322.332ZM769.686,701.668L322.176,254.429C375.307,215.195 440.966,192 512,192C688.613,192 832,335.387 832,512C832,582.963 808.851,648.562 769.686,701.668Z"/>
 </svg>
 </div><div id="audio-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3594,8 +3911,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Nov 28 2025 07:42:51 GMT+0900 (日本標準時)",
-    tick: 1764283371007
+    at: "Fri Nov 28 2025 22:55:40 GMT+0900 (日本標準時)",
+    tick: 1764338140640
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5344,6 +5661,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "rtl",
             "add-media": "إضافة وسائط",
             "remove-media": "إزالة وسائط",
+            "loading-media": "جارٍ تحميل الوسائط...",
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
             "media-count-label": "عدد الوسائط:",
@@ -5434,6 +5752,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Medien hinzufügen",
             "remove-media": "Medien entfernen",
+            "loading-media": "Medien werden geladen...",
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
             "media-count-label": "Medienanzahl:",
@@ -5524,6 +5843,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Προσθήκη μέσων",
             "remove-media": "Αφαίρεση μέσων",
+            "loading-media": "Φόρτωση μέσων...",
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
             "media-count-label": "Αριθμός μέσων:",
@@ -5614,6 +5934,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Add Media",
             "remove-media": "Remove Media",
+            "loading-media": "Loading media...",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
             "media-count-label": "Media Count:",
@@ -5704,6 +6025,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Agregar medios",
             "remove-media": "Eliminar medios",
+            "loading-media": "Cargando medios...",
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
             "media-count-label": "Cantidad de medios:",
@@ -5794,6 +6116,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "rtl",
             "add-media": "افزودن رسانه",
             "remove-media": "حذف رسانه",
+            "loading-media": "در حال بارگذاری رسانه...",
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
             "media-count-label": "تعداد رسانه:",
@@ -5884,6 +6207,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Ajouter des médias",
             "remove-media": "Supprimer des médias",
+            "loading-media": "Chargement des médias...",
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
             "media-count-label": "Nombre de médias :",
@@ -5974,6 +6298,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "मीडिया जोड़ें",
             "remove-media": "मीडिया हटाएँ",
+            "loading-media": "मीडिया लोड हो रहा है...",
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
             "media-count-label": "मीडिया गिनती:",
@@ -6064,6 +6389,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Tambah Media",
             "remove-media": "Hapus Media",
+            "loading-media": "Memuat media...",
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
             "media-count-label": "Jumlah Media:",
@@ -6154,6 +6480,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Aggiungi media",
             "remove-media": "Rimuovi media",
+            "loading-media": "Caricamento media...",
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
             "media-count-label": "Conteggio media:",
@@ -6244,6 +6571,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "メディアを追加",
             "remove-media": "メディアを削除",
+            "loading-media": "メディアを読み込み中...",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "media-count-label": "メディア数:",
@@ -6334,6 +6662,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "미디어 추가",
             "remove-media": "미디어 제거",
+            "loading-media": "미디어 로드 중...",
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
             "media-count-label": "미디어 수:",
@@ -6424,6 +6753,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Media toevoegen",
             "remove-media": "Media verwijderen",
+            "loading-media": "Media laden...",
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
             "media-count-label": "Aantal media:",
@@ -6514,6 +6844,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Dodaj multimedia",
             "remove-media": "Usuń multimedia",
+            "loading-media": "Ładowanie multimediów...",
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
             "media-count-label": "Liczba mediów:",
@@ -6604,6 +6935,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "lang-direction": "ltr",
             "add-media": "Adicionar mídia",
             "remove-media": "Remover mídia",
+            "loading-media": "Carregando mídia...",
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
             "media-count-label": "Contagem de mídias:",
@@ -11712,6 +12044,9 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         Progress.updateProgress = function () {
             document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
             ui_10.UI.progressCircle.style.setProperty("--progress", "".concat(completedTasks / totalTasks));
+            ui_10.UI.progressCircle.setAttribute("aria-volumemin", "0");
+            ui_10.UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
+            ui_10.UI.progressCircle.setAttribute("aria-valuenow", completedTasks.toString());
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -12212,6 +12547,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.volumeRange.set(0);
             }
         };
+        Events.addKeyboardClickListener = function (label) {
+            label.addEventListener("keydown", function (event) {
+                if (" " === event.key || "Enter" === event.key) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    label.click();
+                }
+            });
+        };
         Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
             Events.locale = params["locale"];
@@ -12269,6 +12613,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='wakeup-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='volume-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='settings-button']"));
+            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='sleep-button']"));
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
             ui_12.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

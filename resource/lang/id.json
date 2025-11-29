@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "Tambah Media",
     "remove-media": "Hapus Media",
+    "loading-media": "Memuat media...",
     "Auto": "Otomatis",
     "description": "Pemutar media berbasis web yang berjalan di peramban",
     "media-count-label": "Jumlah Media:",

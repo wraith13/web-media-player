@@ -7,26 +7,18 @@
         $is-body: 1 == string.index($mode, "body.") or 1 == string.index($mode, "body:");
         @if $is-body
         {
-            @at-root #{$mode} &:not(.show):not(:focus-within)
+            @at-root #{$mode} &:not(.show)
             {
                 @content;
             }
         }
         @else
         {
-            #{$mode}:not(.show):not(:focus-within)
+            #{$mode}:not(.show)
             {
                 @content;
             }
         }
-    }
-}
-@mixin slide-up-transition($modes...)
-{
-    transition: transform 500ms;
-    @include apply-transition-effect($modes...)
-    {
-        transform: translate(0px, -100%);
     }
 }
 @mixin slide-down-transition($modes...)
@@ -39,9 +31,10 @@
 }
 @mixin fade-transition($modes...)
 {
-    transition: opacity 750ms, filter 750ms;
+    transition: display 750ms, opacity 750ms, filter 750ms;
     @include apply-transition-effect($modes...)
     {
+        @include vanish-animation(750ms);
         opacity: 0;
         cursor: none;
         pointer-events: none;
@@ -59,6 +52,24 @@
             z-index: -1;
             transition: filter 750ms;
         }
+    }
+}
+@mixin vanish-animation($duration: 750ms, $delay: 0ms)
+{
+    animation-name: vanish;
+    animation-duration: $duration;
+    animation-timing-function: ease-in;
+    animation-delay: $delay;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-play-state: running;
+}
+@keyframes vanish
+{
+    100%
+    {
+        display: none;
     }
 }
 @mixin flex($flex-direction: row, $justify-content: start, $align-items: center)

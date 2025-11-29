@@ -3,6 +3,7 @@
     "lang-direction": "ltr",
     "add-media": "Dodaj multimedia",
     "remove-media": "Usuń multimedia",
+    "loading-media": "Ładowanie multimediów...",
     "Auto": "Automatycznie",
     "description": "Odtwarzacz multimedialny działający w przeglądarce",
     "media-count-label": "Liczba mediów:",
