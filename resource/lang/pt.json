@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Frequência de arco estéreo",
     "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
     "visualizer-stereo-double-arc": "Arco estéreo duplo",
+    "analog-clock-label": "Relógio analógico:",
+    "millisecond-hand-label": "Ponteiro de milissegundos:",
     "overlay-style-label": "Estilo de sobreposição:",
     "hide": "Ocultar",
     "blend": "Mesclar",

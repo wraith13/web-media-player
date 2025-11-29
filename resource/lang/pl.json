@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
     "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
     "visualizer-stereo-double-arc": "Stereo podwójny łuk",
+    "analog-clock-label": "Zegar analogowy:",
+    "millisecond-hand-label": "Wskazówka milisekund:",
     "overlay-style-label": "Styl nakładki:",
     "hide": "Ukryj",
     "blend": "Mieszaj",

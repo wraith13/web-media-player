@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "تردد قوس ستيريو",
     "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
     "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
+    "analog-clock-label": "الساعة التناظرية:",
+    "millisecond-hand-label": "عقرب الملِّيثانية:",
     "overlay-style-label": "نمط التراكب:",
     "hide": "إخفاء",
     "blend": "مزج",

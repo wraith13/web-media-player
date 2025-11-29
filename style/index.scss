@@ -35,7 +35,7 @@
     }
     #media-screen
     {
-        @include fade-transition("body.list");
+        @include fade-transition-without-vanish("body.list");
         @include solid-box();
         @include full-stretch-box();
         position: fixed;
@@ -446,6 +446,73 @@
     &.odd .visual-progress-circle
     {
         @include progress-circle(transparent, $visualizer-color);
+    }
+}
+#analog-clock-panel
+{
+    @include fade-transition("body.list", "&.hide");
+    @include full-stretch-box();
+    position: fixed;
+    z-index: 30;
+    mix-blend-mode: difference;
+    div
+    {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        border-radius: 50%;
+        // &:not(#seconds-niddle)
+        // {
+        //     border-radius: 50%;
+        // }
+        &:not(#center-circle)
+        {
+            @include clock-niddle();
+        }
+        &#milli-seconds-niddle
+        {
+            @include fade-transition("&.hide");
+            width: calc(var(--short-side) * 96);
+            height: calc(var(--short-side) * 96);
+        }
+        &#seconds-niddle
+        {
+            width: calc(var(--short-side) * 95);
+            height: calc(var(--short-side) * 95);
+        }
+        &#minutes-niddle
+        {
+            width: calc(var(--short-side) * 80);
+            height: calc(var(--short-side) * 80);
+        }
+        &#scale60-panel
+        {
+            --scale-width: calc(var(--short-side) * 0.2);
+            --scale-color: rgba(0, 0, 0, 0.3);
+            width: calc(var(--short-side) * 95);
+            height: calc(var(--short-side) * 95);
+            @include scale-gradients(30);
+        }
+        &#hours-niddle
+        {
+            width: calc(var(--short-side) * 65);
+            height: calc(var(--short-side) * 65);
+        }
+        &#center-circle
+        {
+            background-color: black;
+            width: calc(var(--short-side) * 50);
+            height: calc(var(--short-side) * 50);
+        }
+        &#scale12-panel
+        {
+            --scale-width: calc(var(--short-side) * 0.3);
+            --scale-color: rgba(0, 0, 0, 0.7);
+            width: calc(var(--short-side) * 95);
+            height: calc(var(--short-side) * 95);
+            @include scale-gradients(6);
+        }
     }
 }
 body:not(.show-paused-media) #screen-body.paused

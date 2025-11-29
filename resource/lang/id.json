@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
     "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
     "visualizer-stereo-double-arc": "Busur Stereo Ganda",
+    "analog-clock-label": "Jam Analog:",
+    "millisecond-hand-label": "Jarum Milidetik:",
     "overlay-style-label": "Gaya Overlay:",
     "hide": "Sembunyikan",
     "blend": "Campur",

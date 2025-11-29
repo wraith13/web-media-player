@@ -208,6 +208,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "تردد قوس ستيريو",
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
+            "analog-clock-label": "الساعة التناظرية:",
+            "millisecond-hand-label": "عقرب الملِّيثانية:",
             "overlay-style-label": "نمط التراكب:",
             "hide": "إخفاء",
             "blend": "مزج",
@@ -299,6 +301,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo-Bogenfrequenz",
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
+            "analog-clock-label": "Analoge Uhr:",
+            "millisecond-hand-label": "Millisekundenzeiger:",
             "overlay-style-label": "Overlay-Stil:",
             "hide": "Ausblenden",
             "blend": "Mischen",
@@ -390,6 +394,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Στερεο Καμπυλωτή Συχνότητα",
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
+            "analog-clock-label": "Αναλογικό Ρολόι:",
+            "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
             "overlay-style-label": "Στυλ επικάλυψης:",
             "hide": "Απόκρυψη",
             "blend": "Ανάμειξη",
@@ -481,6 +487,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
+            "analog-clock-label": "Analog Clock:",
+            "millisecond-hand-label": "Millisecond Hand:",
             "overlay-style-label": "Overlay Style:",
             "hide": "Hide",
             "blend": "Blend",
@@ -572,6 +580,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frecuencia de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
+            "analog-clock-label": "Reloj analógico:",
+            "millisecond-hand-label": "Manecilla de milisegundos:",
             "overlay-style-label": "Estilo de superposición:",
             "hide": "Ocultar",
             "blend": "Mezclar",
@@ -663,6 +673,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "فرکانس قوس استریو",
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
+            "analog-clock-label": "ساعت آنالوگ:",
+            "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه:",
             "overlay-style-label": "سبک پوشش:",
             "hide": "مخفی",
             "blend": "ترکیب",
@@ -754,6 +766,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Fréquence d'arc stéréo",
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
+            "analog-clock-label": "Horloge analogique :",
+            "millisecond-hand-label": "Aiguille des millisecondes :",
             "overlay-style-label": "Style de superposition :",
             "hide": "Cacher",
             "blend": "Fusion",
@@ -845,6 +859,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "स्टीरियो आर्क आवृत्ति",
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
+            "analog-clock-label": "एनालॉग घड़ी:",
+            "millisecond-hand-label": "मिलीसेकंड हैंड:",
             "overlay-style-label": "ओवरले शैली:",
             "hide": "छिपाएँ",
             "blend": "ब्लेंड",
@@ -936,6 +952,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
+            "analog-clock-label": "Jam Analog:",
+            "millisecond-hand-label": "Jarum Milidetik:",
             "overlay-style-label": "Gaya Overlay:",
             "hide": "Sembunyikan",
             "blend": "Campur",
@@ -1027,6 +1045,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequenza arco stereo",
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
+            "analog-clock-label": "Orologio analogico:",
+            "millisecond-hand-label": "Lancetta dei millisecondi:",
             "overlay-style-label": "Stile sovrapposizione:",
             "hide": "Nascondi",
             "blend": "Fondi",
@@ -1118,6 +1138,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "ステレオアーク周波数",
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
+            "analog-clock-label": "アナログ時計:",
+            "millisecond-hand-label": "ミリ秒針:",
             "overlay-style-label": "オーバーレイスタイル:",
             "hide": "非表示",
             "blend": "ブレンド",
@@ -1209,6 +1231,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
+            "analog-clock-label": "아날로그 시계:",
+            "millisecond-hand-label": "밀리초 바늘:",
             "overlay-style-label": "오버레이 스타일:",
             "hide": "숨기기",
             "blend": "블렌드",
@@ -1300,6 +1324,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo boog frequentie",
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
+            "analog-clock-label": "Analoge klok:",
+            "millisecond-hand-label": "Milliseconde wijzer:",
             "overlay-style-label": "Overlay-stijl:",
             "hide": "Verbergen",
             "blend": "Meng",
@@ -1391,6 +1417,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
+            "analog-clock-label": "Zegar analogowy:",
+            "millisecond-hand-label": "Wskazówka milisekund:",
             "overlay-style-label": "Styl nakładki:",
             "hide": "Ukryj",
             "blend": "Mieszaj",
@@ -1482,6 +1510,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequência de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
+            "analog-clock-label": "Relógio analógico:",
+            "millisecond-hand-label": "Ponteiro de milissegundos:",
             "overlay-style-label": "Estilo de sobreposição:",
             "hide": "Ocultar",
             "blend": "Mesclar",
@@ -3482,7 +3512,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
         };
         Url.make = function (params) {
             //const url = new URL(config.canonicalUrl || window.location.href);
-            var url = new URL(window.location.href);
+            var url = new URL(window.location.href.replace(/#/g, "?"));
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -3622,6 +3652,14 @@ define("resource/control", [], {
             "stereo-double-arc"
         ],
         "default": "stereo-double-arc"
+    },
+    "analogClock": {
+        "id": "analog-clock",
+        "default": false
+    },
+    "millisecondHand": {
+        "id": "millisecond-hand",
+        "default": false
     },
     "overlayStyle": {
         "id": "overlay-style",
@@ -3927,6 +3965,15 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
+        UI.analogClock = {
+            panel: _library_2.Library.UI.getElementById("div", "analog-clock-panel"),
+            hoursNiddle: _library_2.Library.UI.getElementById("div", "hours-niddle"),
+            minutesNiddle: _library_2.Library.UI.getElementById("div", "minutes-niddle"),
+            secondsNiddle: _library_2.Library.UI.getElementById("div", "seconds-niddle"),
+            milliSecondsNiddle: _library_2.Library.UI.getElementById("div", "milli-seconds-niddle"),
+        };
+        UI.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+        UI.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
@@ -4269,6 +4316,25 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
+        Overlay.updateAnalogClock = function (date) {
+            var isAnalogClockEnabled = ui_4.UI.analogClockCheckbox.get();
+            ui_4.UI.analogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            if (isAnalogClockEnabled) {
+                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !ui_4.UI.millisecondHandCheckbox.get());
+                var milliSeconds = date.getMilliseconds();
+                var seconds = date.getSeconds() + (milliSeconds / 1000);
+                var minutes = date.getMinutes() + (seconds / 60);
+                var hours = date.getHours() % 12 + (minutes / 60);
+                var milliSecondsAngle = milliSeconds / 1000;
+                var secondsAngle = seconds / 60;
+                var minutesAngle = minutes / 60;
+                var hoursAngle = hours / 12;
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
+            }
+        };
         Overlay.makeDate = function (date, locale) {
             return date.toLocaleDateString(locale, config_json_4.default.clock.dateFormat);
         };
@@ -4379,6 +4445,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             var overlayOption = ui_4.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {
                 var date = new Date();
+                Overlay.updateAnalogClock(date);
                 Overlay.updateLayout(date);
                 Overlay.updateWeather();
                 Overlay.updateTime(date);
@@ -7290,6 +7357,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
             ui_12.UI.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
+            ui_12.UI.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
             ui_12.UI.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
             ui_12.UI.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);

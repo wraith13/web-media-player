@@ -1,4 +1,6 @@
 @use "sass:string";
+@use "sass:math";
+@use "sass:list" as list;
 @use "./params" as *;
 @mixin apply-transition-effect($modes...)
 {
@@ -29,29 +31,41 @@
         transform: translate(0px, 100%);
     }
 }
+@mixin fade-effect()
+{
+    opacity: 0;
+    cursor: none;
+    pointer-events: none;
+    filter: blur(1.0em);
+    &::before
+    {
+        content: "";
+        position: absolute;
+        top: -1em;
+        left: -1em;
+        right: -1em;
+        bottom: -1em;
+        background: inherit;
+        filter: blur(1.0em);
+        z-index: -1;
+        transition: filter 750ms;
+    }
+}
+@mixin fade-transition-without-vanish($modes...)
+{
+    transition: opacity 750ms, filter 750ms;
+    @include apply-transition-effect($modes...)
+    {
+        @include fade-effect();
+    }
+}
 @mixin fade-transition($modes...)
 {
     transition: display 750ms, opacity 750ms, filter 750ms;
     @include apply-transition-effect($modes...)
     {
-        @include vanish-animation(750ms);
-        opacity: 0;
-        cursor: none;
-        pointer-events: none;
-        filter: blur(1.0em);
-        &::before
-        {
-            content: "";
-            position: absolute;
-            top: -1em;
-            left: -1em;
-            right: -1em;
-            bottom: -1em;
-            background: inherit;
-            filter: blur(1.0em);
-            z-index: -1;
-            transition: filter 750ms;
-        }
+        //@include vanish-animation(750ms);
+        @include fade-effect();
     }
 }
 @mixin vanish-animation($duration: 750ms, $delay: 0ms)
@@ -266,7 +280,35 @@
     border-radius: 50%;
     background: conic-gradient($color calc(var(--progress) * 360deg), $color calc(var(--progress) * 360deg), $background-color calc(var(--progress) * 360deg));
 }
-@mixin focus-halo
+@mixin clock-niddle()
+{
+    background: conic-gradient(black, black calc(0.75 * 360deg), white 360deg);
+    transform: rotate(calc(var(--progress) * 360deg));
+}
+@mixin focus-halo()
 {
     filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
+}
+@mixin scale-gradients($count, $start-angle: 0deg) {
+    @if $count <= 0 {
+        background: none;
+    } @else {
+        $grads: ();
+        $step: math.div(180deg, $count);
+        @for $i from 0 through $count - 1 {
+            $angle: $start-angle + $i * $step;
+            $grads: list.append(
+                $grads,
+                linear-gradient(
+                    #{$angle},
+                    transparent calc(50% - var(--scale-width)),
+                    var(--scale-color) calc(50% - var(--scale-width)),
+                    var(--scale-color) calc(50% + var(--scale-width)),
+                    transparent calc(50% + var(--scale-width))
+                ),
+                comma
+            );
+        }
+        background: $grads;
+    }
 }

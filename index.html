@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Nov 28 2025 22:55:40 GMT+0900 (日本標準時)
+    build at: Sat Nov 29 2025 20:50:04 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -352,14 +352,6 @@ body.play:not(.mousemove) #screen-body {
   align-items: center;
 }
 body.play #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -379,14 +371,6 @@ body.play #screen-body #background-screen:not(.show)::before {
 }
 
 body.show-paused-media #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -406,14 +390,6 @@ body.show-paused-media #screen-body #background-screen:not(.show)::before {
 }
 
 body.show-settings-panel #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -461,7 +437,7 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
 #screen-body #media-screen {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -475,14 +451,6 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   overflow: visible;
 }
 body.list #screen-body #media-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -611,14 +579,6 @@ body.list #screen-body #media-screen:not(.show)::before {
   counter-reset: item-num;
 }
 body.play #screen-body #media-list:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -865,14 +825,6 @@ body.play #screen-body #media-list:not(.show)::before {
   min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
 body.progress-circle #screen-body #media-list .item.add:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -987,6 +939,120 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg));
 }
 
+#analog-clock-panel {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  z-index: 30;
+  mix-blend-mode: difference;
+}
+body.list #analog-clock-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.list #analog-clock-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#analog-clock-panel.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#analog-clock-panel div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+#analog-clock-panel div:not(#center-circle) {
+  background: conic-gradient(black, black 270deg, white 360deg);
+  transform: rotate(calc(var(--progress) * 360deg));
+}
+#analog-clock-panel div#milli-seconds-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+  width: calc(var(--short-side) * 96);
+  height: calc(var(--short-side) * 96);
+}
+#analog-clock-panel div#milli-seconds-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#milli-seconds-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#analog-clock-panel div#seconds-niddle {
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+}
+#analog-clock-panel div#minutes-niddle {
+  width: calc(var(--short-side) * 80);
+  height: calc(var(--short-side) * 80);
+}
+#analog-clock-panel div#scale60-panel {
+  --scale-width: calc(var(--short-side) * 0.2);
+  --scale-color: rgba(0, 0, 0, 0.3);
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+  background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(6deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(12deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(18deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(24deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(36deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(42deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(48deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(54deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(66deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(72deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(78deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(84deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(96deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(102deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(108deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(114deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(126deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(132deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(138deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(144deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(156deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(162deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(168deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(174deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
+}
+#analog-clock-panel div#hours-niddle {
+  width: calc(var(--short-side) * 65);
+  height: calc(var(--short-side) * 65);
+}
+#analog-clock-panel div#center-circle {
+  background-color: black;
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
+}
+#analog-clock-panel div#scale12-panel {
+  --scale-width: calc(var(--short-side) * 0.3);
+  --scale-color: rgba(0, 0, 0, 0.7);
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+  background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
+}
+
 body:not(.show-paused-media) #screen-body.paused #media-screen {
   opacity: 0.2;
 }
@@ -1063,14 +1129,6 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play) #fps:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1090,14 +1148,6 @@ body:not(.play) #fps:not(.show)::before {
 }
 
 #fps.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1188,14 +1238,6 @@ body:not(.progress-circle) #progress-circle {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.no-media) #no-media-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1222,14 +1264,6 @@ body:not(.no-media) #no-media-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.not-supported-media) #not-supported-media-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1258,14 +1292,6 @@ body:not(.not-supported-media) #not-supported-media-panel {
   color: orange;
 }
 body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1309,14 +1335,6 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
   align-items: center;
 }
 body.play:not(.show-ui) #control-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1545,14 +1563,6 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   font-weight: 400;
 }
 body:not(.play):not(.show-paused-media) #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1572,14 +1582,6 @@ body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
 }
 
 body:not(.show-ui) #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1599,14 +1601,6 @@ body:not(.show-ui) #media-index:not(.show)::before {
 }
 
 body.show-seek-bar #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1656,14 +1650,6 @@ html[dir=rtl] #media-index {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play):not(.show-paused-media) #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1683,14 +1669,6 @@ body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
 }
 
 body:not(.show-ui) #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1710,14 +1688,6 @@ body:not(.show-ui) #media-title:not(.show)::before {
 }
 
 body.show-seek-bar #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1781,14 +1751,6 @@ body.show-seek-bar #media-title:not(.show)::before {
   font-weight: 400;
 }
 body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1808,14 +1770,6 @@ body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)
 }
 
 body:not(.show-ui) #media-time-frame #media-time:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1866,14 +1820,6 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   align-items: stretch;
 }
 body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1893,14 +1839,6 @@ body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)
 }
 
 body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1920,14 +1858,6 @@ body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
 }
 
 body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1979,14 +1909,6 @@ body.show-seek-bar #media-time-frame #media-time {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body:not(.play):not(.show-paused-media) #next-button:not(.show), body:not(.play):not(.show-paused-media) #back-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2006,14 +1928,6 @@ body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:no
 }
 
 body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2114,14 +2028,6 @@ body.no-media #next-button, body.no-media #back-button {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2141,14 +2047,6 @@ body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before,
 }
 
 body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2249,14 +2147,6 @@ body.no-media #rewind-button {
   transition: transform 500ms;
 }
 body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2300,14 +2190,6 @@ label[for=wakeup-button].tip {
   transition: transform 500ms;
 }
 label[for=wakeup-button].tip:empty:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2334,14 +2216,6 @@ label[for=wakeup-button].tip:empty:not(.show) {
     transition: transform 500ms;
   }
   body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
-    animation-name: vanish;
-    animation-duration: 750ms;
-    animation-timing-function: ease-in;
-    animation-delay: 0ms;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
@@ -2389,14 +2263,6 @@ label[for=wakeup-button].tip {
   transition: transform 500ms;
 }
 #no-media.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2463,14 +2329,6 @@ label[for=volume-button] #speaker-mute-icon svg {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body label[for=volume-button]:not(.checked) + #volume-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2509,14 +2367,6 @@ html[dir=rtl] #volume-panel {
   transition: transform 500ms;
 }
 body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2559,14 +2409,6 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   transition: transform 500ms;
 }
 body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2610,14 +2452,6 @@ label[for=sleep-button].tip {
   transition: transform 500ms;
 }
 label[for=sleep-button].tip:empty:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2644,14 +2478,6 @@ label[for=sleep-button].tip:empty:not(.show) {
     transition: transform 500ms;
   }
   body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
-    animation-name: vanish;
-    animation-duration: 750ms;
-    animation-timing-function: ease-in;
-    animation-delay: 0ms;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
@@ -2699,14 +2525,6 @@ label[for=sleep-button].tip {
   transition: transform 500ms;
 }
 #no-repeat.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2890,14 +2708,6 @@ label:not(.icon-button).link-label:not(:hover) a {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play) #overlay-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2917,14 +2727,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 
 #overlay-panel.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -3552,6 +3354,15 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
+        <div id="analog-clock-panel" class="hide">
+            <div id="milli-seconds-niddle" class="hide"></div>
+            <div id="seconds-niddle"></div>
+            <div id="minutes-niddle"></div>
+            <div id="scale60-panel"></div>
+            <div id="hours-niddle"></div>
+            <div id="center-circle"></div>
+            <div id="scale12-panel"></div>
+        </div>
         <div id="overlay-panel" dir="ltr">
             <div id="weather"></div>
             <span id="time"></span>
@@ -3757,6 +3568,14 @@ DUMMYSTYLE
             <span data-lang-key="visualizer-label"></span>
             <select id="visualizer-type"></select>
         </label>
+        <label for="analog-clock">
+            <span data-lang-key="analog-clock-label"></span>
+            <input id="analog-clock" type="checkbox" />
+        </label>
+        <label for="millisecond-hand">
+            <span data-lang-key="millisecond-hand-label"></span>
+            <input id="millisecond-hand" type="checkbox" />
+        </label>
         <label for="overlay-style">
             <span data-lang-key="overlay-style-label"></span>
             <select id="overlay-style"></select>
@@ -3911,8 +3730,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Nov 28 2025 22:55:40 GMT+0900 (日本標準時)",
-    tick: 1764338140640
+    at: "Sat Nov 29 2025 20:50:04 GMT+0900 (日本標準時)",
+    tick: 1764417004681
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5684,6 +5503,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "تردد قوس ستيريو",
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
+            "analog-clock-label": "الساعة التناظرية:",
+            "millisecond-hand-label": "عقرب الملِّيثانية:",
             "overlay-style-label": "نمط التراكب:",
             "hide": "إخفاء",
             "blend": "مزج",
@@ -5775,6 +5596,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo-Bogenfrequenz",
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
+            "analog-clock-label": "Analoge Uhr:",
+            "millisecond-hand-label": "Millisekundenzeiger:",
             "overlay-style-label": "Overlay-Stil:",
             "hide": "Ausblenden",
             "blend": "Mischen",
@@ -5866,6 +5689,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Στερεο Καμπυλωτή Συχνότητα",
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
+            "analog-clock-label": "Αναλογικό Ρολόι:",
+            "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
             "overlay-style-label": "Στυλ επικάλυψης:",
             "hide": "Απόκρυψη",
             "blend": "Ανάμειξη",
@@ -5957,6 +5782,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
+            "analog-clock-label": "Analog Clock:",
+            "millisecond-hand-label": "Millisecond Hand:",
             "overlay-style-label": "Overlay Style:",
             "hide": "Hide",
             "blend": "Blend",
@@ -6048,6 +5875,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frecuencia de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
+            "analog-clock-label": "Reloj analógico:",
+            "millisecond-hand-label": "Manecilla de milisegundos:",
             "overlay-style-label": "Estilo de superposición:",
             "hide": "Ocultar",
             "blend": "Mezclar",
@@ -6139,6 +5968,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "فرکانس قوس استریو",
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
+            "analog-clock-label": "ساعت آنالوگ:",
+            "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه:",
             "overlay-style-label": "سبک پوشش:",
             "hide": "مخفی",
             "blend": "ترکیب",
@@ -6230,6 +6061,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Fréquence d'arc stéréo",
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
+            "analog-clock-label": "Horloge analogique :",
+            "millisecond-hand-label": "Aiguille des millisecondes :",
             "overlay-style-label": "Style de superposition :",
             "hide": "Cacher",
             "blend": "Fusion",
@@ -6321,6 +6154,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "स्टीरियो आर्क आवृत्ति",
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
+            "analog-clock-label": "एनालॉग घड़ी:",
+            "millisecond-hand-label": "मिलीसेकंड हैंड:",
             "overlay-style-label": "ओवरले शैली:",
             "hide": "छिपाएँ",
             "blend": "ब्लेंड",
@@ -6412,6 +6247,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
+            "analog-clock-label": "Jam Analog:",
+            "millisecond-hand-label": "Jarum Milidetik:",
             "overlay-style-label": "Gaya Overlay:",
             "hide": "Sembunyikan",
             "blend": "Campur",
@@ -6503,6 +6340,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequenza arco stereo",
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
+            "analog-clock-label": "Orologio analogico:",
+            "millisecond-hand-label": "Lancetta dei millisecondi:",
             "overlay-style-label": "Stile sovrapposizione:",
             "hide": "Nascondi",
             "blend": "Fondi",
@@ -6594,6 +6433,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "ステレオアーク周波数",
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
+            "analog-clock-label": "アナログ時計:",
+            "millisecond-hand-label": "ミリ秒針:",
             "overlay-style-label": "オーバーレイスタイル:",
             "hide": "非表示",
             "blend": "ブレンド",
@@ -6685,6 +6526,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
+            "analog-clock-label": "아날로그 시계:",
+            "millisecond-hand-label": "밀리초 바늘:",
             "overlay-style-label": "오버레이 스타일:",
             "hide": "숨기기",
             "blend": "블렌드",
@@ -6776,6 +6619,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo boog frequentie",
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
+            "analog-clock-label": "Analoge klok:",
+            "millisecond-hand-label": "Milliseconde wijzer:",
             "overlay-style-label": "Overlay-stijl:",
             "hide": "Verbergen",
             "blend": "Meng",
@@ -6867,6 +6712,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
+            "analog-clock-label": "Zegar analogowy:",
+            "millisecond-hand-label": "Wskazówka milisekund:",
             "overlay-style-label": "Styl nakładki:",
             "hide": "Ukryj",
             "blend": "Mieszaj",
@@ -6958,6 +6805,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequência de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
+            "analog-clock-label": "Relógio analógico:",
+            "millisecond-hand-label": "Ponteiro de milissegundos:",
             "overlay-style-label": "Estilo de sobreposição:",
             "hide": "Ocultar",
             "blend": "Mesclar",
@@ -8958,7 +8807,7 @@ define("script/url", ["require", "exports"], function (require, exports) {
         };
         Url.make = function (params) {
             //const url = new URL(config.canonicalUrl || window.location.href);
-            var url = new URL(window.location.href);
+            var url = new URL(window.location.href.replace(/#/g, "?"));
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
                 url.searchParams.set(key, value);
@@ -9098,6 +8947,14 @@ define("resource/control", [], {
             "stereo-double-arc"
         ],
         "default": "stereo-double-arc"
+    },
+    "analogClock": {
+        "id": "analog-clock",
+        "default": false
+    },
+    "millisecondHand": {
+        "id": "millisecond-hand",
+        "default": false
     },
     "overlayStyle": {
         "id": "overlay-style",
@@ -9403,6 +9260,15 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
+        UI.analogClock = {
+            panel: _library_2.Library.UI.getElementById("div", "analog-clock-panel"),
+            hoursNiddle: _library_2.Library.UI.getElementById("div", "hours-niddle"),
+            minutesNiddle: _library_2.Library.UI.getElementById("div", "minutes-niddle"),
+            secondsNiddle: _library_2.Library.UI.getElementById("div", "seconds-niddle"),
+            milliSecondsNiddle: _library_2.Library.UI.getElementById("div", "milli-seconds-niddle"),
+        };
+        UI.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+        UI.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
@@ -9745,6 +9611,25 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
+        Overlay.updateAnalogClock = function (date) {
+            var isAnalogClockEnabled = ui_4.UI.analogClockCheckbox.get();
+            ui_4.UI.analogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            if (isAnalogClockEnabled) {
+                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !ui_4.UI.millisecondHandCheckbox.get());
+                var milliSeconds = date.getMilliseconds();
+                var seconds = date.getSeconds() + (milliSeconds / 1000);
+                var minutes = date.getMinutes() + (seconds / 60);
+                var hours = date.getHours() % 12 + (minutes / 60);
+                var milliSecondsAngle = milliSeconds / 1000;
+                var secondsAngle = seconds / 60;
+                var minutesAngle = minutes / 60;
+                var hoursAngle = hours / 12;
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
+            }
+        };
         Overlay.makeDate = function (date, locale) {
             return date.toLocaleDateString(locale, config_json_4.default.clock.dateFormat);
         };
@@ -9855,6 +9740,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             var overlayOption = ui_4.UI.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {
                 var date = new Date();
+                Overlay.updateAnalogClock(date);
                 Overlay.updateLayout(date);
                 Overlay.updateWeather();
                 Overlay.updateTime(date);
@@ -12766,6 +12652,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
             ui_12.UI.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
+            ui_12.UI.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
             ui_12.UI.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
             ui_12.UI.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);

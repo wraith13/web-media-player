@@ -57,6 +57,15 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
+        <div id="analog-clock-panel" class="hide">
+            <div id="milli-seconds-niddle" class="hide"></div>
+            <div id="seconds-niddle"></div>
+            <div id="minutes-niddle"></div>
+            <div id="scale60-panel"></div>
+            <div id="hours-niddle"></div>
+            <div id="center-circle"></div>
+            <div id="scale12-panel"></div>
+        </div>
         <div id="overlay-panel" dir="ltr">
             <div id="weather"></div>
             <span id="time"></span>
@@ -181,6 +190,14 @@ DUMMYSTYLE
         <label for="visualizer-type">
             <span data-lang-key="visualizer-label"></span>
             <select id="visualizer-type"></select>
+        </label>
+        <label for="analog-clock">
+            <span data-lang-key="analog-clock-label"></span>
+            <input id="analog-clock" type="checkbox" />
+        </label>
+        <label for="millisecond-hand">
+            <span data-lang-key="millisecond-hand-label"></span>
+            <input id="millisecond-hand" type="checkbox" />
         </label>
         <label for="overlay-style">
             <span data-lang-key="overlay-style-label"></span>

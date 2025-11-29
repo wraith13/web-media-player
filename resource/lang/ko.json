@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
     "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
     "visualizer-stereo-double-arc": "스테레오 더블 아크",
+    "analog-clock-label": "아날로그 시계:",
+    "millisecond-hand-label": "밀리초 바늘:",
     "overlay-style-label": "오버레이 스타일:",
     "hide": "숨기기",
     "blend": "블렌드",

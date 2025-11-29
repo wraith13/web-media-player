@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Stereo-Bogenfrequenz",
     "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
     "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
+    "analog-clock-label": "Analoge Uhr:",
+    "millisecond-hand-label": "Millisekundenzeiger:",
     "overlay-style-label": "Overlay-Stil:",
     "hide": "Ausblenden",
     "blend": "Mischen",

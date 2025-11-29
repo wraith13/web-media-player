@@ -121,6 +121,14 @@
         ],
         "default": "stereo-double-arc"
     },
+    "analogClock": {
+        "id": "analog-clock",
+        "default": false
+    },
+    "millisecondHand": {
+        "id": "millisecond-hand",
+        "default": false
+    },
     "overlayStyle": {
         "id": "overlay-style",
         "enum": [

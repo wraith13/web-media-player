@@ -635,6 +635,8 @@ export namespace Events
         UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
         UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
         UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
+        UI.analogClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
         UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
         UI.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
         UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);

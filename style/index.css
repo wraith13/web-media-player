@@ -260,14 +260,6 @@ body.play:not(.mousemove) #screen-body {
   align-items: center;
 }
 body.play #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -287,14 +279,6 @@ body.play #screen-body #background-screen:not(.show)::before {
 }
 
 body.show-paused-media #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -314,14 +298,6 @@ body.show-paused-media #screen-body #background-screen:not(.show)::before {
 }
 
 body.show-settings-panel #screen-body #background-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -369,7 +345,7 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   max-width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
 #screen-body #media-screen {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -383,14 +359,6 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   overflow: visible;
 }
 body.list #screen-body #media-screen:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -519,14 +487,6 @@ body.list #screen-body #media-screen:not(.show)::before {
   counter-reset: item-num;
 }
 body.play #screen-body #media-list:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -773,14 +733,6 @@ body.play #screen-body #media-list:not(.show)::before {
   min-width: calc(100% - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
 }
 body.progress-circle #screen-body #media-list .item.add:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -895,6 +847,120 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg));
 }
 
+#analog-clock-panel {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  z-index: 30;
+  mix-blend-mode: difference;
+}
+body.list #analog-clock-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.list #analog-clock-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#analog-clock-panel.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#analog-clock-panel div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+#analog-clock-panel div:not(#center-circle) {
+  background: conic-gradient(black, black 270deg, white 360deg);
+  transform: rotate(calc(var(--progress) * 360deg));
+}
+#analog-clock-panel div#milli-seconds-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+  width: calc(var(--short-side) * 96);
+  height: calc(var(--short-side) * 96);
+}
+#analog-clock-panel div#milli-seconds-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#milli-seconds-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+#analog-clock-panel div#seconds-niddle {
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+}
+#analog-clock-panel div#minutes-niddle {
+  width: calc(var(--short-side) * 80);
+  height: calc(var(--short-side) * 80);
+}
+#analog-clock-panel div#scale60-panel {
+  --scale-width: calc(var(--short-side) * 0.2);
+  --scale-color: rgba(0, 0, 0, 0.3);
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+  background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(6deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(12deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(18deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(24deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(36deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(42deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(48deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(54deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(66deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(72deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(78deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(84deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(96deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(102deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(108deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(114deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(126deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(132deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(138deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(144deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(156deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(162deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(168deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(174deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
+}
+#analog-clock-panel div#hours-niddle {
+  width: calc(var(--short-side) * 65);
+  height: calc(var(--short-side) * 65);
+}
+#analog-clock-panel div#center-circle {
+  background-color: black;
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
+}
+#analog-clock-panel div#scale12-panel {
+  --scale-width: calc(var(--short-side) * 0.3);
+  --scale-color: rgba(0, 0, 0, 0.7);
+  width: calc(var(--short-side) * 95);
+  height: calc(var(--short-side) * 95);
+  background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
+}
+
 body:not(.show-paused-media) #screen-body.paused #media-screen {
   opacity: 0.2;
 }
@@ -971,14 +1037,6 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play) #fps:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -998,14 +1056,6 @@ body:not(.play) #fps:not(.show)::before {
 }
 
 #fps.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1096,14 +1146,6 @@ body:not(.progress-circle) #progress-circle {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.no-media) #no-media-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1130,14 +1172,6 @@ body:not(.no-media) #no-media-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.not-supported-media) #not-supported-media-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1166,14 +1200,6 @@ body:not(.not-supported-media) #not-supported-media-panel {
   color: orange;
 }
 body:not(.wake-up-timer-not-working) #wake-up-timer-not-working-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1217,14 +1243,6 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
   align-items: center;
 }
 body.play:not(.show-ui) #control-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1453,14 +1471,6 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   font-weight: 400;
 }
 body:not(.play):not(.show-paused-media) #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1480,14 +1490,6 @@ body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
 }
 
 body:not(.show-ui) #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1507,14 +1509,6 @@ body:not(.show-ui) #media-index:not(.show)::before {
 }
 
 body.show-seek-bar #media-index:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1564,14 +1558,6 @@ html[dir=rtl] #media-index {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play):not(.show-paused-media) #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1591,14 +1577,6 @@ body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
 }
 
 body:not(.show-ui) #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1618,14 +1596,6 @@ body:not(.show-ui) #media-title:not(.show)::before {
 }
 
 body.show-seek-bar #media-title:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1689,14 +1659,6 @@ body.show-seek-bar #media-title:not(.show)::before {
   font-weight: 400;
 }
 body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1716,14 +1678,6 @@ body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)
 }
 
 body:not(.show-ui) #media-time-frame #media-time:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1774,14 +1728,6 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   align-items: stretch;
 }
 body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1801,14 +1747,6 @@ body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)
 }
 
 body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1828,14 +1766,6 @@ body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
 }
 
 body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1887,14 +1817,6 @@ body.show-seek-bar #media-time-frame #media-time {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body:not(.play):not(.show-paused-media) #next-button:not(.show), body:not(.play):not(.show-paused-media) #back-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -1914,14 +1836,6 @@ body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:no
 }
 
 body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2022,14 +1936,6 @@ body.no-media #next-button, body.no-media #back-button {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2049,14 +1955,6 @@ body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before,
 }
 
 body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2157,14 +2055,6 @@ body.no-media #rewind-button {
   transition: transform 500ms;
 }
 body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2208,14 +2098,6 @@ label[for=wakeup-button].tip {
   transition: transform 500ms;
 }
 label[for=wakeup-button].tip:empty:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2242,14 +2124,6 @@ label[for=wakeup-button].tip:empty:not(.show) {
     transition: transform 500ms;
   }
   body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
-    animation-name: vanish;
-    animation-duration: 750ms;
-    animation-timing-function: ease-in;
-    animation-delay: 0ms;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
@@ -2297,14 +2171,6 @@ label[for=wakeup-button].tip {
   transition: transform 500ms;
 }
 #no-media.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2371,14 +2237,6 @@ label[for=volume-button] #speaker-mute-icon svg {
   background-color: rgba(32, 28, 38, 0.6);
 }
 body label[for=volume-button]:not(.checked) + #volume-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2417,14 +2275,6 @@ html[dir=rtl] #volume-panel {
   transition: transform 500ms;
 }
 body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2467,14 +2317,6 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   transition: transform 500ms;
 }
 body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2518,14 +2360,6 @@ label[for=sleep-button].tip {
   transition: transform 500ms;
 }
 label[for=sleep-button].tip:empty:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2552,14 +2386,6 @@ label[for=sleep-button].tip:empty:not(.show) {
     transition: transform 500ms;
   }
   body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
-    animation-name: vanish;
-    animation-duration: 750ms;
-    animation-timing-function: ease-in;
-    animation-delay: 0ms;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-play-state: running;
     opacity: 0;
     cursor: none;
     pointer-events: none;
@@ -2607,14 +2433,6 @@ label[for=sleep-button].tip {
   transition: transform 500ms;
 }
 #no-repeat.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2798,14 +2616,6 @@ label:not(.icon-button).link-label:not(:hover) a {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
 body:not(.play) #overlay-panel:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;
@@ -2825,14 +2635,6 @@ body:not(.play) #overlay-panel:not(.show)::before {
 }
 
 #overlay-panel.hide:not(.show) {
-  animation-name: vanish;
-  animation-duration: 750ms;
-  animation-timing-function: ease-in;
-  animation-delay: 0ms;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-direction: normal;
-  animation-play-state: running;
   opacity: 0;
   cursor: none;
   pointer-events: none;

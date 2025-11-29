@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
     "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
     "visualizer-stereo-double-arc": "Stereo Double Arc",
+    "analog-clock-label": "Analog Clock:",
+    "millisecond-hand-label": "Millisecond Hand:",
     "overlay-style-label": "Overlay Style:",
     "hide": "Hide",
     "blend": "Blend",

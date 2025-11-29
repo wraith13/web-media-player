@@ -86,6 +86,18 @@ export namespace UI
         new Library.Control.Checkbox(control.loopShortMedia);
     export const visualizerSelect =
         new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
+    export const analogClock =
+    {
+        panel: Library.UI.getElementById("div", "analog-clock-panel"),
+        hoursNiddle: Library.UI.getElementById("div", "hours-niddle"),
+        minutesNiddle: Library.UI.getElementById("div", "minutes-niddle"),
+        secondsNiddle: Library.UI.getElementById("div", "seconds-niddle"),
+        milliSecondsNiddle: Library.UI.getElementById("div", "milli-seconds-niddle"),
+    };
+    export const analogClockCheckbox =
+        new Library.Control.Checkbox(control.analogClock);
+    export const millisecondHandCheckbox =
+        new Library.Control.Checkbox(control.millisecondHand);
     export const overlayStyleSelect =
         new Library.Control.Select(control.overlayStyle, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
     export const overlayPositionSelect =

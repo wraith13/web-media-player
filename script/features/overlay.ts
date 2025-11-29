@@ -10,6 +10,27 @@ export namespace Overlay
     export let locale: string | undefined = undefined;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
+    export const updateAnalogClock = (date: Date): void =>
+    {
+        const isAnalogClockEnabled = UI.analogClockCheckbox.get();
+        UI.analogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
+        if (isAnalogClockEnabled)
+        {
+            UI.analogClock.milliSecondsNiddle.classList.toggle("hide", ! UI.millisecondHandCheckbox.get());
+            const milliSeconds = date.getMilliseconds();
+            const seconds = date.getSeconds() + (milliSeconds /1000);
+            const minutes = date.getMinutes() + (seconds /60);
+            const hours = date.getHours() %12 + (minutes /60);
+            const milliSecondsAngle = milliSeconds /1000;
+            const secondsAngle = seconds /60;
+            const minutesAngle = minutes /60;
+            const hoursAngle = hours /12;
+            Library.UI.setStyle(UI.analogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
+            Library.UI.setStyle(UI.analogClock.secondsNiddle, "--progress", `${secondsAngle}`);
+            Library.UI.setStyle(UI.analogClock.minutesNiddle, "--progress", `${minutesAngle}`);
+            Library.UI.setStyle(UI.analogClock.hoursNiddle, "--progress", `${hoursAngle}`);
+        }
+    }
     export const makeDate = (date: Date, locale: string | undefined): string =>
         date.toLocaleDateString
         (
@@ -155,24 +176,25 @@ export namespace Overlay
         if ("hide" !== overlayOption)
         {
             const date = new Date();
-            Overlay.updateLayout(date);
-            Overlay.updateWeather();
-            Overlay.updateTime(date);
-            Overlay.updateDate(date);
-            Overlay.updateCalendar(date);
+            updateAnalogClock(date);
+            updateLayout(date);
+            updateWeather();
+            updateTime(date);
+            updateDate(date);
+            updateCalendar(date);
             switch(overlayOption)
             {
             case "alternate":
                 const isWhite = (new Date().getTime() /config.clock.alternate.span) %2 < 1.0;
                 UI.overlay.classList.toggle("white", isWhite);
                 UI.overlay.classList.toggle("black", ! isWhite);
-                Overlay.setColor(undefined);
+                setColor(undefined);
                 break;
             case "rainbow":
-                Overlay.setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
+                setColor(`hsl(${(now *360) / (24000 *phi)}, 100%, 50%)`);
                 break;
             default:
-                Overlay.setColor(undefined);
+                setColor(undefined);
                 break;
             }
         }

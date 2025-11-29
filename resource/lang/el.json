@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Στερεο Καμπυλωτή Συχνότητα",
     "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
     "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
+    "analog-clock-label": "Αναλογικό Ρολόι:",
+    "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
     "overlay-style-label": "Στυλ επικάλυψης:",
     "hide": "Απόκρυψη",
     "blend": "Ανάμειξη",

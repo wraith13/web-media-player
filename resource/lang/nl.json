@@ -26,6 +26,8 @@
     "visualizer-stereo-arc-frequency": "Stereo boog frequentie",
     "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
     "visualizer-stereo-double-arc": "Stereo dubbele boog",
+    "analog-clock-label": "Analoge klok:",
+    "millisecond-hand-label": "Milliseconde wijzer:",
     "overlay-style-label": "Overlay-stijl:",
     "hide": "Verbergen",
     "blend": "Meng",

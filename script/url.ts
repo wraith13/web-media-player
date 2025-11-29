@@ -15,7 +15,7 @@ export namespace Url
     export const make = (params: Record<string, string>) =>
     {
         //const url = new URL(config.canonicalUrl || window.location.href);
-        const url = new URL(window.location.href);
+        const url = new URL(window.location.href.replace(/#/g, "?"));
         for (const [ key, value ] of Object.entries(params))
         {
             url.searchParams.set(key, value);
