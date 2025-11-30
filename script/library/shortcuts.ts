@@ -10,7 +10,12 @@ export namespace Shortcuts
     export type Item = Style["items"][number];
     export type Entry = Item["shortcuts"][number];
     export type CommandKey = Entry["command"];
-    export type CommandMap = { [key in Shortcuts.CommandKey]-?: () => void };
+    export interface CommandEntry
+    {
+        control?: HTMLElement,
+        fire: () => void
+    }
+    export type CommandMap = { [key in Shortcuts.CommandKey]-?: CommandEntry };
     let style: StyleKey = "youtube";
     let currentCommandMap: CommandMap | null = null;
     let pressedKeyDiv: HTMLDivElement | null = null;
@@ -45,6 +50,10 @@ export namespace Shortcuts
         "Meta": "⌘(command)",
         "Shift": "⇧(shift)",
     };
+    const keyAriaNames =
+    {
+        " ": "Space",
+    };
     const getKeys = (entry: Entry) =>
         //Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
         entry.keys;
@@ -52,6 +61,8 @@ export namespace Shortcuts
         Environment.isApple() ?
             appleKeyDisplayNames[key as keyof typeof appleKeyDisplayNames] ?? keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key:
             keyDisplayNames[key as keyof typeof keyDisplayNames] ?? key;
+    const getAriaKeyName = (key: string) =>
+        keyAriaNames[key as keyof typeof keyAriaNames] ?? key;
     export const getDisplayList = (filter: (i: Item) => boolean = () => true) =>
         shortcuts[style].items
             .filter(filter)
@@ -190,7 +201,7 @@ export namespace Shortcuts
                         const command = commandMap[i];
                         if (command)
                         {
-                            command();
+                            command.fire();
                         }
                         else
                         {
@@ -201,7 +212,7 @@ export namespace Shortcuts
                 if ("onKeyDown" === type && commandKeys.length <= 0 && ! ["Shift", "Control"].includes(normalizedKey))
                 {
                     console.log("💡 UnknownKeyDown:", pressedKeys);
-                    commandMap["unknownKeyDown"]?.();
+                    commandMap["unknownKeyDown"]?.fire();
                 }
             }
         }
@@ -217,13 +228,71 @@ export namespace Shortcuts
     };
     export const setCommandMap = (commandMap: CommandMap | null) =>
     {
+        clearAriaKeyshortcuts();
         currentCommandMap = commandMap;
+        updateAriaKeyshortcuts();
     };
     export const setStyle = (newStyle: keyof typeof shortcuts) =>
     {
         if (style !== newStyle && shortcuts[newStyle])
         {
             style = newStyle;
+        }
+        clearAriaKeyshortcuts();
+        updateAriaKeyshortcuts();
+    };
+    export const clearAriaKeyshortcuts = () =>
+    {
+        if (null !== currentCommandMap)
+        {
+            Object.keys(currentCommandMap ?? {}).forEach
+            (
+                commandKey =>
+                {
+                    const commandEntry = currentCommandMap?.[commandKey as CommandKey];
+                    if (commandEntry?.control)
+                    {
+                        commandEntry.control.removeAttribute("aria-keyshortcuts");
+                    }
+                }
+            );
+        }
+    };
+    export const updateAriaKeyshortcuts = () =>
+    {
+        if (currentCommandMap && style)
+        {
+            Object.keys(currentCommandMap ?? {}).forEach
+            (
+                commandKey =>
+                {
+                    const commandEntry = currentCommandMap?.[commandKey as CommandKey];
+                    if (commandEntry?.control)
+                    {
+                        const ariaKeyshortcuts = (shortcuts[style].items as Item[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
+                        (
+                            (shortcut: Entry) =>
+                                shortcut.command === commandKey
+                        )
+                        .map
+                        (
+                            (i: Entry) =>
+                                getKeys(i)
+                                    .map(key => getAriaKeyName(swapLeftRight(key, "rtl" === localeDirection)))
+                                    .join("+")
+                        )
+                        .join(", ");
+                        if (0 < ariaKeyshortcuts.length)
+                        {
+                            commandEntry.control.setAttribute("aria-keyshortcuts", ariaKeyshortcuts);
+                        }
+                        else
+                        {
+                            commandEntry.control.removeAttribute("aria-keyshortcuts");
+                        }
+                    }
+                }
+            );
         }
     };
     export const setPressedKeyDiv = (div: HTMLDivElement | null) =>

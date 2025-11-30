@@ -489,7 +489,7 @@ export namespace Player
             }
             if (currentTrack.visualElement)
             {
-                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.overlay);
+                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.analogClock.panel);
                 currentTrack.updateStretch("current");
             }
         }

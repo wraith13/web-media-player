@@ -88,7 +88,7 @@ export namespace UI
         new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
     export const analogClock =
     {
-        panel: Library.UI.getElementById("div", "analog-clock-panel"),
+        panel: Library.UI.getElementById("time", "analog-clock-panel"),
         hoursNiddle: Library.UI.getElementById("div", "hours-niddle"),
         minutesNiddle: Library.UI.getElementById("div", "minutes-niddle"),
         secondsNiddle: Library.UI.getElementById("div", "seconds-niddle"),
@@ -221,6 +221,7 @@ export namespace UI
             )
             .reduce((a, b) => a.concat(b), [])
         );
+        Library.Shortcuts.updateAriaKeyshortcuts();
     };
     export const updateLanguage = () =>
     {

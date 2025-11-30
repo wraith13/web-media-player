@@ -452,9 +452,8 @@
 {
     @include fade-transition("body.list", "&.hide");
     @include full-stretch-box();
-    position: fixed;
-    z-index: 30;
     mix-blend-mode: difference;
+    position: fixed;
     div
     {
         position: fixed;

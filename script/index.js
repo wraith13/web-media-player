@@ -2994,6 +2994,9 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             "Meta": "⌘(command)",
             "Shift": "⇧(shift)",
         };
+        var keyAriaNames = {
+            " ": "Space",
+        };
         var getKeys = function (entry) {
             //Environment.isApple() && "appleKeys" in entry ? entry.appleKeys : entry.keys;
             return entry.keys;
@@ -3004,6 +3007,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 (_b = (_a = appleKeyDisplayNames[key]) !== null && _a !== void 0 ? _a : keyDisplayNames[key]) !== null && _b !== void 0 ? _b : key :
                 (_c = keyDisplayNames[key]) !== null && _c !== void 0 ? _c : key;
         };
+        var getAriaKeyName = function (key) { var _a; return (_a = keyAriaNames[key]) !== null && _a !== void 0 ? _a : key; };
         Shortcuts.getDisplayList = function (filter) {
             if (filter === void 0) { filter = function () { return true; }; }
             return shortcuts_json_1.default[style].items
@@ -3105,7 +3109,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                         console.log("👆 KeyboardShortcut:", i, type, pressedKeys);
                         var command = commandMap[i];
                         if (command) {
-                            command();
+                            command.fire();
                         }
                         else {
                             console.error("🦋 FIXME: Shortcuts.handleKeyEvent.NotFoundCommand", i);
@@ -3113,7 +3117,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                     });
                     if ("onKeyDown" === type && commandKeys.length <= 0 && !["Shift", "Control"].includes(normalizedKey)) {
                         console.log("💡 UnknownKeyDown:", pressedKeys);
-                        (_a = commandMap["unknownKeyDown"]) === null || _a === void 0 ? void 0 : _a.call(commandMap);
+                        (_a = commandMap["unknownKeyDown"]) === null || _a === void 0 ? void 0 : _a.fire();
                     }
                 }
             }
@@ -3127,11 +3131,49 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             document.addEventListener("touchstart", function () { return Shortcuts.clearPressedKeys(); });
         };
         Shortcuts.setCommandMap = function (commandMap) {
+            Shortcuts.clearAriaKeyshortcuts();
             currentCommandMap = commandMap;
+            Shortcuts.updateAriaKeyshortcuts();
         };
         Shortcuts.setStyle = function (newStyle) {
             if (style !== newStyle && shortcuts_json_1.default[newStyle]) {
                 style = newStyle;
+            }
+            Shortcuts.clearAriaKeyshortcuts();
+            Shortcuts.updateAriaKeyshortcuts();
+        };
+        Shortcuts.clearAriaKeyshortcuts = function () {
+            if (null !== currentCommandMap) {
+                Object.keys(currentCommandMap !== null && currentCommandMap !== void 0 ? currentCommandMap : {}).forEach(function (commandKey) {
+                    var commandEntry = currentCommandMap === null || currentCommandMap === void 0 ? void 0 : currentCommandMap[commandKey];
+                    if (commandEntry === null || commandEntry === void 0 ? void 0 : commandEntry.control) {
+                        commandEntry.control.removeAttribute("aria-keyshortcuts");
+                    }
+                });
+            }
+        };
+        Shortcuts.updateAriaKeyshortcuts = function () {
+            if (currentCommandMap && style) {
+                Object.keys(currentCommandMap !== null && currentCommandMap !== void 0 ? currentCommandMap : {}).forEach(function (commandKey) {
+                    var commandEntry = currentCommandMap === null || currentCommandMap === void 0 ? void 0 : currentCommandMap[commandKey];
+                    if (commandEntry === null || commandEntry === void 0 ? void 0 : commandEntry.control) {
+                        var ariaKeyshortcuts = shortcuts_json_1.default[style].items.reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
+                            return shortcut.command === commandKey;
+                        })
+                            .map(function (i) {
+                            return getKeys(i)
+                                .map(function (key) { return getAriaKeyName(swapLeftRight(key, "rtl" === localeDirection)); })
+                                .join("+");
+                        })
+                            .join(", ");
+                        if (0 < ariaKeyshortcuts.length) {
+                            commandEntry.control.setAttribute("aria-keyshortcuts", ariaKeyshortcuts);
+                        }
+                        else {
+                            commandEntry.control.removeAttribute("aria-keyshortcuts");
+                        }
+                    }
+                });
             }
         };
         Shortcuts.setPressedKeyDiv = function (div) {
@@ -3977,7 +4019,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.analogClock = {
-            panel: _library_2.Library.UI.getElementById("div", "analog-clock-panel"),
+            panel: _library_2.Library.UI.getElementById("time", "analog-clock-panel"),
             hoursNiddle: _library_2.Library.UI.getElementById("div", "hours-niddle"),
             minutesNiddle: _library_2.Library.UI.getElementById("div", "minutes-niddle"),
             secondsNiddle: _library_2.Library.UI.getElementById("div", "seconds-niddle"),
@@ -4053,6 +4095,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 ];
             })
                 .reduce(function (a, b) { return a.concat(b); }, []));
+            _library_2.Library.Shortcuts.updateAriaKeyshortcuts();
         };
         UI.updateLanguage = function () {
             _library_2.Library.Locale.setLocale(UI.languageSelect.get(), url_1.Url.params["locale"]);
@@ -6537,7 +6580,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
-                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.overlay);
+                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.analogClock.panel);
                     currentTrack.updateStretch("current");
                 }
             }
@@ -7174,41 +7217,71 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             _library_9.Library.Shortcuts.setCommandMap({
-                "toggleShuffle": function () { return ui_12.UI.shuffle.toggle(); },
-                "toggleRepeat": function () { return ui_12.UI.repeat.toggle(); },
-                "togglePlay": function () {
-                    if (_features_2.Features.Player.isPlaying()) {
-                        _features_2.Features.Player.pause();
-                        medialist_1.MediaList.updateMediaListDisplay();
-                        medialist_1.MediaList.updateInformationDisplay();
+                "toggleShuffle": {
+                    control: ui_12.UI.shuffle.dom,
+                    fire: function () { return ui_12.UI.shuffle.toggle(); }
+                },
+                "toggleRepeat": {
+                    control: ui_12.UI.repeat.dom,
+                    fire: function () { return ui_12.UI.repeat.toggle(); }
+                },
+                "togglePlay": {
+                    control: ui_12.UI.playButton.dom,
+                    fire: function () {
+                        if (_features_2.Features.Player.isPlaying()) {
+                            _features_2.Features.Player.pause();
+                            medialist_1.MediaList.updateMediaListDisplay();
+                            medialist_1.MediaList.updateInformationDisplay();
+                        }
+                        else {
+                            _features_2.Features.Player.play();
+                        }
                     }
-                    else {
-                        _features_2.Features.Player.play();
+                },
+                "toggleMute": {
+                    fire: function () { return Events.toggleMute(); }
+                },
+                "volumeUp": {
+                    fire: function () {
+                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_9.default.volume.step);
+                        ui_12.UI.volumeRange.fire();
                     }
                 },
-                "toggleMute": function () { return Events.toggleMute(); },
-                "volumeUp": function () {
-                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_9.default.volume.step);
-                    ui_12.UI.volumeRange.fire();
-                },
-                "volumeDown": function () {
-                    ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_9.default.volume.step);
-                    ui_12.UI.volumeRange.fire();
-                },
-                "seekBackward": function () {
-                    _features_2.Features.Player.rewind();
-                },
-                "seekForward": function () {
-                    _features_2.Features.Player.fastForward();
-                },
-                "goPreviousMedia": function () { return _features_2.Features.Player.previous(); },
-                "goNextMedia": function () { return _features_2.Features.Player.next(); },
-                "toggleFullscreen": function () {
-                    if (_library_9.Library.UI.fullscreenEnabled) {
-                        ui_12.UI.withFullscreenCheckbox.toggle();
-                        _features_2.Features.Player.updateFullscreenState();
+                "volumeDown": {
+                    fire: function () {
+                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_9.default.volume.step);
+                        ui_12.UI.volumeRange.fire();
                     }
-                }
+                },
+                "seekBackward": {
+                    control: ui_12.UI.rewindButton.dom,
+                    fire: function () {
+                        _features_2.Features.Player.rewind();
+                    }
+                },
+                "seekForward": {
+                    control: ui_12.UI.fastForwardButton.dom,
+                    fire: function () {
+                        _features_2.Features.Player.fastForward();
+                    }
+                },
+                "goPreviousMedia": {
+                    control: ui_12.UI.backBUtton.dom,
+                    fire: function () { return _features_2.Features.Player.previous(); }
+                },
+                "goNextMedia": {
+                    control: ui_12.UI.nextButton.dom,
+                    fire: function () { return _features_2.Features.Player.next(); }
+                },
+                "toggleFullscreen": {
+                    control: ui_12.UI.withFullscreenCheckbox.dom,
+                    fire: function () {
+                        if (_library_9.Library.UI.fullscreenEnabled) {
+                            ui_12.UI.withFullscreenCheckbox.toggle();
+                            _features_2.Features.Player.updateFullscreenState();
+                        }
+                    }
+                },
             });
             document.body.addEventListener("dragover", dragover);
             document.body.addEventListener("drop", drop);

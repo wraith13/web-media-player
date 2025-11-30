@@ -3083,8 +3083,12 @@ declare module "script/library/shortcuts" {
         type Item = Style["items"][number];
         type Entry = Item["shortcuts"][number];
         type CommandKey = Entry["command"];
+        interface CommandEntry {
+            control?: HTMLElement;
+            fire: () => void;
+        }
         type CommandMap = {
-            [key in Shortcuts.CommandKey]-?: () => void;
+            [key in Shortcuts.CommandKey]-?: CommandEntry;
         };
         const setLocaleDirection: (direction: "ltr" | "rtl") => void;
         const getDisplayList: (filter?: (i: Item) => boolean) => {
@@ -3097,6 +3101,8 @@ declare module "script/library/shortcuts" {
         const initialize: () => void;
         const setCommandMap: (commandMap: CommandMap | null) => void;
         const setStyle: (newStyle: keyof typeof shortcuts) => void;
+        const clearAriaKeyshortcuts: () => void;
+        const updateAriaKeyshortcuts: () => void;
         const setPressedKeyDiv: (div: HTMLDivElement | null) => void;
     }
 }
@@ -3272,7 +3278,7 @@ declare module "script/ui" {
         const loopShortMediaCheckbox: Library.Control.Checkbox;
         const visualizerSelect: Library.Control.Select<string>;
         const analogClock: {
-            panel: HTMLDivElement;
+            panel: HTMLTimeElement;
             hoursNiddle: HTMLDivElement;
             minutesNiddle: HTMLDivElement;
             secondsNiddle: HTMLDivElement;

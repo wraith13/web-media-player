@@ -358,50 +358,91 @@ export namespace Events
         window.addEventListener("orientationchange", () => Features.Player.updateStretch());
         Library.Shortcuts.setCommandMap
         ({
-            "toggleShuffle": () => UI.shuffle.toggle(),
-            "toggleRepeat": () => UI.repeat.toggle(),
-            "togglePlay": () =>
+            "toggleShuffle":
             {
-                if (Features.Player.isPlaying())
+                control: UI.shuffle.dom,
+                fire: () => UI.shuffle.toggle()
+            },
+            "toggleRepeat":
+            {
+                control: UI.repeat.dom,
+                fire: () => UI.repeat.toggle()
+            },
+            "togglePlay":
+            {
+                control: UI.playButton.dom,
+                fire: () =>
                 {
-                    Features.Player.pause();
-                    MediaList.updateMediaListDisplay();
-                    MediaList.updateInformationDisplay();
+                    if (Features.Player.isPlaying())
+                    {
+                        Features.Player.pause();
+                        MediaList.updateMediaListDisplay();
+                        MediaList.updateInformationDisplay();
+                    }
+                    else
+                    {
+                        Features.Player.play();
+                    }
                 }
-                else
+            },
+            "toggleMute":
+            {
+                fire: () => toggleMute()
+            },
+            "volumeUp":
+            {
+                fire: () =>
                 {
-                    Features.Player.play();
+                    UI.volumeRange.set(UI.volumeRange.get() +config.volume.step);
+                    UI.volumeRange.fire();
                 }
             },
-            "toggleMute": () => toggleMute(),
-            "volumeUp": () =>
+            "volumeDown":
             {
-                UI.volumeRange.set(UI.volumeRange.get() +config.volume.step);
-                UI.volumeRange.fire();
-            },
-            "volumeDown": () =>
-            {
-                UI.volumeRange.set(UI.volumeRange.get() -config.volume.step);
-                UI.volumeRange.fire();
-            },
-            "seekBackward": () =>
-            {
-                Features.Player.rewind();
-            },
-            "seekForward": () =>
-            {
-                Features.Player.fastForward();
-            },
-            "goPreviousMedia": () => Features.Player.previous(),
-            "goNextMedia": () => Features.Player.next(),
-            "toggleFullscreen": () =>
-            {
-                if (Library.UI.fullscreenEnabled)
+                fire: () =>
                 {
-                    UI.withFullscreenCheckbox.toggle();
-                    Features.Player.updateFullscreenState();
+                    UI.volumeRange.set(UI.volumeRange.get() -config.volume.step);
+                    UI.volumeRange.fire();
                 }
-            }
+            },
+            "seekBackward":
+            {
+                control: UI.rewindButton.dom,
+                fire: () =>
+                {
+                    Features.Player.rewind();
+                }
+            },
+            "seekForward":
+            {
+                control: UI.fastForwardButton.dom,
+                fire: () =>
+                {
+                    Features.Player.fastForward();
+                }
+            },
+            "goPreviousMedia":
+            {
+                control: UI.backBUtton.dom,
+                fire: () => Features.Player.previous()
+            },
+            "goNextMedia":
+            {
+                control: UI.nextButton.dom,
+                fire: () => Features.Player.next()
+            },
+            "toggleFullscreen":
+            {
+                control: UI.withFullscreenCheckbox.dom,
+                fire: () =>
+                {
+                    if (Library.UI.fullscreenEnabled)
+                    {
+                        UI.withFullscreenCheckbox.toggle();
+                        Features.Player.updateFullscreenState();
+                    }
+                }
+            },
         });
         document.body.addEventListener("dragover", dragover);
         document.body.addEventListener("drop", drop);

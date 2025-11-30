@@ -854,9 +854,8 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   inset-block-end: 0px;
   inset-inline-start: 0px;
   inset-inline-end: 0px;
-  position: fixed;
-  z-index: 30;
   mix-blend-mode: difference;
+  position: fixed;
 }
 body.list #analog-clock-panel:not(.show) {
   opacity: 0;

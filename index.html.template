@@ -274,11 +274,11 @@ DUMMYSTYLE
     <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
-<span id="media-title" role="status" aria-live="polite" aria-atomic="true"></span>
+<span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
 <div id="media-time-frame">
-    <span id="media-time" role="status"></span>
+    <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
     <div id="seek-panel">
-        <input id="seek" type="range" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+        <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
     </div>
 </div>
 <button id="back-button" data-aria-lang-key="Go to Previous Media">
