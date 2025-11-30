@@ -461,27 +461,22 @@
         left: 50%;
         translate: -50% -50%;
         border-radius: 50%;
-        // &:not(#seconds-niddle)
-        // {
-        //     border-radius: 50%;
-        // }
-        &:not(#center-circle)
-        {
-            @include clock-niddle();
-        }
         &#milli-seconds-niddle
         {
+            @include clock-niddle();
             @include fade-transition("&.hide");
             width: calc(var(--short-side) * 96);
             height: calc(var(--short-side) * 96);
         }
         &#seconds-niddle
         {
+            @include clock-niddle();
             width: calc(var(--short-side) * 95);
             height: calc(var(--short-side) * 95);
         }
         &#minutes-niddle
         {
+            @include clock-niddle();
             width: calc(var(--short-side) * 80);
             height: calc(var(--short-side) * 80);
         }
@@ -495,14 +490,9 @@
         }
         &#hours-niddle
         {
+            @include clock-niddle();
             width: calc(var(--short-side) * 65);
             height: calc(var(--short-side) * 65);
-        }
-        &#center-circle
-        {
-            background-color: black;
-            width: calc(var(--short-side) * 50);
-            height: calc(var(--short-side) * 50);
         }
         &#scale12-panel
         {
@@ -511,6 +501,61 @@
             width: calc(var(--short-side) * 95);
             height: calc(var(--short-side) * 95);
             @include scale-gradients(6);
+        }
+        &#week-niddle
+        {
+            @include clock-niddle();
+            width: calc(var(--short-side) * 50);
+            height: calc(var(--short-side) * 50);
+        }
+        &#week-panel
+        {
+            //--scale-width: calc(var(--short-side) * 0.3);
+            --line-angle: 1.25deg;
+            --scale-color: rgba(0, 0, 0, 0.5);
+            width: calc(var(--short-side) * 50);
+            height: calc(var(--short-side) * 50);
+            @include radial-lines(7);
+        }
+        &#month-niddle
+        {
+            @include clock-niddle();
+            width: calc(var(--short-side) * 45);
+            height: calc(var(--short-side) * 45);
+        }
+        &#month-panel
+        {
+            //--scale-width: calc(var(--short-side) * 0.3);
+            --line-angle: 1.0deg;
+            --scale-color: rgba(0, 0, 0, 0.5);
+            width: calc(var(--short-side) * 45);
+            height: calc(var(--short-side) * 45);
+            &.days28 { @include radial-lines(28); }
+            &.days29 { @include radial-lines(29); }
+            &.days30 { @include radial-lines(30); }
+            &.days31 { @include radial-lines(31); }
+        }
+        &#year-niddle
+        {
+            @include clock-niddle();
+            width: calc(var(--short-side) * 35);
+            height: calc(var(--short-side) * 35);
+        }
+        &#year-panel
+        {
+            --scale-width: calc(var(--short-side) * 0.3);
+            --scale-color: rgba(0, 0, 0, 0.7);
+            width: calc(var(--short-side) * 35);
+            height: calc(var(--short-side) * 35);
+            @include scale-gradients(6);
+        }
+        &#center-circle
+        {
+            background-color: black;
+            // width: calc(var(--short-side) * 50);
+            // height: calc(var(--short-side) * 50);
+            width: calc(var(--short-side) * 25);
+            height: calc(var(--short-side) * 25);
         }
     }
 }

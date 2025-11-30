@@ -312,3 +312,21 @@
         background: $grads;
     }
 }
+@mixin radial-lines($count)
+{
+    @if $count <= 0 {
+        background: none;
+    } @else {
+        $bg-list: ();
+        $step: math.div(360deg, $count);
+        @for $i from 0 through $count - 1 {
+            $angle: $i * $step;
+            $grad: conic-gradient(from calc(#{$angle} - (var(--line-angle) / 2)), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
+            $bg-list: list.append($bg-list, $grad, comma);
+        }
+        background: $bg-list;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+}

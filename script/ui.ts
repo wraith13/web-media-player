@@ -89,6 +89,10 @@ export namespace UI
     export const analogClock =
     {
         panel: Library.UI.getElementById("time", "analog-clock-panel"),
+        monthPanel: Library.UI.getElementById("div", "month-panel"),
+        yearNiddle: Library.UI.getElementById("div", "year-niddle"),
+        monthNiddle: Library.UI.getElementById("div", "month-niddle"),
+        weekNiddle: Library.UI.getElementById("div", "week-niddle"),
         hoursNiddle: Library.UI.getElementById("div", "hours-niddle"),
         minutesNiddle: Library.UI.getElementById("div", "minutes-niddle"),
         secondsNiddle: Library.UI.getElementById("div", "seconds-niddle"),

@@ -4020,6 +4020,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
         UI.analogClock = {
             panel: _library_2.Library.UI.getElementById("time", "analog-clock-panel"),
+            monthPanel: _library_2.Library.UI.getElementById("div", "month-panel"),
+            yearNiddle: _library_2.Library.UI.getElementById("div", "year-niddle"),
+            monthNiddle: _library_2.Library.UI.getElementById("div", "month-niddle"),
+            weekNiddle: _library_2.Library.UI.getElementById("div", "week-niddle"),
             hoursNiddle: _library_2.Library.UI.getElementById("div", "hours-niddle"),
             minutesNiddle: _library_2.Library.UI.getElementById("div", "minutes-niddle"),
             secondsNiddle: _library_2.Library.UI.getElementById("div", "seconds-niddle"),
@@ -4378,16 +4382,29 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
-                var hours = date.getHours() % 12 + (minutes / 60);
+                var hours = date.getHours() + (minutes / 60);
+                var week = date.getDay() + (hours / 24);
+                var month = (date.getDate() - 1) + (hours / 24);
+                var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                var year = date.getMonth() + (month / daysOfThisMonth_1);
                 var milliSecondsAngle = milliSeconds / 1000;
                 var secondsAngle = seconds / 60;
                 var minutesAngle = minutes / 60;
-                var hoursAngle = hours / 12;
+                var hoursAngle = hours % 12 / 12;
+                var weekAngle = week / 7;
+                var monthAngle = month / daysOfThisMonth_1;
+                var yearAngle = year / 12;
+                [28, 29, 30, 31].forEach(function (days) {
+                    ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                });
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
-                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", date.toISOString().slice(11, 23));
+                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", date.toISOString());
             }
             else {
                 library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", undefined);

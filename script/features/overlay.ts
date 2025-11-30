@@ -20,16 +20,30 @@ export namespace Overlay
             const milliSeconds = date.getMilliseconds();
             const seconds = date.getSeconds() + (milliSeconds /1000);
             const minutes = date.getMinutes() + (seconds /60);
-            const hours = date.getHours() %12 + (minutes /60);
+            const hours = date.getHours() + (minutes /60);
+            const week = date.getDay() + (hours /24);
+            const month = (date.getDate() -1) + (hours /24);
+            const daysOfThisMonth = new Date(date.getFullYear(), date.getMonth() +1, 0).getDate();
+            const year = date.getMonth() + (month /daysOfThisMonth);
             const milliSecondsAngle = milliSeconds /1000;
             const secondsAngle = seconds /60;
             const minutesAngle = minutes /60;
-            const hoursAngle = hours /12;
+            const hoursAngle = hours %12 /12;
+            const weekAngle = week /7;
+            const monthAngle = month /daysOfThisMonth;
+            const yearAngle = year /12;
+            [28, 29, 30, 31].forEach(days =>
+            {
+                UI.analogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
+            });
+            Library.UI.setStyle(UI.analogClock.weekNiddle, "--progress", `${weekAngle}`);
+            Library.UI.setStyle(UI.analogClock.monthNiddle, "--progress", `${monthAngle}`);
+            Library.UI.setStyle(UI.analogClock.yearNiddle, "--progress", `${yearAngle}`);
             Library.UI.setStyle(UI.analogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
             Library.UI.setStyle(UI.analogClock.secondsNiddle, "--progress", `${secondsAngle}`);
             Library.UI.setStyle(UI.analogClock.minutesNiddle, "--progress", `${minutesAngle}`);
             Library.UI.setStyle(UI.analogClock.hoursNiddle, "--progress", `${hoursAngle}`);
-            Library.UI.setAttribute(UI.analogClock.panel, "datatime", date.toISOString().slice(11, 23));
+            Library.UI.setAttribute(UI.analogClock.panel, "datatime", date.toISOString());
         }
         else
         {

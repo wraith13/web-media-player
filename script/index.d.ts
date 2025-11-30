@@ -3279,6 +3279,10 @@ declare module "script/ui" {
         const visualizerSelect: Library.Control.Select<string>;
         const analogClock: {
             panel: HTMLTimeElement;
+            monthPanel: HTMLDivElement;
+            yearNiddle: HTMLDivElement;
+            monthNiddle: HTMLDivElement;
+            weekNiddle: HTMLDivElement;
             hoursNiddle: HTMLDivElement;
             minutesNiddle: HTMLDivElement;
             secondsNiddle: HTMLDivElement;
