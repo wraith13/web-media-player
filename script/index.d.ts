@@ -2884,6 +2884,7 @@ declare module "script/library/ui" {
         const getElementById: <T extends HtmlTag>(tag: T, id: string) => HTMLElementTagNameMap[T];
         const querySelector: <T extends HtmlTag>(tag: T, selectors: string, parent?: Element) => HTMLElementTagNameMap[T];
         const setTextContent: (element: HTMLElement, text: string) => void;
+        const setAttribute: (element: HTMLElement, name: string, value: string | undefined) => void;
         const setStyle: (element: HTMLElement, name: string, value: string | undefined) => void;
     }
 }
@@ -3297,8 +3298,8 @@ declare module "script/ui" {
         const visualizer: HTMLDivElement;
         const calendar: HTMLDivElement;
         const weather: HTMLDivElement;
-        const date: HTMLSpanElement;
-        const time: HTMLSpanElement;
+        const date: HTMLTimeElement;
+        const time: HTMLTimeElement;
         const keyboardShortcut: HTMLDivElement;
         const pressedKey: HTMLDivElement;
         const updateShortcuts: () => void;

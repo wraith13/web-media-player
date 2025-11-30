@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Nov 29 2025 20:50:04 GMT+0900 (日本標準時)
+    build at: Sun Nov 30 2025 01:09:27 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -2770,7 +2770,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   bottom: calc(2 * var(--short-side));
   bottom: calc(2 * var(--short-side) + env(safe-area-inset-bottom));
 }
-#overlay-panel span {
+#overlay-panel span,
+#overlay-panel time {
   display: block;
   text-align: center;
   transition: color 3000ms, text-shadow 3000ms;
@@ -2778,220 +2779,266 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #overlay-panel.blend {
   mix-blend-mode: difference;
 }
-#overlay-panel.blend span {
+#overlay-panel.blend span,
+#overlay-panel.blend time {
   color: white;
 }
-#overlay-panel.white span {
+#overlay-panel.white span,
+#overlay-panel.white time {
   text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
 }
 @media (min-width: 750px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
-#overlay-panel.white span {
+#overlay-panel.white span,
+#overlay-panel.white time {
   color: white;
 }
-#overlay-panel.black span {
+#overlay-panel.black span,
+#overlay-panel.black time {
   text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
 }
 @media (min-width: 750px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
   }
 }
-#overlay-panel.black span {
+#overlay-panel.black span,
+#overlay-panel.black time {
   color: black;
 }
 @media (prefers-color-scheme: light) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 750px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 1500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 3000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 4500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 6000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 7500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 9000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
 @media (prefers-color-scheme: light) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     color: white;
   }
 }
 @media (prefers-color-scheme: dark) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 750px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 1500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 3000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 4500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 6000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 7500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 9000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     color: black;
   }
 }
-#overlay-panel.rainbow span {
+#overlay-panel.rainbow span,
+#overlay-panel.rainbow time {
   text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
 }
 @media (min-width: 750px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
-#overlay-panel.rainbow span {
+#overlay-panel.rainbow span,
+#overlay-panel.rainbow time {
   transition: color 300ms, text-shadow 3000ms;
 }
 #overlay-panel #time:not(.text) {
@@ -3354,7 +3401,7 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
-        <div id="analog-clock-panel" class="hide">
+        <time id="analog-clock-panel" class="hide">
             <div id="milli-seconds-niddle" class="hide"></div>
             <div id="seconds-niddle"></div>
             <div id="minutes-niddle"></div>
@@ -3362,17 +3409,17 @@ DUMMYSTYLE
             <div id="hours-niddle"></div>
             <div id="center-circle"></div>
             <div id="scale12-panel"></div>
-        </div>
+        </time>
         <div id="overlay-panel" dir="ltr">
-            <div id="weather"></div>
-            <span id="time"></span>
-            <span id="date"></span>
-            <div id="calendar"></div>
+            <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
+            <time id="time" role="timer" aria-live="polite" aria-atomic="true"></time>
+            <time id="date" aria-live="polite" aria-atomic="true"></time>
+            <div id="calendar" aria-hidden="true"></div>
             <div id="visualizer" class="visualizer"></div>
         </div>
     </div>
     <div id="background-screen">
-        <div id="keyboard-shortcut"></div>
+        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts-label"></div>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -3399,7 +3446,7 @@ DUMMYSTYLE
 <div id="wake-up-timer-not-working-panel">
     <span data-lang-key="wake-up-timer-not-working"></span>
 </div>
-<div id="fps"></div>
+<div id="fps" aria-hidden="true"></div>
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
@@ -3512,7 +3559,7 @@ DUMMYSTYLE
 </div>
     </label>
     <div id="volume-panel">
-        <input id="volume" type="range" />
+        <input id="volume" type="range" data-aria-lang-key="Volume" />
     </div>
     <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
         <input id="settings-button" type="checkbox">
@@ -3655,10 +3702,10 @@ DUMMYSTYLE
     <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
     <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
-<span id="media-index"></span>
-<span id="media-title"></span>
+<span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
+<span id="media-title" role="status" aria-live="polite" aria-atomic="true"></span>
 <div id="media-time-frame">
-    <span id="media-time"></span>
+    <span id="media-time" role="status"></span>
     <div id="seek-panel">
         <input id="seek" type="range" data-aria-lang-key="Seek" min="0" max="1" step="any" />
     </div>
@@ -3703,7 +3750,7 @@ DUMMYSTYLE
 </svg>
 <div>
 </button>
-<div id="pressed-key"></div>
+<div id="pressed-key" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="images" style="display:none;" aria-hidden="true"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <path d="M512,96C741.597,96 928,282.403 928,512C928,741.597 741.597,928 512,928C282.403,928 96,741.597 96,512C96,282.403 282.403,96 512,96ZM254.314,322.332L701.824,769.571C648.693,808.805 583.034,832 512,832C335.387,832 192,688.613 192,512C192,441.037 215.149,375.438 254.314,322.332ZM769.686,701.668L322.176,254.429C375.307,215.195 440.966,192 512,192C688.613,192 832,335.387 832,512C832,582.963 808.851,648.562 769.686,701.668Z"/>
 </svg>
@@ -3730,8 +3777,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Nov 29 2025 20:50:04 GMT+0900 (日本標準時)",
-    tick: 1764417004681
+    at: "Sun Nov 30 2025 01:09:27 GMT+0900 (日本標準時)",
+    tick: 1764432567285
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7229,6 +7276,17 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
                 element.textContent = text;
             }
         };
+        UI.setAttribute = function (element, name, value) {
+            var _a;
+            if (((_a = element.getAttribute(name)) !== null && _a !== void 0 ? _a : "") !== (value !== null && value !== void 0 ? value : "")) {
+                if (undefined === value || null === value) {
+                    element.removeAttribute(name);
+                }
+                else {
+                    element.setAttribute(name, value);
+                }
+            }
+        };
         UI.setStyle = function (element, name, value) {
             var _a;
             if (((_a = element.style.getPropertyValue(name)) !== null && _a !== void 0 ? _a : "") !== (value !== null && value !== void 0 ? value : "")) {
@@ -9311,8 +9369,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
         UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
         UI.weather = _library_2.Library.UI.getElementById("div", "weather");
-        UI.date = _library_2.Library.UI.getElementById("span", "date");
-        UI.time = _library_2.Library.UI.getElementById("span", "time");
+        UI.date = _library_2.Library.UI.getElementById("time", "date");
+        UI.time = _library_2.Library.UI.getElementById("time", "time");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
         UI.pressedKey = _library_2.Library.UI.getElementById("div", "pressed-key");
         UI.updateShortcuts = function () {
@@ -9628,6 +9686,10 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
+                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", date.toISOString().slice(11, 23));
+            }
+            else {
+                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", undefined);
             }
         };
         Overlay.makeDate = function (date, locale) {
@@ -9679,17 +9741,21 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.updateTime = function (date) {
             if (ui_4.UI.withClockCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", Overlay.makeTime(date, "ja-JP"));
             }
             else {
                 library_1.Library.UI.setTextContent(ui_4.UI.time, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", undefined);
             }
         };
         Overlay.updateDate = function (date) {
             if (ui_4.UI.withDateCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", date.toISOString().slice(0, 10));
             }
             else {
                 library_1.Library.UI.setTextContent(ui_4.UI.date, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", undefined);
             }
         };
         Overlay.updateCalendar = function (date) {

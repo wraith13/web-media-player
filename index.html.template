@@ -57,7 +57,7 @@ DUMMYSTYLE
 </div>
 <div id="screen-body">
     <div id="media-screen">
-        <div id="analog-clock-panel" class="hide">
+        <time id="analog-clock-panel" class="hide">
             <div id="milli-seconds-niddle" class="hide"></div>
             <div id="seconds-niddle"></div>
             <div id="minutes-niddle"></div>
@@ -65,17 +65,17 @@ DUMMYSTYLE
             <div id="hours-niddle"></div>
             <div id="center-circle"></div>
             <div id="scale12-panel"></div>
-        </div>
+        </time>
         <div id="overlay-panel" dir="ltr">
-            <div id="weather"></div>
-            <span id="time"></span>
-            <span id="date"></span>
-            <div id="calendar"></div>
+            <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
+            <time id="time" role="timer" aria-live="polite" aria-atomic="true"></time>
+            <time id="date" aria-live="polite" aria-atomic="true"></time>
+            <div id="calendar" aria-hidden="true"></div>
             <div id="visualizer" class="visualizer"></div>
         </div>
     </div>
     <div id="background-screen">
-        <div id="keyboard-shortcut"></div>
+        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts-label"></div>
     </div>
     <div id="media-list">
         <div class="item add">
@@ -95,7 +95,7 @@ DUMMYSTYLE
 <div id="wake-up-timer-not-working-panel">
     <span data-lang-key="wake-up-timer-not-working"></span>
 </div>
-<div id="fps"></div>
+<div id="fps" aria-hidden="true"></div>
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
         <input id="wakeup-button" type="checkbox">
@@ -140,7 +140,7 @@ DUMMYSTYLE
         <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
     </label>
     <div id="volume-panel">
-        <input id="volume" type="range" />
+        <input id="volume" type="range" data-aria-lang-key="Volume" />
     </div>
     <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
         <input id="settings-button" type="checkbox">
@@ -273,10 +273,10 @@ DUMMYSTYLE
     <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
     <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
-<span id="media-index"></span>
-<span id="media-title"></span>
+<span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
+<span id="media-title" role="status" aria-live="polite" aria-atomic="true"></span>
 <div id="media-time-frame">
-    <span id="media-time"></span>
+    <span id="media-time" role="status"></span>
     <div id="seek-panel">
         <input id="seek" type="range" data-aria-lang-key="Seek" min="0" max="1" step="any" />
     </div>
@@ -293,7 +293,7 @@ DUMMYSTYLE
 <button id="fast-forward-button" data-aria-lang-key="Seek Forward">
     <div id="fast-forward-icon">__FAST_FORWARD_ICON__<div>
 </button>
-<div id="pressed-key"></div>
+<div id="pressed-key" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="images" style="display:none;" aria-hidden="true">__IMAGES__</div>
 </body>
 <script type="text/javascript">

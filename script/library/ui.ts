@@ -276,6 +276,20 @@ export namespace UI
             element.textContent = text;
         }
     };
+    export const setAttribute = (element: HTMLElement, name: string, value: string | undefined) =>
+    {
+        if ((element.getAttribute(name) ?? "") !== (value ?? ""))
+        {
+            if (undefined === value || null === value)
+            {
+                element.removeAttribute(name);
+            }
+            else
+            {
+                element.setAttribute(name, value);
+            }
+        }
+    };
     export const setStyle = (element: HTMLElement, name: string, value: string | undefined) =>
     {
         if ((element.style.getPropertyValue(name) ?? "") !== (value ?? ""))

@@ -2678,7 +2678,8 @@ body:not(.play) #overlay-panel:not(.show)::before {
   bottom: calc(2 * var(--short-side));
   bottom: calc(2 * var(--short-side) + env(safe-area-inset-bottom));
 }
-#overlay-panel span {
+#overlay-panel span,
+#overlay-panel time {
   display: block;
   text-align: center;
   transition: color 3000ms, text-shadow 3000ms;
@@ -2686,220 +2687,266 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #overlay-panel.blend {
   mix-blend-mode: difference;
 }
-#overlay-panel.blend span {
+#overlay-panel.blend span,
+#overlay-panel.blend time {
   color: white;
 }
-#overlay-panel.white span {
+#overlay-panel.white span,
+#overlay-panel.white time {
   text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
 }
 @media (min-width: 750px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.white span {
+  #overlay-panel.white span,
+  #overlay-panel.white time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
-#overlay-panel.white span {
+#overlay-panel.white span,
+#overlay-panel.white time {
   color: white;
 }
-#overlay-panel.black span {
+#overlay-panel.black span,
+#overlay-panel.black time {
   text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
 }
 @media (min-width: 750px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.black span {
+  #overlay-panel.black span,
+  #overlay-panel.black time {
     text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
   }
 }
-#overlay-panel.black span {
+#overlay-panel.black span,
+#overlay-panel.black time {
   color: black;
 }
 @media (prefers-color-scheme: light) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 750px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 1500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 3000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 4500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 6000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 7500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (prefers-color-scheme: light) and (min-width: 9000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
 @media (prefers-color-scheme: light) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     color: white;
   }
 }
 @media (prefers-color-scheme: dark) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -0.5px -0.5px 0px white, 0.5px -0.5px 0px white, -0.5px 0.5px 0px white, 0.5px 0.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 750px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1px -1px 0px white, 1px -1px 0px white, -1px 1px 0px white, 1px 1px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 1500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -1.5px -1.5px 0px white, 1.5px -1.5px 0px white, -1.5px 1.5px 0px white, 1.5px 1.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 3000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white, 2px 2px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 4500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -2.5px -2.5px 0px white, 2.5px -2.5px 0px white, -2.5px 2.5px 0px white, 2.5px 2.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 6000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3px -3px 0px white, 3px -3px 0px white, -3px 3px 0px white, 3px 3px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 7500px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -3.5px -3.5px 0px white, 3.5px -3.5px 0px white, -3.5px 3.5px 0px white, 3.5px 3.5px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) and (min-width: 9000px) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     text-shadow: -4px -4px 0px white, 4px -4px 0px white, -4px 4px 0px white, 4px 4px 0px white;
   }
 }
 @media (prefers-color-scheme: dark) {
-  #overlay-panel.system span {
+  #overlay-panel.system span,
+  #overlay-panel.system time {
     color: black;
   }
 }
-#overlay-panel.rainbow span {
+#overlay-panel.rainbow span,
+#overlay-panel.rainbow time {
   text-shadow: -0.5px -0.5px 0px black, 0.5px -0.5px 0px black, -0.5px 0.5px 0px black, 0.5px 0.5px 0px black;
 }
 @media (min-width: 750px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
   }
 }
 @media (min-width: 1500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -1.5px -1.5px 0px black, 1.5px -1.5px 0px black, -1.5px 1.5px 0px black, 1.5px 1.5px 0px black;
   }
 }
 @media (min-width: 3000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black, 2px 2px 0px black;
   }
 }
 @media (min-width: 4500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -2.5px -2.5px 0px black, 2.5px -2.5px 0px black, -2.5px 2.5px 0px black, 2.5px 2.5px 0px black;
   }
 }
 @media (min-width: 6000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -3px -3px 0px black, 3px -3px 0px black, -3px 3px 0px black, 3px 3px 0px black;
   }
 }
 @media (min-width: 7500px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -3.5px -3.5px 0px black, 3.5px -3.5px 0px black, -3.5px 3.5px 0px black, 3.5px 3.5px 0px black;
   }
 }
 @media (min-width: 9000px) {
-  #overlay-panel.rainbow span {
+  #overlay-panel.rainbow span,
+  #overlay-panel.rainbow time {
     text-shadow: -4px -4px 0px black, 4px -4px 0px black, -4px 4px 0px black, 4px 4px 0px black;
   }
 }
-#overlay-panel.rainbow span {
+#overlay-panel.rainbow span,
+#overlay-panel.rainbow time {
   transition: color 300ms, text-shadow 3000ms;
 }
 #overlay-panel #time:not(.text) {

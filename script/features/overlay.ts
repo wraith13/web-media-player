@@ -29,6 +29,11 @@ export namespace Overlay
             Library.UI.setStyle(UI.analogClock.secondsNiddle, "--progress", `${secondsAngle}`);
             Library.UI.setStyle(UI.analogClock.minutesNiddle, "--progress", `${minutesAngle}`);
             Library.UI.setStyle(UI.analogClock.hoursNiddle, "--progress", `${hoursAngle}`);
+            Library.UI.setAttribute(UI.analogClock.panel, "datatime", date.toISOString().slice(11, 23));
+        }
+        else
+        {
+            Library.UI.setAttribute(UI.analogClock.panel, "datatime", undefined);
         }
     }
     export const makeDate = (date: Date, locale: string | undefined): string =>
@@ -97,10 +102,12 @@ export namespace Overlay
         if (UI.withClockCheckbox.get())
         {
             Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
+            Library.UI.setAttribute(UI.time, "datatime", makeTime(date, "ja-JP"));
         }
         else
         {
             Library.UI.setTextContent(UI.time, "");
+            Library.UI.setAttribute(UI.time, "datatime", undefined);
         }
     };
     export const updateDate = (date: Date): void =>
@@ -108,10 +115,12 @@ export namespace Overlay
         if (UI.withDateCheckbox.get())
         {
             Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, locale));
+            Library.UI.setAttribute(UI.date, "datatime", date.toISOString().slice(0, 10));
         }
         else
         {
             Library.UI.setTextContent(UI.date, "");
+            Library.UI.setAttribute(UI.date, "datatime", undefined);
         }
     };
     export const updateCalendar = (date: Date): void =>

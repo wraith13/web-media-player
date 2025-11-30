@@ -173,9 +173,9 @@ export namespace UI
     export const weather =
         Library.UI.getElementById("div", "weather");
     export const date =
-        Library.UI.getElementById("span", "date");
+        Library.UI.getElementById("time", "date");
     export const time =
-        Library.UI.getElementById("span", "time");
+        Library.UI.getElementById("time", "time");
     export const keyboardShortcut =
         Library.UI.getElementById("div", "keyboard-shortcut");
     export const pressedKey =

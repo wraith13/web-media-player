@@ -1536,7 +1536,8 @@ label:not(.icon-button)
             bottom: calc(2.0 * var(--short-side));
             bottom: calc(2.0 * var(--short-side) + env(safe-area-inset-bottom));
         }
-        span
+        span,
+        time
         {
             display: block;
             text-align: center;
@@ -1545,14 +1546,16 @@ label:not(.icon-button)
         &.blend
         {
             mix-blend-mode: difference;
-            span
+            span,
+            time
             {
                 color: white;
             }
         }
         &.white
         {
-            span
+            span,
+            time
             {
                 @include text-outline(black);
                 &
@@ -1563,7 +1566,8 @@ label:not(.icon-button)
         }
         &.black
         {
-            span
+            span,
+            time
             {
                 @include text-outline(white);
                 &
@@ -1574,7 +1578,8 @@ label:not(.icon-button)
         }
         &.system
         {
-            span
+            span,
+            time
             {
                 @media (prefers-color-scheme: light)
                 {
@@ -1596,7 +1601,8 @@ label:not(.icon-button)
         }
         &.rainbow
         {
-            span
+            span,
+            time
             {
                 @include text-outline(black);
                 &

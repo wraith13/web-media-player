@@ -1934,6 +1934,17 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
                 element.textContent = text;
             }
         };
+        UI.setAttribute = function (element, name, value) {
+            var _a;
+            if (((_a = element.getAttribute(name)) !== null && _a !== void 0 ? _a : "") !== (value !== null && value !== void 0 ? value : "")) {
+                if (undefined === value || null === value) {
+                    element.removeAttribute(name);
+                }
+                else {
+                    element.setAttribute(name, value);
+                }
+            }
+        };
         UI.setStyle = function (element, name, value) {
             var _a;
             if (((_a = element.style.getPropertyValue(name)) !== null && _a !== void 0 ? _a : "") !== (value !== null && value !== void 0 ? value : "")) {
@@ -4016,8 +4027,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
         UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
         UI.weather = _library_2.Library.UI.getElementById("div", "weather");
-        UI.date = _library_2.Library.UI.getElementById("span", "date");
-        UI.time = _library_2.Library.UI.getElementById("span", "time");
+        UI.date = _library_2.Library.UI.getElementById("time", "date");
+        UI.time = _library_2.Library.UI.getElementById("time", "time");
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
         UI.pressedKey = _library_2.Library.UI.getElementById("div", "pressed-key");
         UI.updateShortcuts = function () {
@@ -4333,6 +4344,10 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
+                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", date.toISOString().slice(11, 23));
+            }
+            else {
+                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", undefined);
             }
         };
         Overlay.makeDate = function (date, locale) {
@@ -4384,17 +4399,21 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.updateTime = function (date) {
             if (ui_4.UI.withClockCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", Overlay.makeTime(date, "ja-JP"));
             }
             else {
                 library_1.Library.UI.setTextContent(ui_4.UI.time, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", undefined);
             }
         };
         Overlay.updateDate = function (date) {
             if (ui_4.UI.withDateCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", date.toISOString().slice(0, 10));
             }
             else {
                 library_1.Library.UI.setTextContent(ui_4.UI.date, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", undefined);
             }
         };
         Overlay.updateCalendar = function (date) {
