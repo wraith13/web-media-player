@@ -59,6 +59,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -152,6 +153,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -245,6 +247,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -338,6 +341,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -431,6 +435,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -524,6 +529,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -617,6 +623,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -710,6 +717,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -803,6 +811,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -896,6 +905,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -989,6 +999,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -1082,6 +1093,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -1175,6 +1187,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -1268,6 +1281,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -1361,6 +1375,7 @@ declare module "locale/generated/master" {
             "visualizer-stereo-arc-waveform": string;
             "visualizer-stereo-double-arc": string;
             "analog-clock-label": string;
+            "date-hands-label": string;
             "millisecond-hand-label": string;
             "overlay-style-label": string;
             hide: string;
@@ -1459,6 +1474,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -1552,6 +1568,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -1645,6 +1662,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -1738,6 +1756,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -1831,6 +1850,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -1924,6 +1944,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2017,6 +2038,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2110,6 +2132,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2203,6 +2226,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2296,6 +2320,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2389,6 +2414,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2482,6 +2508,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2575,6 +2602,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2668,6 +2696,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -2761,6 +2790,7 @@ declare module "script/library/locale" {
                 "visualizer-stereo-arc-waveform": string;
                 "visualizer-stereo-double-arc": string;
                 "analog-clock-label": string;
+                "date-hands-label": string;
                 "millisecond-hand-label": string;
                 "overlay-style-label": string;
                 hide: string;
@@ -3289,6 +3319,7 @@ declare module "script/ui" {
             milliSecondsNiddle: HTMLDivElement;
         };
         const analogClockCheckbox: Library.Control.Checkbox;
+        const dateHandsCheckbox: Library.Control.Checkbox;
         const millisecondHandCheckbox: Library.Control.Checkbox;
         const overlayStyleSelect: Library.Control.Select<string>;
         const overlayPositionSelect: Library.Control.Select<string>;

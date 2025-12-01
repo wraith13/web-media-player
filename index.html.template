@@ -64,13 +64,14 @@ DUMMYSTYLE
             <div id="scale60-panel"></div>
             <div id="hours-niddle"></div>
             <div id="scale12-panel"></div>
+            <div id="center-circle"></div>
             <div id="week-niddle"></div>
             <div id="week-panel"></div>
             <div id="month-niddle"></div>
             <div id="month-panel"></div>
             <div id="year-niddle"></div>
             <div id="year-panel"></div>
-            <div id="center-circle"></div>
+            <div id="dates-center-circle"></div>
         </time>
         <div id="overlay-panel" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
@@ -200,6 +201,10 @@ DUMMYSTYLE
         <label for="analog-clock">
             <span data-lang-key="analog-clock-label"></span>
             <input id="analog-clock" type="checkbox" />
+        </label>
+        <label for="date-hands">
+            <span data-lang-key="date-hands-label"></span>
+            <input id="date-hands" type="checkbox" />
         </label>
         <label for="millisecond-hand">
             <span data-lang-key="millisecond-hand-label"></span>

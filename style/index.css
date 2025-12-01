@@ -935,8 +935,8 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#minutes-niddle {
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 80);
-  height: calc(var(--short-side) * 80);
+  width: calc(var(--short-side) * 85);
+  height: calc(var(--short-side) * 85);
 }
 #analog-clock-panel div#scale60-panel {
   --scale-width: calc(var(--short-side) * 0.2);
@@ -948,8 +948,8 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#hours-niddle {
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 65);
-  height: calc(var(--short-side) * 65);
+  width: calc(var(--short-side) * 70);
+  height: calc(var(--short-side) * 70);
 }
 #analog-clock-panel div#scale12-panel {
   --scale-width: calc(var(--short-side) * 0.3);
@@ -958,33 +958,76 @@ body.list #analog-clock-panel:not(.show)::before {
   height: calc(var(--short-side) * 95);
   background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
 }
+#analog-clock-panel div#center-circle {
+  background-color: black;
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
+}
 #analog-clock-panel div#week-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
+}
+#analog-clock-panel div#week-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#week-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#week-panel {
   --line-angle: 1.25deg;
   --scale-color: rgba(0, 0, 0, 0.5);
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 #analog-clock-panel div#month-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 45);
-  height: calc(var(--short-side) * 45);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
+}
+#analog-clock-panel div#month-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#month-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#month-panel {
   --line-angle: 1.0deg;
   --scale-color: rgba(0, 0, 0, 0.5);
-  width: calc(var(--short-side) * 45);
-  height: calc(var(--short-side) * 45);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
 }
 #analog-clock-panel div#month-panel.days28 {
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(12.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(25.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(38.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(64.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(77.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(90deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(115.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(128.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(141.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(167.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(180deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(192.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(218.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(231.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(244.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(270deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(282.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(295.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(321.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(334.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(347.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
@@ -1011,22 +1054,41 @@ body.list #analog-clock-panel:not(.show)::before {
   background-size: cover;
 }
 #analog-clock-panel div#year-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 35);
-  height: calc(var(--short-side) * 35);
+  width: calc(var(--short-side) * 40);
+  height: calc(var(--short-side) * 40);
+}
+#analog-clock-panel div#year-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#year-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#year-panel {
   --scale-width: calc(var(--short-side) * 0.3);
   --scale-color: rgba(0, 0, 0, 0.7);
-  width: calc(var(--short-side) * 35);
-  height: calc(var(--short-side) * 35);
+  width: calc(var(--short-side) * 40);
+  height: calc(var(--short-side) * 40);
   background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
 }
-#analog-clock-panel div#center-circle {
+#analog-clock-panel div#dates-center-circle {
   background-color: black;
-  width: calc(var(--short-side) * 25);
-  height: calc(var(--short-side) * 25);
+  width: calc(var(--short-side) * 30);
+  height: calc(var(--short-side) * 30);
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {

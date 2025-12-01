@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "ステレオアーク波形",
     "visualizer-stereo-double-arc": "ステレオダブルアーク",
     "analog-clock-label": "アナログ時計:",
+    "date-hands-label": "日付針:",
     "millisecond-hand-label": "ミリ秒針:",
     "overlay-style-label": "オーバーレイスタイル:",
     "hide": "非表示",

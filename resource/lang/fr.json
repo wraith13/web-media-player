@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
     "visualizer-stereo-double-arc": "Arc stéréo double",
     "analog-clock-label": "Horloge analogique\u00A0:",
+    "date-hands-label": "Aiguilles de la date\u00A0:",
     "millisecond-hand-label": "Aiguille des millisecondes\u00A0:",
     "overlay-style-label": "Style de superposition\u00A0:",
     "hide": "Cacher",

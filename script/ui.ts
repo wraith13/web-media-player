@@ -100,6 +100,8 @@ export namespace UI
     };
     export const analogClockCheckbox =
         new Library.Control.Checkbox(control.analogClock);
+    export const dateHandsCheckbox =
+        new Library.Control.Checkbox(control.dateHands);
     export const millisecondHandCheckbox =
         new Library.Control.Checkbox(control.millisecondHand);
     export const overlayStyleSelect =

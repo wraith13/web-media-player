@@ -13,32 +13,40 @@ export namespace Overlay
     export const updateAnalogClock = (date: Date): void =>
     {
         const isAnalogClockEnabled = UI.analogClockCheckbox.get();
+        const isDateHandsEnabled = UI.dateHandsCheckbox.get();
+        const isMillisecondHandEnabled = UI.millisecondHandCheckbox.get();
         UI.analogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
+        UI.analogClock.yearNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+        UI.analogClock.monthNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+        UI.analogClock.weekNiddle.classList.toggle("hide", ! isDateHandsEnabled);
         if (isAnalogClockEnabled)
         {
-            UI.analogClock.milliSecondsNiddle.classList.toggle("hide", ! UI.millisecondHandCheckbox.get());
+            UI.analogClock.milliSecondsNiddle.classList.toggle("hide", ! isMillisecondHandEnabled);
             const milliSeconds = date.getMilliseconds();
             const seconds = date.getSeconds() + (milliSeconds /1000);
             const minutes = date.getMinutes() + (seconds /60);
             const hours = date.getHours() + (minutes /60);
-            const week = date.getDay() + (hours /24);
-            const month = (date.getDate() -1) + (hours /24);
-            const daysOfThisMonth = new Date(date.getFullYear(), date.getMonth() +1, 0).getDate();
-            const year = date.getMonth() + (month /daysOfThisMonth);
-            const milliSecondsAngle = milliSeconds /1000;
             const secondsAngle = seconds /60;
             const minutesAngle = minutes /60;
             const hoursAngle = hours %12 /12;
-            const weekAngle = week /7;
-            const monthAngle = month /daysOfThisMonth;
-            const yearAngle = year /12;
-            [28, 29, 30, 31].forEach(days =>
+            const milliSecondsAngle = milliSeconds /1000;
+            if (isDateHandsEnabled)
             {
-                UI.analogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
-            });
-            Library.UI.setStyle(UI.analogClock.weekNiddle, "--progress", `${weekAngle}`);
-            Library.UI.setStyle(UI.analogClock.monthNiddle, "--progress", `${monthAngle}`);
-            Library.UI.setStyle(UI.analogClock.yearNiddle, "--progress", `${yearAngle}`);
+                const week = date.getDay() + (hours /24);
+                const month = (date.getDate() -1) + (hours /24);
+                const daysOfThisMonth = new Date(date.getFullYear(), date.getMonth() +1, 0).getDate();
+                const year = date.getMonth() + (month /daysOfThisMonth);
+                const weekAngle = week /7;
+                const monthAngle = month /daysOfThisMonth;
+                const yearAngle = year /12;
+                [28, 29, 30, 31].forEach(days =>
+                {
+                    UI.analogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
+                });
+                Library.UI.setStyle(UI.analogClock.weekNiddle, "--progress", `${weekAngle}`);
+                Library.UI.setStyle(UI.analogClock.monthNiddle, "--progress", `${monthAngle}`);
+                Library.UI.setStyle(UI.analogClock.yearNiddle, "--progress", `${yearAngle}`);
+            }
             Library.UI.setStyle(UI.analogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
             Library.UI.setStyle(UI.analogClock.secondsNiddle, "--progress", `${secondsAngle}`);
             Library.UI.setStyle(UI.analogClock.minutesNiddle, "--progress", `${minutesAngle}`);

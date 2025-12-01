@@ -209,6 +209,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
             "analog-clock-label": "الساعة التناظرية:",
+            "date-hands-label": "عقارب التاريخ:",
             "millisecond-hand-label": "عقرب الملِّيثانية:",
             "overlay-style-label": "نمط التراكب:",
             "hide": "إخفاء",
@@ -302,6 +303,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
             "analog-clock-label": "Analoge Uhr:",
+            "date-hands-label": "Datumszeiger:",
             "millisecond-hand-label": "Millisekundenzeiger:",
             "overlay-style-label": "Overlay-Stil:",
             "hide": "Ausblenden",
@@ -395,6 +397,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
             "analog-clock-label": "Αναλογικό Ρολόι:",
+            "date-hands-label": "Δείκτες Ημερομηνίας:",
             "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
             "overlay-style-label": "Στυλ επικάλυψης:",
             "hide": "Απόκρυψη",
@@ -488,6 +491,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
             "analog-clock-label": "Analog Clock:",
+            "date-hands-label": "Date Hands:",
             "millisecond-hand-label": "Millisecond Hand:",
             "overlay-style-label": "Overlay Style:",
             "hide": "Hide",
@@ -581,6 +585,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
             "analog-clock-label": "Reloj analógico:",
+            "date-hands-label": "Manecillas de fecha:",
             "millisecond-hand-label": "Manecilla de milisegundos:",
             "overlay-style-label": "Estilo de superposición:",
             "hide": "Ocultar",
@@ -674,6 +679,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
             "analog-clock-label": "ساعت آنالوگ:",
+            "date-hands-label": "عقربه‌های تاریخ:",
             "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه:",
             "overlay-style-label": "سبک پوشش:",
             "hide": "مخفی",
@@ -767,6 +773,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
             "analog-clock-label": "Horloge analogique :",
+            "date-hands-label": "Aiguilles de la date :",
             "millisecond-hand-label": "Aiguille des millisecondes :",
             "overlay-style-label": "Style de superposition :",
             "hide": "Cacher",
@@ -860,6 +867,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
             "analog-clock-label": "एनालॉग घड़ी:",
+            "date-hands-label": "तारीख के सूचक:",
             "millisecond-hand-label": "मिलीसेकंड हैंड:",
             "overlay-style-label": "ओवरले शैली:",
             "hide": "छिपाएँ",
@@ -953,6 +961,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
             "analog-clock-label": "Jam Analog:",
+            "date-hands-label": "Jarum Tanggal:",
             "millisecond-hand-label": "Jarum Milidetik:",
             "overlay-style-label": "Gaya Overlay:",
             "hide": "Sembunyikan",
@@ -1046,6 +1055,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
             "analog-clock-label": "Orologio analogico:",
+            "date-hands-label": "Lancette della data:",
             "millisecond-hand-label": "Lancetta dei millisecondi:",
             "overlay-style-label": "Stile sovrapposizione:",
             "hide": "Nascondi",
@@ -1139,6 +1149,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "analog-clock-label": "アナログ時計:",
+            "date-hands-label": "日付針:",
             "millisecond-hand-label": "ミリ秒針:",
             "overlay-style-label": "オーバーレイスタイル:",
             "hide": "非表示",
@@ -1232,6 +1243,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
             "analog-clock-label": "아날로그 시계:",
+            "date-hands-label": "날짜 바늘:",
             "millisecond-hand-label": "밀리초 바늘:",
             "overlay-style-label": "오버레이 스타일:",
             "hide": "숨기기",
@@ -1325,6 +1337,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
             "analog-clock-label": "Analoge klok:",
+            "date-hands-label": "Datumwijzers:",
             "millisecond-hand-label": "Milliseconde wijzer:",
             "overlay-style-label": "Overlay-stijl:",
             "hide": "Verbergen",
@@ -1418,6 +1431,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
             "analog-clock-label": "Zegar analogowy:",
+            "date-hands-label": "Wskazówki daty:",
             "millisecond-hand-label": "Wskazówka milisekund:",
             "overlay-style-label": "Styl nakładki:",
             "hide": "Ukryj",
@@ -1511,6 +1525,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
             "analog-clock-label": "Relógio analógico:",
+            "date-hands-label": "Ponteiros de data:",
             "millisecond-hand-label": "Ponteiro de milissegundos:",
             "overlay-style-label": "Estilo de sobreposição:",
             "hide": "Ocultar",
@@ -3710,6 +3725,10 @@ define("resource/control", [], {
         "id": "analog-clock",
         "default": false
     },
+    "dateHands": {
+        "id": "date-hands",
+        "default": false
+    },
     "millisecondHand": {
         "id": "millisecond-hand",
         "default": false
@@ -4030,6 +4049,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             milliSecondsNiddle: _library_2.Library.UI.getElementById("div", "milli-seconds-niddle"),
         };
         UI.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+        UI.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
         UI.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -4376,30 +4396,37 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.subtitle = undefined;
         Overlay.updateAnalogClock = function (date) {
             var isAnalogClockEnabled = ui_4.UI.analogClockCheckbox.get();
+            var isDateHandsEnabled = ui_4.UI.dateHandsCheckbox.get();
+            var isMillisecondHandEnabled = ui_4.UI.millisecondHandCheckbox.get();
             ui_4.UI.analogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            ui_4.UI.analogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.analogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.analogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
             if (isAnalogClockEnabled) {
-                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !ui_4.UI.millisecondHandCheckbox.get());
+                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
                 var hours = date.getHours() + (minutes / 60);
-                var week = date.getDay() + (hours / 24);
-                var month = (date.getDate() - 1) + (hours / 24);
-                var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-                var year = date.getMonth() + (month / daysOfThisMonth_1);
-                var milliSecondsAngle = milliSeconds / 1000;
                 var secondsAngle = seconds / 60;
                 var minutesAngle = minutes / 60;
                 var hoursAngle = hours % 12 / 12;
-                var weekAngle = week / 7;
-                var monthAngle = month / daysOfThisMonth_1;
-                var yearAngle = year / 12;
-                [28, 29, 30, 31].forEach(function (days) {
-                    ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
-                });
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                var milliSecondsAngle = milliSeconds / 1000;
+                if (isDateHandsEnabled) {
+                    var week = date.getDay() + (hours / 24);
+                    var month = (date.getDate() - 1) + (hours / 24);
+                    var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                    var year = date.getMonth() + (month / daysOfThisMonth_1);
+                    var weekAngle = week / 7;
+                    var monthAngle = month / daysOfThisMonth_1;
+                    var yearAngle = year / 12;
+                    [28, 29, 30, 31].forEach(function (days) {
+                        ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                    });
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                }
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));

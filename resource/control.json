@@ -125,6 +125,10 @@
         "id": "analog-clock",
         "default": false
     },
+    "dateHands": {
+        "id": "date-hands",
+        "default": false
+    },
     "millisecondHand": {
         "id": "millisecond-hand",
         "default": false

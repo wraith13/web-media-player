@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Dec 01 2025 01:55:11 GMT+0900 (日本標準時)
+    build at: Mon Dec 01 2025 07:49:10 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1027,8 +1027,8 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#minutes-niddle {
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 80);
-  height: calc(var(--short-side) * 80);
+  width: calc(var(--short-side) * 85);
+  height: calc(var(--short-side) * 85);
 }
 #analog-clock-panel div#scale60-panel {
   --scale-width: calc(var(--short-side) * 0.2);
@@ -1040,8 +1040,8 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#hours-niddle {
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 65);
-  height: calc(var(--short-side) * 65);
+  width: calc(var(--short-side) * 70);
+  height: calc(var(--short-side) * 70);
 }
 #analog-clock-panel div#scale12-panel {
   --scale-width: calc(var(--short-side) * 0.3);
@@ -1050,33 +1050,76 @@ body.list #analog-clock-panel:not(.show)::before {
   height: calc(var(--short-side) * 95);
   background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
 }
+#analog-clock-panel div#center-circle {
+  background-color: black;
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
+}
 #analog-clock-panel div#week-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
+}
+#analog-clock-panel div#week-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#week-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#week-panel {
   --line-angle: 1.25deg;
   --scale-color: rgba(0, 0, 0, 0.5);
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 55);
+  height: calc(var(--short-side) * 55);
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 #analog-clock-panel div#month-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 45);
-  height: calc(var(--short-side) * 45);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
+}
+#analog-clock-panel div#month-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#month-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#month-panel {
   --line-angle: 1.0deg;
   --scale-color: rgba(0, 0, 0, 0.5);
-  width: calc(var(--short-side) * 45);
-  height: calc(var(--short-side) * 45);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
 }
 #analog-clock-panel div#month-panel.days28 {
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(12.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(25.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(38.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(64.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(77.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(90deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(115.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(128.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(141.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(167.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(180deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(192.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(218.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(231.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(244.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(270deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(282.8571428571deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(295.7142857143deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(321.4285714286deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(334.2857142857deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(347.1428571429deg - var(--line-angle) / 2), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
@@ -1103,22 +1146,41 @@ body.list #analog-clock-panel:not(.show)::before {
   background-size: cover;
 }
 #analog-clock-panel div#year-niddle {
+  transition: display 750ms, opacity 750ms, filter 750ms;
   background: conic-gradient(black, black 270deg, white 360deg);
   transform: rotate(calc(var(--progress) * 360deg));
-  width: calc(var(--short-side) * 35);
-  height: calc(var(--short-side) * 35);
+  width: calc(var(--short-side) * 40);
+  height: calc(var(--short-side) * 40);
+}
+#analog-clock-panel div#year-niddle.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-panel div#year-niddle.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
 }
 #analog-clock-panel div#year-panel {
   --scale-width: calc(var(--short-side) * 0.3);
   --scale-color: rgba(0, 0, 0, 0.7);
-  width: calc(var(--short-side) * 35);
-  height: calc(var(--short-side) * 35);
+  width: calc(var(--short-side) * 40);
+  height: calc(var(--short-side) * 40);
   background: linear-gradient(0deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(30deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(60deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(90deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(120deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width))), linear-gradient(150deg, transparent calc(50% - var(--scale-width)), var(--scale-color) calc(50% - var(--scale-width)), var(--scale-color) calc(50% + var(--scale-width)), transparent calc(50% + var(--scale-width)));
 }
-#analog-clock-panel div#center-circle {
+#analog-clock-panel div#dates-center-circle {
   background-color: black;
-  width: calc(var(--short-side) * 25);
-  height: calc(var(--short-side) * 25);
+  width: calc(var(--short-side) * 30);
+  height: calc(var(--short-side) * 30);
 }
 
 body:not(.show-paused-media) #screen-body.paused #media-screen {
@@ -3476,13 +3538,14 @@ DUMMYSTYLE
             <div id="scale60-panel"></div>
             <div id="hours-niddle"></div>
             <div id="scale12-panel"></div>
+            <div id="center-circle"></div>
             <div id="week-niddle"></div>
             <div id="week-panel"></div>
             <div id="month-niddle"></div>
             <div id="month-panel"></div>
             <div id="year-niddle"></div>
             <div id="year-panel"></div>
-            <div id="center-circle"></div>
+            <div id="dates-center-circle"></div>
         </time>
         <div id="overlay-panel" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
@@ -3693,6 +3756,10 @@ DUMMYSTYLE
             <span data-lang-key="analog-clock-label"></span>
             <input id="analog-clock" type="checkbox" />
         </label>
+        <label for="date-hands">
+            <span data-lang-key="date-hands-label"></span>
+            <input id="date-hands" type="checkbox" />
+        </label>
         <label for="millisecond-hand">
             <span data-lang-key="millisecond-hand-label"></span>
             <input id="millisecond-hand" type="checkbox" />
@@ -3851,8 +3918,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Dec 01 2025 01:55:11 GMT+0900 (日本標準時)",
-    tick: 1764521711799
+    at: "Mon Dec 01 2025 07:49:10 GMT+0900 (日本標準時)",
+    tick: 1764542950183
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5625,6 +5692,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
             "analog-clock-label": "الساعة التناظرية:",
+            "date-hands-label": "عقارب التاريخ:",
             "millisecond-hand-label": "عقرب الملِّيثانية:",
             "overlay-style-label": "نمط التراكب:",
             "hide": "إخفاء",
@@ -5718,6 +5786,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
             "analog-clock-label": "Analoge Uhr:",
+            "date-hands-label": "Datumszeiger:",
             "millisecond-hand-label": "Millisekundenzeiger:",
             "overlay-style-label": "Overlay-Stil:",
             "hide": "Ausblenden",
@@ -5811,6 +5880,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
             "analog-clock-label": "Αναλογικό Ρολόι:",
+            "date-hands-label": "Δείκτες Ημερομηνίας:",
             "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
             "overlay-style-label": "Στυλ επικάλυψης:",
             "hide": "Απόκρυψη",
@@ -5904,6 +5974,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
             "analog-clock-label": "Analog Clock:",
+            "date-hands-label": "Date Hands:",
             "millisecond-hand-label": "Millisecond Hand:",
             "overlay-style-label": "Overlay Style:",
             "hide": "Hide",
@@ -5997,6 +6068,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
             "analog-clock-label": "Reloj analógico:",
+            "date-hands-label": "Manecillas de fecha:",
             "millisecond-hand-label": "Manecilla de milisegundos:",
             "overlay-style-label": "Estilo de superposición:",
             "hide": "Ocultar",
@@ -6090,6 +6162,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
             "analog-clock-label": "ساعت آنالوگ:",
+            "date-hands-label": "عقربه‌های تاریخ:",
             "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه:",
             "overlay-style-label": "سبک پوشش:",
             "hide": "مخفی",
@@ -6183,6 +6256,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
             "analog-clock-label": "Horloge analogique :",
+            "date-hands-label": "Aiguilles de la date :",
             "millisecond-hand-label": "Aiguille des millisecondes :",
             "overlay-style-label": "Style de superposition :",
             "hide": "Cacher",
@@ -6276,6 +6350,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
             "analog-clock-label": "एनालॉग घड़ी:",
+            "date-hands-label": "तारीख के सूचक:",
             "millisecond-hand-label": "मिलीसेकंड हैंड:",
             "overlay-style-label": "ओवरले शैली:",
             "hide": "छिपाएँ",
@@ -6369,6 +6444,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
             "analog-clock-label": "Jam Analog:",
+            "date-hands-label": "Jarum Tanggal:",
             "millisecond-hand-label": "Jarum Milidetik:",
             "overlay-style-label": "Gaya Overlay:",
             "hide": "Sembunyikan",
@@ -6462,6 +6538,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
             "analog-clock-label": "Orologio analogico:",
+            "date-hands-label": "Lancette della data:",
             "millisecond-hand-label": "Lancetta dei millisecondi:",
             "overlay-style-label": "Stile sovrapposizione:",
             "hide": "Nascondi",
@@ -6555,6 +6632,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "analog-clock-label": "アナログ時計:",
+            "date-hands-label": "日付針:",
             "millisecond-hand-label": "ミリ秒針:",
             "overlay-style-label": "オーバーレイスタイル:",
             "hide": "非表示",
@@ -6648,6 +6726,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
             "analog-clock-label": "아날로그 시계:",
+            "date-hands-label": "날짜 바늘:",
             "millisecond-hand-label": "밀리초 바늘:",
             "overlay-style-label": "오버레이 스타일:",
             "hide": "숨기기",
@@ -6741,6 +6820,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
             "analog-clock-label": "Analoge klok:",
+            "date-hands-label": "Datumwijzers:",
             "millisecond-hand-label": "Milliseconde wijzer:",
             "overlay-style-label": "Overlay-stijl:",
             "hide": "Verbergen",
@@ -6834,6 +6914,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
             "analog-clock-label": "Zegar analogowy:",
+            "date-hands-label": "Wskazówki daty:",
             "millisecond-hand-label": "Wskazówka milisekund:",
             "overlay-style-label": "Styl nakładki:",
             "hide": "Ukryj",
@@ -6927,6 +7008,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
             "analog-clock-label": "Relógio analógico:",
+            "date-hands-label": "Ponteiros de data:",
             "millisecond-hand-label": "Ponteiro de milissegundos:",
             "overlay-style-label": "Estilo de sobreposição:",
             "hide": "Ocultar",
@@ -9126,6 +9208,10 @@ define("resource/control", [], {
         "id": "analog-clock",
         "default": false
     },
+    "dateHands": {
+        "id": "date-hands",
+        "default": false
+    },
     "millisecondHand": {
         "id": "millisecond-hand",
         "default": false
@@ -9446,6 +9532,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             milliSecondsNiddle: _library_2.Library.UI.getElementById("div", "milli-seconds-niddle"),
         };
         UI.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+        UI.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
         UI.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
         UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
         UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -9792,30 +9879,37 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.subtitle = undefined;
         Overlay.updateAnalogClock = function (date) {
             var isAnalogClockEnabled = ui_4.UI.analogClockCheckbox.get();
+            var isDateHandsEnabled = ui_4.UI.dateHandsCheckbox.get();
+            var isMillisecondHandEnabled = ui_4.UI.millisecondHandCheckbox.get();
             ui_4.UI.analogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            ui_4.UI.analogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.analogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.analogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
             if (isAnalogClockEnabled) {
-                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !ui_4.UI.millisecondHandCheckbox.get());
+                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
                 var hours = date.getHours() + (minutes / 60);
-                var week = date.getDay() + (hours / 24);
-                var month = (date.getDate() - 1) + (hours / 24);
-                var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-                var year = date.getMonth() + (month / daysOfThisMonth_1);
-                var milliSecondsAngle = milliSeconds / 1000;
                 var secondsAngle = seconds / 60;
                 var minutesAngle = minutes / 60;
                 var hoursAngle = hours % 12 / 12;
-                var weekAngle = week / 7;
-                var monthAngle = month / daysOfThisMonth_1;
-                var yearAngle = year / 12;
-                [28, 29, 30, 31].forEach(function (days) {
-                    ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
-                });
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                var milliSecondsAngle = milliSeconds / 1000;
+                if (isDateHandsEnabled) {
+                    var week = date.getDay() + (hours / 24);
+                    var month = (date.getDate() - 1) + (hours / 24);
+                    var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                    var year = date.getMonth() + (month / daysOfThisMonth_1);
+                    var weekAngle = week / 7;
+                    var monthAngle = month / daysOfThisMonth_1;
+                    var yearAngle = year / 12;
+                    [28, 29, 30, 31].forEach(function (days) {
+                        ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                    });
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                }
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
                 library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
