@@ -164,7 +164,7 @@ export namespace Player
             playMedia(currentMedia, "resume");
         }
         else
-        if ( ! UI.repeat.get())
+        if ( ! UI.controlPanel.repeat.get())
         {
             pause();
         }

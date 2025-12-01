@@ -3999,7 +3999,15 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
-        UI.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+        UI.controlPanel = {
+            wakeUpButton: new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton),
+            shuffle: new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle),
+            repeat: new _library_2.Library.Control.Checkbox(control_json_1.default.repeat),
+            playButton: new _library_2.Library.Control.Button({ id: "play-button", }),
+            volumeButton: new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton),
+            settingsButton: new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton),
+            sleepButton: new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton),
+        };
         UI.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
         UI.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
         UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
@@ -4008,12 +4016,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
         UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
         UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
-        UI.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
-        UI.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
-        UI.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
-        UI.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.isScrolledToMediaListBottom = function () {
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
@@ -4146,7 +4150,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 .forEach(function (i) { return UI.updateAriaLabel(i); });
             UI.updateShortcuts();
         };
-        UI.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
         UI.wakeUpToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.wakeUpToggle);
@@ -4162,7 +4165,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             }
         });
         UI.noMediaLabel = _library_2.Library.UI.getElementById("label", "no-media");
-        UI.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
         UI.sleepToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.sleepToggle);
@@ -4205,10 +4207,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.updateLabel(element);
         };
         UI.popupCheckboxList = [
-            UI.volumeButton,
-            UI.settingsButton,
-            UI.wakeUpButton,
-            UI.sleepButton,
+            UI.controlPanel.volumeButton,
+            UI.controlPanel.settingsButton,
+            UI.controlPanel.wakeUpButton,
+            UI.controlPanel.sleepButton,
         ];
         UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
             var parent = checkbox.dom.parentElement;
@@ -5501,7 +5503,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 if (media) {
                     History.clear();
                     var index = media_1.Media.mediaList.indexOf(media);
-                    if (ui_7.UI.shuffle.get()) {
+                    if (ui_7.UI.controlPanel.shuffle.get()) {
                         history.push(index);
                         currentIndex = 0;
                     }
@@ -5531,7 +5533,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 ++currentIndex;
                 if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    if (ui_7.UI.shuffle.get()) {
+                    if (ui_7.UI.controlPanel.shuffle.get()) {
                         history.push(History.getShuffleNext());
                     }
                     else {
@@ -5547,7 +5549,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < media_1.Media.mediaList.length ||
                     0 < History.getStraightNext(nextIndex) ||
-                    ui_7.UI.repeat.get()) {
+                    ui_7.UI.controlPanel.repeat.get()) {
                     return false;
                 }
             }
@@ -6348,7 +6350,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (currentMedia) {
                             Player.playMedia(currentMedia, "resume");
                         }
-                        else if (!ui_9.UI.repeat.get()) {
+                        else if (!ui_9.UI.controlPanel.repeat.get()) {
                             Player.pause();
                         }
                         return [2 /*return*/];
@@ -7148,7 +7150,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
-            var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.repeat.get();
+            var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.controlPanel.repeat.get();
             ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
@@ -7262,15 +7264,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             _library_9.Library.Shortcuts.setCommandMap({
                 "toggleShuffle": {
-                    control: ui_12.UI.shuffle.dom,
-                    fire: function () { return ui_12.UI.shuffle.toggle(); }
+                    control: ui_12.UI.controlPanel.shuffle.dom,
+                    fire: function () { return ui_12.UI.controlPanel.shuffle.toggle(); }
                 },
                 "toggleRepeat": {
-                    control: ui_12.UI.repeat.dom,
-                    fire: function () { return ui_12.UI.repeat.toggle(); }
+                    control: ui_12.UI.controlPanel.repeat.dom,
+                    fire: function () { return ui_12.UI.controlPanel.repeat.toggle(); }
                 },
                 "togglePlay": {
-                    control: ui_12.UI.playButton.dom,
+                    control: ui_12.UI.controlPanel.playButton.dom,
                     fire: function () {
                         if (_features_2.Features.Player.isPlaying()) {
                             _features_2.Features.Player.pause();
@@ -7364,7 +7366,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     return [2 /*return*/];
                 });
             }); });
-            ui_12.UI.playButton.data.click = function (event, button) {
+            ui_12.UI.controlPanel.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_features_2.Features.Player.isPlaying()) {
@@ -7396,33 +7398,33 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_12.UI.shuffle.setChange(function (event, button) {
+            ui_12.UI.controlPanel.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.shuffle);
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.controlPanel.shuffle);
             });
-            ui_12.UI.repeat.setChange(function (event, button) {
+            ui_12.UI.controlPanel.repeat.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.repeat);
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.controlPanel.repeat);
                 Events.updateNoRepeatLabel();
             });
-            ui_12.UI.volumeButton.setChange(function (event, button) {
+            ui_12.UI.controlPanel.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() <= 0 ? 100 : 0);
-                    ui_12.UI.volumeButton.toggle(false, "preventOnChange");
+                    ui_12.UI.controlPanel.volumeButton.toggle(false, "preventOnChange");
                 }
-                ui_12.UI.closeOtherPopups(ui_12.UI.volumeButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.volumeButton);
             });
             // UI.volumeRange.options ||= { }
             // UI.volumeRange.options.change = () => updateVolume();
-            ui_12.UI.settingsButton.setChange(function (event, button) {
+            ui_12.UI.controlPanel.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.settingsButton);
-                document.body.classList.toggle("show-settings-panel", ui_12.UI.settingsButton.get());
+                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.settingsButton);
+                document.body.classList.toggle("show-settings-panel", ui_12.UI.controlPanel.settingsButton.get());
             });
             ui_12.UI.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
@@ -7465,22 +7467,22 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_12.UI.wakeUpButton.setChange(function (event, button) {
+            ui_12.UI.controlPanel.wakeUpButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.wakeUpButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.wakeUpButton);
             });
-            ui_12.UI.sleepButton.setChange(function (event, button) {
+            ui_12.UI.controlPanel.sleepButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.sleepButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.sleepButton);
             });
             _library_9.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
             ui_12.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.seekRange.addEventListener("change", updateSeek);
             ui_12.UI.seekRange.addEventListener("input", updateSeek);
-            ui_12.UI.shuffle.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.repeat.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.controlPanel.shuffle.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.controlPanel.repeat.loadParameter(url_4.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_12.UI.volumeRange.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateVolume(); });
             //UI.settingsButton.loadParameter(Url.params, applyParam);
@@ -7546,8 +7548,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_12.UI.shuffle,
-                        ui_12.UI.repeat,
+                        ui_12.UI.controlPanel.shuffle,
+                        ui_12.UI.controlPanel.repeat,
                         ui_12.UI.withFullscreenCheckbox,
                         ui_12.UI.brightnessRange,
                         ui_12.UI.stretchRange,

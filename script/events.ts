@@ -211,7 +211,7 @@ export namespace Events
     };
     export const updateNoRepeatLabel = (): void =>
     {
-        const noRepeat = UI.sleepToggle.get() && ! UI.repeat.get();
+        const noRepeat = UI.sleepToggle.get() && ! UI.controlPanel.repeat.get();
         UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -360,17 +360,17 @@ export namespace Events
         ({
             "toggleShuffle":
             {
-                control: UI.shuffle.dom,
-                fire: () => UI.shuffle.toggle()
+                control: UI.controlPanel.shuffle.dom,
+                fire: () => UI.controlPanel.shuffle.toggle()
             },
             "toggleRepeat":
             {
-                control: UI.repeat.dom,
-                fire: () => UI.repeat.toggle()
+                control: UI.controlPanel.repeat.dom,
+                fire: () => UI.controlPanel.repeat.toggle()
             },
             "togglePlay":
             {
-                control: UI.playButton.dom,
+                control: UI.controlPanel.playButton.dom,
                 fire: () =>
                 {
                     if (Features.Player.isPlaying())
@@ -498,7 +498,7 @@ export namespace Events
                 UI.inputFile.value = "";
             }
         );
-        UI.playButton.data.click = (event, button) =>
+        UI.controlPanel.playButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
@@ -537,26 +537,26 @@ export namespace Events
             button.dom.blur();
             Features.Player.rewind();
         };
-        UI.shuffle.setChange
+        UI.controlPanel.shuffle.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.shuffle);
+                UI.updateParentClassBasedOnCheckbox(UI.controlPanel.shuffle);
             }
         );
-        UI.repeat.setChange
+        UI.controlPanel.repeat.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.repeat);
+                UI.updateParentClassBasedOnCheckbox(UI.controlPanel.repeat);
                 updateNoRepeatLabel();
             }
         );
-        UI.volumeButton.setChange
+        UI.controlPanel.volumeButton.setChange
         (
             (event, button) =>
             {
@@ -565,21 +565,21 @@ export namespace Events
                 if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
                 {
                     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
-                    UI.volumeButton.toggle(false, "preventOnChange")
+                    UI.controlPanel.volumeButton.toggle(false, "preventOnChange")
                 }
-                UI.closeOtherPopups(UI.volumeButton);
+                UI.closeOtherPopups(UI.controlPanel.volumeButton);
             }
         );
         // UI.volumeRange.options ||= { }
         // UI.volumeRange.options.change = () => updateVolume();
-        UI.settingsButton.setChange
+        UI.controlPanel.settingsButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.settingsButton);
-                document.body.classList.toggle("show-settings-panel", UI.settingsButton.get());
+                UI.closeOtherPopups(UI.controlPanel.settingsButton);
+                document.body.classList.toggle("show-settings-panel", UI.controlPanel.settingsButton.get());
             }
         );
         UI.mediaLength.click = () =>
@@ -640,30 +640,30 @@ export namespace Events
                 document.body.classList.toggle("show-seek-bar");
             }
         );
-        UI.wakeUpButton.setChange
+        UI.controlPanel.wakeUpButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.wakeUpButton);
+                UI.closeOtherPopups(UI.controlPanel.wakeUpButton);
             }
         );
-        UI.sleepButton.setChange
+        UI.controlPanel.sleepButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.sleepButton);
+                UI.closeOtherPopups(UI.controlPanel.sleepButton);
             }
         );
         Library.Shortcuts.setPressedKeyDiv(UI.pressedKey);
         UI.seekRange.addEventListener("click", event => event.stopPropagation());
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
-        UI.shuffle.loadParameter(Url.params, applyParam);
-        UI.repeat.loadParameter(Url.params, applyParam);
+        UI.controlPanel.shuffle.loadParameter(Url.params, applyParam);
+        UI.controlPanel.repeat.loadParameter(Url.params, applyParam);
         //UI.volumeButton.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(() => updateVolume());
         //UI.settingsButton.loadParameter(Url.params, applyParam);
@@ -746,8 +746,8 @@ export namespace Events
                 (
                     () =>
                     [
-                        UI.shuffle,
-                        UI.repeat,
+                        UI.controlPanel.shuffle,
+                        UI.controlPanel.repeat,
                         UI.withFullscreenCheckbox,
                         UI.brightnessRange,
                         UI.stretchRange,

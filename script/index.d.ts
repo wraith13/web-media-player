@@ -3275,7 +3275,15 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
         const elementPool: HTMLDivElement;
-        const playButton: Library.Control.Button<HTMLElement>;
+        const controlPanel: {
+            wakeUpButton: Library.Control.Checkbox;
+            shuffle: Library.Control.Checkbox;
+            repeat: Library.Control.Checkbox;
+            playButton: Library.Control.Button<HTMLElement>;
+            volumeButton: Library.Control.Checkbox;
+            settingsButton: Library.Control.Checkbox;
+            sleepButton: Library.Control.Checkbox;
+        };
         const mediaIndex: HTMLSpanElement;
         const mediaTitle: HTMLSpanElement;
         const mediaTime: HTMLSpanElement;
@@ -3284,12 +3292,8 @@ declare module "script/ui" {
         const backBUtton: Library.Control.Button<HTMLElement>;
         const fastForwardButton: Library.Control.Button<HTMLElement>;
         const rewindButton: Library.Control.Button<HTMLElement>;
-        const shuffle: Library.Control.Checkbox;
-        const repeat: Library.Control.Checkbox;
         const volumeLabel: HTMLLabelElement;
-        const volumeButton: Library.Control.Checkbox;
         const volumeRange: Library.Control.Range;
-        const settingsButton: Library.Control.Checkbox;
         const mediaList: HTMLDivElement;
         const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;
@@ -3345,14 +3349,12 @@ declare module "script/ui" {
         const pressedKey: HTMLDivElement;
         const updateShortcuts: () => void;
         const updateLanguage: () => void;
-        const wakeUpButton: Library.Control.Checkbox;
         const wakeUpProgressCircle: HTMLDivElement;
         const wakeUpTimerLabel: HTMLLabelElement;
         const wakeUpToggle: Library.Control.ToggleLabel;
         const wakeUpSelect: Library.Control.Select<string>;
         const fadeInSelect: Library.Control.Select<string>;
         const noMediaLabel: HTMLLabelElement;
-        const sleepButton: Library.Control.Checkbox;
         const sleepProgressCircle: HTMLDivElement;
         const sleepTimerLabel: HTMLLabelElement;
         const sleepToggle: Library.Control.ToggleLabel;

@@ -16,8 +16,16 @@ export namespace UI
         Library.UI.getElementById("div", "media-screen");
     export const elementPool =
         Library.UI.getElementById("div", "element-pool");
-    export const playButton =
-        new Library.Control.Button({ id: "play-button", });
+    export const controlPanel =
+    {
+        wakeUpButton: new Library.Control.Checkbox(control.wakeUpButton),
+        shuffle: new Library.Control.Checkbox(control.shuffle),
+        repeat: new Library.Control.Checkbox(control.repeat),
+        playButton: new Library.Control.Button({ id: "play-button", }),
+        volumeButton: new Library.Control.Checkbox(control.volumeButton),
+        settingsButton: new Library.Control.Checkbox(control.settingsButton),
+        sleepButton: new Library.Control.Checkbox(control.sleepButton),
+    }
     export const mediaIndex =
         Library.UI.getElementById("span", "media-index");
     export const mediaTitle =
@@ -34,18 +42,10 @@ export namespace UI
         new Library.Control.Button({ id: "fast-forward-button", });
     export const rewindButton =
         new Library.Control.Button({ id: "rewind-button", });
-    export const shuffle =
-        new Library.Control.Checkbox(control.shuffle);
-    export const repeat =
-        new Library.Control.Checkbox(control.repeat);
     export const volumeLabel =
         Library.UI.querySelector("label", "label[for='volume-button']");
-    export const volumeButton =
-        new Library.Control.Checkbox(control.volumeButton);
     export const volumeRange =
         new Library.Control.Range(control.volume);
-    export const settingsButton =
-        new Library.Control.Checkbox(control.settingsButton);
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
     export const isScrolledToMediaListBottom = () =>
@@ -255,8 +255,6 @@ export namespace UI
             .forEach(i => updateAriaLabel(i));
         updateShortcuts();
     };
-    export const wakeUpButton =
-        new Library.Control.Checkbox(control.wakeUpButton);
     export const wakeUpProgressCircle =
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
@@ -283,8 +281,6 @@ export namespace UI
         );
     export const noMediaLabel =
         Library.UI.getElementById("label", "no-media");
-    export const sleepButton =
-        new Library.Control.Checkbox(control.sleepButton);
     export const sleepProgressCircle =
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
@@ -341,10 +337,10 @@ export namespace UI
     };
     export const popupCheckboxList =
     [
-        volumeButton,
-        settingsButton,
-        wakeUpButton,
-        sleepButton,
+        controlPanel.volumeButton,
+        controlPanel.settingsButton,
+        controlPanel.wakeUpButton,
+        controlPanel.sleepButton,
     ];
     export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked?: boolean): void =>
     {
