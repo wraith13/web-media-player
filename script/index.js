@@ -3999,15 +3999,16 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
-        UI.controlPanel = {
-            wakeUpButton: new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton),
-            shuffle: new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle),
-            repeat: new _library_2.Library.Control.Checkbox(control_json_1.default.repeat),
-            playButton: new _library_2.Library.Control.Button({ id: "play-button", }),
-            volumeButton: new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton),
-            settingsButton: new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton),
-            sleepButton: new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton),
-        };
+        var ControlPanel;
+        (function (ControlPanel) {
+            ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
+            ControlPanel.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
+            ControlPanel.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
+            ControlPanel.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
+            ControlPanel.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
+            ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
+            ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+        })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         UI.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
         UI.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
         UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
@@ -4023,75 +4024,80 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
         };
         UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
+        var AnalogClock;
+        (function (AnalogClock) {
+            AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
+            AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
+            AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
+            AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
+            AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
+            AnalogClock.hoursNiddle = _library_2.Library.UI.getElementById("div", "hours-niddle");
+            AnalogClock.minutesNiddle = _library_2.Library.UI.getElementById("div", "minutes-niddle");
+            AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
+            AnalogClock.milliSecondsNiddle = _library_2.Library.UI.getElementById("div", "milli-seconds-niddle");
+        })(AnalogClock = UI.AnalogClock || (UI.AnalogClock = {}));
+        ;
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
-        UI.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
-        UI.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
-        UI.withFullscreenCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
-        UI.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
-        UI.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
-        UI.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
-        UI.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
-            makeLabel: function (value) { return value <= 0 ?
-                _library_2.Library.Locale.map("off") :
-                _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
-        });
-        UI.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
-        UI.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
-        UI.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
-        UI.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
-        UI.analogClock = {
-            panel: _library_2.Library.UI.getElementById("time", "analog-clock-panel"),
-            monthPanel: _library_2.Library.UI.getElementById("div", "month-panel"),
-            yearNiddle: _library_2.Library.UI.getElementById("div", "year-niddle"),
-            monthNiddle: _library_2.Library.UI.getElementById("div", "month-niddle"),
-            weekNiddle: _library_2.Library.UI.getElementById("div", "week-niddle"),
-            hoursNiddle: _library_2.Library.UI.getElementById("div", "hours-niddle"),
-            minutesNiddle: _library_2.Library.UI.getElementById("div", "minutes-niddle"),
-            secondsNiddle: _library_2.Library.UI.getElementById("div", "seconds-niddle"),
-            milliSecondsNiddle: _library_2.Library.UI.getElementById("div", "milli-seconds-niddle"),
-        };
-        UI.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
-        UI.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
-        UI.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
-        UI.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
-        UI.weatherLocationSelect = new _library_2.Library.Control.Select(control_json_1.default.weatherLocation, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-        UI.withClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withClock);
-        UI.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
-        UI.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
-        UI.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
-        UI.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
-        UI.getDefaultShortcut = function () {
-            switch (true) {
-                case _tools_2.Tools.Environment.isWindows():
-                    return "windows";
-                case _tools_2.Tools.Environment.isApple():
-                    return "apple";
-                default:
-                    return "youtube";
-            }
-        };
-        UI.shortcutsSelect = new _library_2.Library.Control.Select({
-            id: "shortcuts",
-            enum: Object.keys(shortcuts_json_2.default),
-            default: UI.getDefaultShortcut(),
-        }, {
-            makeLabel: function (i) { return shortcuts_json_2.default[i].label; },
-        });
-        UI.languageSelect = new _library_2.Library.Control.Select({
-            id: control_json_1.default.language.id,
-            enum: _library_2.Library.Locale.getLocaleList(),
-            default: control_json_1.default.language.default,
-        }, {
-            makeLabel: function (i) { return "Auto" === i ?
-                _library_2.Library.Locale.map("Auto") :
-                ("".concat(i, ": ")
-                    + _library_2.Library.Locale.toRtl(_library_2.Library.Locale.map("lang-label", i), _library_2.Library.Locale.isRtl() && _library_2.Library.Locale.isLtr(i))); },
-        });
-        UI.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
+        var SettingsPanel;
+        (function (SettingsPanel) {
+            SettingsPanel.mediaCount = _library_2.Library.UI.getElementById("span", "media-count");
+            SettingsPanel.mediaLength = _library_2.Library.UI.getElementById("span", "media-length");
+            SettingsPanel.withFullscreenCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withFullscreen);
+            SettingsPanel.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
+            SettingsPanel.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
+            SettingsPanel.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
+            SettingsPanel.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
+                makeLabel: function (value) { return value <= 0 ?
+                    _library_2.Library.Locale.map("off") :
+                    _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
+            });
+            SettingsPanel.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
+            SettingsPanel.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
+            SettingsPanel.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
+            SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
+            SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+            SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
+            SettingsPanel.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
+            SettingsPanel.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+            SettingsPanel.overlayPositionSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayPosition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+            SettingsPanel.withWeatherCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withWeather);
+            SettingsPanel.weatherLocationSelect = new _library_2.Library.Control.Select(control_json_1.default.weatherLocation, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+            SettingsPanel.withClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withClock);
+            SettingsPanel.withDateCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withDate);
+            SettingsPanel.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
+            SettingsPanel.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
+            SettingsPanel.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
+            SettingsPanel.getDefaultShortcut = function () {
+                switch (true) {
+                    case _tools_2.Tools.Environment.isWindows():
+                        return "windows";
+                    case _tools_2.Tools.Environment.isApple():
+                        return "apple";
+                    default:
+                        return "youtube";
+                }
+            };
+            SettingsPanel.shortcutsSelect = new _library_2.Library.Control.Select({
+                id: "shortcuts",
+                enum: Object.keys(shortcuts_json_2.default),
+                default: SettingsPanel.getDefaultShortcut(),
+            }, {
+                makeLabel: function (i) { return shortcuts_json_2.default[i].label; },
+            });
+            SettingsPanel.languageSelect = new _library_2.Library.Control.Select({
+                id: control_json_1.default.language.id,
+                enum: _library_2.Library.Locale.getLocaleList(),
+                default: control_json_1.default.language.default,
+            }, {
+                makeLabel: function (i) { return "Auto" === i ?
+                    _library_2.Library.Locale.map("Auto") :
+                    ("".concat(i, ": ")
+                        + _library_2.Library.Locale.toRtl(_library_2.Library.Locale.map("lang-label", i), _library_2.Library.Locale.isRtl() && _library_2.Library.Locale.isLtr(i))); },
+            });
+            SettingsPanel.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
+        })(SettingsPanel = UI.SettingsPanel || (UI.SettingsPanel = {}));
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
         UI.overlay = _library_2.Library.UI.getElementById("div", "overlay-panel");
         UI.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
@@ -4126,20 +4132,20 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             _library_2.Library.Shortcuts.updateAriaKeyshortcuts();
         };
         UI.updateLanguage = function () {
-            _library_2.Library.Locale.setLocale(UI.languageSelect.get(), url_1.Url.params["locale"]);
+            _library_2.Library.Locale.setLocale(UI.SettingsPanel.languageSelect.get(), url_1.Url.params["locale"]);
             var lang = _library_2.Library.Locale.getLocale();
             document.documentElement.setAttribute("lang", lang);
             var localeDirection = _library_2.Library.Locale.getDirection(lang);
             document.documentElement.setAttribute("dir", localeDirection);
             _library_2.Library.Shortcuts.setLocaleDirection(localeDirection);
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
-            UI.crossFadeSelect.reloadOptions();
-            UI.imageSpanSelect.reloadOptions();
-            UI.visualizerSelect.reloadOptions();
-            UI.overlayStyleSelect.reloadOptions();
-            UI.overlayPositionSelect.reloadOptions();
-            UI.weatherLocationSelect.reloadOptions();
-            UI.languageSelect.reloadOptions();
+            UI.SettingsPanel.crossFadeSelect.reloadOptions();
+            UI.SettingsPanel.imageSpanSelect.reloadOptions();
+            UI.SettingsPanel.visualizerSelect.reloadOptions();
+            UI.SettingsPanel.overlayStyleSelect.reloadOptions();
+            UI.SettingsPanel.overlayPositionSelect.reloadOptions();
+            UI.SettingsPanel.weatherLocationSelect.reloadOptions();
+            UI.SettingsPanel.languageSelect.reloadOptions();
             UI.wakeUpSelect.reloadOptions();
             UI.fadeInSelect.reloadOptions();
             UI.sleepSelect.reloadOptions();
@@ -4183,8 +4189,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.initialize = function (params) {
             UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");
-            if (!_library_2.Library.UI.fullscreenEnabled && UI.withFullscreenCheckbox.dom.parentElement) {
-                UI.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
+            if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
+                SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
         };
         UI.getDataLangKey = function (element) {
@@ -4207,10 +4213,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.updateLabel(element);
         };
         UI.popupCheckboxList = [
-            UI.controlPanel.volumeButton,
-            UI.controlPanel.settingsButton,
-            UI.controlPanel.wakeUpButton,
-            UI.controlPanel.sleepButton,
+            ControlPanel.volumeButton,
+            ControlPanel.settingsButton,
+            ControlPanel.wakeUpButton,
+            ControlPanel.sleepButton,
         ];
         UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
             var parent = checkbox.dom.parentElement;
@@ -4252,7 +4258,7 @@ define("script/features/location", ["require", "exports", "script/ui"], function
             }
         };
         Location.get = function () {
-            if ("geolocation" === ui_3.UI.weatherLocationSelect.get()) {
+            if ("geolocation" === ui_3.UI.SettingsPanel.weatherLocationSelect.get()) {
                 return coords;
             }
             return undefined;
@@ -4397,15 +4403,15 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
         Overlay.updateAnalogClock = function (date) {
-            var isAnalogClockEnabled = ui_4.UI.analogClockCheckbox.get();
-            var isDateHandsEnabled = ui_4.UI.dateHandsCheckbox.get();
-            var isMillisecondHandEnabled = ui_4.UI.millisecondHandCheckbox.get();
-            ui_4.UI.analogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
-            ui_4.UI.analogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
-            ui_4.UI.analogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
-            ui_4.UI.analogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            var isAnalogClockEnabled = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
+            var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
+            var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
+            ui_4.UI.AnalogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            ui_4.UI.AnalogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.AnalogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
+            ui_4.UI.AnalogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
             if (isAnalogClockEnabled) {
-                ui_4.UI.analogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
+                ui_4.UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
@@ -4423,20 +4429,20 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var monthAngle = month / daysOfThisMonth_1;
                     var yearAngle = year / 12;
                     [28, 29, 30, 31].forEach(function (days) {
-                        ui_4.UI.analogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                        ui_4.UI.AnalogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
                     });
-                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.weekNiddle, "--progress", "".concat(weekAngle));
-                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.monthNiddle, "--progress", "".concat(monthAngle));
-                    library_1.Library.UI.setStyle(ui_4.UI.analogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.weekNiddle, "--progress", "".concat(weekAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.monthNiddle, "--progress", "".concat(monthAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.yearNiddle, "--progress", "".concat(yearAngle));
                 }
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.analogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
-                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", date.toISOString());
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
+                library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString());
             }
             else {
-                library_1.Library.UI.setAttribute(ui_4.UI.analogClock.panel, "datatime", undefined);
+                library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", undefined);
             }
         };
         Overlay.makeDate = function (date, locale) {
@@ -4459,7 +4465,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         Overlay.updateWeather = function () {
             var _a, _b, _c;
-            if (ui_4.UI.withWeatherCheckbox.get()) {
+            if (ui_4.UI.SettingsPanel.withWeatherCheckbox.get()) {
                 var weather = weather_1.Weather.get();
                 if (((_a = ui_4.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
                     var attribute = document.createAttribute("data-weather");
@@ -4486,7 +4492,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             }
         };
         Overlay.updateTime = function (date) {
-            if (ui_4.UI.withClockCheckbox.get()) {
+            if (ui_4.UI.SettingsPanel.withClockCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
                 library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", Overlay.makeTime(date, "ja-JP"));
             }
@@ -4496,7 +4502,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             }
         };
         Overlay.updateDate = function (date) {
-            if (ui_4.UI.withDateCheckbox.get()) {
+            if (ui_4.UI.SettingsPanel.withDateCheckbox.get()) {
                 library_1.Library.UI.setTextContent(ui_4.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
                 library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", date.toISOString().slice(0, 10));
             }
@@ -4507,7 +4513,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         Overlay.updateCalendar = function (date) {
             var _a;
-            var dateDate = ui_4.UI.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
+            var dateDate = ui_4.UI.SettingsPanel.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
             if (((_a = ui_4.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
                 attribute.value = dateDate;
@@ -4550,7 +4556,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             library_1.Library.UI.setStyle(ui_4.UI.time, "color", color);
         };
         Overlay.update = function (now) {
-            var overlayOption = ui_4.UI.overlayStyleSelect.get();
+            var overlayOption = ui_4.UI.SettingsPanel.overlayStyleSelect.get();
             if ("hide" !== overlayOption) {
                 var date = new Date();
                 Overlay.updateAnalogClock(date);
@@ -5503,7 +5509,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 if (media) {
                     History.clear();
                     var index = media_1.Media.mediaList.indexOf(media);
-                    if (ui_7.UI.controlPanel.shuffle.get()) {
+                    if (ui_7.UI.ControlPanel.shuffle.get()) {
                         history.push(index);
                         currentIndex = 0;
                     }
@@ -5533,7 +5539,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 ++currentIndex;
                 if (history.length <= currentIndex) {
                     currentIndex = history.length;
-                    if (ui_7.UI.controlPanel.shuffle.get()) {
+                    if (ui_7.UI.ControlPanel.shuffle.get()) {
                         history.push(History.getShuffleNext());
                     }
                     else {
@@ -5549,7 +5555,7 @@ define("script/features/history", ["require", "exports", "script/features/media"
                 var nextIndex = currentIndex + 1;
                 if (nextIndex < media_1.Media.mediaList.length ||
                     0 < History.getStraightNext(nextIndex) ||
-                    ui_7.UI.controlPanel.repeat.get()) {
+                    ui_7.UI.ControlPanel.repeat.get()) {
                     return false;
                 }
             }
@@ -5790,7 +5796,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
             }
             if ("current" === truckType) {
-                if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
+                if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.SettingsPanel.withVisualizerCheckbox.get()) {
                     ui_8.UI.visualizer.classList.toggle("on", true);
                     ui_8.UI.visualizer.classList.toggle("odd", 0 !== (this.index % 2));
                     visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
@@ -5807,12 +5813,12 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.isLoop = function () {
-            var loopShortMedia = ui_8.UI.loopShortMediaCheckbox.get();
+            var loopShortMedia = ui_8.UI.SettingsPanel.loopShortMediaCheckbox.get();
             var imageSpan = this.getImageDuration();
             return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
         };
         Track.prototype.getImageDuration = function () {
-            return parseFloat(ui_8.UI.imageSpanSelect.get());
+            return parseFloat(ui_8.UI.SettingsPanel.imageSpanSelect.get());
         };
         Track.prototype.getDuration = function () {
             if (this.isLoop()) {
@@ -5874,9 +5880,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (this.visualElement) {
                 if (this.media.area) {
-                    var StretchRate = ui_8.UI.stretchRange.get() / 100;
+                    var StretchRate = ui_8.UI.SettingsPanel.stretchRange.get() / 100;
                     var isFit = this.appleyStretch(this.playerElement, StretchRate);
-                    if (ui_8.UI.paddingCheckbox.get()) {
+                    if (ui_8.UI.SettingsPanel.paddingCheckbox.get()) {
                         if (!isFit) {
                             if (null === this.paddingElement) {
                                 this.paddingElement = this.makePlayerElement();
@@ -5920,7 +5926,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
                 }
                 if ("current" === truckType) {
-                    if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.withVisualizerCheckbox.get()) {
+                    if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.SettingsPanel.withVisualizerCheckbox.get()) {
                         visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
                         visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
                     }
@@ -6224,7 +6230,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             CrossFade.startAt = null;
             CrossFade.elapsedTime = null;
             CrossFade.getDuration = function () {
-                return parseFloat(ui_9.UI.crossFadeSelect.get());
+                return parseFloat(ui_9.UI.SettingsPanel.crossFadeSelect.get());
             };
             CrossFade.clear = function () {
                 CrossFade.startAt = null;
@@ -6283,7 +6289,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         var loopHandle = null;
         Player.updateFullscreenState = function (fullscreen) {
             if (_library_7.Library.UI.fullscreenEnabled) {
-                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_9.UI.withFullscreenCheckbox.get()) {
+                if (fullscreen !== null && fullscreen !== void 0 ? fullscreen : ui_9.UI.SettingsPanel.withFullscreenCheckbox.get()) {
                     _library_7.Library.UI.requestFullscreen(document.body);
                     setTimeout(function () { return document.body.focus(); }, 100);
                 }
@@ -6350,7 +6356,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (currentMedia) {
                             Player.playMedia(currentMedia, "resume");
                         }
-                        else if (!ui_9.UI.controlPanel.repeat.get()) {
+                        else if (!ui_9.UI.ControlPanel.repeat.get()) {
                             Player.pause();
                         }
                         return [2 /*return*/];
@@ -6446,7 +6452,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.updateFps = function () {
-            if (ui_9.UI.showFpsCheckbox.get()) {
+            if (ui_9.UI.SettingsPanel.showFpsCheckbox.get()) {
                 _library_7.Library.UI.setTextContent(ui_9.UI.fpsDisplay, fps_1.Fps.getText());
             }
         };
@@ -6455,7 +6461,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 if (currentTrack.getRemainingTime() <= 0) {
                     return true;
                 }
-                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get())) {
+                if (0 < parseFloat(ui_9.UI.SettingsPanel.crossFadeSelect.get())) {
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         if (currentTrack.getRemainingTime() <= CrossFade.getDuration()) {
                             return true;
@@ -6473,7 +6479,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (!(null !== currentTrack)) return [3 /*break*/, 4];
                         if (!!Player.isSeeking()) return [3 /*break*/, 4];
                         if (currentTrack.selfValidate()) {
-                            ui_9.UI.mediaLength.click();
+                            ui_9.UI.SettingsPanel.mediaLength.click();
                         }
                         if (!CrossFade.isCrossFading()) return [3 /*break*/, 3];
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 2];
@@ -6539,7 +6545,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return CrossFade.getProgress(trackType);
         };
         Player.getBlur = function (trackType) {
-            return ui_9.UI.crossFadeWithBlurCheckbox.get() ?
+            return ui_9.UI.SettingsPanel.crossFadeWithBlurCheckbox.get() ?
                 (1 - CrossFade.getProgress(trackType)) :
                 0;
         };
@@ -6613,7 +6619,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 updateCurrentTrackProperties();
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
-                if (0 < parseFloat(ui_9.UI.crossFadeSelect.get())) {
+                if (0 < parseFloat(ui_9.UI.SettingsPanel.crossFadeSelect.get())) {
                     CrossFade.start();
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
@@ -6626,7 +6632,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
-                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.analogClock.panel);
+                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.AnalogClock.panel);
                     currentTrack.updateStretch("current");
                 }
             }
@@ -6966,10 +6972,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
-            var imageSpan = parseInt(ui_11.UI.imageSpanSelect.get());
+            _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
+            var imageSpan = parseInt(ui_11.UI.SettingsPanel.imageSpanSelect.get());
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_11.UI.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
+            _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };
         MediaList.updateNoMediaLabel = function () {
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
@@ -7010,11 +7016,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.mousemove();
         };
         var updateShowFps = function () {
-            ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.showFpsCheckbox.get());
+            ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.SettingsPanel.showFpsCheckbox.get());
         };
         var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function (disableLog) {
-            var value = ui_12.UI.brightnessRange.get();
+            var value = ui_12.UI.SettingsPanel.brightnessRange.get();
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
@@ -7026,22 +7032,22 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Player.updateLoopShortMedia();
         };
         var updateVisualizer = function () {
-            var value = ui_12.UI.visualizerSelect.get();
+            var value = ui_12.UI.SettingsPanel.visualizerSelect.get();
             control_json_2.default.visualizer.enum.forEach(function (i) { return ui_12.UI.mediaScreen.classList.toggle(i, i === value); });
         };
         var updateOverlayStyle = function () {
-            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.overlayStyleSelect.get()); });
+            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayStyleSelect.get()); });
         };
         var updateOverlayPosition = function () {
-            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.overlayPositionSelect.get()); });
+            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayPositionSelect.get()); });
         };
         var updateWeatherLocation = function () {
-            if ("geolocation" === ui_12.UI.weatherLocationSelect.get()) {
+            if ("geolocation" === ui_12.UI.SettingsPanel.weatherLocationSelect.get()) {
                 _features_2.Features.Location.requestToGetGeolocation();
             }
         };
         var updateShortcuts = function (disableLog) {
-            var value = ui_12.UI.shortcutsSelect.get();
+            var value = ui_12.UI.SettingsPanel.shortcutsSelect.get();
             if ("disableLog" !== disableLog) {
                 console.log("⌨️ Keyboard Shortcuts style changed:", value);
             }
@@ -7049,7 +7055,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.updateShortcuts();
         };
         var updateUrlAnchor = function (params) {
-            return ui_12.UI.urlAnchor.href = url_4.Url.make(params);
+            return ui_12.UI.SettingsPanel.urlAnchor.href = url_4.Url.make(params);
         };
         Events.makeTimerLabel = function (remainingTime, locale) {
             if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime)) {
@@ -7150,7 +7156,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Timer.setSleepFadeOutSpan((_a = _tools_8.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0);
         };
         Events.updateNoRepeatLabel = function () {
-            var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.controlPanel.repeat.get();
+            var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.ControlPanel.repeat.get();
             ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
         };
         var sleepCountDownTimer = null;
@@ -7264,15 +7270,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             _library_9.Library.Shortcuts.setCommandMap({
                 "toggleShuffle": {
-                    control: ui_12.UI.controlPanel.shuffle.dom,
-                    fire: function () { return ui_12.UI.controlPanel.shuffle.toggle(); }
+                    control: ui_12.UI.ControlPanel.shuffle.dom,
+                    fire: function () { return ui_12.UI.ControlPanel.shuffle.toggle(); }
                 },
                 "toggleRepeat": {
-                    control: ui_12.UI.controlPanel.repeat.dom,
-                    fire: function () { return ui_12.UI.controlPanel.repeat.toggle(); }
+                    control: ui_12.UI.ControlPanel.repeat.dom,
+                    fire: function () { return ui_12.UI.ControlPanel.repeat.toggle(); }
                 },
                 "togglePlay": {
-                    control: ui_12.UI.controlPanel.playButton.dom,
+                    control: ui_12.UI.ControlPanel.playButton.dom,
                     fire: function () {
                         if (_features_2.Features.Player.isPlaying()) {
                             _features_2.Features.Player.pause();
@@ -7320,10 +7326,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     fire: function () { return _features_2.Features.Player.next(); }
                 },
                 "toggleFullscreen": {
-                    control: ui_12.UI.withFullscreenCheckbox.dom,
+                    control: ui_12.UI.SettingsPanel.withFullscreenCheckbox.dom,
                     fire: function () {
                         if (_library_9.Library.UI.fullscreenEnabled) {
-                            ui_12.UI.withFullscreenCheckbox.toggle();
+                            ui_12.UI.SettingsPanel.withFullscreenCheckbox.toggle();
                             _features_2.Features.Player.updateFullscreenState();
                         }
                     }
@@ -7366,7 +7372,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     return [2 /*return*/];
                 });
             }); });
-            ui_12.UI.controlPanel.playButton.data.click = function (event, button) {
+            ui_12.UI.ControlPanel.playButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_features_2.Features.Player.isPlaying()) {
@@ -7398,65 +7404,65 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_12.UI.controlPanel.shuffle.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.shuffle.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.controlPanel.shuffle);
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.shuffle);
             });
-            ui_12.UI.controlPanel.repeat.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.repeat.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.controlPanel.repeat);
+                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.repeat);
                 Events.updateNoRepeatLabel();
             });
-            ui_12.UI.controlPanel.volumeButton.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 if (_tools_8.Tools.Environment.isSafari() && !_features_2.Features.Analyser.isSupported()) {
                     ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() <= 0 ? 100 : 0);
-                    ui_12.UI.controlPanel.volumeButton.toggle(false, "preventOnChange");
+                    ui_12.UI.ControlPanel.volumeButton.toggle(false, "preventOnChange");
                 }
-                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.volumeButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.volumeButton);
             });
             // UI.volumeRange.options ||= { }
             // UI.volumeRange.options.change = () => updateVolume();
-            ui_12.UI.controlPanel.settingsButton.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.settingsButton);
-                document.body.classList.toggle("show-settings-panel", ui_12.UI.controlPanel.settingsButton.get());
+                ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.settingsButton);
+                document.body.classList.toggle("show-settings-panel", ui_12.UI.ControlPanel.settingsButton.get());
             });
-            ui_12.UI.mediaLength.click = function () {
+            ui_12.UI.SettingsPanel.mediaLength.click = function () {
                 medialist_1.MediaList.updateMediaListDisplay();
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_a = ui_12.UI.withFullscreenCheckbox).options || (_a.options = {});
-            ui_12.UI.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
+            (_a = ui_12.UI.SettingsPanel.withFullscreenCheckbox).options || (_a.options = {});
+            ui_12.UI.SettingsPanel.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
                     if (_library_9.Library.UI.fullscreenEnabled) {
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
             };
-            (_b = ui_12.UI.brightnessRange).options || (_b.options = {});
-            ui_12.UI.brightnessRange.options.change = function () { return Events.updateBrightness(); };
-            (_c = ui_12.UI.stretchRange).options || (_c.options = {});
-            ui_12.UI.stretchRange.options.change = function (_event, range) {
+            (_b = ui_12.UI.SettingsPanel.brightnessRange).options || (_b.options = {});
+            ui_12.UI.SettingsPanel.brightnessRange.options.change = function () { return Events.updateBrightness(); };
+            (_c = ui_12.UI.SettingsPanel.stretchRange).options || (_c.options = {});
+            ui_12.UI.SettingsPanel.stretchRange.options.change = function (_event, range) {
                 var value = range.get();
                 console.log("📏 Stretch changed:", value);
                 //Features.Media.setStretch(value / 100);
                 _features_2.Features.Player.updateStretch();
                 Events.mousemove();
             };
-            (_d = ui_12.UI.imageSpanSelect).options || (_d.options = {});
-            ui_12.UI.imageSpanSelect.options.change = function (_event, select) {
+            (_d = ui_12.UI.SettingsPanel.imageSpanSelect).options || (_d.options = {});
+            ui_12.UI.SettingsPanel.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
                 console.log("⏱️ Image span changed:", value);
                 medialist_1.MediaList.updateInformationDisplay();
             };
-            (_e = ui_12.UI.loopShortMediaCheckbox).options || (_e.options = {});
-            ui_12.UI.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
-                console.log("🔁 Loop short media changed:", ui_12.UI.loopShortMediaCheckbox.get());
+            (_e = ui_12.UI.SettingsPanel.loopShortMediaCheckbox).options || (_e.options = {});
+            ui_12.UI.SettingsPanel.loopShortMediaCheckbox.options.change = function (_event, _checkbox) {
+                console.log("🔁 Loop short media changed:", ui_12.UI.SettingsPanel.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
             };
             ui_12.UI.mediaTitle.addEventListener("click", function (event) {
@@ -7467,47 +7473,48 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_12.UI.controlPanel.wakeUpButton.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.wakeUpButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.wakeUpButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.wakeUpButton);
             });
-            ui_12.UI.controlPanel.sleepButton.setChange(function (event, button) {
+            ui_12.UI.ControlPanel.sleepButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
-                ui_12.UI.closeOtherPopups(ui_12.UI.controlPanel.sleepButton);
+                ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.sleepButton);
             });
             _library_9.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
             ui_12.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.seekRange.addEventListener("change", updateSeek);
             ui_12.UI.seekRange.addEventListener("input", updateSeek);
-            ui_12.UI.controlPanel.shuffle.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.controlPanel.repeat.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.ControlPanel.shuffle.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.ControlPanel.repeat.loadParameter(url_4.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);
             ui_12.UI.volumeRange.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateVolume(); });
             //UI.settingsButton.loadParameter(Url.params, applyParam);
-            ui_12.UI.withFullscreenCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.withFullscreenCheckbox.options.change);
-            ui_12.UI.brightnessRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.brightnessRange.options.change);
-            ui_12.UI.stretchRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.stretchRange.options.change);
-            ui_12.UI.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_12.UI.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_12.UI.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.imageSpanSelect.options.change);
-            ui_12.UI.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
-            ui_12.UI.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
-            ui_12.UI.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
-            ui_12.UI.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.weatherLocationSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateWeatherLocation);
-            ui_12.UI.withClockCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.withDateCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.withCalenderCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.withVisualizerCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(updateShowFps);
-            ui_12.UI.shortcutsSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
-            ui_12.UI.languageSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateLanguage);
+            ui_12.UI.SettingsPanel.withFullscreenCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.withFullscreenCheckbox.options.change);
+            ui_12.UI.SettingsPanel.brightnessRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.brightnessRange.options.change);
+            ui_12.UI.SettingsPanel.stretchRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.stretchRange.options.change);
+            ui_12.UI.SettingsPanel.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
+            ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.imageSpanSelect.options.change);
+            ui_12.UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
+            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
+            ui_12.UI.SettingsPanel.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
+            ui_12.UI.SettingsPanel.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.weatherLocationSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateWeatherLocation);
+            ui_12.UI.SettingsPanel.withClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.withDateCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.withCalenderCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.withVisualizerCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(updateShowFps);
+            ui_12.UI.SettingsPanel.shortcutsSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
+            ui_12.UI.SettingsPanel.languageSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateLanguage);
             ui_12.UI.wakeUpToggle.setChange(Events.updateWakeUp);
             ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateWakeUpSelect);
             ui_12.UI.fadeInSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeIn(); });
@@ -7524,7 +7531,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
             [
                 // UI.withFullscreen,
-                ui_12.UI.showFpsCheckbox,
+                ui_12.UI.SettingsPanel.showFpsCheckbox,
             ].forEach(function (i) { return i.fire(); });
             document.addEventListener("visibilitychange", function () {
                 console.log("\uD83D\uDC40 visibilitychange: document.hidden: ".concat(document.hidden));
@@ -7548,27 +7555,27 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 // Catch up input values that the web browser quietly restores without firing events when a previously closed page is restored
                 setTimeout(function () {
                     return [
-                        ui_12.UI.controlPanel.shuffle,
-                        ui_12.UI.controlPanel.repeat,
-                        ui_12.UI.withFullscreenCheckbox,
-                        ui_12.UI.brightnessRange,
-                        ui_12.UI.stretchRange,
-                        ui_12.UI.paddingCheckbox,
-                        ui_12.UI.crossFadeSelect,
-                        ui_12.UI.crossFadeWithBlurCheckbox,
-                        ui_12.UI.imageSpanSelect,
-                        ui_12.UI.loopShortMediaCheckbox,
-                        ui_12.UI.visualizerSelect,
-                        ui_12.UI.overlayStyleSelect,
-                        ui_12.UI.overlayPositionSelect,
-                        ui_12.UI.withWeatherCheckbox,
-                        ui_12.UI.weatherLocationSelect,
-                        ui_12.UI.withClockCheckbox,
-                        ui_12.UI.withDateCheckbox,
-                        ui_12.UI.withCalenderCheckbox,
-                        ui_12.UI.showFpsCheckbox,
-                        ui_12.UI.shortcutsSelect,
-                        ui_12.UI.languageSelect,
+                        ui_12.UI.ControlPanel.shuffle,
+                        ui_12.UI.ControlPanel.repeat,
+                        ui_12.UI.SettingsPanel.withFullscreenCheckbox,
+                        ui_12.UI.SettingsPanel.brightnessRange,
+                        ui_12.UI.SettingsPanel.stretchRange,
+                        ui_12.UI.SettingsPanel.paddingCheckbox,
+                        ui_12.UI.SettingsPanel.crossFadeSelect,
+                        ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox,
+                        ui_12.UI.SettingsPanel.imageSpanSelect,
+                        ui_12.UI.SettingsPanel.loopShortMediaCheckbox,
+                        ui_12.UI.SettingsPanel.visualizerSelect,
+                        ui_12.UI.SettingsPanel.overlayStyleSelect,
+                        ui_12.UI.SettingsPanel.overlayPositionSelect,
+                        ui_12.UI.SettingsPanel.withWeatherCheckbox,
+                        ui_12.UI.SettingsPanel.weatherLocationSelect,
+                        ui_12.UI.SettingsPanel.withClockCheckbox,
+                        ui_12.UI.SettingsPanel.withDateCheckbox,
+                        ui_12.UI.SettingsPanel.withCalenderCheckbox,
+                        ui_12.UI.SettingsPanel.showFpsCheckbox,
+                        ui_12.UI.SettingsPanel.shortcutsSelect,
+                        ui_12.UI.SettingsPanel.languageSelect,
                         ui_12.UI.wakeUpSelect,
                         ui_12.UI.fadeInSelect,
                         ui_12.UI.sleepSelect,
@@ -7580,7 +7587,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 var old = _library_9.Library.Locale.getLocale();
-                _library_9.Library.Locale.setLocale(ui_12.UI.languageSelect.get());
+                _library_9.Library.Locale.setLocale(ui_12.UI.SettingsPanel.languageSelect.get());
                 if (old !== _library_9.Library.Locale.getLocale()) {
                     Events.updateLanguage();
                 }

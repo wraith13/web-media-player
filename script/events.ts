@@ -28,12 +28,12 @@ export namespace Events
     };
     const updateShowFps = () =>
     {
-        UI.fpsDisplay.classList.toggle("hide", ! UI.showFpsCheckbox.get());
+        UI.fpsDisplay.classList.toggle("hide", ! UI.SettingsPanel.showFpsCheckbox.get());
     }
     const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
     export const updateBrightness = (disableLog?: "disableLog") =>
     {
-        const value = UI.brightnessRange.get();
+        const value = UI.SettingsPanel.brightnessRange.get();
         if ("disableLog" !== disableLog)
         {
             console.log("💡 Brightness changed:", value);
@@ -48,7 +48,7 @@ export namespace Events
     };
     const updateVisualizer = () =>
     {
-        const value = UI.visualizerSelect.get();
+        const value = UI.SettingsPanel.visualizerSelect.get();
         control.visualizer.enum.forEach
         (
             i => UI.mediaScreen.classList.toggle(i, i === value)
@@ -58,26 +58,26 @@ export namespace Events
     {
         control.overlayStyle.enum.forEach
         (
-            i => UI.overlay.classList.toggle(i, i === UI.overlayStyleSelect.get())
+            i => UI.overlay.classList.toggle(i, i === UI.SettingsPanel.overlayStyleSelect.get())
         );
     };
     const updateOverlayPosition = () =>
     {
         control.overlayPosition.enum.forEach
         (
-            i => UI.overlay.classList.toggle(i, i === UI.overlayPositionSelect.get())
+            i => UI.overlay.classList.toggle(i, i === UI.SettingsPanel.overlayPositionSelect.get())
         );
     };
     const updateWeatherLocation = () =>
     {
-        if ("geolocation" === UI.weatherLocationSelect.get())
+        if ("geolocation" === UI.SettingsPanel.weatherLocationSelect.get())
         {
             Features.Location.requestToGetGeolocation();
         }
     };
     const updateShortcuts = (disableLog?: "disableLog") =>
     {
-        const value = UI.shortcutsSelect.get();
+        const value = UI.SettingsPanel.shortcutsSelect.get();
         if ("disableLog" !== disableLog)
         {
             console.log("⌨️ Keyboard Shortcuts style changed:", value);
@@ -86,7 +86,7 @@ export namespace Events
         UI.updateShortcuts();
     };
     const updateUrlAnchor = (params: Record<string, string>) =>
-        UI.urlAnchor.href = Url.make(params);
+        UI.SettingsPanel.urlAnchor.href = Url.make(params);
     export const makeTimerLabel = (remainingTime: number | null, locale?: Intl.LocalesArgument): string =>
     {
         if (null === remainingTime || remainingTime <= 0 || isNaN(remainingTime))
@@ -211,7 +211,7 @@ export namespace Events
     };
     export const updateNoRepeatLabel = (): void =>
     {
-        const noRepeat = UI.sleepToggle.get() && ! UI.controlPanel.repeat.get();
+        const noRepeat = UI.sleepToggle.get() && ! UI.ControlPanel.repeat.get();
         UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -360,17 +360,17 @@ export namespace Events
         ({
             "toggleShuffle":
             {
-                control: UI.controlPanel.shuffle.dom,
-                fire: () => UI.controlPanel.shuffle.toggle()
+                control: UI.ControlPanel.shuffle.dom,
+                fire: () => UI.ControlPanel.shuffle.toggle()
             },
             "toggleRepeat":
             {
-                control: UI.controlPanel.repeat.dom,
-                fire: () => UI.controlPanel.repeat.toggle()
+                control: UI.ControlPanel.repeat.dom,
+                fire: () => UI.ControlPanel.repeat.toggle()
             },
             "togglePlay":
             {
-                control: UI.controlPanel.playButton.dom,
+                control: UI.ControlPanel.playButton.dom,
                 fire: () =>
                 {
                     if (Features.Player.isPlaying())
@@ -433,12 +433,12 @@ export namespace Events
             },
             "toggleFullscreen":
             {
-                control: UI.withFullscreenCheckbox.dom,
+                control: UI.SettingsPanel.withFullscreenCheckbox.dom,
                 fire: () =>
                 {
                     if (Library.UI.fullscreenEnabled)
                     {
-                        UI.withFullscreenCheckbox.toggle();
+                        UI.SettingsPanel.withFullscreenCheckbox.toggle();
                         Features.Player.updateFullscreenState();
                     }
                 }
@@ -498,7 +498,7 @@ export namespace Events
                 UI.inputFile.value = "";
             }
         );
-        UI.controlPanel.playButton.data.click = (event, button) =>
+        UI.ControlPanel.playButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
@@ -537,26 +537,26 @@ export namespace Events
             button.dom.blur();
             Features.Player.rewind();
         };
-        UI.controlPanel.shuffle.setChange
+        UI.ControlPanel.shuffle.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.controlPanel.shuffle);
+                UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
             }
         );
-        UI.controlPanel.repeat.setChange
+        UI.ControlPanel.repeat.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.controlPanel.repeat);
+                UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
                 updateNoRepeatLabel();
             }
         );
-        UI.controlPanel.volumeButton.setChange
+        UI.ControlPanel.volumeButton.setChange
         (
             (event, button) =>
             {
@@ -565,30 +565,30 @@ export namespace Events
                 if (Tools.Environment.isSafari() && ! Features.Analyser.isSupported())
                 {
                     UI.volumeRange.set(UI.volumeRange.get() <= 0 ? 100 : 0);
-                    UI.controlPanel.volumeButton.toggle(false, "preventOnChange")
+                    UI.ControlPanel.volumeButton.toggle(false, "preventOnChange")
                 }
-                UI.closeOtherPopups(UI.controlPanel.volumeButton);
+                UI.closeOtherPopups(UI.ControlPanel.volumeButton);
             }
         );
         // UI.volumeRange.options ||= { }
         // UI.volumeRange.options.change = () => updateVolume();
-        UI.controlPanel.settingsButton.setChange
+        UI.ControlPanel.settingsButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.controlPanel.settingsButton);
-                document.body.classList.toggle("show-settings-panel", UI.controlPanel.settingsButton.get());
+                UI.closeOtherPopups(UI.ControlPanel.settingsButton);
+                document.body.classList.toggle("show-settings-panel", UI.ControlPanel.settingsButton.get());
             }
         );
-        UI.mediaLength.click = () =>
+        UI.SettingsPanel.mediaLength.click = () =>
         {
             MediaList.updateMediaListDisplay();
             MediaList.updateInformationDisplay();
         };
-        UI.withFullscreenCheckbox.options ||= { }
-        UI.withFullscreenCheckbox.options.change = (_event, _checkbox) =>
+        UI.SettingsPanel.withFullscreenCheckbox.options ||= { }
+        UI.SettingsPanel.withFullscreenCheckbox.options.change = (_event, _checkbox) =>
         {
             if (document.body.classList.contains("play"))
             {
@@ -598,10 +598,10 @@ export namespace Events
                 }
             }
         };
-        UI.brightnessRange.options ||= { }
-        UI.brightnessRange.options.change = () => updateBrightness();
-        UI.stretchRange.options ||= { }
-        UI.stretchRange.options.change = (_event, range) =>
+        UI.SettingsPanel.brightnessRange.options ||= { }
+        UI.SettingsPanel.brightnessRange.options.change = () => updateBrightness();
+        UI.SettingsPanel.stretchRange.options ||= { }
+        UI.SettingsPanel.stretchRange.options.change = (_event, range) =>
         {
             const value = range.get();
             console.log("📏 Stretch changed:", value);
@@ -609,17 +609,17 @@ export namespace Events
             Features.Player.updateStretch();
             mousemove();
         };
-        UI.imageSpanSelect.options ||= { }
-        UI.imageSpanSelect.options.change = (_event, select) =>
+        UI.SettingsPanel.imageSpanSelect.options ||= { }
+        UI.SettingsPanel.imageSpanSelect.options.change = (_event, select) =>
         {
             const value = select.get();
             console.log("⏱️ Image span changed:", value);
             MediaList.updateInformationDisplay();
         };
-        UI.loopShortMediaCheckbox.options ||= { }
-        UI.loopShortMediaCheckbox.options.change = (_event, _checkbox) =>
+        UI.SettingsPanel.loopShortMediaCheckbox.options ||= { }
+        UI.SettingsPanel.loopShortMediaCheckbox.options.change = (_event, _checkbox) =>
         {
-            console.log("🔁 Loop short media changed:", UI.loopShortMediaCheckbox.get());
+            console.log("🔁 Loop short media changed:", UI.SettingsPanel.loopShortMediaCheckbox.get());
             updateLoopShortMedia();
         };
         UI.mediaTitle.addEventListener
@@ -640,55 +640,56 @@ export namespace Events
                 document.body.classList.toggle("show-seek-bar");
             }
         );
-        UI.controlPanel.wakeUpButton.setChange
+        UI.ControlPanel.wakeUpButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.controlPanel.wakeUpButton);
+                UI.closeOtherPopups(UI.ControlPanel.wakeUpButton);
             }
         );
-        UI.controlPanel.sleepButton.setChange
+        UI.ControlPanel.sleepButton.setChange
         (
             (event, button) =>
             {
                 event?.stopPropagation();
                 button.dom.blur();
-                UI.closeOtherPopups(UI.controlPanel.sleepButton);
+                UI.closeOtherPopups(UI.ControlPanel.sleepButton);
             }
         );
         Library.Shortcuts.setPressedKeyDiv(UI.pressedKey);
         UI.seekRange.addEventListener("click", event => event.stopPropagation());
         UI.seekRange.addEventListener("change", updateSeek);
         UI.seekRange.addEventListener("input", updateSeek);
-        UI.controlPanel.shuffle.loadParameter(Url.params, applyParam);
-        UI.controlPanel.repeat.loadParameter(Url.params, applyParam);
+        UI.ControlPanel.shuffle.loadParameter(Url.params, applyParam);
+        UI.ControlPanel.repeat.loadParameter(Url.params, applyParam);
         //UI.volumeButton.loadParameter(Url.params, applyParam);
         UI.volumeRange.loadParameter(Url.params, applyParam).setChange(() => updateVolume());
         //UI.settingsButton.loadParameter(Url.params, applyParam);
-        UI.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.withFullscreenCheckbox.options.change);
-        UI.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.brightnessRange.options.change);
-        UI.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.stretchRange.options.change);
-        UI.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
-        UI.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-        UI.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
-        UI.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.imageSpanSelect.options.change);
-        UI.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
-        UI.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
-        UI.analogClockCheckbox.loadParameter(Url.params, applyParam);
-        UI.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
-        UI.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
-        UI.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
-        UI.withWeatherCheckbox.loadParameter(Url.params, applyParam);
-        UI.weatherLocationSelect.loadParameter(Url.params, applyParam).setChange(updateWeatherLocation);
-        UI.withClockCheckbox.loadParameter(Url.params, applyParam);
-        UI.withDateCheckbox.loadParameter(Url.params, applyParam);
-        UI.withCalenderCheckbox.loadParameter(Url.params, applyParam);
-        UI.withVisualizerCheckbox.loadParameter(Url.params, applyParam);
-        UI.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
-        UI.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
-        UI.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
+        UI.SettingsPanel.withFullscreenCheckbox.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.withFullscreenCheckbox.options.change);
+        UI.SettingsPanel.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.brightnessRange.options.change);
+        UI.SettingsPanel.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.stretchRange.options.change);
+        UI.SettingsPanel.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
+        UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.imageSpanSelect.options.change);
+        UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
+        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
+        UI.SettingsPanel.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
+        UI.SettingsPanel.withWeatherCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.weatherLocationSelect.loadParameter(Url.params, applyParam).setChange(updateWeatherLocation);
+        UI.SettingsPanel.withClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.withDateCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.withCalenderCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.withVisualizerCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
+        UI.SettingsPanel.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
+        UI.SettingsPanel.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
         UI.wakeUpToggle.setChange(updateWakeUp);
         UI.wakeUpSelect.loadParameter(Url.params, applyParam).setChange(updateWakeUpSelect);
         UI.fadeInSelect.loadParameter(Url.params, applyParam).setChange(() => updateFadeIn());
@@ -711,7 +712,7 @@ export namespace Events
             .forEach(label => Library.UI.showPickerOnLabel(label));
         [
             // UI.withFullscreen,
-            UI.showFpsCheckbox,
+            UI.SettingsPanel.showFpsCheckbox,
         ].forEach(i => i.fire());
         document.addEventListener
         (
@@ -746,27 +747,27 @@ export namespace Events
                 (
                     () =>
                     [
-                        UI.controlPanel.shuffle,
-                        UI.controlPanel.repeat,
-                        UI.withFullscreenCheckbox,
-                        UI.brightnessRange,
-                        UI.stretchRange,
-                        UI.paddingCheckbox,
-                        UI.crossFadeSelect,
-                        UI.crossFadeWithBlurCheckbox,
-                        UI.imageSpanSelect,
-                        UI.loopShortMediaCheckbox,
-                        UI.visualizerSelect,
-                        UI.overlayStyleSelect,
-                        UI.overlayPositionSelect,
-                        UI.withWeatherCheckbox,
-                        UI.weatherLocationSelect,
-                        UI.withClockCheckbox,
-                        UI.withDateCheckbox,
-                        UI.withCalenderCheckbox,
-                        UI.showFpsCheckbox,
-                        UI.shortcutsSelect,
-                        UI.languageSelect,
+                        UI.ControlPanel.shuffle,
+                        UI.ControlPanel.repeat,
+                        UI.SettingsPanel.withFullscreenCheckbox,
+                        UI.SettingsPanel.brightnessRange,
+                        UI.SettingsPanel.stretchRange,
+                        UI.SettingsPanel.paddingCheckbox,
+                        UI.SettingsPanel.crossFadeSelect,
+                        UI.SettingsPanel.crossFadeWithBlurCheckbox,
+                        UI.SettingsPanel.imageSpanSelect,
+                        UI.SettingsPanel.loopShortMediaCheckbox,
+                        UI.SettingsPanel.visualizerSelect,
+                        UI.SettingsPanel.overlayStyleSelect,
+                        UI.SettingsPanel.overlayPositionSelect,
+                        UI.SettingsPanel.withWeatherCheckbox,
+                        UI.SettingsPanel.weatherLocationSelect,
+                        UI.SettingsPanel.withClockCheckbox,
+                        UI.SettingsPanel.withDateCheckbox,
+                        UI.SettingsPanel.withCalenderCheckbox,
+                        UI.SettingsPanel.showFpsCheckbox,
+                        UI.SettingsPanel.shortcutsSelect,
+                        UI.SettingsPanel.languageSelect,
                         UI.wakeUpSelect,
                         UI.fadeInSelect,
                         UI.sleepSelect,
@@ -784,7 +785,7 @@ export namespace Events
             {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
                 const old = Library.Locale.getLocale();
-                Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto");
+                Library.Locale.setLocale(UI.SettingsPanel.languageSelect.get() as Library.Locale.Language | "Auto");
                 if (old !== Library.Locale.getLocale())
                 {
                     updateLanguage();

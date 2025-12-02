@@ -232,7 +232,7 @@ export class Track
         }
         if ("current" === truckType)
         {
-            if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
+            if (this.playerElement instanceof HTMLVideoElement && UI.SettingsPanel.withVisualizerCheckbox.get())
             {
                 UI.visualizer.classList.toggle("on", true);
                 UI.visualizer.classList.toggle("odd", 0 !== (this.index %2));
@@ -254,13 +254,13 @@ export class Track
     }
     isLoop(): boolean
     {
-        const loopShortMedia = UI.loopShortMediaCheckbox.get();
+        const loopShortMedia = UI.SettingsPanel.loopShortMediaCheckbox.get();
         const imageSpan = this.getImageDuration();
         return loopShortMedia && null !== this.media.duration && this.media.duration <= imageSpan;
     }
     getImageDuration(): number
     {
-        return parseFloat(UI.imageSpanSelect.get());
+        return parseFloat(UI.SettingsPanel.imageSpanSelect.get());
     }
     getDuration(): number
     {
@@ -338,9 +338,9 @@ export class Track
         {
             if (this.media.area)
             {
-                const StretchRate = UI.stretchRange.get() /100;
+                const StretchRate = UI.SettingsPanel.stretchRange.get() /100;
                 const isFit = this.appleyStretch(this.playerElement as HTMLImageElement | HTMLVideoElement, StretchRate);
-                if (UI.paddingCheckbox.get())
+                if (UI.SettingsPanel.paddingCheckbox.get())
                 {
                     if ( ! isFit)
                     {
@@ -399,7 +399,7 @@ export class Track
             }
             if ("current" === truckType)
             {
-                if (this.playerElement instanceof HTMLVideoElement && UI.withVisualizerCheckbox.get())
+                if (this.playerElement instanceof HTMLVideoElement && UI.SettingsPanel.withVisualizerCheckbox.get())
                 {
                     Visualizer.updateStretch(UI.visualizer);
                     Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);

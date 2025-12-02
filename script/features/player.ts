@@ -18,7 +18,7 @@ export namespace Player
         export let startAt: number | null = null;
         export let elapsedTime: number | null = null;
         export const getDuration = (): number =>
-            parseFloat(UI.crossFadeSelect.get());
+            parseFloat(UI.SettingsPanel.crossFadeSelect.get());
         export const clear = (): void =>
         {
             startAt = null;
@@ -94,7 +94,7 @@ export namespace Player
     {
         if (Library.UI.fullscreenEnabled)
         {
-            if (fullscreen ?? UI.withFullscreenCheckbox.get())
+            if (fullscreen ?? UI.SettingsPanel.withFullscreenCheckbox.get())
             {
                 Library.UI.requestFullscreen(document.body);
                 setTimeout(() => document.body.focus(), 100);
@@ -164,7 +164,7 @@ export namespace Player
             playMedia(currentMedia, "resume");
         }
         else
-        if ( ! UI.controlPanel.repeat.get())
+        if ( ! UI.ControlPanel.repeat.get())
         {
             pause();
         }
@@ -283,7 +283,7 @@ export namespace Player
     }
     export const updateFps = () =>
     {
-        if (UI.showFpsCheckbox.get())
+        if (UI.SettingsPanel.showFpsCheckbox.get())
         {
             Library.UI.setTextContent(UI.fpsDisplay, Fps.getText());
         }
@@ -296,7 +296,7 @@ export namespace Player
             {
                 return true;
             }
-            if (0 < parseFloat(UI.crossFadeSelect.get()))
+            if (0 < parseFloat(UI.SettingsPanel.crossFadeSelect.get()))
             {
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
@@ -317,7 +317,7 @@ export namespace Player
             {
                 if (currentTrack.selfValidate())
                 {
-                    UI.mediaLength.click();
+                    UI.SettingsPanel.mediaLength.click();
                 }
                 if (CrossFade.isCrossFading())
                 {
@@ -387,7 +387,7 @@ export namespace Player
     export const getOpacity = (trackType: TrackType): number =>
         CrossFade.getProgress(trackType);
     export const getBlur = (trackType: TrackType): number =>
-        UI.crossFadeWithBlurCheckbox.get() ?
+        UI.SettingsPanel.crossFadeWithBlurCheckbox.get() ?
             (1 -CrossFade.getProgress(trackType)):
             0;
     export const makeIndexText = (track: Track): string =>
@@ -471,7 +471,7 @@ export namespace Player
             updateCurrentTrackProperties();
             Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
-            if (0 < parseFloat(UI.crossFadeSelect.get()))
+            if (0 < parseFloat(UI.SettingsPanel.crossFadeSelect.get()))
             {
                 CrossFade.start();
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
@@ -489,7 +489,7 @@ export namespace Player
             }
             if (currentTrack.visualElement)
             {
-                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.analogClock.panel);
+                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.AnalogClock.panel);
                 currentTrack.updateStretch("current");
             }
         }

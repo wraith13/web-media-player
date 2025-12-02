@@ -16,15 +16,15 @@ export namespace UI
         Library.UI.getElementById("div", "media-screen");
     export const elementPool =
         Library.UI.getElementById("div", "element-pool");
-    export const controlPanel =
+    export namespace ControlPanel
     {
-        wakeUpButton: new Library.Control.Checkbox(control.wakeUpButton),
-        shuffle: new Library.Control.Checkbox(control.shuffle),
-        repeat: new Library.Control.Checkbox(control.repeat),
-        playButton: new Library.Control.Button({ id: "play-button", }),
-        volumeButton: new Library.Control.Checkbox(control.volumeButton),
-        settingsButton: new Library.Control.Checkbox(control.settingsButton),
-        sleepButton: new Library.Control.Checkbox(control.sleepButton),
+        export const wakeUpButton = new Library.Control.Checkbox(control.wakeUpButton);
+        export const shuffle = new Library.Control.Checkbox(control.shuffle);
+        export const repeat = new Library.Control.Checkbox(control.repeat);
+        export const playButton = new Library.Control.Button({ id: "play-button", });
+        export const volumeButton = new Library.Control.Checkbox(control.volumeButton);
+        export const settingsButton = new Library.Control.Checkbox(control.settingsButton);
+        export const sleepButton = new Library.Control.Checkbox(control.sleepButton);
     }
     export const mediaIndex =
         Library.UI.getElementById("span", "media-index");
@@ -52,122 +52,125 @@ export namespace UI
         UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight *1) +(UI.addMediaButtonHeight *0.3);
     export const progressCircle =
         Library.UI.getElementById("div", "progress-circle");
+    export namespace AnalogClock
+    {
+        export const panel = Library.UI.getElementById("time", "analog-clock-panel");
+        export const monthPanel = Library.UI.getElementById("div", "month-panel");
+        export const yearNiddle = Library.UI.getElementById("div", "year-niddle");
+        export const monthNiddle = Library.UI.getElementById("div", "month-niddle");
+        export const weekNiddle = Library.UI.getElementById("div", "week-niddle");
+        export const hoursNiddle = Library.UI.getElementById("div", "hours-niddle");
+        export const minutesNiddle = Library.UI.getElementById("div", "minutes-niddle");
+        export const secondsNiddle = Library.UI.getElementById("div", "seconds-niddle");
+        export const milliSecondsNiddle = Library.UI.getElementById("div", "milli-seconds-niddle");
+    };
     export const addMediaButton =
         new Library.Control.Button({ id: "add-media", });
     export const addMediaButtonHeight = 84;
     export const inputFile =
         Library.UI.getElementById("input", "add-file");
-    export const mediaCount =
-        Library.UI.getElementById("span", "media-count");
-    export const mediaLength =
-        Library.UI.getElementById("span", "media-length");
-    export const withFullscreenCheckbox =
-        new Library.Control.Checkbox(control.withFullscreen);
-    export const brightnessRange =
-        new Library.Control.Range(control.brightness);
-    export const stretchRange =
-        new Library.Control.Range(control.stretch);
-    export const paddingCheckbox =
-        new Library.Control.Checkbox(control.padding);
-    export const crossFadeSelect = new Library.Control.Select
-    (
-        control.crossFade,
-        {
-            makeLabel: value => value <= 0 ?
-                Library.Locale.map("off"):
-                Tools.Timespan.toHumanizedString(value, undefined, locale)
-        }
-    );
-    export const crossFadeWithBlurCheckbox =
-        new Library.Control.Checkbox(control.crossFadeWithBlur);
-    export const imageSpanSelect =
-        new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
-    export const loopShortMediaCheckbox =
-        new Library.Control.Checkbox(control.loopShortMedia);
-    export const visualizerSelect =
-        new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
-    export const analogClock =
+    export namespace SettingsPanel
     {
-        panel: Library.UI.getElementById("time", "analog-clock-panel"),
-        monthPanel: Library.UI.getElementById("div", "month-panel"),
-        yearNiddle: Library.UI.getElementById("div", "year-niddle"),
-        monthNiddle: Library.UI.getElementById("div", "month-niddle"),
-        weekNiddle: Library.UI.getElementById("div", "week-niddle"),
-        hoursNiddle: Library.UI.getElementById("div", "hours-niddle"),
-        minutesNiddle: Library.UI.getElementById("div", "minutes-niddle"),
-        secondsNiddle: Library.UI.getElementById("div", "seconds-niddle"),
-        milliSecondsNiddle: Library.UI.getElementById("div", "milli-seconds-niddle"),
-    };
-    export const analogClockCheckbox =
-        new Library.Control.Checkbox(control.analogClock);
-    export const dateHandsCheckbox =
-        new Library.Control.Checkbox(control.dateHands);
-    export const millisecondHandCheckbox =
-        new Library.Control.Checkbox(control.millisecondHand);
-    export const overlayStyleSelect =
-        new Library.Control.Select(control.overlayStyle, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const overlayPositionSelect =
-        new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const withWeatherCheckbox =
-        new Library.Control.Checkbox(control.withWeather);
-    export const weatherLocationSelect =
-        new Library.Control.Select(control.weatherLocation, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-    export const withClockCheckbox =
-        new Library.Control.Checkbox(control.withClock);
-    export const withDateCheckbox =
-        new Library.Control.Checkbox(control.withDate);
-    export const withCalenderCheckbox =
-        new Library.Control.Checkbox(control.withCalendar);
-    export const withVisualizerCheckbox =
-        new Library.Control.Checkbox(control.withVisualizer);
-    export const showFpsCheckbox =
-        new Library.Control.Checkbox(control.showFps);
-    export const getDefaultShortcut = (): keyof typeof shortcuts =>
-    {
-        switch(true)
-        {
-            case Tools.Environment.isWindows():
-                return "windows";
-            case Tools.Environment.isApple():
-                return "apple";
-            default:
-                return "youtube";
-        }
-    };
-    export const shortcutsSelect = new Library.Control.Select
-    (
-        {
-            id: "shortcuts",
-            enum: Object.keys(shortcuts),
-            default: getDefaultShortcut(),
-        },
-        {
-            makeLabel: i => shortcuts[i as keyof typeof shortcuts].label,
-        }
-    );
-    export const languageSelect =
-        new Library.Control.Select
+        export const mediaCount =
+            Library.UI.getElementById("span", "media-count");
+        export const mediaLength =
+            Library.UI.getElementById("span", "media-length");
+        export const withFullscreenCheckbox =
+            new Library.Control.Checkbox(control.withFullscreen);
+        export const brightnessRange =
+            new Library.Control.Range(control.brightness);
+        export const stretchRange =
+            new Library.Control.Range(control.stretch);
+        export const paddingCheckbox =
+            new Library.Control.Checkbox(control.padding);
+        export const crossFadeSelect = new Library.Control.Select
         (
+            control.crossFade,
             {
-                id: control.language.id,
-                enum: Library.Locale.getLocaleList(),
-                default: control.language.default,
-            },
-            {
-                makeLabel: i => "Auto" === i ?
-                    Library.Locale.map("Auto"):
-                    (
-                        `${i}: `
-                        +Library.Locale.toRtl
-                        (
-                            Library.Locale.map("lang-label", i as Library.Locale.Language),
-                            Library.Locale.isRtl() && Library.Locale.isLtr(i as Library.Locale.Language)
-                        )
-                    ),
+                makeLabel: value => value <= 0 ?
+                    Library.Locale.map("off"):
+                    Tools.Timespan.toHumanizedString(value, undefined, locale)
             }
         );
-    export const urlAnchor =
-        Library.UI.getElementById("a", "url");
+        export const crossFadeWithBlurCheckbox =
+            new Library.Control.Checkbox(control.crossFadeWithBlur);
+        export const imageSpanSelect =
+            new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
+        export const loopShortMediaCheckbox =
+            new Library.Control.Checkbox(control.loopShortMedia);
+        export const visualizerSelect =
+            new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
+        export const analogClockCheckbox =
+            new Library.Control.Checkbox(control.analogClock);
+        export const dateHandsCheckbox =
+            new Library.Control.Checkbox(control.dateHands);
+        export const millisecondHandCheckbox =
+            new Library.Control.Checkbox(control.millisecondHand);
+        export const overlayStyleSelect =
+            new Library.Control.Select(control.overlayStyle, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+        export const overlayPositionSelect =
+            new Library.Control.Select(control.overlayPosition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+        export const withWeatherCheckbox =
+            new Library.Control.Checkbox(control.withWeather);
+        export const weatherLocationSelect =
+            new Library.Control.Select(control.weatherLocation, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+        export const withClockCheckbox =
+            new Library.Control.Checkbox(control.withClock);
+        export const withDateCheckbox =
+            new Library.Control.Checkbox(control.withDate);
+        export const withCalenderCheckbox =
+            new Library.Control.Checkbox(control.withCalendar);
+        export const withVisualizerCheckbox =
+            new Library.Control.Checkbox(control.withVisualizer);
+        export const showFpsCheckbox =
+            new Library.Control.Checkbox(control.showFps);
+        export const getDefaultShortcut = (): keyof typeof shortcuts =>
+        {
+            switch(true)
+            {
+                case Tools.Environment.isWindows():
+                    return "windows";
+                case Tools.Environment.isApple():
+                    return "apple";
+                default:
+                    return "youtube";
+            }
+        };
+        export const shortcutsSelect = new Library.Control.Select
+        (
+            {
+                id: "shortcuts",
+                enum: Object.keys(shortcuts),
+                default: getDefaultShortcut(),
+            },
+            {
+                makeLabel: i => shortcuts[i as keyof typeof shortcuts].label,
+            }
+        );
+        export const languageSelect =
+            new Library.Control.Select
+            (
+                {
+                    id: control.language.id,
+                    enum: Library.Locale.getLocaleList(),
+                    default: control.language.default,
+                },
+                {
+                    makeLabel: i => "Auto" === i ?
+                        Library.Locale.map("Auto"):
+                        (
+                            `${i}: `
+                            +Library.Locale.toRtl
+                            (
+                                Library.Locale.map("lang-label", i as Library.Locale.Language),
+                                Library.Locale.isRtl() && Library.Locale.isLtr(i as Library.Locale.Language)
+                            )
+                        ),
+                }
+            );
+        export const urlAnchor =
+            Library.UI.getElementById("a", "url");
+    }
     export const fpsDisplay =
         Library.UI.getElementById("div", "fps");
     export const overlay =
@@ -231,20 +234,20 @@ export namespace UI
     };
     export const updateLanguage = () =>
     {
-        Library.Locale.setLocale(UI.languageSelect.get() as Library.Locale.Language | "Auto", Url.params["locale"]);
+        Library.Locale.setLocale(UI.SettingsPanel.languageSelect.get() as Library.Locale.Language | "Auto", Url.params["locale"]);
         const lang = Library.Locale.getLocale();
         document.documentElement.setAttribute("lang", lang);
         const localeDirection = Library.Locale.getDirection(lang);
         document.documentElement.setAttribute("dir", localeDirection);
         Library.Shortcuts.setLocaleDirection(localeDirection);
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
-        UI.crossFadeSelect.reloadOptions();
-        UI.imageSpanSelect.reloadOptions();
-        UI.visualizerSelect.reloadOptions();
-        UI.overlayStyleSelect.reloadOptions();
-        UI.overlayPositionSelect.reloadOptions();
-        UI.weatherLocationSelect.reloadOptions();
-        UI.languageSelect.reloadOptions();
+        UI.SettingsPanel.crossFadeSelect.reloadOptions();
+        UI.SettingsPanel.imageSpanSelect.reloadOptions();
+        UI.SettingsPanel.visualizerSelect.reloadOptions();
+        UI.SettingsPanel.overlayStyleSelect.reloadOptions();
+        UI.SettingsPanel.overlayPositionSelect.reloadOptions();
+        UI.SettingsPanel.weatherLocationSelect.reloadOptions();
+        UI.SettingsPanel.languageSelect.reloadOptions();
         UI.wakeUpSelect.reloadOptions();
         UI.fadeInSelect.reloadOptions();
         UI.sleepSelect.reloadOptions();
@@ -311,9 +314,9 @@ export namespace UI
     {
         locale = params["locale"];
         noscript.style.setProperty("display", "none");
-        if ( ! Library.UI.fullscreenEnabled && withFullscreenCheckbox.dom.parentElement)
+        if ( ! Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement)
         {
-            withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
+            SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
@@ -337,10 +340,10 @@ export namespace UI
     };
     export const popupCheckboxList =
     [
-        controlPanel.volumeButton,
-        controlPanel.settingsButton,
-        controlPanel.wakeUpButton,
-        controlPanel.sleepButton,
+        ControlPanel.volumeButton,
+        ControlPanel.settingsButton,
+        ControlPanel.wakeUpButton,
+        ControlPanel.sleepButton,
     ];
     export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked?: boolean): void =>
     {

@@ -52,7 +52,7 @@ export namespace History
             {
                 clear();
                 const index = Media.mediaList.indexOf(media);
-                if (UI.controlPanel.shuffle.get())
+                if (UI.ControlPanel.shuffle.get())
                 {
                     history.push(index);
                     currentIndex = 0;
@@ -92,7 +92,7 @@ export namespace History
             if (history.length <= currentIndex)
             {
                 currentIndex = history.length;
-                if (UI.controlPanel.shuffle.get())
+                if (UI.ControlPanel.shuffle.get())
                 {
                     history.push(getShuffleNext());
                 }
@@ -114,7 +114,7 @@ export namespace History
             (
                 nextIndex < Media.mediaList.length ||
                 0 < getStraightNext(nextIndex) ||
-                UI.controlPanel.repeat.get()
+                UI.ControlPanel.repeat.get()
             )
             {
                 return false;

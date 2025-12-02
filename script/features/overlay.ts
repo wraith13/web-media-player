@@ -12,16 +12,16 @@ export namespace Overlay
     export let subtitle: string | undefined = undefined;
     export const updateAnalogClock = (date: Date): void =>
     {
-        const isAnalogClockEnabled = UI.analogClockCheckbox.get();
-        const isDateHandsEnabled = UI.dateHandsCheckbox.get();
-        const isMillisecondHandEnabled = UI.millisecondHandCheckbox.get();
-        UI.analogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
-        UI.analogClock.yearNiddle.classList.toggle("hide", ! isDateHandsEnabled);
-        UI.analogClock.monthNiddle.classList.toggle("hide", ! isDateHandsEnabled);
-        UI.analogClock.weekNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+        const isAnalogClockEnabled = UI.SettingsPanel.analogClockCheckbox.get();
+        const isDateHandsEnabled = UI.SettingsPanel.dateHandsCheckbox.get();
+        const isMillisecondHandEnabled = UI.SettingsPanel.millisecondHandCheckbox.get();
+        UI.AnalogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
+        UI.AnalogClock.yearNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+        UI.AnalogClock.monthNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+        UI.AnalogClock.weekNiddle.classList.toggle("hide", ! isDateHandsEnabled);
         if (isAnalogClockEnabled)
         {
-            UI.analogClock.milliSecondsNiddle.classList.toggle("hide", ! isMillisecondHandEnabled);
+            UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", ! isMillisecondHandEnabled);
             const milliSeconds = date.getMilliseconds();
             const seconds = date.getSeconds() + (milliSeconds /1000);
             const minutes = date.getMinutes() + (seconds /60);
@@ -41,21 +41,21 @@ export namespace Overlay
                 const yearAngle = year /12;
                 [28, 29, 30, 31].forEach(days =>
                 {
-                    UI.analogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
+                    UI.AnalogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
                 });
-                Library.UI.setStyle(UI.analogClock.weekNiddle, "--progress", `${weekAngle}`);
-                Library.UI.setStyle(UI.analogClock.monthNiddle, "--progress", `${monthAngle}`);
-                Library.UI.setStyle(UI.analogClock.yearNiddle, "--progress", `${yearAngle}`);
+                Library.UI.setStyle(UI.AnalogClock.weekNiddle, "--progress", `${weekAngle}`);
+                Library.UI.setStyle(UI.AnalogClock.monthNiddle, "--progress", `${monthAngle}`);
+                Library.UI.setStyle(UI.AnalogClock.yearNiddle, "--progress", `${yearAngle}`);
             }
-            Library.UI.setStyle(UI.analogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
-            Library.UI.setStyle(UI.analogClock.secondsNiddle, "--progress", `${secondsAngle}`);
-            Library.UI.setStyle(UI.analogClock.minutesNiddle, "--progress", `${minutesAngle}`);
-            Library.UI.setStyle(UI.analogClock.hoursNiddle, "--progress", `${hoursAngle}`);
-            Library.UI.setAttribute(UI.analogClock.panel, "datatime", date.toISOString());
+            Library.UI.setStyle(UI.AnalogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
+            Library.UI.setStyle(UI.AnalogClock.secondsNiddle, "--progress", `${secondsAngle}`);
+            Library.UI.setStyle(UI.AnalogClock.minutesNiddle, "--progress", `${minutesAngle}`);
+            Library.UI.setStyle(UI.AnalogClock.hoursNiddle, "--progress", `${hoursAngle}`);
+            Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString());
         }
         else
         {
-            Library.UI.setAttribute(UI.analogClock.panel, "datatime", undefined);
+            Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", undefined);
         }
     }
     export const makeDate = (date: Date, locale: string | undefined): string =>
@@ -86,7 +86,7 @@ export namespace Overlay
     };
     export const updateWeather = (): void =>
     {
-        if (UI.withWeatherCheckbox.get())
+        if (UI.SettingsPanel.withWeatherCheckbox.get())
         {
             const weather = Weather.get();
             if (UI.weather.attributes.getNamedItem("data-weather")?.value !== weather)
@@ -121,7 +121,7 @@ export namespace Overlay
     };
     export const updateTime = (date: Date): void =>
     {
-        if (UI.withClockCheckbox.get())
+        if (UI.SettingsPanel.withClockCheckbox.get())
         {
             Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
             Library.UI.setAttribute(UI.time, "datatime", makeTime(date, "ja-JP"));
@@ -134,7 +134,7 @@ export namespace Overlay
     };
     export const updateDate = (date: Date): void =>
     {
-        if (UI.withDateCheckbox.get())
+        if (UI.SettingsPanel.withDateCheckbox.get())
         {
             Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, locale));
             Library.UI.setAttribute(UI.date, "datatime", date.toISOString().slice(0, 10));
@@ -147,7 +147,7 @@ export namespace Overlay
     };
     export const updateCalendar = (date: Date): void =>
     {
-        const dateDate = UI.withCalenderCheckbox.get() ? makeDate(date, locale): "";
+        const dateDate = UI.SettingsPanel.withCalenderCheckbox.get() ? makeDate(date, locale): "";
         if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
         {
             const attribute = document.createAttribute("data-date");
@@ -203,7 +203,7 @@ export namespace Overlay
     };
     export const update = (now: number) =>
     {
-        const overlayOption = UI.overlayStyleSelect.get();
+        const overlayOption = UI.SettingsPanel.overlayStyleSelect.get();
         if ("hide" !== overlayOption)
         {
             const date = new Date();

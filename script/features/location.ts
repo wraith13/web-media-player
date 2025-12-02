@@ -31,7 +31,7 @@ export namespace Location
     };
     export const get = (): string | undefined =>
     {
-        if ("geolocation" === UI.weatherLocationSelect.get())
+        if ("geolocation" === UI.SettingsPanel.weatherLocationSelect.get())
         {
             return coords;
         }

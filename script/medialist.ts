@@ -183,10 +183,10 @@ export namespace MediaList
     };
     export const updateInformationDisplay = (): void =>
     {
-        Library.UI.setTextContent(UI.mediaCount, Media.mediaList.length.toLocaleString(locale));
-        const imageSpan = parseInt(UI.imageSpanSelect.get());
+        Library.UI.setTextContent(UI.SettingsPanel.mediaCount, Media.mediaList.length.toLocaleString(locale));
+        const imageSpan = parseInt(UI.SettingsPanel.imageSpanSelect.get());
         const totalDuration = Media.mediaList.reduce((sum, entry) => sum + (entry.duration ?? imageSpan), 0);
-        Library.UI.setTextContent(UI.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration, locale));
+        Library.UI.setTextContent(UI.SettingsPanel.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration, locale));
     };
     export const updateNoMediaLabel = () =>
     {
