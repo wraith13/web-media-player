@@ -454,6 +454,7 @@
     @include full-stretch-box();
     mix-blend-mode: difference;
     position: fixed;
+    --niddle-color: white;
     div
     {
         position: fixed;
@@ -461,84 +462,74 @@
         left: 50%;
         translate: -50% -50%;
         border-radius: 50%;
-        border-width: calc(var(--short-side) * 0.25);
-        border-color: black;
-        border-style: solid;
+        // border-width: calc(var(--short-side) * 0.25);
+        // border-color: transparent;
+        // border-style: solid;
         &#milli-seconds-niddle
         {
-            @include clock-niddle();
+            @include clock-niddle(var(--niddle-color));
             @include fade-transition("&.hide");
-            width: calc(var(--short-side) * 96);
-            height: calc(var(--short-side) * 96);
+            @include circle-size(96);
+            @include center-mask(95);
         }
         &#seconds-niddle
         {
-            @include clock-niddle();
-            width: calc(var(--short-side) * 95);
-            height: calc(var(--short-side) * 95);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(95);
+            @include center-mask(85);
         }
         &#minutes-niddle
         {
-            @include clock-niddle();
-            width: calc(var(--short-side) * 85);
-            height: calc(var(--short-side) * 85);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(85);
+            @include center-mask(70);
         }
         &#scale60-panel
         {
             --scale-width: calc(var(--short-side) * 0.2);
             --scale-color: rgba(0, 0, 0, 0.3);
-            width: calc(var(--short-side) * 95);
-            height: calc(var(--short-side) * 95);
+            @include circle-size(95);
             @include scale-gradients(30);
         }
         &#hours-niddle
         {
-            @include clock-niddle();
-            width: calc(var(--short-side) * 70);
-            height: calc(var(--short-side) * 70);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(70);
+            @include center-mask(55);
         }
         &#scale12-panel
         {
             --scale-width: calc(var(--short-side) * 0.3);
             --scale-color: rgba(0, 0, 0, 0.7);
-            width: calc(var(--short-side) * 95);
-            height: calc(var(--short-side) * 95);
+            @include circle-size(95);
             @include scale-gradients(6);
-        }
-        &#center-circle
-        {
-            background-color: black;
-            width: calc(var(--short-side) * 55);
-            height: calc(var(--short-side) * 55);
         }
         &#week-niddle
         {
             @include fade-transition("&.hide");
-            @include clock-niddle();
-            width: calc(var(--short-side) * 55);
-            height: calc(var(--short-side) * 55);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(55);
+            @include center-mask(50);
         }
         &#week-panel
         {
             --line-angle: 1.25deg;
             --scale-color: rgba(0, 0, 0, 0.5);
-            width: calc(var(--short-side) * 55);
-            height: calc(var(--short-side) * 55);
+            @include circle-size(55);
             @include radial-lines(7);
         }
         &#month-niddle
         {
             @include fade-transition("&.hide");
-            @include clock-niddle();
-            width: calc(var(--short-side) * 50);
-            height: calc(var(--short-side) * 50);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(50);
+            @include center-mask(40);
         }
         &#month-panel
         {
             --line-angle: 1.0deg;
             --scale-color: rgba(0, 0, 0, 0.5);
-            width: calc(var(--short-side) * 50);
-            height: calc(var(--short-side) * 50);
+            @include circle-size(50);
             &.days28 { @include radial-lines(28); }
             &.days29 { @include radial-lines(29); }
             &.days30 { @include radial-lines(30); }
@@ -547,23 +538,16 @@
         &#year-niddle
         {
             @include fade-transition("&.hide");
-            @include clock-niddle();
-            width: calc(var(--short-side) * 40);
-            height: calc(var(--short-side) * 40);
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(40);
+            @include center-mask(30);
         }
         &#year-panel
         {
             --scale-width: calc(var(--short-side) * 0.3);
             --scale-color: rgba(0, 0, 0, 0.7);
-            width: calc(var(--short-side) * 40);
-            height: calc(var(--short-side) * 40);
+            @include circle-size(40);
             @include scale-gradients(6);
-        }
-        &#dates-center-circle
-        {
-            background-color: black;
-            width: calc(var(--short-side) * 30);
-            height: calc(var(--short-side) * 30);
         }
     }
 }

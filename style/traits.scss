@@ -282,8 +282,19 @@
 }
 @mixin clock-niddle($niddle-color)
 {
-    background: conic-gradient(transparent, transparent calc(0.75 * 360deg), $niddle-color 360deg);
-    transform: rotate(calc(var(--progress) * 360deg));
+    $trailer-rate: 0.75;
+    background: conic-gradient(from calc(var(--progress) * 360deg), transparent 0deg, transparent calc($trailer-rate * 360deg), $niddle-color 360deg);
+}
+@mixin center-mask($size)
+{
+    $instead-of-border-line: 0.25;
+    mask-image: radial-gradient(circle at center, transparent calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5), white calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5));
+}
+@mixin circle-size($size)
+{
+    width: calc(var(--short-side) * $size);
+    height: calc(var(--short-side) * $size);
+    border-radius: 50%;
 }
 @mixin focus-halo()
 {
