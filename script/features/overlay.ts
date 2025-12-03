@@ -41,7 +41,7 @@ export namespace Overlay
                 const yearAngle = year /12;
                 [28, 29, 30, 31].forEach(days =>
                 {
-                    UI.AnalogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
+                    UI.AnalogClock.monthNiddle.classList.toggle(`days${days}`, daysOfThisMonth === days);
                 });
                 Library.UI.setStyle(UI.AnalogClock.weekNiddle, "--progress", `${weekAngle}`);
                 Library.UI.setStyle(UI.AnalogClock.monthNiddle, "--progress", `${monthAngle}`);

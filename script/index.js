@@ -4030,7 +4030,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         var AnalogClock;
         (function (AnalogClock) {
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
-            AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
             AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
             AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
             AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
@@ -4432,7 +4431,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var monthAngle = month / daysOfThisMonth_1;
                     var yearAngle = year / 12;
                     [28, 29, 30, 31].forEach(function (days) {
-                        ui_4.UI.AnalogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                        ui_4.UI.AnalogClock.monthNiddle.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
                     });
                     library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.weekNiddle, "--progress", "".concat(weekAngle));
                     library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.monthNiddle, "--progress", "".concat(monthAngle));

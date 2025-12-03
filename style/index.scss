@@ -455,99 +455,76 @@
     mix-blend-mode: difference;
     position: fixed;
     --niddle-color: white;
+    --clock-scale-panel-color: white;
+    --clock-scale-panel-border-color: black;
     div
     {
+        @include fade-transition("&.hide");
         position: fixed;
         top: 50%;
         left: 50%;
         translate: -50% -50%;
         border-radius: 50%;
-        // border-width: calc(var(--short-side) * 0.25);
-        // border-color: transparent;
-        // border-style: solid;
+        mask-composite: intersect;
+        -webkit-mask-composite: source-in;;
         &#milli-seconds-niddle
         {
-            @include clock-niddle(var(--niddle-color));
-            @include fade-transition("&.hide");
             @include circle-size(96);
-            @include center-mask(95);
+            background: clock-scale-panel(95, 96);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(95);
         }
         &#seconds-niddle
         {
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(95);
-            @include center-mask(85);
+            --scale-width: calc(var(--short-side) * 0.2);
+            --scale-color: rgba(0, 0, 0, 0.3);
+            background: scale-gradients(30), clock-scale-panel(85, 95);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(85);
         }
         &#minutes-niddle
         {
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(85);
-            @include center-mask(70);
-        }
-        &#scale60-panel
-        {
             --scale-width: calc(var(--short-side) * 0.2);
             --scale-color: rgba(0, 0, 0, 0.3);
-            @include circle-size(95);
-            @include scale-gradients(30);
+            background: scale-gradients(30), clock-scale-panel(70, 85);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(70);
+
         }
         &#hours-niddle
         {
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(70);
-            @include center-mask(55);
-        }
-        &#scale12-panel
-        {
             --scale-width: calc(var(--short-side) * 0.3);
             --scale-color: rgba(0, 0, 0, 0.7);
-            @include circle-size(95);
-            @include scale-gradients(6);
+            background: scale-gradients(6), clock-scale-panel(55, 70);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(55);
         }
         &#week-niddle
         {
-            @include fade-transition("&.hide");
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(55);
-            @include center-mask(50);
-        }
-        &#week-panel
-        {
             --line-angle: 1.25deg;
             --scale-color: rgba(0, 0, 0, 0.5);
-            @include circle-size(55);
-            @include radial-lines(7);
+            background: radial-lines(7), clock-scale-panel(50, 55);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(50);
         }
         &#month-niddle
         {
-            @include fade-transition("&.hide");
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(50);
-            @include center-mask(40);
-        }
-        &#month-panel
-        {
             --line-angle: 1.0deg;
             --scale-color: rgba(0, 0, 0, 0.5);
-            @include circle-size(50);
-            &.days28 { @include radial-lines(28); }
-            &.days29 { @include radial-lines(29); }
-            &.days30 { @include radial-lines(30); }
-            &.days31 { @include radial-lines(31); }
+            background: radial-lines(31), clock-scale-panel(40, 50);
+            &.days28 { background: radial-lines(31), clock-scale-panel(40, 50); }
+            &.days29 { background: radial-lines(31), clock-scale-panel(40, 50); }
+            &.days30 { background: radial-lines(31), clock-scale-panel(40, 50); }
+            &.days31 { background: radial-lines(31), clock-scale-panel(40, 50); }
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(40);
         }
         &#year-niddle
         {
-            @include fade-transition("&.hide");
-            @include clock-niddle(var(--niddle-color));
             @include circle-size(40);
-            @include center-mask(30);
-        }
-        &#year-panel
-        {
             --scale-width: calc(var(--short-side) * 0.3);
             --scale-color: rgba(0, 0, 0, 0.7);
-            @include circle-size(40);
-            @include scale-gradients(6);
+            background: scale-gradients(6), clock-scale-panel(30, 40);
+            mask-image: clock-niddle(var(--niddle-color)), center-mask(30);
         }
     }
 }

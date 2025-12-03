@@ -280,15 +280,20 @@
     border-radius: 50%;
     background: conic-gradient($color calc(var(--progress) * 360deg), $color calc(var(--progress) * 360deg), $background-color calc(var(--progress) * 360deg));
 }
-@mixin clock-niddle($niddle-color)
+@mixin focus-halo()
+{
+    filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
+}
+@function center-mask($size)
+{
+    // $instead-of-border-line: 0.25;
+    // @return radial-gradient(circle at center, transparent calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5), white calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5));
+    @return radial-gradient(circle at center, transparent calc(var(--short-side) * $size * 0.5), white calc(var(--short-side) * $size * 0.5));
+}
+@function clock-niddle($niddle-color)
 {
     $trailer-rate: 0.75;
-    background: conic-gradient(from calc(var(--progress) * 360deg), transparent 0deg, transparent calc($trailer-rate * 360deg), $niddle-color 360deg);
-}
-@mixin center-mask($size)
-{
-    $instead-of-border-line: 0.25;
-    mask-image: radial-gradient(circle at center, transparent calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5), white calc(var(--short-side) * ($size + $instead-of-border-line) * 0.5));
+    @return conic-gradient(from calc(var(--progress) * 360deg), transparent 0deg, transparent calc($trailer-rate * 360deg), $niddle-color 360deg);
 }
 @mixin circle-size($size)
 {
@@ -296,13 +301,24 @@
     height: calc(var(--short-side) * $size);
     border-radius: 50%;
 }
-@mixin focus-halo()
+@function clock-scale-panel($inner-size, $outer-size)
 {
-    filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
+    $instead-of-border-line: 0.3;
+    @return radial-gradient(
+        circle at center,
+        transparent calc(var(--short-side) * $inner-size * 0.5),
+        var(--clock-scale-panel-border-color) calc(var(--short-side) * $inner-size * 0.5),
+        var(--clock-scale-panel-border-color) calc(var(--short-side) * ($inner-size + $instead-of-border-line) * 0.5),
+        var(--clock-scale-panel-color) calc(var(--short-side) * ($inner-size + $instead-of-border-line) * 0.5),
+        var(--clock-scale-panel-color) calc(var(--short-side) * ($outer-size - $instead-of-border-line) * 0.5),
+        var(--clock-scale-panel-border-color) calc(var(--short-side) * ($outer-size - $instead-of-border-line) * 0.5),
+        var(--clock-scale-panel-border-color) calc(var(--short-side) * $outer-size * 0.5),
+        transparent calc(var(--short-side) * $outer-size * 0.5)
+    );
 }
-@mixin scale-gradients($count, $start-angle: 0deg) {
+@function scale-gradients($count, $start-angle: 0deg) {
     @if $count <= 0 {
-        background: none;
+        @return none;
     } @else {
         $grads: ();
         $step: math.div(180deg, $count);
@@ -320,13 +336,13 @@
                 comma
             );
         }
-        background: $grads;
+        @return $grads;
     }
 }
-@mixin radial-lines($count)
+@function radial-lines($count)
 {
     @if $count <= 0 {
-        background: none;
+        @return none;
     } @else {
         $bg-list: ();
         $step: math.div(360deg, $count);
@@ -335,9 +351,6 @@
             $grad: conic-gradient(from calc(#{$angle} - (var(--line-angle) / 2)), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
             $bg-list: list.append($bg-list, $grad, comma);
         }
-        background: $bg-list;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+        @return $bg-list;
     }
 }

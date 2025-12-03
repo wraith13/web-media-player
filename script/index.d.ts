@@ -3301,7 +3301,6 @@ declare module "script/ui" {
         const progressCircle: HTMLDivElement;
         namespace AnalogClock {
             const panel: HTMLTimeElement;
-            const monthPanel: HTMLDivElement;
             const yearNiddle: HTMLDivElement;
             const monthNiddle: HTMLDivElement;
             const weekNiddle: HTMLDivElement;
