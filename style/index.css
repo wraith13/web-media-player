@@ -900,6 +900,9 @@ body.list #analog-clock-panel:not(.show)::before {
   left: 50%;
   translate: -50% -50%;
   border-radius: 50%;
+  border-width: calc(var(--short-side) * 0.25);
+  border-color: black;
+  border-style: solid;
 }
 #analog-clock-panel div#milli-seconds-niddle {
   background: conic-gradient(black, black 270deg, white 360deg);

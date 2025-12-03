@@ -280,9 +280,9 @@
     border-radius: 50%;
     background: conic-gradient($color calc(var(--progress) * 360deg), $color calc(var(--progress) * 360deg), $background-color calc(var(--progress) * 360deg));
 }
-@mixin clock-niddle()
+@mixin clock-niddle($niddle-color)
 {
-    background: conic-gradient(black, black calc(0.75 * 360deg), white 360deg);
+    background: conic-gradient(transparent, transparent calc(0.75 * 360deg), $niddle-color 360deg);
     transform: rotate(calc(var(--progress) * 360deg));
 }
 @mixin focus-halo()

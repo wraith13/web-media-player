@@ -3284,14 +3284,16 @@ declare module "script/ui" {
             const settingsButton: Library.Control.Checkbox;
             const sleepButton: Library.Control.Checkbox;
         }
-        const mediaIndex: HTMLSpanElement;
-        const mediaTitle: HTMLSpanElement;
-        const mediaTime: HTMLSpanElement;
-        const seekRange: HTMLInputElement;
-        const nextButton: Library.Control.Button<HTMLElement>;
-        const backBUtton: Library.Control.Button<HTMLElement>;
-        const fastForwardButton: Library.Control.Button<HTMLElement>;
-        const rewindButton: Library.Control.Button<HTMLElement>;
+        namespace TransportPanel {
+            const mediaIndex: HTMLSpanElement;
+            const mediaTitle: HTMLSpanElement;
+            const mediaTime: HTMLSpanElement;
+            const seekRange: HTMLInputElement;
+            const nextButton: Library.Control.Button<HTMLElement>;
+            const backBUtton: Library.Control.Button<HTMLElement>;
+            const fastForwardButton: Library.Control.Button<HTMLElement>;
+            const rewindButton: Library.Control.Button<HTMLElement>;
+        }
         const volumeLabel: HTMLLabelElement;
         const volumeRange: Library.Control.Range;
         const mediaList: HTMLDivElement;

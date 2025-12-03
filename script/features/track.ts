@@ -245,11 +245,11 @@ export class Track
         }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
         {
-            UI.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
+            UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
         }
         else
         {
-            UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+            UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
         }
     }
     isLoop(): boolean

@@ -299,7 +299,7 @@ export namespace Events
             if (Features.Player.isPlaying())
             {
                 Features.Player.temporaryResume();
-                Features.Player.seek(UI.seekRange.valueAsNumber);
+                Features.Player.seek(UI.TransportPanel.seekRange.valueAsNumber);
             }
         },
         500
@@ -307,7 +307,7 @@ export namespace Events
     const updateSeek = () =>
     {
         isSeekingTimer.kick();
-        Features.Player.seek(UI.seekRange.valueAsNumber);
+        Features.Player.seek(UI.TransportPanel.seekRange.valueAsNumber);
     };
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
@@ -407,7 +407,7 @@ export namespace Events
             },
             "seekBackward":
             {
-                control: UI.rewindButton.dom,
+                control: UI.TransportPanel.rewindButton.dom,
                 fire: () =>
                 {
                     Features.Player.rewind();
@@ -415,7 +415,7 @@ export namespace Events
             },
             "seekForward":
             {
-                control: UI.fastForwardButton.dom,
+                control: UI.TransportPanel.fastForwardButton.dom,
                 fire: () =>
                 {
                     Features.Player.fastForward();
@@ -423,12 +423,12 @@ export namespace Events
             },
             "goPreviousMedia":
             {
-                control: UI.backBUtton.dom,
+                control: UI.TransportPanel.backBUtton.dom,
                 fire: () => Features.Player.previous()
             },
             "goNextMedia":
             {
-                control: UI.nextButton.dom,
+                control: UI.TransportPanel.nextButton.dom,
                 fire: () => Features.Player.next()
             },
             "toggleFullscreen":
@@ -513,25 +513,25 @@ export namespace Events
                 Features.Player.play();
             }
         };
-        UI.nextButton.data.click = (event, button) =>
+        UI.TransportPanel.nextButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             Features.Player.next();
         };
-        UI.backBUtton.data.click = (event, button) =>
+        UI.TransportPanel.backBUtton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             Features.Player.previous();
         }
-        UI.fastForwardButton.data.click = (event, button) =>
+        UI.TransportPanel.fastForwardButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
             Features.Player.fastForward();
         };
-        UI.rewindButton.data.click = (event, button) =>
+        UI.TransportPanel.rewindButton.data.click = (event, button) =>
         {
             event?.stopPropagation();
             button.dom.blur();
@@ -622,7 +622,7 @@ export namespace Events
             console.log("🔁 Loop short media changed:", UI.SettingsPanel.loopShortMediaCheckbox.get());
             updateLoopShortMedia();
         };
-        UI.mediaTitle.addEventListener
+        UI.TransportPanel.mediaTitle.addEventListener
         (
             "click",
             event =>
@@ -631,7 +631,7 @@ export namespace Events
                 document.body.classList.toggle("show-seek-bar");
             }
         );
-        UI.mediaTime.addEventListener
+        UI.TransportPanel.mediaTime.addEventListener
         (
             "click",
             event =>
@@ -659,9 +659,9 @@ export namespace Events
             }
         );
         Library.Shortcuts.setPressedKeyDiv(UI.pressedKey);
-        UI.seekRange.addEventListener("click", event => event.stopPropagation());
-        UI.seekRange.addEventListener("change", updateSeek);
-        UI.seekRange.addEventListener("input", updateSeek);
+        UI.TransportPanel.seekRange.addEventListener("click", event => event.stopPropagation());
+        UI.TransportPanel.seekRange.addEventListener("change", updateSeek);
+        UI.TransportPanel.seekRange.addEventListener("input", updateSeek);
         UI.ControlPanel.shuffle.loadParameter(Url.params, applyParam);
         UI.ControlPanel.repeat.loadParameter(Url.params, applyParam);
         //UI.volumeButton.loadParameter(Url.params, applyParam);

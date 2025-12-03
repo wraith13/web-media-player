@@ -26,22 +26,25 @@ export namespace UI
         export const settingsButton = new Library.Control.Checkbox(control.settingsButton);
         export const sleepButton = new Library.Control.Checkbox(control.sleepButton);
     }
-    export const mediaIndex =
-        Library.UI.getElementById("span", "media-index");
-    export const mediaTitle =
-        Library.UI.getElementById("span", "media-title");
-    export const mediaTime =
-        Library.UI.getElementById("span", "media-time");
-    export const seekRange =
-        Library.UI.getElementById("input", "seek");
-    export const nextButton =
-        new Library.Control.Button({ id: "next-button", });
-    export const backBUtton =
-        new Library.Control.Button({ id: "back-button", });
-    export const fastForwardButton =
-        new Library.Control.Button({ id: "fast-forward-button", });
-    export const rewindButton =
-        new Library.Control.Button({ id: "rewind-button", });
+    export namespace TransportPanel
+    {
+        export const mediaIndex =
+            Library.UI.getElementById("span", "media-index");
+        export const mediaTitle =
+            Library.UI.getElementById("span", "media-title");
+        export const mediaTime =
+            Library.UI.getElementById("span", "media-time");
+        export const seekRange =
+            Library.UI.getElementById("input", "seek");
+        export const nextButton =
+            new Library.Control.Button({ id: "next-button", });
+        export const backBUtton =
+            new Library.Control.Button({ id: "back-button", });
+        export const fastForwardButton =
+            new Library.Control.Button({ id: "fast-forward-button", });
+        export const rewindButton =
+            new Library.Control.Button({ id: "rewind-button", });
+    }
     export const volumeLabel =
         Library.UI.querySelector("label", "label[for='volume-button']");
     export const volumeRange =

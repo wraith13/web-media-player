@@ -4009,14 +4009,17 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
             ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
-        UI.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
-        UI.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
-        UI.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
-        UI.seekRange = _library_2.Library.UI.getElementById("input", "seek");
-        UI.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
-        UI.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
-        UI.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
-        UI.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
+        var TransportPanel;
+        (function (TransportPanel) {
+            TransportPanel.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
+            TransportPanel.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
+            TransportPanel.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
+            TransportPanel.seekRange = _library_2.Library.UI.getElementById("input", "seek");
+            TransportPanel.nextButton = new _library_2.Library.Control.Button({ id: "next-button", });
+            TransportPanel.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
+            TransportPanel.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
+            TransportPanel.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
+        })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
@@ -5806,10 +5809,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
-                ui_8.UI.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
+                ui_8.UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
             }
             else {
-                ui_8.UI.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+                ui_8.UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
             }
         };
         Track.prototype.isLoop = function () {
@@ -6563,7 +6566,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack.step("fadeouting");
             }
             if (null !== currentTrack) {
-                _library_7.Library.UI.setTextContent(ui_9.UI.mediaTime, Player.makeTimeText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTime, Player.makeTimeText(currentTrack));
                 currentTrack.step("current");
                 currentTrack.setPositionState();
             }
@@ -6617,8 +6620,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 fadeoutingTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
                 updateCurrentTrackProperties();
-                _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, Player.makeIndexText(currentTrack));
-                _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, Player.makeTitleText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaIndex, Player.makeIndexText(currentTrack));
+                _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTitle, Player.makeTitleText(currentTrack));
                 if (0 < parseFloat(ui_9.UI.SettingsPanel.crossFadeSelect.get())) {
                     CrossFade.start();
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
@@ -6663,9 +6666,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.clear = function () {
             ui_9.UI.screenBody.classList.toggle("paused", false);
-            _library_7.Library.UI.setTextContent(ui_9.UI.mediaIndex, "");
-            _library_7.Library.UI.setTextContent(ui_9.UI.mediaTitle, "");
-            _library_7.Library.UI.setTextContent(ui_9.UI.mediaTime, "");
+            _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaIndex, "");
+            _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTitle, "");
+            _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTime, "");
             history_1.History.clear();
             CrossFade.clear();
             Player.removeFadeoutTrack();
@@ -7225,12 +7228,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             document.body.classList.remove("is-seeking");
             if (_features_2.Features.Player.isPlaying()) {
                 _features_2.Features.Player.temporaryResume();
-                _features_2.Features.Player.seek(ui_12.UI.seekRange.valueAsNumber);
+                _features_2.Features.Player.seek(ui_12.UI.TransportPanel.seekRange.valueAsNumber);
             }
         }, 500);
         var updateSeek = function () {
             isSeekingTimer.kick();
-            _features_2.Features.Player.seek(ui_12.UI.seekRange.valueAsNumber);
+            _features_2.Features.Player.seek(ui_12.UI.TransportPanel.seekRange.valueAsNumber);
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
@@ -7306,23 +7309,23 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     }
                 },
                 "seekBackward": {
-                    control: ui_12.UI.rewindButton.dom,
+                    control: ui_12.UI.TransportPanel.rewindButton.dom,
                     fire: function () {
                         _features_2.Features.Player.rewind();
                     }
                 },
                 "seekForward": {
-                    control: ui_12.UI.fastForwardButton.dom,
+                    control: ui_12.UI.TransportPanel.fastForwardButton.dom,
                     fire: function () {
                         _features_2.Features.Player.fastForward();
                     }
                 },
                 "goPreviousMedia": {
-                    control: ui_12.UI.backBUtton.dom,
+                    control: ui_12.UI.TransportPanel.backBUtton.dom,
                     fire: function () { return _features_2.Features.Player.previous(); }
                 },
                 "goNextMedia": {
-                    control: ui_12.UI.nextButton.dom,
+                    control: ui_12.UI.TransportPanel.nextButton.dom,
                     fire: function () { return _features_2.Features.Player.next(); }
                 },
                 "toggleFullscreen": {
@@ -7384,22 +7387,22 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                     _features_2.Features.Player.play();
                 }
             };
-            ui_12.UI.nextButton.data.click = function (event, button) {
+            ui_12.UI.TransportPanel.nextButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.next();
             };
-            ui_12.UI.backBUtton.data.click = function (event, button) {
+            ui_12.UI.TransportPanel.backBUtton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.previous();
             };
-            ui_12.UI.fastForwardButton.data.click = function (event, button) {
+            ui_12.UI.TransportPanel.fastForwardButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.fastForward();
             };
-            ui_12.UI.rewindButton.data.click = function (event, button) {
+            ui_12.UI.TransportPanel.rewindButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
@@ -7465,11 +7468,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 console.log("🔁 Loop short media changed:", ui_12.UI.SettingsPanel.loopShortMediaCheckbox.get());
                 updateLoopShortMedia();
             };
-            ui_12.UI.mediaTitle.addEventListener("click", function (event) {
+            ui_12.UI.TransportPanel.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
-            ui_12.UI.mediaTime.addEventListener("click", function (event) {
+            ui_12.UI.TransportPanel.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
             });
@@ -7484,9 +7487,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.sleepButton);
             });
             _library_9.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
-            ui_12.UI.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
-            ui_12.UI.seekRange.addEventListener("change", updateSeek);
-            ui_12.UI.seekRange.addEventListener("input", updateSeek);
+            ui_12.UI.TransportPanel.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
+            ui_12.UI.TransportPanel.seekRange.addEventListener("change", updateSeek);
+            ui_12.UI.TransportPanel.seekRange.addEventListener("input", updateSeek);
             ui_12.UI.ControlPanel.shuffle.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.ControlPanel.repeat.loadParameter(url_4.Url.params, applyParam);
             //UI.volumeButton.loadParameter(Url.params, applyParam);

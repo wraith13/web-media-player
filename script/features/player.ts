@@ -404,7 +404,7 @@ export namespace Player
         }
         if (null !== currentTrack)
         {
-            Library.UI.setTextContent(UI.mediaTime, makeTimeText(currentTrack));
+            Library.UI.setTextContent(UI.TransportPanel.mediaTime, makeTimeText(currentTrack));
             currentTrack.step("current");
             currentTrack.setPositionState();
         }
@@ -469,8 +469,8 @@ export namespace Player
             fadeoutingTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
             updateCurrentTrackProperties();
-            Library.UI.setTextContent(UI.mediaIndex, makeIndexText(currentTrack));
-            Library.UI.setTextContent(UI.mediaTitle, makeTitleText(currentTrack));
+            Library.UI.setTextContent(UI.TransportPanel.mediaIndex, makeIndexText(currentTrack));
+            Library.UI.setTextContent(UI.TransportPanel.mediaTitle, makeTitleText(currentTrack));
             if (0 < parseFloat(UI.SettingsPanel.crossFadeSelect.get()))
             {
                 CrossFade.start();
@@ -528,9 +528,9 @@ export namespace Player
     export const clear = () =>
     {
         UI.screenBody.classList.toggle("paused", false);
-        Library.UI.setTextContent(UI.mediaIndex, "");
-        Library.UI.setTextContent(UI.mediaTitle, "");
-        Library.UI.setTextContent(UI.mediaTime, "");
+        Library.UI.setTextContent(UI.TransportPanel.mediaIndex, "");
+        Library.UI.setTextContent(UI.TransportPanel.mediaTitle, "");
+        Library.UI.setTextContent(UI.TransportPanel.mediaTime, "");
         History.clear();
         CrossFade.clear();
         removeFadeoutTrack();
