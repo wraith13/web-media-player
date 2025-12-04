@@ -1705,13 +1705,12 @@ define("resource/config", [], {
         "blurEasing": 2,
         "maxBlur": 25
     },
+    "analogClock": {
+        "angleAccuracy": 5
+    },
     "clock": {
         "alternate": {
             "span": 47000
-        },
-        "phiColors": {
-            "saturation": 0.8,
-            "lightness": 0.6
         },
         "dateFormat": {
             "weekday": "long",
@@ -3673,7 +3672,7 @@ define("resource/control", [], {
             1500,
             1000
         ],
-        "default": 24000
+        "default": 60000
     },
     "loopShortMedia": {
         "id": "loop-short-media",
@@ -3701,7 +3700,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 1500
+        "default": 3000
     },
     "crossFadeWithBlur": {
         "id": "cross-fade-with-blur",
@@ -4406,6 +4405,9 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
+        Overlay.setAnalogClockNiddleAngle = function (niddle, angle) {
+            return library_1.Library.UI.setStyle(niddle, "--progress", angle.toFixed(config_json_4.default.analogClock.angleAccuracy));
+        };
         Overlay.updateAnalogClock = function (date) {
             var isAnalogClockEnabled = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
             var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
@@ -4435,14 +4437,14 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     [28, 29, 30, 31].forEach(function (days) {
                         ui_4.UI.AnalogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
                     });
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.weekNiddle, "--progress", weekAngle.toFixed(5));
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.monthNiddle, "--progress", monthAngle.toFixed(5));
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.yearNiddle, "--progress", yearAngle.toFixed(5));
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle);
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.yearNiddle, yearAngle);
                 }
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.milliSecondsNiddle, "--progress", milliSecondsAngle.toFixed(5));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.secondsNiddle, "--progress", secondsAngle.toFixed(5));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.minutesNiddle, "--progress", minutesAngle.toFixed(5));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.hoursNiddle, "--progress", hoursAngle.toFixed(5));
+                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
+                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.secondsNiddle, secondsAngle);
+                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
+                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
             }
             else {

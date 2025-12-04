@@ -3408,6 +3408,7 @@ declare module "script/features/overlay" {
         let locale: string | undefined;
         let title: string | undefined;
         let subtitle: string | undefined;
+        const setAnalogClockNiddleAngle: (niddle: HTMLDivElement, angle: number) => void;
         const updateAnalogClock: (date: Date) => void;
         const makeDate: (date: Date, locale: string | undefined) => string;
         const makeTime: (date: Date, locale: string | undefined) => string;

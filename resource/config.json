@@ -53,15 +53,14 @@
         "blurEasing": 2,
         "maxBlur": 25
     },
+    "analogClock": {
+        "angleAccuracy": 5
+    },
     "clock":
     {
         "alternate":
         {
             "span": 47000
-        },
-        "phiColors": {
-            "saturation": 0.8,
-            "lightness": 0.6
         },
         "dateFormat": {
             "weekday": "long",

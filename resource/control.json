@@ -72,7 +72,7 @@
             1500,
             1000
         ],
-        "default": 24000
+        "default": 60000
     },
     "loopShortMedia": {
         "id": "loop-short-media",
@@ -100,7 +100,7 @@
             250,
             0
         ],
-        "default": 1500
+        "default": 3000
     },
     "crossFadeWithBlur": {
         "id": "cross-fade-with-blur",

@@ -10,6 +10,8 @@ export namespace Overlay
     export let locale: string | undefined = undefined;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
+    export const setAnalogClockNiddleAngle = (niddle: HTMLDivElement, angle: number): void =>
+        Library.UI.setStyle(niddle, "--progress", angle.toFixed(config.analogClock.angleAccuracy));
     export const updateAnalogClock = (date: Date): void =>
     {
         const isAnalogClockEnabled = UI.SettingsPanel.analogClockCheckbox.get();
@@ -43,14 +45,14 @@ export namespace Overlay
                 {
                     UI.AnalogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
                 });
-                Library.UI.setStyle(UI.AnalogClock.weekNiddle, "--progress", weekAngle.toFixed(5));
-                Library.UI.setStyle(UI.AnalogClock.monthNiddle, "--progress", monthAngle.toFixed(5));
-                Library.UI.setStyle(UI.AnalogClock.yearNiddle, "--progress", yearAngle.toFixed(5));
+                setAnalogClockNiddleAngle(UI.AnalogClock.weekNiddle, weekAngle);
+                setAnalogClockNiddleAngle(UI.AnalogClock.monthNiddle, monthAngle);
+                setAnalogClockNiddleAngle(UI.AnalogClock.yearNiddle, yearAngle);
             }
-            Library.UI.setStyle(UI.AnalogClock.milliSecondsNiddle, "--progress", milliSecondsAngle.toFixed(5));
-            Library.UI.setStyle(UI.AnalogClock.secondsNiddle, "--progress", secondsAngle.toFixed(5));
-            Library.UI.setStyle(UI.AnalogClock.minutesNiddle, "--progress", minutesAngle.toFixed(5));
-            Library.UI.setStyle(UI.AnalogClock.hoursNiddle, "--progress", hoursAngle.toFixed(5));
+            setAnalogClockNiddleAngle(UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
+            setAnalogClockNiddleAngle(UI.AnalogClock.secondsNiddle, secondsAngle);
+            setAnalogClockNiddleAngle(UI.AnalogClock.minutesNiddle, minutesAngle);
+            setAnalogClockNiddleAngle(UI.AnalogClock.hoursNiddle, hoursAngle);
             Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
         }
         else
