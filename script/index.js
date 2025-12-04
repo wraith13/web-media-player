@@ -3556,10 +3556,11 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
             return "".concat(fps.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: 2, minimumFractionDigits: 2, }), " FPS");
         };
         Fps.getText = function () {
-            return Fps.currentMaxFps.text + " (Max)\n"
+            var _a, _b;
+            return ((_a = Fps.currentMaxFps === null || Fps.currentMaxFps === void 0 ? void 0 : Fps.currentMaxFps.text) !== null && _a !== void 0 ? _a : "N/A") + " (Max)\n"
                 + "".concat(Fps.averageFps.toFixed(2), " FPS (Avg)\n")
                 //+currentNowFps.text + " (Now)\n"
-                + Fps.currentMinFps.text + " (Min)";
+                + ((_b = Fps.currentMinFps === null || Fps.currentMinFps === void 0 ? void 0 : Fps.currentMinFps.text) !== null && _b !== void 0 ? _b : "N/A") + " (Min)";
         };
         Fps.isUnderFuseFps = function () { return Fps.isValid && Fps.currentMaxFps.fps < Fps.fuseFps; };
     })(Fps || (exports.Fps = Fps = {}));
@@ -3644,34 +3645,6 @@ define("resource/control", [], {
         "id": "padding",
         "default": true
     },
-    "crossFade": {
-        "id": "cross-fade",
-        "enum": [
-            30000,
-            24000,
-            18000,
-            12500,
-            10000,
-            7500,
-            5000,
-            4000,
-            3000,
-            2500,
-            2000,
-            1500,
-            1250,
-            1000,
-            750,
-            500,
-            250,
-            0
-        ],
-        "default": 1500
-    },
-    "crossFadeWithBlur": {
-        "id": "cross-fade-with-blur",
-        "default": true
-    },
     "imageSpan": {
         "id": "image-span",
         "enum": [
@@ -3704,6 +3677,34 @@ define("resource/control", [], {
     },
     "loopShortMedia": {
         "id": "loop-short-media",
+        "default": false
+    },
+    "crossFade": {
+        "id": "cross-fade",
+        "enum": [
+            30000,
+            24000,
+            18000,
+            12500,
+            10000,
+            7500,
+            5000,
+            4000,
+            3000,
+            2500,
+            2000,
+            1500,
+            1250,
+            1000,
+            750,
+            500,
+            250,
+            0
+        ],
+        "default": 1500
+    },
+    "crossFadeWithBlur": {
+        "id": "cross-fade-with-blur",
         "default": false
     },
     "visualizer": {
@@ -4030,6 +4031,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         var AnalogClock;
         (function (AnalogClock) {
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
+            AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
             AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
             AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
             AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
@@ -4050,14 +4052,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.brightnessRange = new _library_2.Library.Control.Range(control_json_1.default.brightness);
             SettingsPanel.stretchRange = new _library_2.Library.Control.Range(control_json_1.default.stretch);
             SettingsPanel.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
+            SettingsPanel.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
+            SettingsPanel.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
             SettingsPanel.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
                 makeLabel: function (value) { return value <= 0 ?
                     _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
             });
             SettingsPanel.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
-            SettingsPanel.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
-            SettingsPanel.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
             SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
             SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
             SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
@@ -4141,8 +4143,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             document.documentElement.setAttribute("dir", localeDirection);
             _library_2.Library.Shortcuts.setLocaleDirection(localeDirection);
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
-            UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.imageSpanSelect.reloadOptions();
+            UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
@@ -4431,17 +4433,17 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var monthAngle = month / daysOfThisMonth_1;
                     var yearAngle = year / 12;
                     [28, 29, 30, 31].forEach(function (days) {
-                        ui_4.UI.AnalogClock.monthNiddle.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
+                        ui_4.UI.AnalogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
                     });
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.weekNiddle, "--progress", "".concat(weekAngle));
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.monthNiddle, "--progress", "".concat(monthAngle));
-                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.yearNiddle, "--progress", "".concat(yearAngle));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.weekNiddle, "--progress", weekAngle.toFixed(5));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.monthNiddle, "--progress", monthAngle.toFixed(5));
+                    library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.yearNiddle, "--progress", yearAngle.toFixed(5));
                 }
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.milliSecondsNiddle, "--progress", "".concat(milliSecondsAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.secondsNiddle, "--progress", "".concat(secondsAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.minutesNiddle, "--progress", "".concat(minutesAngle));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.hoursNiddle, "--progress", "".concat(hoursAngle));
-                library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString());
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.milliSecondsNiddle, "--progress", milliSecondsAngle.toFixed(5));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.secondsNiddle, "--progress", secondsAngle.toFixed(5));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.minutesNiddle, "--progress", minutesAngle.toFixed(5));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.hoursNiddle, "--progress", hoursAngle.toFixed(5));
+                library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
             }
             else {
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", undefined);
@@ -7498,10 +7500,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.brightnessRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.brightnessRange.options.change);
             ui_12.UI.SettingsPanel.stretchRange.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.stretchRange.options.change);
             ui_12.UI.SettingsPanel.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
-            ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.imageSpanSelect.options.change);
             ui_12.UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+            ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
@@ -7563,10 +7565,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.SettingsPanel.brightnessRange,
                         ui_12.UI.SettingsPanel.stretchRange,
                         ui_12.UI.SettingsPanel.paddingCheckbox,
-                        ui_12.UI.SettingsPanel.crossFadeSelect,
-                        ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox,
                         ui_12.UI.SettingsPanel.imageSpanSelect,
                         ui_12.UI.SettingsPanel.loopShortMediaCheckbox,
+                        ui_12.UI.SettingsPanel.crossFadeSelect,
+                        ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox,
                         ui_12.UI.SettingsPanel.visualizerSelect,
                         ui_12.UI.SettingsPanel.overlayStyleSelect,
                         ui_12.UI.SettingsPanel.overlayPositionSelect,

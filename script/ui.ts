@@ -58,6 +58,7 @@ export namespace UI
     export namespace AnalogClock
     {
         export const panel = Library.UI.getElementById("time", "analog-clock-panel");
+        export const monthPanel = Library.UI.getElementById("div", "month-panel");
         export const yearNiddle = Library.UI.getElementById("div", "year-niddle");
         export const monthNiddle = Library.UI.getElementById("div", "month-niddle");
         export const weekNiddle = Library.UI.getElementById("div", "week-niddle");
@@ -85,6 +86,10 @@ export namespace UI
             new Library.Control.Range(control.stretch);
         export const paddingCheckbox =
             new Library.Control.Checkbox(control.padding);
+        export const imageSpanSelect =
+            new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
+        export const loopShortMediaCheckbox =
+            new Library.Control.Checkbox(control.loopShortMedia);
         export const crossFadeSelect = new Library.Control.Select
         (
             control.crossFade,
@@ -96,10 +101,6 @@ export namespace UI
         );
         export const crossFadeWithBlurCheckbox =
             new Library.Control.Checkbox(control.crossFadeWithBlur);
-        export const imageSpanSelect =
-            new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
-        export const loopShortMediaCheckbox =
-            new Library.Control.Checkbox(control.loopShortMedia);
         export const visualizerSelect =
             new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
         export const analogClockCheckbox =
@@ -243,8 +244,8 @@ export namespace UI
         document.documentElement.setAttribute("dir", localeDirection);
         Library.Shortcuts.setLocaleDirection(localeDirection);
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
-        UI.SettingsPanel.crossFadeSelect.reloadOptions();
         UI.SettingsPanel.imageSpanSelect.reloadOptions();
+        UI.SettingsPanel.crossFadeSelect.reloadOptions();
         UI.SettingsPanel.visualizerSelect.reloadOptions();
         UI.SettingsPanel.overlayStyleSelect.reloadOptions();
         UI.SettingsPanel.overlayPositionSelect.reloadOptions();

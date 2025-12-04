@@ -3301,6 +3301,7 @@ declare module "script/ui" {
         const progressCircle: HTMLDivElement;
         namespace AnalogClock {
             const panel: HTMLTimeElement;
+            const monthPanel: HTMLDivElement;
             const yearNiddle: HTMLDivElement;
             const monthNiddle: HTMLDivElement;
             const weekNiddle: HTMLDivElement;
@@ -3319,10 +3320,10 @@ declare module "script/ui" {
             const brightnessRange: Library.Control.Range;
             const stretchRange: Library.Control.Range;
             const paddingCheckbox: Library.Control.Checkbox;
-            const crossFadeSelect: Library.Control.Select<number>;
-            const crossFadeWithBlurCheckbox: Library.Control.Checkbox;
             const imageSpanSelect: Library.Control.Select<number>;
             const loopShortMediaCheckbox: Library.Control.Checkbox;
+            const crossFadeSelect: Library.Control.Select<number>;
+            const crossFadeWithBlurCheckbox: Library.Control.Checkbox;
             const visualizerSelect: Library.Control.Select<string>;
             const analogClockCheckbox: Library.Control.Checkbox;
             const dateHandsCheckbox: Library.Control.Checkbox;

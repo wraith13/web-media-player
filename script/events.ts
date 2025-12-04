@@ -671,10 +671,10 @@ export namespace Events
         UI.SettingsPanel.brightnessRange.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.brightnessRange.options.change);
         UI.SettingsPanel.stretchRange.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.stretchRange.options.change);
         UI.SettingsPanel.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
-        UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-        UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.imageSpanSelect.options.change);
         UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
@@ -753,10 +753,10 @@ export namespace Events
                         UI.SettingsPanel.brightnessRange,
                         UI.SettingsPanel.stretchRange,
                         UI.SettingsPanel.paddingCheckbox,
-                        UI.SettingsPanel.crossFadeSelect,
-                        UI.SettingsPanel.crossFadeWithBlurCheckbox,
                         UI.SettingsPanel.imageSpanSelect,
                         UI.SettingsPanel.loopShortMediaCheckbox,
+                        UI.SettingsPanel.crossFadeSelect,
+                        UI.SettingsPanel.crossFadeWithBlurCheckbox,
                         UI.SettingsPanel.visualizerSelect,
                         UI.SettingsPanel.overlayStyleSelect,
                         UI.SettingsPanel.overlayPositionSelect,

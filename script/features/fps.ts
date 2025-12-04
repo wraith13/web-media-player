@@ -122,9 +122,9 @@ export namespace Fps
     const makeFpsText = (fps: number) =>
         `${fps.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: 2, minimumFractionDigits: 2, })} FPS`;
     export const getText = () =>
-            currentMaxFps.text +" (Max)\n"
+            (currentMaxFps?.text ?? "N/A") +" (Max)\n"
             +`${averageFps.toFixed(2)} FPS (Avg)\n`
             //+currentNowFps.text + " (Now)\n"
-            +currentMinFps.text +" (Min)";
+            +(currentMinFps?.text ?? "N/A") +" (Min)";
     export const isUnderFuseFps = () => isValid && currentMaxFps.fps < fuseFps;
 }

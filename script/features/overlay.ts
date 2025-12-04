@@ -41,17 +41,17 @@ export namespace Overlay
                 const yearAngle = year /12;
                 [28, 29, 30, 31].forEach(days =>
                 {
-                    UI.AnalogClock.monthNiddle.classList.toggle(`days${days}`, daysOfThisMonth === days);
+                    UI.AnalogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
                 });
-                Library.UI.setStyle(UI.AnalogClock.weekNiddle, "--progress", `${weekAngle}`);
-                Library.UI.setStyle(UI.AnalogClock.monthNiddle, "--progress", `${monthAngle}`);
-                Library.UI.setStyle(UI.AnalogClock.yearNiddle, "--progress", `${yearAngle}`);
+                Library.UI.setStyle(UI.AnalogClock.weekNiddle, "--progress", weekAngle.toFixed(5));
+                Library.UI.setStyle(UI.AnalogClock.monthNiddle, "--progress", monthAngle.toFixed(5));
+                Library.UI.setStyle(UI.AnalogClock.yearNiddle, "--progress", yearAngle.toFixed(5));
             }
-            Library.UI.setStyle(UI.AnalogClock.milliSecondsNiddle, "--progress", `${milliSecondsAngle}`);
-            Library.UI.setStyle(UI.AnalogClock.secondsNiddle, "--progress", `${secondsAngle}`);
-            Library.UI.setStyle(UI.AnalogClock.minutesNiddle, "--progress", `${minutesAngle}`);
-            Library.UI.setStyle(UI.AnalogClock.hoursNiddle, "--progress", `${hoursAngle}`);
-            Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString());
+            Library.UI.setStyle(UI.AnalogClock.milliSecondsNiddle, "--progress", milliSecondsAngle.toFixed(5));
+            Library.UI.setStyle(UI.AnalogClock.secondsNiddle, "--progress", secondsAngle.toFixed(5));
+            Library.UI.setStyle(UI.AnalogClock.minutesNiddle, "--progress", minutesAngle.toFixed(5));
+            Library.UI.setStyle(UI.AnalogClock.hoursNiddle, "--progress", hoursAngle.toFixed(5));
+            Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
         }
         else
         {

@@ -44,34 +44,6 @@
         "id": "padding",
         "default": true
     },
-    "crossFade": {
-        "id": "cross-fade",
-        "enum": [
-            30000,
-            24000,
-            18000,
-            12500,
-            10000,
-            7500,
-            5000,
-            4000,
-            3000,
-            2500,
-            2000,
-            1500,
-            1250,
-            1000,
-            750,
-            500,
-            250,
-            0
-        ],
-        "default": 1500
-    },
-    "crossFadeWithBlur": {
-        "id": "cross-fade-with-blur",
-        "default": true
-    },
     "imageSpan": {
         "id": "image-span",
         "enum": [
@@ -104,6 +76,34 @@
     },
     "loopShortMedia": {
         "id": "loop-short-media",
+        "default": false
+    },
+    "crossFade": {
+        "id": "cross-fade",
+        "enum": [
+            30000,
+            24000,
+            18000,
+            12500,
+            10000,
+            7500,
+            5000,
+            4000,
+            3000,
+            2500,
+            2000,
+            1500,
+            1250,
+            1000,
+            750,
+            500,
+            250,
+            0
+        ],
+        "default": 1500
+    },
+    "crossFadeWithBlur": {
+        "id": "cross-fade-with-blur",
         "default": false
     },
     "visualizer": {
