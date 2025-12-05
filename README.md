@@ -11,9 +11,10 @@
 - ✅ Safe shuffle playback (prevents issues such as media that never gets played or a just-played item playing again immediately.)
 - ✅ Stretch settings to control how much content can exceed the screen size, preventing excessive enlargement.
 - ✅ Padding settings to fill extra space with enlarged content.
-- ✅ Visualizer
+- ✅ Various visualizers based on volume, waveform, and frequency.
 - ✅ Crossfade support
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
+- ✅ Keyboard shortcut style presets: Apple Music, YouTube, Spotify, Windows Media Player
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
 - ✅ Full offline support for all features
 - ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt)

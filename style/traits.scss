@@ -282,8 +282,9 @@
 }
 @mixin clock-niddle($niddle-color)
 {
-    $trailer-rate: 0.75;
-    background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black calc($trailer-rate * 360deg), $niddle-color 360deg);
+    $trailer-rate: 0.25;
+    $void-rate: 1.0 - $trailer-rate;
+    background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black calc($void-rate * 360deg), $niddle-color 360deg);
 }
 @mixin circle-size($size)
 {
@@ -295,27 +296,45 @@
 {
     filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
 }
-@mixin scale-gradients($count, $start-angle: 0deg) {
-    @if $count <= 0 {
+@mixin scale-gradients($half-count, $start-angle: 0deg) {
+    @if $half-count <= 0 {
         background: none;
     } @else {
         $grads: ();
-        $step: math.div(180deg, $count);
-        @for $i from 0 through $count - 1 {
+        $step: math.div(180deg, $half-count);
+        @for $i from 0 through $half-count - 1 {
             $angle: $start-angle + $i * $step;
             $grads: list.append(
                 $grads,
                 linear-gradient(
                     #{$angle},
-                    transparent calc(50% - var(--scale-width)),
-                    var(--scale-color) calc(50% - var(--scale-width)),
-                    var(--scale-color) calc(50% + var(--scale-width)),
-                    transparent calc(50% + var(--scale-width))
+                    transparent calc(50% - var(--tick-width)),
+                    var(--tick-color) calc(50% - var(--tick-width)),
+                    var(--tick-color) calc(50% + var(--tick-width)),
+                    transparent calc(50% + var(--tick-width))
                 ),
                 comma
             );
         }
         background: $grads;
+    }
+}
+@mixin simple-radial-lines($count)
+{
+    @if $count <= 0 {
+        background: none;
+    } @else {
+        $bg-list: ();
+        $step: math.div(360deg, $count);
+        @for $i from 0 through $count - 1 {
+            $angle: $i * $step;
+            $grad: conic-gradient(from calc(#{$angle} - (var(--line-angle) / 2)), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
+            $bg-list: list.append($bg-list, $grad, comma);
+        }
+        background: $bg-list;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
 }
 @mixin radial-lines($count)
@@ -327,7 +346,12 @@
         $step: math.div(360deg, $count);
         @for $i from 0 through $count - 1 {
             $angle: $i * $step;
-            $grad: conic-gradient(from calc(#{$angle} - (var(--line-angle) / 2)), var(--scale-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
+            $is-major: $i % 5 == 0;
+            $grad: if(
+                $is-major,
+                conic-gradient(from calc(#{$angle} - (var(--major-line-angle) / 2)), var(--major-tick-color) 0deg calc(var(--major-line-angle)), transparent calc(var(--major-line-angle)) 360deg),
+                conic-gradient(from calc(#{$angle} - (var(--minor-line-angle) / 2)), var(--minor-tick-color) 0deg calc(var(--minor-line-angle)), transparent calc(var(--minor-line-angle)) 360deg)
+            );
             $bg-list: list.append($bg-list, $grad, comma);
         }
         background: $bg-list;

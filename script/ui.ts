@@ -127,24 +127,12 @@ export namespace UI
             new Library.Control.Checkbox(control.withVisualizer);
         export const showFpsCheckbox =
             new Library.Control.Checkbox(control.showFps);
-        export const getDefaultShortcut = (): keyof typeof shortcuts =>
-        {
-            switch(true)
-            {
-                case Tools.Environment.isWindows():
-                    return "windows";
-                case Tools.Environment.isApple():
-                    return "apple";
-                default:
-                    return "youtube";
-            }
-        };
         export const shortcutsSelect = new Library.Control.Select
         (
             {
                 id: "shortcuts",
                 enum: Object.keys(shortcuts),
-                default: getDefaultShortcut(),
+                default: "apple",
             },
             {
                 makeLabel: i => shortcuts[i as keyof typeof shortcuts].label,

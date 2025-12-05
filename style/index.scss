@@ -484,8 +484,8 @@
         }
         &#scale60-panel
         {
-            --scale-width: calc(var(--short-side) * 0.2);
-            --scale-color: rgba(0, 0, 0, 0.3);
+            --tick-width: calc(var(--short-side) * 0.15);
+            --tick-color: rgba(0, 0, 0, 0.3);
             @include circle-size(95);
             @include scale-gradients(30);
         }
@@ -496,8 +496,8 @@
         }
         &#scale12-panel
         {
-            --scale-width: calc(var(--short-side) * 0.3);
-            --scale-color: rgba(0, 0, 0, 0.7);
+            --tick-width: calc(var(--short-side) * 0.3);
+            --tick-color: rgba(0, 0, 0, 0.7);
             @include circle-size(95);
             @include scale-gradients(6);
         }
@@ -514,10 +514,10 @@
         }
         &#week-panel
         {
-            --line-angle: 1.25deg;
-            --scale-color: rgba(0, 0, 0, 0.5);
+            --line-angle: 1.5deg;
+            --tick-color: rgba(0, 0, 0, 0.5);
             @include circle-size(55);
-            @include radial-lines(7);
+            @include simple-radial-lines(7);
         }
         &#month-niddle
         {
@@ -527,8 +527,10 @@
         }
         &#month-panel
         {
-            --line-angle: 1.0deg;
-            --scale-color: rgba(0, 0, 0, 0.5);
+            --major-line-angle: 1.5deg;
+            --major-tick-color: rgba(0, 0, 0, 0.7);
+            --minor-line-angle: 0.75deg;
+            --minor-tick-color: rgba(0, 0, 0, 0.3);
             @include circle-size(50);
             &.days28 { @include radial-lines(28); }
             &.days29 { @include radial-lines(29); }
@@ -543,8 +545,8 @@
         }
         &#year-panel
         {
-            --scale-width: calc(var(--short-side) * 0.3);
-            --scale-color: rgba(0, 0, 0, 0.7);
+            --tick-width: calc(var(--short-side) * 0.3);
+            --tick-color: rgba(0, 0, 0, 0.7);
             @include circle-size(40);
             @include scale-gradients(6);
         }

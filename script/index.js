@@ -2454,6 +2454,135 @@ define("script/tools/environment", ["require", "exports"], function (require, ex
     })(Environment || (exports.Environment = Environment = {}));
 });
 define("resource/shortcuts", [], {
+    "apple": {
+        "label": "Apple Music",
+        "items": [
+            {
+                "description": "Shuffle",
+                "shortcuts": [
+                    {
+                        "command": "toggleShuffle",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "S"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Repeat",
+                "shortcuts": [
+                    {
+                        "command": "toggleRepeat",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "R"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Play / Pause",
+                "shortcuts": [
+                    {
+                        "command": "togglePlay",
+                        "type": "onKeyUp",
+                        "keys": [
+                            " "
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Mute / Unmute",
+                "shortcuts": [
+                    {
+                        "command": "toggleMute",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "M"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Volume Up / Down",
+                "shortcuts": [
+                    {
+                        "command": "volumeUp",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowUp"
+                        ]
+                    },
+                    {
+                        "command": "volumeDown",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowDown"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Backward",
+                "shortcuts": [
+                    {
+                        "command": "seekBackward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowLeft"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Seek Forward",
+                "shortcuts": [
+                    {
+                        "command": "seekForward",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "Shift",
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "Go to Previous/Next Media",
+                "shortcuts": [
+                    {
+                        "command": "goPreviousMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowLeft"
+                        ]
+                    },
+                    {
+                        "command": "goNextMedia",
+                        "type": "onKeyDown",
+                        "keys": [
+                            "ArrowRight"
+                        ]
+                    }
+                ]
+            },
+            {
+                "description": "FullScreen",
+                "shortcuts": [
+                    {
+                        "command": "toggleFullscreen",
+                        "type": "onKeyUp",
+                        "keys": [
+                            "F"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "youtube": {
         "label": "YouTube",
         "items": [
@@ -2694,135 +2823,6 @@ define("resource/shortcuts", [], {
                         "type": "onKeyDown",
                         "keys": [
                             "ArrowDown"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "FullScreen",
-                "shortcuts": [
-                    {
-                        "command": "toggleFullscreen",
-                        "type": "onKeyUp",
-                        "keys": [
-                            "F"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "apple": {
-        "label": "Apple Music",
-        "items": [
-            {
-                "description": "Shuffle",
-                "shortcuts": [
-                    {
-                        "command": "toggleShuffle",
-                        "type": "onKeyUp",
-                        "keys": [
-                            "S"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Repeat",
-                "shortcuts": [
-                    {
-                        "command": "toggleRepeat",
-                        "type": "onKeyUp",
-                        "keys": [
-                            "R"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Play / Pause",
-                "shortcuts": [
-                    {
-                        "command": "togglePlay",
-                        "type": "onKeyUp",
-                        "keys": [
-                            " "
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Mute / Unmute",
-                "shortcuts": [
-                    {
-                        "command": "toggleMute",
-                        "type": "onKeyUp",
-                        "keys": [
-                            "M"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Volume Up / Down",
-                "shortcuts": [
-                    {
-                        "command": "volumeUp",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "ArrowUp"
-                        ]
-                    },
-                    {
-                        "command": "volumeDown",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "ArrowDown"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Seek Backward",
-                "shortcuts": [
-                    {
-                        "command": "seekBackward",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "Shift",
-                            "ArrowLeft"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Seek Forward",
-                "shortcuts": [
-                    {
-                        "command": "seekForward",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "Shift",
-                            "ArrowRight"
-                        ]
-                    }
-                ]
-            },
-            {
-                "description": "Go to Previous/Next Media",
-                "shortcuts": [
-                    {
-                        "command": "goPreviousMedia",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "ArrowLeft"
-                        ]
-                    },
-                    {
-                        "command": "goNextMedia",
-                        "type": "onKeyDown",
-                        "keys": [
-                            "ArrowRight"
                         ]
                     }
                 ]
@@ -4072,20 +4072,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
             SettingsPanel.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
             SettingsPanel.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
-            SettingsPanel.getDefaultShortcut = function () {
-                switch (true) {
-                    case _tools_2.Tools.Environment.isWindows():
-                        return "windows";
-                    case _tools_2.Tools.Environment.isApple():
-                        return "apple";
-                    default:
-                        return "youtube";
-                }
-            };
             SettingsPanel.shortcutsSelect = new _library_2.Library.Control.Select({
                 id: "shortcuts",
                 enum: Object.keys(shortcuts_json_2.default),
-                default: SettingsPanel.getDefaultShortcut(),
+                default: "apple",
             }, {
                 makeLabel: function (i) { return shortcuts_json_2.default[i].label; },
             });
