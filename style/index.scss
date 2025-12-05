@@ -487,7 +487,7 @@
             --tick-width: calc(var(--short-side) * 0.15);
             --tick-color: rgba(0, 0, 0, 0.3);
             @include circle-size(95);
-            @include scale-gradients(30);
+            @include even-clock-ticks(60);
         }
         &#hours-niddle
         {
@@ -499,7 +499,7 @@
             --tick-width: calc(var(--short-side) * 0.3);
             --tick-color: rgba(0, 0, 0, 0.7);
             @include circle-size(95);
-            @include scale-gradients(6);
+            @include even-clock-ticks(12);
         }
         &#center-circle
         {
@@ -517,7 +517,7 @@
             --line-angle: 1.5deg;
             --tick-color: rgba(0, 0, 0, 0.5);
             @include circle-size(55);
-            @include simple-radial-lines(7);
+            @include odd-clock-ticks(7);
         }
         &#month-niddle
         {
@@ -532,10 +532,16 @@
             --minor-line-angle: 0.75deg;
             --minor-tick-color: rgba(0, 0, 0, 0.3);
             @include circle-size(50);
-            &.days28 { @include radial-lines(28); }
-            &.days29 { @include radial-lines(29); }
-            &.days30 { @include radial-lines(30); }
-            &.days31 { @include radial-lines(31); }
+            &[data-days="2828"] { @include month-clock-ticks(28, 28); }
+            &[data-days="2831"] { @include month-clock-ticks(28, 31); }
+            &[data-days="2929"] { @include month-clock-ticks(29, 29); }
+            &[data-days="2931"] { @include month-clock-ticks(29, 31); }
+            &[data-days="3030"] { @include month-clock-ticks(30, 30); }
+            &[data-days="3031"] { @include month-clock-ticks(30, 31); }
+            &[data-days="3128"] { @include month-clock-ticks(31, 28); }
+            &[data-days="3129"] { @include month-clock-ticks(31, 29); }
+            &[data-days="3130"] { @include month-clock-ticks(31, 30); }
+            &[data-days="3131"] { @include month-clock-ticks(31, 31); }
         }
         &#year-niddle
         {
@@ -548,7 +554,7 @@
             --tick-width: calc(var(--short-side) * 0.3);
             --tick-color: rgba(0, 0, 0, 0.7);
             @include circle-size(40);
-            @include scale-gradients(6);
+            @include even-clock-ticks(12);
         }
         &#dates-center-circle
         {

@@ -1968,7 +1968,9 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
                 else {
                     element.style.setProperty(name, value);
                 }
+                return true;
             }
+            return false;
         };
     })(UI || (exports.UI = UI = {}));
 });
@@ -4419,16 +4421,23 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 if (isDateHandsEnabled) {
                     var week = date.getDay() + (hours / 24);
                     var month = (date.getDate() - 1) + (hours / 24);
-                    var daysOfThisMonth_1 = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-                    var year = date.getMonth() + (month / daysOfThisMonth_1);
+                    var daysOfThisMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                    var year = date.getMonth() + (month / daysOfThisMonth);
                     var weekAngle = week / 7;
-                    var monthAngle = month / daysOfThisMonth_1;
+                    var monthAngle = month / daysOfThisMonth;
                     var yearAngle = year / 12;
-                    [28, 29, 30, 31].forEach(function (days) {
-                        ui_4.UI.AnalogClock.monthPanel.classList.toggle("days".concat(days), daysOfThisMonth_1 === days);
-                    });
                     Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle);
+                    if (Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle)) {
+                        if (monthAngle < 0.5) {
+                            // Case where the trace crosses a month boundary
+                            var daysOfLastMonth = new Date(0 === date.getMonth() ? date.getFullYear() - 1 : date.getFullYear(), date.getMonth(), 0).getDate();
+                            // Because the latter half represents days from the previous month, set the order to `${daysOfThisMonth}${daysOfLastMonth}`
+                            library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.monthPanel, "data-days", "".concat(daysOfThisMonth).concat(daysOfLastMonth));
+                        }
+                        else {
+                            library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.monthPanel, "data-days", "".concat(daysOfThisMonth).concat(daysOfThisMonth));
+                        }
+                    }
                     Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.yearNiddle, yearAngle);
                 }
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);

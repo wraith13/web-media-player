@@ -2915,7 +2915,7 @@ declare module "script/library/ui" {
         const querySelector: <T extends HtmlTag>(tag: T, selectors: string, parent?: Element) => HTMLElementTagNameMap[T];
         const setTextContent: (element: HTMLElement, text: string) => void;
         const setAttribute: (element: HTMLElement, name: string, value: string | undefined) => void;
-        const setStyle: (element: HTMLElement, name: string, value: string | undefined) => void;
+        const setStyle: (element: HTMLElement, name: string, value: string | undefined) => boolean;
     }
 }
 declare module "script/library/control" {
@@ -3406,7 +3406,7 @@ declare module "script/features/overlay" {
         let locale: string | undefined;
         let title: string | undefined;
         let subtitle: string | undefined;
-        const setAnalogClockNiddleAngle: (niddle: HTMLDivElement, angle: number) => void;
+        const setAnalogClockNiddleAngle: (niddle: HTMLDivElement, angle: number) => boolean;
         const updateAnalogClock: (date: Date) => void;
         const makeDate: (date: Date, locale: string | undefined) => string;
         const makeTime: (date: Date, locale: string | undefined) => string;

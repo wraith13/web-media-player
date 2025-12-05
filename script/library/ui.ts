@@ -302,6 +302,8 @@ export namespace UI
             {
                 element.style.setProperty(name, value);
             }
+            return true;
         }
+        return false;
     };
 }

@@ -10,7 +10,7 @@ export namespace Overlay
     export let locale: string | undefined = undefined;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
-    export const setAnalogClockNiddleAngle = (niddle: HTMLDivElement, angle: number): void =>
+    export const setAnalogClockNiddleAngle = (niddle: HTMLDivElement, angle: number) =>
         Library.UI.setStyle(niddle, "--progress", angle.toFixed(config.analogClock.angleAccuracy));
     export const updateAnalogClock = (date: Date): void =>
     {
@@ -41,12 +41,26 @@ export namespace Overlay
                 const weekAngle = week /7;
                 const monthAngle = month /daysOfThisMonth;
                 const yearAngle = year /12;
-                [28, 29, 30, 31].forEach(days =>
-                {
-                    UI.AnalogClock.monthPanel.classList.toggle(`days${days}`, daysOfThisMonth === days);
-                });
                 setAnalogClockNiddleAngle(UI.AnalogClock.weekNiddle, weekAngle);
-                setAnalogClockNiddleAngle(UI.AnalogClock.monthNiddle, monthAngle);
+                if (setAnalogClockNiddleAngle(UI.AnalogClock.monthNiddle, monthAngle))
+                {
+                    if (monthAngle < 0.5)
+                    {
+                        // Case where the trace crosses a month boundary
+                        const daysOfLastMonth = new Date
+                        (
+                            0 === date.getMonth() ? date.getFullYear() -1 : date.getFullYear(),
+                            date.getMonth(),
+                            0
+                        ).getDate();
+                        // Because the latter half represents days from the previous month, set the order to `${daysOfThisMonth}${daysOfLastMonth}`
+                        Library.UI.setAttribute(UI.AnalogClock.monthPanel, "data-days", `${daysOfThisMonth}${daysOfLastMonth}`);
+                    }
+                    else
+                    {
+                        Library.UI.setAttribute(UI.AnalogClock.monthPanel, "data-days", `${daysOfThisMonth}${daysOfThisMonth}`);
+                    }
+                }
                 setAnalogClockNiddleAngle(UI.AnalogClock.yearNiddle, yearAngle);
             }
             setAnalogClockNiddleAngle(UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
