@@ -153,7 +153,7 @@ export namespace UI
                     makeLabel: i => "Auto" === i ?
                         Library.Locale.map("Auto"):
                         (
-                            `${i}: `
+                            `${i}${Library.Locale.getColonSuffix()} `
                             +Library.Locale.toRtl
                             (
                                 Library.Locale.map("lang-label", i as Library.Locale.Language),

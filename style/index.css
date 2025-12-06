@@ -2304,8 +2304,8 @@ label[for=wakeup-button].tip {
 @media (min-width: 720px) {
   label[for=wakeup-button].tip {
     inset-block-end: 0.9rem;
-    inset-inline-start: initial;
     inset-inline-end: calc(50% + 12.5rem);
+    inset-inline-start: initial;
   }
 }
 
@@ -2674,6 +2674,12 @@ label:not(.icon-button).information {
 label:not(.icon-button) * {
   user-select: none;
   cursor: pointer;
+}
+html:lang(fr) label:not(.icon-button) span:first-child::after {
+  content: " : ";
+}
+html:not(:lang(fr)) label:not(.icon-button) span:first-child::after {
+  content: ": ";
 }
 label:not(.icon-button) .value-text {
   font-size: 0.75rem;

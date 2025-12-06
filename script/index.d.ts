@@ -33,6 +33,7 @@ declare module "locale/generated/master" {
         ar: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -128,6 +129,7 @@ declare module "locale/generated/master" {
         de: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -223,6 +225,7 @@ declare module "locale/generated/master" {
         el: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -318,6 +321,7 @@ declare module "locale/generated/master" {
         en: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -413,6 +417,7 @@ declare module "locale/generated/master" {
         es: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -508,6 +513,7 @@ declare module "locale/generated/master" {
         fa: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -603,6 +609,7 @@ declare module "locale/generated/master" {
         fr: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -698,6 +705,7 @@ declare module "locale/generated/master" {
         hi: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -793,6 +801,7 @@ declare module "locale/generated/master" {
         id: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -888,6 +897,7 @@ declare module "locale/generated/master" {
         it: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -983,6 +993,7 @@ declare module "locale/generated/master" {
         ja: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -1078,6 +1089,7 @@ declare module "locale/generated/master" {
         ko: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -1173,6 +1185,7 @@ declare module "locale/generated/master" {
         nl: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -1268,6 +1281,7 @@ declare module "locale/generated/master" {
         pl: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -1363,6 +1377,7 @@ declare module "locale/generated/master" {
         pt: {
             "lang-label": string;
             "lang-direction": string;
+            "lang-colon-suffix": string;
             "add-media": string;
             "remove-media": string;
             "loading-media": string;
@@ -1463,6 +1478,7 @@ declare module "script/library/locale" {
             ar: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -1558,6 +1574,7 @@ declare module "script/library/locale" {
             de: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -1653,6 +1670,7 @@ declare module "script/library/locale" {
             el: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -1748,6 +1766,7 @@ declare module "script/library/locale" {
             en: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -1843,6 +1862,7 @@ declare module "script/library/locale" {
             es: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -1938,6 +1958,7 @@ declare module "script/library/locale" {
             fa: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2033,6 +2054,7 @@ declare module "script/library/locale" {
             fr: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2128,6 +2150,7 @@ declare module "script/library/locale" {
             hi: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2223,6 +2246,7 @@ declare module "script/library/locale" {
             id: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2318,6 +2342,7 @@ declare module "script/library/locale" {
             it: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2413,6 +2438,7 @@ declare module "script/library/locale" {
             ja: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2508,6 +2534,7 @@ declare module "script/library/locale" {
             ko: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2603,6 +2630,7 @@ declare module "script/library/locale" {
             nl: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2698,6 +2726,7 @@ declare module "script/library/locale" {
             pl: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2793,6 +2822,7 @@ declare module "script/library/locale" {
             pt: {
                 "lang-label": string;
                 "lang-direction": string;
+                "lang-colon-suffix": string;
                 "add-media": string;
                 "remove-media": string;
                 "loading-media": string;
@@ -2894,6 +2924,7 @@ declare module "script/library/locale" {
         const isRtl: (l?: Language) => boolean;
         const isLtr: (l?: Language) => boolean;
         const toRtl: (text: string, f?: boolean) => string;
+        const getColonSuffix: (l?: Language) => string;
         const map: (key: Label, l?: Language) => string;
         const getLocaleList: () => (Language | "Auto")[];
     }

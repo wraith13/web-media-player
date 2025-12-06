@@ -45,6 +45,8 @@ export namespace Locale
         "ltr" === getDirection(l);
     export const toRtl = (text: string, f?: boolean): string =>
         false === f ? text : `\u202B${text}\u202C`;
+    export const getColonSuffix = (l?: Language) =>
+        (master[l ?? lang]["lang-colon-suffix"] ?? ":") as string;
     export const map = (key: Label, l?: Language) =>
         "" === key ? "" : master[l ?? lang][key];
     export const getLocaleList = (): (Language | "Auto")[] =>

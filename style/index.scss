@@ -1284,8 +1284,8 @@ label[for="wakeup-button"].tip
         @media (min-width: 720px)
         {
             inset-block-end: 0.9rem;
-            inset-inline-start: initial;
             inset-inline-end: calc(50% + 12.5rem);
+            inset-inline-start: initial;
         }
     }
 }
@@ -1515,6 +1515,17 @@ label:not(.icon-button)
         {
             user-select: none;
             cursor: pointer;
+        }
+        span:first-child::after
+        {
+            html:lang(fr) &
+            {
+                content: "\202F: ";
+            }
+            html:not(:lang(fr)) &
+            {
+                content: ": ";
+            }
         }
         .value-text
         {
