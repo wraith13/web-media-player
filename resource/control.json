@@ -125,6 +125,10 @@
         "id": "analog-clock",
         "default": false
     },
+    "dayHand": {
+        "id": "24hours-hand",
+        "default": false
+    },
     "dateHands": {
         "id": "date-hands",
         "default": false

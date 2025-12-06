@@ -86,6 +86,17 @@
         display: none;
     }
 }
+@mixin blackout-transition($modes...)
+{
+    transition: background-image 750ms, background-color 750ms;
+    @include apply-transition-effect($modes...)
+    {
+        background-image: none;
+        background-color: black;
+        cursor: none;
+        pointer-events: none;
+    }
+}
 @mixin flex($flex-direction: row, $justify-content: start, $align-items: center)
 {
     display: flex;
@@ -296,12 +307,12 @@
 {
     filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
 }
-@mixin even-clock-ticks($count, $start-angle: 0deg) {
+@mixin even-clock-ticks($count) {
     $half-count: math.div($count, 2);
     $grads: ();
     $step: math.div(180deg, $half-count);
     @for $i from 0 through $half-count - 1 {
-        $angle: $start-angle + $i * $step;
+        $angle: $i * $step;
         $grads: list.append(
             $grads,
             linear-gradient(
@@ -357,4 +368,37 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+@mixin clock-60-ticks()
+{
+    $count: 60;
+    $half-count: math.div($count, 2);
+    $grads: ();
+    $step: math.div(180deg, $half-count);
+    @for $i from 0 through $half-count - 1 {
+        $is-major: $i % 5 == 0;
+        $angle: $i * $step;
+        $grads: list.append(
+            $grads,
+            if(
+                $is-major,
+                linear-gradient(
+                    #{$angle},
+                    transparent calc(50% - var(--major-tick-width)),
+                    var(--major-tick-color) calc(50% - var(--major-tick-width)),
+                    var(--major-tick-color) calc(50% + var(--major-tick-width)),
+                    transparent calc(50% + var(--major-tick-width))
+                ),
+                linear-gradient(
+                    #{$angle},
+                    transparent calc(50% - var(--minor-tick-width)),
+                    var(--minor-tick-color) calc(50% - var(--minor-tick-width)),
+                    var(--minor-tick-color) calc(50% + var(--minor-tick-width)),
+                    transparent calc(50% + var(--minor-tick-width))
+                )
+            ),
+            comma
+        );
+    }
+    background: $grads;
 }

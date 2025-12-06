@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Dec 05 2025 11:17:11 GMT+0900 (日本標準時)
+    build at: Sat Dec 06 2025 04:15:59 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -993,31 +993,25 @@ body.list #analog-clock-panel:not(.show)::before {
   left: 50%;
   translate: -50% -50%;
   border-radius: 50%;
+  --major-line-angle: 1.5deg;
+  --major-tick-width: calc(var(--short-side) * 0.3);
+  --major-tick-color: rgba(0, 0, 0, 0.5);
+  --minor-line-angle: 0.75deg;
+  --minor-tick-width: calc(var(--short-side) * 0.15);
+  --minor-tick-color: rgba(0, 0, 0, 0.5);
 }
 #analog-clock-panel div#milli-seconds-niddle {
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: background-image 750ms, background-color 750ms;
   width: calc(var(--short-side) * 96);
   height: calc(var(--short-side) * 96);
   border-radius: 50%;
 }
 #analog-clock-panel div#milli-seconds-niddle.hide:not(.show) {
-  opacity: 0;
+  background-image: none;
+  background-color: black;
   cursor: none;
   pointer-events: none;
-  filter: blur(1em);
-}
-#analog-clock-panel div#milli-seconds-niddle.hide:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #analog-clock-panel div#seconds-niddle {
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
@@ -1032,12 +1026,10 @@ body.list #analog-clock-panel:not(.show)::before {
   border-radius: 50%;
 }
 #analog-clock-panel div#scale60-panel {
-  --tick-width: calc(var(--short-side) * 0.15);
-  --tick-color: rgba(0, 0, 0, 0.3);
   width: calc(var(--short-side) * 95);
   height: calc(var(--short-side) * 95);
   border-radius: 50%;
-  background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(6deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(12deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(18deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(24deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(36deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(42deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(48deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(54deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(66deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(72deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(78deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(84deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(96deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(102deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(108deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(114deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(126deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(132deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(138deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(144deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(156deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(162deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(168deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(174deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
+  background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(6deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(12deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(18deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(24deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(36deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(42deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(48deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(54deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(66deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(72deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(78deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(84deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(96deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(102deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(108deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(114deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(126deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(132deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(138deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(144deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(156deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(162deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(168deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(174deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
 #analog-clock-panel div#hours-niddle {
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
@@ -1046,49 +1038,52 @@ body.list #analog-clock-panel:not(.show)::before {
   border-radius: 50%;
 }
 #analog-clock-panel div#scale12-panel {
-  --tick-width: calc(var(--short-side) * 0.3);
-  --tick-color: rgba(0, 0, 0, 0.7);
-  width: calc(var(--short-side) * 95);
-  height: calc(var(--short-side) * 95);
+  --tick-width: var(--major-tick-width);
+  --tick-color: var(--major-tick-color);
+  width: calc(var(--short-side) * 70);
+  height: calc(var(--short-side) * 70);
   border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
 }
-#analog-clock-panel div#center-circle {
-  background-color: black;
-  width: calc(var(--short-side) * 55);
-  height: calc(var(--short-side) * 55);
-  border-radius: 50%;
-}
-#analog-clock-panel div#week-niddle {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+#analog-clock-panel div#day-niddle {
+  transition: background-image 750ms, background-color 750ms;
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
   width: calc(var(--short-side) * 55);
   height: calc(var(--short-side) * 55);
   border-radius: 50%;
 }
-#analog-clock-panel div#week-niddle.hide:not(.show) {
-  opacity: 0;
+#analog-clock-panel div#day-niddle.hide:not(.show) {
+  background-image: none;
+  background-color: black;
   cursor: none;
   pointer-events: none;
-  filter: blur(1em);
 }
-#analog-clock-panel div#week-niddle.hide:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-#analog-clock-panel div#week-panel {
-  --line-angle: 1.5deg;
-  --tick-color: rgba(0, 0, 0, 0.5);
+#analog-clock-panel div#scale24-panel {
+  --tick-width: var(--major-tick-width);
+  --tick-color: var(--major-tick-color);
   width: calc(var(--short-side) * 55);
   height: calc(var(--short-side) * 55);
+  border-radius: 50%;
+  background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(15deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(45deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(75deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(105deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(135deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(165deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
+}
+#analog-clock-panel div#week-niddle {
+  transition: background-image 750ms, background-color 750ms;
+  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
+  border-radius: 50%;
+}
+#analog-clock-panel div#week-niddle.hide:not(.show) {
+  background-image: none;
+  background-color: black;
+  cursor: none;
+  pointer-events: none;
+}
+#analog-clock-panel div#week-panel {
+  --line-angle: var(--major-line-angle);
+  --tick-color: var(--major-tick-color);
+  width: calc(var(--short-side) * 50);
+  height: calc(var(--short-side) * 50);
   border-radius: 50%;
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
   background-repeat: no-repeat;
@@ -1096,37 +1091,21 @@ body.list #analog-clock-panel:not(.show)::before {
   background-size: cover;
 }
 #analog-clock-panel div#month-niddle {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: background-image 750ms, background-color 750ms;
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 45);
+  height: calc(var(--short-side) * 45);
   border-radius: 50%;
 }
 #analog-clock-panel div#month-niddle.hide:not(.show) {
-  opacity: 0;
+  background-image: none;
+  background-color: black;
   cursor: none;
   pointer-events: none;
-  filter: blur(1em);
-}
-#analog-clock-panel div#month-niddle.hide:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #analog-clock-panel div#month-panel {
-  --major-line-angle: 1.5deg;
-  --major-tick-color: rgba(0, 0, 0, 0.7);
-  --minor-line-angle: 0.75deg;
-  --minor-tick-color: rgba(0, 0, 0, 0.3);
-  width: calc(var(--short-side) * 50);
-  height: calc(var(--short-side) * 50);
+  width: calc(var(--short-side) * 45);
+  height: calc(var(--short-side) * 45);
   border-radius: 50%;
 }
 #analog-clock-panel div#month-panel[data-days="2828"] {
@@ -1190,42 +1169,30 @@ body.list #analog-clock-panel:not(.show)::before {
   background-size: cover;
 }
 #analog-clock-panel div#year-niddle {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: background-image 750ms, background-color 750ms;
   background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
-  width: calc(var(--short-side) * 40);
-  height: calc(var(--short-side) * 40);
+  width: calc(var(--short-side) * 35);
+  height: calc(var(--short-side) * 35);
   border-radius: 50%;
 }
 #analog-clock-panel div#year-niddle.hide:not(.show) {
-  opacity: 0;
+  background-image: none;
+  background-color: black;
   cursor: none;
   pointer-events: none;
-  filter: blur(1em);
-}
-#analog-clock-panel div#year-niddle.hide:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
 }
 #analog-clock-panel div#year-panel {
-  --tick-width: calc(var(--short-side) * 0.3);
-  --tick-color: rgba(0, 0, 0, 0.7);
-  width: calc(var(--short-side) * 40);
-  height: calc(var(--short-side) * 40);
+  --tick-width: var(--major-tick-width);
+  --tick-color: var(--major-tick-color);
+  width: calc(var(--short-side) * 35);
+  height: calc(var(--short-side) * 35);
   border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
 }
-#analog-clock-panel div#dates-center-circle {
+#analog-clock-panel div#center-circle {
   background-color: black;
-  width: calc(var(--short-side) * 30);
-  height: calc(var(--short-side) * 30);
+  width: calc(var(--short-side) * 25);
+  height: calc(var(--short-side) * 25);
   border-radius: 50%;
 }
 
@@ -2779,6 +2746,12 @@ label:not(.icon-button) {
   flex-grow: 1;
   white-space: nowrap;
 }
+label:not(.icon-button).indent {
+  padding-inline-start: 1.5rem;
+}
+label:not(.icon-button).indent2 {
+  padding-inline-start: 2.5rem;
+}
 label:not(.icon-button).information {
   background-color: rgba(230, 237, 243, 0.8);
   color: rgba(32, 28, 38, 0.9);
@@ -3584,14 +3557,15 @@ DUMMYSTYLE
             <div id="scale60-panel"></div>
             <div id="hours-niddle"></div>
             <div id="scale12-panel"></div>
-            <div id="center-circle"></div>
+            <div id="day-niddle"></div>
+            <div id="scale24-panel"></div>
             <div id="week-niddle"></div>
             <div id="week-panel"></div>
             <div id="month-niddle"></div>
             <div id="month-panel"></div>
             <div id="year-niddle"></div>
             <div id="year-panel"></div>
-            <div id="dates-center-circle"></div>
+            <div id="center-circle"></div>
         </time>
         <div id="overlay-panel" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
@@ -3647,11 +3621,11 @@ DUMMYSTYLE
             <span data-lang-key="on" class="value-label"></span>
             <span data-lang-key="off" class="value-label"></span>
         </label>
-        <label for="wakeup-time">
+        <label for="wakeup-time" class="indent">
             <span data-lang-key="timer-label"></span>
             <select id="wakeup-time"></select>
         </label>
-        <label for="fade-in">
+        <label for="fade-in" class="indent">
             <span data-lang-key="fade-in-label"></span>
             <select id="fade-in"></select>
         </label>
@@ -3790,7 +3764,7 @@ DUMMYSTYLE
             <span data-lang-key="cross-fade-label"></span>
             <select id="cross-fade"></select>
         </label>
-        <label for="cross-fade-with-blur">
+        <label for="cross-fade-with-blur" class="indent">
             <span data-lang-key="cross-fade-with-blur-label"></span>
             <input id="cross-fade-with-blur" type="checkbox" />
         </label>
@@ -3802,11 +3776,15 @@ DUMMYSTYLE
             <span data-lang-key="analog-clock-label"></span>
             <input id="analog-clock" type="checkbox" />
         </label>
-        <label for="date-hands">
+        <label for="24hours-hand" class="indent">
+            <span data-lang-key="24hours-hand-label"></span>
+            <input id="24hours-hand" type="checkbox" />
+        </label>
+        <label for="date-hands" class="indent">
             <span data-lang-key="date-hands-label"></span>
             <input id="date-hands" type="checkbox" />
         </label>
-        <label for="millisecond-hand">
+        <label for="millisecond-hand" class="indent">
             <span data-lang-key="millisecond-hand-label"></span>
             <input id="millisecond-hand" type="checkbox" />
         </label>
@@ -3814,31 +3792,31 @@ DUMMYSTYLE
             <span data-lang-key="overlay-style-label"></span>
             <select id="overlay-style"></select>
         </label>
-        <label for="overlay-position">
+        <label for="overlay-position" class="indent">
             <span data-lang-key="overlay-position-label"></span>
             <select id="overlay-position"></select>
         </label>
-        <label for="with-weather">
+        <label for="with-weather" class="indent">
             <span data-lang-key="with-weather-label"></span>
             <input id="with-weather" type="checkbox" />
         </label>
-        <label for="weather-location">
+        <label for="weather-location" class="indent2">
             <span data-lang-key="weather-location-label"></span>
             <select id="weather-location"></select>
         </label>
-        <label for="with-clock">
+        <label for="with-clock" class="indent">
             <span data-lang-key="with-clock-label"></span>
             <input id="with-clock" type="checkbox" />
         </label>
-        <label for="with-date">
+        <label for="with-date" class="indent">
             <span data-lang-key="with-date-label"></span>
             <input id="with-date" type="checkbox" />
         </label>
-        <label for="with-calendar">
+        <label for="with-calendar" class="indent">
             <span data-lang-key="with-calendar-label"></span>
             <input id="with-calendar" type="checkbox" />
         </label>
-        <label for="with-visualizer">
+        <label for="with-visualizer" class="indent">
             <span data-lang-key="with-visualizer-label"></span>
             <input id="with-visualizer" type="checkbox" />
         </label>
@@ -3877,11 +3855,11 @@ DUMMYSTYLE
             <span data-lang-key="on" class="value-label"></span>
             <span data-lang-key="off" class="value-label"></span>
         </label>
-        <label for="sleep-time">
+        <label for="sleep-time" class="indent">
             <span data-lang-key="timer-label"></span>
             <select id="sleep-time"></select>
         </label>
-        <label for="fade-out">
+        <label for="fade-out" class="indent">
             <span data-lang-key="fade-out-label"></span>
             <select id="fade-out"></select>
         </label>
@@ -3964,8 +3942,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Dec 05 2025 11:17:11 GMT+0900 (日本標準時)",
-    tick: 1764901031939
+    at: "Sat Dec 06 2025 04:15:59 GMT+0900 (日本標準時)",
+    tick: 1764962159582
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -5738,6 +5716,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
             "analog-clock-label": "الساعة التناظرية:",
+            "24hours-hand-label": "عقرب 24 ساعة:",
             "date-hands-label": "عقارب التاريخ:",
             "millisecond-hand-label": "عقرب الملِّيثانية:",
             "overlay-style-label": "نمط التراكب:",
@@ -5832,6 +5811,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
             "analog-clock-label": "Analoge Uhr:",
+            "24hours-hand-label": "24-Stunden-Zeiger:",
             "date-hands-label": "Datumszeiger:",
             "millisecond-hand-label": "Millisekundenzeiger:",
             "overlay-style-label": "Overlay-Stil:",
@@ -5926,6 +5906,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
             "analog-clock-label": "Αναλογικό Ρολόι:",
+            "24hours-hand-label": "Δείκτης 24 Ωρών:",
             "date-hands-label": "Δείκτες Ημερομηνίας:",
             "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου:",
             "overlay-style-label": "Στυλ επικάλυψης:",
@@ -6020,6 +6001,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
             "analog-clock-label": "Analog Clock:",
+            "24hours-hand-label": "24 Hours Hand:",
             "date-hands-label": "Date Hands:",
             "millisecond-hand-label": "Millisecond Hand:",
             "overlay-style-label": "Overlay Style:",
@@ -6114,6 +6096,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
             "analog-clock-label": "Reloj analógico:",
+            "24hours-hand-label": "Manecilla de 24 horas:",
             "date-hands-label": "Manecillas de fecha:",
             "millisecond-hand-label": "Manecilla de milisegundos:",
             "overlay-style-label": "Estilo de superposición:",
@@ -6208,6 +6191,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
             "analog-clock-label": "ساعت آنالوگ:",
+            "24hours-hand-label": "عقربه ۲۴ ساعته:",
             "date-hands-label": "عقربه‌های تاریخ:",
             "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه:",
             "overlay-style-label": "سبک پوشش:",
@@ -6302,6 +6286,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
             "analog-clock-label": "Horloge analogique :",
+            "24hours-hand-label": "Aiguille 24 heures :",
             "date-hands-label": "Aiguilles de la date :",
             "millisecond-hand-label": "Aiguille des millisecondes :",
             "overlay-style-label": "Style de superposition :",
@@ -6396,6 +6381,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
             "analog-clock-label": "एनालॉग घड़ी:",
+            "24hours-hand-label": "24 घंटे का सूचक:",
             "date-hands-label": "तारीख के सूचक:",
             "millisecond-hand-label": "मिलीसेकंड हैंड:",
             "overlay-style-label": "ओवरले शैली:",
@@ -6490,6 +6476,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
             "analog-clock-label": "Jam Analog:",
+            "24hours-hand-label": "Jarum 24 Jam:",
             "date-hands-label": "Jarum Tanggal:",
             "millisecond-hand-label": "Jarum Milidetik:",
             "overlay-style-label": "Gaya Overlay:",
@@ -6584,6 +6571,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
             "analog-clock-label": "Orologio analogico:",
+            "24hours-hand-label": "Lancetta delle 24 ore:",
             "date-hands-label": "Lancette della data:",
             "millisecond-hand-label": "Lancetta dei millisecondi:",
             "overlay-style-label": "Stile sovrapposizione:",
@@ -6678,6 +6666,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "analog-clock-label": "アナログ時計:",
+            "24hours-hand-label": "24時間針:",
             "date-hands-label": "日付針:",
             "millisecond-hand-label": "ミリ秒針:",
             "overlay-style-label": "オーバーレイスタイル:",
@@ -6772,6 +6761,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
             "analog-clock-label": "아날로그 시계:",
+            "24hours-hand-label": "24시간 바늘:",
             "date-hands-label": "날짜 바늘:",
             "millisecond-hand-label": "밀리초 바늘:",
             "overlay-style-label": "오버레이 스타일:",
@@ -6866,6 +6856,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
             "analog-clock-label": "Analoge klok:",
+            "24hours-hand-label": "24-uurs wijzer:",
             "date-hands-label": "Datumwijzers:",
             "millisecond-hand-label": "Milliseconde wijzer:",
             "overlay-style-label": "Overlay-stijl:",
@@ -6960,6 +6951,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
             "analog-clock-label": "Zegar analogowy:",
+            "24hours-hand-label": "Wskazówka 24 godzin:",
             "date-hands-label": "Wskazówki daty:",
             "millisecond-hand-label": "Wskazówka milisekund:",
             "overlay-style-label": "Styl nakładki:",
@@ -7054,6 +7046,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
             "analog-clock-label": "Relógio analógico:",
+            "24hours-hand-label": "Ponteiro de 24 horas:",
             "date-hands-label": "Ponteiros de data:",
             "millisecond-hand-label": "Ponteiro de milissegundos:",
             "overlay-style-label": "Estilo de sobreposição:",
@@ -7233,9 +7226,6 @@ define("resource/config", [], {
         "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 2,
         "maxBlur": 25
-    },
-    "analogClock": {
-        "angleAccuracy": 5
     },
     "clock": {
         "alternate": {
@@ -9256,6 +9246,10 @@ define("resource/control", [], {
         "id": "analog-clock",
         "default": false
     },
+    "dayHand": {
+        "id": "24hours-hand",
+        "default": false
+    },
     "dateHands": {
         "id": "date-hands",
         "default": false
@@ -9565,6 +9559,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
             AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
             AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
+            AnalogClock.dayNiddle = _library_2.Library.UI.getElementById("div", "day-niddle");
             AnalogClock.hoursNiddle = _library_2.Library.UI.getElementById("div", "hours-niddle");
             AnalogClock.minutesNiddle = _library_2.Library.UI.getElementById("div", "minutes-niddle");
             AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
@@ -9592,6 +9587,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
             SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
             SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+            SettingsPanel.dayHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dayHand);
             SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
             SettingsPanel.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
             SettingsPanel.overlayStyleSelect = new _library_2.Library.Control.Select(control_json_1.default.overlayStyle, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
@@ -9927,18 +9923,44 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
         Overlay.setAnalogClockNiddleAngle = function (niddle, angle) {
-            return library_1.Library.UI.setStyle(niddle, "--progress", angle.toFixed(config_json_4.default.analogClock.angleAccuracy));
+            return library_1.Library.UI.setStyle(niddle, "--progress", angle.toFixed(angleFractionDigits));
+        };
+        Overlay.getEnoughAngleFractionDigits = function () {
+            var innerWidth = window.innerWidth, innerHeight = window.innerHeight, devicePixelRatio = window.devicePixelRatio;
+            // const diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
+            // const circumference = Math.PI * diagonal;
+            // Ideally this should be calculated by the expression above, but here — for the precision of the analog clock hands — we use the short side instead
+            var shortSide = Math.min(innerWidth, innerHeight) * devicePixelRatio;
+            var circumference = Math.PI * shortSide;
+            if (circumference <= 1) {
+                // Client area is effectively zero (viewport collapsed); no fractional digits required
+                return 0;
+            }
+            else {
+                return Math.ceil(Math.log10(circumference));
+            }
+        };
+        var angleFractionDigits = Overlay.getEnoughAngleFractionDigits();
+        Overlay.updateStretch = function () {
+            var newAngleFractionDigits = Overlay.getEnoughAngleFractionDigits();
+            if (angleFractionDigits !== newAngleFractionDigits) {
+                angleFractionDigits = newAngleFractionDigits;
+                console.log("\uD83D\uDCC8 Updated angleFractionDigits to ".concat(newAngleFractionDigits));
+            }
         };
         Overlay.updateAnalogClock = function (date) {
+            var _a;
             var isAnalogClockEnabled = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
-            var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
-            var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
             ui_4.UI.AnalogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
-            ui_4.UI.AnalogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
-            ui_4.UI.AnalogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
-            ui_4.UI.AnalogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
             if (isAnalogClockEnabled) {
+                var is24HoursHandEnabled = ui_4.UI.SettingsPanel.dayHandCheckbox.get();
+                var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
+                var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
                 ui_4.UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
+                ui_4.UI.AnalogClock.dayNiddle.classList.toggle("hide", !is24HoursHandEnabled);
+                ui_4.UI.AnalogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
@@ -9955,8 +9977,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var weekAngle = week / 7;
                     var monthAngle = month / daysOfThisMonth;
                     var yearAngle = year / 12;
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
-                    if (Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle)) {
+                    if (!((_a = ui_4.UI.AnalogClock.monthNiddle.style.getPropertyValue("--progress")) !== null && _a !== void 0 ? _a : "").startsWith(monthAngle.toFixed(1))) {
                         if (monthAngle < 0.5) {
                             // Case where the trace crosses a month boundary
                             var daysOfLastMonth = new Date(0 === date.getMonth() ? date.getFullYear() - 1 : date.getFullYear(), date.getMonth(), 0).getDate();
@@ -9967,7 +9988,13 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                             library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.monthPanel, "data-days", "".concat(daysOfThisMonth).concat(daysOfThisMonth));
                         }
                     }
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle);
                     Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.yearNiddle, yearAngle);
+                }
+                if (is24HoursHandEnabled) {
+                    var dayAngle = hours / 24;
+                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.dayNiddle, dayAngle);
                 }
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.secondsNiddle, secondsAngle);
@@ -12189,6 +12216,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             document.documentElement.style.setProperty('--short-side', "".concat(Math.min(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
+            overlay_1.Overlay.updateStretch();
         };
         Player.updateLoopShortMedia = function () {
             if (null !== currentTrack) {

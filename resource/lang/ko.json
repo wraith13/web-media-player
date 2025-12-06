@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
     "visualizer-stereo-double-arc": "스테레오 더블 아크",
     "analog-clock-label": "아날로그 시계:",
+    "24hours-hand-label": "24시간 바늘:",
     "date-hands-label": "날짜 바늘:",
     "millisecond-hand-label": "밀리초 바늘:",
     "overlay-style-label": "오버레이 스타일:",

@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
     "visualizer-stereo-double-arc": "Stereo Double Arc",
     "analog-clock-label": "Analog Clock:",
+    "24hours-hand-label": "24 Hours Hand:",
     "date-hands-label": "Date Hands:",
     "millisecond-hand-label": "Millisecond Hand:",
     "overlay-style-label": "Overlay Style:",

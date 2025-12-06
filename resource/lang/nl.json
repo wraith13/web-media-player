@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
     "visualizer-stereo-double-arc": "Stereo dubbele boog",
     "analog-clock-label": "Analoge klok:",
+    "24hours-hand-label": "24-uurs wijzer:",
     "date-hands-label": "Datumwijzers:",
     "millisecond-hand-label": "Milliseconde wijzer:",
     "overlay-style-label": "Overlay-stijl:",

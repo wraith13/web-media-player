@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
     "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
     "analog-clock-label": "Analoge Uhr:",
+    "24hours-hand-label": "24-Stunden-Zeiger:",
     "date-hands-label": "Datumszeiger:",
     "millisecond-hand-label": "Millisekundenzeiger:",
     "overlay-style-label": "Overlay-Stil:",

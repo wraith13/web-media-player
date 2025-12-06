@@ -62,6 +62,7 @@ export namespace UI
         export const yearNiddle = Library.UI.getElementById("div", "year-niddle");
         export const monthNiddle = Library.UI.getElementById("div", "month-niddle");
         export const weekNiddle = Library.UI.getElementById("div", "week-niddle");
+        export const dayNiddle = Library.UI.getElementById("div", "day-niddle");
         export const hoursNiddle = Library.UI.getElementById("div", "hours-niddle");
         export const minutesNiddle = Library.UI.getElementById("div", "minutes-niddle");
         export const secondsNiddle = Library.UI.getElementById("div", "seconds-niddle");
@@ -105,6 +106,8 @@ export namespace UI
             new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
         export const analogClockCheckbox =
             new Library.Control.Checkbox(control.analogClock);
+        export const dayHandCheckbox =
+            new Library.Control.Checkbox(control.dayHand);
         export const dateHandsCheckbox =
             new Library.Control.Checkbox(control.dateHands);
         export const millisecondHandCheckbox =

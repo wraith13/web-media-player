@@ -27,6 +27,7 @@
     "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
     "visualizer-stereo-double-arc": "Arco estéreo doble",
     "analog-clock-label": "Reloj analógico:",
+    "24hours-hand-label": "Manecilla de 24 horas:",
     "date-hands-label": "Manecillas de fecha:",
     "millisecond-hand-label": "Manecilla de milisegundos:",
     "overlay-style-label": "Estilo de superposición:",

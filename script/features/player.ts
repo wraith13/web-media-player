@@ -517,6 +517,7 @@ export namespace Player
         document.documentElement.style.setProperty('--short-side', `${Math.min(innerWidth, innerHeight) *0.01}px`);
         currentTrack?.updateStretch("current");
         fadeoutingTrack?.updateStretch("fadeouting");
+        Overlay.updateStretch();
     }
     export const updateLoopShortMedia = () =>
     {

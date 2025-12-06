@@ -64,14 +64,15 @@ DUMMYSTYLE
             <div id="scale60-panel"></div>
             <div id="hours-niddle"></div>
             <div id="scale12-panel"></div>
-            <div id="center-circle"></div>
+            <div id="day-niddle"></div>
+            <div id="scale24-panel"></div>
             <div id="week-niddle"></div>
             <div id="week-panel"></div>
             <div id="month-niddle"></div>
             <div id="month-panel"></div>
             <div id="year-niddle"></div>
             <div id="year-panel"></div>
-            <div id="dates-center-circle"></div>
+            <div id="center-circle"></div>
         </time>
         <div id="overlay-panel" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather-label"></div>
@@ -115,11 +116,11 @@ DUMMYSTYLE
             <span data-lang-key="on" class="value-label"></span>
             <span data-lang-key="off" class="value-label"></span>
         </label>
-        <label for="wakeup-time">
+        <label for="wakeup-time" class="indent">
             <span data-lang-key="timer-label"></span>
             <select id="wakeup-time"></select>
         </label>
-        <label for="fade-in">
+        <label for="fade-in" class="indent">
             <span data-lang-key="fade-in-label"></span>
             <select id="fade-in"></select>
         </label>
@@ -190,7 +191,7 @@ DUMMYSTYLE
             <span data-lang-key="cross-fade-label"></span>
             <select id="cross-fade"></select>
         </label>
-        <label for="cross-fade-with-blur">
+        <label for="cross-fade-with-blur" class="indent">
             <span data-lang-key="cross-fade-with-blur-label"></span>
             <input id="cross-fade-with-blur" type="checkbox" />
         </label>
@@ -202,11 +203,15 @@ DUMMYSTYLE
             <span data-lang-key="analog-clock-label"></span>
             <input id="analog-clock" type="checkbox" />
         </label>
-        <label for="date-hands">
+        <label for="24hours-hand" class="indent">
+            <span data-lang-key="24hours-hand-label"></span>
+            <input id="24hours-hand" type="checkbox" />
+        </label>
+        <label for="date-hands" class="indent">
             <span data-lang-key="date-hands-label"></span>
             <input id="date-hands" type="checkbox" />
         </label>
-        <label for="millisecond-hand">
+        <label for="millisecond-hand" class="indent">
             <span data-lang-key="millisecond-hand-label"></span>
             <input id="millisecond-hand" type="checkbox" />
         </label>
@@ -214,31 +219,31 @@ DUMMYSTYLE
             <span data-lang-key="overlay-style-label"></span>
             <select id="overlay-style"></select>
         </label>
-        <label for="overlay-position">
+        <label for="overlay-position" class="indent">
             <span data-lang-key="overlay-position-label"></span>
             <select id="overlay-position"></select>
         </label>
-        <label for="with-weather">
+        <label for="with-weather" class="indent">
             <span data-lang-key="with-weather-label"></span>
             <input id="with-weather" type="checkbox" />
         </label>
-        <label for="weather-location">
+        <label for="weather-location" class="indent2">
             <span data-lang-key="weather-location-label"></span>
             <select id="weather-location"></select>
         </label>
-        <label for="with-clock">
+        <label for="with-clock" class="indent">
             <span data-lang-key="with-clock-label"></span>
             <input id="with-clock" type="checkbox" />
         </label>
-        <label for="with-date">
+        <label for="with-date" class="indent">
             <span data-lang-key="with-date-label"></span>
             <input id="with-date" type="checkbox" />
         </label>
-        <label for="with-calendar">
+        <label for="with-calendar" class="indent">
             <span data-lang-key="with-calendar-label"></span>
             <input id="with-calendar" type="checkbox" />
         </label>
-        <label for="with-visualizer">
+        <label for="with-visualizer" class="indent">
             <span data-lang-key="with-visualizer-label"></span>
             <input id="with-visualizer" type="checkbox" />
         </label>
@@ -272,11 +277,11 @@ DUMMYSTYLE
             <span data-lang-key="on" class="value-label"></span>
             <span data-lang-key="off" class="value-label"></span>
         </label>
-        <label for="sleep-time">
+        <label for="sleep-time" class="indent">
             <span data-lang-key="timer-label"></span>
             <select id="sleep-time"></select>
         </label>
-        <label for="fade-out">
+        <label for="fade-out" class="indent">
             <span data-lang-key="fade-out-label"></span>
             <select id="fade-out"></select>
         </label>

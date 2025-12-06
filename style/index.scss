@@ -462,6 +462,12 @@
         left: 50%;
         translate: -50% -50%;
         border-radius: 50%;
+        --major-line-angle: 1.5deg;
+        --major-tick-width: calc(var(--short-side) * 0.3);
+        --major-tick-color: rgba(0, 0, 0, 0.5);
+        --minor-line-angle: 0.75deg;
+        --minor-tick-width: calc(var(--short-side) * 0.15);
+        --minor-tick-color: rgba(0, 0, 0, 0.5);
         // Even this alone has a fairly significant impact on runtime performance...
         // border-width: calc(var(--short-side) * 0.25);
         // border-color: black;
@@ -469,7 +475,7 @@
         &#milli-seconds-niddle
         {
             @include clock-niddle(var(--niddle-color));
-            @include fade-transition("&.hide");
+            @include blackout-transition("&.hide");
             @include circle-size(96);
         }
         &#seconds-niddle
@@ -484,10 +490,8 @@
         }
         &#scale60-panel
         {
-            --tick-width: calc(var(--short-side) * 0.15);
-            --tick-color: rgba(0, 0, 0, 0.3);
             @include circle-size(95);
-            @include even-clock-ticks(60);
+            @include clock-60-ticks();
         }
         &#hours-niddle
         {
@@ -496,42 +500,46 @@
         }
         &#scale12-panel
         {
-            --tick-width: calc(var(--short-side) * 0.3);
-            --tick-color: rgba(0, 0, 0, 0.7);
-            @include circle-size(95);
+            --tick-width: var(--major-tick-width);
+            --tick-color: var(--major-tick-color);
+            @include circle-size(70);
             @include even-clock-ticks(12);
         }
-        &#center-circle
+        &#day-niddle
         {
-            background-color: black;
-            @include circle-size(55);
-        }
-        &#week-niddle
-        {
-            @include fade-transition("&.hide");
+            @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
             @include circle-size(55);
         }
+        &#scale24-panel
+        {
+            --tick-width: var(--major-tick-width);
+            --tick-color: var(--major-tick-color);
+            @include circle-size(55);
+            @include even-clock-ticks(24);
+        }
+        &#week-niddle
+        {
+            @include blackout-transition("&.hide");
+            @include clock-niddle(var(--niddle-color));
+            @include circle-size(50);
+        }
         &#week-panel
         {
-            --line-angle: 1.5deg;
-            --tick-color: rgba(0, 0, 0, 0.5);
-            @include circle-size(55);
+            --line-angle: var(--major-line-angle);
+            --tick-color: var(--major-tick-color);
+            @include circle-size(50);
             @include odd-clock-ticks(7);
         }
         &#month-niddle
         {
-            @include fade-transition("&.hide");
+            @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(50);
+            @include circle-size(45);
         }
         &#month-panel
         {
-            --major-line-angle: 1.5deg;
-            --major-tick-color: rgba(0, 0, 0, 0.7);
-            --minor-line-angle: 0.75deg;
-            --minor-tick-color: rgba(0, 0, 0, 0.3);
-            @include circle-size(50);
+            @include circle-size(45);
             &[data-days="2828"] { @include month-clock-ticks(28, 28); }
             &[data-days="2831"] { @include month-clock-ticks(28, 31); }
             &[data-days="2929"] { @include month-clock-ticks(29, 29); }
@@ -545,21 +553,21 @@
         }
         &#year-niddle
         {
-            @include fade-transition("&.hide");
+            @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(40);
+            @include circle-size(35);
         }
         &#year-panel
         {
-            --tick-width: calc(var(--short-side) * 0.3);
-            --tick-color: rgba(0, 0, 0, 0.7);
-            @include circle-size(40);
+            --tick-width: var(--major-tick-width);
+            --tick-color: var(--major-tick-color);
+            @include circle-size(35);
             @include even-clock-ticks(12);
         }
-        &#dates-center-circle
+        &#center-circle
         {
             background-color: black;
-            @include circle-size(30);
+            @include circle-size(25);
         }
     }
 }
@@ -1481,6 +1489,14 @@ label:not(.icon-button)
         height: 1.5rem;
         flex-grow: 1;
         white-space: nowrap;
+        &.indent
+        {
+            padding-inline-start: 1.5rem;
+        }
+        &.indent2
+        {
+            padding-inline-start: 2.5rem;
+        }
         &.information
         {
             background-color: white-color(0.8);

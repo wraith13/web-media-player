@@ -53,9 +53,6 @@
         "blurEasing": 2,
         "maxBlur": 25
     },
-    "analogClock": {
-        "angleAccuracy": 5
-    },
     "clock":
     {
         "alternate":
