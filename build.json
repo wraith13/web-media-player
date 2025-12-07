@@ -100,58 +100,126 @@
                     "path": "./resource/evil-timer.js.config.json"
                 },
                 "__ADD_ICON__": {
-                    "path": "./image/add.svg"
+                    "path": "./image/add.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SHUFFLE_ICON__": {
-                    "path": "./image/shuffle.svg"
+                    "path": "./image/shuffle.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__REPEAT_ICON__": {
-                    "path": "./image/repeat.svg"
+                    "path": "./image/repeat.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__PLAY_ICON__": {
-                    "path": "./image/play.svg"
+                    "path": "./image/play.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__PAUSE_ICON__": {
-                    "path": "./image/pause.svg"
+                    "path": "./image/pause.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
                 },
                 "__COG_ICON__": {
-                    "path": "./image/cog.svg"
+                    "path": "./image/cog.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SUN_ICON__": {
-                    "path": "./image/sun.svg"
+                    "path": "./image/sun.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__MOON_ICON__": {
-                    "path": "./image/moon.svg"
+                    "path": "./image/moon.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SPEAKER_MUTE_ICON__": {
-                    "path": "./image/speaker-mute.svg"
+                    "path": "./image/speaker-mute.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SPEAKER_0_ICON__": {
-                    "path": "./image/speaker-0.svg"
+                    "path": "./image/speaker-0.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SPEAKER_1_ICON__": {
-                    "path": "./image/speaker-1.svg"
+                    "path": "./image/speaker-1.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SPEAKER_2_ICON__": {
-                    "path": "./image/speaker-2.svg"
+                    "path": "./image/speaker-2.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__SPEAKER_3_ICON__": {
-                    "path": "./image/speaker-3.svg"
+                    "path": "./image/speaker-3.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__BACK_ICON__": {
-                    "path": "./image/back.svg"
+                    "path": "./image/back.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__NEXT_ICON__": {
-                    "path": "./image/next.svg"
+                    "path": "./image/next.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__REWIND_ICON__": {
-                    "path": "./image/rewind.svg"
+                    "path": "./image/rewind.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 },
                 "__FAST_FORWARD_ICON__": {
-                    "path": "./image/fast-forward.svg"
+                    "path": "./image/fast-forward.svg",
+                    "replace": {
+                        "match": "<svg ",
+                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
+                    }
                 }
             }
         },

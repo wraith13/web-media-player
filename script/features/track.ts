@@ -560,7 +560,7 @@ export class Track
                 makeRandomLineArguments("diline", intervalSize);
             const makeRandomTrilineArguments = (intervalSize: number) =>
                 makeRandomLineArguments("triline", intervalSize);
-            const shortSide = Math.min(window.innerWidth, window.innerHeight) /100;
+            const diagonal = Math.hypot(window.innerWidth, window.innerHeight) /100;
             const makeRandomArguments = () => randomSelect
                 ([
                     makeRandomTrispotArguments,
@@ -569,11 +569,22 @@ export class Track
                     makeRandomDilineArguments,
                     makeRandomTrilineArguments,
                 ])
-                (shortSide *(10 +makeRandomInteger(50)));
+                (diagonal *(5 +makeRandomInteger(50)));
             this.transtionPattern = makeRandomArguments();
             this.isReverseWipe = randomSelect([ true, false, ]);
         }
         return this.transtionPattern;
+    }
+    backgroundToMask(backgroundStyle: FlounderStyle.Style): FlounderStyle.Style
+    {
+        const maskStyle: FlounderStyle.Style =
+        {
+            //"mask-color": backgroundStyle["background-color"],
+            "mask-image": backgroundStyle["background-image"],
+            "mask-size": backgroundStyle["background-size"],
+            "mask-position": backgroundStyle["background-position"],
+        };
+        return maskStyle;
     }
     setPattern(rate: number, opposite: Track | null): void
     {
@@ -585,15 +596,7 @@ export class Track
                 const target = isReverseWipe ? opposite?.visualElement!: this.visualElement;
                 const data = this.makeSureTranstionPattern();
                 data.depth = isReverseWipe ? (1 - rate) : rate;
-                const backgroundStyle = FlounderStyle.makeStyle(data);
-                const maskStyle =
-                {
-                    //"mask-color": backgroundStyle["background-color"],
-                    "mask-image": backgroundStyle["background-image"],
-                    "mask-size": backgroundStyle["background-size"],
-                    "mask-position": backgroundStyle["background-position"],
-                };
-                FlounderStyle.setStyle(target!, maskStyle);
+                FlounderStyle.setStyle(target!, this.backgroundToMask(FlounderStyle.makeStyle(data)));
                 if (isReverseWipe)
                 {
                     if (this.visualElement === opposite?.visualElement?.nextSibling)

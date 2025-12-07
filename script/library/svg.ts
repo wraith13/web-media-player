@@ -58,7 +58,11 @@ export namespace Svg
             const dom = document.getElementById(key);
             if (dom)
             {
-                return new DOMParser().parseFromString(dom.innerHTML, "image/svg+xml").documentElement as any;
+                return new DOMParser().parseFromString
+                (
+                    dom.innerHTML.replace("<svg ", "<svg role=\"presentation\" aria-hidden=\"true\" "),
+                    "image/svg+xml"
+                ).documentElement as any;
             }
             else
             {

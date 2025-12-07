@@ -155,20 +155,20 @@ DUMMYSTYLE
         __COG_ICON__
     </label>
     <div id="settings-panel" class="popup-panel">
-        <label for="media-count" class="information">
-            <span data-lang-key="media-count"></span>
+        <label for="media-count" class="information" aria-labelledby="media-count-label-span">
+            <span id="media-count-label-span" data-lang-key="media-count"></span>
             <span id="media-count" class="value-text"></span>
         </label>
-        <label for="media-length" class="information">
-            <span data-lang-key="media-length"></span>
+        <label for="media-length" class="information" aria-labelledby="media-length-label-span">
+            <span id="media-length-label-span" data-lang-key="media-length"></span>
             <span id="media-length" class="value-text"></span>
         </label>
-        <label for="with-fullscreen">
-            <span data-lang-key="with-fullscreen"></span>
+        <label for="with-fullscreen" aria-labelledby="with-fullscreen-label-span">
+            <span id="with-fullscreen-label-span" data-lang-key="with-fullscreen"></span>
             <input id="with-fullscreen" type="checkbox" />
         </label>
-        <label for="brightness">
-            <span data-lang-key="brightness"></span>
+        <label for="brightness" aria-labelledby="brightness-label-span">
+            <span id="brightness-label-span" data-lang-key="brightness"></span>
             <input id="brightness" type="range" />
         </label>
         <label for="stretch">

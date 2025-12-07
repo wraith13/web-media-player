@@ -2404,7 +2404,7 @@ define("script/library/svg", ["require", "exports"], function (require, exports)
                 try {
                     dom = document.getElementById(key);
                     if (dom) {
-                        return [2 /*return*/, new DOMParser().parseFromString(dom.innerHTML, "image/svg+xml").documentElement];
+                        return [2 /*return*/, new DOMParser().parseFromString(dom.innerHTML.replace("<svg ", "<svg role=\"presentation\" aria-hidden=\"true\" "), "image/svg+xml").documentElement];
                     }
                     else {
                         console.error("\uD83D\uDEAB SVG element with id \"".concat(key, "\" not found in the DOM."));
@@ -7360,18 +7360,27 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 var makeRandomTrilineArguments_1 = function (intervalSize) {
                     return makeRandomLineArguments_1("triline", intervalSize);
                 };
-                var shortSide_1 = Math.min(window.innerWidth, window.innerHeight) / 100;
+                var diagonal_1 = Math.hypot(window.innerWidth, window.innerHeight) / 100;
                 var makeRandomArguments = function () { return randomSelect_1([
                     makeRandomTrispotArguments_1,
                     makeRandomTetraspotArguments_1,
                     makeRandomStripeArguments_1,
                     makeRandomDilineArguments_1,
                     makeRandomTrilineArguments_1,
-                ])(shortSide_1 * (10 + makeRandomInteger_1(50))); };
+                ])(diagonal_1 * (5 + makeRandomInteger_1(50))); };
                 this.transtionPattern = makeRandomArguments();
                 this.isReverseWipe = randomSelect_1([true, false,]);
             }
             return this.transtionPattern;
+        };
+        Track.prototype.backgroundToMask = function (backgroundStyle) {
+            var maskStyle = {
+                //"mask-color": backgroundStyle["background-color"],
+                "mask-image": backgroundStyle["background-image"],
+                "mask-size": backgroundStyle["background-size"],
+                "mask-position": backgroundStyle["background-position"],
+            };
+            return maskStyle;
         };
         Track.prototype.setPattern = function (rate, opposite) {
             var _a, _b;
@@ -7381,14 +7390,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
                     data.depth = isReverseWipe ? (1 - rate) : rate;
-                    var backgroundStyle = flounder_style_js_1.FlounderStyle.makeStyle(data);
-                    var maskStyle = {
-                        //"mask-color": backgroundStyle["background-color"],
-                        "mask-image": backgroundStyle["background-image"],
-                        "mask-size": backgroundStyle["background-size"],
-                        "mask-position": backgroundStyle["background-position"],
-                    };
-                    flounder_style_js_1.FlounderStyle.setStyle(target, maskStyle);
+                    flounder_style_js_1.FlounderStyle.setStyle(target, this.backgroundToMask(flounder_style_js_1.FlounderStyle.makeStyle(data)));
                     if (isReverseWipe) {
                         if (this.visualElement === ((_a = opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === null || _a === void 0 ? void 0 : _a.nextSibling)) {
                             ui_8.UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
