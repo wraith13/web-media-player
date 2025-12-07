@@ -43,7 +43,7 @@
             "@controller": [ "./controller" ],
             "@controller/*": [ "./controller/*" ],
             "@script/*": [ "../script/*" ],
-            "phi-colors": [ "../phi-colors/library/source" ]
+            "flounder.style.js": [ "../flounder.style.js" ]
         }
     },
     "files": [

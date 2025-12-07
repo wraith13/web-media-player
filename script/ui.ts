@@ -91,6 +91,8 @@ export namespace UI
             new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
         export const loopShortMediaCheckbox =
             new Library.Control.Checkbox(control.loopShortMedia);
+        export const visualizerSelect =
+            new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
         export const crossFadeSelect = new Library.Control.Select
         (
             control.crossFade,
@@ -100,10 +102,8 @@ export namespace UI
                     Tools.Timespan.toHumanizedString(value, undefined, locale)
             }
         );
-        export const crossFadeWithBlurCheckbox =
-            new Library.Control.Checkbox(control.crossFadeWithBlur);
-        export const visualizerSelect =
-            new Library.Control.Select(control.visualizer, { makeLabel: i => Library.Locale.map(`visualizer-${i}` as Library.Locale.Label), });
+        export const crossFadeTransitionSelect =
+            new Library.Control.Select(control.crossFadeTransition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
         export const analogClockCheckbox =
             new Library.Control.Checkbox(control.analogClock);
         export const dayHandCheckbox =
@@ -236,8 +236,9 @@ export namespace UI
         Library.Shortcuts.setLocaleDirection(localeDirection);
         manifest.setAttribute("href", `web.manifest/generated/${lang}.json`);
         UI.SettingsPanel.imageSpanSelect.reloadOptions();
-        UI.SettingsPanel.crossFadeSelect.reloadOptions();
         UI.SettingsPanel.visualizerSelect.reloadOptions();
+        UI.SettingsPanel.crossFadeSelect.reloadOptions();
+        UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
         UI.SettingsPanel.overlayStyleSelect.reloadOptions();
         UI.SettingsPanel.overlayPositionSelect.reloadOptions();
         UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -316,13 +317,31 @@ export namespace UI
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;
     export const updateLabel = (element: HTMLSpanElement) =>
-        Library.UI.setTextContent(element, Library.Locale.map(getDataLangKey(element)));
+    {
+        const label = Library.Locale.map(getDataLangKey(element));
+        if (undefined !== label)
+        {
+            Library.UI.setTextContent(element, label);
+        }
+        else
+        {
+            console.warn(`🚫 Missing locale label for key: ${getDataLangKey(element)}`);
+        }
+    };
     export const updateAriaLabel = (element: HTMLElement) =>
     {
         const labelKey = element.getAttribute("data-aria-lang-key") as Library.Locale.Label;
         if (labelKey)
         {
-            element.setAttribute("aria-label", Library.Locale.map(labelKey));
+            const label = Library.Locale.map(labelKey);
+            if (undefined !== label)
+            {
+                element.setAttribute("aria-label", label);
+            }
+            else
+            {
+                console.warn(`🚫 Missing locale label for key: ${labelKey}`);
+            }
         }
     };
     export const setLabel = (element: HTMLSpanElement, label: Library.Locale.Label) =>

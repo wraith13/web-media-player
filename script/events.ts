@@ -673,10 +673,11 @@ export namespace Events
         UI.SettingsPanel.paddingCheckbox.loadParameter(Url.params, applyParam).setChange(() => Features.Player.updateStretch());
         UI.SettingsPanel.imageSpanSelect.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.imageSpanSelect.options.change);
         UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-        UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
+        UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
+        UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.dayHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
@@ -755,9 +756,13 @@ export namespace Events
                         UI.SettingsPanel.paddingCheckbox,
                         UI.SettingsPanel.imageSpanSelect,
                         UI.SettingsPanel.loopShortMediaCheckbox,
-                        UI.SettingsPanel.crossFadeSelect,
-                        UI.SettingsPanel.crossFadeWithBlurCheckbox,
                         UI.SettingsPanel.visualizerSelect,
+                        UI.SettingsPanel.crossFadeSelect,
+                        UI.SettingsPanel.crossFadeTransitionSelect,
+                        UI.SettingsPanel.analogClockCheckbox,
+                        UI.SettingsPanel.dayHandCheckbox,
+                        UI.SettingsPanel.dateHandsCheckbox,
+                        UI.SettingsPanel.millisecondHandCheckbox,
                         UI.SettingsPanel.overlayStyleSelect,
                         UI.SettingsPanel.overlayPositionSelect,
                         UI.SettingsPanel.withWeatherCheckbox,

@@ -5,6 +5,7 @@ import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { Analyser } from "./analyser";
 import { Visualizer } from "./visualizer";
+import {FlounderStyle } from "flounder.style.js";
 import config from "@resource/config.json";
 export const hasValidGainNode = (track: Track): track is Track & { analyser: Analyser.Entry & { gainNode: GainNode } } =>
 {
@@ -22,6 +23,7 @@ export class Track
     fadeRate: number = 0.0;
     currentTimeForValidation: number = 0.0;
     analyser: Analyser.Entry | null = null;
+    transtionPattern: FlounderStyle.Type.Arguments | null = null;
     constructor(media: Media.Entry, index: number)
     {
         this.media = media;
@@ -517,6 +519,86 @@ export class Track
         if (this.visualElement)
         {
             Library.UI.setStyle(this.visualElement, "--blur", `calc(${finalBlur}vw + ${finalBlur}vh)`);
+        }
+    }
+    makeSureTranstionPattern(): FlounderStyle.Type.Arguments
+    {
+        if (null === this.transtionPattern)
+        {
+            const makeRandomInteger = (size: number) => Math.floor(Math.random() *size);
+            const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
+            const makeRandomSpotArguments = (type: FlounderStyle.Type.SpotArguments["type"], intervalSize: number): FlounderStyle.Type.Arguments =>
+            ({
+                type,
+                layoutAngle: randomSelect([ "regular", "alternative", ]),
+                foregroundColor: "white",
+                intervalSize,
+                depth: 0.0,
+                maxPatternSize: randomSelect([ undefined, intervalSize /4, ]),
+            });
+            const makeRandomTrispotArguments = (intervalSize: number) =>
+                makeRandomSpotArguments("trispot", intervalSize);
+            const makeRandomTetraspotArguments = (intervalSize: number) =>
+                makeRandomSpotArguments("tetraspot", intervalSize);
+            const makeRandomLineArguments = (type: FlounderStyle.Type.LineArguments["type"], intervalSize: number): FlounderStyle.Type.Arguments =>
+            ({
+                type,
+                layoutAngle: Math.random(),
+                foregroundColor: "white",
+                intervalSize,
+                depth: 0.0,
+                maxPatternSize: randomSelect([ undefined, intervalSize /(2 +makeRandomInteger(9)), ]),
+                anglePerDepth: randomSelect([ undefined, "auto", "-auto", ]),
+            });
+            const makeRandomStripeArguments = (intervalSize: number) =>
+                makeRandomLineArguments("stripe", intervalSize);
+            const makeRandomDilineArguments = (intervalSize: number) =>
+                makeRandomLineArguments("diline", intervalSize);
+            const makeRandomTrilineArguments = (intervalSize: number) =>
+                makeRandomLineArguments("triline", intervalSize);
+            const shortSide = Math.min(window.innerWidth, window.innerHeight) /100;
+            const makeRandomArguments = () => randomSelect
+                ([
+                    makeRandomTrispotArguments,
+                    makeRandomTetraspotArguments,
+                    makeRandomStripeArguments,
+                    makeRandomDilineArguments,
+                    makeRandomTrilineArguments,
+                ])
+                (shortSide *(10 +makeRandomInteger(50)));
+            this.transtionPattern = makeRandomArguments();
+        }
+        return this.transtionPattern;
+    }
+    setPattern(rate: number): void
+    {
+        if (this.visualElement)
+        {
+            if (rate < 1)
+            {
+                const data = this.makeSureTranstionPattern();
+                data.depth = rate;
+                const backgroundStyle = FlounderStyle.makeStyle(data);
+                const maskStyle =
+                {
+                    //"mask-color": backgroundStyle["background-color"],
+                    "mask-image": backgroundStyle["background-image"],
+                    "mask-size": backgroundStyle["background-size"],
+                    "mask-position": backgroundStyle["background-position"],
+                };
+                FlounderStyle.setStyle(this.visualElement, maskStyle);
+            }
+            else
+            {
+                const maskStyle =
+                {
+                    //"mask-color": undefined,
+                    "mask-image": undefined,
+                    "mask-size": undefined,
+                    "mask-position": undefined,
+                };
+                FlounderStyle.setStyle(this.visualElement, maskStyle);
+            }
         }
     }
     release(): void

@@ -189,17 +189,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "جارٍ تحميل الوسائط...",
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
-            "media-count-label": "عدد الوسائط",
-            "media-length-label": "طول الوسائط",
-            "with-fullscreen-label": "ملء الشاشة",
-            "brightness-label": "السطوع",
-            "stretch-label": "توسيع",
-            "padding-label": "المسافة الداخلية",
-            "cross-fade-label": "تلاشي متقاطع",
-            "cross-fade-with-blur-label": "تلاشي متقاطع مع ضبابية",
-            "image-span-label": "مدة عرض الصورة",
-            "loop-short-media-label": "تكرار الوسائط القصيرة",
-            "visualizer-label": "المصوِّر",
+            "media-count": "عدد الوسائط",
+            "media-length": "طول الوسائط",
+            "with-fullscreen": "ملء الشاشة",
+            "brightness": "السطوع",
+            "stretch": "توسيع",
+            "padding": "المسافة الداخلية",
+            "cross-fade": "تلاشي متقاطع",
+            "cross-fade-transition": "انتقال التلاشي المتقاطع",
+            "alpha": "ألفا",
+            "blur": "تمويه",
+            "wipe": "مسح",
+            "image-span": "مدة عرض الصورة",
+            "loop-short-media": "تكرار الوسائط القصيرة",
+            "visualizer": "المصوِّر",
             "visualizer-simple": "بسيط",
             "visualizer-plane-frequency": "تردد المستوي",
             "visualizer-plane-waveform": "شكل موجة المستوي",
@@ -209,11 +212,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "تردد قوس ستيريو",
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
-            "analog-clock-label": "الساعة التناظرية",
-            "24hours-hand-label": "عقرب 24 ساعة",
-            "date-hands-label": "عقارب التاريخ",
-            "millisecond-hand-label": "عقرب الملِّيثانية",
-            "overlay-style-label": "نمط التراكب",
+            "analog-clock": "الساعة التناظرية",
+            "24hours-hand": "عقرب 24 ساعة",
+            "date-hands": "عقارب التاريخ",
+            "millisecond-hand": "عقرب الملِّيثانية",
+            "overlay-style": "نمط التراكب",
             "hide": "إخفاء",
             "blend": "مزج",
             "white": "أبيض",
@@ -221,35 +224,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "النظام",
             "alternate": "متناوب",
             "rainbow": "قوس قزح",
-            "overlay-position-label": "موضع التراكب",
+            "overlay-position": "موضع التراكب",
             "center": "وسط",
             "top-right": "أعلى اليمين",
             "bottom-right": "أسفل اليمين",
             "bottom-left": "أسفل اليسار",
             "top-left": "أعلى اليسار",
             "rotate": "دوران",
-            "with-weather-label": "الطقس",
-            "weather-location-label": "موقع الطقس",
+            "with-weather": "الطقس",
+            "weather-location": "موقع الطقس",
             "ip-address": "عنوان IP (دقة منخفضة)",
             "geolocation": "تحديد الموقع الجغرافي (دقة عالية)",
-            "with-clock-label": "الساعة",
-            "with-date-label": "التاريخ",
-            "with-calendar-label": "التقويم",
-            "with-visualizer-label": "المصوِّر (تراكب)",
-            "show-fps-label": "عرض معدل الإطارات",
-            "shortcuts-label": "اختصارات لوحة المفاتيح",
-            "language-label": "اللغة",
-            "url-label": "رابط لهذا الإعداد",
-            "repository-label": "المستودع",
+            "with-clock": "الساعة",
+            "with-date": "التاريخ",
+            "with-calendar": "التقويم",
+            "with-visualizer": "المصوِّر (تراكب)",
+            "show-fps": "عرض معدل الإطارات",
+            "shortcuts": "اختصارات لوحة المفاتيح",
+            "language": "اللغة",
+            "url": "رابط لهذا الإعداد",
+            "repository": "المستودع",
             "on": "تشغيل",
             "off": "إيقاف",
             "wakeup": "مؤقت الاستيقاظ",
-            "wakeup-label": "مؤقت الاستيقاظ",
-            "timer-label": "المؤقت",
-            "fade-in-label": "مدة التلاشي للدخول",
+            "timer": "المؤقت",
+            "fade-in": "مدة التلاشي للدخول",
             "sleep": "مؤقت النوم",
-            "sleep-label": "مؤقت النوم",
-            "fade-out-label": "مدة التلاشي للخروج",
+            "fade-out": "مدة التلاشي للخروج",
             "timeUnitMs": "ملِّيثانية",
             "timeUnitS": "ثانية",
             "timeUnitM": "دقيقة",
@@ -285,17 +286,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Medien werden geladen...",
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
-            "media-count-label": "Medienanzahl",
-            "media-length-label": "Mediendauer",
-            "with-fullscreen-label": "Vollbild",
-            "brightness-label": "Helligkeit",
-            "stretch-label": "Dehnen",
-            "padding-label": "Innenabstand",
-            "cross-fade-label": "Überblenden",
-            "cross-fade-with-blur-label": "Überblenden mit Weichzeichnung",
-            "image-span-label": "Bildanzeigedauer",
-            "loop-short-media-label": "Kurze Medien wiederholen",
-            "visualizer-label": "Visualizer",
+            "media-count": "Medienanzahl",
+            "media-length": "Mediendauer",
+            "with-fullscreen": "Vollbild",
+            "brightness": "Helligkeit",
+            "stretch": "Dehnen",
+            "padding": "Innenabstand",
+            "cross-fade": "Überblenden",
+            "cross-fade-transition": "Überblendungsübergang",
+            "alpha": "Alpha",
+            "blur": "Weichzeichnen",
+            "wipe": "Wischen",
+            "image-span": "Bildanzeigedauer",
+            "loop-short-media": "Kurze Medien wiederholen",
+            "visualizer": "Visualizer",
             "visualizer-simple": "Einfach",
             "visualizer-plane-frequency": "Ebene Frequenz",
             "visualizer-plane-waveform": "Ebene Wellenform",
@@ -305,11 +309,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo-Bogenfrequenz",
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
-            "analog-clock-label": "Analoge Uhr",
-            "24hours-hand-label": "24-Stunden-Zeiger",
-            "date-hands-label": "Datumszeiger",
-            "millisecond-hand-label": "Millisekundenzeiger",
-            "overlay-style-label": "Overlay-Stil",
+            "analog-clock": "Analoge Uhr",
+            "24hours-hand": "24-Stunden-Zeiger",
+            "date-hands": "Datumszeiger",
+            "millisecond-hand": "Millisekundenzeiger",
+            "overlay-style": "Overlay-Stil",
             "hide": "Ausblenden",
             "blend": "Mischen",
             "white": "Weiß",
@@ -317,35 +321,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "System",
             "alternate": "Alternierend",
             "rainbow": "Regenbogen",
-            "overlay-position-label": "Overlay-Position",
+            "overlay-position": "Overlay-Position",
             "center": "Mitte",
             "top-right": "Oben rechts",
             "bottom-right": "Unten rechts",
             "bottom-left": "Unten links",
             "top-left": "Oben links",
             "rotate": "Drehen",
-            "with-weather-label": "Wetter",
-            "weather-location-label": "Wetterstandort",
+            "with-weather": "Wetter",
+            "weather-location": "Wetterstandort",
             "ip-address": "IP-Adresse (geringe Genauigkeit)",
             "geolocation": "Geolokalisierung (hohe Genauigkeit)",
-            "with-clock-label": "Uhr",
-            "with-date-label": "Datum",
-            "with-calendar-label": "Kalender",
-            "with-visualizer-label": "Visualizer (Overlay)",
-            "show-fps-label": "FPS anzeigen",
-            "shortcuts-label": "Tastenkürzel",
-            "language-label": "Sprache",
-            "url-label": "Link zu dieser Einstellung",
-            "repository-label": "Repository",
+            "with-clock": "Uhr",
+            "with-date": "Datum",
+            "with-calendar": "Kalender",
+            "with-visualizer": "Visualizer (Overlay)",
+            "show-fps": "FPS anzeigen",
+            "shortcuts": "Tastenkürzel",
+            "language": "Sprache",
+            "url": "Link zu dieser Einstellung",
+            "repository": "Repository",
             "on": "An",
             "off": "Aus",
             "wakeup": "Wecktimer",
-            "wakeup-label": "Wecktimer",
-            "timer-label": "Timer",
-            "fade-in-label": "Einblendzeit",
+            "timer": "Timer",
+            "fade-in": "Einblendzeit",
             "sleep": "Schlaftimer",
-            "sleep-label": "Schlaf-Timer",
-            "fade-out-label": "Ausblendzeit",
+            "fade-out": "Ausblendzeit",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -381,17 +383,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Φόρτωση μέσων...",
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
-            "media-count-label": "Αριθμός μέσων",
-            "media-length-label": "Διάρκεια μέσων",
-            "with-fullscreen-label": "Πλήρης οθόνη",
-            "brightness-label": "Φωτεινότητα",
-            "stretch-label": "Τέντωμα",
-            "padding-label": "Εσοχή",
-            "cross-fade-label": "Σταυρωτό ξεθώριασμα",
-            "cross-fade-with-blur-label": "Σταυρωτό ξεθώριασμα με θόλωση",
-            "image-span-label": "Χρόνος εμφάνισης εικόνας",
-            "loop-short-media-label": "Επανάληψη σύντομων μέσων",
-            "visualizer-label": "Οπτικοποιητής",
+            "media-count": "Αριθμός μέσων",
+            "media-length": "Διάρκεια μέσων",
+            "with-fullscreen": "Πλήρης οθόνη",
+            "brightness": "Φωτεινότητα",
+            "stretch": "Τέντωμα",
+            "padding": "Εσοχή",
+            "cross-fade": "Σταυρωτό ξεθώριασμα",
+            "cross-fade-transition": "Μετάβαση σταυρωτού ξεθωριάσματος",
+            "alpha": "Άλφα",
+            "blur": "Θόλωση",
+            "wipe": "Σκούπισμα",
+            "image-span": "Χρόνος εμφάνισης εικόνας",
+            "loop-short-media": "Επανάληψη σύντομων μέσων",
+            "visualizer": "Οπτικοποιητής",
             "visualizer-simple": "Απλό",
             "visualizer-plane-frequency": "Επίπεδη Συχνότητα",
             "visualizer-plane-waveform": "Επίπεδη Κυματομορφή",
@@ -401,11 +406,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Στερεο Καμπυλωτή Συχνότητα",
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
-            "analog-clock-label": "Αναλογικό Ρολόι",
-            "24hours-hand-label": "Δείκτης 24 Ωρών",
-            "date-hands-label": "Δείκτες Ημερομηνίας",
-            "millisecond-hand-label": "Δείκτης Χιλιοστών του δευτερολέπτου",
-            "overlay-style-label": "Στυλ επικάλυψης",
+            "analog-clock": "Αναλογικό Ρολόι",
+            "24hours-hand": "Δείκτης 24 Ωρών",
+            "date-hands": "Δείκτες Ημερομηνίας",
+            "millisecond-hand": "Δείκτης Χιλιοστών του δευτερολέπτου",
+            "overlay-style": "Στυλ επικάλυψης",
             "hide": "Απόκρυψη",
             "blend": "Ανάμειξη",
             "white": "Άσπρο",
@@ -413,35 +418,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Σύστημα",
             "alternate": "Εναλλαγή",
             "rainbow": "Ουράνιο τόξο",
-            "overlay-position-label": "Θέση επικάλυψης",
+            "overlay-position": "Θέση επικάλυψης",
             "center": "Κέντρο",
             "top-right": "Άνω Δεξιά",
             "bottom-right": "Κάτω Δεξιά",
             "bottom-left": "Κάτω Αριστερά",
             "top-left": "Άνω Αριστερά",
             "rotate": "Περιστροφή",
-            "with-weather-label": "Καιρός",
-            "weather-location-label": "Τοποθεσία καιρού",
+            "with-weather": "Καιρός",
+            "weather-location": "Τοποθεσία καιρού",
             "ip-address": "Διεύθυνση IP (Χαμηλή ακρίβεια)",
             "geolocation": "Γεωτοποθεσία (Υψηλή ακρίβεια)",
-            "with-clock-label": "Ρολόι",
-            "with-date-label": "Ημερομηνία",
-            "with-calendar-label": "Ημερολόγιο",
-            "with-visualizer-label": "Οπτικοποιητής (επικάλυψη)",
-            "show-fps-label": "Εμφάνιση FPS",
-            "shortcuts-label": "Πλήκτρα συντόμευσης",
-            "language-label": "Γλώσσα",
-            "url-label": "Σύνδεσμος σε αυτή τη ρύθμιση",
-            "repository-label": "αποθετήριο",
+            "with-clock": "Ρολόι",
+            "with-date": "Ημερομηνία",
+            "with-calendar": "Ημερολόγιο",
+            "with-visualizer": "Οπτικοποιητής (επικάλυψη)",
+            "show-fps": "Εμφάνιση FPS",
+            "shortcuts": "Πλήκτρα συντόμευσης",
+            "language": "Γλώσσα",
+            "url": "Σύνδεσμος σε αυτή τη ρύθμιση",
+            "repository": "αποθετήριο",
             "on": "Ενεργοποιημένο",
             "off": "Απενεργοποιημένο",
             "wakeup": "Χρονοδιακόπτης αφύπνισης",
-            "wakeup-label": "Χρονοδιακόπτης αφύπνισης",
-            "timer-label": "Χρονοδιακόπτης",
-            "fade-in-label": "Χρόνος fade-in",
+            "timer": "Χρονοδιακόπτης",
+            "fade-in": "Χρόνος fade-in",
             "sleep": "Χρονοδιακόπτης ύπνου",
-            "sleep-label": "Χρονοδιακόπτης ύπνου",
-            "fade-out-label": "Χρόνος fade-out",
+            "fade-out": "Χρόνος fade-out",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -477,17 +480,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Loading media...",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
-            "media-count-label": "Media Count",
-            "media-length-label": "Media Length",
-            "with-fullscreen-label": "FullScreen",
-            "brightness-label": "Brightness",
-            "stretch-label": "Stretch",
-            "padding-label": "Padding",
-            "cross-fade-label": "Cross Fade",
-            "cross-fade-with-blur-label": "Cross Fade with Blur",
-            "image-span-label": "Image Display Time",
-            "loop-short-media-label": "Loop Short Media",
-            "visualizer-label": "Visualizer",
+            "media-count": "Media Count",
+            "media-length": "Media Length",
+            "with-fullscreen": "FullScreen",
+            "brightness": "Brightness",
+            "stretch": "Stretch",
+            "padding": "Padding",
+            "cross-fade": "Cross Fade",
+            "cross-fade-transition": "Cross Fade Transition",
+            "alpha": "Alpha",
+            "blur": "Blur",
+            "wipe": "Wipe",
+            "image-span": "Image Display Time",
+            "loop-short-media": "Loop Short Media",
+            "visualizer": "Visualizer",
             "visualizer-simple": "Simple",
             "visualizer-plane-frequency": "Plane Frequency",
             "visualizer-plane-waveform": "Plane Waveform",
@@ -497,11 +503,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo Arc Frequency",
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
-            "analog-clock-label": "Analog Clock",
-            "24hours-hand-label": "24 Hours Hand",
-            "date-hands-label": "Date Hands",
-            "millisecond-hand-label": "Millisecond Hand",
-            "overlay-style-label": "Overlay Style",
+            "analog-clock": "Analog Clock",
+            "24hours-hand": "24 Hours Hand",
+            "date-hands": "Date Hands",
+            "millisecond-hand": "Millisecond Hand",
+            "overlay-style": "Overlay Style",
             "hide": "Hide",
             "blend": "Blend",
             "white": "White",
@@ -509,35 +515,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "System",
             "alternate": "Alternate",
             "rainbow": "Rainbow",
-            "overlay-position-label": "Overlay Position",
+            "overlay-position": "Overlay Position",
             "center": "Center",
             "top-right": "Top Right",
             "bottom-right": "Bottom Right",
             "bottom-left": "Bottom Left",
             "top-left": "Top Left",
             "rotate": "Rotate",
-            "with-weather-label": "Weather",
-            "weather-location-label": "Weather Location",
+            "with-weather": "Weather",
+            "weather-location": "Weather Location",
             "ip-address": "IP Address(Low Accuracy)",
             "geolocation": "Geolocation(High Accuracy)",
-            "with-clock-label": "Clock",
-            "with-date-label": "Date",
-            "with-calendar-label": "Calendar",
-            "with-visualizer-label": "Visualizer(Overlay)",
-            "show-fps-label": "Show FPS",
-            "shortcuts-label": "Keyboard Shortcuts",
-            "language-label": "Language",
-            "url-label": "Link to this setting",
-            "repository-label": "repository",
+            "with-clock": "Clock",
+            "with-date": "Date",
+            "with-calendar": "Calendar",
+            "with-visualizer": "Visualizer(Overlay)",
+            "show-fps": "Show FPS",
+            "shortcuts": "Keyboard Shortcuts",
+            "language": "Language",
+            "url": "Link to this setting",
+            "repository": "repository",
             "on": "On",
             "off": "Off",
             "wakeup": "Wake-up Timer",
-            "wakeup-label": "Wake-up Timer",
-            "timer-label": "Timer",
-            "fade-in-label": "Fade-in Time",
+            "timer": "Timer",
+            "fade-in": "Fade-in Time",
             "sleep": "Sleep Timer",
-            "sleep-label": "Sleep Timer",
-            "fade-out-label": "Fade-out Time",
+            "fade-out": "Fade-out Time",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -573,17 +577,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Cargando medios...",
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
-            "media-count-label": "Cantidad de medios",
-            "media-length-label": "Duración de los medios",
-            "with-fullscreen-label": "Pantalla completa",
-            "brightness-label": "Brillo",
-            "stretch-label": "Estirar",
-            "padding-label": "Relleno",
-            "cross-fade-label": "Fundido cruzado",
-            "cross-fade-with-blur-label": "Fundido cruzado con desenfoque",
-            "image-span-label": "Tiempo de visualización de la imagen",
-            "loop-short-media-label": "Repetir medios cortos",
-            "visualizer-label": "Visualizador",
+            "media-count": "Cantidad de medios",
+            "media-length": "Duración de los medios",
+            "with-fullscreen": "Pantalla completa",
+            "brightness": "Brillo",
+            "stretch": "Estirar",
+            "padding": "Relleno",
+            "cross-fade": "Fundido cruzado",
+            "cross-fade-transition": "Transición de fundido cruzado",
+            "alpha": "Alfa",
+            "blur": "Desenfoque",
+            "wipe": "Borrar",
+            "image-span": "Tiempo de visualización de la imagen",
+            "loop-short-media": "Repetir medios cortos",
+            "visualizer": "Visualizador",
             "visualizer-simple": "Simple",
             "visualizer-plane-frequency": "Frecuencia de plano",
             "visualizer-plane-waveform": "Forma de onda de plano",
@@ -593,11 +600,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frecuencia de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
-            "analog-clock-label": "Reloj analógico",
-            "24hours-hand-label": "Manecilla de 24 horas",
-            "date-hands-label": "Manecillas de fecha",
-            "millisecond-hand-label": "Manecilla de milisegundos",
-            "overlay-style-label": "Estilo de superposición",
+            "analog-clock": "Reloj analógico",
+            "24hours-hand": "Manecilla de 24 horas",
+            "date-hands": "Manecillas de fecha",
+            "millisecond-hand": "Manecilla de milisegundos",
+            "overlay-style": "Estilo de superposición",
             "hide": "Ocultar",
             "blend": "Mezclar",
             "white": "Blanco",
@@ -605,35 +612,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Sistema",
             "alternate": "Alternar",
             "rainbow": "Arcoíris",
-            "overlay-position-label": "Posición de la superposición",
+            "overlay-position": "Posición de la superposición",
             "center": "Centro",
             "top-right": "Arriba a la derecha",
             "bottom-right": "Abajo a la derecha",
             "bottom-left": "Abajo a la izquierda",
             "top-left": "Arriba a la izquierda",
             "rotate": "Rotar",
-            "with-weather-label": "Clima",
-            "weather-location-label": "Ubicación del clima",
+            "with-weather": "Clima",
+            "weather-location": "Ubicación del clima",
             "ip-address": "Dirección IP (baja precisión)",
             "geolocation": "Geolocalización (alta precisión)",
-            "with-clock-label": "Reloj",
-            "with-date-label": "Fecha",
-            "with-calendar-label": "Calendario",
-            "with-visualizer-label": "Visualizador (superposición)",
-            "show-fps-label": "Mostrar FPS",
-            "shortcuts-label": "Atajos de teclado",
-            "language-label": "Idioma",
-            "url-label": "Enlace a esta configuración",
-            "repository-label": "repositorio",
+            "with-clock": "Reloj",
+            "with-date": "Fecha",
+            "with-calendar": "Calendario",
+            "with-visualizer": "Visualizador (superposición)",
+            "show-fps": "Mostrar FPS",
+            "shortcuts": "Atajos de teclado",
+            "language": "Idioma",
+            "url": "Enlace a esta configuración",
+            "repository": "repositorio",
             "on": "Activado",
             "off": "Desactivado",
             "wakeup": "Temporizador de despertador",
-            "wakeup-label": "Temporizador de despertador",
-            "timer-label": "Temporizador",
-            "fade-in-label": "Tiempo de entrada",
+            "timer": "Temporizador",
+            "fade-in": "Tiempo de entrada",
             "sleep": "Temporizador de suspensión",
-            "sleep-label": "Temporizador de suspensión",
-            "fade-out-label": "Tiempo de salida",
+            "fade-out": "Tiempo de salida",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -669,17 +674,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "در حال بارگذاری رسانه...",
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
-            "media-count-label": "تعداد رسانه",
-            "media-length-label": "مدت رسانه",
-            "with-fullscreen-label": "تمام‌صفحه",
-            "brightness-label": "روشنایی",
-            "stretch-label": "کشیدن",
-            "padding-label": "فاصله (Padding)",
-            "cross-fade-label": "محو شدن متقابل",
-            "cross-fade-with-blur-label": "محو شدن متقابل با تاری",
-            "image-span-label": "زمان نمایش تصویر",
-            "loop-short-media-label": "پخش حلقه‌ای رسانه‌های کوتاه",
-            "visualizer-label": "ویژوالایزر",
+            "media-count": "تعداد رسانه",
+            "media-length": "مدت رسانه",
+            "with-fullscreen": "تمام‌صفحه",
+            "brightness": "روشنایی",
+            "stretch": "کشیدن",
+            "padding": "فاصله (Padding)",
+            "cross-fade": "محو شدن متقابل",
+            "cross-fade-transition": "انتقال محو شدن متقابل",
+            "alpha": "آلفا",
+            "blur": "تاری",
+            "wipe": "پاک‌کردن",
+            "image-span": "زمان نمایش تصویر",
+            "loop-short-media": "پخش حلقه‌ای رسانه‌های کوتاه",
+            "visualizer": "ویژوالایزر",
             "visualizer-simple": "ساده",
             "visualizer-plane-frequency": "فرکانس صفحه",
             "visualizer-plane-waveform": "موج‌نمای صفحه",
@@ -689,11 +697,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "فرکانس قوس استریو",
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
-            "analog-clock-label": "ساعت آنالوگ",
-            "24hours-hand-label": "عقربه ۲۴ ساعته",
-            "date-hands-label": "عقربه‌های تاریخ",
-            "millisecond-hand-label": "ثانیه‌شمار میلی‌ثانیه",
-            "overlay-style-label": "سبک پوشش",
+            "analog-clock": "ساعت آنالوگ",
+            "24hours-hand": "عقربه ۲۴ ساعته",
+            "date-hands": "عقربه‌های تاریخ",
+            "millisecond-hand": "ثانیه‌شمار میلی‌ثانیه",
+            "overlay-style": "سبک پوشش",
             "hide": "مخفی",
             "blend": "ترکیب",
             "white": "سفید",
@@ -701,35 +709,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "سیستم",
             "alternate": "جایگزین",
             "rainbow": "رنگین‌کمان",
-            "overlay-position-label": "موقعیت پوشش",
+            "overlay-position": "موقعیت پوشش",
             "center": "مرکز",
             "top-right": "بالا-راست",
             "bottom-right": "پایین-راست",
             "bottom-left": "پایین-چپ",
             "top-left": "بالا-چپ",
             "rotate": "چرخش",
-            "with-weather-label": "آب‌وهوا",
-            "weather-location-label": "مکان آب‌وهوا",
+            "with-weather": "آب‌وهوا",
+            "weather-location": "مکان آب‌وهوا",
             "ip-address": "آدرس IP (دقت پایین)",
             "geolocation": "موقعیت‌یابی (دقت بالا)",
-            "with-clock-label": "ساعت",
-            "with-date-label": "تاریخ",
-            "with-calendar-label": "تقویم",
-            "with-visualizer-label": "ویژوالایزر (پوشش)",
-            "show-fps-label": "نمایش FPS",
-            "shortcuts-label": "میانبرهای صفحه‌کلید",
-            "language-label": "زبان",
-            "url-label": "پیوند به این تنظیم",
-            "repository-label": "مخزن",
+            "with-clock": "ساعت",
+            "with-date": "تاریخ",
+            "with-calendar": "تقویم",
+            "with-visualizer": "ویژوالایزر (پوشش)",
+            "show-fps": "نمایش FPS",
+            "shortcuts": "میانبرهای صفحه‌کلید",
+            "language": "زبان",
+            "url": "پیوند به این تنظیم",
+            "repository": "مخزن",
             "on": "روشن",
             "off": "خاموش",
             "wakeup": "تایمر بیدارباش",
-            "wakeup-label": "تایمر بیدارباش",
-            "timer-label": "تایمر",
-            "fade-in-label": "زمان محو شدن ورود",
+            "timer": "تایمر",
+            "fade-in": "زمان محو شدن ورود",
             "sleep": "تایمر خواب",
-            "sleep-label": "تایمر خواب",
-            "fade-out-label": "زمان محو شدن خروج",
+            "fade-out": "زمان محو شدن خروج",
             "timeUnitMs": "می‌ثانیه",
             "timeUnitS": "ثانیه",
             "timeUnitM": "دقیقه",
@@ -765,17 +771,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Chargement des médias...",
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
-            "media-count-label": "Nombre de médias",
-            "media-length-label": "Durée des médias",
-            "with-fullscreen-label": "Plein écran",
-            "brightness-label": "Luminosité",
-            "stretch-label": "Étirement",
-            "padding-label": "Rembourrage",
-            "cross-fade-label": "Fondu enchaîné",
-            "cross-fade-with-blur-label": "Fondu enchaîné avec flou",
-            "image-span-label": "Durée d'affichage de l'image",
-            "loop-short-media-label": "Boucler les médias courts",
-            "visualizer-label": "Visualiseur",
+            "media-count": "Nombre de médias",
+            "media-length": "Durée des médias",
+            "with-fullscreen": "Plein écran",
+            "brightness": "Luminosité",
+            "stretch": "Étirement",
+            "padding": "Rembourrage",
+            "cross-fade": "Fondu enchaîné",
+            "cross-fade-transition": "Transition de fondu enchaîné",
+            "alpha": "Alpha",
+            "blur": "Flou",
+            "wipe": "Essuyer",
+            "image-span": "Durée d'affichage de l'image",
+            "loop-short-media": "Boucler les médias courts",
+            "visualizer": "Visualiseur",
             "visualizer-simple": "Simple",
             "visualizer-plane-frequency": "Fréquence plane",
             "visualizer-plane-waveform": "Forme d'onde plane",
@@ -785,11 +794,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Fréquence d'arc stéréo",
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
-            "analog-clock-label": "Horloge analogique",
-            "24hours-hand-label": "Aiguille 24 heures",
-            "date-hands-label": "Aiguilles de la date",
-            "millisecond-hand-label": "Aiguille des millisecondes",
-            "overlay-style-label": "Style de superposition",
+            "analog-clock": "Horloge analogique",
+            "24hours-hand": "Aiguille 24 heures",
+            "date-hands": "Aiguilles de la date",
+            "millisecond-hand": "Aiguille des millisecondes",
+            "overlay-style": "Style de superposition",
             "hide": "Cacher",
             "blend": "Fusion",
             "white": "Blanc",
@@ -797,35 +806,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Système",
             "alternate": "Alternatif",
             "rainbow": "Arc-en-ciel",
-            "overlay-position-label": "Position de la superposition",
+            "overlay-position": "Position de la superposition",
             "center": "Centre",
             "top-right": "En haut à droite",
             "bottom-right": "En bas à droite",
             "bottom-left": "En bas à gauche",
             "top-left": "En haut à gauche",
             "rotate": "Rotation",
-            "with-weather-label": "Météo",
-            "weather-location-label": "Emplacement météo",
+            "with-weather": "Météo",
+            "weather-location": "Emplacement météo",
             "ip-address": "Adresse IP (faible précision)",
             "geolocation": "Géolocalisation (haute précision)",
-            "with-clock-label": "Horloge",
-            "with-date-label": "Date",
-            "with-calendar-label": "Calendrier",
-            "with-visualizer-label": "Visualiseur (superposition)",
-            "show-fps-label": "Afficher les FPS",
-            "shortcuts-label": "Raccourcis clavier",
-            "language-label": "Langue",
-            "url-label": "Lien vers ce réglage",
-            "repository-label": "Dépôt",
+            "with-clock": "Horloge",
+            "with-date": "Date",
+            "with-calendar": "Calendrier",
+            "with-visualizer": "Visualiseur (superposition)",
+            "show-fps": "Afficher les FPS",
+            "shortcuts": "Raccourcis clavier",
+            "language": "Langue",
+            "url": "Lien vers ce réglage",
+            "repository": "Dépôt",
             "on": "Activé",
             "off": "Désactivé",
             "wakeup": "Minuterie de réveil",
-            "wakeup-label": "Minuterie de réveil",
-            "timer-label": "Minuterie",
-            "fade-in-label": "Durée d'apparition",
+            "timer": "Minuterie",
+            "fade-in": "Durée d'apparition",
             "sleep": "Minuteur de mise en veille",
-            "sleep-label": "Minuteur de mise en veille",
-            "fade-out-label": "Durée de disparition",
+            "fade-out": "Durée de disparition",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "min",
@@ -861,17 +868,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "मीडिया लोड हो रहा है...",
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
-            "media-count-label": "मीडिया गिनती",
-            "media-length-label": "मीडिया अवधि",
-            "with-fullscreen-label": "फ़ुलस्क्रीन",
-            "brightness-label": "उजाला",
-            "stretch-label": "स्ट्रेच",
-            "padding-label": "पैडिंग",
-            "cross-fade-label": "क्रॉस फेड",
-            "cross-fade-with-blur-label": "ब्लर के साथ क्रॉस फेड",
-            "image-span-label": "छवि प्रदर्शन समय",
-            "loop-short-media-label": "छोटे मीडिया को लूप करें",
-            "visualizer-label": "विज़ुअलाइज़र",
+            "media-count": "मीडिया गिनती",
+            "media-length": "मीडिया अवधि",
+            "with-fullscreen": "फ़ुलस्क्रीन",
+            "brightness": "उजाला",
+            "stretch": "स्ट्रेच",
+            "padding": "पैडिंग",
+            "cross-fade": "क्रॉस फेड",
+            "cross-fade-transition": "क्रॉस फेड ट्रांज़िशन",
+            "alpha": "अल्फा",
+            "blur": "धुंधलापन",
+            "wipe": "पोंछना",
+            "image-span": "छवि प्रदर्शन समय",
+            "loop-short-media": "छोटे मीडिया को लूप करें",
+            "visualizer": "विज़ुअलाइज़र",
             "visualizer-simple": "सरल",
             "visualizer-plane-frequency": "समतल आवृत्ति",
             "visualizer-plane-waveform": "समतल तरंगरूप",
@@ -881,11 +891,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "स्टीरियो आर्क आवृत्ति",
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
-            "analog-clock-label": "एनालॉग घड़ी",
-            "24hours-hand-label": "24 घंटे का सूचक",
-            "date-hands-label": "तारीख के सूचक",
-            "millisecond-hand-label": "मिलीसेकंड हैंड",
-            "overlay-style-label": "ओवरले शैली",
+            "analog-clock": "एनालॉग घड़ी",
+            "24hours-hand": "24 घंटे का सूचक",
+            "date-hands": "तारीख के सूचक",
+            "millisecond-hand": "मिलीसेकंड हैंड",
+            "overlay-style": "ओवरले शैली",
             "hide": "छिपाएँ",
             "blend": "ब्लेंड",
             "white": "सफ़ेद",
@@ -893,35 +903,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "सिस्टम",
             "alternate": "वैकल्पिक",
             "rainbow": "इंद्रधनुष",
-            "overlay-position-label": "ओवरले स्थिति",
+            "overlay-position": "ओवरले स्थिति",
             "center": "केंद्र",
             "top-right": "ऊपर-दायाँ",
             "bottom-right": "नीचे-दायाँ",
             "bottom-left": "नीचे-बायाँ",
             "top-left": "ऊपर-बायाँ",
             "rotate": "घुमाएँ",
-            "with-weather-label": "मौसम",
-            "weather-location-label": "मौसम स्थान",
+            "with-weather": "मौसम",
+            "weather-location": "मौसम स्थान",
             "ip-address": "IP पता (कम सटीकता)",
             "geolocation": "जियोलोकेशन (उच्च सटीकता)",
-            "with-clock-label": "घड़ी",
-            "with-date-label": "तारीख",
-            "with-calendar-label": "कैलेंडर",
-            "with-visualizer-label": "विज़ुअलाइज़र (ओवरले)",
-            "show-fps-label": "FPS दिखाएँ",
-            "shortcuts-label": "कीबोर्ड शॉर्टकट",
-            "language-label": "भाषा",
-            "url-label": "इस सेटिंग का लिंक",
-            "repository-label": "रिपॉज़िटरी",
+            "with-clock": "घड़ी",
+            "with-date": "तारीख",
+            "with-calendar": "कैलेंडर",
+            "with-visualizer": "विज़ुअलाइज़र (ओवरले)",
+            "show-fps": "FPS दिखाएँ",
+            "shortcuts": "कीबोर्ड शॉर्टकट",
+            "language": "भाषा",
+            "url": "इस सेटिंग का लिंक",
+            "repository": "रिपॉज़िटरी",
             "on": "चालू",
             "off": "बंद",
             "wakeup": "वेक-अप टाइमर",
-            "wakeup-label": "वेक-अप टाइमर",
-            "timer-label": "टाइमर",
-            "fade-in-label": "फेड-इन समय",
+            "timer": "टाइमर",
+            "fade-in": "फेड-इन समय",
             "sleep": "स्लीप टाइमर",
-            "sleep-label": "स्लीप टाइमर",
-            "fade-out-label": "फेड-आउट समय",
+            "fade-out": "फेड-आउट समय",
             "timeUnitMs": "मिलीसेकंड",
             "timeUnitS": "सेक",
             "timeUnitM": "मिन",
@@ -957,17 +965,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Memuat media...",
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
-            "media-count-label": "Jumlah Media",
-            "media-length-label": "Durasi Media",
-            "with-fullscreen-label": "Layar Penuh",
-            "brightness-label": "Kecerahan",
-            "stretch-label": "Stretch",
-            "padding-label": "Padding",
-            "cross-fade-label": "Cross Fade",
-            "cross-fade-with-blur-label": "Cross Fade dengan Blur",
-            "image-span-label": "Waktu Tampil Gambar",
-            "loop-short-media-label": "Loop Media Pendek",
-            "visualizer-label": "Visualizer",
+            "media-count": "Jumlah Media",
+            "media-length": "Durasi Media",
+            "with-fullscreen": "Layar Penuh",
+            "brightness": "Kecerahan",
+            "stretch": "Stretch",
+            "padding": "Padding",
+            "cross-fade": "Cross Fade",
+            "cross-fade-transition": "Transisi Cross Fade",
+            "alpha": "Alpha",
+            "blur": "Blur",
+            "wipe": "Wipe",
+            "image-span": "Waktu Tampil Gambar",
+            "loop-short-media": "Loop Media Pendek",
+            "visualizer": "Visualizer",
             "visualizer-simple": "Sederhana",
             "visualizer-plane-frequency": "Frekuensi Datar",
             "visualizer-plane-waveform": "Bentuk Gelombang Datar",
@@ -977,11 +988,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frekuensi Busur Stereo",
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
-            "analog-clock-label": "Jam Analog",
-            "24hours-hand-label": "Jarum 24 Jam",
-            "date-hands-label": "Jarum Tanggal",
-            "millisecond-hand-label": "Jarum Milidetik",
-            "overlay-style-label": "Gaya Overlay",
+            "analog-clock": "Jam Analog",
+            "24hours-hand": "Jarum 24 Jam",
+            "date-hands": "Jarum Tanggal",
+            "millisecond-hand": "Jarum Milidetik",
+            "overlay-style": "Gaya Overlay",
             "hide": "Sembunyikan",
             "blend": "Campur",
             "white": "Putih",
@@ -989,35 +1000,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Sistem",
             "alternate": "Bergantian",
             "rainbow": "Pelangi",
-            "overlay-position-label": "Posisi Overlay",
+            "overlay-position": "Posisi Overlay",
             "center": "Tengah",
             "top-right": "Kanan Atas",
             "bottom-right": "Kanan Bawah",
             "bottom-left": "Kiri Bawah",
             "top-left": "Kiri Atas",
             "rotate": "Putar",
-            "with-weather-label": "Cuaca",
-            "weather-location-label": "Lokasi Cuaca",
+            "with-weather": "Cuaca",
+            "weather-location": "Lokasi Cuaca",
             "ip-address": "Alamat IP (Akurasi Rendah)",
             "geolocation": "Geolokasi (Akurasi Tinggi)",
-            "with-clock-label": "Jam",
-            "with-date-label": "Tanggal",
-            "with-calendar-label": "Kalender",
-            "with-visualizer-label": "Visualizer (Overlay)",
-            "show-fps-label": "Tampilkan FPS",
-            "shortcuts-label": "Shortcut Keyboard",
-            "language-label": "Bahasa",
-            "url-label": "Tautkan ke pengaturan ini",
-            "repository-label": "repositori",
+            "with-clock": "Jam",
+            "with-date": "Tanggal",
+            "with-calendar": "Kalender",
+            "with-visualizer": "Visualizer (Overlay)",
+            "show-fps": "Tampilkan FPS",
+            "shortcuts": "Shortcut Keyboard",
+            "language": "Bahasa",
+            "url": "Tautkan ke pengaturan ini",
+            "repository": "repositori",
             "on": "Hidup",
             "off": "Mati",
             "wakeup": "Timer Bangun",
-            "wakeup-label": "Timer Bangun",
-            "timer-label": "Timer",
-            "fade-in-label": "Waktu Fade-in",
+            "timer": "Timer",
+            "fade-in": "Waktu Fade-in",
             "sleep": "Timer Tidur",
-            "sleep-label": "Timer Tidur",
-            "fade-out-label": "Waktu Fade-out",
+            "fade-out": "Waktu Fade-out",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1053,17 +1062,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Caricamento media...",
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
-            "media-count-label": "Conteggio media",
-            "media-length-label": "Durata media",
-            "with-fullscreen-label": "Schermo intero",
-            "brightness-label": "Luminosità",
-            "stretch-label": "Allunga",
-            "padding-label": "Imbottitura",
-            "cross-fade-label": "Dissolvenza incrociata",
-            "cross-fade-with-blur-label": "Dissolvenza incrociata con sfocatura",
-            "image-span-label": "Tempo di visualizzazione immagine",
-            "loop-short-media-label": "Ripeti i media brevi",
-            "visualizer-label": "Visualizzatore",
+            "media-count": "Conteggio media",
+            "media-length": "Durata media",
+            "with-fullscreen": "Schermo intero",
+            "brightness": "Luminosità",
+            "stretch": "Allunga",
+            "padding": "Imbottitura",
+            "cross-fade": "Dissolvenza incrociata",
+            "cross-fade-transition": "Transizione dissolvenza incrociata",
+            "alpha": "Alfa",
+            "blur": "Sfocatura",
+            "wipe": "Cancella",
+            "image-span": "Tempo di visualizzazione immagine",
+            "loop-short-media": "Ripeti i media brevi",
+            "visualizer": "Visualizzatore",
             "visualizer-simple": "Semplice",
             "visualizer-plane-frequency": "Frequenza piano",
             "visualizer-plane-waveform": "Forma d'onda piano",
@@ -1073,11 +1085,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequenza arco stereo",
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
-            "analog-clock-label": "Orologio analogico",
-            "24hours-hand-label": "Lancetta delle 24 ore",
-            "date-hands-label": "Lancette della data",
-            "millisecond-hand-label": "Lancetta dei millisecondi",
-            "overlay-style-label": "Stile sovrapposizione",
+            "analog-clock": "Orologio analogico",
+            "24hours-hand": "Lancetta delle 24 ore",
+            "date-hands": "Lancette della data",
+            "millisecond-hand": "Lancetta dei millisecondi",
+            "overlay-style": "Stile sovrapposizione",
             "hide": "Nascondi",
             "blend": "Fondi",
             "white": "Bianco",
@@ -1085,35 +1097,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Sistema",
             "alternate": "Alterna",
             "rainbow": "Arcobaleno",
-            "overlay-position-label": "Posizione sovrapposizione",
+            "overlay-position": "Posizione sovrapposizione",
             "center": "Centro",
             "top-right": "In alto a destra",
             "bottom-right": "In basso a destra",
             "bottom-left": "In basso a sinistra",
             "top-left": "In alto a sinistra",
             "rotate": "Ruota",
-            "with-weather-label": "Meteo",
-            "weather-location-label": "Posizione meteo",
+            "with-weather": "Meteo",
+            "weather-location": "Posizione meteo",
             "ip-address": "Indirizzo IP (bassa precisione)",
             "geolocation": "Geolocalizzazione (alta precisione)",
-            "with-clock-label": "Orologio",
-            "with-date-label": "Data",
-            "with-calendar-label": "Calendario",
-            "with-visualizer-label": "Visualizzatore (sovrapposizione)",
-            "show-fps-label": "Mostra FPS",
-            "shortcuts-label": "Scorciatoie da tastiera",
-            "language-label": "Lingua",
-            "url-label": "Link a questa impostazione",
-            "repository-label": "Repository",
+            "with-clock": "Orologio",
+            "with-date": "Data",
+            "with-calendar": "Calendario",
+            "with-visualizer": "Visualizzatore (sovrapposizione)",
+            "show-fps": "Mostra FPS",
+            "shortcuts": "Scorciatoie da tastiera",
+            "language": "Lingua",
+            "url": "Link a questa impostazione",
+            "repository": "Repository",
             "on": "On",
             "off": "Off",
             "wakeup": "Timer di risveglio",
-            "wakeup-label": "Timer di risveglio",
-            "timer-label": "Timer",
-            "fade-in-label": "Durata fade-in",
+            "timer": "Timer",
+            "fade-in": "Durata fade-in",
             "sleep": "Timer di sospensione",
-            "sleep-label": "Timer di sospensione",
-            "fade-out-label": "Durata fade-out",
+            "fade-out": "Durata fade-out",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1149,17 +1159,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "メディアを読み込み中...",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
-            "media-count-label": "メディア数",
-            "media-length-label": "メディア長",
-            "with-fullscreen-label": "フルスクリーン",
-            "brightness-label": "明るさ",
-            "stretch-label": "ストレッチ",
-            "padding-label": "パディング",
-            "cross-fade-label": "クロスフェード",
-            "cross-fade-with-blur-label": "ぼかし付きクロスフェード",
-            "image-span-label": "画像表示時間",
-            "loop-short-media-label": "短いメディアをループ再生",
-            "visualizer-label": "ビジュアライザー",
+            "media-count": "メディア数",
+            "media-length": "メディア長",
+            "with-fullscreen": "フルスクリーン",
+            "brightness": "明るさ",
+            "stretch": "ストレッチ",
+            "padding": "パディング",
+            "cross-fade": "クロスフェード",
+            "cross-fade-transition": "クロスフェードトランジション",
+            "alpha": "アルファ",
+            "blur": "ぼかし",
+            "wipe": "ワイプ",
+            "image-span": "画像表示時間",
+            "loop-short-media": "短いメディアをループ再生",
+            "visualizer": "ビジュアライザー",
             "visualizer-simple": "シンプル",
             "visualizer-plane-frequency": "平面周波数",
             "visualizer-plane-waveform": "平面波形",
@@ -1169,11 +1182,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "ステレオアーク周波数",
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
-            "analog-clock-label": "アナログ時計",
-            "24hours-hand-label": "24時間針",
-            "date-hands-label": "日付針",
-            "millisecond-hand-label": "ミリ秒針",
-            "overlay-style-label": "オーバーレイスタイル",
+            "analog-clock": "アナログ時計",
+            "24hours-hand": "24時間針",
+            "date-hands": "日付針",
+            "millisecond-hand": "ミリ秒針",
+            "overlay-style": "オーバーレイスタイル",
             "hide": "非表示",
             "blend": "ブレンド",
             "white": "ホワイト",
@@ -1181,35 +1194,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "システム",
             "alternate": "交互",
             "rainbow": "レインボー",
-            "overlay-position-label": "オーバーレイ位置",
+            "overlay-position": "オーバーレイ位置",
             "center": "中央",
             "top-right": "右上",
             "bottom-right": "右下",
             "bottom-left": "左下",
             "top-left": "左上",
             "rotate": "回転",
-            "with-weather-label": "天気",
-            "weather-location-label": "天気の場所",
+            "with-weather": "天気",
+            "weather-location": "天気の場所",
             "ip-address": "IP アドレス(低精度)",
             "geolocation": "ジオロケーション(高精度)",
-            "with-clock-label": "時計",
-            "with-date-label": "日付",
-            "with-calendar-label": "カレンダー",
-            "with-visualizer-label": "ビジュアライザー(オーバーレイ)",
-            "show-fps-label": "FPS を表示",
-            "shortcuts-label": "キーボードショートカット",
-            "language-label": "言語",
-            "url-label": "この設定のリンク",
-            "repository-label": "リポジトリ",
+            "with-clock": "時計",
+            "with-date": "日付",
+            "with-calendar": "カレンダー",
+            "with-visualizer": "ビジュアライザー(オーバーレイ)",
+            "show-fps": "FPS を表示",
+            "shortcuts": "キーボードショートカット",
+            "language": "言語",
+            "url": "この設定のリンク",
+            "repository": "リポジトリ",
             "on": "オン",
             "off": "オフ",
             "wakeup": "起床タイマー",
-            "wakeup-label": "起床タイマー",
-            "timer-label": "タイマー",
-            "fade-in-label": "フェードイン時間",
+            "timer": "タイマー",
+            "fade-in": "フェードイン時間",
             "sleep": "スリープタイマー",
-            "sleep-label": "スリープタイマー",
-            "fade-out-label": "フェードアウト時間",
+            "fade-out": "フェードアウト時間",
             "timeUnitMs": "ミリ秒",
             "timeUnitS": "秒",
             "timeUnitM": "分",
@@ -1245,17 +1256,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "미디어 로드 중...",
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
-            "media-count-label": "미디어 수",
-            "media-length-label": "미디어 길이",
-            "with-fullscreen-label": "전체화면",
-            "brightness-label": "밝기",
-            "stretch-label": "스트레치",
-            "padding-label": "여백",
-            "cross-fade-label": "크로스 페이드",
-            "cross-fade-with-blur-label": "블러 포함 크로스 페이드",
-            "image-span-label": "이미지 표시 시간",
-            "loop-short-media-label": "짧은 미디어 반복 재생",
-            "visualizer-label": "시각화",
+            "media-count": "미디어 수",
+            "media-length": "미디어 길이",
+            "with-fullscreen": "전체화면",
+            "brightness": "밝기",
+            "stretch": "스트레치",
+            "padding": "여백",
+            "cross-fade": "크로스 페이드",
+            "cross-fade-transition": "크로스 페이드 전환",
+            "alpha": "알파",
+            "blur": "블러",
+            "wipe": "와이프",
+            "image-span": "이미지 표시 시간",
+            "loop-short-media": "짧은 미디어 반복 재생",
+            "visualizer": "시각화",
             "visualizer-simple": "단순",
             "visualizer-plane-frequency": "평면 주파수",
             "visualizer-plane-waveform": "평면 파형",
@@ -1265,11 +1279,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "스테레오 아크 주파수",
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
-            "analog-clock-label": "아날로그 시계",
-            "24hours-hand-label": "24시간 바늘",
-            "date-hands-label": "날짜 바늘",
-            "millisecond-hand-label": "밀리초 바늘",
-            "overlay-style-label": "오버레이 스타일",
+            "analog-clock": "아날로그 시계",
+            "24hours-hand": "24시간 바늘",
+            "date-hands": "날짜 바늘",
+            "millisecond-hand": "밀리초 바늘",
+            "overlay-style": "오버레이 스타일",
             "hide": "숨기기",
             "blend": "블렌드",
             "white": "화이트",
@@ -1277,35 +1291,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "시스템",
             "alternate": "교대",
             "rainbow": "무지개",
-            "overlay-position-label": "오버레이 위치",
+            "overlay-position": "오버레이 위치",
             "center": "가운데",
             "top-right": "오른쪽 위",
             "bottom-right": "오른쪽 아래",
             "bottom-left": "왼쪽 아래",
             "top-left": "왼쪽 위",
             "rotate": "회전",
-            "with-weather-label": "날씨",
-            "weather-location-label": "날씨 위치",
+            "with-weather": "날씨",
+            "weather-location": "날씨 위치",
             "ip-address": "IP 주소(저정밀)",
             "geolocation": "위치정보(고정밀)",
-            "with-clock-label": "시계",
-            "with-date-label": "날짜",
-            "with-calendar-label": "달력",
-            "with-visualizer-label": "시각화(오버레이)",
-            "show-fps-label": "FPS 표시",
-            "shortcuts-label": "단축키",
-            "language-label": "언어",
-            "url-label": "이 설정으로 링크",
-            "repository-label": "저장소",
+            "with-clock": "시계",
+            "with-date": "날짜",
+            "with-calendar": "달력",
+            "with-visualizer": "시각화(오버레이)",
+            "show-fps": "FPS 표시",
+            "shortcuts": "단축키",
+            "language": "언어",
+            "url": "이 설정으로 링크",
+            "repository": "저장소",
             "on": "켬",
             "off": "끔",
             "wakeup": "알람 타이머",
-            "wakeup-label": "알람 타이머",
-            "timer-label": "타이머",
-            "fade-in-label": "페이드 인 시간",
+            "timer": "타이머",
+            "fade-in": "페이드 인 시간",
             "sleep": "슬립 타이머",
-            "sleep-label": "슬립 타이머",
-            "fade-out-label": "페이드 아웃 시간",
+            "fade-out": "페이드 아웃 시간",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1341,17 +1353,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Media laden...",
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
-            "media-count-label": "Aantal media",
-            "media-length-label": "Mediaduur",
-            "with-fullscreen-label": "Volledig scherm",
-            "brightness-label": "Helderheid",
-            "stretch-label": "Uitrekken",
-            "padding-label": "Opvulling",
-            "cross-fade-label": "Crossfade",
-            "cross-fade-with-blur-label": "Crossfade met vervaging",
-            "image-span-label": "Afbeelding weergavetijd",
-            "loop-short-media-label": "Korte media herhalen",
-            "visualizer-label": "Visualizer",
+            "media-count": "Aantal media",
+            "media-length": "Mediaduur",
+            "with-fullscreen": "Volledig scherm",
+            "brightness": "Helderheid",
+            "stretch": "Uitrekken",
+            "padding": "Opvulling",
+            "cross-fade": "Crossfade",
+            "cross-fade-transition": "Crossfade-overgang",
+            "alpha": "Alpha",
+            "blur": "Vervagen",
+            "wipe": "Wissen",
+            "image-span": "Afbeelding weergavetijd",
+            "loop-short-media": "Korte media herhalen",
+            "visualizer": "Visualizer",
             "visualizer-simple": "Eenvoudig",
             "visualizer-plane-frequency": "Vlak frequentie",
             "visualizer-plane-waveform": "Vlak golfvorm",
@@ -1361,11 +1376,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo boog frequentie",
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
-            "analog-clock-label": "Analoge klok",
-            "24hours-hand-label": "24-uurs wijzer",
-            "date-hands-label": "Datumwijzers",
-            "millisecond-hand-label": "Milliseconde wijzer",
-            "overlay-style-label": "Overlay-stijl",
+            "analog-clock": "Analoge klok",
+            "24hours-hand": "24-uurs wijzer",
+            "date-hands": "Datumwijzers",
+            "millisecond-hand": "Milliseconde wijzer",
+            "overlay-style": "Overlay-stijl",
             "hide": "Verbergen",
             "blend": "Meng",
             "white": "Wit",
@@ -1373,35 +1388,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Systeem",
             "alternate": "Alternatief",
             "rainbow": "Regenboog",
-            "overlay-position-label": "Overlay positie",
+            "overlay-position": "Overlay positie",
             "center": "Midden",
             "top-right": "Boven rechts",
             "bottom-right": "Onder rechts",
             "bottom-left": "Onder links",
             "top-left": "Boven links",
             "rotate": "Draaien",
-            "with-weather-label": "Weer",
-            "weather-location-label": "Weer locatie",
+            "with-weather": "Weer",
+            "weather-location": "Weer locatie",
             "ip-address": "IP-adres (lage nauwkeurigheid)",
             "geolocation": "Geolocatie (hoge nauwkeurigheid)",
-            "with-clock-label": "Klok",
-            "with-date-label": "Datum",
-            "with-calendar-label": "Kalender",
-            "with-visualizer-label": "Visualizer (Overlay)",
-            "show-fps-label": "FPS tonen",
-            "shortcuts-label": "Toetsenbordsnelkoppelingen",
-            "language-label": "Taal",
-            "url-label": "Link naar deze instelling",
-            "repository-label": "repository",
+            "with-clock": "Klok",
+            "with-date": "Datum",
+            "with-calendar": "Kalender",
+            "with-visualizer": "Visualizer (Overlay)",
+            "show-fps": "FPS tonen",
+            "shortcuts": "Toetsenbordsnelkoppelingen",
+            "language": "Taal",
+            "url": "Link naar deze instelling",
+            "repository": "repository",
             "on": "Aan",
             "off": "Uit",
             "wakeup": "Wekker",
-            "wakeup-label": "Wekker",
-            "timer-label": "Timer",
-            "fade-in-label": "Fade-in tijd",
+            "timer": "Timer",
+            "fade-in": "Fade-in tijd",
             "sleep": "Slaaptimer",
-            "sleep-label": "Slaaptimer",
-            "fade-out-label": "Fade-out tijd",
+            "fade-out": "Fade-out tijd",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1437,17 +1450,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Ładowanie multimediów...",
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
-            "media-count-label": "Liczba mediów",
-            "media-length-label": "Długość mediów",
-            "with-fullscreen-label": "Pełny ekran",
-            "brightness-label": "Jasność",
-            "stretch-label": "Rozciągnięcie",
-            "padding-label": "Odstępy",
-            "cross-fade-label": "Przenikanie",
-            "cross-fade-with-blur-label": "Przenikanie z rozmyciem",
-            "image-span-label": "Czas wyświetlania obrazu",
-            "loop-short-media-label": "Powtarzaj krótkie media",
-            "visualizer-label": "Wizualizer",
+            "media-count": "Liczba mediów",
+            "media-length": "Długość mediów",
+            "with-fullscreen": "Pełny ekran",
+            "brightness": "Jasność",
+            "stretch": "Rozciągnięcie",
+            "padding": "Odstępy",
+            "cross-fade": "Przenikanie",
+            "cross-fade-transition": "Przejście przenikania",
+            "alpha": "Alfa",
+            "blur": "Rozmycie",
+            "wipe": "Wyczyść",
+            "image-span": "Czas wyświetlania obrazu",
+            "loop-short-media": "Powtarzaj krótkie media",
+            "visualizer": "Wizualizer",
             "visualizer-simple": "Prosty",
             "visualizer-plane-frequency": "Płaszczyzna częstotliwości",
             "visualizer-plane-waveform": "Płaszczyzna przebiegu",
@@ -1457,11 +1473,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Stereo łuk częstotliwości",
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
-            "analog-clock-label": "Zegar analogowy",
-            "24hours-hand-label": "Wskazówka 24 godzin",
-            "date-hands-label": "Wskazówki daty",
-            "millisecond-hand-label": "Wskazówka milisekund",
-            "overlay-style-label": "Styl nakładki",
+            "analog-clock": "Zegar analogowy",
+            "24hours-hand": "Wskazówka 24 godzin",
+            "date-hands": "Wskazówki daty",
+            "millisecond-hand": "Wskazówka milisekund",
+            "overlay-style": "Styl nakładki",
             "hide": "Ukryj",
             "blend": "Mieszaj",
             "white": "Biały",
@@ -1469,35 +1485,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "System",
             "alternate": "Naprzemiennie",
             "rainbow": "Tęczowy",
-            "overlay-position-label": "Pozycja nakładki",
+            "overlay-position": "Pozycja nakładki",
             "center": "Środek",
             "top-right": "Prawy górny",
             "bottom-right": "Prawy dolny",
             "bottom-left": "Lewy dolny",
             "top-left": "Lewy górny",
             "rotate": "Obróć",
-            "with-weather-label": "Pogoda",
-            "weather-location-label": "Lokalizacja pogody",
+            "with-weather": "Pogoda",
+            "weather-location": "Lokalizacja pogody",
             "ip-address": "Adres IP (nisk dokładność)",
             "geolocation": "Geolokalizacja (wysoka dokładność)",
-            "with-clock-label": "Zegar",
-            "with-date-label": "Data",
-            "with-calendar-label": "Kalendarz",
-            "with-visualizer-label": "Wizualizer (nakładka)",
-            "show-fps-label": "Pokaż FPS",
-            "shortcuts-label": "Skróty klawiaturowe",
-            "language-label": "Język",
-            "url-label": "Link do tego ustawienia",
-            "repository-label": "repozytorium",
+            "with-clock": "Zegar",
+            "with-date": "Data",
+            "with-calendar": "Kalendarz",
+            "with-visualizer": "Wizualizer (nakładka)",
+            "show-fps": "Pokaż FPS",
+            "shortcuts": "Skróty klawiaturowe",
+            "language": "Język",
+            "url": "Link do tego ustawienia",
+            "repository": "repozytorium",
             "on": "Włącz",
             "off": "Wyłącz",
             "wakeup": "Budzik",
-            "wakeup-label": "Budzik",
-            "timer-label": "Timer",
-            "fade-in-label": "Czas narastania",
+            "timer": "Timer",
+            "fade-in": "Czas narastania",
             "sleep": "Timer usypiania",
-            "sleep-label": "Timer usypiania",
-            "fade-out-label": "Czas zanikania",
+            "fade-out": "Czas zanikania",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -1533,17 +1547,20 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Carregando mídia...",
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
-            "media-count-label": "Contagem de mídias",
-            "media-length-label": "Duração da mídia",
-            "with-fullscreen-label": "Tela cheia",
-            "brightness-label": "Brilho",
-            "stretch-label": "Esticar",
-            "padding-label": "Preenchimento",
-            "cross-fade-label": "Dissolução cruzada",
-            "cross-fade-with-blur-label": "Dissolução cruzada com desfoque",
-            "image-span-label": "Tempo de exibição da imagem",
-            "loop-short-media-label": "Repetir mídias curtas",
-            "visualizer-label": "Visualizador",
+            "media-count": "Contagem de mídias",
+            "media-length": "Duração da mídia",
+            "with-fullscreen": "Tela cheia",
+            "brightness": "Brilho",
+            "stretch": "Esticar",
+            "padding": "Preenchimento",
+            "cross-fade": "Dissolução cruzada",
+            "cross-fade-transition": "Transição de dissolução cruzada",
+            "alpha": "Alfa",
+            "blur": "Desfoque",
+            "wipe": "Limpar",
+            "image-span": "Tempo de exibição da imagem",
+            "loop-short-media": "Repetir mídias curtas",
+            "visualizer": "Visualizador",
             "visualizer-simple": "Simples",
             "visualizer-plane-frequency": "Frequência de plano",
             "visualizer-plane-waveform": "Forma de onda de plano",
@@ -1553,11 +1570,11 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-frequency": "Frequência de arco estéreo",
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
-            "analog-clock-label": "Relógio analógico",
-            "24hours-hand-label": "Ponteiro de 24 horas",
-            "date-hands-label": "Ponteiros de data",
-            "millisecond-hand-label": "Ponteiro de milissegundos",
-            "overlay-style-label": "Estilo de sobreposição",
+            "analog-clock": "Relógio analógico",
+            "24hours-hand": "Ponteiro de 24 horas",
+            "date-hands": "Ponteiros de data",
+            "millisecond-hand": "Ponteiro de milissegundos",
+            "overlay-style": "Estilo de sobreposição",
             "hide": "Ocultar",
             "blend": "Mesclar",
             "white": "Branco",
@@ -1565,35 +1582,33 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "system": "Sistema",
             "alternate": "Alternar",
             "rainbow": "Arco-íris",
-            "overlay-position-label": "Posição da sobreposição",
+            "overlay-position": "Posição da sobreposição",
             "center": "Centro",
             "top-right": "Canto superior direito",
             "bottom-right": "Canto inferior direito",
             "bottom-left": "Canto inferior esquerdo",
             "top-left": "Canto superior esquerdo",
             "rotate": "Girar",
-            "with-weather-label": "Clima",
-            "weather-location-label": "Local do clima",
+            "with-weather": "Clima",
+            "weather-location": "Local do clima",
             "ip-address": "Endereço IP (baixa precisão)",
             "geolocation": "Geolocalização (alta precisão)",
-            "with-clock-label": "Relógio",
-            "with-date-label": "Data",
-            "with-calendar-label": "Calendário",
-            "with-visualizer-label": "Visualizador (sobreposição)",
-            "show-fps-label": "Mostrar FPS",
-            "shortcuts-label": "Atalhos de teclado",
-            "language-label": "Idioma",
-            "url-label": "Link para esta configuração",
-            "repository-label": "repositório",
+            "with-clock": "Relógio",
+            "with-date": "Data",
+            "with-calendar": "Calendário",
+            "with-visualizer": "Visualizador (sobreposição)",
+            "show-fps": "Mostrar FPS",
+            "shortcuts": "Atalhos de teclado",
+            "language": "Idioma",
+            "url": "Link para esta configuração",
+            "repository": "repositório",
             "on": "Ligado",
             "off": "Desligado",
             "wakeup": "Timer de despertar",
-            "wakeup-label": "Timer de despertar",
-            "timer-label": "Timer",
-            "fade-in-label": "Tempo de fade-in",
+            "timer": "Timer",
+            "fade-in": "Tempo de fade-in",
             "sleep": "Timer de suspensão",
-            "sleep-label": "Timer de suspensão",
-            "fade-out-label": "Tempo de fade-out",
+            "fade-out": "Tempo de fade-out",
             "timeUnitMs": "ms",
             "timeUnitS": "s",
             "timeUnitM": "m",
@@ -3732,9 +3747,14 @@ define("resource/control", [], {
         ],
         "default": 3000
     },
-    "crossFadeWithBlur": {
-        "id": "cross-fade-with-blur",
-        "default": false
+    "crossFadeTransition": {
+        "id": "cross-fade-transition",
+        "enum": [
+            "alpha",
+            "blur",
+            "wipe"
+        ],
+        "default": "alpha"
     },
     "visualizer": {
         "id": "visualizer-type",
@@ -4093,7 +4113,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                     _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
             });
-            SettingsPanel.crossFadeWithBlurCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.crossFadeWithBlur);
+            SettingsPanel.crossFadeTransitionSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFadeTransition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
             SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
             SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
             SettingsPanel.dayHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dayHand);
@@ -4170,6 +4190,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
             UI.SettingsPanel.imageSpanSelect.reloadOptions();
             UI.SettingsPanel.crossFadeSelect.reloadOptions();
+            UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
             UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
@@ -4226,12 +4247,24 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return element.getAttribute("data-lang-key");
         };
         UI.updateLabel = function (element) {
-            return _library_2.Library.UI.setTextContent(element, _library_2.Library.Locale.map(UI.getDataLangKey(element)));
+            var label = _library_2.Library.Locale.map(UI.getDataLangKey(element));
+            if (undefined !== label) {
+                _library_2.Library.UI.setTextContent(element, label);
+            }
+            else {
+                console.warn("\uD83D\uDEAB Missing locale label for key: ".concat(UI.getDataLangKey(element)));
+            }
         };
         UI.updateAriaLabel = function (element) {
             var labelKey = element.getAttribute("data-aria-lang-key");
             if (labelKey) {
-                element.setAttribute("aria-label", _library_2.Library.Locale.map(labelKey));
+                var label = _library_2.Library.Locale.map(labelKey);
+                if (undefined !== label) {
+                    element.setAttribute("aria-label", label);
+                }
+                else {
+                    console.warn("\uD83D\uDEAB Missing locale label for key: ".concat(labelKey));
+                }
             }
         };
         UI.setLabel = function (element, label) {
@@ -5666,11 +5699,1190 @@ define("script/features/history", ["require", "exports", "script/features/media"
         };
     })(History || (exports.History = History = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, config_json_7) {
+define("flounder.style.js/evil-type.ts/common/evil-type", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.EvilType = void 0;
+    // Original: https://github.com/wraith13/evil-type.ts/blob/master/common/evil-type.ts
+    // License: BSL-1.0 ( https://github.com/wraith13/evil-type.ts/blob/master/LICENSE_1_0.txt )
+    var EvilType;
+    (function (EvilType) {
+        EvilType.comparer = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return function (a, b) {
+                for (var i = 0; i < args.length; ++i) {
+                    var focus_1 = args[i];
+                    var af = focus_1(a);
+                    var bf = focus_1(b);
+                    if (af < bf) {
+                        return -1;
+                    }
+                    if (bf < af) {
+                        return 1;
+                    }
+                }
+                return 0;
+            };
+        };
+        EvilType.lazy = function (invoker) {
+            return (function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                return invoker().apply(void 0, args);
+            });
+        };
+        var Error;
+        (function (Error) {
+            Error.makeListener = function (path) {
+                if (path === void 0) { path = ""; }
+                return ({
+                    path: path,
+                    matchRate: {},
+                    errors: [],
+                });
+            };
+            Error.nextListener = function (name, listner) {
+                return (listner ?
+                    {
+                        path: Error.makePath(listner.path, name),
+                        matchRate: listner.matchRate,
+                        errors: listner.errors,
+                    } :
+                    undefined);
+            };
+            Error.makePath = function (path, name) {
+                var base = path.includes("#") ? path : "".concat(path, "#");
+                var separator = base.endsWith("#") || "string" !== typeof name ? "" : ".";
+                var tail = "string" === typeof name ? name : "[".concat(name, "]");
+                return base + separator + tail;
+            };
+            Error.getPathDepth = function (path) {
+                var valuePath = path.replace(/\[(\d+)\]/g, ".$1");
+                return valuePath.split(/[#\.]/).filter(function (i) { return 0 < i.length; }).length;
+            };
+            Error.getType = function (isType) {
+                var transactionListner = Error.makeListener();
+                isType(undefined, transactionListner);
+                return transactionListner.errors
+                    .map(function (i) { return i.requiredType.split(" | "); })
+                    .reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, [])
+                    .filter(function (i, ix, list) { return ix === list.indexOf(i); });
+            };
+            Error.isMtached = function (matchRate) { return true === matchRate; };
+            Error.matchRateToNumber = function (matchRate) {
+                switch (matchRate) {
+                    case false:
+                        return 0;
+                    case true:
+                        return 1;
+                    default:
+                        return matchRate;
+                }
+            };
+            Error.setMatchRate = function (listner, matchRate) {
+                if (listner) {
+                    listner.matchRate[listner.path] = matchRate;
+                }
+                return Error.isMtached(matchRate);
+            };
+            Error.getMatchRate = function (listner, path) {
+                if (path === void 0) { path = listner.path; }
+                if (path in listner.matchRate) {
+                    return listner.matchRate[path];
+                }
+                return Error.calculateMatchRate(listner, path);
+            };
+            Error.calculateMatchRate = function (listner, path) {
+                if (path === void 0) { path = listner.path; }
+                var depth = Error.getPathDepth(path);
+                var childrenKeys = Object.keys(listner.matchRate)
+                    .filter(function (i) { return 0 === i.indexOf(path) && Error.getPathDepth(i) === depth + 1; });
+                var length = childrenKeys.length;
+                var sum = childrenKeys
+                    .map(function (i) { return listner.matchRate[i]; })
+                    .map(function (i) { return Error.matchRateToNumber(i); })
+                    .reduce(function (a, b) { return a + b; }, 0.0);
+                var result = 0 < length ? sum / length : true;
+                if (true === result || 1.0 <= result) {
+                    console.error("🦋 FIXME: \"MatchWithErrors\": " + JSON.stringify({ sum: sum, length: length, result: result, listner: listner }));
+                }
+                return listner.matchRate[path] = result;
+            };
+            Error.setMatch = function (listner) {
+                if (listner) {
+                    var paths = Object.keys(listner.matchRate)
+                        .filter(function (path) { return 0 === path.indexOf(listner.path); });
+                    if (paths.every(function (path) { return Error.isMtached(listner.matchRate[path]); })) {
+                        paths.forEach(function (path) { return delete listner.matchRate[path]; });
+                    }
+                }
+                Error.setMatchRate(listner, true);
+            };
+            Error.raiseError = function (listner, requiredType, actualValue) {
+                if (listner) {
+                    Error.setMatchRate(listner, false);
+                    listner.errors.push({
+                        type: "solid",
+                        path: listner.path,
+                        requiredType: "string" === typeof requiredType ? requiredType : requiredType(),
+                        actualValue: Error.valueToString(actualValue),
+                    });
+                }
+                return false;
+            };
+            Error.orErros = function (listner, modulus, errors, fullErrors) {
+                var _a;
+                var paths = errors.map(function (i) { return i.path; }).filter(function (i, ix, list) { return ix === list.indexOf(i); });
+                (_a = listner.errors).push.apply(_a, paths.map(function (path) {
+                    return ({
+                        type: modulus <= fullErrors.filter(function (i) { return "solid" === i.type && i.path === path; }).length ?
+                            "solid" :
+                            "fragment",
+                        path: path,
+                        requiredType: errors
+                            .filter(function (i) { return i.path === path; })
+                            .map(function (i) { return i.requiredType; })
+                            .map(function (i) { return i.split(" | "); })
+                            .reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, [])
+                            .filter(function (i, ix, list) { return ix === list.indexOf(i); })
+                            .join(" | "),
+                        actualValue: errors.filter(function (i) { return i.path === path; }).map(function (i) { return i.actualValue; })[0],
+                    });
+                }));
+            };
+            Error.andErros = function (listner, errors) {
+                var _a;
+                var paths = errors.map(function (i) { return i.path; }).filter(function (i, ix, list) { return ix === list.indexOf(i); });
+                (_a = listner.errors).push.apply(_a, paths.map(function (path) {
+                    return ({
+                        type: errors.some(function (i) { return "solid" === i.type && i.path === path; }) ?
+                            "solid" :
+                            "fragment",
+                        path: path,
+                        requiredType: errors
+                            .filter(function (i) { return i.path === path; })
+                            .map(function (i) { return i.requiredType; })
+                            .map(function (i) { return i.split(" & "); })
+                            .reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, [])
+                            .filter(function (i, ix, list) { return ix === list.indexOf(i); })
+                            .join(" & "),
+                        actualValue: errors.filter(function (i) { return i.path === path; }).map(function (i) { return i.actualValue; })[0],
+                    });
+                }));
+            };
+            Error.valueToString = function (value) {
+                return undefined === value ? "undefined" : JSON.stringify(value);
+            };
+            Error.withErrorHandling = function (isMatchType, listner, requiredType, actualValue) {
+                if (listner) {
+                    if (isMatchType) {
+                        Error.setMatch(listner);
+                    }
+                    else {
+                        Error.raiseError(listner, requiredType, actualValue);
+                    }
+                }
+                return isMatchType;
+            };
+        })(Error = EvilType.Error || (EvilType.Error = {}));
+        var Validator;
+        (function (Validator) {
+            Validator.makeErrorListener = Error.makeListener;
+            Validator.isJust = function (target) { return null !== target && "object" === typeof target ?
+                function (value, listner) {
+                    return Error.withErrorHandling(JSON.stringify(target) === JSON.stringify(value), listner, function () { return Error.valueToString(target); }, value);
+                } :
+                function (value, listner) {
+                    return Error.withErrorHandling(target === value, listner, function () { return Error.valueToString(target); }, value);
+                }; };
+            Validator.isNever = function (value, listner) {
+                return Error.withErrorHandling(false, listner, "never", value);
+            };
+            Validator.isUndefined = Validator.isJust(undefined);
+            Validator.isUnknown = function (_value, _listner) { return true; };
+            Validator.isAny = function (_value, _listner) { return true; };
+            Validator.isNull = Validator.isJust(null);
+            Validator.isBoolean = function (value, listner) {
+                return Error.withErrorHandling("boolean" === typeof value, listner, "boolean", value);
+            };
+            Validator.isInteger = function (value, listner) {
+                return Error.withErrorHandling(Number.isInteger(value), listner, "integer", value);
+            };
+            Validator.isSafeInteger = function (value, listner) {
+                return Error.withErrorHandling(Number.isSafeInteger(value), listner, "safe-integer", value);
+            };
+            Validator.isDetailedInteger = function (data, safeInteger) {
+                var base = "safe" === safeInteger ? Validator.isSafeInteger : Validator.isInteger;
+                if ([data.minimum, data.exclusiveMinimum, data.maximum, data.exclusiveMaximum, data.multipleOf].every(function (i) { return undefined === i; })) {
+                    return base;
+                }
+                else {
+                    var result = function (value, listner) { return Error.withErrorHandling(base(value) &&
+                        (undefined === data.minimum || data.minimum <= value) &&
+                        (undefined === data.exclusiveMinimum || data.exclusiveMinimum < value) &&
+                        (undefined === data.maximum || value <= data.maximum) &&
+                        (undefined === data.exclusiveMaximum || value < data.exclusiveMaximum) &&
+                        (undefined === data.multipleOf || 0 === value % data.multipleOf), listner, function () {
+                        var details = [];
+                        if (undefined !== data.minimum) {
+                            details.push("minimum:".concat(data.minimum));
+                        }
+                        if (undefined !== data.exclusiveMinimum) {
+                            details.push("exclusiveMinimum:".concat(data.exclusiveMinimum));
+                        }
+                        if (undefined !== data.maximum) {
+                            details.push("maximum:".concat(data.maximum));
+                        }
+                        if (undefined !== data.exclusiveMaximum) {
+                            details.push("exclusiveMaximum:".concat(data.exclusiveMaximum));
+                        }
+                        if (undefined !== data.multipleOf) {
+                            details.push("multipleOf:".concat(data.multipleOf));
+                        }
+                        return "".concat("safe" === safeInteger ? "safe-integer" : "integer", "(").concat(details.join(","), ")");
+                    }, value); };
+                    return result;
+                }
+            };
+            Validator.isNumber = function (value, listner) {
+                return Error.withErrorHandling("number" === typeof value, listner, "number", value);
+            };
+            Validator.isSafeNumber = function (value, listner) {
+                return Error.withErrorHandling(Number.isFinite(value), listner, "safe-number", value);
+            };
+            Validator.isDetailedNumber = function (data, safeNumber) {
+                var base = "safe" === safeNumber ? Validator.isSafeNumber : Validator.isNumber;
+                if ([data.minimum, data.exclusiveMinimum, data.maximum, data.exclusiveMaximum, data.multipleOf].every(function (i) { return undefined === i; })) {
+                    return base;
+                }
+                else {
+                    var result = function (value, listner) { return Error.withErrorHandling(base(value) &&
+                        (undefined === data.minimum || data.minimum <= value) &&
+                        (undefined === data.exclusiveMinimum || data.exclusiveMinimum < value) &&
+                        (undefined === data.maximum || value <= data.maximum) &&
+                        (undefined === data.exclusiveMaximum || value < data.exclusiveMaximum) &&
+                        (undefined === data.multipleOf || 0 === value % data.multipleOf), listner, function () {
+                        var details = [];
+                        if (undefined !== data.minimum) {
+                            details.push("minimum:".concat(data.minimum));
+                        }
+                        if (undefined !== data.exclusiveMinimum) {
+                            details.push("exclusiveMinimum:".concat(data.exclusiveMinimum));
+                        }
+                        if (undefined !== data.maximum) {
+                            details.push("maximum:".concat(data.maximum));
+                        }
+                        if (undefined !== data.exclusiveMaximum) {
+                            details.push("exclusiveMaximum:".concat(data.exclusiveMaximum));
+                        }
+                        if (undefined !== data.multipleOf) {
+                            details.push("multipleOf:".concat(data.multipleOf));
+                        }
+                        return "".concat("safe" === safeNumber ? "safe-number" : "number", "(").concat(details.join(","), ")");
+                    }, value); };
+                    return result;
+                }
+            };
+            Validator.isString = function (value, listner) {
+                return Error.withErrorHandling("string" === typeof value, listner, "string", value);
+            };
+            Validator.makeStringTypeName = function (data) {
+                var details = [];
+                if (undefined !== data.minLength) {
+                    details.push("minLength:".concat(data.minLength));
+                }
+                if (undefined !== data.maxLength) {
+                    details.push("maxLength:".concat(data.maxLength));
+                }
+                if (undefined !== data.format) {
+                    details.push("format:".concat(data.format));
+                }
+                else if (undefined !== data.pattern) {
+                    details.push("pattern:".concat(data.pattern));
+                }
+                if (undefined !== data.regexpFlags) {
+                    details.push("regexpFlags:".concat(data.regexpFlags));
+                }
+                return "string(".concat(details.join(","), ")");
+            };
+            Validator.regexpTest = function (pattern, flags, text) {
+                switch (pattern) {
+                    case "^[[:regex:]]$":
+                        try {
+                            new RegExp(text, flags);
+                            return true;
+                        }
+                        catch (_a) {
+                            return false;
+                        }
+                    default:
+                        return new RegExp(pattern, flags).test(text);
+                }
+            };
+            Validator.isDetailedString = function (data, regexpFlags) {
+                if ([data.minLength, data.maxLength, data.pattern, data.format].every(function (i) { return undefined === i; })) {
+                    return Validator.isString;
+                }
+                var pattern = data.pattern;
+                var result = function (value, listner) {
+                    var _a, _b, _c;
+                    return Error.withErrorHandling("string" === typeof value &&
+                        (undefined === data.minLength || data.minLength <= value.length) &&
+                        (undefined === data.maxLength || value.length <= data.maxLength) &&
+                        (undefined === pattern || ((_a = data.regexpTest) !== null && _a !== void 0 ? _a : Validator.regexpTest)(pattern, (_c = (_b = data.regexpFlags) !== null && _b !== void 0 ? _b : regexpFlags) !== null && _c !== void 0 ? _c : "u", value)), listner, function () { return Validator.makeStringTypeName(data); }, value);
+                };
+                return result;
+            };
+            Validator.isObject = function (value) {
+                return null !== value && "object" === typeof value && !Array.isArray(value);
+            };
+            Validator.isEnum = function (list) {
+                return function (value, listner) {
+                    return Error.withErrorHandling(list.includes(value), listner, function () { return list.map(function (i) { return Error.valueToString(i); }).join(" | "); }, value);
+                };
+            };
+            Validator.isUniqueItems = function (list) {
+                return list.map(function (i) { return JSON.stringify(i); }).every(function (i, ix, list) { return ix === list.indexOf(i); });
+            };
+            Validator.makeArrayTypeName = function (data) {
+                var details = [];
+                if (undefined !== (data === null || data === void 0 ? void 0 : data.minItems)) {
+                    details.push("minItems:".concat(data.minItems));
+                }
+                if (undefined !== (data === null || data === void 0 ? void 0 : data.maxItems)) {
+                    details.push("maxItems:".concat(data.maxItems));
+                }
+                if (true === (data === null || data === void 0 ? void 0 : data.uniqueItems)) {
+                    details.push("uniqueItems:".concat(data.uniqueItems));
+                }
+                return details.length <= 0 ? "array" : "array(".concat(details.join(","), ")");
+            };
+            Validator.isArray = function (isType, data) {
+                return function (value, listner) {
+                    if (Array.isArray(value) &&
+                        (undefined === (data === null || data === void 0 ? void 0 : data.minItems) || data.minItems <= value.length) &&
+                        (undefined === (data === null || data === void 0 ? void 0 : data.maxItems) || value.length <= data.maxItems) &&
+                        (true !== (data === null || data === void 0 ? void 0 : data.uniqueItems) || Validator.isUniqueItems(value))) {
+                        var result = value.map(function (i) { return isType(i, listner); }).every(function (i) { return i; });
+                        if (listner) {
+                            if (result) {
+                                Error.setMatch(listner);
+                            }
+                            else {
+                                Error.calculateMatchRate(listner);
+                            }
+                        }
+                        return result;
+                    }
+                    else {
+                        return undefined !== listner && Error.raiseError(listner, function () { return Validator.makeArrayTypeName(data); }, value);
+                    }
+                };
+            };
+            Validator.makeOrTypeNameFromIsTypeList = function () {
+                var isTypeList = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    isTypeList[_i] = arguments[_i];
+                }
+                return isTypeList.map(function (i) { return Error.getType(i); })
+                    .reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, [])
+                    .filter(function (i, ix, list) { return ix === list.indexOf(i); });
+            };
+            Validator.getBestMatchErrors = function (listeners) {
+                return listeners.map(function (listener) {
+                    return ({
+                        listener: listener,
+                        matchRate: Error.getMatchRate(listener),
+                    });
+                })
+                    .sort(EvilType.comparer(function (i) { return -Error.matchRateToNumber(i.matchRate); }))
+                    .filter(function (i, _ix, list) { return i.matchRate === list[0].matchRate; })
+                    .map(function (i) { return i.listener; });
+            };
+            Validator.isOr = function () {
+                var isTypeList = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    isTypeList[_i] = arguments[_i];
+                }
+                return function (value, listner) {
+                    if (listner) {
+                        var resultList = isTypeList.map(function (i) {
+                            var transactionListner = Error.makeListener(listner.path);
+                            var result = {
+                                transactionListner: transactionListner,
+                                result: i(value, transactionListner),
+                            };
+                            return result;
+                        });
+                        var success = resultList.filter(function (i) { return i.result; })[0];
+                        var result = Boolean(success);
+                        if (result) {
+                            Error.setMatch(listner);
+                        }
+                        else {
+                            var requiredType = Validator.makeOrTypeNameFromIsTypeList.apply(void 0, isTypeList);
+                            if ((Validator.isObject(value) && requiredType.includes("object")) || (Array.isArray(value) && requiredType.includes("array"))) {
+                                var bestMatchErrors = Validator.getBestMatchErrors(resultList.map(function (i) { return i.transactionListner; }));
+                                var errors = bestMatchErrors.map(function (i) { return i.errors; }).reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, []);
+                                var fullErrors = resultList.map(function (i) { return i.transactionListner; }).map(function (i) { return i.errors; }).reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, []);
+                                Error.orErros(listner, isTypeList.length, errors, fullErrors);
+                                if (errors.length <= 0) {
+                                    console.error("🦋 FIXME: \"UnmatchWithoutErrors\": " + JSON.stringify(resultList));
+                                }
+                                if (0 < bestMatchErrors.length) {
+                                    Object.entries(bestMatchErrors[0].matchRate).forEach(function (kv) { return listner.matchRate[kv[0]] = kv[1]; });
+                                }
+                            }
+                            else {
+                                Error.raiseError(listner, requiredType.join(" | "), value);
+                            }
+                        }
+                        return result;
+                    }
+                    else {
+                        return isTypeList.some(function (i) { return i(value); });
+                    }
+                };
+            };
+            Validator.isAnd = function () {
+                var isTypeList = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    isTypeList[_i] = arguments[_i];
+                }
+                return function (value, listner) {
+                    if (listner) {
+                        var resultList = isTypeList.map(function (i) {
+                            var transactionListner = Error.makeListener(listner.path);
+                            var result = {
+                                transactionListner: transactionListner,
+                                result: i(value, transactionListner),
+                            };
+                            return result;
+                        });
+                        var result = resultList.every(function (i) { return i.result; });
+                        if (result) {
+                            Error.setMatch(listner);
+                        }
+                        else {
+                            var requiredType = Validator.makeOrTypeNameFromIsTypeList.apply(void 0, isTypeList);
+                            if ((Validator.isObject(value) && requiredType.includes("object")) || (Array.isArray(value) && requiredType.includes("array"))) {
+                                var transactionListners_1 = resultList.map(function (i) { return i.transactionListner; });
+                                var errors = transactionListners_1.map(function (i) { return i.errors; }).reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, []);
+                                Error.andErros(listner, errors);
+                                if (errors.length <= 0) {
+                                    console.error("🦋 FIXME: \"UnmatchWithoutErrors\": " + JSON.stringify(resultList));
+                                }
+                                if (0 < transactionListners_1.length) {
+                                    var paths = transactionListners_1
+                                        .map(function (i) { return Object.keys(i.matchRate); })
+                                        .reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }, [])
+                                        .filter(function (i, ix, list) { return ix === list.indexOf(i); });
+                                    paths.forEach(function (path) {
+                                        var matchRates = transactionListners_1.map(function (i) { return i.matchRate[path]; })
+                                            .filter(function (i) { return undefined !== i; });
+                                        if (matchRates.every(function (i) { return true === i; })) {
+                                            listner.matchRate[path] = true;
+                                        }
+                                        else {
+                                            listner.matchRate[path] = matchRates
+                                                .map(function (i) { return Error.matchRateToNumber(i); })
+                                                .reduce(function (a, b) { return a + b; }, 0)
+                                                / matchRates.length;
+                                        }
+                                    });
+                                }
+                            }
+                            else {
+                                Error.raiseError(listner, requiredType.join(" & "), value);
+                            }
+                        }
+                        return result;
+                    }
+                    else {
+                        return isTypeList.some(function (i) { return i(value); });
+                    }
+                };
+            };
+            Validator.isNeverTypeGuard = function (value, listner) {
+                return Validator.isSpecificObject({
+                    $type: Validator.isJust("never-type-guard"),
+                })(value, listner);
+            };
+            Validator.isNeverMemberType = function (value, member, _neverTypeGuard, listner) {
+                return !(member in value) || Validator.isNever(value[member], listner);
+            };
+            Validator.isOptionalTypeGuard = function (value, listner) {
+                return Validator.isSpecificObject({
+                    $type: Validator.isJust("optional-type-guard"),
+                    isType: function (value, listner) {
+                        return "function" === typeof value || (null !== value && "object" === typeof value) || (undefined !== listner && Error.raiseError(listner, "IsType<unknown> | ObjectValidator<unknown>", value));
+                    },
+                })(value, listner);
+            };
+            Validator.makeOptionalTypeGuard = function (isType) {
+                return ({
+                    $type: "optional-type-guard",
+                    isType: isType,
+                });
+            };
+            Validator.invokeIsType = function (isType) {
+                return "function" === typeof isType ? isType : Validator.isSpecificObject(isType);
+            };
+            Validator.isOptional = Validator.makeOptionalTypeGuard;
+            Validator.isOptionalMemberType = function (value, member, optionalTypeGuard, listner) {
+                var result = !(member in value) || Validator.invokeIsType(optionalTypeGuard.isType)(value[member], listner);
+                if (!result && listner) {
+                    var error = listner.errors.filter(function (i) { return i.path === listner.path; })[0];
+                    if (error) {
+                        error.requiredType = "never | " + error.requiredType;
+                    }
+                    else {
+                        // Not wrong, but noisy!
+                        // listner.errors.filter(i => 0 === i.path.indexOf(listner.path) && "fragment" !== i.type).forEach(i => i.type = "fragment");
+                        // listner.errors.push
+                        // ({
+                        //     type: "fragment",
+                        //     path: listner.path,
+                        //     requiredType: "never",
+                        //     actualValue: Error.valueToString((value as ObjectType)[member]),
+                        // });
+                    }
+                }
+                return result;
+            };
+            Validator.isMemberType = function (value, member, isType, listner) {
+                return Validator.isNeverTypeGuard(isType) ?
+                    Validator.isNeverMemberType(value, member, isType, listner) :
+                    Validator.isOptionalTypeGuard(isType) ?
+                        Validator.isOptionalMemberType(value, member, isType, listner) :
+                        Validator.invokeIsType(isType)(value[member], listner);
+            };
+            Validator.mergeObjectValidator = function (target) {
+                var sources = [];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                    sources[_i - 1] = arguments[_i];
+                }
+                return Object.assign.apply(Object, __spreadArray([{}, target], sources, true));
+            };
+            Validator.isSpecificObject = function (memberValidator, options) {
+                return function (value, listner) {
+                    if (Validator.isObject(value)) {
+                        var result = Object.entries("function" === typeof memberValidator ? memberValidator() : memberValidator).map(function (kv) { return Validator.isMemberType(value, kv[0], kv[1], Error.nextListener(kv[0], listner)); })
+                            .every(function (i) { return i; });
+                        if (false === (options === null || options === void 0 ? void 0 : options.additionalProperties)) {
+                            var regularKeys_1 = Object.keys(memberValidator);
+                            var additionalKeys = Object.keys(value)
+                                .filter(function (key) { return !regularKeys_1.includes(key); });
+                            if (additionalKeys.some(function (_) { return true; })) {
+                                additionalKeys.map(function (key) { return Error.raiseError(Error.nextListener(key, listner), "never", value[key]); });
+                                result = false;
+                            }
+                        }
+                        if (listner) {
+                            if (result) {
+                                Error.setMatch(listner);
+                            }
+                            else {
+                                Error.calculateMatchRate(listner);
+                            }
+                        }
+                        return result;
+                    }
+                    else {
+                        return undefined !== listner && Error.raiseError(listner, "object", value);
+                    }
+                };
+            };
+            Validator.isDictionaryObject = function (isType, keys, options) {
+                return function (value, listner) {
+                    if (Validator.isObject(value)) {
+                        var result = undefined === keys ?
+                            Object.entries(value).map(function (kv) { return isType(kv[1], Error.nextListener(kv[0], listner)); }).every(function (i) { return i; }) :
+                            keys.map(function (key) { return isType(value, Error.nextListener(key, listner)); }).every(function (i) { return i; });
+                        if (undefined !== keys && false === (options === null || options === void 0 ? void 0 : options.additionalProperties)) {
+                            var additionalKeys = Object.keys(value)
+                                .filter(function (key) { return !keys.includes(key); });
+                            if (additionalKeys.some(function (_) { return true; })) {
+                                additionalKeys.map(function (key) { return Error.raiseError(Error.nextListener(key, listner), "never", value[key]); });
+                                result = false;
+                            }
+                        }
+                        if (listner) {
+                            if (result) {
+                                Error.setMatch(listner);
+                            }
+                            else {
+                                Error.calculateMatchRate(listner);
+                            }
+                        }
+                        return result;
+                    }
+                    else {
+                        return undefined !== listner && Error.raiseError(listner, "object", value);
+                    }
+                };
+            };
+        })(Validator = EvilType.Validator || (EvilType.Validator = {}));
+    })(EvilType || (exports.EvilType = EvilType = {}));
+});
+define("flounder.style.js/generated/type", ["require", "exports", "flounder.style.js/evil-type.ts/common/evil-type"], function (require, exports, evil_type_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.Type = exports.EvilType = void 0;
+    Object.defineProperty(exports, "EvilType", { enumerable: true, get: function () { return evil_type_1.EvilType; } });
+    var Type;
+    (function (Type) {
+        Type.isFlounderType = evil_type_1.EvilType.Validator.isOr(evil_type_1.EvilType.Validator.isEnum(["trispot", "tetraspot"]), evil_type_1.EvilType.Validator.isEnum(["stripe", "diline", "triline"]));
+        Type.isLayoutAngle = evil_type_1.EvilType.Validator.isEnum(["regular", "alternative"]);
+        Type.isHexColor = evil_type_1.EvilType.Validator.isDetailedString({ pattern: "^#(?:[0-9A-Fa-f]){3,4,6,8}$", }, "u");
+        Type.isNamedColor = evil_type_1.EvilType.Validator.isEnum(["black", "silver", "gray", "white", "maroon", "red",
+            "purple", "fuchsia", "green", "lime", "olive", "yellow", "navy", "blue", "teal", "aqua", "aliceblue", "antiquewhite", "aquamarine", "azure", "beige",
+            "bisque", "blanchedalmond", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk",
+            "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkgrey", "darkkhaki", "darkmagenta", "darkolivegreen",
+            "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkslategrey", "darkturquoise", "darkviolet",
+            "deeppink", "deepskyblue", "dimgray", "dimgrey", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "gainsboro", "ghostwhite", "gold",
+            "goldenrod", "greenyellow", "grey", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen",
+            "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightgrey", "lightpink", "lightsalmon",
+            "lightseagreen", "lightskyblue", "lightslategray", "lightslategrey", "lightsteelblue", "lightyellow", "limegreen", "linen", "magenta",
+            "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise",
+            "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "oldlace", "olivedrab", "orange", "orangered", "orchid",
+            "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "rebeccapurple",
+            "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "skyblue", "slateblue", "slategray", "slategrey",
+            "snow", "springgreen", "steelblue", "tan", "thistle", "tomato", "transparent", "turquoise", "violet", "wheat", "whitesmoke", "yellowgreen"]);
+        Type.isColor = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isOr(Type.isHexColor, Type.isNamedColor); });
+        Type.isRate = evil_type_1.EvilType.Validator.isDetailedNumber({ minimum: 0, maximum: 1, });
+        Type.isSignedRate = evil_type_1.EvilType.Validator.isDetailedNumber({ minimum: -1, maximum: 1, });
+        Type.isPixel = evil_type_1.EvilType.Validator.isDetailedNumber({ minimum: 0, });
+        Type.isSignedPixel = evil_type_1.EvilType.Validator.isNumber;
+        Type.isCount = evil_type_1.EvilType.Validator.isDetailedInteger({ minimum: 0, });
+        Type.isNamedDirectionAngle = evil_type_1.EvilType.Validator.isEnum(["right", "right-down", "down",
+            "left-down", "left", "left-up", "up", "right-up"]);
+        Type.isDirectionAngle = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isOr(Type.isNamedDirectionAngle, Type.isSignedRate); });
+        Type.isArgumentsBase = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isSpecificObject(Type.argumentsBaseValidatorObject, { additionalProperties: false }); });
+        Type.isSpotArguments = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isSpecificObject(Type.spotArgumentsValidatorObject, { additionalProperties: false }); });
+        Type.isLineArguments = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isSpecificObject(Type.lineArgumentsValidatorObject, { additionalProperties: false }); });
+        Type.isArguments = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isOr(Type.isSpotArguments, Type.isLineArguments); });
+        Type.argumentsBaseValidatorObject = ({ $schema: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isJust("https://raw.githubusercontent.com/wraith13/flounder.style.js/master/generated/schema.json#")), type: Type.isFlounderType,
+            layoutAngle: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isOr(Type.isLayoutAngle, Type.isSignedRate)), offsetX: evil_type_1.EvilType.Validator.isOptional(Type.isSignedPixel), offsetY: evil_type_1.EvilType.Validator.isOptional(Type.isSignedPixel), foregroundColor: Type.isColor, backgroundColor: evil_type_1.EvilType.Validator.isOptional(Type.isColor), intervalSize: evil_type_1.EvilType.Validator.isOptional(Type.isPixel), depth: Type.isRate, blur: evil_type_1.EvilType.Validator.isOptional(Type.isPixel), maxPatternSize: evil_type_1.EvilType.Validator.isOptional(Type.isPixel), reverseRate: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isOr(Type.isSignedRate, evil_type_1.EvilType.Validator.isJust("auto"), evil_type_1.EvilType.Validator.isJust("-auto"))), anglePerDepth: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isOr(Type.isSignedRate, evil_type_1.EvilType.Validator.isJust("auto"), evil_type_1.EvilType.Validator.isJust("-auto"))), maximumFractionDigits: evil_type_1.EvilType.Validator.isOptional(Type.isCount), });
+        Type.spotArgumentsValidatorObject = evil_type_1.EvilType.Validator.mergeObjectValidator(Type.argumentsBaseValidatorObject, { type: evil_type_1.EvilType.Validator.isEnum(["trispot", "tetraspot"]), layoutAngle: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isOr(Type.isLayoutAngle, evil_type_1.EvilType.Validator.isJust(0))), anglePerDepth: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isJust(0)), });
+        Type.lineArgumentsValidatorObject = evil_type_1.EvilType.Validator.mergeObjectValidator(Type.argumentsBaseValidatorObject, { type: evil_type_1.EvilType.Validator.isEnum(["stripe", "diline", "triline"]), });
+    })(Type || (exports.Type = Type = {}));
+});
+define("flounder.style.js/config", [], {
+    "defaultSpotIntervalSize": 24,
+    "defaultBlur": 0.0,
+    "defaultMaximumFractionDigits": 4
+});
+define("flounder.style.js/index", ["require", "exports", "flounder.style.js/generated/type", "flounder.style.js/config"], function (require, exports, type_1, config_json_7) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.FlounderStyle = exports.EvilType = void 0;
+    config_json_7 = __importDefault(config_json_7);
+    Object.defineProperty(exports, "EvilType", { enumerable: true, get: function () { return type_1.EvilType; } });
+    var FlounderStyle;
+    (function (FlounderStyle) {
+        FlounderStyle.Type = type_1.Type;
+        FlounderStyle.sin = function (rate) { return Math.sin(Math.PI * 2.0 * rate); };
+        FlounderStyle.cos = function (rate) { return Math.cos(Math.PI * 2.0 * rate); };
+        FlounderStyle.atan2 = function (direction) { return Math.atan2(direction.y, direction.x) / (Math.PI * 2.0); };
+        FlounderStyle.styleToStylePropertyList = function (style) {
+            return Object.keys(style).map(function (key) { return ({ key: key, value: style[key], }); });
+        };
+        FlounderStyle.setStyleProperty = function (element, style) {
+            var current = element.style.getPropertyValue(style.key);
+            if (current !== style.value) // for DOM rendering performance
+             {
+                if (undefined !== style.value) {
+                    element.style.setProperty(style.key, style.value);
+                }
+                else {
+                    element.style.removeProperty(style.key);
+                }
+            }
+            return element;
+        };
+        FlounderStyle.makeSureStyle = function (styleOrArguments) {
+            return FlounderStyle.isArguments(styleOrArguments) ? FlounderStyle.makeStyle(styleOrArguments) : styleOrArguments;
+        };
+        FlounderStyle.setStyle = function (element, styleOrArguments) {
+            FlounderStyle.styleToStylePropertyList(FlounderStyle.makeSureStyle(styleOrArguments)).forEach(function (i) { return FlounderStyle.setStyleProperty(element, i); });
+            return element;
+        };
+        FlounderStyle.stylePropertyToString = function (style) { var _a; return "".concat(style.key, ": ").concat((_a = style.value) !== null && _a !== void 0 ? _a : "inherit", ";"); };
+        FlounderStyle.styleToString = function (styleOrArguments, separator) {
+            if (separator === void 0) { separator = " "; }
+            return FlounderStyle.styleToStylePropertyList(FlounderStyle.makeSureStyle(styleOrArguments))
+                .filter(function (i) { return undefined !== i.value; })
+                .map(function (i) { return FlounderStyle.stylePropertyToString(i); })
+                .join(separator);
+        };
+        FlounderStyle.regulateRate = function (rate) {
+            var result = rate % 1.0;
+            if (result < -0.0000000000001) {
+                result += 1.0;
+            }
+            return result;
+        };
+        FlounderStyle.directionAngleToRate = function (angle) {
+            switch (angle) {
+                case "right":
+                    return 0.0 / 8.0;
+                case "right-down":
+                    return 1.0 / 8.0;
+                case "down":
+                    return 2.0 / 8.0;
+                case "left-down":
+                    return 3.0 / 8.0;
+                case "left":
+                    return 4.0 / 8.0;
+                case "left-up":
+                    return 5.0 / 8.0;
+                case "up":
+                    return 6.0 / 8.0;
+                case "right-up":
+                    return 7.0 / 8.0;
+                default:
+                    return FlounderStyle.regulateRate(angle);
+            }
+        };
+        FlounderStyle.isArguments = function (value) {
+            return null !== value &&
+                "object" === typeof value &&
+                "type" in value && "string" === typeof value.type &&
+                "foregroundColor" in value && "string" === typeof value.foregroundColor &&
+                "depth" in value && "number" === typeof value.depth;
+        };
+        FlounderStyle.getPatternType = function (data) { var _a; return (_a = data.type) !== null && _a !== void 0 ? _a : "trispot"; };
+        FlounderStyle.getLayoutAngle = function (data) {
+            var _a;
+            if ("number" === typeof data.layoutAngle) {
+                if (0 === data.layoutAngle) {
+                    return "regular";
+                }
+                else {
+                    throw new Error("When using ".concat(data.type, ", number cannot be used for layoutAngle."));
+                }
+            }
+            if (undefined !== data.anglePerDepth && null !== data.anglePerDepth && 0 !== data.anglePerDepth) {
+                throw new Error("anglePerDepth cannot be used when using ".concat(data.type, "."));
+            }
+            return (_a = data.layoutAngle) !== null && _a !== void 0 ? _a : "regular";
+        };
+        FlounderStyle.getActualLayoutAngle = function (data) {
+            var _a;
+            return "number" === typeof data.layoutAngle ? data.layoutAngle :
+                "regular" === ((_a = data.layoutAngle) !== null && _a !== void 0 ? _a : "regular") ? 0.0 :
+                    "stripe" === data.type ? 0.25 :
+                        "tetraspot" === data.type ? 0.125 :
+                            "diline" === data.type ? 0.125 :
+                                "trispot" === data.type ? 0.25 :
+                                    "triline" === data.type ? 0.25 :
+                                        0.5;
+        };
+        FlounderStyle.getAutoAnglePerDepth = function (data) {
+            return "stripe" === FlounderStyle.getPatternType(data) ? (1.0 / 2.0) :
+                "diline" === FlounderStyle.getPatternType(data) ? (1.0 / 4.0) :
+                    "triline" === FlounderStyle.getPatternType(data) ? (1.0 / 6.0) :
+                        1.0;
+        };
+        FlounderStyle.getActualAnglePerDepth = function (data) {
+            return "number" === typeof data.anglePerDepth ? data.anglePerDepth :
+                "auto" === data.anglePerDepth ? FlounderStyle.getAutoAnglePerDepth(data) :
+                    "-auto" === data.anglePerDepth ? -FlounderStyle.getAutoAnglePerDepth(data) :
+                        0.0;
+        };
+        FlounderStyle.getAngleOffsetByDepth = function (data) {
+            return FlounderStyle.getActualAnglePerDepth(data) * data.depth;
+        };
+        FlounderStyle.getAngleOffset = function (data) {
+            return FlounderStyle.getActualLayoutAngle(data) + FlounderStyle.getAngleOffsetByDepth(data);
+        };
+        FlounderStyle.getBackgroundColor = function (data) { var _a; return (_a = data.backgroundColor) !== null && _a !== void 0 ? _a : "transparent"; };
+        FlounderStyle.getIntervalSize = function (data) { var _a; return (_a = data.intervalSize) !== null && _a !== void 0 ? _a : config_json_7.default.defaultSpotIntervalSize; };
+        FlounderStyle.getBlur = function (data) { var _a; return (_a = data.blur) !== null && _a !== void 0 ? _a : config_json_7.default.defaultBlur; };
+        FlounderStyle.getActualReverseRate = function (data) {
+            return "number" === typeof data.reverseRate ? data.reverseRate :
+                ("auto" === data.reverseRate && "trispot" === FlounderStyle.getPatternType(data)) ? triPatternHalfRadiusSpotArea :
+                    ("auto" === data.reverseRate && "tetraspot" === FlounderStyle.getPatternType(data)) ? TetraPatternHalfRadiusSpotArea :
+                        ("auto" === data.reverseRate && "stripe" === FlounderStyle.getPatternType(data)) ? 0.0 :
+                            ("auto" === data.reverseRate && "diline" === FlounderStyle.getPatternType(data)) ? 0.0 :
+                                ("auto" === data.reverseRate && "triline" === FlounderStyle.getPatternType(data)) ? 0.0 :
+                                    999;
+        };
+        FlounderStyle.getAbsoluteReverseRate = function (data) {
+            return "number" === typeof data.reverseRate && data.reverseRate < 0.0 ? Math.abs(data.reverseRate) :
+                "-auto" === data.reverseRate ? "auto" :
+                    data.reverseRate;
+        };
+        var numberToString = function (data, value) { var _a; return value.toLocaleString("en-US", { useGrouping: false, maximumFractionDigits: (_a = data.maximumFractionDigits) !== null && _a !== void 0 ? _a : config_json_7.default.defaultMaximumFractionDigits, }); };
+        var makeResult = function (_a) {
+            var _b = _a.backgroundColor, backgroundColor = _b === void 0 ? undefined : _b, _c = _a.backgroundImage, backgroundImage = _c === void 0 ? undefined : _c, _d = _a.backgroundSize, backgroundSize = _d === void 0 ? undefined : _d, _e = _a.backgroundPosition, backgroundPosition = _e === void 0 ? undefined : _e;
+            return ({
+                "background-color": backgroundColor,
+                "background-image": backgroundImage,
+                "background-size": backgroundSize,
+                "background-position": backgroundPosition,
+            });
+        };
+        var makeAxis = function (data, value) {
+            return "calc(".concat(numberToString(data, value), "px + 50%)");
+        };
+        var makeOffsetAxis = function (data, offset, value) {
+            return makeAxis(data, value + offset);
+        };
+        var makeOffsetPosition = function (data, x, y) { var _a, _b; return "".concat(makeOffsetAxis(data, (_a = data.offsetX) !== null && _a !== void 0 ? _a : 0.0, x), " ").concat(makeOffsetAxis(data, (_b = data.offsetY) !== null && _b !== void 0 ? _b : 0.0, y)); };
+        FlounderStyle.makeStyle = function (data) {
+            switch (FlounderStyle.getPatternType(data)) {
+                case "trispot":
+                    return FlounderStyle.makeTrispotStyle(data);
+                case "tetraspot":
+                    return FlounderStyle.makeTetraspotStyle(data);
+                case "stripe":
+                    return FlounderStyle.makeStripeStyle(data);
+                case "diline":
+                    return FlounderStyle.makeDilineStyle(data);
+                case "triline":
+                    return FlounderStyle.makeTrilineStyle(data);
+                default:
+                    throw new Error("Unknown FlounderType: ".concat(data.type));
+            }
+        };
+        var makeRadialGradientString = function (data, radius, blur) {
+            if (blur === void 0) { blur = Math.min(radius, FlounderStyle.getBlur(data)) / 0.5; }
+            return "radial-gradient(circle at center, ".concat(data.foregroundColor, " ").concat(numberToString(data, radius - blur), "px, transparent ").concat(numberToString(data, radius + blur), "px)");
+        };
+        var makeLinearGradientString = function (data, radius, intervalSize, angle, blur) {
+            var _a, _b;
+            if (blur === void 0) { blur = Math.min(intervalSize - radius, radius, FlounderStyle.getBlur(data)) / 0.5; }
+            var deg = numberToString(data, 360.0 * angle);
+            var offset = undefined === data.offsetX && undefined === data.offsetY ?
+                0 : FlounderStyle.sin(angle) * ((_a = data.offsetX) !== null && _a !== void 0 ? _a : 0.0) - FlounderStyle.cos(angle) * ((_b = data.offsetY) !== null && _b !== void 0 ? _b : 0.0);
+            var patternStart = 0 + offset;
+            var a = Math.max(0, radius - blur) + offset;
+            var b = Math.min(intervalSize * 0.5, radius + blur) + offset;
+            var c = Math.max(intervalSize * 0.5, intervalSize - radius - blur) + offset;
+            var d = Math.min(intervalSize, intervalSize - radius + blur) + offset;
+            var patternEnd = intervalSize + offset;
+            return "repeating-linear-gradient(".concat(deg, "deg, ").concat(data.foregroundColor, " ").concat(makeAxis(data, patternStart), ", ").concat(data.foregroundColor, " ").concat(makeAxis(data, a), ", transparent ").concat(makeAxis(data, b), ", transparent ").concat(makeAxis(data, c), ", ").concat(data.foregroundColor, " ").concat(makeAxis(data, d), ", ").concat(data.foregroundColor, " ").concat(makeAxis(data, patternEnd), ")");
+        };
+        var root2 = Math.sqrt(2.0);
+        var root3 = Math.sqrt(3.0);
+        var triPatternHalfRadiusSpotArea = Math.PI / (2 * root3);
+        var TetraPatternHalfRadiusSpotArea = Math.PI / 4;
+        FlounderStyle.makePlainStyleOrNull = function (data) {
+            var _a;
+            if (data.depth <= 0.0) {
+                return makeResult({ backgroundColor: (_a = data.backgroundColor) !== null && _a !== void 0 ? _a : "transparent" });
+            }
+            else if (1.0 <= data.depth) {
+                return makeResult({ backgroundColor: data.foregroundColor });
+            }
+            else {
+                return null;
+            }
+        };
+        var calculateMaxPatternSize = function (data, intervalSize, radius) {
+            if (undefined !== data.maxPatternSize && data.maxPatternSize < radius) {
+                intervalSize = intervalSize * data.maxPatternSize / radius;
+                radius = data.maxPatternSize;
+            }
+            return { intervalSize: intervalSize, radius: radius, };
+        };
+        var calculateSpotSize = function (data, halfRadiusSpotArea, maxRadiusRate) {
+            var radius;
+            var intervalSize = FlounderStyle.getIntervalSize(data);
+            if (data.depth <= halfRadiusSpotArea) {
+                radius = Math.sqrt(data.depth / halfRadiusSpotArea) * (intervalSize * 0.5);
+            }
+            else {
+                var minRadius = intervalSize * 0.5;
+                var maxRadius = intervalSize * maxRadiusRate;
+                var MaxRadiusWidth = maxRadius - minRadius;
+                var minAreaRate = 1.0 - Math.sqrt(1.0 - halfRadiusSpotArea);
+                var maxAreaRate = 1.0;
+                var maxAreaRateWidth = minAreaRate - maxAreaRate;
+                var areaRate = 1.0 - Math.sqrt(1.0 - data.depth);
+                var areaRateWidth = areaRate - minAreaRate;
+                radius = minRadius + (MaxRadiusWidth * Math.pow(areaRateWidth / maxAreaRateWidth, 2));
+            }
+            return calculateMaxPatternSize(data, intervalSize, radius);
+        };
+        var calculatePatternSize = function (data) {
+            switch (FlounderStyle.getPatternType(data)) {
+                case "trispot":
+                    return calculateSpotSize(data, triPatternHalfRadiusSpotArea, 1.0 / root3);
+                case "tetraspot":
+                    return calculateSpotSize(data, TetraPatternHalfRadiusSpotArea, 0.5 * root2);
+                case "stripe":
+                    return calculateMaxPatternSize(data, FlounderStyle.getIntervalSize(data), data.depth * (FlounderStyle.getIntervalSize(data) / 2.0));
+                case "diline":
+                    return calculateMaxPatternSize(data, FlounderStyle.getIntervalSize(data), (1.0 - Math.sqrt(1.0 - data.depth)) * (FlounderStyle.getIntervalSize(data) / 2.0));
+                case "triline":
+                    return calculateMaxPatternSize(data, FlounderStyle.getIntervalSize(data), (1.0 - Math.sqrt(1.0 - data.depth)) * (FlounderStyle.getIntervalSize(data) / 3.0));
+                default:
+                    throw new Error("Unknown FlounderType: ".concat(data.type));
+            }
+        };
+        FlounderStyle.simpleStructuredClone = (function (value) {
+            if (undefined !== value && null !== value) {
+                if (Array.isArray(value)) {
+                    return value.map(function (i) { return FlounderStyle.simpleStructuredClone(i); });
+                }
+                if ("object" === typeof value) {
+                    var result_1 = {};
+                    Object.keys(value).forEach(function (key) { return result_1[key] = FlounderStyle.simpleStructuredClone(value[key]); });
+                    return result_1;
+                }
+            }
+            return value;
+        });
+        FlounderStyle.reverseArguments = function (data) {
+            var result = FlounderStyle.simpleStructuredClone(data);
+            result.foregroundColor = FlounderStyle.getBackgroundColor(data);
+            result.backgroundColor = data.foregroundColor;
+            if ("number" === typeof data.layoutAngle) {
+                result.layoutAngle = FlounderStyle.getActualLayoutAngle(data) + FlounderStyle.getActualAnglePerDepth(data);
+            }
+            result.depth = 1.0 - data.depth;
+            delete result.reverseRate;
+            if ("number" === typeof data.anglePerDepth) {
+                result.anglePerDepth = -data.anglePerDepth;
+            }
+            else if ("auto" === data.anglePerDepth) {
+                result.anglePerDepth = "-auto";
+            }
+            else if ("-auto" === data.anglePerDepth) {
+                result.anglePerDepth = "auto";
+            }
+            return result;
+        };
+        var makeStyleCommon = function (data, maker) {
+            if ("transparent" === data.foregroundColor) {
+                throw new Error("foregroundColor must be other than \"transparent\".");
+            }
+            var plain = FlounderStyle.makePlainStyleOrNull(data);
+            if (null !== plain) {
+                return plain;
+            }
+            var reverseRate = FlounderStyle.getAbsoluteReverseRate(data);
+            if (reverseRate !== data.reverseRate) {
+                if ("transparent" === FlounderStyle.getBackgroundColor(data)) {
+                    throw new Error("When using reverseRate, backgroundColor must be other than \"transparent\".");
+                }
+                var absoulteData = FlounderStyle.reverseArguments(data);
+                absoulteData.reverseRate = reverseRate;
+                return maker(absoulteData);
+            }
+            else if (FlounderStyle.getActualReverseRate(data) < data.depth) {
+                if ("transparent" === FlounderStyle.getBackgroundColor(data)) {
+                    throw new Error("When using reverseRate, backgroundColor must be other than \"transparent\".");
+                }
+                return maker(FlounderStyle.reverseArguments(data));
+            }
+            else {
+                return maker(data);
+            }
+        };
+        FlounderStyle.makeTrispotStyle = function (data) { return makeStyleCommon(data, function (data) {
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var radialGradient = makeRadialGradientString(data, radius);
+            var backgroundColor = FlounderStyle.getBackgroundColor(data);
+            var backgroundImage = Array.from({ length: 4 }).map(function (_) { return radialGradient; }).join(", ");
+            switch (FlounderStyle.getLayoutAngle(data)) {
+                case "regular": // horizontal
+                    {
+                        var xUnit = intervalSize * 2.0;
+                        var yUnit = intervalSize * root3;
+                        return makeResult({
+                            backgroundColor: backgroundColor,
+                            backgroundImage: backgroundImage,
+                            backgroundSize: "".concat(numberToString(data, xUnit), "px ").concat(numberToString(data, yUnit), "px"),
+                            backgroundPosition: "".concat(makeOffsetPosition(data, 0, 0), ", ").concat(makeOffsetPosition(data, intervalSize, 0), ", ").concat(makeOffsetPosition(data, intervalSize * 0.5, intervalSize * root3 * 0.5), ", ").concat(makeOffsetPosition(data, intervalSize * 1.5, intervalSize * root3 * 0.5)),
+                        });
+                    }
+                case "alternative": // vertical
+                    {
+                        var xUnit = intervalSize * root3;
+                        var yUnit = intervalSize * 2.0;
+                        return makeResult({
+                            backgroundColor: backgroundColor,
+                            backgroundImage: backgroundImage,
+                            backgroundSize: "".concat(numberToString(data, xUnit), "px ").concat(numberToString(data, yUnit), "px"),
+                            backgroundPosition: "".concat(makeOffsetPosition(data, 0, 0), ", ").concat(makeOffsetPosition(data, 0, intervalSize), ", ").concat(makeOffsetPosition(data, intervalSize * root3 * 0.5, intervalSize * 0.5), ", ").concat(makeOffsetPosition(data, intervalSize * root3 * 0.5, intervalSize * 1.5)),
+                        });
+                    }
+                default:
+                    throw new Error("Unknown LayoutAngle: ".concat(data.layoutAngle));
+            }
+        }); };
+        FlounderStyle.makeTetraspotStyle = function (data) { return makeStyleCommon(data, function (data) {
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var radialGradient = makeRadialGradientString(data, radius);
+            var backgroundColor = FlounderStyle.getBackgroundColor(data);
+            switch (FlounderStyle.getLayoutAngle(data)) {
+                case "regular": // straight
+                    {
+                        var xUnit = intervalSize;
+                        var yUnit = intervalSize;
+                        return makeResult({
+                            backgroundColor: backgroundColor,
+                            backgroundImage: radialGradient,
+                            backgroundSize: "".concat(numberToString(data, xUnit), "px ").concat(numberToString(data, yUnit), "px"),
+                            backgroundPosition: makeOffsetPosition(data, 0, 0),
+                        });
+                    }
+                case "alternative": // slant
+                    {
+                        var xUnit = (intervalSize * 2.0) / root2;
+                        var yUnit = (intervalSize * 2.0) / root2;
+                        return makeResult({
+                            backgroundColor: backgroundColor,
+                            backgroundImage: Array.from({ length: 2 }).map(function (_) { return radialGradient; }).join(", "),
+                            backgroundSize: "".concat(numberToString(data, xUnit), "px ").concat(numberToString(data, yUnit), "px"),
+                            backgroundPosition: "".concat(makeOffsetPosition(data, 0, 0), ", ").concat(makeOffsetPosition(data, intervalSize / root2, intervalSize / root2)),
+                        });
+                    }
+                default:
+                    throw new Error("Unknown LayoutAngle: ".concat(data.layoutAngle));
+            }
+        }); };
+        FlounderStyle.makeStripeStyle = function (data) { return makeStyleCommon(data, function (data) {
+            var backgroundColor = FlounderStyle.getBackgroundColor(data);
+            var angleOffset = FlounderStyle.getAngleOffset(data);
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var angles = [
+                FlounderStyle.regulateRate(angleOffset),
+            ];
+            return makeResult({
+                backgroundColor: backgroundColor,
+                backgroundImage: angles
+                    .map(function (angle) { return makeLinearGradientString(data, radius, intervalSize, angle); })
+                    .join(", ")
+            });
+        }); };
+        FlounderStyle.makeDilineStyle = function (data) { return makeStyleCommon(data, function (data) {
+            var backgroundColor = FlounderStyle.getBackgroundColor(data);
+            var angleOffset = FlounderStyle.getAngleOffset(data);
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var angles = [
+                FlounderStyle.regulateRate((0.0 / 4.0) + angleOffset),
+                FlounderStyle.regulateRate((1.0 / 4.0) + angleOffset),
+            ];
+            return makeResult({
+                backgroundColor: backgroundColor,
+                backgroundImage: angles
+                    .map(function (angle) { return makeLinearGradientString(data, radius, intervalSize, angle); })
+                    .join(", ")
+            });
+        }); };
+        FlounderStyle.makeTrilineStyle = function (data) { return makeStyleCommon(data, function (data) {
+            var backgroundColor = FlounderStyle.getBackgroundColor(data);
+            var angleOffset = FlounderStyle.getAngleOffset(data);
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var angles = [
+                FlounderStyle.regulateRate((0.0 / 6.0) + angleOffset),
+                FlounderStyle.regulateRate((1.0 / 6.0) + angleOffset),
+                FlounderStyle.regulateRate((2.0 / 6.0) + angleOffset)
+            ];
+            return makeResult({
+                backgroundColor: backgroundColor,
+                backgroundImage: angles
+                    .map(function (angle) { return makeLinearGradientString(data, radius, intervalSize, angle); })
+                    .join(", ")
+            });
+        }); };
+        FlounderStyle.calculateOffsetCoefficientDirections = function (data) {
+            var calculateDirection = function (angleOffset, a, b) {
+                return ({
+                    x: a * FlounderStyle.cos(angleOffset + b),
+                    y: a * FlounderStyle.sin(angleOffset + b),
+                });
+            };
+            var makeAngleVariation = function (divisionCount, masterMaker) {
+                var angleOffset = FlounderStyle.getAngleOffset(data);
+                var base = Array.from({ length: divisionCount, }).map(function (_i, ix) { return masterMaker(angleOffset + (ix / (divisionCount * 2.0))); })
+                    .reduce(function (a, b) { return a.concat(b); }, []);
+                var result = base
+                    .concat(base.map(function (i) { return ({ x: -i.x, y: -i.y, }); }))
+                    .sort(FlounderStyle.makeComparer(function (i) { return FlounderStyle.regulateRate(FlounderStyle.atan2(i)); }));
+                return result;
+            };
+            switch (FlounderStyle.getPatternType(data)) {
+                case "stripe":
+                    return makeAngleVariation(1, function (angleOffset) {
+                        return [
+                            calculateDirection(angleOffset, 1.0, 1.0 / 4.0),
+                        ];
+                    });
+                case "tetraspot":
+                case "diline":
+                    return makeAngleVariation(2, function (angleOffset) {
+                        return [
+                            calculateDirection(angleOffset, 1.0, 0.0),
+                            calculateDirection(angleOffset, root2, 1.0 / 8.0),
+                        ];
+                    });
+                case "trispot":
+                    return makeAngleVariation(3, function (angleOffset) {
+                        return [
+                            calculateDirection(angleOffset, 2.0, 0.0),
+                            calculateDirection(angleOffset, 2.0 * root3, 1.0 / 4.0),
+                        ];
+                    });
+                case "triline":
+                    return makeAngleVariation(3, function (angleOffset) {
+                        return [
+                            calculateDirection(angleOffset, 2.0 / root3, 0.0),
+                            calculateDirection(angleOffset, 2.0, 1.0 / 4.0),
+                        ];
+                    });
+                default:
+                    throw new Error("Unknown FlounderType: ".concat(data.type));
+            }
+        };
+        FlounderStyle.calculateOffsetCoefficient = function (data) {
+            var _a = calculatePatternSize(data), intervalSize = _a.intervalSize, radius = _a.radius;
+            var result = {
+                directions: FlounderStyle.calculateOffsetCoefficientDirections(data),
+                intervalSize: intervalSize,
+                radius: radius,
+            };
+            return result;
+        };
+        FlounderStyle.comparer = function (a, b) {
+            return a < b ? -1 :
+                b < a ? 1 :
+                    0;
+        };
+        FlounderStyle.makeComparer = function (f) {
+            return function (a, b) { return FlounderStyle.comparer(f(a), f(b)); };
+        };
+        FlounderStyle.compareAngles = function (a, b) {
+            var result = (b - a) % 1.0;
+            if (0.5 < result) {
+                result -= 1.0;
+            }
+            else if (result < -0.5) {
+                result += 1.0;
+            }
+            return result;
+        };
+        FlounderStyle.selectClosestAngleDirection = function (directions, angle) {
+            var rate = FlounderStyle.directionAngleToRate(angle);
+            return directions.sort(FlounderStyle.makeComparer(function (i) { return Math.abs(FlounderStyle.compareAngles(FlounderStyle.atan2(i), rate)); }))[0];
+        };
+    })(FlounderStyle || (exports.FlounderStyle = FlounderStyle = {}));
+});
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "flounder.style.js/index", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, flounder_style_js_1, config_json_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
-    config_json_7 = __importDefault(config_json_7);
+    config_json_8 = __importDefault(config_json_8);
     var hasValidGainNode = function (track) {
         return track.analyser instanceof analyser_2.Analyser.Entry && track.analyser.gainNode instanceof GainNode;
     };
@@ -5684,6 +6896,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.fadeRate = 0.0;
             this.currentTimeForValidation = 0.0;
             this.analyser = null;
+            this.transtionPattern = null;
             this.media = media;
             this.index = index;
             switch (media.category) {
@@ -5847,10 +7060,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.seek(this.getDuration() * rate);
         };
         Track.prototype.fastForward = function () {
-            this.diffSeek(config_json_7.default.player.fastFowardSpan);
+            this.diffSeek(config_json_8.default.player.fastFowardSpan);
         };
         Track.prototype.rewind = function () {
-            this.diffSeek(-config_json_7.default.player.rewindSpan);
+            this.diffSeek(-config_json_8.default.player.rewindSpan);
         };
         Track.prototype.setPositionState = function () {
             navigator.mediaSession.setPositionState({
@@ -6078,13 +7291,90 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
         };
         Track.prototype.easingForBlur = function (rate) {
-            return Math.pow(rate, config_json_7.default.player.blurEasing);
+            return Math.pow(rate, config_json_8.default.player.blurEasing);
         };
         Track.prototype.setBlur = function (rate) {
-            var maxBlur = config_json_7.default.player.maxBlur;
+            var maxBlur = config_json_8.default.player.maxBlur;
             var finalBlur = maxBlur * this.easingForBlur(rate);
             if (this.visualElement) {
                 _library_6.Library.UI.setStyle(this.visualElement, "--blur", "calc(".concat(finalBlur, "vw + ").concat(finalBlur, "vh)"));
+            }
+        };
+        Track.prototype.makeSureTranstionPattern = function () {
+            if (null === this.transtionPattern) {
+                var makeRandomInteger_1 = function (size) { return Math.floor(Math.random() * size); };
+                var randomSelect_1 = function (list) { return list[makeRandomInteger_1(list.length)]; };
+                var makeRandomSpotArguments_1 = function (type, intervalSize) {
+                    return ({
+                        type: type,
+                        layoutAngle: randomSelect_1(["regular", "alternative",]),
+                        foregroundColor: "white",
+                        intervalSize: intervalSize,
+                        depth: 0.0,
+                        maxPatternSize: randomSelect_1([undefined, intervalSize / 4,]),
+                    });
+                };
+                var makeRandomTrispotArguments_1 = function (intervalSize) {
+                    return makeRandomSpotArguments_1("trispot", intervalSize);
+                };
+                var makeRandomTetraspotArguments_1 = function (intervalSize) {
+                    return makeRandomSpotArguments_1("tetraspot", intervalSize);
+                };
+                var makeRandomLineArguments_1 = function (type, intervalSize) {
+                    return ({
+                        type: type,
+                        layoutAngle: Math.random(),
+                        foregroundColor: "white",
+                        intervalSize: intervalSize,
+                        depth: 0.0,
+                        maxPatternSize: randomSelect_1([undefined, intervalSize / (2 + makeRandomInteger_1(9)),]),
+                        anglePerDepth: randomSelect_1([undefined, "auto", "-auto",]),
+                    });
+                };
+                var makeRandomStripeArguments_1 = function (intervalSize) {
+                    return makeRandomLineArguments_1("stripe", intervalSize);
+                };
+                var makeRandomDilineArguments_1 = function (intervalSize) {
+                    return makeRandomLineArguments_1("diline", intervalSize);
+                };
+                var makeRandomTrilineArguments_1 = function (intervalSize) {
+                    return makeRandomLineArguments_1("triline", intervalSize);
+                };
+                var shortSide_1 = Math.min(window.innerWidth, window.innerHeight) / 100;
+                var makeRandomArguments = function () { return randomSelect_1([
+                    makeRandomTrispotArguments_1,
+                    makeRandomTetraspotArguments_1,
+                    makeRandomStripeArguments_1,
+                    makeRandomDilineArguments_1,
+                    makeRandomTrilineArguments_1,
+                ])(shortSide_1 * (10 + makeRandomInteger_1(50))); };
+                this.transtionPattern = makeRandomArguments();
+            }
+            return this.transtionPattern;
+        };
+        Track.prototype.setPattern = function (rate) {
+            if (this.visualElement) {
+                if (rate < 1) {
+                    var data = this.makeSureTranstionPattern();
+                    data.depth = rate;
+                    var backgroundStyle = flounder_style_js_1.FlounderStyle.makeStyle(data);
+                    var maskStyle = {
+                        //"mask-color": backgroundStyle["background-color"],
+                        "mask-image": backgroundStyle["background-image"],
+                        "mask-size": backgroundStyle["background-size"],
+                        "mask-position": backgroundStyle["background-position"],
+                    };
+                    flounder_style_js_1.FlounderStyle.setStyle(this.visualElement, maskStyle);
+                }
+                else {
+                    var maskStyle = {
+                        //"mask-color": undefined,
+                        "mask-image": undefined,
+                        "mask-size": undefined,
+                        "mask-position": undefined,
+                    };
+                    flounder_style_js_1.FlounderStyle.setStyle(this.visualElement, maskStyle);
+                }
             }
         };
         Track.prototype.release = function () {
@@ -6485,6 +7775,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(1);
                     currentTrack.setBlur(1);
+                    currentTrack.setPattern(1);
                 }
             }
         };
@@ -6577,6 +7868,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 track.setBrightness(Player.getBrightness());
                 track.setOpacity(Player.getOpacity(trackType));
                 track.setBlur(Player.getBlur(trackType));
+                track.setPattern("current" === trackType ? Player.getPattern(trackType) : 1);
             }
         };
         var updateCurrentTrackProperties = function () {
@@ -6612,12 +7904,19 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.getOpacity = function (trackType) {
-            return CrossFade.getProgress(trackType);
+            return ["alpha", "blur"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+                CrossFade.getProgress(trackType) :
+                1;
         };
         Player.getBlur = function (trackType) {
-            return ui_9.UI.SettingsPanel.crossFadeWithBlurCheckbox.get() ?
+            return ["blur"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
                 (1 - CrossFade.getProgress(trackType)) :
                 0;
+        };
+        Player.getPattern = function (trackType) {
+            return ["wipe"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+                CrossFade.getProgress(trackType) :
+                1;
         };
         Player.makeIndexText = function (track) {
             return "".concat((media_2.Media.mediaList.indexOf(track.media) + 1).toLocaleString(Player.locale), " / ").concat(media_2.Media.mediaList.length.toLocaleString(Player.locale));
@@ -6830,11 +8129,11 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_8) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_9) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
-    config_json_8 = __importDefault(config_json_8);
+    config_json_9 = __importDefault(config_json_9);
     var MediaList;
     (function (MediaList) {
         var _this = this;
@@ -6866,7 +8165,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_8.default.player.notSupportedMediaMessageSpan);
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan);
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -7062,11 +8361,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_4, config_json_9, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_4, config_json_10, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
-    config_json_9 = __importDefault(config_json_9);
+    config_json_10 = __importDefault(config_json_10);
     control_json_2 = __importDefault(control_json_2);
     var Events;
     (function (Events) {
@@ -7305,7 +8604,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         };
         var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
-            return mouseMoveTimer.start(document.body, "mousemove", config_json_9.default.ui.mousemoveTimeout);
+            return mouseMoveTimer.start(document.body, "mousemove", config_json_10.default.ui.mousemoveTimeout);
         };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
@@ -7366,13 +8665,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 },
                 "volumeUp": {
                     fire: function () {
-                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_9.default.volume.step);
+                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() + config_json_10.default.volume.step);
                         ui_12.UI.volumeRange.fire();
                     }
                 },
                 "volumeDown": {
                     fire: function () {
-                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_9.default.volume.step);
+                        ui_12.UI.volumeRange.set(ui_12.UI.volumeRange.get() - config_json_10.default.volume.step);
                         ui_12.UI.volumeRange.fire();
                     }
                 },
@@ -7570,7 +8869,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.imageSpanSelect.options.change);
             ui_12.UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
-            ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
@@ -7593,7 +8892,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.sleepSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateSleepSelect);
             ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return Events.updateFadeOut(); });
             document.body.addEventListener("mousemove", function (event) {
-                if (config_json_9.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
+                if (config_json_10.default.log.mousemove && !mouseMoveTimer.isInTimer()) {
                     console.log("🖱️ MouseMove:", event, ui_12.UI.screenBody);
                 }
                 Events.mousemove();
@@ -7635,7 +8934,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.SettingsPanel.imageSpanSelect,
                         ui_12.UI.SettingsPanel.loopShortMediaCheckbox,
                         ui_12.UI.SettingsPanel.crossFadeSelect,
-                        ui_12.UI.SettingsPanel.crossFadeWithBlurCheckbox,
+                        ui_12.UI.SettingsPanel.crossFadeTransitionSelect,
                         ui_12.UI.SettingsPanel.visualizerSelect,
                         ui_12.UI.SettingsPanel.overlayStyleSelect,
                         ui_12.UI.SettingsPanel.overlayPositionSelect,
@@ -7715,10 +9014,10 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_10, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_5, ui_14, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_11, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_5, ui_14, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    config_json_10 = __importDefault(config_json_10);
+    config_json_11 = __importDefault(config_json_11);
     control_json_3 = __importDefault(control_json_3);
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
@@ -7748,7 +9047,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     });
     var consoleInterface = globalThis;
     var Resource = {
-        config: config_json_10.default,
+        config: config_json_11.default,
         control: control_json_3.default,
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
