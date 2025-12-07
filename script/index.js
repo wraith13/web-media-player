@@ -200,6 +200,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "ألفا",
             "blur": "تمويه",
             "wipe": "مسح",
+            "random": "عشوائي",
             "image-span": "مدة عرض الصورة",
             "loop-short-media": "تكرار الوسائط القصيرة",
             "visualizer": "المصوِّر",
@@ -297,6 +298,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alpha",
             "blur": "Weichzeichnen",
             "wipe": "Wischen",
+            "random": "Zufällig",
             "image-span": "Bildanzeigedauer",
             "loop-short-media": "Kurze Medien wiederholen",
             "visualizer": "Visualizer",
@@ -394,6 +396,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Άλφα",
             "blur": "Θόλωση",
             "wipe": "Σκούπισμα",
+            "random": "Τυχαίο",
             "image-span": "Χρόνος εμφάνισης εικόνας",
             "loop-short-media": "Επανάληψη σύντομων μέσων",
             "visualizer": "Οπτικοποιητής",
@@ -491,6 +494,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alpha",
             "blur": "Blur",
             "wipe": "Wipe",
+            "random": "Random",
             "image-span": "Image Display Time",
             "loop-short-media": "Loop Short Media",
             "visualizer": "Visualizer",
@@ -588,6 +592,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alfa",
             "blur": "Desenfoque",
             "wipe": "Borrar",
+            "random": "Aleatorio",
             "image-span": "Tiempo de visualización de la imagen",
             "loop-short-media": "Repetir medios cortos",
             "visualizer": "Visualizador",
@@ -685,6 +690,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "آلفا",
             "blur": "تاری",
             "wipe": "پاک‌کردن",
+            "random": "تصادفی",
             "image-span": "زمان نمایش تصویر",
             "loop-short-media": "پخش حلقه‌ای رسانه‌های کوتاه",
             "visualizer": "ویژوالایزر",
@@ -782,6 +788,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alpha",
             "blur": "Flou",
             "wipe": "Essuyer",
+            "random": "Aléatoire",
             "image-span": "Durée d'affichage de l'image",
             "loop-short-media": "Boucler les médias courts",
             "visualizer": "Visualiseur",
@@ -879,6 +886,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "अल्फा",
             "blur": "धुंधलापन",
             "wipe": "पोंछना",
+            "random": "यादृच्छिक",
             "image-span": "छवि प्रदर्शन समय",
             "loop-short-media": "छोटे मीडिया को लूप करें",
             "visualizer": "विज़ुअलाइज़र",
@@ -976,6 +984,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alpha",
             "blur": "Blur",
             "wipe": "Wipe",
+            "random": "Acak",
             "image-span": "Waktu Tampil Gambar",
             "loop-short-media": "Loop Media Pendek",
             "visualizer": "Visualizer",
@@ -1073,6 +1082,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alfa",
             "blur": "Sfocatura",
             "wipe": "Cancella",
+            "random": "Casuale",
             "image-span": "Tempo di visualizzazione immagine",
             "loop-short-media": "Ripeti i media brevi",
             "visualizer": "Visualizzatore",
@@ -1170,6 +1180,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "アルファ",
             "blur": "ぼかし",
             "wipe": "ワイプ",
+            "random": "ランダム",
             "image-span": "画像表示時間",
             "loop-short-media": "短いメディアをループ再生",
             "visualizer": "ビジュアライザー",
@@ -1267,6 +1278,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "알파",
             "blur": "블러",
             "wipe": "와이프",
+            "random": "무작위",
             "image-span": "이미지 표시 시간",
             "loop-short-media": "짧은 미디어 반복 재생",
             "visualizer": "시각화",
@@ -1364,6 +1376,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alpha",
             "blur": "Vervagen",
             "wipe": "Wissen",
+            "random": "Willekeurig",
             "image-span": "Afbeelding weergavetijd",
             "loop-short-media": "Korte media herhalen",
             "visualizer": "Visualizer",
@@ -1461,6 +1474,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alfa",
             "blur": "Rozmycie",
             "wipe": "Wyczyść",
+            "random": "Losowo",
             "image-span": "Czas wyświetlania obrazu",
             "loop-short-media": "Powtarzaj krótkie media",
             "visualizer": "Wizualizer",
@@ -1558,6 +1572,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "alpha": "Alfa",
             "blur": "Desfoque",
             "wipe": "Limpar",
+            "random": "Aleatório",
             "image-span": "Tempo de exibição da imagem",
             "loop-short-media": "Repetir mídias curtas",
             "visualizer": "Visualizador",
@@ -3752,7 +3767,8 @@ define("resource/control", [], {
         "enum": [
             "alpha",
             "blur",
-            "wipe"
+            "wipe",
+            "random"
         ],
         "default": "alpha"
     },
@@ -4108,13 +4124,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.paddingCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.padding);
             SettingsPanel.imageSpanSelect = new _library_2.Library.Control.Select(control_json_1.default.imageSpan, { makeLabel: function (value) { return _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); } });
             SettingsPanel.loopShortMediaCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.loopShortMedia);
+            SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
             SettingsPanel.crossFadeSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFade, {
                 makeLabel: function (value) { return value <= 0 ?
                     _library_2.Library.Locale.map("off") :
                     _tools_2.Tools.Timespan.toHumanizedString(value, undefined, UI.locale); }
             });
             SettingsPanel.crossFadeTransitionSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFadeTransition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-            SettingsPanel.visualizerSelect = new _library_2.Library.Control.Select(control_json_1.default.visualizer, { makeLabel: function (i) { return _library_2.Library.Locale.map("visualizer-".concat(i)); }, });
             SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
             SettingsPanel.dayHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dayHand);
             SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
@@ -4189,9 +4205,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             _library_2.Library.Shortcuts.setLocaleDirection(localeDirection);
             UI.manifest.setAttribute("href", "web.manifest/generated/".concat(lang, ".json"));
             UI.SettingsPanel.imageSpanSelect.reloadOptions();
+            UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
-            UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
             UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -6896,7 +6912,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             this.fadeRate = 0.0;
             this.currentTimeForValidation = 0.0;
             this.analyser = null;
+            this.randomTransition = null;
             this.transtionPattern = null;
+            this.isReverseWipe = false;
             this.media = media;
             this.index = index;
             switch (media.category) {
@@ -7302,13 +7320,15 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
         };
         Track.prototype.makeSureTranstionPattern = function () {
             if (null === this.transtionPattern) {
+                var foregroundColor_1 = "white";
                 var makeRandomInteger_1 = function (size) { return Math.floor(Math.random() * size); };
-                var randomSelect_1 = function (list) { return list[makeRandomInteger_1(list.length)]; };
+                //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
+                var randomSelect_1 = _tools_5.Tools.Random.select;
                 var makeRandomSpotArguments_1 = function (type, intervalSize) {
                     return ({
                         type: type,
                         layoutAngle: randomSelect_1(["regular", "alternative",]),
-                        foregroundColor: "white",
+                        foregroundColor: foregroundColor_1,
                         intervalSize: intervalSize,
                         depth: 0.0,
                         maxPatternSize: randomSelect_1([undefined, intervalSize / 4,]),
@@ -7324,7 +7344,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     return ({
                         type: type,
                         layoutAngle: Math.random(),
-                        foregroundColor: "white",
+                        foregroundColor: foregroundColor_1,
                         intervalSize: intervalSize,
                         depth: 0.0,
                         maxPatternSize: randomSelect_1([undefined, intervalSize / (2 + makeRandomInteger_1(9)),]),
@@ -7349,14 +7369,18 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     makeRandomTrilineArguments_1,
                 ])(shortSide_1 * (10 + makeRandomInteger_1(50))); };
                 this.transtionPattern = makeRandomArguments();
+                this.isReverseWipe = randomSelect_1([true, false,]);
             }
             return this.transtionPattern;
         };
-        Track.prototype.setPattern = function (rate) {
+        Track.prototype.setPattern = function (rate, opposite) {
+            var _a, _b;
             if (this.visualElement) {
+                var isReverseWipe = this.isReverseWipe && (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement);
                 if (rate < 1) {
+                    var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
-                    data.depth = rate;
+                    data.depth = isReverseWipe ? (1 - rate) : rate;
                     var backgroundStyle = flounder_style_js_1.FlounderStyle.makeStyle(data);
                     var maskStyle = {
                         //"mask-color": backgroundStyle["background-color"],
@@ -7364,19 +7388,43 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         "mask-size": backgroundStyle["background-size"],
                         "mask-position": backgroundStyle["background-position"],
                     };
-                    flounder_style_js_1.FlounderStyle.setStyle(this.visualElement, maskStyle);
+                    flounder_style_js_1.FlounderStyle.setStyle(target, maskStyle);
+                    if (isReverseWipe) {
+                        if (this.visualElement === ((_a = opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === null || _a === void 0 ? void 0 : _a.nextSibling)) {
+                            ui_8.UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
+                            //console.log("🦋 Swapped visual elements for reverse wipe transition.");
+                        }
+                        this.clearPattern();
+                    }
                 }
                 else {
-                    var maskStyle = {
-                        //"mask-color": undefined,
-                        "mask-image": undefined,
-                        "mask-size": undefined,
-                        "mask-position": undefined,
-                    };
-                    flounder_style_js_1.FlounderStyle.setStyle(this.visualElement, maskStyle);
+                    if ((opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === ((_b = this.visualElement) === null || _b === void 0 ? void 0 : _b.nextSibling)) {
+                        ui_8.UI.mediaScreen.insertBefore(opposite.visualElement, this.visualElement);
+                        //console.log("🦋 Swapped visual elements for reverse wipe transition.(RESTORE)");
+                    }
+                    this.clearPattern();
                 }
             }
         };
+        ;
+        Track.prototype.clearPattern = function () {
+            if (this.visualElement) {
+                var maskStyle = {
+                    //"mask-color": undefined,
+                    "mask-image": undefined,
+                    "mask-size": undefined,
+                    "mask-position": undefined,
+                };
+                flounder_style_js_1.FlounderStyle.setStyle(this.visualElement, maskStyle);
+            }
+        };
+        Track.prototype.makeSureRandomTransition = function () {
+            if (null === this.randomTransition) {
+                this.randomTransition = _tools_5.Tools.Random.select(["alpha", "blur", "wipe",]);
+            }
+            return this.randomTransition;
+        };
+        ;
         Track.prototype.release = function () {
             elementpool_1.ElementPool.release(this.playerElement);
             elementpool_1.ElementPool.release(this.paddingElement);
@@ -7775,7 +7823,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(1);
                     currentTrack.setBlur(1);
-                    currentTrack.setPattern(1);
+                    currentTrack.setPattern(1, fadeoutingTrack);
                 }
             }
         };
@@ -7861,14 +7909,24 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 }
             });
         }); };
+        var getTrack = function (trackType) {
+            return "current" === trackType ? currentTrack : fadeoutingTrack;
+        };
         var updateTrackPropertiesBase = function (trackType) {
-            var track = "current" === trackType ? currentTrack : fadeoutingTrack;
+            var track = getTrack(trackType);
             if (null !== track) {
                 track.setVolume(Player.getVolume(trackType), Player.getVolumeRate(trackType), Player.getVolumeFade(trackType));
                 track.setBrightness(Player.getBrightness());
                 track.setOpacity(Player.getOpacity(trackType));
                 track.setBlur(Player.getBlur(trackType));
-                track.setPattern("current" === trackType ? Player.getPattern(trackType) : 1);
+                if ("current" === trackType) {
+                    track.setPattern(Player.getPattern(trackType), fadeoutingTrack);
+                }
+                else {
+                    if ("wipe" !== Player.getTransitionType() || !(currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.isReverseWipe)) {
+                        track.setPattern(1, null);
+                    }
+                }
             }
         };
         var updateCurrentTrackProperties = function () {
@@ -7903,18 +7961,32 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 return undefined;
             }
         };
+        Player.getTransitionType = function () {
+            var transitionType = ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get();
+            switch (transitionType) {
+                case "random":
+                    {
+                        if (null !== currentTrack) {
+                            return currentTrack.makeSureRandomTransition();
+                        }
+                        return "none";
+                    }
+                default:
+                    return transitionType;
+            }
+        };
         Player.getOpacity = function (trackType) {
-            return ["alpha", "blur"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+            return ["alpha", "blur"].includes(Player.getTransitionType()) ?
                 CrossFade.getProgress(trackType) :
                 1;
         };
         Player.getBlur = function (trackType) {
-            return ["blur"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+            return ["blur"].includes(Player.getTransitionType()) ?
                 (1 - CrossFade.getProgress(trackType)) :
                 0;
         };
         Player.getPattern = function (trackType) {
-            return ["wipe"].includes(ui_9.UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+            return "current" === trackType && ["wipe"].includes(Player.getTransitionType()) ?
                 CrossFade.getProgress(trackType) :
                 1;
         };
@@ -8868,10 +8940,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.paddingCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () { return _features_2.Features.Player.updateStretch(); });
             ui_12.UI.SettingsPanel.imageSpanSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.imageSpanSelect.options.change);
             ui_12.UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.dayHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
@@ -8933,9 +9006,13 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.SettingsPanel.paddingCheckbox,
                         ui_12.UI.SettingsPanel.imageSpanSelect,
                         ui_12.UI.SettingsPanel.loopShortMediaCheckbox,
+                        ui_12.UI.SettingsPanel.visualizerSelect,
                         ui_12.UI.SettingsPanel.crossFadeSelect,
                         ui_12.UI.SettingsPanel.crossFadeTransitionSelect,
-                        ui_12.UI.SettingsPanel.visualizerSelect,
+                        ui_12.UI.SettingsPanel.analogClockCheckbox,
+                        ui_12.UI.SettingsPanel.dayHandCheckbox,
+                        ui_12.UI.SettingsPanel.dateHandsCheckbox,
+                        ui_12.UI.SettingsPanel.millisecondHandCheckbox,
                         ui_12.UI.SettingsPanel.overlayStyleSelect,
                         ui_12.UI.SettingsPanel.overlayPositionSelect,
                         ui_12.UI.SettingsPanel.withWeatherCheckbox,

@@ -235,7 +235,7 @@ export namespace Player
                 currentTrack.setVolume(currentVolume);
                 currentTrack.setOpacity(1);
                 currentTrack.setBlur(1);
-                currentTrack.setPattern(1);
+                currentTrack.setPattern(1, fadeoutingTrack);
             }
         }
     };
@@ -342,16 +342,28 @@ export namespace Player
             }
         }
     };
+    const getTrack = (trackType: TrackType): Track | null =>
+        "current" === trackType ? currentTrack : fadeoutingTrack;
     const updateTrackPropertiesBase = (trackType: TrackType) =>
     {
-        const track = "current" === trackType ? currentTrack : fadeoutingTrack;
+        const track = getTrack(trackType);
         if (null !== track)
         {
             track.setVolume(getVolume(trackType), getVolumeRate(trackType), getVolumeFade(trackType));
             track.setBrightness(getBrightness());
             track.setOpacity(getOpacity(trackType));
             track.setBlur(getBlur(trackType));
-            track.setPattern("current" === trackType ? getPattern(trackType): 1);
+            if ("current" === trackType)
+            {
+                track.setPattern(getPattern(trackType), fadeoutingTrack);
+            }
+            else
+            {
+                if ("wipe" !== getTransitionType() || !(currentTrack?.isReverseWipe))
+                {
+                    track.setPattern(1, null);
+                }
+            }
         }
     };
     const updateCurrentTrackProperties = () =>
@@ -386,16 +398,33 @@ export namespace Player
             return undefined;
         }
     };
+    export const getTransitionType = (): "none" | "alpha" | "blur" | "wipe" =>
+    {
+        const transitionType = UI.SettingsPanel.crossFadeTransitionSelect.get() as "alpha" | "blur" | "wipe" | "random";
+        switch(transitionType)
+        {
+        case "random":
+            {
+                if (null !== currentTrack)
+                {
+                    return currentTrack.makeSureRandomTransition();
+                }
+                return "none";
+            }
+        default:
+            return transitionType;
+        }
+    };
     export const getOpacity = (trackType: TrackType): number =>
-        [ "alpha", "blur" ].includes(UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+        [ "alpha", "blur" ].includes(getTransitionType()) ?
             CrossFade.getProgress(trackType):
             1;
     export const getBlur = (trackType: TrackType): number =>
-        [ "blur" ].includes(UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+        [ "blur" ].includes(getTransitionType()) ?
             (1 -CrossFade.getProgress(trackType)):
             0;
     export const getPattern = (trackType: TrackType): number =>
-        [ "wipe" ].includes(UI.SettingsPanel.crossFadeTransitionSelect.get()) ?
+        "current" === trackType && [ "wipe" ].includes(getTransitionType()) ?
             CrossFade.getProgress(trackType):
             1;
     export const makeIndexText = (track: Track): string =>

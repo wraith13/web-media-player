@@ -107,7 +107,8 @@
         "enum": [
             "alpha",
             "blur",
-            "wipe"
+            "wipe",
+            "random"
         ],
         "default": "alpha"
     },

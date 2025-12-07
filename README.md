@@ -12,7 +12,7 @@
 - ✅ Stretch settings to control how much content can exceed the screen size, preventing excessive enlargement.
 - ✅ Padding settings to fill extra space with enlarged content.
 - ✅ Various visualizers based on volume, waveform, and frequency.
-- ✅ Crossfade transitions: Alpha, Blur, Wipe
+- ✅ Crossfade transitions: Alpha, Blur, Wipe, Random
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Keyboard shortcut style presets: Apple Music, YouTube, Spotify, Windows Media Player
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.

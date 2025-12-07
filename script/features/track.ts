@@ -23,7 +23,9 @@ export class Track
     fadeRate: number = 0.0;
     currentTimeForValidation: number = 0.0;
     analyser: Analyser.Entry | null = null;
+    randomTransition: "alpha" | "blur" | "wipe" | null = null;
     transtionPattern: FlounderStyle.Type.Arguments | null = null;
+    isReverseWipe: boolean = false;
     constructor(media: Media.Entry, index: number)
     {
         this.media = media;
@@ -525,13 +527,15 @@ export class Track
     {
         if (null === this.transtionPattern)
         {
+            const foregroundColor = "white";
             const makeRandomInteger = (size: number) => Math.floor(Math.random() *size);
-            const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
+            //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
+            const randomSelect = Tools.Random.select;
             const makeRandomSpotArguments = (type: FlounderStyle.Type.SpotArguments["type"], intervalSize: number): FlounderStyle.Type.Arguments =>
             ({
                 type,
                 layoutAngle: randomSelect([ "regular", "alternative", ]),
-                foregroundColor: "white",
+                foregroundColor,
                 intervalSize,
                 depth: 0.0,
                 maxPatternSize: randomSelect([ undefined, intervalSize /4, ]),
@@ -544,7 +548,7 @@ export class Track
             ({
                 type,
                 layoutAngle: Math.random(),
-                foregroundColor: "white",
+                foregroundColor,
                 intervalSize,
                 depth: 0.0,
                 maxPatternSize: randomSelect([ undefined, intervalSize /(2 +makeRandomInteger(9)), ]),
@@ -567,17 +571,20 @@ export class Track
                 ])
                 (shortSide *(10 +makeRandomInteger(50)));
             this.transtionPattern = makeRandomArguments();
+            this.isReverseWipe = randomSelect([ true, false, ]);
         }
         return this.transtionPattern;
     }
-    setPattern(rate: number): void
+    setPattern(rate: number, opposite: Track | null): void
     {
         if (this.visualElement)
         {
+            const isReverseWipe = this.isReverseWipe && opposite?.visualElement;
             if (rate < 1)
             {
+                const target = isReverseWipe ? opposite?.visualElement!: this.visualElement;
                 const data = this.makeSureTranstionPattern();
-                data.depth = rate;
+                data.depth = isReverseWipe ? (1 - rate) : rate;
                 const backgroundStyle = FlounderStyle.makeStyle(data);
                 const maskStyle =
                 {
@@ -586,21 +593,50 @@ export class Track
                     "mask-size": backgroundStyle["background-size"],
                     "mask-position": backgroundStyle["background-position"],
                 };
-                FlounderStyle.setStyle(this.visualElement, maskStyle);
+                FlounderStyle.setStyle(target!, maskStyle);
+                if (isReverseWipe)
+                {
+                    if (this.visualElement === opposite?.visualElement?.nextSibling)
+                    {
+                        UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
+                        //console.log("🦋 Swapped visual elements for reverse wipe transition.");
+                    }
+                    this.clearPattern();
+                }
             }
             else
             {
-                const maskStyle =
+                if (opposite?.visualElement === this.visualElement?.nextSibling)
                 {
-                    //"mask-color": undefined,
-                    "mask-image": undefined,
-                    "mask-size": undefined,
-                    "mask-position": undefined,
-                };
-                FlounderStyle.setStyle(this.visualElement, maskStyle);
+                    UI.mediaScreen.insertBefore(opposite.visualElement!, this.visualElement);
+                    //console.log("🦋 Swapped visual elements for reverse wipe transition.(RESTORE)");
+                }
+                this.clearPattern();
             }
         }
+    };
+    clearPattern()
+    {
+        if (this.visualElement)
+        {
+            const maskStyle =
+            {
+                //"mask-color": undefined,
+                "mask-image": undefined,
+                "mask-size": undefined,
+                "mask-position": undefined,
+            };
+            FlounderStyle.setStyle(this.visualElement, maskStyle);
+        }
     }
+    makeSureRandomTransition(): "alpha" | "blur" | "wipe"
+    {
+        if (null === this.randomTransition)
+        {
+            this.randomTransition = Tools.Random.select([ "alpha", "blur", "wipe", ]);
+        }
+        return this.randomTransition;
+    };
     release(): void
     {
         ElementPool.release(this.playerElement);

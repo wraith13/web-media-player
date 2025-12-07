@@ -50,6 +50,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -147,6 +148,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -244,6 +246,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -341,6 +344,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -438,6 +442,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -535,6 +540,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -632,6 +638,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -729,6 +736,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -826,6 +834,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -923,6 +932,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1020,6 +1030,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1117,6 +1128,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1214,6 +1226,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1311,6 +1324,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1408,6 +1422,7 @@ declare module "locale/generated/master" {
             alpha: string;
             blur: string;
             wipe: string;
+            random: string;
             "image-span": string;
             "loop-short-media": string;
             visualizer: string;
@@ -1510,6 +1525,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -1607,6 +1623,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -1704,6 +1721,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -1801,6 +1819,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -1898,6 +1917,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -1995,6 +2015,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2092,6 +2113,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2189,6 +2211,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2286,6 +2309,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2383,6 +2407,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2480,6 +2505,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2577,6 +2603,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2674,6 +2701,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2771,6 +2799,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -2868,6 +2897,7 @@ declare module "script/library/locale" {
                 alpha: string;
                 blur: string;
                 wipe: string;
+                random: string;
                 "image-span": string;
                 "loop-short-media": string;
                 visualizer: string;
@@ -3413,9 +3443,9 @@ declare module "script/ui" {
             const paddingCheckbox: Library.Control.Checkbox;
             const imageSpanSelect: Library.Control.Select<number>;
             const loopShortMediaCheckbox: Library.Control.Checkbox;
+            const visualizerSelect: Library.Control.Select<string>;
             const crossFadeSelect: Library.Control.Select<number>;
             const crossFadeTransitionSelect: Library.Control.Select<string>;
-            const visualizerSelect: Library.Control.Select<string>;
             const analogClockCheckbox: Library.Control.Checkbox;
             const dayHandCheckbox: Library.Control.Checkbox;
             const dateHandsCheckbox: Library.Control.Checkbox;
@@ -3983,7 +4013,9 @@ declare module "script/features/track" {
         fadeRate: number;
         currentTimeForValidation: number;
         analyser: Analyser.Entry | null;
+        randomTransition: "alpha" | "blur" | "wipe" | null;
         transtionPattern: FlounderStyle.Type.Arguments | null;
+        isReverseWipe: boolean;
         constructor(media: Media.Entry, index: number);
         setAnalyser(analyser: Analyser.Entry | null): void;
         selfValidate(): boolean;
@@ -4016,7 +4048,9 @@ declare module "script/features/track" {
         easingForBlur(rate: number): number;
         setBlur(rate: number): void;
         makeSureTranstionPattern(): FlounderStyle.Type.Arguments;
-        setPattern(rate: number): void;
+        setPattern(rate: number, opposite: Track | null): void;
+        clearPattern(): void;
+        makeSureRandomTransition(): "alpha" | "blur" | "wipe";
         release(): void;
     }
 }
@@ -4099,6 +4133,7 @@ declare module "script/features/player" {
         const getVolume: (trackType: TrackType) => number;
         const getVolumeRate: (trackType: TrackType) => number;
         const getVolumeFade: (trackType: TrackType) => "fadeIn" | "fadeOut" | undefined;
+        const getTransitionType: () => "none" | "alpha" | "blur" | "wipe";
         const getOpacity: (trackType: TrackType) => number;
         const getBlur: (trackType: TrackType) => number;
         const getPattern: (trackType: TrackType) => number;
