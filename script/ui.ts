@@ -16,6 +16,43 @@ export namespace UI
         Library.UI.getElementById("div", "media-screen");
     export const elementPool =
         Library.UI.getElementById("div", "element-pool");
+    export class VisibilityApplier
+    {
+        hideTimer: ReturnType<typeof setTimeout> | null = null;
+        constructor(public element: HTMLElement, public delay: number = 750)
+        {
+        }
+        show(visibility: boolean = true): void
+        {
+            if (this.hideTimer)
+            {
+                clearTimeout(this.hideTimer);
+                this.hideTimer = null;
+            }
+            if (visibility)
+            {
+                this.element.style.setProperty("display", "");
+                this.element.setAttribute("aria-hidden", "false");
+            }
+            else
+            {
+                this.hideTimer = setTimeout
+                (
+                    () =>
+                    {
+                        this.element.style.setProperty("display", "none");
+                        this.element.setAttribute("aria-hidden", "true");
+                        this.hideTimer = null;
+                    },
+                    this.delay
+                );
+            }
+        }
+        hide(): void
+        {
+            this.show(false);
+        }
+    }
     export namespace ControlPanel
     {
         export const wakeUpButton = new Library.Control.Checkbox(control.wakeUpButton);
@@ -25,6 +62,22 @@ export namespace UI
         export const volumeButton = new Library.Control.Checkbox(control.volumeButton);
         export const settingsButton = new Library.Control.Checkbox(control.settingsButton);
         export const sleepButton = new Library.Control.Checkbox(control.sleepButton);
+        export const wakeupPanel =
+            Library.UI.getElementById("div", "wakeup-panel");
+        export const volumePanel =
+            Library.UI.getElementById("div", "volume-panel");
+        export const settingsPanel =
+            Library.UI.getElementById("div", "settings-panel");
+        export const sleepPanel =
+            Library.UI.getElementById("div", "sleep-panel");
+        export const wakeupPanelVisibilityApplier =
+            new VisibilityApplier(wakeupPanel);
+        export const volumePanelVisibilityApplier =
+            new VisibilityApplier(volumePanel);
+        export const settingsPanelVisibilityApplier =
+            new VisibilityApplier(settingsPanel);
+        export const sleepPanelVisibilityApplier =
+            new VisibilityApplier(sleepPanel);
     }
     export namespace TransportPanel
     {
@@ -313,6 +366,10 @@ export namespace UI
         {
             SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
+        ControlPanel.wakeupPanelVisibilityApplier.hide();
+        ControlPanel.volumePanelVisibilityApplier.hide();
+        ControlPanel.settingsPanelVisibilityApplier.hide();
+        ControlPanel.sleepPanelVisibilityApplier.hide();
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;
@@ -351,30 +408,51 @@ export namespace UI
         setLabel(element, label);
         updateLabel(element);
     };
+
     export const popupCheckboxList =
     [
-        ControlPanel.volumeButton,
-        ControlPanel.settingsButton,
-        ControlPanel.wakeUpButton,
-        ControlPanel.sleepButton,
+        {
+            visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
+            checkbox: ControlPanel.wakeUpButton
+        },
+        {
+            visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
+            checkbox: ControlPanel.volumeButton
+        },
+        {
+            visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
+            checkbox: ControlPanel.settingsButton
+        },
+        {
+            visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
+            checkbox: ControlPanel.sleepButton
+        },
     ];
-    export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked?: boolean): void =>
+    export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked: boolean = checkbox.get()): void =>
     {
         const parent: HTMLElement = checkbox.dom.parentElement!;
-        parent.classList.toggle("checked", checked ?? checkbox.get());
+        parent.classList.toggle("checked", checked);
     };
     export const closeOtherPopups = (except: Library.Control.Checkbox) =>
     {
-        updateParentClassBasedOnCheckbox(except);
         popupCheckboxList.forEach
         (
             i =>
             {
-                if (except !== i)
+                if (except !== i.checkbox)
                 {
-                    i.toggle(false, "preventOnChange");
-                    updateParentClassBasedOnCheckbox(i);
+                    i.checkbox.toggle(false, "preventOnChange");
                 }
+                const checked = i.checkbox.get();
+                setTimeout
+                (
+                    () =>
+                    {
+                        updateParentClassBasedOnCheckbox(i.checkbox);
+                    },
+                    0
+                );
+                i.visibilityApplier.show(checked);
             }
         );
     }

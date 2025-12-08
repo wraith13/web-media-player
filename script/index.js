@@ -3760,7 +3760,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 3000
+        "default": 1000
     },
     "crossFadeTransition": {
         "id": "cross-fade-transition",
@@ -3770,7 +3770,7 @@ define("resource/control", [], {
             "wipe",
             "random"
         ],
-        "default": "alpha"
+        "default": "random"
     },
     "visualizer": {
         "id": "visualizer-type",
@@ -4069,6 +4069,38 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
+        var VisibilityApplier = /** @class */ (function () {
+            function VisibilityApplier(element, delay) {
+                if (delay === void 0) { delay = 750; }
+                this.element = element;
+                this.delay = delay;
+                this.hideTimer = null;
+            }
+            VisibilityApplier.prototype.show = function (visibility) {
+                var _this = this;
+                if (visibility === void 0) { visibility = true; }
+                if (this.hideTimer) {
+                    clearTimeout(this.hideTimer);
+                    this.hideTimer = null;
+                }
+                if (visibility) {
+                    this.element.style.setProperty("display", "");
+                    this.element.setAttribute("aria-hidden", "false");
+                }
+                else {
+                    this.hideTimer = setTimeout(function () {
+                        _this.element.style.setProperty("display", "none");
+                        _this.element.setAttribute("aria-hidden", "true");
+                        _this.hideTimer = null;
+                    }, this.delay);
+                }
+            };
+            VisibilityApplier.prototype.hide = function () {
+                this.show(false);
+            };
+            return VisibilityApplier;
+        }());
+        UI.VisibilityApplier = VisibilityApplier;
         var ControlPanel;
         (function (ControlPanel) {
             ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
@@ -4078,6 +4110,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             ControlPanel.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
             ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
             ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+            ControlPanel.wakeupPanel = _library_2.Library.UI.getElementById("div", "wakeup-panel");
+            ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
+            ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
+            ControlPanel.sleepPanel = _library_2.Library.UI.getElementById("div", "sleep-panel");
+            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel);
+            ControlPanel.volumePanelVisibilityApplier = new VisibilityApplier(ControlPanel.volumePanel);
+            ControlPanel.settingsPanelVisibilityApplier = new VisibilityApplier(ControlPanel.settingsPanel);
+            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel);
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         var TransportPanel;
         (function (TransportPanel) {
@@ -4258,6 +4298,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
                 SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
+            ControlPanel.wakeupPanelVisibilityApplier.hide();
+            ControlPanel.volumePanelVisibilityApplier.hide();
+            ControlPanel.settingsPanelVisibilityApplier.hide();
+            ControlPanel.sleepPanelVisibilityApplier.hide();
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -4291,22 +4335,38 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.updateLabel(element);
         };
         UI.popupCheckboxList = [
-            ControlPanel.volumeButton,
-            ControlPanel.settingsButton,
-            ControlPanel.wakeUpButton,
-            ControlPanel.sleepButton,
+            {
+                visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
+                checkbox: ControlPanel.wakeUpButton
+            },
+            {
+                visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
+                checkbox: ControlPanel.volumeButton
+            },
+            {
+                visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
+                checkbox: ControlPanel.settingsButton
+            },
+            {
+                visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
+                checkbox: ControlPanel.sleepButton
+            },
         ];
         UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
+            if (checked === void 0) { checked = checkbox.get(); }
             var parent = checkbox.dom.parentElement;
-            parent.classList.toggle("checked", checked !== null && checked !== void 0 ? checked : checkbox.get());
+            parent.classList.toggle("checked", checked);
         };
         UI.closeOtherPopups = function (except) {
-            UI.updateParentClassBasedOnCheckbox(except);
             UI.popupCheckboxList.forEach(function (i) {
-                if (except !== i) {
-                    i.toggle(false, "preventOnChange");
-                    UI.updateParentClassBasedOnCheckbox(i);
+                if (except !== i.checkbox) {
+                    i.checkbox.toggle(false, "preventOnChange");
                 }
+                var checked = i.checkbox.get();
+                setTimeout(function () {
+                    UI.updateParentClassBasedOnCheckbox(i.checkbox);
+                }, 0);
+                i.visibilityApplier.show(checked);
             });
         };
     })(UI || (exports.UI = UI = {}));

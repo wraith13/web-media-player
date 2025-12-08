@@ -3395,6 +3395,14 @@ declare module "script/ui" {
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
         const elementPool: HTMLDivElement;
+        class VisibilityApplier {
+            element: HTMLElement;
+            delay: number;
+            hideTimer: ReturnType<typeof setTimeout> | null;
+            constructor(element: HTMLElement, delay?: number);
+            show(visibility?: boolean): void;
+            hide(): void;
+        }
         namespace ControlPanel {
             const wakeUpButton: Library.Control.Checkbox;
             const shuffle: Library.Control.Checkbox;
@@ -3403,6 +3411,14 @@ declare module "script/ui" {
             const volumeButton: Library.Control.Checkbox;
             const settingsButton: Library.Control.Checkbox;
             const sleepButton: Library.Control.Checkbox;
+            const wakeupPanel: HTMLDivElement;
+            const volumePanel: HTMLDivElement;
+            const settingsPanel: HTMLDivElement;
+            const sleepPanel: HTMLDivElement;
+            const wakeupPanelVisibilityApplier: VisibilityApplier;
+            const volumePanelVisibilityApplier: VisibilityApplier;
+            const settingsPanelVisibilityApplier: VisibilityApplier;
+            const sleepPanelVisibilityApplier: VisibilityApplier;
         }
         namespace TransportPanel {
             const mediaIndex: HTMLSpanElement;
@@ -3492,7 +3508,10 @@ declare module "script/ui" {
         const updateAriaLabel: (element: HTMLElement) => void;
         const setLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
-        const popupCheckboxList: Library.Control.Checkbox[];
+        const popupCheckboxList: {
+            visibilityApplier: VisibilityApplier;
+            checkbox: Library.Control.Checkbox;
+        }[];
         const updateParentClassBasedOnCheckbox: (checkbox: Library.Control.Checkbox, checked?: boolean) => void;
         const closeOtherPopups: (except: Library.Control.Checkbox) => void;
     }

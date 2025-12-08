@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Dec 07 2025 20:04:50 GMT+0900 (日本標準時)
+    build at: Mon Dec 08 2025 08:08:27 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3557,21 +3557,21 @@ DUMMYSTYLE
 <div id="screen-body">
     <div id="media-screen">
         <time id="analog-clock-panel" class="hide">
-            <div id="milli-seconds-niddle" class="hide"></div>
-            <div id="seconds-niddle"></div>
-            <div id="minutes-niddle"></div>
-            <div id="scale60-panel"></div>
-            <div id="hours-niddle"></div>
-            <div id="scale12-panel"></div>
-            <div id="day-niddle"></div>
-            <div id="scale24-panel"></div>
-            <div id="week-niddle"></div>
-            <div id="week-panel"></div>
-            <div id="month-niddle"></div>
-            <div id="month-panel"></div>
-            <div id="year-niddle"></div>
-            <div id="year-panel"></div>
-            <div id="center-circle"></div>
+            <div id="milli-seconds-niddle" class="hide" role="presentation" aria-hidden="true"></div>
+            <div id="seconds-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="minutes-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="scale60-panel" role="presentation" aria-hidden="true"></div>
+            <div id="hours-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="scale12-panel" role="presentation" aria-hidden="true"></div>
+            <div id="day-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="scale24-panel" role="presentation" aria-hidden="true"></div>
+            <div id="week-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="week-panel" role="presentation" aria-hidden="true"></div>
+            <div id="month-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="month-panel" role="presentation" aria-hidden="true"></div>
+            <div id="year-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="year-panel" role="presentation" aria-hidden="true"></div>
+            <div id="center-circle" role="presentation" aria-hidden="true"></div>
         </time>
         <div id="overlay-panel" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
@@ -3622,17 +3622,17 @@ DUMMYSTYLE
 
     </label>
     <div id="wakeup-panel" class="popup-panel">
-        <label id="wakeup-toggle-label" class="toggle-label" tabindex="0">
-            <span data-lang-key="wakeup"></span>
+        <label id="wakeup-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="wakeup-toggle-label-span">
+            <span id="wakeup-toggle-label-span" data-lang-key="wakeup"></span>
             <span data-lang-key="on" class="value-label"></span>
             <span data-lang-key="off" class="value-label"></span>
         </label>
-        <label for="wakeup-time" class="indent">
-            <span data-lang-key="timer"></span>
+        <label for="wakeup-time" class="indent" aria-labelledby="wakeup-timer-select-label-span">
+            <span id="wakeup-timer-select-label-span" data-lang-key="timer"></span>
             <select id="wakeup-time"></select>
         </label>
-        <label for="fade-in" class="indent">
-            <span data-lang-key="fade-in"></span>
+        <label for="fade-in" class="indent" aria-labelledby="fade-in-label-span">
+            <span id="fade-in-label-span" data-lang-key="fade-in"></span>
             <select id="fade-in"></select>
         </label>
     </div>
@@ -3661,17 +3661,17 @@ DUMMYSTYLE
 
     </label>
     <button id="play-button" tabindex="0" data-aria-lang-key="Play / Pause">
-        <div id="play-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <div id="play-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-20.52,-0.152764)">
         <path d="M277.128,192.306L277.129,192C277.294,169.198 295.857,150.737 318.698,150.737C326.626,150.737 334.038,152.961 340.345,156.819L893.467,476.149L893.46,476.161C906.034,483.312 914.523,496.833 914.523,512.321C914.523,529.423 904.173,544.126 889.4,550.504L340.335,867.492C339.741,867.855 339.138,868.203 338.526,868.537L336.016,869.985L335.929,869.834C330.678,872.232 324.842,873.568 318.697,873.568C295.755,873.568 277.128,854.942 277.128,832L277.128,192.306Z"/>
     </g>
 </svg>
 </div>
-        <div id="pause-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <div id="pause-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1.17021,0,0,1.125,-75.5745,-64)">
         <path d="M444,291.176L444,732.824C444,752.238 428.847,768 410.183,768L289.817,768C271.153,768 256,752.238 256,732.824L256,291.176C256,271.762 271.153,256 289.817,256L410.183,256C428.847,256 444,271.762 444,291.176ZM748.218,291.176L748.218,732.824C748.218,752.238 733.065,768 714.401,768L594.035,768C575.371,768 560.218,752.238 560.218,732.824L560.218,291.176C560.218,271.762 575.371,256 594.035,256L714.401,256C733.065,256 748.218,271.762 748.218,291.176Z"/>
     </g>
@@ -3750,44 +3750,44 @@ DUMMYSTYLE
             <span id="brightness-label-span" data-lang-key="brightness"></span>
             <input id="brightness" type="range" />
         </label>
-        <label for="stretch">
-            <span data-lang-key="stretch"></span>
+        <label for="stretch" aria-labelledby="stretch-label-span">
+            <span id="stretch-label-span" data-lang-key="stretch"></span>
             <input id="stretch" type="range" />
         </label>
-        <label for="padding">
-            <span data-lang-key="padding"></span>
+        <label for="padding" aria-labelledby="padding-label-span">
+            <span id="padding-label-span" data-lang-key="padding"></span>
             <input id="padding" type="checkbox" />
         </label>
-        <label for="image-span">
-            <span data-lang-key="image-span"></span>
+        <label for="image-span" aria-labelledby="image-span-label-span">
+            <span id="image-span-label-span" data-lang-key="image-span"></span>
             <select id="image-span"></select>
         </label>
-        <label for="loop-short-media">
-            <span data-lang-key="loop-short-media"></span>
+        <label for="loop-short-media" aria-labelledby="loop-short-media-label-span">
+            <span id="loop-short-media-label-span" data-lang-key="loop-short-media"></span>
             <input id="loop-short-media" type="checkbox" />
         </label>
-        <label for="visualizer-type">
-            <span data-lang-key="visualizer"></span>
+        <label for="visualizer-type" aria-labelledby="visualizer-type-label-span">
+            <span id="visualizer-type-label-span" data-lang-key="visualizer"></span>
             <select id="visualizer-type"></select>
         </label>
-        <label for="cross-fade">
-            <span data-lang-key="cross-fade"></span>
+        <label for="cross-fade" aria-labelledby="cross-fade-label-span">
+            <span id="cross-fade-label-span" data-lang-key="cross-fade"></span>
             <select id="cross-fade"></select>
         </label>
-        <label for="cross-fade-transition" class="indent">
-            <span data-lang-key="cross-fade-transition"></span>
+        <label for="cross-fade-transition" class="indent" aria-labelledby="cross-fade-transition-label-span">
+            <span id="cross-fade-transition-label-span" data-lang-key="cross-fade-transition"></span>
             <select id="cross-fade-transition"></select>
         </label>
-        <label for="analog-clock">
-            <span data-lang-key="analog-clock"></span>
+        <label for="analog-clock" aria-labelledby="stretch-label-span">
+            <span id="stretch-label-span" data-lang-key="analog-clock"></span>
             <input id="analog-clock" type="checkbox" />
         </label>
-        <label for="24hours-hand" class="indent">
-            <span data-lang-key="24hours-hand"></span>
+        <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
+            <span id="24hours-hand-label-span" data-lang-key="24hours-hand"></span>
             <input id="24hours-hand" type="checkbox" />
         </label>
-        <label for="date-hands" class="indent">
-            <span data-lang-key="date-hands"></span>
+        <label for="date-hands" class="indent" aria-labelledby="date-hands-label-span">
+            <span id="date-hands-label-span" data-lang-key="date-hands"></span>
             <input id="date-hands" type="checkbox" />
         </label>
         <label for="millisecond-hand" class="indent">
@@ -3838,10 +3838,10 @@ DUMMYSTYLE
             <span data-lang-key="language"></span>
             <select id="language"></select>
         </label>
-        <label for="url" class="link-label">
+        <label for="url" class="link-label" aria-labelledby="url">
             <a id="url" href="?"><span data-lang-key="url"></span></a>
         </label>
-        <label for="repository" class="link-label">
+        <label for="repository" class="link-label" aria-labelledby="repository">
             <a id="repository" href="https://github.com/wraith13/web-media-player/"><span data-lang-key="repository"></span></a>
         </label>
     </div>
@@ -3882,9 +3882,9 @@ DUMMYSTYLE
     </div>
 </div>
 <button id="back-button" data-aria-lang-key="Go to Previous Media">
-    <div id="back-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <div id="back-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.902983,0,0,0.902983,1593.33,-226.409)">
         <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1481.15,476 1498.7,493.456 1498.86,515.017L1498.86,515.306L1498.86,1120.18C1498.86,1141.88 1481.24,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
     </g>
@@ -3892,9 +3892,9 @@ DUMMYSTYLE
 <div>
 </button>
 <button id="next-button" data-aria-lang-key="Go to Next Media">
-    <div id="next-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <div id="next-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.902983,0,0,0.902983,-498.328,-226.409)">
         <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1481.15,476 1498.7,493.456 1498.86,515.017L1498.86,515.306L1498.86,1120.18C1498.86,1141.88 1481.24,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
     </g>
@@ -3902,9 +3902,9 @@ DUMMYSTYLE
 <div>
 </button>
 <button id="rewind-button" data-aria-lang-key="Seek Backward">
-    <div id="rewind-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <div id="rewind-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.661586,5.56506e-33,5.56506e-33,0.661586,1409.7,-28.8097)">
         <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1467.05,476 1474.06,478.104 1480.02,481.752L2003.04,783.7L2003.03,783.712C2014.92,790.474 2022.95,803.259 2022.95,817.904C2022.95,834.075 2013.16,847.978 1999.19,854.009L1480.01,1153.74C1479.45,1154.09 1478.88,1154.42 1478.3,1154.73L1475.93,1156.1L1475.84,1155.96C1470.88,1158.23 1465.36,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
     </g>
@@ -3912,9 +3912,9 @@ DUMMYSTYLE
 <div>
 </button>
 <button id="fast-forward-button" data-aria-lang-key="Seek Forward">
-    <div id="fast-forward-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <div id="fast-forward-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.661586,5.56506e-33,-5.56506e-33,0.661586,-385.695,-28.8097)">
         <path d="M817.528,515.306L817.528,515.017C817.684,493.456 835.237,476 856.834,476C864.332,476 871.342,478.104 877.306,481.752L1400.32,783.7L1400.31,783.712C1412.2,790.474 1420.23,803.259 1420.23,817.904C1420.23,834.075 1410.44,847.978 1396.48,854.009L877.294,1153.74C876.733,1154.09 876.162,1154.42 875.583,1154.73L873.21,1156.1L873.128,1155.96C868.163,1158.23 862.645,1159.49 856.834,1159.49C835.14,1159.49 817.527,1141.88 817.527,1120.18L817.528,515.306ZM1420.24,515.306L1420.24,515.017C1420.4,493.456 1437.95,476 1459.55,476C1467.05,476 1474.06,478.104 1480.02,481.752L2003.04,783.7L2003.03,783.712C2014.92,790.474 2022.95,803.259 2022.95,817.904C2022.95,834.075 2013.16,847.978 1999.19,854.009L1480.01,1153.74C1479.45,1154.09 1478.88,1154.42 1478.3,1154.73L1475.93,1156.1L1475.84,1155.96C1470.88,1158.23 1465.36,1159.49 1459.55,1159.49C1437.86,1159.49 1420.24,1141.88 1420.24,1120.18L1420.24,515.306Z"/>
     </g>
@@ -3948,8 +3948,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Dec 07 2025 20:04:50 GMT+0900 (日本標準時)",
-    tick: 1765105490221
+    at: "Mon Dec 08 2025 08:08:27 GMT+0900 (日本標準時)",
+    tick: 1765148907561
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -10465,7 +10465,7 @@ define("resource/control", [], {
             250,
             0
         ],
-        "default": 3000
+        "default": 1000
     },
     "crossFadeTransition": {
         "id": "cross-fade-transition",
@@ -10475,7 +10475,7 @@ define("resource/control", [], {
             "wipe",
             "random"
         ],
-        "default": "alpha"
+        "default": "random"
     },
     "visualizer": {
         "id": "visualizer-type",
@@ -10774,6 +10774,38 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
+        var VisibilityApplier = /** @class */ (function () {
+            function VisibilityApplier(element, delay) {
+                if (delay === void 0) { delay = 750; }
+                this.element = element;
+                this.delay = delay;
+                this.hideTimer = null;
+            }
+            VisibilityApplier.prototype.show = function (visibility) {
+                var _this = this;
+                if (visibility === void 0) { visibility = true; }
+                if (this.hideTimer) {
+                    clearTimeout(this.hideTimer);
+                    this.hideTimer = null;
+                }
+                if (visibility) {
+                    this.element.style.setProperty("display", "");
+                    this.element.setAttribute("aria-hidden", "false");
+                }
+                else {
+                    this.hideTimer = setTimeout(function () {
+                        _this.element.style.setProperty("display", "none");
+                        _this.element.setAttribute("aria-hidden", "true");
+                        _this.hideTimer = null;
+                    }, this.delay);
+                }
+            };
+            VisibilityApplier.prototype.hide = function () {
+                this.show(false);
+            };
+            return VisibilityApplier;
+        }());
+        UI.VisibilityApplier = VisibilityApplier;
         var ControlPanel;
         (function (ControlPanel) {
             ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
@@ -10783,6 +10815,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             ControlPanel.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
             ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
             ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+            ControlPanel.wakeupPanel = _library_2.Library.UI.getElementById("div", "wakeup-panel");
+            ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
+            ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
+            ControlPanel.sleepPanel = _library_2.Library.UI.getElementById("div", "sleep-panel");
+            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel);
+            ControlPanel.volumePanelVisibilityApplier = new VisibilityApplier(ControlPanel.volumePanel);
+            ControlPanel.settingsPanelVisibilityApplier = new VisibilityApplier(ControlPanel.settingsPanel);
+            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel);
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         var TransportPanel;
         (function (TransportPanel) {
@@ -10963,6 +11003,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
                 SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
+            ControlPanel.wakeupPanelVisibilityApplier.hide();
+            ControlPanel.volumePanelVisibilityApplier.hide();
+            ControlPanel.settingsPanelVisibilityApplier.hide();
+            ControlPanel.sleepPanelVisibilityApplier.hide();
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -10996,22 +11040,38 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.updateLabel(element);
         };
         UI.popupCheckboxList = [
-            ControlPanel.volumeButton,
-            ControlPanel.settingsButton,
-            ControlPanel.wakeUpButton,
-            ControlPanel.sleepButton,
+            {
+                visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
+                checkbox: ControlPanel.wakeUpButton
+            },
+            {
+                visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
+                checkbox: ControlPanel.volumeButton
+            },
+            {
+                visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
+                checkbox: ControlPanel.settingsButton
+            },
+            {
+                visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
+                checkbox: ControlPanel.sleepButton
+            },
         ];
         UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
+            if (checked === void 0) { checked = checkbox.get(); }
             var parent = checkbox.dom.parentElement;
-            parent.classList.toggle("checked", checked !== null && checked !== void 0 ? checked : checkbox.get());
+            parent.classList.toggle("checked", checked);
         };
         UI.closeOtherPopups = function (except) {
-            UI.updateParentClassBasedOnCheckbox(except);
             UI.popupCheckboxList.forEach(function (i) {
-                if (except !== i) {
-                    i.toggle(false, "preventOnChange");
-                    UI.updateParentClassBasedOnCheckbox(i);
+                if (except !== i.checkbox) {
+                    i.checkbox.toggle(false, "preventOnChange");
                 }
+                var checked = i.checkbox.get();
+                setTimeout(function () {
+                    UI.updateParentClassBasedOnCheckbox(i.checkbox);
+                }, 0);
+                i.visibilityApplier.show(checked);
             });
         };
     })(UI || (exports.UI = UI = {}));

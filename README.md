@@ -16,7 +16,7 @@
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Keyboard shortcut style presets: Apple Music, YouTube, Spotify, Windows Media Player
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
-- ✅ Full offline support for all features
+- ✅ Full offline support for all features except weather display (weather requires an Internet connection)
 - ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt)
 
 ## Screenshot

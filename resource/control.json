@@ -100,7 +100,7 @@
             250,
             0
         ],
-        "default": 3000
+        "default": 1000
     },
     "crossFadeTransition": {
         "id": "cross-fade-transition",
@@ -110,7 +110,7 @@
             "wipe",
             "random"
         ],
-        "default": "alpha"
+        "default": "random"
     },
     "visualizer": {
         "id": "visualizer-type",

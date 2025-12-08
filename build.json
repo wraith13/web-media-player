@@ -121,18 +121,10 @@
                     }
                 },
                 "__PLAY_ICON__": {
-                    "path": "./image/play.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/play.svg"
                 },
                 "__PAUSE_ICON__": {
-                    "path": "./image/pause.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/pause.svg"
                 },
                 "__IMAGES__": {
                     "resource": "./resource/images.json"
@@ -194,32 +186,16 @@
                     }
                 },
                 "__BACK_ICON__": {
-                    "path": "./image/back.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/back.svg"
                 },
                 "__NEXT_ICON__": {
-                    "path": "./image/next.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/next.svg"
                 },
                 "__REWIND_ICON__": {
-                    "path": "./image/rewind.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/rewind.svg"
                 },
                 "__FAST_FORWARD_ICON__": {
-                    "path": "./image/fast-forward.svg",
-                    "replace": {
-                        "match": "<svg ",
-                        "text": "<svg role=\"presentation\" aria-hidden=\"true\" "
-                    }
+                    "path": "./image/fast-forward.svg"
                 }
             }
         },
