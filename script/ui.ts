@@ -24,11 +24,7 @@ export namespace UI
         }
         show(visibility: boolean = true): void
         {
-            if (this.hideTimer)
-            {
-                clearTimeout(this.hideTimer);
-                this.hideTimer = null;
-            }
+            this.clearHideTimer();
             if (visibility)
             {
                 this.element.style.setProperty("display", "");
@@ -40,9 +36,8 @@ export namespace UI
                 (
                     () =>
                     {
-                        this.element.style.setProperty("display", "none");
-                        this.element.setAttribute("aria-hidden", "true");
                         this.hideTimer = null;
+                        this.clearHideTimer();
                     },
                     this.delay
                 );
@@ -51,6 +46,20 @@ export namespace UI
         hide(): void
         {
             this.show(false);
+        }
+        clearHideTimer(): void
+        {
+            if (this.hideTimer)
+            {
+                clearTimeout(this.hideTimer);
+                this.hideTimer = null;
+            }
+        }
+        immediateHide(): void
+        {
+            this.clearHideTimer();
+            this.element.style.setProperty("display", "none");
+            this.element.setAttribute("aria-hidden", "true");
         }
     }
     export namespace ControlPanel
@@ -81,6 +90,8 @@ export namespace UI
     }
     export namespace TransportPanel
     {
+        export const panel =
+            Library.UI.getElementById("div", "transport-panel");
         export const mediaIndex =
             Library.UI.getElementById("span", "media-index");
         export const mediaTitle =
@@ -97,6 +108,8 @@ export namespace UI
             new Library.Control.Button({ id: "fast-forward-button", });
         export const rewindButton =
             new Library.Control.Button({ id: "rewind-button", });
+        export const visibilityApplier =
+            new VisibilityApplier(panel);
     }
     export const volumeLabel =
         Library.UI.querySelector("label", "label[for='volume-button']");
@@ -366,10 +379,11 @@ export namespace UI
         {
             SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
-        ControlPanel.wakeupPanelVisibilityApplier.hide();
-        ControlPanel.volumePanelVisibilityApplier.hide();
-        ControlPanel.settingsPanelVisibilityApplier.hide();
-        ControlPanel.sleepPanelVisibilityApplier.hide();
+        ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
+        ControlPanel.volumePanelVisibilityApplier.immediateHide();
+        ControlPanel.settingsPanelVisibilityApplier.immediateHide();
+        ControlPanel.sleepPanelVisibilityApplier.immediateHide();
+        TransportPanel.visibilityApplier.immediateHide();
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;

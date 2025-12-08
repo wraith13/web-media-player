@@ -121,9 +121,11 @@ export namespace Player
     };
     export const play = async (media?: Media.Entry) =>
     {
+        UI.TransportPanel.visibilityApplier.show();
         document.body.classList.toggle("show-ui", false);
         document.body.classList.toggle("list", false);
         document.body.classList.toggle("play", true);
+        document.body.classList.toggle("show-paused-media", false);
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -196,6 +198,10 @@ export namespace Player
         {
             UI.mediaList.scrollTop = UI.mediaList.scrollHeight;
             document.body.classList.toggle("show-paused-media", true);
+        }
+        else
+        {
+            UI.TransportPanel.visibilityApplier.hide();
         }
     };
     export const previous = () =>

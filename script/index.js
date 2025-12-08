@@ -4079,24 +4079,31 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             VisibilityApplier.prototype.show = function (visibility) {
                 var _this = this;
                 if (visibility === void 0) { visibility = true; }
-                if (this.hideTimer) {
-                    clearTimeout(this.hideTimer);
-                    this.hideTimer = null;
-                }
+                this.clearHideTimer();
                 if (visibility) {
                     this.element.style.setProperty("display", "");
                     this.element.setAttribute("aria-hidden", "false");
                 }
                 else {
                     this.hideTimer = setTimeout(function () {
-                        _this.element.style.setProperty("display", "none");
-                        _this.element.setAttribute("aria-hidden", "true");
                         _this.hideTimer = null;
+                        _this.clearHideTimer();
                     }, this.delay);
                 }
             };
             VisibilityApplier.prototype.hide = function () {
                 this.show(false);
+            };
+            VisibilityApplier.prototype.clearHideTimer = function () {
+                if (this.hideTimer) {
+                    clearTimeout(this.hideTimer);
+                    this.hideTimer = null;
+                }
+            };
+            VisibilityApplier.prototype.immediateHide = function () {
+                this.clearHideTimer();
+                this.element.style.setProperty("display", "none");
+                this.element.setAttribute("aria-hidden", "true");
             };
             return VisibilityApplier;
         }());
@@ -4121,6 +4128,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         var TransportPanel;
         (function (TransportPanel) {
+            TransportPanel.panel = _library_2.Library.UI.getElementById("div", "transport-panel");
             TransportPanel.mediaIndex = _library_2.Library.UI.getElementById("span", "media-index");
             TransportPanel.mediaTitle = _library_2.Library.UI.getElementById("span", "media-title");
             TransportPanel.mediaTime = _library_2.Library.UI.getElementById("span", "media-time");
@@ -4129,6 +4137,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             TransportPanel.backBUtton = new _library_2.Library.Control.Button({ id: "back-button", });
             TransportPanel.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
             TransportPanel.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
+            TransportPanel.visibilityApplier = new VisibilityApplier(TransportPanel.panel);
         })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
@@ -4298,10 +4307,11 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
                 SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
-            ControlPanel.wakeupPanelVisibilityApplier.hide();
-            ControlPanel.volumePanelVisibilityApplier.hide();
-            ControlPanel.settingsPanelVisibilityApplier.hide();
-            ControlPanel.sleepPanelVisibilityApplier.hide();
+            ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
+            ControlPanel.volumePanelVisibilityApplier.immediateHide();
+            ControlPanel.settingsPanelVisibilityApplier.immediateHide();
+            ControlPanel.sleepPanelVisibilityApplier.immediateHide();
+            TransportPanel.visibilityApplier.immediateHide();
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -7788,9 +7798,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
+                        ui_9.UI.TransportPanel.visibilityApplier.show();
                         document.body.classList.toggle("show-ui", false);
                         document.body.classList.toggle("list", false);
                         document.body.classList.toggle("play", true);
+                        document.body.classList.toggle("show-paused-media", false);
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
                                 image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
                                 audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
@@ -7855,6 +7867,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (isResumable) {
                 ui_9.UI.mediaList.scrollTop = ui_9.UI.mediaList.scrollHeight;
                 document.body.classList.toggle("show-paused-media", true);
+            }
+            else {
+                ui_9.UI.TransportPanel.visibilityApplier.hide();
             }
         };
         Player.previous = function () {

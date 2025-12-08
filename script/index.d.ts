@@ -3402,6 +3402,8 @@ declare module "script/ui" {
             constructor(element: HTMLElement, delay?: number);
             show(visibility?: boolean): void;
             hide(): void;
+            clearHideTimer(): void;
+            immediateHide(): void;
         }
         namespace ControlPanel {
             const wakeUpButton: Library.Control.Checkbox;
@@ -3421,6 +3423,7 @@ declare module "script/ui" {
             const sleepPanelVisibilityApplier: VisibilityApplier;
         }
         namespace TransportPanel {
+            const panel: HTMLDivElement;
             const mediaIndex: HTMLSpanElement;
             const mediaTitle: HTMLSpanElement;
             const mediaTime: HTMLSpanElement;
@@ -3429,6 +3432,7 @@ declare module "script/ui" {
             const backBUtton: Library.Control.Button<HTMLElement>;
             const fastForwardButton: Library.Control.Button<HTMLElement>;
             const rewindButton: Library.Control.Button<HTMLElement>;
+            const visibilityApplier: VisibilityApplier;
         }
         const volumeLabel: HTMLLabelElement;
         const volumeRange: Library.Control.Range;
