@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Dec 09 2025 06:57:52 GMT+0900 (日本標準時)
+    build at: Wed Dec 10 2025 03:56:35 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -3532,9 +3532,9 @@ DUMMYSTYLE
 </style>
 </head>
 <body>
-<div id="noscript">
+<noscript id="noscript">
     <div class="panel">
-        <noscript class="section">
+        <div class="section">
             <h2>NOSCRIPT</h2>
             <div lang="ar" dir="rtl">تم تعطيل JavaScript. الرجاء تمكين JavaScript.</div>
 <div lang="de" dir="ltr">JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript.</div>
@@ -3551,9 +3551,9 @@ DUMMYSTYLE
 <div lang="nl" dir="ltr">JavaScript is uitgeschakeld. Schakel JavaScript in.</div>
 <div lang="pl" dir="ltr">JavaScript jest wyłączony. Proszę włączyć JavaScript.</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
-        </noscript>
+        </div>
     </div>
-</div>
+</noscript>
 <div id="screen-body">
     <div id="media-screen">
         <time id="analog-clock-panel" class="hide">
@@ -3950,8 +3950,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Dec 09 2025 06:57:52 GMT+0900 (日本標準時)",
-    tick: 1765231072078
+    at: "Wed Dec 10 2025 03:56:35 GMT+0900 (日本標準時)",
+    tick: 1765306595517
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -10789,7 +10789,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
     (function (UI) {
         UI.locale = undefined;
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
-        UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
+        UI.noscript = _library_2.Library.UI.getElementById("noscript", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");

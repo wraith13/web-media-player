@@ -47,14 +47,14 @@ DUMMYSTYLE
 </style>
 </head>
 <body>
-<div id="noscript">
+<noscript id="noscript">
     <div class="panel">
-        <noscript class="section">
+        <div class="section">
             <h2>NOSCRIPT</h2>
             __NOSCRIPT_MESSAGE__
-        </noscript>
+        </div>
     </div>
-</div>
+</noscript>
 <div id="screen-body">
     <div id="media-screen">
         <time id="analog-clock-panel" class="hide">

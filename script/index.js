@@ -4082,7 +4082,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
     (function (UI) {
         UI.locale = undefined;
         UI.manifest = _library_2.Library.UI.getElementById("link", "manifest");
-        UI.noscript = _library_2.Library.UI.getElementById("div", "noscript");
+        UI.noscript = _library_2.Library.UI.getElementById("noscript", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");

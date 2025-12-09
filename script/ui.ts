@@ -9,7 +9,7 @@ export namespace UI
     export const manifest =
         Library.UI.getElementById("link", "manifest");
     export const noscript =
-        Library.UI.getElementById("div", "noscript");
+        Library.UI.getElementById("noscript", "noscript");
     export const screenBody =
         Library.UI.getElementById("div", "screen-body");
     export const mediaScreen =

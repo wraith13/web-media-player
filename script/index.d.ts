@@ -3391,7 +3391,7 @@ declare module "script/ui" {
     export namespace UI {
         let locale: string | undefined;
         const manifest: HTMLLinkElement;
-        const noscript: HTMLDivElement;
+        const noscript: HTMLElement;
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
         const elementPool: HTMLDivElement;
