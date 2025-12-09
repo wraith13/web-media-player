@@ -154,7 +154,13 @@ export namespace UI
         export const paddingCheckbox =
             new Library.Control.Checkbox(control.padding);
         export const imageSpanSelect =
-            new Library.Control.Select(control.imageSpan, { makeLabel: value => Tools.Timespan.toHumanizedString(value, undefined, locale) });
+            new Library.Control.Select
+            (
+                control.imageSpan,
+                {
+                    makeLabel: value => Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
+                }
+            );
         export const loopShortMediaCheckbox =
             new Library.Control.Checkbox(control.loopShortMedia);
         export const visualizerSelect =
@@ -163,9 +169,9 @@ export namespace UI
         (
             control.crossFade,
             {
-                makeLabel: value => value <= 0 ?
+                makeLabel: value => "off" === value ?
                     Library.Locale.map("off"):
-                    Tools.Timespan.toHumanizedString(value, undefined, locale)
+                    Tools.Timespan.toHumanizedString(Tools.Timespan.parse(value) ?? 0, undefined, locale)
             }
         );
         export const crossFadeTransitionSelect =

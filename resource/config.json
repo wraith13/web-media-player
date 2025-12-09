@@ -6,6 +6,10 @@
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "rendering": {
+        "opacitiyFractionalDigits": 7,
+        "viewportFractionalDigits": 4
+    },
     "thumbnail": {
         "maxSize": 320,
         "type": "image/jpeg",

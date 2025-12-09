@@ -3461,10 +3461,10 @@ declare module "script/ui" {
             const brightnessRange: Library.Control.Range;
             const stretchRange: Library.Control.Range;
             const paddingCheckbox: Library.Control.Checkbox;
-            const imageSpanSelect: Library.Control.Select<number>;
+            const imageSpanSelect: Library.Control.Select<string>;
             const loopShortMediaCheckbox: Library.Control.Checkbox;
             const visualizerSelect: Library.Control.Select<string>;
-            const crossFadeSelect: Library.Control.Select<number>;
+            const crossFadeSelect: Library.Control.Select<string>;
             const crossFadeTransitionSelect: Library.Control.Select<string>;
             const analogClockCheckbox: Library.Control.Checkbox;
             const dayHandCheckbox: Library.Control.Checkbox;
@@ -4070,6 +4070,7 @@ declare module "script/features/track" {
         setOpacity(rate: number): void;
         easingForBlur(rate: number): number;
         setBlur(rate: number): void;
+        getEnoughPatternFractionDigits: () => number;
         makeSureTranstionPattern(): FlounderStyle.Type.Arguments;
         backgroundToMask(backgroundStyle: FlounderStyle.Style): FlounderStyle.Style;
         setPattern(rate: number, opposite: Track | null): void;

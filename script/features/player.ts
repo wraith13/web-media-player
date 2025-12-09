@@ -18,7 +18,7 @@ export namespace Player
         export let startAt: number | null = null;
         export let elapsedTime: number | null = null;
         export const getDuration = (): number =>
-            parseFloat(UI.SettingsPanel.crossFadeSelect.get());
+            Tools.Timespan.parse(UI.SettingsPanel.crossFadeSelect.get()) ?? 0;
         export const clear = (): void =>
         {
             startAt = null;
@@ -303,7 +303,7 @@ export namespace Player
             {
                 return true;
             }
-            if (0 < parseFloat(UI.SettingsPanel.crossFadeSelect.get()))
+            if ("off" !== UI.SettingsPanel.crossFadeSelect.get())
             {
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
@@ -514,7 +514,7 @@ export namespace Player
             updateCurrentTrackProperties();
             Library.UI.setTextContent(UI.TransportPanel.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.TransportPanel.mediaTitle, makeTitleText(currentTrack));
-            if (0 < parseFloat(UI.SettingsPanel.crossFadeSelect.get()))
+            if ("off" !== UI.SettingsPanel.crossFadeSelect.get())
             {
                 CrossFade.start();
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))

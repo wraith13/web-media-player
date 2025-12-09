@@ -264,7 +264,7 @@ export class Track
     }
     getImageDuration(): number
     {
-        return parseFloat(UI.SettingsPanel.imageSpanSelect.get());
+        return Tools.Timespan.parse(UI.SettingsPanel.imageSpanSelect.get()) ?? 0;
     }
     getDuration(): number
     {
@@ -507,7 +507,7 @@ export class Track
         this.fadeRate = finalOpacity;
         if (this.visualElement)
         {
-            Library.UI.setStyle(this.visualElement, "opacity", `${finalOpacity}`);
+            Library.UI.setStyle(this.visualElement, "opacity", `${finalOpacity.toFixed(config.rendering.opacitiyFractionalDigits)}`);
         }
     }
     easingForBlur(rate: number): number
@@ -520,9 +520,24 @@ export class Track
         const finalBlur = maxBlur *this.easingForBlur(rate);
         if (this.visualElement)
         {
-            Library.UI.setStyle(this.visualElement, "--blur", `calc(${finalBlur}vw + ${finalBlur}vh)`);
+            Library.UI.setStyle(this.visualElement, "--blur", `calc(${finalBlur.toFixed(config.rendering.viewportFractionalDigits)}vw + ${finalBlur.toFixed(config.rendering.viewportFractionalDigits)}vh)`);
         }
     }
+    getEnoughPatternFractionDigits = (): number =>
+    {
+        const { innerWidth, innerHeight, devicePixelRatio } = window;
+        const diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
+        const circumference = Math.PI * diagonal;
+        if (circumference <= 1)
+        {
+            // Client area is effectively zero (viewport collapsed); no fractional digits required
+            return 0;
+        }
+        else
+        {
+            return Math.ceil(Math.log10(circumference));
+        }
+    };
     makeSureTranstionPattern(): FlounderStyle.Type.Arguments
     {
         if (null === this.transtionPattern)
@@ -539,6 +554,7 @@ export class Track
                 intervalSize,
                 depth: 0.0,
                 maxPatternSize: randomSelect([ undefined, intervalSize /4, ]),
+                maximumFractionDigits: this.getEnoughPatternFractionDigits(),
             });
             const makeRandomTrispotArguments = (intervalSize: number) =>
                 makeRandomSpotArguments("trispot", intervalSize);
@@ -553,6 +569,7 @@ export class Track
                 depth: 0.0,
                 maxPatternSize: randomSelect([ undefined, intervalSize /(2 +makeRandomInteger(9)), ]),
                 anglePerDepth: randomSelect([ undefined, "auto", "-auto", ]),
+                maximumFractionDigits: this.getEnoughPatternFractionDigits(),
             });
             const makeRandomStripeArguments = (intervalSize: number) =>
                 makeRandomLineArguments("stripe", intervalSize);
