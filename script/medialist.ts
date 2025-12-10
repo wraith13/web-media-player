@@ -184,7 +184,7 @@ export namespace MediaList
     export const updateInformationDisplay = (): void =>
     {
         Library.UI.setTextContent(UI.SettingsPanel.mediaCount, Media.mediaList.length.toLocaleString(locale));
-        const imageSpan = parseInt(UI.SettingsPanel.imageSpanSelect.get());
+        const imageSpan = Tools.Timespan.parse(UI.SettingsPanel.imageSpanSelect.get()) ?? 0;
         const totalDuration = Media.mediaList.reduce((sum, entry) => sum + (entry.duration ?? imageSpan), 0);
         Library.UI.setTextContent(UI.SettingsPanel.mediaLength, Tools.Timespan.toMediaTimeString(totalDuration, locale));
     };

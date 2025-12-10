@@ -125,8 +125,8 @@ DUMMYSTYLE
             <select id="fade-in"></select>
         </label>
     </div>
-    <label id="wakeup-timer" for="wakeup-button" class="tip" role="status"></label>
-    <label id="no-media" for="add-file" class="tip hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
+    <label id="wakeup-timer" for="wakeup-button" class="tip solid-label" role="status"></label>
+    <label id="no-media" for="add-file" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
     <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
         <input id="shuffle" type="checkbox">
         __SHUFFLE_ICON__
@@ -286,8 +286,8 @@ DUMMYSTYLE
             <select id="fade-out"></select>
         </label>
     </div>
-    <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
-    <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
+    <label id="sleep-timer" for="sleep-button" class="tip solid-label" role="status"></label>
+    <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <div id="transport-panel">
 <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>

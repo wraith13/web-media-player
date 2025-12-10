@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Dec 10 2025 03:56:35 GMT+0900 (日本標準時)
+    build at: Wed Dec 10 2025 05:40:57 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -585,6 +585,25 @@ body.play #screen-body #media-list:not(.show) {
   filter: blur(1em);
 }
 body.play #screen-body #media-list:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1484,6 +1503,25 @@ body.play:not(.show-ui) #control-panel:not(.show) {
   filter: blur(1em);
 }
 body.play:not(.show-ui) #control-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.play):not(.mousemove).sleeped #control-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.mousemove).sleeped #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2767,10 +2805,10 @@ label:not(.icon-button) * {
   user-select: none;
   cursor: pointer;
 }
-html:lang(fr) label:not(.icon-button) span:first-child::after {
+html:lang(fr) label:not(.icon-button):not(.solid-label) span:first-child::after {
   content: " : ";
 }
-html:not(:lang(fr)) label:not(.icon-button) span:first-child::after {
+html:not(:lang(fr)) label:not(.icon-button):not(.solid-label) span:first-child::after {
   content: ": ";
 }
 label:not(.icon-button) .value-text {
@@ -3636,8 +3674,8 @@ DUMMYSTYLE
             <select id="fade-in"></select>
         </label>
     </div>
-    <label id="wakeup-timer" for="wakeup-button" class="tip" role="status"></label>
-    <label id="no-media" for="add-file" class="tip hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
+    <label id="wakeup-timer" for="wakeup-button" class="tip solid-label" role="status"></label>
+    <label id="no-media" for="add-file" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
     <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
         <input id="shuffle" type="checkbox">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -3870,8 +3908,8 @@ DUMMYSTYLE
             <select id="fade-out"></select>
         </label>
     </div>
-    <label id="sleep-timer" for="sleep-button" class="tip" role="status"></label>
-    <label id="no-repeat" for="repeat" class="tip hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
+    <label id="sleep-timer" for="sleep-button" class="tip solid-label" role="status"></label>
+    <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <div id="transport-panel">
 <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
@@ -3950,8 +3988,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Dec 10 2025 03:56:35 GMT+0900 (日本標準時)",
-    tick: 1765306595517
+    at: "Wed Dec 10 2025 05:40:57 GMT+0900 (日本標準時)",
+    tick: 1765312857917
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -15234,8 +15272,9 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
+            var _a;
             _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
-            var imageSpan = parseInt(ui_11.UI.SettingsPanel.imageSpanSelect.get());
+            var imageSpan = (_a = _tools_7.Tools.Timespan.parse(ui_11.UI.SettingsPanel.imageSpanSelect.get())) !== null && _a !== void 0 ? _a : 0;
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
             _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };

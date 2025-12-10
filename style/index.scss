@@ -135,7 +135,7 @@
     }
     #media-list
     {
-        @include fade-transition("body.play");
+        @include fade-transition("body.play", "body:not(.play):not(.mousemove).sleeped");
         @include solid-box();
         @include full-stretch-box();
         @include flex(row, start, start);
@@ -742,7 +742,7 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer
 #control-panel
 {
     @include black-pop-panel-style();
-    @include fade-transition("body.play:not(.show-ui)");
+    @include fade-transition("body.play:not(.show-ui)", "body:not(.play):not(.mousemove).sleeped");
     @include flex(row, center);
     &
     {
@@ -1516,15 +1516,18 @@ label:not(.icon-button)
             user-select: none;
             cursor: pointer;
         }
-        span:first-child::after
+        &:not(.solid-label)
         {
-            html:lang(fr) &
+            span:first-child::after
             {
-                content: "\202F: ";
-            }
-            html:not(:lang(fr)) &
-            {
-                content: ": ";
+                html:lang(fr) &
+                {
+                    content: "\202F: ";
+                }
+                html:not(:lang(fr)) &
+                {
+                    content: ": ";
+                }
             }
         }
         .value-text

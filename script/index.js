@@ -8527,8 +8527,9 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             });
         }); };
         MediaList.updateInformationDisplay = function () {
+            var _a;
             _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
-            var imageSpan = parseInt(ui_11.UI.SettingsPanel.imageSpanSelect.get());
+            var imageSpan = (_a = _tools_7.Tools.Timespan.parse(ui_11.UI.SettingsPanel.imageSpanSelect.get())) !== null && _a !== void 0 ? _a : 0;
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
             _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };

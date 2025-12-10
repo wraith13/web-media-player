@@ -505,6 +505,25 @@ body.play #screen-body #media-list:not(.show)::before {
   transition: filter 750ms;
 }
 
+body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 #screen-body #media-list:not(:has(.item:not(.add))) {
   padding-bottom: 0px;
 }
@@ -1392,6 +1411,25 @@ body.play:not(.show-ui) #control-panel:not(.show) {
   filter: blur(1em);
 }
 body.play:not(.show-ui) #control-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.play):not(.mousemove).sleeped #control-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.mousemove).sleeped #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2675,10 +2713,10 @@ label:not(.icon-button) * {
   user-select: none;
   cursor: pointer;
 }
-html:lang(fr) label:not(.icon-button) span:first-child::after {
+html:lang(fr) label:not(.icon-button):not(.solid-label) span:first-child::after {
   content: " : ";
 }
-html:not(:lang(fr)) label:not(.icon-button) span:first-child::after {
+html:not(:lang(fr)) label:not(.icon-button):not(.solid-label) span:first-child::after {
   content: ": ";
 }
 label:not(.icon-button) .value-text {
