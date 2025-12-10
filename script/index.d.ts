@@ -15,6 +15,7 @@ declare module "script/tools/math" {
     export namespace Math {
         const scale: (min: number, max: number) => (r: number) => number;
         const sum: (numbers: number[]) => number;
+        const average: (numbers: number[]) => number;
         const mod: (n: number, m: number) => number;
         const clip: (min: number, value: number, max: number) => number;
     }

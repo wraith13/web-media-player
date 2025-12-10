@@ -528,14 +528,15 @@ export class Track
         const { innerWidth, innerHeight, devicePixelRatio } = window;
         const diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
         const circumference = Math.PI * diagonal;
+        const adjustmentFactor = 3;
         if (circumference <= 1)
         {
             // Client area is effectively zero (viewport collapsed); no fractional digits required
-            return 0;
+            return 0 +adjustmentFactor;
         }
         else
         {
-            return Math.ceil(Math.log10(circumference));
+            return Math.ceil(Math.log10(circumference)) +adjustmentFactor;
         }
     };
     makeSureTranstionPattern(): FlounderStyle.Type.Arguments
@@ -586,7 +587,7 @@ export class Track
                     makeRandomDilineArguments,
                     makeRandomTrilineArguments,
                 ])
-                (diagonal *(5 +makeRandomInteger(50)));
+                (diagonal *(3 +makeRandomInteger(30)));
             this.transtionPattern = makeRandomArguments();
             this.isReverseWipe = randomSelect([ true, false, ]);
         }

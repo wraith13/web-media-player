@@ -142,6 +142,9 @@ define("script/tools/math", ["require", "exports"], function (require, exports) 
         Math.sum = function (numbers) {
             return numbers.reduce(function (a, v) { return a + v; }, 0);
         };
+        Math.average = function (numbers) {
+            return numbers.length === 0 ? NaN : Math.sum(numbers) / numbers.length;
+        };
         Math.mod = function (n, m) {
             return m === 0 ? n : ((n % m) + m) % m;
         };
@@ -3715,12 +3718,12 @@ define("resource/control", [], {
             "45m",
             "30m",
             "15m",
-            "12m30s",
+            "12.5m",
             "10m",
             "7.5m",
             "5m",
             "3m",
-            "1m30s",
+            "1.5m",
             "1m",
             "45s",
             "30s",
@@ -3750,12 +3753,12 @@ define("resource/control", [], {
             "45m",
             "30m",
             "15m",
-            "12m30s",
+            "12.5m",
             "10m",
             "7.5m",
             "5m",
             "3m",
-            "1m30s",
+            "1.5m",
             "60s",
             "45s",
             "30s",
@@ -7011,12 +7014,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 var innerWidth = window.innerWidth, innerHeight = window.innerHeight, devicePixelRatio = window.devicePixelRatio;
                 var diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
                 var circumference = Math.PI * diagonal;
+                var adjustmentFactor = 3;
                 if (circumference <= 1) {
                     // Client area is effectively zero (viewport collapsed); no fractional digits required
-                    return 0;
+                    return 0 + adjustmentFactor;
                 }
                 else {
-                    return Math.ceil(Math.log10(circumference));
+                    return Math.ceil(Math.log10(circumference)) + adjustmentFactor;
                 }
             };
             this.media = media;
@@ -7475,7 +7479,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     makeRandomStripeArguments_1,
                     makeRandomDilineArguments_1,
                     makeRandomTrilineArguments_1,
-                ])(diagonal_1 * (5 + makeRandomInteger_1(50))); };
+                ])(diagonal_1 * (3 + makeRandomInteger_1(30))); };
                 this.transtionPattern = makeRandomArguments();
                 this.isReverseWipe = randomSelect_1([true, false,]);
             }

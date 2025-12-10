@@ -4,6 +4,8 @@ export namespace Math
         (r: number) => min +((max -min) *r);
     export const sum = (numbers: number[]): number =>
         numbers.reduce((a, v) => a +v, 0);
+    export const average = (numbers: number[]): number =>
+        numbers.length === 0 ? NaN : sum(numbers) /numbers.length;
     export const mod = (n: number, m: number): number =>
         m === 0 ? n: ((n %m) +m) %m;
     export const clip = (min: number, value: number, max: number): number =>
