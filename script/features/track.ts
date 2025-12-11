@@ -528,17 +528,31 @@ export class Track
         const { innerWidth, innerHeight, devicePixelRatio } = window;
         const diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
         const circumference = Math.PI * diagonal;
-        const adjustmentFactor = 3;
         if (circumference <= 1)
         {
             // Client area is effectively zero (viewport collapsed); no fractional digits required
-            return 0 +adjustmentFactor;
+            return 0 +config.rendering.patternFractionalDigitsAdjuter;
         }
         else
         {
-            return Math.ceil(Math.log10(circumference)) +adjustmentFactor;
+            return Math.ceil(Math.log10(circumference)) +config.rendering.patternFractionalDigitsAdjuter;
         }
     };
+    patternEasing(rate: number): number
+    {
+        if (0 < rate && rate < 1)
+        {
+            if (rate < 0.5)
+            {
+                return Math.pow(rate *2, config.rendering.patternEasingExponent) /2;
+            }
+            else
+            {
+                return 1 - (Math.pow((1 - rate) *2, config.rendering.patternEasingExponent) /2);
+            }
+        }
+        return rate;
+    }
     makeSureTranstionPattern(): FlounderStyle.Type.Arguments
     {
         if (null === this.transtionPattern)
@@ -613,7 +627,7 @@ export class Track
             {
                 const target = isReverseWipe ? opposite?.visualElement!: this.visualElement;
                 const data = this.makeSureTranstionPattern();
-                data.depth = isReverseWipe ? (1 - rate) : rate;
+                data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
                 FlounderStyle.setStyle(target!, this.backgroundToMask(FlounderStyle.makeStyle(data)));
                 if (isReverseWipe)
                 {

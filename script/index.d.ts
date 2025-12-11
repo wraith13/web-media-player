@@ -4072,6 +4072,7 @@ declare module "script/features/track" {
         easingForBlur(rate: number): number;
         setBlur(rate: number): void;
         getEnoughPatternFractionDigits: () => number;
+        patternEasing(rate: number): number;
         makeSureTranstionPattern(): FlounderStyle.Type.Arguments;
         backgroundToMask(backgroundStyle: FlounderStyle.Style): FlounderStyle.Style;
         setPattern(rate: number, opposite: Track | null): void;

@@ -1725,7 +1725,9 @@ define("resource/config", [], {
     },
     "rendering": {
         "opacitiyFractionalDigits": 7,
-        "viewportFractionalDigits": 4
+        "viewportFractionalDigits": 4,
+        "patternFractionalDigitsAdjuter": 3,
+        "patternEasingExponent": 2
     },
     "thumbnail": {
         "maxSize": 320,
@@ -6487,7 +6489,7 @@ define("flounder.style.js/generated/type", ["require", "exports", "flounder.styl
 define("flounder.style.js/config", [], {
     "defaultSpotIntervalSize": 24,
     "defaultBlur": 0.0,
-    "defaultMaximumFractionDigits": 4
+    "defaultMaximumFractionDigits": 8
 });
 define("flounder.style.js/index", ["require", "exports", "flounder.style.js/generated/type", "flounder.style.js/config"], function (require, exports, type_1, config_json_7) {
     "use strict";
@@ -7014,13 +7016,12 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 var innerWidth = window.innerWidth, innerHeight = window.innerHeight, devicePixelRatio = window.devicePixelRatio;
                 var diagonal = Math.hypot(innerWidth, innerHeight) * devicePixelRatio;
                 var circumference = Math.PI * diagonal;
-                var adjustmentFactor = 3;
                 if (circumference <= 1) {
                     // Client area is effectively zero (viewport collapsed); no fractional digits required
-                    return 0 + adjustmentFactor;
+                    return 0 + config_json_8.default.rendering.patternFractionalDigitsAdjuter;
                 }
                 else {
-                    return Math.ceil(Math.log10(circumference)) + adjustmentFactor;
+                    return Math.ceil(Math.log10(circumference)) + config_json_8.default.rendering.patternFractionalDigitsAdjuter;
                 }
             };
             this.media = media;
@@ -7427,6 +7428,17 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 _library_6.Library.UI.setStyle(this.visualElement, "--blur", "calc(".concat(finalBlur.toFixed(config_json_8.default.rendering.viewportFractionalDigits), "vw + ").concat(finalBlur.toFixed(config_json_8.default.rendering.viewportFractionalDigits), "vh)"));
             }
         };
+        Track.prototype.patternEasing = function (rate) {
+            if (0 < rate && rate < 1) {
+                if (rate < 0.5) {
+                    return Math.pow(rate * 2, config_json_8.default.rendering.patternEasingExponent) / 2;
+                }
+                else {
+                    return 1 - (Math.pow((1 - rate) * 2, config_json_8.default.rendering.patternEasingExponent) / 2);
+                }
+            }
+            return rate;
+        };
         Track.prototype.makeSureTranstionPattern = function () {
             var _this = this;
             if (null === this.transtionPattern) {
@@ -7501,7 +7513,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 if (rate < 1) {
                     var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
-                    data.depth = isReverseWipe ? (1 - rate) : rate;
+                    data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
                     flounder_style_js_1.FlounderStyle.setStyle(target, this.backgroundToMask(flounder_style_js_1.FlounderStyle.makeStyle(data)));
                     if (isReverseWipe) {
                         if (this.visualElement === ((_a = opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === null || _a === void 0 ? void 0 : _a.nextSibling)) {
