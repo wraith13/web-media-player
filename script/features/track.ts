@@ -531,11 +531,11 @@ export class Track
         if (circumference <= 1)
         {
             // Client area is effectively zero (viewport collapsed); no fractional digits required
-            return 0 +config.rendering.patternFractionalDigitsAdjuter;
+            return 0;
         }
         else
         {
-            return Math.ceil(Math.log10(circumference)) +config.rendering.patternFractionalDigitsAdjuter;
+            return Math.ceil(Math.log10(circumference));
         }
     };
     patternEasing(rate: number): number
@@ -558,7 +558,6 @@ export class Track
         if (null === this.transtionPattern)
         {
             const foregroundColor = "white";
-            const makeRandomInteger = (size: number) => Math.floor(Math.random() *size);
             //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
             const randomSelect = Tools.Random.select;
             const makeRandomSpotArguments = (type: FlounderStyle.Type.SpotArguments["type"], intervalSize: number): FlounderStyle.Type.Arguments =>
@@ -582,7 +581,7 @@ export class Track
                 foregroundColor,
                 intervalSize,
                 depth: 0.0,
-                maxPatternSize: randomSelect([ undefined, intervalSize /(2 +makeRandomInteger(9)), ]),
+                maxPatternSize: randomSelect([ undefined, intervalSize /(2 +Tools.Random.makeInteger(9)), ]),
                 anglePerDepth: randomSelect([ undefined, "auto", "-auto", ]),
                 maximumFractionDigits: this.getEnoughPatternFractionDigits(),
             });
@@ -601,7 +600,7 @@ export class Track
                     makeRandomDilineArguments,
                     makeRandomTrilineArguments,
                 ])
-                (diagonal *(3 +makeRandomInteger(30)));
+                (diagonal *(3 +Tools.Random.makeInteger(30)));
             this.transtionPattern = makeRandomArguments();
             this.isReverseWipe = randomSelect([ true, false, ]);
         }

@@ -1726,7 +1726,6 @@ define("resource/config", [], {
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
-        "patternFractionalDigitsAdjuter": 3,
         "patternEasingExponent": 2
     },
     "thumbnail": {
@@ -6489,7 +6488,7 @@ define("flounder.style.js/generated/type", ["require", "exports", "flounder.styl
 define("flounder.style.js/config", [], {
     "defaultSpotIntervalSize": 24,
     "defaultBlur": 0.0,
-    "defaultMaximumFractionDigits": 8
+    "defaultMaximumFractionDigits": 4
 });
 define("flounder.style.js/index", ["require", "exports", "flounder.style.js/generated/type", "flounder.style.js/config"], function (require, exports, type_1, config_json_7) {
     "use strict";
@@ -7018,10 +7017,10 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 var circumference = Math.PI * diagonal;
                 if (circumference <= 1) {
                     // Client area is effectively zero (viewport collapsed); no fractional digits required
-                    return 0 + config_json_8.default.rendering.patternFractionalDigitsAdjuter;
+                    return 0;
                 }
                 else {
-                    return Math.ceil(Math.log10(circumference)) + config_json_8.default.rendering.patternFractionalDigitsAdjuter;
+                    return Math.ceil(Math.log10(circumference));
                 }
             };
             this.media = media;
@@ -7443,7 +7442,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (null === this.transtionPattern) {
                 var foregroundColor_1 = "white";
-                var makeRandomInteger_1 = function (size) { return Math.floor(Math.random() * size); };
                 //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
                 var randomSelect_1 = _tools_5.Tools.Random.select;
                 var makeRandomSpotArguments_1 = function (type, intervalSize) {
@@ -7470,7 +7468,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         foregroundColor: foregroundColor_1,
                         intervalSize: intervalSize,
                         depth: 0.0,
-                        maxPatternSize: randomSelect_1([undefined, intervalSize / (2 + makeRandomInteger_1(9)),]),
+                        maxPatternSize: randomSelect_1([undefined, intervalSize / (2 + _tools_5.Tools.Random.makeInteger(9)),]),
                         anglePerDepth: randomSelect_1([undefined, "auto", "-auto",]),
                         maximumFractionDigits: _this.getEnoughPatternFractionDigits(),
                     });
@@ -7491,7 +7489,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                     makeRandomStripeArguments_1,
                     makeRandomDilineArguments_1,
                     makeRandomTrilineArguments_1,
-                ])(diagonal_1 * (3 + makeRandomInteger_1(30))); };
+                ])(diagonal_1 * (3 + _tools_5.Tools.Random.makeInteger(30))); };
                 this.transtionPattern = makeRandomArguments();
                 this.isReverseWipe = randomSelect_1([true, false,]);
             }
@@ -8202,7 +8200,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.play();
                 }
                 if (currentTrack.visualElement) {
-                    ui_9.UI.mediaScreen.insertBefore(currentTrack.visualElement, ui_9.UI.AnalogClock.panel);
+                    ui_9.UI.mediaScreen.appendChild(currentTrack.visualElement);
                     currentTrack.updateStretch("current");
                 }
             }

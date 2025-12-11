@@ -532,7 +532,7 @@ export namespace Player
             }
             if (currentTrack.visualElement)
             {
-                UI.mediaScreen.insertBefore(currentTrack.visualElement, UI.AnalogClock.panel);
+                UI.mediaScreen.appendChild(currentTrack.visualElement);
                 currentTrack.updateStretch("current");
             }
         }

@@ -9,7 +9,6 @@
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
-        "patternFractionalDigitsAdjuter": 3,
         "patternEasingExponent": 2
     },
     "thumbnail": {
