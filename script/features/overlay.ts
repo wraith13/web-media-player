@@ -104,6 +104,15 @@ export namespace Overlay
             setAnalogClockNiddleAngle(UI.AnalogClock.minutesNiddle, minutesAngle);
             setAnalogClockNiddleAngle(UI.AnalogClock.hoursNiddle, hoursAngle);
             Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
+            Library.UI.setStyle(UI.AnalogClock.panel, "--clock-outer-size", isMillisecondHandEnabled ? "96": "95");
+            Library.UI.setStyle
+            (
+                UI.AnalogClock.panel,
+                "--clock-inner-size",
+                isDateHandsEnabled ? "25":
+                is24HoursHandEnabled ? "50":
+                    "55"
+            );
         }
         else
         {

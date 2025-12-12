@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Dec 12 2025 05:32:22 GMT+0900 (日本標準時)
+    build at: Fri Dec 12 2025 20:19:55 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -991,6 +991,8 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   inset-inline-end: 0px;
   mix-blend-mode: difference;
   position: fixed;
+  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5));
+  backdrop-filter: blur(0.25rem);
   --niddle-color: white;
 }
 body.list #analog-clock-panel:not(.show) {
@@ -4014,8 +4016,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Fri Dec 12 2025 05:32:22 GMT+0900 (日本標準時)",
-    tick: 1765485142359
+    at: "Fri Dec 12 2025 20:19:55 GMT+0900 (日本標準時)",
+    tick: 1765538395435
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -11426,6 +11428,10 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-inner-size", isDateHandsEnabled ? "25" :
+                    is24HoursHandEnabled ? "50" :
+                        "55");
             }
             else {
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", undefined);

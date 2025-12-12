@@ -4655,6 +4655,10 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-inner-size", isDateHandsEnabled ? "25" :
+                    is24HoursHandEnabled ? "50" :
+                        "55");
             }
             else {
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", undefined);

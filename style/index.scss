@@ -476,6 +476,15 @@
     @include full-stretch-box();
     mix-blend-mode: difference;
     position: fixed;
+    mask-image: radial-gradient(
+        circle at center,
+        transparent 0%,
+        transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5),
+        black calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5),
+        black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5),
+        transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5)
+    );
+    backdrop-filter: blur(0.25rem);
     --niddle-color: white;
     div
     {
