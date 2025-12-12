@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Dec 11 2025 20:01:19 GMT+0900 (日本標準時)
+    build at: Fri Dec 12 2025 05:32:22 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -481,6 +481,30 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen .track-frame,
 #screen-body #media-screen .visualizer {
   filter: blur(var(--blur)) brightness(var(--brightness));
+}
+#screen-body #media-screen .track-frame:first-child:not(.reverse-wipe), #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe),
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe),
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) {
+  z-index: 10;
+}
+#screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .track-frame, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .visualizer, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .track-frame, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .visualizer,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .track-frame,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .visualizer,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .track-frame,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .visualizer {
+  z-index: 20;
+}
+#screen-body #media-screen .track-frame:first-child.reverse-wipe, #screen-body #media-screen .track-frame:first-child.reverse-wipe,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe {
+  z-index: 20;
+}
+#screen-body #media-screen .track-frame:first-child.reverse-wipe + .track-frame, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .visualizer, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .track-frame, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .visualizer,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .track-frame,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .visualizer,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .track-frame,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .visualizer {
+  z-index: 10;
 }
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
@@ -3990,8 +4014,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Thu Dec 11 2025 20:01:19 GMT+0900 (日本標準時)",
-    tick: 1765450879600
+    at: "Fri Dec 12 2025 05:32:22 GMT+0900 (日本標準時)",
+    tick: 1765485142359
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -14252,27 +14276,21 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             return maskStyle;
         };
         Track.prototype.setPattern = function (rate, opposite) {
-            var _a, _b;
             if (this.visualElement) {
-                var isReverseWipe = this.isReverseWipe && (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement);
+                var isReverseWipe = new Boolean(this.isReverseWipe && (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement)).valueOf();
+                if (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) {
+                    opposite.visualElement.classList.toggle("reverse-wipe", isReverseWipe);
+                }
                 if (rate < 1) {
                     var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
                     data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
                     flounder_style_js_1.FlounderStyle.setStyle(target, this.backgroundToMask(flounder_style_js_1.FlounderStyle.makeStyle(data)));
                     if (isReverseWipe) {
-                        if (this.visualElement === ((_a = opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === null || _a === void 0 ? void 0 : _a.nextSibling)) {
-                            ui_8.UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
-                            //console.log("🦋 Swapped visual elements for reverse wipe transition.");
-                        }
                         this.clearPattern();
                     }
                 }
                 else {
-                    if ((opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === ((_b = this.visualElement) === null || _b === void 0 ? void 0 : _b.nextSibling)) {
-                        ui_8.UI.mediaScreen.insertBefore(opposite.visualElement, this.visualElement);
-                        //console.log("🦋 Swapped visual elements for reverse wipe transition.(RESTORE)");
-                    }
                     this.clearPattern();
                 }
             }

@@ -390,6 +390,30 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen .visualizer {
   filter: blur(var(--blur)) brightness(var(--brightness));
 }
+#screen-body #media-screen .track-frame:first-child:not(.reverse-wipe), #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe),
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe),
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) {
+  z-index: 10;
+}
+#screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .track-frame, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .visualizer, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .track-frame, #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe) + .visualizer,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .track-frame,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .visualizer,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .track-frame,
+#screen-body #media-screen .visualizer:first-child:not(.reverse-wipe) + .visualizer {
+  z-index: 20;
+}
+#screen-body #media-screen .track-frame:first-child.reverse-wipe, #screen-body #media-screen .track-frame:first-child.reverse-wipe,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe {
+  z-index: 20;
+}
+#screen-body #media-screen .track-frame:first-child.reverse-wipe + .track-frame, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .visualizer, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .track-frame, #screen-body #media-screen .track-frame:first-child.reverse-wipe + .visualizer,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .track-frame,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .visualizer,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .track-frame,
+#screen-body #media-screen .visualizer:first-child.reverse-wipe + .visualizer {
+  z-index: 10;
+}
 #screen-body #media-screen .player:not(audio):not(.sound-only), #screen-body #media-screen > .visualizer {
   position: absolute;
   object-fit: cover;

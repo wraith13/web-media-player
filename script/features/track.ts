@@ -621,7 +621,11 @@ export class Track
     {
         if (this.visualElement)
         {
-            const isReverseWipe = this.isReverseWipe && opposite?.visualElement;
+            const isReverseWipe = new Boolean(this.isReverseWipe && opposite?.visualElement).valueOf();
+            if (opposite?.visualElement)
+            {
+                opposite.visualElement.classList.toggle("reverse-wipe", isReverseWipe);
+            }
             if (rate < 1)
             {
                 const target = isReverseWipe ? opposite?.visualElement!: this.visualElement;
@@ -630,21 +634,11 @@ export class Track
                 FlounderStyle.setStyle(target!, this.backgroundToMask(FlounderStyle.makeStyle(data)));
                 if (isReverseWipe)
                 {
-                    if (this.visualElement === opposite?.visualElement?.nextSibling)
-                    {
-                        UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
-                        //console.log("🦋 Swapped visual elements for reverse wipe transition.");
-                    }
                     this.clearPattern();
                 }
             }
             else
             {
-                if (opposite?.visualElement === this.visualElement?.nextSibling)
-                {
-                    UI.mediaScreen.insertBefore(opposite.visualElement!, this.visualElement);
-                    //console.log("🦋 Swapped visual elements for reverse wipe transition.(RESTORE)");
-                }
                 this.clearPattern();
             }
         }

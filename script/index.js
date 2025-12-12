@@ -7505,27 +7505,21 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             return maskStyle;
         };
         Track.prototype.setPattern = function (rate, opposite) {
-            var _a, _b;
             if (this.visualElement) {
-                var isReverseWipe = this.isReverseWipe && (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement);
+                var isReverseWipe = new Boolean(this.isReverseWipe && (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement)).valueOf();
+                if (opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) {
+                    opposite.visualElement.classList.toggle("reverse-wipe", isReverseWipe);
+                }
                 if (rate < 1) {
                     var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
                     data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
                     flounder_style_js_1.FlounderStyle.setStyle(target, this.backgroundToMask(flounder_style_js_1.FlounderStyle.makeStyle(data)));
                     if (isReverseWipe) {
-                        if (this.visualElement === ((_a = opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === null || _a === void 0 ? void 0 : _a.nextSibling)) {
-                            ui_8.UI.mediaScreen.insertBefore(this.visualElement, opposite.visualElement);
-                            //console.log("🦋 Swapped visual elements for reverse wipe transition.");
-                        }
                         this.clearPattern();
                     }
                 }
                 else {
-                    if ((opposite === null || opposite === void 0 ? void 0 : opposite.visualElement) === ((_b = this.visualElement) === null || _b === void 0 ? void 0 : _b.nextSibling)) {
-                        ui_8.UI.mediaScreen.insertBefore(opposite.visualElement, this.visualElement);
-                        //console.log("🦋 Swapped visual elements for reverse wipe transition.(RESTORE)");
-                    }
                     this.clearPattern();
                 }
             }
