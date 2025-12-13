@@ -388,6 +388,7 @@ body.list #screen-body #media-screen:not(.show)::before {
 }
 #screen-body #media-screen .track-frame,
 #screen-body #media-screen .visualizer {
+  will-change: --blur, --brightness, opacity, mask-image, mask-position, mask-size;
   filter: blur(var(--blur)) brightness(var(--brightness));
 }
 #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe), #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe),
@@ -890,6 +891,55 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), hsl(160, 100%, 50%) calc(var(--progress) * 360deg));
 }
 
+#analog-clock-background {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5));
+  backdrop-filter: blur(0.5rem);
+}
+body.list #analog-clock-background:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.list #analog-clock-background:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#analog-clock-background.hide:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+#analog-clock-background.hide:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 #analog-clock-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
   margin: 0px;
@@ -899,8 +949,6 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   inset-inline-end: 0px;
   mix-blend-mode: difference;
   position: fixed;
-  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5));
-  backdrop-filter: blur(0.25rem);
   --niddle-color: white;
 }
 body.list #analog-clock-panel:not(.show) {
@@ -954,7 +1002,8 @@ body.list #analog-clock-panel:not(.show)::before {
   --minor-tick-color: rgba(0, 0, 0, 0.5);
 }
 #analog-clock-panel div#milli-seconds-niddle {
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   transition: background-image 750ms, background-color 750ms;
   width: calc(var(--short-side) * 96);
   height: calc(var(--short-side) * 96);
@@ -967,13 +1016,15 @@ body.list #analog-clock-panel:not(.show)::before {
   pointer-events: none;
 }
 #analog-clock-panel div#seconds-niddle {
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 95);
   height: calc(var(--short-side) * 95);
   border-radius: 50%;
 }
 #analog-clock-panel div#minutes-niddle {
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 85);
   height: calc(var(--short-side) * 85);
   border-radius: 50%;
@@ -985,7 +1036,8 @@ body.list #analog-clock-panel:not(.show)::before {
   background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(6deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(12deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(18deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(24deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(36deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(42deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(48deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(54deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(66deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(72deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(78deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(84deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(96deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(102deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(108deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(114deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(126deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(132deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(138deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(144deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(156deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(162deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(168deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(174deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
 #analog-clock-panel div#hours-niddle {
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 70);
   height: calc(var(--short-side) * 70);
   border-radius: 50%;
@@ -1000,7 +1052,8 @@ body.list #analog-clock-panel:not(.show)::before {
 }
 #analog-clock-panel div#day-niddle {
   transition: background-image 750ms, background-color 750ms;
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 55);
   height: calc(var(--short-side) * 55);
   border-radius: 50%;
@@ -1021,7 +1074,8 @@ body.list #analog-clock-panel:not(.show)::before {
 }
 #analog-clock-panel div#week-niddle {
   transition: background-image 750ms, background-color 750ms;
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 50);
   height: calc(var(--short-side) * 50);
   border-radius: 50%;
@@ -1045,7 +1099,8 @@ body.list #analog-clock-panel:not(.show)::before {
 }
 #analog-clock-panel div#month-niddle {
   transition: background-image 750ms, background-color 750ms;
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 45);
   height: calc(var(--short-side) * 45);
   border-radius: 50%;
@@ -1123,7 +1178,8 @@ body.list #analog-clock-panel:not(.show)::before {
 }
 #analog-clock-panel div#year-niddle {
   transition: background-image 750ms, background-color 750ms;
-  background: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  will-change: --progress, background-image;
   width: calc(var(--short-side) * 35);
   height: calc(var(--short-side) * 35);
   border-radius: 50%;

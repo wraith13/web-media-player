@@ -4170,6 +4170,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         var AnalogClock;
         (function (AnalogClock) {
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
+            AnalogClock.background = _library_2.Library.UI.getElementById("div", "analog-clock-background");
             AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
             AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
             AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
@@ -4606,6 +4607,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             var _a;
             var isAnalogClockEnabled = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
             ui_4.UI.AnalogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
+            ui_4.UI.AnalogClock.background.classList.toggle("hide", !isAnalogClockEnabled);
             if (isAnalogClockEnabled) {
                 var is24HoursHandEnabled = ui_4.UI.SettingsPanel.dayHandCheckbox.get();
                 var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
@@ -4655,8 +4657,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
                 Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--clock-inner-size", isDateHandsEnabled ? "25" :
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-inner-size", isDateHandsEnabled ? "25" :
                     is24HoursHandEnabled ? "50" :
                         "55");
             }

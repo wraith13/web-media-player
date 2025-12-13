@@ -124,6 +124,7 @@ export namespace UI
     export namespace AnalogClock
     {
         export const panel = Library.UI.getElementById("time", "analog-clock-panel");
+        export const background = Library.UI.getElementById("div", "analog-clock-background");
         export const monthPanel = Library.UI.getElementById("div", "month-panel");
         export const yearNiddle = Library.UI.getElementById("div", "year-niddle");
         export const monthNiddle = Library.UI.getElementById("div", "month-niddle");

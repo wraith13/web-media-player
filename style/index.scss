@@ -49,6 +49,7 @@
         .track-frame,
         .visualizer
         {
+            will-change: --blur, --brightness, opacity, mask-image, mask-position, mask-size;
             filter: blur(var(--blur)) brightness(var(--brightness));
             &:first-child,
             &:first-child
@@ -470,11 +471,10 @@
         @include progress-circle(transparent, $visualizer-color);
     }
 }
-#analog-clock-panel
+#analog-clock-background
 {
     @include fade-transition("body.list", "&.hide");
     @include full-stretch-box();
-    mix-blend-mode: difference;
     position: fixed;
     mask-image: radial-gradient(
         circle at center,
@@ -484,7 +484,15 @@
         black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5),
         transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5)
     );
-    backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.5rem);
+    //backdrop-filter: blur(calc(var(--short-side) * 1));
+}
+#analog-clock-panel
+{
+    @include fade-transition("body.list", "&.hide");
+    @include full-stretch-box();
+    mix-blend-mode: difference;
+    position: fixed;
     --niddle-color: white;
     div
     {

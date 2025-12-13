@@ -44,6 +44,7 @@ export namespace Overlay
     {
         const isAnalogClockEnabled = UI.SettingsPanel.analogClockCheckbox.get();
         UI.AnalogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
+        UI.AnalogClock.background.classList.toggle("hide", ! isAnalogClockEnabled);
         if (isAnalogClockEnabled)
         {
             const is24HoursHandEnabled = UI.SettingsPanel.dayHandCheckbox.get();
@@ -104,10 +105,10 @@ export namespace Overlay
             setAnalogClockNiddleAngle(UI.AnalogClock.minutesNiddle, minutesAngle);
             setAnalogClockNiddleAngle(UI.AnalogClock.hoursNiddle, hoursAngle);
             Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
-            Library.UI.setStyle(UI.AnalogClock.panel, "--clock-outer-size", isMillisecondHandEnabled ? "96": "95");
+            Library.UI.setStyle(UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96": "95");
             Library.UI.setStyle
             (
-                UI.AnalogClock.panel,
+                UI.AnalogClock.background,
                 "--clock-inner-size",
                 isDateHandsEnabled ? "25":
                 is24HoursHandEnabled ? "50":

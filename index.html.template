@@ -59,6 +59,7 @@ DUMMYSTYLE
     <div id="media-screen">
     </div>
     <div id="overlay-screen">
+        <div id="analog-clock-background" class="hide" role="presentation" aria-hidden="true"></div>
         <time id="analog-clock-panel" class="hide">
             <div id="milli-seconds-niddle" class="hide" role="presentation" aria-hidden="true"></div>
             <div id="seconds-niddle" role="presentation" aria-hidden="true"></div>
