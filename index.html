@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Dec 13 2025 07:16:30 GMT+0900 (日本標準時)
+    build at: Sat Dec 13 2025 20:23:49 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -991,7 +991,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   inset-inline-start: 0px;
   inset-inline-end: 0px;
   position: fixed;
-  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), black calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5));
+  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5 - 3rem), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5 + 3rem));
   backdrop-filter: blur(0.5rem);
 }
 body.list #analog-clock-background:not(.show) {
@@ -4073,8 +4073,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Dec 13 2025 07:16:30 GMT+0900 (日本標準時)",
-    tick: 1765577790831
+    at: "Sat Dec 13 2025 20:23:49 GMT+0900 (日本標準時)",
+    tick: 1765625029142
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
