@@ -25,6 +25,12 @@ $warning-color: orange;
     inherits: true;
     initial-value: calc(30vw + 30vh);
 }
+@property --screen-brightness
+{
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 1;
+}
 @property --volume
 {
     syntax: '<number>';

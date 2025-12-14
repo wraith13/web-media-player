@@ -8588,14 +8588,15 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateShowFps = function () {
             ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.SettingsPanel.showFpsCheckbox.get());
         };
-        var brightnessTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
+        //const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function (disableLog) {
             var value = ui_12.UI.SettingsPanel.brightnessRange.get();
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
-            brightnessTimer.start(ui_12.UI.mediaScreen, "disable-transition", 100);
-            _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "opacity", "".concat(value / 100));
+            //brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
+            //Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+            _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "--screen-brightness", "".concat(value / 100));
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {

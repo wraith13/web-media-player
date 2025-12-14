@@ -40,6 +40,7 @@
         @include full-stretch-box();
         position: fixed;
         overflow: visible;
+        filter: brightness(var(--screen-brightness));
         .track-frame
         {
             @include full-stretch-box();
@@ -479,10 +480,10 @@
     mask-image: radial-gradient(
         circle at center,
         transparent 0%,
-        transparent calc((var(--short-side) * var(--clock-inner-size, 25) * 0.5) - 3.0rem),
+        transparent calc((var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
         #000000CC calc((var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
         #000000CC calc((var(--short-side) * var(--clock-outer-size, 96) * 0.5)),
-        transparent calc((var(--short-side) * var(--clock-outer-size, 96) * 0.5) + 3.0rem)
+        transparent calc((var(--short-side) * var(--clock-outer-size, 96) * 0.5))
     );
     backdrop-filter: blur(0.5rem);
     //backdrop-filter: blur(calc(var(--short-side) * 1));

@@ -3,6 +3,11 @@
   inherits: true;
   initial-value: calc(30vw + 30vh);
 }
+@property --screen-brightness {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 @property --volume {
   syntax: "<number>";
   inherits: false;
@@ -357,6 +362,7 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   inset-inline-end: 0px;
   position: fixed;
   overflow: visible;
+  filter: brightness(var(--screen-brightness));
 }
 body.list #screen-body #media-screen:not(.show) {
   opacity: 0;
@@ -899,7 +905,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   inset-inline-start: 0px;
   inset-inline-end: 0px;
   position: fixed;
-  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5 - 3rem), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5 + 3rem));
+  mask-image: radial-gradient(circle at center, transparent 0%, transparent calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-inner-size, 25) * 0.5), rgba(0, 0, 0, 0.8) calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5), transparent calc(var(--short-side) * var(--clock-outer-size, 96) * 0.5));
   backdrop-filter: blur(0.5rem);
 }
 body.list #analog-clock-background:not(.show) {
