@@ -23,7 +23,7 @@ $warning-color: orange;
 {
     syntax: '<length>';
     inherits: true;
-    initial-value: calc(30vw + 30vh);
+    initial-value: min(1vw, 1vh);
 }
 @property --screen-brightness
 {

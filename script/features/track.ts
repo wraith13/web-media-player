@@ -567,7 +567,9 @@ export class Track
                 foregroundColor,
                 intervalSize,
                 depth: 0.0,
-                maxPatternSize: randomSelect([ undefined, intervalSize /4, ]),
+                maxPatternSize: Tools.Environment.isSafari() ?
+                    undefined: // Disabled on Safari because pattern animations cause significant jitter
+                    randomSelect([ undefined, intervalSize /4, ]),
                 maximumFractionDigits: this.getEnoughPatternFractionDigits(),
             });
             const makeRandomTrispotArguments = (intervalSize: number) =>

@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Dec 14 2025 06:59:29 GMT+0900 (日本標準時)
+    build at: Sun Dec 14 2025 20:16:24 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -93,7 +93,7 @@ DEALINGS IN THE SOFTWARE.
 @property --short-side {
   syntax: "<length>";
   inherits: true;
-  initial-value: calc(30vw + 30vh);
+  initial-value: min(1vw, 1vh);
 }
 @property --screen-brightness {
   syntax: "<number>";
@@ -4079,8 +4079,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Dec 14 2025 06:59:29 GMT+0900 (日本標準時)",
-    tick: 1765663169596
+    at: "Sun Dec 14 2025 20:16:24 GMT+0900 (日本標準時)",
+    tick: 1765710984175
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -14293,7 +14293,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         foregroundColor: foregroundColor_1,
                         intervalSize: intervalSize,
                         depth: 0.0,
-                        maxPatternSize: randomSelect_1([undefined, intervalSize / 4,]),
+                        maxPatternSize: _tools_5.Tools.Environment.isSafari() ?
+                            undefined : // Disabled on Safari because pattern animations cause significant jitter
+                            randomSelect_1([undefined, intervalSize / 4,]),
                         maximumFractionDigits: _this.getEnoughPatternFractionDigits(),
                     });
                 };
@@ -15025,6 +15027,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTitle, Player.makeTitleText(currentTrack));
                 if ("off" !== ui_9.UI.SettingsPanel.crossFadeSelect.get()) {
                     CrossFade.start();
+                    Player.updateTrackProperties(); // チラつき防止の為、、、とりあえずこれでしばらく様子見
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
@@ -15055,8 +15058,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack = null;
         };
         Player.updateStretch = function () {
-            var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
-            document.documentElement.style.setProperty('--short-side', "".concat(Math.min(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
             overlay_1.Overlay.updateStretch();

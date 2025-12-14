@@ -7457,7 +7457,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         foregroundColor: foregroundColor_1,
                         intervalSize: intervalSize,
                         depth: 0.0,
-                        maxPatternSize: randomSelect_1([undefined, intervalSize / 4,]),
+                        maxPatternSize: _tools_5.Tools.Environment.isSafari() ?
+                            undefined : // Disabled on Safari because pattern animations cause significant jitter
+                            randomSelect_1([undefined, intervalSize / 4,]),
                         maximumFractionDigits: _this.getEnoughPatternFractionDigits(),
                     });
                 };
@@ -8189,6 +8191,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTitle, Player.makeTitleText(currentTrack));
                 if ("off" !== ui_9.UI.SettingsPanel.crossFadeSelect.get()) {
                     CrossFade.start();
+                    Player.updateTrackProperties(); // チラつき防止の為、、、とりあえずこれでしばらく様子見
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
@@ -8219,8 +8222,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             fadeoutingTrack = null;
         };
         Player.updateStretch = function () {
-            var innerWidth = window.innerWidth, innerHeight = window.innerHeight;
-            document.documentElement.style.setProperty('--short-side', "".concat(Math.min(innerWidth, innerHeight) * 0.01, "px"));
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
             overlay_1.Overlay.updateStretch();

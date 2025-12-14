@@ -517,6 +517,7 @@ export namespace Player
             if ("off" !== UI.SettingsPanel.crossFadeSelect.get())
             {
                 CrossFade.start();
+                updateTrackProperties(); // チラつき防止の為、、、とりあえずこれでしばらく様子見
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
@@ -556,8 +557,6 @@ export namespace Player
     }
     export const updateStretch = () =>
     {
-        const { innerWidth, innerHeight } = window;
-        document.documentElement.style.setProperty('--short-side', `${Math.min(innerWidth, innerHeight) *0.01}px`);
         currentTrack?.updateStretch("current");
         fadeoutingTrack?.updateStretch("fadeouting");
         Overlay.updateStretch();
