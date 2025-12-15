@@ -56,7 +56,7 @@ DUMMYSTYLE
     </div>
 </noscript>
 <div id="screen-body">
-    <div id="media-screen">
+    <div id="media-screen" style="opacity: 1.0;">
     </div>
     <div id="overlay-screen">
         <div id="analog-clock-background" class="hide" role="presentation" aria-hidden="true"></div>

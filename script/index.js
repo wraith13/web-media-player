@@ -7855,6 +7855,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         document.body.classList.toggle("list", false);
                         document.body.classList.toggle("play", true);
                         document.body.classList.toggle("show-paused-media", false);
+                        ui_9.UI.screenBody.classList.toggle("paused", false);
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
                                 image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
                                 audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
@@ -8595,8 +8596,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
-            //brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
-            //Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+            // brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
+            // Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
             _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "--screen-brightness", "".concat(value / 100));
             Events.mousemove();
         };

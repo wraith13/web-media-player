@@ -38,8 +38,8 @@ export namespace Events
         {
             console.log("💡 Brightness changed:", value);
         }
-        //brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
-        //Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
+        // brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
+        // Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
         Library.UI.setStyle(UI.mediaScreen, "--screen-brightness", `${value / 100}`);
         mousemove();
     };

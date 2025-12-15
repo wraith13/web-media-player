@@ -126,6 +126,7 @@ export namespace Player
         document.body.classList.toggle("list", false);
         document.body.classList.toggle("play", true);
         document.body.classList.toggle("show-paused-media", false);
+        UI.screenBody.classList.toggle("paused", false);
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
