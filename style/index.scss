@@ -40,7 +40,6 @@
         @include full-stretch-box();
         position: fixed;
         overflow: visible;
-        filter: brightness(var(--screen-brightness));
         .track-frame
         {
             @include full-stretch-box();
@@ -152,10 +151,15 @@
                 display: none;
             }
         }
-        &.disable-transition
-        {
-            transition: none !important;
-        }
+    }
+    #dark-curtain
+    {
+        @include full-stretch-box();
+        position: fixed;
+        background-color: black;
+        opacity: 0.0;
+        z-index: 40;
+        pointer-events: none;
     }
     #media-list
     {

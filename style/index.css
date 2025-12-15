@@ -362,7 +362,6 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   inset-inline-end: 0px;
   position: fixed;
   overflow: visible;
-  filter: brightness(var(--screen-brightness));
 }
 body.list #screen-body #media-screen:not(.show) {
   opacity: 0;
@@ -483,8 +482,17 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen.simple .visual-canvas {
   display: none;
 }
-#screen-body #media-screen.disable-transition {
-  transition: none !important;
+#screen-body #dark-curtain {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  background-color: black;
+  opacity: 0;
+  z-index: 40;
+  pointer-events: none;
 }
 #screen-body #media-list {
   transition: display 750ms, opacity 750ms, filter 750ms;

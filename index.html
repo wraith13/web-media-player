@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Dec 15 2025 06:46:54 GMT+0900 (日本標準時)
+    build at: Mon Dec 15 2025 19:27:02 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -454,7 +454,6 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   inset-inline-end: 0px;
   position: fixed;
   overflow: visible;
-  filter: brightness(var(--screen-brightness));
 }
 body.list #screen-body #media-screen:not(.show) {
   opacity: 0;
@@ -575,8 +574,17 @@ body.list #screen-body #media-screen:not(.show)::before {
 #screen-body #media-screen.simple .visual-canvas {
   display: none;
 }
-#screen-body #media-screen.disable-transition {
-  transition: none !important;
+#screen-body #dark-curtain {
+  margin: 0px;
+  inset-block-start: 0px;
+  inset-block-end: 0px;
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  position: fixed;
+  background-color: black;
+  opacity: 0;
+  z-index: 40;
+  pointer-events: none;
 }
 #screen-body #media-list {
   transition: display 750ms, opacity 750ms, filter 750ms;
@@ -3713,6 +3721,7 @@ DUMMYSTYLE
     <div id="background-screen">
         <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
     </div>
+    <div id="dark-curtain"></div>
     <div id="media-list">
         <div class="item add">
             <button id="add-media" data-aria-lang-key="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -4003,16 +4012,16 @@ DUMMYSTYLE
     <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <div id="transport-panel">
-<span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
-<span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
-<div id="media-time-frame">
-    <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
-    <div id="seek-panel">
-        <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+    <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
+    <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
+    <div id="media-time-frame">
+        <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
+        <div id="seek-panel">
+            <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+        </div>
     </div>
-</div>
-<button id="back-button" data-aria-lang-key="Go to Previous Media">
-    <div id="back-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <button id="back-button" data-aria-lang-key="Go to Previous Media">
+        <div id="back-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.902983,0,0,0.902983,1593.33,-226.409)">
@@ -4020,9 +4029,9 @@ DUMMYSTYLE
     </g>
 </svg>
 <div>
-</button>
-<button id="next-button" data-aria-lang-key="Go to Next Media">
-    <div id="next-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    </button>
+    <button id="next-button" data-aria-lang-key="Go to Next Media">
+        <div id="next-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.902983,0,0,0.902983,-498.328,-226.409)">
@@ -4030,9 +4039,9 @@ DUMMYSTYLE
     </g>
 </svg>
 <div>
-</button>
-<button id="rewind-button" data-aria-lang-key="Seek Backward">
-    <div id="rewind-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    </button>
+    <button id="rewind-button" data-aria-lang-key="Seek Backward">
+        <div id="rewind-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(-0.661586,5.56506e-33,5.56506e-33,0.661586,1409.7,-28.8097)">
@@ -4040,9 +4049,9 @@ DUMMYSTYLE
     </g>
 </svg>
 <div>
-</button>
-<button id="fast-forward-button" data-aria-lang-key="Seek Forward">
-    <div id="fast-forward-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    </button>
+    <button id="fast-forward-button" data-aria-lang-key="Seek Forward">
+        <div id="fast-forward-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(0.661586,5.56506e-33,-5.56506e-33,0.661586,-385.695,-28.8097)">
@@ -4050,7 +4059,7 @@ DUMMYSTYLE
     </g>
 </svg>
 <div>
-</button>
+    </button>
 </div>
 <div id="pressed-key" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="images" style="display:none;" aria-hidden="true"><div id="error-icon"><svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -4079,8 +4088,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Dec 15 2025 06:46:54 GMT+0900 (日本標準時)",
-    tick: 1765748814977
+    at: "Mon Dec 15 2025 19:27:02 GMT+0900 (日本標準時)",
+    tick: 1765794422924
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -10925,6 +10934,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.noscript = _library_2.Library.UI.getElementById("noscript", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
+        UI.darkCurtain = _library_2.Library.UI.getElementById("div", "dark-curtain");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
         var VisibilityApplier = /** @class */ (function () {
             function VisibilityApplier(element, delay) {
@@ -10967,6 +10977,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.VisibilityApplier = VisibilityApplier;
         var ControlPanel;
         (function (ControlPanel) {
+            ControlPanel.panel = _library_2.Library.UI.getElementById("div", "control-panel");
             ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
             ControlPanel.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
             ControlPanel.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
@@ -15426,15 +15437,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateShowFps = function () {
             ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.SettingsPanel.showFpsCheckbox.get());
         };
-        //const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function (disableLog) {
             var value = ui_12.UI.SettingsPanel.brightnessRange.get();
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
-            // brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
-            // Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
-            _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "--screen-brightness", "".concat(value / 100));
+            _library_9.Library.UI.setStyle(ui_12.UI.darkCurtain, "opacity", "".concat(100 - value, "%"));
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {

@@ -4089,6 +4089,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.noscript = _library_2.Library.UI.getElementById("noscript", "noscript");
         UI.screenBody = _library_2.Library.UI.getElementById("div", "screen-body");
         UI.mediaScreen = _library_2.Library.UI.getElementById("div", "media-screen");
+        UI.darkCurtain = _library_2.Library.UI.getElementById("div", "dark-curtain");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
         var VisibilityApplier = /** @class */ (function () {
             function VisibilityApplier(element, delay) {
@@ -4131,6 +4132,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.VisibilityApplier = VisibilityApplier;
         var ControlPanel;
         (function (ControlPanel) {
+            ControlPanel.panel = _library_2.Library.UI.getElementById("div", "control-panel");
             ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
             ControlPanel.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
             ControlPanel.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
@@ -8590,15 +8592,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         var updateShowFps = function () {
             ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.SettingsPanel.showFpsCheckbox.get());
         };
-        //const brightnessTimer = new Library.UI.ToggleClassForWhileTimer();
         Events.updateBrightness = function (disableLog) {
             var value = ui_12.UI.SettingsPanel.brightnessRange.get();
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
-            // brightnessTimer.start(UI.mediaScreen, "disable-transition", 100);
-            // Library.UI.setStyle(UI.mediaScreen, "opacity", `${value / 100}`);
-            _library_9.Library.UI.setStyle(ui_12.UI.mediaScreen, "--screen-brightness", "".concat(value / 100));
+            _library_9.Library.UI.setStyle(ui_12.UI.darkCurtain, "opacity", "".concat(100 - value, "%"));
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {

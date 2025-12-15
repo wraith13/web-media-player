@@ -3395,6 +3395,7 @@ declare module "script/ui" {
         const noscript: HTMLElement;
         const screenBody: HTMLDivElement;
         const mediaScreen: HTMLDivElement;
+        const darkCurtain: HTMLDivElement;
         const elementPool: HTMLDivElement;
         class VisibilityApplier {
             element: HTMLElement;
@@ -3407,6 +3408,7 @@ declare module "script/ui" {
             immediateHide(): void;
         }
         namespace ControlPanel {
+            const panel: HTMLDivElement;
             const wakeUpButton: Library.Control.Checkbox;
             const shuffle: Library.Control.Checkbox;
             const repeat: Library.Control.Checkbox;

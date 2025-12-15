@@ -14,6 +14,8 @@ export namespace UI
         Library.UI.getElementById("div", "screen-body");
     export const mediaScreen =
         Library.UI.getElementById("div", "media-screen");
+    export const darkCurtain =
+        Library.UI.getElementById("div", "dark-curtain");
     export const elementPool =
         Library.UI.getElementById("div", "element-pool");
     export class VisibilityApplier
@@ -64,6 +66,8 @@ export namespace UI
     }
     export namespace ControlPanel
     {
+        export const panel =
+            Library.UI.getElementById("div", "control-panel");
         export const wakeUpButton = new Library.Control.Checkbox(control.wakeUpButton);
         export const shuffle = new Library.Control.Checkbox(control.shuffle);
         export const repeat = new Library.Control.Checkbox(control.repeat);

@@ -88,6 +88,7 @@ DUMMYSTYLE
     <div id="background-screen">
         <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
     </div>
+    <div id="dark-curtain"></div>
     <div id="media-list">
         <div class="item add">
             <button id="add-media" data-aria-lang-key="add-media">__ADD_ICON__</button>
@@ -293,26 +294,26 @@ DUMMYSTYLE
     <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 </div>
 <div id="transport-panel">
-<span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
-<span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
-<div id="media-time-frame">
-    <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
-    <div id="seek-panel">
-        <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+    <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
+    <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
+    <div id="media-time-frame">
+        <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
+        <div id="seek-panel">
+            <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+        </div>
     </div>
-</div>
-<button id="back-button" data-aria-lang-key="Go to Previous Media">
-    <div id="back-icon" role="presentation" aria-hidden="true">__BACK_ICON__<div>
-</button>
-<button id="next-button" data-aria-lang-key="Go to Next Media">
-    <div id="next-icon" role="presentation" aria-hidden="true">__NEXT_ICON__<div>
-</button>
-<button id="rewind-button" data-aria-lang-key="Seek Backward">
-    <div id="rewind-icon" role="presentation" aria-hidden="true">__REWIND_ICON__<div>
-</button>
-<button id="fast-forward-button" data-aria-lang-key="Seek Forward">
-    <div id="fast-forward-icon" role="presentation" aria-hidden="true">__FAST_FORWARD_ICON__<div>
-</button>
+    <button id="back-button" data-aria-lang-key="Go to Previous Media">
+        <div id="back-icon" role="presentation" aria-hidden="true">__BACK_ICON__<div>
+    </button>
+    <button id="next-button" data-aria-lang-key="Go to Next Media">
+        <div id="next-icon" role="presentation" aria-hidden="true">__NEXT_ICON__<div>
+    </button>
+    <button id="rewind-button" data-aria-lang-key="Seek Backward">
+        <div id="rewind-icon" role="presentation" aria-hidden="true">__REWIND_ICON__<div>
+    </button>
+    <button id="fast-forward-button" data-aria-lang-key="Seek Forward">
+        <div id="fast-forward-icon" role="presentation" aria-hidden="true">__FAST_FORWARD_ICON__<div>
+    </button>
 </div>
 <div id="pressed-key" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="images" style="display:none;" aria-hidden="true">__IMAGES__</div>
