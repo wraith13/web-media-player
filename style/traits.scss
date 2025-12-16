@@ -97,6 +97,29 @@
         pointer-events: none;
     }
 }
+@mixin blur-transition($modes...)
+{
+    transition: filter 750ms;
+    @include apply-transition-effect($modes...)
+    {
+        cursor: none;
+        pointer-events: none;
+        filter: blur(1.0em);
+        &::before
+        {
+            content: "";
+            position: absolute;
+            top: -1em;
+            left: -1em;
+            right: -1em;
+            bottom: -1em;
+            background: inherit;
+            filter: blur(1.0em);
+            z-index: -1;
+            transition: filter 750ms;
+        }
+    }
+}
 @mixin flex($flex-direction: row, $justify-content: start, $align-items: center)
 {
     display: flex;
@@ -378,6 +401,39 @@
     $step: math.div(180deg, $half-count);
     @for $i from 0 through $half-count - 1 {
         $is-major: $i % 5 == 0;
+        $angle: $i * $step;
+        $grads: list.append(
+            $grads,
+            if(
+                $is-major,
+                linear-gradient(
+                    #{$angle},
+                    transparent calc(50% - var(--major-tick-width)),
+                    var(--major-tick-color) calc(50% - var(--major-tick-width)),
+                    var(--major-tick-color) calc(50% + var(--major-tick-width)),
+                    transparent calc(50% + var(--major-tick-width))
+                ),
+                linear-gradient(
+                    #{$angle},
+                    transparent calc(50% - var(--minor-tick-width)),
+                    var(--minor-tick-color) calc(50% - var(--minor-tick-width)),
+                    var(--minor-tick-color) calc(50% + var(--minor-tick-width)),
+                    transparent calc(50% + var(--minor-tick-width))
+                )
+            ),
+            comma
+        );
+    }
+    background: $grads;
+}
+@mixin clock-24-ticks()
+{
+    $count: 24;
+    $half-count: math.div($count, 2);
+    $grads: ();
+    $step: math.div(180deg, $half-count);
+    @for $i from 0 through $half-count - 1 {
+        $is-major: $i % 2 == 0;
         $angle: $i * $step;
         $grads: list.append(
             $grads,

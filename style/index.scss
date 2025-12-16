@@ -35,7 +35,7 @@
     }
     #media-screen
     {
-        @include fade-transition-without-vanish("body.list");
+        @include blur-transition("body.list");
         @include solid-box();
         @include full-stretch-box();
         position: fixed;
@@ -557,10 +557,8 @@
         }
         &#scale24-panel
         {
-            --tick-width: var(--major-tick-width);
-            --tick-color: var(--major-tick-color);
             @include circle-size(55);
-            @include even-clock-ticks(24);
+            @include clock-24-ticks();
         }
         &#week-niddle
         {
@@ -615,13 +613,6 @@
         }
     }
 }
-body:not(.show-paused-media) #screen-body.paused
-{
-    #media-screen
-    {
-        opacity: 0.2;
-    }
-}
 body #screen-body.paused
 {
     background-color: $body-background-color;
@@ -656,7 +647,7 @@ body.show-paused-media #screen-body
         .item:not(.add)
         {
             opacity: 0.3;
-            filter: blur(0.5rem);
+            //filter: blur(0.5rem);
             transition: opacity 1000ms, filter 1000ms;
         }
     }
