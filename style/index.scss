@@ -49,8 +49,8 @@
         .track-frame,
         .visualizer
         {
-            will-change: --blur, --brightness, opacity, mask-image, mask-position, mask-size;
-            filter: blur(var(--blur)) brightness(var(--brightness));
+            will-change: --blur, opacity, mask-image, mask-position, mask-size;
+            filter: blur(var(--blur));
             &:first-child,
             &:first-child
             {

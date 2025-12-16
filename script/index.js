@@ -7413,11 +7413,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 this.visualElement.classList.toggle("muted", this.playerElement.muted);
             }
         };
-        Track.prototype.setBrightness = function (rate) {
-            if (this.visualElement) {
-                _library_6.Library.UI.setStyle(this.visualElement, "--brightness", "".concat(rate));
-            }
-        };
         Track.prototype.setOpacity = function (rate) {
             var finalOpacity = rate;
             this.fadeRate = finalOpacity;
@@ -8048,7 +8043,6 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             var track = getTrack(trackType);
             if (null !== track) {
                 track.setVolume(Player.getVolume(trackType), Player.getVolumeRate(trackType), Player.getVolumeFade(trackType));
-                track.setBrightness(Player.getBrightness());
                 track.setOpacity(Player.getOpacity(trackType));
                 track.setBlur(Player.getBlur(trackType));
                 if ("current" === trackType) {
@@ -8131,6 +8125,11 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         Player.makeTimeText = function (track) {
             return "".concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getElapsedTime(), Player.locale), " / ").concat(_tools_6.Tools.Timespan.toMediaTimeString(track.getDuration(), Player.locale));
         };
+        Player.updateDarkCurtainOpacity = function () {
+            var brightness = ui_9.UI.SettingsPanel.brightnessRange.get() * timer_1.Timer.getTimerFade();
+            ;
+            _library_7.Library.UI.setStyle(ui_9.UI.darkCurtain, "opacity", "".concat((100 - brightness).toFixed(2), "%"));
+        };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
                 fadeoutingTrack.step("fadeouting");
@@ -8160,9 +8159,12 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     fps_1.Fps.step(now);
                     Player.updateFps();
                     Player.crossFade();
-                    Player.updateTrackProperties();
+                    if (CrossFade.isCrossFading()) {
+                        Player.updateTrackProperties();
+                    }
                     Player.step();
                     Player.updateMediaSessionPositionState();
+                    Player.updateDarkCurtainOpacity();
                 }
                 finally {
                     loopHandle = window.requestAnimationFrame(Player.loop);
@@ -8228,6 +8230,14 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
             overlay_1.Overlay.updateStretch();
+        };
+        Player.updateVolume = function () {
+            if (null !== currentTrack) {
+                currentTrack.setVolume(Player.getVolume("current"), Player.getVolumeRate("current"), Player.getVolumeFade("current"));
+            }
+            if (null !== fadeoutingTrack) {
+                fadeoutingTrack.setVolume(Player.getVolume("fadeouting"), Player.getVolumeRate("fadeouting"), Player.getVolumeFade("fadeouting"));
+            }
         };
         Player.updateLoopShortMedia = function () {
             if (null !== currentTrack) {
@@ -8587,6 +8597,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
             ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
             //Media.setVolume(value);
+            _features_2.Features.Player.updateVolume();
             Events.mousemove();
         };
         var updateShowFps = function () {
@@ -8597,7 +8608,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
-            _library_9.Library.UI.setStyle(ui_12.UI.darkCurtain, "opacity", "".concat(100 - value, "%"));
+            _features_2.Features.Player.updateDarkCurtainOpacity();
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {

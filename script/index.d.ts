@@ -4070,7 +4070,6 @@ declare module "script/features/track" {
         updateLoopShortMedia(isPlaying: boolean): void;
         isMuteCondition(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): boolean;
         setVolume(volume: number, rate?: number, fade?: "fadeIn" | "fadeOut"): void;
-        setBrightness(rate: number): void;
         setOpacity(rate: number): void;
         easingForBlur(rate: number): number;
         setBlur(rate: number): void;
@@ -4170,6 +4169,7 @@ declare module "script/features/player" {
         const makeIndexText: (track: Track) => string;
         const makeTitleText: (track: Track) => string;
         const makeTimeText: (track: Track) => string;
+        const updateDarkCurtainOpacity: () => void;
         const step: () => void;
         const updateMediaSessionPositionState: () => void;
         const loop: (now: number) => void;
@@ -4177,6 +4177,7 @@ declare module "script/features/player" {
         const removeTrack: (track: Track | null) => void;
         const removeFadeoutTrack: () => void;
         const updateStretch: () => void;
+        const updateVolume: () => void;
         const updateLoopShortMedia: () => void;
         const clear: () => void;
         const initialize: (params: Record<string, string>) => void;

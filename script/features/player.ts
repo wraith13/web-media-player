@@ -357,7 +357,6 @@ export namespace Player
         if (null !== track)
         {
             track.setVolume(getVolume(trackType), getVolumeRate(trackType), getVolumeFade(trackType));
-            track.setBrightness(getBrightness());
             track.setOpacity(getOpacity(trackType));
             track.setBlur(getBlur(trackType));
             if ("current" === trackType)
@@ -440,6 +439,11 @@ export namespace Player
         `${track.media.name}`;
     export const makeTimeText = (track: Track): string =>
         `${Tools.Timespan.toMediaTimeString(track.getElapsedTime(), locale)} / ${Tools.Timespan.toMediaTimeString(track.getDuration(), locale)}`;
+    export const updateDarkCurtainOpacity = () =>
+    {
+        const brightness = UI.SettingsPanel.brightnessRange.get() *Timer.getTimerFade();;
+        Library.UI.setStyle(UI.darkCurtain, "opacity", `${(100 -brightness).toFixed(2)}%`);
+    };
     export const step = () =>
     {
         if (null !== fadeoutingTrack)
@@ -477,9 +481,13 @@ export namespace Player
                 Fps.step(now);
                 updateFps();
                 crossFade();
-                updateTrackProperties();
+                if (CrossFade.isCrossFading())
+                {
+                    updateTrackProperties();
+                }
                 step();
                 updateMediaSessionPositionState();
+                updateDarkCurtainOpacity();
             }
             finally
             {
@@ -562,6 +570,17 @@ export namespace Player
         fadeoutingTrack?.updateStretch("fadeouting");
         Overlay.updateStretch();
     }
+    export const updateVolume = () =>
+    {
+        if (null !== currentTrack)
+        {
+            currentTrack.setVolume(getVolume("current"), getVolumeRate("current"), getVolumeFade("current"));
+        }
+        if (null !== fadeoutingTrack)
+        {
+            fadeoutingTrack.setVolume(getVolume("fadeouting"), getVolumeRate("fadeouting"), getVolumeFade("fadeouting"));
+        }
+    };
     export const updateLoopShortMedia = () =>
     {
         if (null !== currentTrack)

@@ -494,13 +494,6 @@ export class Track
             this.visualElement.classList.toggle("muted", this.playerElement.muted);
         }
     }
-    setBrightness(rate: number): void
-    {
-        if (this.visualElement)
-        {
-            Library.UI.setStyle(this.visualElement, "--brightness", `${rate}`);
-        }
-    }
     setOpacity(rate: number): void
     {
         const finalOpacity = rate;

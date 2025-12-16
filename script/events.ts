@@ -24,6 +24,7 @@ export namespace Events
         UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
         UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
         //Media.setVolume(value);
+        Features.Player.updateVolume();
         mousemove();
     };
     const updateShowFps = () =>
@@ -37,7 +38,7 @@ export namespace Events
         {
             console.log("💡 Brightness changed:", value);
         }
-        Library.UI.setStyle(UI.darkCurtain, "opacity", `${100 -value}%`);
+        Features.Player.updateDarkCurtainOpacity();
         mousemove();
     };
     const updateLoopShortMedia = () =>

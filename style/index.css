@@ -3,11 +3,6 @@
   inherits: true;
   initial-value: min(1vw, 1vh);
 }
-@property --screen-brightness {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 1;
-}
 @property --volume {
   syntax: "<number>";
   inherits: false;
@@ -22,11 +17,6 @@
   syntax: "<length>";
   inherits: false;
   initial-value: 0px;
-}
-@property --brightness {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 1;
 }
 @keyframes vanish {
   100% {
@@ -393,8 +383,8 @@ body.list #screen-body #media-screen:not(.show)::before {
 }
 #screen-body #media-screen .track-frame,
 #screen-body #media-screen .visualizer {
-  will-change: --blur, --brightness, opacity, mask-image, mask-position, mask-size;
-  filter: blur(var(--blur)) brightness(var(--brightness));
+  will-change: --blur, opacity, mask-image, mask-position, mask-size;
+  filter: blur(var(--blur));
 }
 #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe), #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe),
 #screen-body #media-screen .visualizer:first-child:not(.reverse-wipe),
