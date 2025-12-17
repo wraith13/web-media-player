@@ -8021,6 +8021,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 2];
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
+                        Player.updateTrackProperties();
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
                     case 1:

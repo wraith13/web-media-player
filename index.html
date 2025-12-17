@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Dec 16 2025 20:51:56 GMT+0900 (日本標準時)
+    build at: Wed Dec 17 2025 06:20:39 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1090,7 +1090,7 @@ body.list #analog-clock-panel:not(.show)::before {
   translate: -50% -50%;
   border-radius: 50%;
   --major-line-angle: 1.5deg;
-  --major-tick-width: calc(var(--short-side) * 0.3);
+  --major-tick-width: calc(var(--short-side) * 0.45);
   --major-tick-color: rgba(0, 0, 0, 0.5);
   --minor-line-angle: 0.75deg;
   --minor-tick-width: calc(var(--short-side) * 0.15);
@@ -1322,7 +1322,6 @@ body.show-paused-media #screen-body #media-list .item.add {
 }
 body.show-paused-media #screen-body #media-list .item:not(.add) {
   opacity: 0.3;
-  filter: blur(0.5rem);
   transition: opacity 1000ms, filter 1000ms;
 }
 
@@ -4071,8 +4070,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Dec 16 2025 20:51:56 GMT+0900 (日本標準時)",
-    tick: 1765885916842
+    at: "Wed Dec 17 2025 06:20:39 GMT+0900 (日本標準時)",
+    tick: 1765920039713
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -14849,6 +14848,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         if (!(((_a = CrossFade.getEndAt()) !== null && _a !== void 0 ? _a : 0) <= Date.now())) return [3 /*break*/, 2];
                         CrossFade.clear();
                         Player.removeFadeoutTrack();
+                        Player.updateTrackProperties();
                         if (!!currentTrack.isPlaying()) return [3 /*break*/, 2];
                         return [4 /*yield*/, currentTrack.play()];
                     case 1:

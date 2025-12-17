@@ -998,7 +998,7 @@ body.list #analog-clock-panel:not(.show)::before {
   translate: -50% -50%;
   border-radius: 50%;
   --major-line-angle: 1.5deg;
-  --major-tick-width: calc(var(--short-side) * 0.3);
+  --major-tick-width: calc(var(--short-side) * 0.45);
   --major-tick-color: rgba(0, 0, 0, 0.5);
   --minor-line-angle: 0.75deg;
   --minor-tick-width: calc(var(--short-side) * 0.15);
@@ -1230,7 +1230,6 @@ body.show-paused-media #screen-body #media-list .item.add {
 }
 body.show-paused-media #screen-body #media-list .item:not(.add) {
   opacity: 0.3;
-  filter: blur(0.5rem);
   transition: opacity 1000ms, filter 1000ms;
 }
 
