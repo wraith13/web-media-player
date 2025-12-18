@@ -667,8 +667,16 @@ body.show-paused-media #screen-body
         z-index: 100;
         inset-block-start: 2.5rem;
         inset-block-start: calc(2.5rem + env(safe-area-inset-top));
-        inset-inline-end: 0.5rem;
-        inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
+        @at-root html:not([dir="rtl"]) &
+        {
+            inset-inline-end: 0.5rem;
+            inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
+        }
+        @at-root html[dir="rtl"] &
+        {
+            inset-inline-end: 0.5rem;
+            inset-inline-end: calc(0.5rem + env(safe-area-inset-left));
+        }
         border-radius: 0.5rem;
         padding-block: 0.5rem;
         padding-inline: 0.75rem;
@@ -1881,9 +1889,18 @@ label:not(.icon-button)
     {
         position: fixed;
         border-radius: 0.5rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        bottom: 1.0rem;
+        bottom: calc(1.0rem + env(safe-area-inset-bottom));
+        @at-root html:not([dir="rtl"]) &
+        {
+            left: 1.0rem;
+            left: calc(1.0rem + env(safe-area-inset-left));
+        }
+        @at-root html[dir="rtl"] &
+        {
+            right: 1.0rem;
+            right: calc(1.0rem + env(safe-area-inset-right));
+        }
         padding: 0.5rem;
         gap: 0.5rem 0.5rem;
         z-index: 100;

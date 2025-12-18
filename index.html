@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Dec 17 2025 19:10:28 GMT+0900 (日本標準時)
+    build at: Thu Dec 18 2025 17:13:06 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1358,8 +1358,6 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   z-index: 100;
   inset-block-start: 2.5rem;
   inset-block-start: calc(2.5rem + env(safe-area-inset-top));
-  inset-inline-end: 0.5rem;
-  inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
   border-radius: 0.5rem;
   padding-block: 0.5rem;
   padding-inline: 0.75rem;
@@ -1368,6 +1366,16 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   will-change: contents opacity filter;
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
+html:not([dir=rtl]) #fps {
+  inset-inline-end: 0.5rem;
+  inset-inline-end: calc(0.5rem + env(safe-area-inset-right));
+}
+
+html[dir=rtl] #fps {
+  inset-inline-end: 0.5rem;
+  inset-inline-end: calc(0.5rem + env(safe-area-inset-left));
+}
+
 body:not(.play) #fps:not(.show) {
   opacity: 0;
   cursor: none;
@@ -3543,13 +3551,22 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #pressed-key {
   position: fixed;
   border-radius: 0.5rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  bottom: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
   padding: 0.5rem;
   gap: 0.5rem 0.5rem;
   z-index: 100;
 }
+html:not([dir=rtl]) #pressed-key {
+  left: 1rem;
+  left: calc(1rem + env(safe-area-inset-left));
+}
+
+html[dir=rtl] #pressed-key {
+  right: 1rem;
+  right: calc(1rem + env(safe-area-inset-right));
+}
+
 #pressed-key kbd {
   font-size: 0.75rem;
   font-weight: 400;
@@ -3738,7 +3755,7 @@ DUMMYSTYLE
         <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
     </div>
     <div id="dark-curtain"></div>
-    <div id="media-list">
+    <div id="media-list" data-aria-lang-key="media-list" role="list">
         <div class="item add">
             <button id="add-media" data-aria-lang-key="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3754,17 +3771,19 @@ DUMMYSTYLE
 </div>
 <div id="element-pool" style="display:none;" aria-hidden="true"></div>
 <div id="progress-circle" role="progressbar" aria-live="polite" data-aria-lang-key="loading-media"></div>
-<div id="no-media-panel">
-    <span data-lang-key="no-media-message"></span>
-</div>
-<div id="not-supported-media-panel">
-    <span data-lang-key="not-supported-media-message"></span>
-</div>
-<div id="wake-up-timer-not-working-panel">
-    <span data-lang-key="wake-up-timer-not-working"></span>
-</div>
-<div id="wake-up-timer-requires-active-page-panel">
-    <span data-lang-key="wake-up-timer-requires-active-page"></span>
+<div id="message-panel">
+    <div id="no-media-panel" role="presentation">
+        <span data-lang-key="no-media-message"></span>
+    </div>
+    <div id="not-supported-media-panel" role="presentation">
+        <span data-lang-key="not-supported-media-message"></span>
+    </div>
+    <div id="wake-up-timer-not-working-panel" role="presentation">
+        <span data-lang-key="wake-up-timer-not-working"></span>
+    </div>
+    <div id="wake-up-timer-requires-active-page-panel" role="presentation">
+        <span data-lang-key="wake-up-timer-requires-active-page"></span>
+    </div>
 </div>
 <div id="fps" aria-hidden="true"></div>
 <div id="control-panel">
@@ -4107,8 +4126,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Dec 17 2025 19:10:28 GMT+0900 (日本標準時)",
-    tick: 1765966228327
+    at: "Thu Dec 18 2025 17:13:06 GMT+0900 (日本標準時)",
+    tick: 1766045586482
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -7056,6 +7075,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "جارٍ تحميل الوسائط...",
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
+            "media-list": "قائمة الوسائط",
             "media-count": "عدد الوسائط",
             "media-length": "طول الوسائط",
             "with-fullscreen": "ملء الشاشة",
@@ -7155,6 +7175,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Medien werden geladen...",
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
+            "media-list": "Medienliste",
             "media-count": "Medienanzahl",
             "media-length": "Mediendauer",
             "with-fullscreen": "Vollbild",
@@ -7254,6 +7275,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Φόρτωση μέσων...",
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
+            "media-list": "Λίστα μέσων",
             "media-count": "Αριθμός μέσων",
             "media-length": "Διάρκεια μέσων",
             "with-fullscreen": "Πλήρης οθόνη",
@@ -7353,6 +7375,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Loading media...",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
+            "media-list": "Media List",
             "media-count": "Media Count",
             "media-length": "Media Length",
             "with-fullscreen": "FullScreen",
@@ -7452,6 +7475,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Cargando medios...",
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
+            "media-list": "Lista de medios",
             "media-count": "Cantidad de medios",
             "media-length": "Duración de los medios",
             "with-fullscreen": "Pantalla completa",
@@ -7551,6 +7575,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "در حال بارگذاری رسانه...",
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
+            "media-list": "فهرست رسانه‌ها",
             "media-count": "تعداد رسانه",
             "media-length": "مدت رسانه",
             "with-fullscreen": "تمام‌صفحه",
@@ -7650,6 +7675,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Chargement des médias...",
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
+            "media-list": "Liste des médias",
             "media-count": "Nombre de médias",
             "media-length": "Durée des médias",
             "with-fullscreen": "Plein écran",
@@ -7749,6 +7775,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "मीडिया लोड हो रहा है...",
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
+            "media-list": "मीडिया सूची",
             "media-count": "मीडिया गिनती",
             "media-length": "मीडिया अवधि",
             "with-fullscreen": "फ़ुलस्क्रीन",
@@ -7848,6 +7875,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Memuat media...",
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
+            "media-list": "Daftar Media",
             "media-count": "Jumlah Media",
             "media-length": "Durasi Media",
             "with-fullscreen": "Layar Penuh",
@@ -7947,6 +7975,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Caricamento media...",
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
+            "media-list": "Elenco media",
             "media-count": "Conteggio media",
             "media-length": "Durata media",
             "with-fullscreen": "Schermo intero",
@@ -8046,6 +8075,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "メディアを読み込み中...",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
+            "media-list": "メディアリスト",
             "media-count": "メディア数",
             "media-length": "メディア長",
             "with-fullscreen": "フルスクリーン",
@@ -8145,6 +8175,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "미디어 로드 중...",
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
+            "media-list": "미디어 목록",
             "media-count": "미디어 수",
             "media-length": "미디어 길이",
             "with-fullscreen": "전체화면",
@@ -8244,6 +8275,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Media laden...",
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
+            "media-list": "Medialijst",
             "media-count": "Aantal media",
             "media-length": "Mediaduur",
             "with-fullscreen": "Volledig scherm",
@@ -8343,6 +8375,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Ładowanie multimediów...",
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
+            "media-list": "Lista mediów",
             "media-count": "Liczba mediów",
             "media-length": "Długość mediów",
             "with-fullscreen": "Pełny ekran",
@@ -8442,6 +8475,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Carregando mídia...",
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
+            "media-list": "Lista de mídia",
             "media-count": "Contagem de mídias",
             "media-length": "Duração da mídia",
             "with-fullscreen": "Tela cheia",
@@ -10609,6 +10643,7 @@ define("resource/control", [], {
             "30s",
             "24s",
             "18s",
+            "15s",
             "12.5s",
             "10s",
             "7.5s",
@@ -10644,6 +10679,7 @@ define("resource/control", [], {
             "30s",
             "24s",
             "18s",
+            "15s",
             "12.5s",
             "10s",
             "7.5s",
@@ -12034,6 +12070,7 @@ define("script/features/media", ["require", "exports", "script/library/index", "
                             attributes: {
                                 src: entry.thumbnail,
                                 alt: entry.name,
+                                "aria-hidden": "true",
                             },
                         };
                         return [2 /*return*/, img];
@@ -15331,13 +15368,15 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 draggable: "true",
                                 "data-index": (ix + 1).toLocaleString(MediaList.locale),
                                 tabindex: "0",
+                                role: "listitem",
+                                "aria-label": entry.name,
                             }
                         };
                         return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
                     case 1:
                         _c = [
                             _e.sent(),
-                            { tag: "span", className: "name", text: entry.name, },
+                            { tag: "span", className: "name", text: entry.name, attribues: { "aria-hidden": "true", }, },
                             { tag: "span", className: "type", text: entry.category, },
                             { tag: "span", className: "size", text: _tools_7.Tools.Byte.toDisplayString(entry.size, 3, MediaList.locale), },
                             { tag: "span", className: "duration", text: null !== entry.duration ? _tools_7.Tools.Timespan.toMediaTimeString(entry.duration, MediaList.locale) : "", }

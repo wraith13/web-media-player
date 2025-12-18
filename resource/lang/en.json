@@ -7,6 +7,7 @@
     "loading-media": "Loading media...",
     "Auto": "Auto",
     "description": "Web-based media player that runs in a web browser",
+    "media-list": "Media List",
     "media-count": "Media Count",
     "media-length": "Media Length",
     "with-fullscreen": "FullScreen",

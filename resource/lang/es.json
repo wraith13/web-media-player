@@ -7,6 +7,7 @@
     "loading-media": "Cargando medios...",
     "Auto": "Automático",
     "description": "Reproductor multimedia web que se ejecuta en un navegador",
+    "media-list": "Lista de medios",
     "media-count": "Cantidad de medios",
     "media-length": "Duración de los medios",
     "with-fullscreen": "Pantalla completa",

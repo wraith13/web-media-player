@@ -88,11 +88,13 @@ export namespace MediaList
                 draggable: "true",
                 "data-index": (ix +1).toLocaleString(locale),
                 tabindex: "0",
+                role: "listitem",
+                "aria-label": entry.name,
             },
             children:
             [
                 await Media.makeThumbnailElement(entry),
-                { tag: "span", className: "name", text: entry.name, },
+                { tag: "span", className: "name", text: entry.name, attribues: { "aria-hidden": "true", }, },
                 { tag: "span", className: "type", text: entry.category, },
                 { tag: "span", className: "size", text: Tools.Byte.toDisplayString(entry.size, 3, locale), },
                 { tag: "span", className: "duration", text: null !== entry.duration ? Tools.Timespan.toMediaTimeString(entry.duration, locale): "", },

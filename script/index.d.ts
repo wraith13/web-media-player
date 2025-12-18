@@ -40,6 +40,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -139,6 +140,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -238,6 +240,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -337,6 +340,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -436,6 +440,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -535,6 +540,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -634,6 +640,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -733,6 +740,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -832,6 +840,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -931,6 +940,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1030,6 +1040,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1129,6 +1140,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1228,6 +1240,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1327,6 +1340,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1426,6 +1440,7 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "media-list": string;
             "media-count": string;
             "media-length": string;
             "with-fullscreen": string;
@@ -1530,6 +1545,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -1629,6 +1645,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -1728,6 +1745,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -1827,6 +1845,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -1926,6 +1945,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2025,6 +2045,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2124,6 +2145,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2223,6 +2245,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2322,6 +2345,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2421,6 +2445,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2520,6 +2545,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2619,6 +2645,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2718,6 +2745,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2817,6 +2845,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;
@@ -2916,6 +2945,7 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "media-list": string;
                 "media-count": string;
                 "media-length": string;
                 "with-fullscreen": string;

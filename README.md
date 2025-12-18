@@ -12,11 +12,13 @@
 - ✅ Stretch settings to control how much content can exceed the screen size, preventing excessive enlargement.
 - ✅ Padding settings to fill extra space with enlarged content.
 - ✅ Various visualizers based on volume, waveform, and frequency.
+- ✅ Stylish analog clock display
 - ✅ Crossfade transitions: Alpha, Blur, Wipe, Random
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Keyboard shortcut style presets: Apple Music, YouTube, Spotify, Windows Media Player
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
 - ✅ Full offline support for all features except weather display (weather requires an Internet connection)
+- ✅ For practical browser compatibility, everything that doesn't need to be split into a separate file is embedded in index.html. This reduces requests and enables very fast loading, so the single index.html file provides nearly all functionality with minimal issues.
 - ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt)
 
 ## Screenshot
@@ -35,6 +37,12 @@ Playing an audio
 
 Playing a video on an iPhone Air (installed and running as a App)
 ![AC6](./screenshot/ac6.png)
+
+Wipe transition
+![Wipe transition](./screenshot/wipe-transition.png)
+
+Stylish analog clock
+![Stylish analog clock](./screenshot/stylish-analog-clock.png)
 
 ## Options Available via URL Parameters
 

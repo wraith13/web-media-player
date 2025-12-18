@@ -276,6 +276,7 @@ export namespace Media
                 {
                     src: entry.thumbnail,
                     alt: entry.name,
+                    "aria-hidden": "true",
                 },
             };
             return img;

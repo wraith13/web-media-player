@@ -7,6 +7,7 @@
     "loading-media": "Caricamento media...",
     "Auto": "Automatico",
     "description": "Lettore multimediale web che viene eseguito nel browser",
+    "media-list": "Elenco media",
     "media-count": "Conteggio media",
     "media-length": "Durata media",
     "with-fullscreen": "Schermo intero",
