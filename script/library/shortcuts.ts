@@ -75,7 +75,7 @@ export namespace Shortcuts
                 })
             );
     const isInputElementFocused = () =>
-        ["input", "textarea", "button"].includes(document.activeElement?.tagName?.toLowerCase() ?? "");
+        ["input", "textarea", "button", "select"].includes(document.activeElement?.tagName?.toLowerCase() ?? "");
     const normalizeKey = (key: string, code: string) =>
         code === "Space" ? " ":
         key.length === 1 ? key.toUpperCase():
@@ -170,6 +170,17 @@ export namespace Shortcuts
         }
         updatePressedKeyDiv();
     };
+    export const isLabelEvent = (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
+    {
+        if ("label" === (document.activeElement?.tagName?.toLowerCase() ?? ""))
+        {
+            if (" " === event.key || "Enter" === event.key || "Escape" === event.key)
+            {
+                return true;
+            }
+        }
+        return false;
+    };
     export const handleKeyEvent = (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
     {
         pruneStaleKeys();
@@ -178,7 +189,34 @@ export namespace Shortcuts
         const commandMap = currentCommandMap;
         if (null !== commandMap)
         {
-            if ( ! isInputElementFocused())
+            if (isLabelEvent(type, event))
+            {
+                if ("onKeyDown" === type)
+                {
+                    const label = document.activeElement as HTMLLabelElement;
+                    if ("Escape" === event.key)
+                    {
+                        label.blur();
+                    }
+                    else
+                    {
+                        label.click();
+                    }
+                }
+            }
+            else
+            if (isInputElementFocused())
+            {
+                if ("onKeyDown" === type)
+                {
+                    const label = document.activeElement as HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement | HTMLSelectElement;
+                    if ("Escape" === event.key)
+                    {
+                        label.blur();
+                    }
+                }
+            }
+            else
             {
                 const commandKeys = (shortcuts[style].items as Item[]).reduce((a, b) => a.concat(b.shortcuts), [] as Entry[]).filter
                 (

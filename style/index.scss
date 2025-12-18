@@ -793,13 +793,13 @@ body:not(.play):not(.mousemove).sleeped.wake-up-timer-requires-active-page #wake
         padding-inline: 0.25rem;
     }
 }
-#control-panel
+#control-panel form
 {
     @include black-pop-panel-style();
     @include fade-transition("body.play:not(.show-ui)", "body:not(.play):not(.mousemove).sleeped");
-    @include flex(row, center);
     &
     {
+        @include flex(row, center);
         border-radius: 4.5rem;
         inset-block-end: 1.5rem;
         inset-block-end: calc(1.5rem + env(safe-area-inset-bottom));

@@ -3131,7 +3131,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                 });
             });
         };
-        var isInputElementFocused = function () { var _a, _b, _c; return ["input", "textarea", "button"].includes((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : ""); };
+        var isInputElementFocused = function () { var _a, _b, _c; return ["input", "textarea", "button", "select"].includes((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : ""); };
         var normalizeKey = function (key, code) {
             return code === "Space" ? " " :
                 key.length === 1 ? key.toUpperCase() :
@@ -3199,6 +3199,15 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             }
             updatePressedKeyDiv();
         };
+        Shortcuts.isLabelEvent = function (_type, event) {
+            var _a, _b, _c;
+            if ("label" === ((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : "")) {
+                if (" " === event.key || "Enter" === event.key || "Escape" === event.key) {
+                    return true;
+                }
+            }
+            return false;
+        };
         Shortcuts.handleKeyEvent = function (type, event) {
             var _a;
             Shortcuts.pruneStaleKeys();
@@ -3206,7 +3215,26 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             var shortcutKeys = getShortcutKeys(type, normalizedKey);
             var commandMap = currentCommandMap;
             if (null !== commandMap) {
-                if (!isInputElementFocused()) {
+                if (Shortcuts.isLabelEvent(type, event)) {
+                    if ("onKeyDown" === type) {
+                        var label = document.activeElement;
+                        if ("Escape" === event.key) {
+                            label.blur();
+                        }
+                        else {
+                            label.click();
+                        }
+                    }
+                }
+                else if (isInputElementFocused()) {
+                    if ("onKeyDown" === type) {
+                        var label = document.activeElement;
+                        if ("Escape" === event.key) {
+                            label.blur();
+                        }
+                    }
+                }
+                else {
                     var commandKeys = shortcuts_json_1.default[style].items.reduce(function (a, b) { return a.concat(b.shortcuts); }, []).filter(function (shortcut) {
                         return getKeys(shortcut).length === shortcutKeys.length &&
                             getKeys(shortcut).every(function (key) { return shortcutKeys.includes(key); }) &&
@@ -8869,15 +8897,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.volumeRange.set(0);
             }
         };
-        Events.addKeyboardClickListener = function (label) {
-            label.addEventListener("keydown", function (event) {
-                if (" " === event.key || "Enter" === event.key) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    label.click();
-                }
-            });
-        };
         Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
             Events.locale = params["locale"];
@@ -8885,6 +8904,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
+            Array.from(document.getElementsByTagName("form")).forEach(function (i) { return i.addEventListener("submit", function (event) { return event.preventDefault(); }); });
             _library_9.Library.Shortcuts.setCommandMap({
                 "toggleShuffle": {
                     control: ui_12.UI.ControlPanel.shuffle.dom,
@@ -8965,10 +8985,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("pause", _features_2.Features.Player.pause);
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
-            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='wakeup-button']"));
-            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='volume-button']"));
-            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='settings-button']"));
-            Events.addKeyboardClickListener(_library_9.Library.UI.querySelector("label", "label[for='sleep-button']"));
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
             ui_12.UI.addMediaButton.data.click = function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

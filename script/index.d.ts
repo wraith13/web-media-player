@@ -3309,6 +3309,7 @@ declare module "script/library/shortcuts" {
         }[];
         const clearPressedKeys: () => void;
         const pruneStaleKeys: () => void;
+        const isLabelEvent: (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => boolean;
         const handleKeyEvent: (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => void;
         const initialize: () => void;
         const setCommandMap: (commandMap: CommandMap | null) => void;
@@ -4310,7 +4311,6 @@ declare module "script/events" {
         const mousemove: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const toggleMute: () => void;
-        const addKeyboardClickListener: (label: HTMLLabelElement) => void;
         const initialize: (params: Record<string, string>) => void;
     }
 }
