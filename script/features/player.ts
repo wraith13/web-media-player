@@ -333,7 +333,6 @@ export namespace Player
                     {
                         CrossFade.clear();
                         removeFadeoutTrack();
-                        updateTrackProperties();
                         if ( ! currentTrack.isPlaying())
                         {
                             await currentTrack.play();
@@ -482,10 +481,7 @@ export namespace Player
                 Fps.step(now);
                 updateFps();
                 crossFade();
-                if (CrossFade.isCrossFading())
-                {
-                    updateTrackProperties();
-                }
+                updateTrackProperties();
                 step();
                 updateMediaSessionPositionState();
                 updateDarkCurtainOpacity();

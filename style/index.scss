@@ -702,7 +702,8 @@ body:not(.progress-circle)
 }
 #no-media-panel,
 #not-supported-media-panel,
-#wake-up-timer-not-working-panel
+#wake-up-timer-not-working-panel,
+#wake-up-timer-requires-active-page-panel
 {
     @include black-pop-panel-style();
     & { @include font(); }
@@ -750,6 +751,16 @@ body:not(.not-supported-media)
     color: $warning-color;
 }
 body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer-not-working-panel
+{
+    opacity: 0.4;
+}
+#wake-up-timer-requires-active-page-panel
+{
+    @include fade-transition("body:not(.wake-up-timer-requires-active-page)");
+    z-index: 50;
+    color: $warning-color;
+}
+body:not(.play):not(.mousemove).sleeped.wake-up-timer-requires-active-page #wake-up-timer-requires-active-page-panel
 {
     opacity: 0.4;
 }

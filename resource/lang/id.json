@@ -94,5 +94,6 @@
     "no-repeat-message": "Silakan aktifkan ulang.",
     "not-supported-media-message": "Media ini tidak dapat diputar.",
     "wake-up-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
+    "wake-up-timer-requires-active-page": "Agar timer bangun berfungsi dengan baik, halaman web harus aktif.",
     "noscript-message": "JavaScript dinonaktifkan. Aktifkan JavaScript."
 }

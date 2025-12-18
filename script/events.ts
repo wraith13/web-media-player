@@ -161,6 +161,11 @@ export namespace Events
             "wake-up-timer-not-working",
             isOn && ! Tools.Environment.canAutoplay()
         );
+        document.body.classList.toggle
+        (
+            "wake-up-timer-requires-active-page",
+            isOn
+        );
     };
     export const updateWakeUpSelect = (): void =>
     {

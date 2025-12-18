@@ -107,6 +107,9 @@ DUMMYSTYLE
 <div id="wake-up-timer-not-working-panel">
     <span data-lang-key="wake-up-timer-not-working"></span>
 </div>
+<div id="wake-up-timer-requires-active-page-panel">
+    <span data-lang-key="wake-up-timer-requires-active-page"></span>
+</div>
 <div id="fps" aria-hidden="true"></div>
 <div id="control-panel">
     <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">

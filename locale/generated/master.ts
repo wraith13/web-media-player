@@ -95,6 +95,7 @@ export const localeMaster = {
         "no-repeat-message": "يرجى تفعيل التكرار.",
         "not-supported-media-message": "لا يمكن تشغيل هذه الوسائط.",
         "wake-up-timer-not-working": "من المحتمل أن لا يعمل مؤقت الاستيقاظ بشكل صحيح على هذا الجهاز.",
+        "wake-up-timer-requires-active-page": "لكي يعمل مؤقت الاستيقاظ بشكل صحيح، يجب أن تكون صفحة الويب نشطة.",
         "noscript-message": "تم تعطيل JavaScript. الرجاء تمكين JavaScript."
     },
     "de": {
@@ -193,6 +194,7 @@ export const localeMaster = {
         "no-repeat-message": "Bitte Wiederholung aktivieren.",
         "not-supported-media-message": "Dieses Medium kann nicht wiedergegeben werden.",
         "wake-up-timer-not-working": "Der Wecktimer funktioniert auf diesem Gerät wahrscheinlich nicht korrekt.",
+        "wake-up-timer-requires-active-page": "Damit der Wecktimer richtig funktioniert, muss die Webseite aktiv sein.",
         "noscript-message": "JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript."
     },
     "el": {
@@ -291,6 +293,7 @@ export const localeMaster = {
         "no-repeat-message": "Παρακαλώ ενεργοποιήστε την επανάληψη.",
         "not-supported-media-message": "Αυτό το μέσο δεν μπορεί να αναπαραχθεί.",
         "wake-up-timer-not-working": "Ο χρονοδιακόπτης αφύπνισης πιθανόν να μην λειτουργεί σωστά σε αυτή τη συσκευή.",
+        "wake-up-timer-requires-active-page": "Για να λειτουργεί σωστά ο χρονοδιακόπτης αφύπνισης, η ιστοσελίδα πρέπει να είναι ενεργή.",
         "noscript-message": "Η JavaScript είναι απενεργοποιημένη. Παρακαλώ ενεργοποιήστε την JavaScript."
     },
     "en": {
@@ -389,6 +392,7 @@ export const localeMaster = {
         "no-repeat-message": "Please enable repeat.",
         "not-supported-media-message": "This media cannot be played.",
         "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
+        "wake-up-timer-requires-active-page": "For the wake-up timer to work properly, the web page needs to be active.",
         "noscript-message": "JavaScript is disabled. Please enable JavaScript."
     },
     "es": {
@@ -487,6 +491,7 @@ export const localeMaster = {
         "no-repeat-message": "Por favor, activa la repetición.",
         "not-supported-media-message": "Este medio no se puede reproducir.",
         "wake-up-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
+        "wake-up-timer-requires-active-page": "Para que el temporizador de despertador funcione correctamente, la página web debe estar activa.",
         "noscript-message": "JavaScript está deshabilitado. Por favor, habilita JavaScript."
     },
     "fa": {
@@ -585,6 +590,7 @@ export const localeMaster = {
         "no-repeat-message": "لطفاً تکرار را فعال کنید.",
         "not-supported-media-message": "این رسانه قابل پخش نیست.",
         "wake-up-timer-not-working": "تایمر بیدارباش احتمالاً در این دستگاه به‌درستی کار نخواهد کرد.",
+        "wake-up-timer-requires-active-page": "برای عملکرد صحیح تایمر بیدارباش، صفحه وب باید فعال باشد.",
         "noscript-message": "جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید."
     },
     "fr": {
@@ -683,6 +689,7 @@ export const localeMaster = {
         "no-repeat-message": "Veuillez activer la répétition.",
         "not-supported-media-message": "Ce média ne peut pas être lu.",
         "wake-up-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
+        "wake-up-timer-requires-active-page": "Pour que la minuterie de réveil fonctionne correctement, la page web doit être active.",
         "noscript-message": "JavaScript est désactivé. Veuillez activer JavaScript."
     },
     "hi": {
@@ -781,6 +788,7 @@ export const localeMaster = {
         "no-repeat-message": "कृपया रिपीट सक्षम करें।",
         "not-supported-media-message": "यह मीडिया प्ले नहीं किया जा सकता।",
         "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
+        "wake-up-timer-requires-active-page": "वेक-अप टाइमर को सही ढंग से काम करने के लिए, वेब पेज को सक्रिय होना चाहिए।",
         "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
     },
     "id": {
@@ -879,6 +887,7 @@ export const localeMaster = {
         "no-repeat-message": "Silakan aktifkan ulang.",
         "not-supported-media-message": "Media ini tidak dapat diputar.",
         "wake-up-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
+        "wake-up-timer-requires-active-page": "Agar timer bangun berfungsi dengan baik, halaman web harus aktif.",
         "noscript-message": "JavaScript dinonaktifkan. Aktifkan JavaScript."
     },
     "it": {
@@ -977,6 +986,7 @@ export const localeMaster = {
         "no-repeat-message": "Abilita la ripetizione.",
         "not-supported-media-message": "Questo media non può essere riprodotto.",
         "wake-up-timer-not-working": "Il timer di risveglio probabilmente non funzionerà correttamente su questo dispositivo.",
+        "wake-up-timer-requires-active-page": "Perché il timer di risveglio funzioni correttamente, la pagina web deve essere attiva.",
         "noscript-message": "JavaScript è disabilitato. Abilita JavaScript."
     },
     "ja": {
@@ -1075,6 +1085,7 @@ export const localeMaster = {
         "no-repeat-message": "リピートを有効にしてください。",
         "not-supported-media-message": "再生できないメディアです。",
         "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
+        "wake-up-timer-requires-active-page": "起床タイマーが正常に稼働するには、 Web ページがアクティブな状態である必要があります。",
         "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
     },
     "ko": {
@@ -1173,6 +1184,7 @@ export const localeMaster = {
         "no-repeat-message": "반복을 활성화하세요.",
         "not-supported-media-message": "이 미디어는 재생할 수 없습니다.",
         "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
+        "wake-up-timer-requires-active-page": "알람 타이머가 제대로 작동하려면 웹 페이지가 활성 상태여야 합니다.",
         "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
     },
     "nl": {
@@ -1271,6 +1283,7 @@ export const localeMaster = {
         "no-repeat-message": "Schakel herhaling in.",
         "not-supported-media-message": "Dit mediaformaat kan niet worden afgespeeld.",
         "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
+        "wake-up-timer-requires-active-page": "Om de wekker correct te laten werken, moet de webpagina actief zijn.",
         "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
     },
     "pl": {
@@ -1369,6 +1382,7 @@ export const localeMaster = {
         "no-repeat-message": "Włącz powtarzanie.",
         "not-supported-media-message": "To media nie może zostać odtworzone.",
         "wake-up-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
+        "wake-up-timer-requires-active-page": "Aby budzik działał poprawnie, strona internetowa musi być aktywna.",
         "noscript-message": "JavaScript jest wyłączony. Proszę włączyć JavaScript."
     },
     "pt": {
@@ -1467,6 +1481,7 @@ export const localeMaster = {
         "no-repeat-message": "Por favor, ative a repetição.",
         "not-supported-media-message": "Esta mídia não pode ser reproduzida.",
         "wake-up-timer-not-working": "O timer de despertar provavelmente não funcionará corretamente neste dispositivo.",
+        "wake-up-timer-requires-active-page": "Para que o timer de despertar funcione corretamente, a página web deve estar ativa.",
         "noscript-message": "JavaScript está desativado. Por favor, ative o JavaScript."
     }
 };

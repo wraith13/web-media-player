@@ -127,6 +127,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         de: {
@@ -225,6 +226,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         el: {
@@ -323,6 +325,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         en: {
@@ -421,6 +424,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         es: {
@@ -519,6 +523,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         fa: {
@@ -617,6 +622,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         fr: {
@@ -715,6 +721,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         hi: {
@@ -813,6 +820,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         id: {
@@ -911,6 +919,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         it: {
@@ -1009,6 +1018,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         ja: {
@@ -1107,6 +1117,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         ko: {
@@ -1205,6 +1216,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         nl: {
@@ -1303,6 +1315,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         pl: {
@@ -1401,6 +1414,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
         pt: {
@@ -1499,6 +1513,7 @@ declare module "locale/generated/master" {
             "no-repeat-message": string;
             "not-supported-media-message": string;
             "wake-up-timer-not-working": string;
+            "wake-up-timer-requires-active-page": string;
             "noscript-message": string;
         };
     };
@@ -1602,6 +1617,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             de: {
@@ -1700,6 +1716,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             el: {
@@ -1798,6 +1815,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             en: {
@@ -1896,6 +1914,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             es: {
@@ -1994,6 +2013,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             fa: {
@@ -2092,6 +2112,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             fr: {
@@ -2190,6 +2211,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             hi: {
@@ -2288,6 +2310,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             id: {
@@ -2386,6 +2409,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             it: {
@@ -2484,6 +2508,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             ja: {
@@ -2582,6 +2607,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             ko: {
@@ -2680,6 +2706,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             nl: {
@@ -2778,6 +2805,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             pl: {
@@ -2876,6 +2904,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             pt: {
@@ -2974,6 +3003,7 @@ declare module "script/library/locale" {
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
                 "wake-up-timer-not-working": string;
+                "wake-up-timer-requires-active-page": string;
                 "noscript-message": string;
             };
         };

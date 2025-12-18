@@ -94,5 +94,6 @@
     "no-repeat-message": "Abilita la ripetizione.",
     "not-supported-media-message": "Questo media non può essere riprodotto.",
     "wake-up-timer-not-working": "Il timer di risveglio probabilmente non funzionerà correttamente su questo dispositivo.",
+    "wake-up-timer-requires-active-page": "Perché il timer di risveglio funzioni correttamente, la pagina web deve essere attiva.",
     "noscript-message": "JavaScript è disabilitato. Abilita JavaScript."
 }

@@ -94,5 +94,6 @@
     "no-repeat-message": "Bitte Wiederholung aktivieren.",
     "not-supported-media-message": "Dieses Medium kann nicht wiedergegeben werden.",
     "wake-up-timer-not-working": "Der Wecktimer funktioniert auf diesem Gerät wahrscheinlich nicht korrekt.",
+    "wake-up-timer-requires-active-page": "Damit der Wecktimer richtig funktioniert, muss die Webseite aktiv sein.",
     "noscript-message": "JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript."
 }

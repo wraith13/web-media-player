@@ -94,5 +94,6 @@
     "no-repeat-message": "يرجى تفعيل التكرار.",
     "not-supported-media-message": "لا يمكن تشغيل هذه الوسائط.",
     "wake-up-timer-not-working": "من المحتمل أن لا يعمل مؤقت الاستيقاظ بشكل صحيح على هذا الجهاز.",
+    "wake-up-timer-requires-active-page": "لكي يعمل مؤقت الاستيقاظ بشكل صحيح، يجب أن تكون صفحة الويب نشطة.",
     "noscript-message": "تم تعطيل JavaScript. الرجاء تمكين JavaScript."
 }
