@@ -94,7 +94,7 @@
     "no-media-message": "कृपया मीडिया जोड़ें।",
     "no-repeat-message": "कृपया रिपीट सक्षम करें।",
     "not-supported-media-message": "यह मीडिया प्ले नहीं किया जा सकता।",
-    "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
-    "wake-up-timer-requires-active-page": "वेक-अप टाइमर को सही ढंग से काम करने के लिए, वेब पेज को सक्रिय होना चाहिए।",
+    "wakeup-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
+    "wakeup-timer-requires-active-page": "वेक-अप टाइमर को सही ढंग से काम करने के लिए, वेब पेज को सक्रिय होना चाहिए।",
     "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
 }

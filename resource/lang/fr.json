@@ -94,7 +94,7 @@
     "no-media-message": "Veuillez ajouter des médias.",
     "no-repeat-message": "Veuillez activer la répétition.",
     "not-supported-media-message": "Ce média ne peut pas être lu.",
-    "wake-up-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
-    "wake-up-timer-requires-active-page": "Pour que la minuterie de réveil fonctionne correctement, la page web doit être active.",
+    "wakeup-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
+    "wakeup-timer-requires-active-page": "Pour que la minuterie de réveil fonctionne correctement, la page web doit être active.",
     "noscript-message": "JavaScript est désactivé. Veuillez activer JavaScript."
 }

@@ -30,7 +30,14 @@ export namespace MediaList
         else
         {
             console.warn("🚫 Invalid media file:", file);
-            notSupportedMediaTimer.start(document.body, "not-supported-media", config.player.notSupportedMediaMessageSpan);
+            UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.show();
+            notSupportedMediaTimer.start
+            (
+                document.body,
+                "not-supported-media",
+                config.player.notSupportedMediaMessageSpan,
+                () => UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide()
+            );
         }
     };
     let addMediaQueue: Promise<void> = Promise.resolve();

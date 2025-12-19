@@ -94,7 +94,7 @@
     "no-media-message": "メディアを追加してください。",
     "no-repeat-message": "リピートを有効にしてください。",
     "not-supported-media-message": "再生できないメディアです。",
-    "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
-    "wake-up-timer-requires-active-page": "起床タイマーが正常に稼働するには、 Web ページがアクティブな状態である必要があります。",
+    "wakeup-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
+    "wakeup-timer-requires-active-page": "起床タイマーが正常に稼働するには、 Web ページがアクティブな状態である必要があります。",
     "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
 }

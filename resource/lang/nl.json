@@ -94,7 +94,7 @@
     "no-media-message": "Voeg media toe.",
     "no-repeat-message": "Schakel herhaling in.",
     "not-supported-media-message": "Dit mediaformaat kan niet worden afgespeeld.",
-    "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
-    "wake-up-timer-requires-active-page": "Om de wekker correct te laten werken, moet de webpagina actief zijn.",
+    "wakeup-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
+    "wakeup-timer-requires-active-page": "Om de wekker correct te laten werken, moet de webpagina actief zijn.",
     "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
 }

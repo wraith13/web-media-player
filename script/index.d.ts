@@ -127,8 +127,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         de: {
@@ -227,8 +227,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         el: {
@@ -327,8 +327,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         en: {
@@ -427,8 +427,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         es: {
@@ -527,8 +527,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         fa: {
@@ -627,8 +627,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         fr: {
@@ -727,8 +727,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         hi: {
@@ -827,8 +827,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         id: {
@@ -927,8 +927,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         it: {
@@ -1027,8 +1027,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         ja: {
@@ -1127,8 +1127,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         ko: {
@@ -1227,8 +1227,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         nl: {
@@ -1327,8 +1327,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         pl: {
@@ -1427,8 +1427,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
         pt: {
@@ -1527,8 +1527,8 @@ declare module "locale/generated/master" {
             "no-media-message": string;
             "no-repeat-message": string;
             "not-supported-media-message": string;
-            "wake-up-timer-not-working": string;
-            "wake-up-timer-requires-active-page": string;
+            "wakeup-timer-not-working": string;
+            "wakeup-timer-requires-active-page": string;
             "noscript-message": string;
         };
     };
@@ -1632,8 +1632,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             de: {
@@ -1732,8 +1732,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             el: {
@@ -1832,8 +1832,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             en: {
@@ -1932,8 +1932,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             es: {
@@ -2032,8 +2032,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             fa: {
@@ -2132,8 +2132,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             fr: {
@@ -2232,8 +2232,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             hi: {
@@ -2332,8 +2332,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             id: {
@@ -2432,8 +2432,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             it: {
@@ -2532,8 +2532,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             ja: {
@@ -2632,8 +2632,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             ko: {
@@ -2732,8 +2732,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             nl: {
@@ -2832,8 +2832,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             pl: {
@@ -2932,8 +2932,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
             pt: {
@@ -3032,8 +3032,8 @@ declare module "script/library/locale" {
                 "no-media-message": string;
                 "no-repeat-message": string;
                 "not-supported-media-message": string;
-                "wake-up-timer-not-working": string;
-                "wake-up-timer-requires-active-page": string;
+                "wakeup-timer-not-working": string;
+                "wakeup-timer-requires-active-page": string;
                 "noscript-message": string;
             };
         };
@@ -3056,7 +3056,7 @@ declare module "script/library/ui" {
         class ToggleClassForWhileTimer {
             timer: ReturnType<typeof setTimeout> | undefined;
             constructor();
-            start(element: HTMLElement, token: string, span: number): void;
+            start(element: HTMLElement, token: string, span: number, onEnd?: () => unknown): void;
             isInTimer: () => boolean;
         }
         const fullscreenEnabled: any;
@@ -3468,6 +3468,12 @@ declare module "script/ui" {
             clearHideTimer(): void;
             immediateHide(): void;
         }
+        namespace MessagePanel {
+            const noMediaPanelVisibilityApplier: VisibilityApplier;
+            const notSupportedMediaPanelVisibilityApplier: VisibilityApplier;
+            const wakeUpTimerNotWorkingPanelVisibilityApplier: VisibilityApplier;
+            const wakeUpTimerRequiresActivePagePanelVisibilityApplier: VisibilityApplier;
+        }
         namespace ControlPanel {
             const panel: HTMLDivElement;
             const wakeUpButton: Library.Control.Checkbox;
@@ -3515,6 +3521,7 @@ declare module "script/ui" {
             const minutesNiddle: HTMLDivElement;
             const secondsNiddle: HTMLDivElement;
             const milliSecondsNiddle: HTMLDivElement;
+            const visibilityApplier: VisibilityApplier;
         }
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const addMediaButtonHeight = 84;

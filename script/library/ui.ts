@@ -45,7 +45,7 @@ export namespace UI
         {
             this.timer = undefined;
         }
-        start(element: HTMLElement, token: string, span: number)
+        start(element: HTMLElement, token: string, span: number, onEnd?: () => unknown)
         {
             if (this.isInTimer())
             {
@@ -62,6 +62,7 @@ export namespace UI
                     }
                     this.timer = undefined;
                     element.classList.toggle(token, false);
+                    onEnd?.();
                 },
                 span
             );

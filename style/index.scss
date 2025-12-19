@@ -710,11 +710,17 @@ body:not(.progress-circle)
 }
 #message-panel
 {
-    @include flex(column, center);
+    @include full-stretch-box();
+    @include flex(column, start, start);
     position: fixed;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    transform: translate(-50%, -50%);
+    padding-top: 1rem;
+    padding-top: calc(env(safe-area-inset-top) + 1rem);
+    padding-right: 1rem;
+    padding-right: calc(env(safe-area-inset-right) + 1rem);
+    padding-bottom: 1rem;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+    padding-left: 1rem;
+    padding-left: calc(env(safe-area-inset-left) + 1rem);
     gap: 1rem;
     z-index: 100;
     pointer-events: none;
@@ -727,10 +733,7 @@ body:not(.progress-circle)
             font-size: 1.25rem;
             padding: 1rem;
             border-radius: 2rem;
-            min-width: 18rem;
-            max-width: 95%;
-            max-width: calc(100% - 2rem);
-            z-index: 100;
+            line-height: 150%;
         }
     }
 }
@@ -756,26 +759,24 @@ body:not(.not-supported-media)
         transition: opacity 3000ms, filter 3000ms !important;
     }
 }
-#wake-up-timer-not-working-panel
+#wakeup-timer-not-working-panel
 {
-    @include fade-transition("body:not(.wake-up-timer-not-working)");
-    z-index: 50;
+    @include fade-transition("body:not(.wakeup-timer-not-working)");
     color: $warning-color;
 }
-body:not(.play):not(.mousemove).sleeped.wake-up-timer-not-working #wake-up-timer-not-working-panel
+// body:not(.play):not(.mousemove).sleeped.wakeup-timer-not-working #wakeup-timer-not-working-panel
+// {
+//     opacity: 0.4;
+// }
+#wakeup-timer-requires-active-page-panel
 {
-    opacity: 0.4;
-}
-#wake-up-timer-requires-active-page-panel
-{
-    @include fade-transition("body:not(.wake-up-timer-requires-active-page)");
-    z-index: 50;
+    @include fade-transition("body:not(.wakeup-timer-requires-active-page)");
     color: $warning-color;
 }
-body:not(.play):not(.mousemove).sleeped.wake-up-timer-requires-active-page #wake-up-timer-requires-active-page-panel
-{
-    opacity: 0.4;
-}
+// body:not(.play):not(.mousemove).sleeped.wakeup-timer-requires-active-page #wakeup-timer-requires-active-page-panel
+// {
+//     opacity: 0.4;
+// }
 .toggle-label
 {
     &.on

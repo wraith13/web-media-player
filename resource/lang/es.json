@@ -94,7 +94,7 @@
     "no-media-message": "Por favor, añade medios.",
     "no-repeat-message": "Por favor, activa la repetición.",
     "not-supported-media-message": "Este medio no se puede reproducir.",
-    "wake-up-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
-    "wake-up-timer-requires-active-page": "Para que el temporizador de despertador funcione correctamente, la página web debe estar activa.",
+    "wakeup-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
+    "wakeup-timer-requires-active-page": "Para que el temporizador de despertador funcione correctamente, la página web debe estar activa.",
     "noscript-message": "JavaScript está deshabilitado. Por favor, habilita JavaScript."
 }

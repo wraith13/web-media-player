@@ -279,8 +279,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "يرجى إضافة وسائط.",
             "no-repeat-message": "يرجى تفعيل التكرار.",
             "not-supported-media-message": "لا يمكن تشغيل هذه الوسائط.",
-            "wake-up-timer-not-working": "من المحتمل أن لا يعمل مؤقت الاستيقاظ بشكل صحيح على هذا الجهاز.",
-            "wake-up-timer-requires-active-page": "لكي يعمل مؤقت الاستيقاظ بشكل صحيح، يجب أن تكون صفحة الويب نشطة.",
+            "wakeup-timer-not-working": "من المحتمل أن لا يعمل مؤقت الاستيقاظ بشكل صحيح على هذا الجهاز.",
+            "wakeup-timer-requires-active-page": "لكي يعمل مؤقت الاستيقاظ بشكل صحيح، يجب أن تكون صفحة الويب نشطة.",
             "noscript-message": "تم تعطيل JavaScript. الرجاء تمكين JavaScript."
         },
         "de": {
@@ -379,8 +379,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Bitte Medien hinzufügen.",
             "no-repeat-message": "Bitte Wiederholung aktivieren.",
             "not-supported-media-message": "Dieses Medium kann nicht wiedergegeben werden.",
-            "wake-up-timer-not-working": "Der Wecktimer funktioniert auf diesem Gerät wahrscheinlich nicht korrekt.",
-            "wake-up-timer-requires-active-page": "Damit der Wecktimer richtig funktioniert, muss die Webseite aktiv sein.",
+            "wakeup-timer-not-working": "Der Wecktimer funktioniert auf diesem Gerät wahrscheinlich nicht korrekt.",
+            "wakeup-timer-requires-active-page": "Damit der Wecktimer richtig funktioniert, muss die Webseite aktiv sein.",
             "noscript-message": "JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript."
         },
         "el": {
@@ -479,8 +479,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Παρακαλώ προσθέστε μέσα.",
             "no-repeat-message": "Παρακαλώ ενεργοποιήστε την επανάληψη.",
             "not-supported-media-message": "Αυτό το μέσο δεν μπορεί να αναπαραχθεί.",
-            "wake-up-timer-not-working": "Ο χρονοδιακόπτης αφύπνισης πιθανόν να μην λειτουργεί σωστά σε αυτή τη συσκευή.",
-            "wake-up-timer-requires-active-page": "Για να λειτουργεί σωστά ο χρονοδιακόπτης αφύπνισης, η ιστοσελίδα πρέπει να είναι ενεργή.",
+            "wakeup-timer-not-working": "Ο χρονοδιακόπτης αφύπνισης πιθανόν να μην λειτουργεί σωστά σε αυτή τη συσκευή.",
+            "wakeup-timer-requires-active-page": "Για να λειτουργεί σωστά ο χρονοδιακόπτης αφύπνισης, η ιστοσελίδα πρέπει να είναι ενεργή.",
             "noscript-message": "Η JavaScript είναι απενεργοποιημένη. Παρακαλώ ενεργοποιήστε την JavaScript."
         },
         "en": {
@@ -579,8 +579,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Please add media.",
             "no-repeat-message": "Please enable repeat.",
             "not-supported-media-message": "This media cannot be played.",
-            "wake-up-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
-            "wake-up-timer-requires-active-page": "For the wake-up timer to work properly, the web page needs to be active.",
+            "wakeup-timer-not-working": "The wake-up timer is likely not to work properly on this device.",
+            "wakeup-timer-requires-active-page": "For the wake-up timer to work properly, the web page needs to be active.",
             "noscript-message": "JavaScript is disabled. Please enable JavaScript."
         },
         "es": {
@@ -679,8 +679,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Por favor, añade medios.",
             "no-repeat-message": "Por favor, activa la repetición.",
             "not-supported-media-message": "Este medio no se puede reproducir.",
-            "wake-up-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
-            "wake-up-timer-requires-active-page": "Para que el temporizador de despertador funcione correctamente, la página web debe estar activa.",
+            "wakeup-timer-not-working": "Es probable que el temporizador de despertador no funcione correctamente en este dispositivo.",
+            "wakeup-timer-requires-active-page": "Para que el temporizador de despertador funcione correctamente, la página web debe estar activa.",
             "noscript-message": "JavaScript está deshabilitado. Por favor, habilita JavaScript."
         },
         "fa": {
@@ -779,8 +779,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "لطفاً رسانه اضافه کنید.",
             "no-repeat-message": "لطفاً تکرار را فعال کنید.",
             "not-supported-media-message": "این رسانه قابل پخش نیست.",
-            "wake-up-timer-not-working": "تایمر بیدارباش احتمالاً در این دستگاه به‌درستی کار نخواهد کرد.",
-            "wake-up-timer-requires-active-page": "برای عملکرد صحیح تایمر بیدارباش، صفحه وب باید فعال باشد.",
+            "wakeup-timer-not-working": "تایمر بیدارباش احتمالاً در این دستگاه به‌درستی کار نخواهد کرد.",
+            "wakeup-timer-requires-active-page": "برای عملکرد صحیح تایمر بیدارباش، صفحه وب باید فعال باشد.",
             "noscript-message": "جاوااسکریپت غیرفعال است. لطفاً جاوااسکریپت را فعال کنید."
         },
         "fr": {
@@ -879,8 +879,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Veuillez ajouter des médias.",
             "no-repeat-message": "Veuillez activer la répétition.",
             "not-supported-media-message": "Ce média ne peut pas être lu.",
-            "wake-up-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
-            "wake-up-timer-requires-active-page": "Pour que la minuterie de réveil fonctionne correctement, la page web doit être active.",
+            "wakeup-timer-not-working": "La minuterie de réveil risque de ne pas fonctionner correctement sur cet appareil.",
+            "wakeup-timer-requires-active-page": "Pour que la minuterie de réveil fonctionne correctement, la page web doit être active.",
             "noscript-message": "JavaScript est désactivé. Veuillez activer JavaScript."
         },
         "hi": {
@@ -979,8 +979,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "कृपया मीडिया जोड़ें।",
             "no-repeat-message": "कृपया रिपीट सक्षम करें।",
             "not-supported-media-message": "यह मीडिया प्ले नहीं किया जा सकता।",
-            "wake-up-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
-            "wake-up-timer-requires-active-page": "वेक-अप टाइमर को सही ढंग से काम करने के लिए, वेब पेज को सक्रिय होना चाहिए।",
+            "wakeup-timer-not-working": "वेक-अप टाइमर इस डिवाइस पर सही ढंग से काम न करने की संभावना है।",
+            "wakeup-timer-requires-active-page": "वेक-अप टाइमर को सही ढंग से काम करने के लिए, वेब पेज को सक्रिय होना चाहिए।",
             "noscript-message": "JavaScript अक्षम है। कृपया JavaScript सक्षम करें।"
         },
         "id": {
@@ -1079,8 +1079,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Silakan tambahkan media.",
             "no-repeat-message": "Silakan aktifkan ulang.",
             "not-supported-media-message": "Media ini tidak dapat diputar.",
-            "wake-up-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
-            "wake-up-timer-requires-active-page": "Agar timer bangun berfungsi dengan baik, halaman web harus aktif.",
+            "wakeup-timer-not-working": "Timer bangun mungkin tidak berfungsi dengan baik pada perangkat ini.",
+            "wakeup-timer-requires-active-page": "Agar timer bangun berfungsi dengan baik, halaman web harus aktif.",
             "noscript-message": "JavaScript dinonaktifkan. Aktifkan JavaScript."
         },
         "it": {
@@ -1179,8 +1179,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Aggiungi dei media.",
             "no-repeat-message": "Abilita la ripetizione.",
             "not-supported-media-message": "Questo media non può essere riprodotto.",
-            "wake-up-timer-not-working": "Il timer di risveglio probabilmente non funzionerà correttamente su questo dispositivo.",
-            "wake-up-timer-requires-active-page": "Perché il timer di risveglio funzioni correttamente, la pagina web deve essere attiva.",
+            "wakeup-timer-not-working": "Il timer di risveglio probabilmente non funzionerà correttamente su questo dispositivo.",
+            "wakeup-timer-requires-active-page": "Perché il timer di risveglio funzioni correttamente, la pagina web deve essere attiva.",
             "noscript-message": "JavaScript è disabilitato. Abilita JavaScript."
         },
         "ja": {
@@ -1279,8 +1279,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "メディアを追加してください。",
             "no-repeat-message": "リピートを有効にしてください。",
             "not-supported-media-message": "再生できないメディアです。",
-            "wake-up-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
-            "wake-up-timer-requires-active-page": "起床タイマーが正常に稼働するには、 Web ページがアクティブな状態である必要があります。",
+            "wakeup-timer-not-working": "起床タイマーはこのデバイスでは正常に動作しない可能性が高いです。",
+            "wakeup-timer-requires-active-page": "起床タイマーが正常に稼働するには、 Web ページがアクティブな状態である必要があります。",
             "noscript-message": "JavaScript が無効になっています。JavaScript を有効にしてください。"
         },
         "ko": {
@@ -1379,8 +1379,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "미디어를 추가하세요.",
             "no-repeat-message": "반복을 활성화하세요.",
             "not-supported-media-message": "이 미디어는 재생할 수 없습니다.",
-            "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
-            "wake-up-timer-requires-active-page": "알람 타이머가 제대로 작동하려면 웹 페이지가 활성 상태여야 합니다.",
+            "wakeup-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
+            "wakeup-timer-requires-active-page": "알람 타이머가 제대로 작동하려면 웹 페이지가 활성 상태여야 합니다.",
             "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
         },
         "nl": {
@@ -1479,8 +1479,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Voeg media toe.",
             "no-repeat-message": "Schakel herhaling in.",
             "not-supported-media-message": "Dit mediaformaat kan niet worden afgespeeld.",
-            "wake-up-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
-            "wake-up-timer-requires-active-page": "Om de wekker correct te laten werken, moet de webpagina actief zijn.",
+            "wakeup-timer-not-working": "De wekker werkt waarschijnlijk niet goed op dit apparaat.",
+            "wakeup-timer-requires-active-page": "Om de wekker correct te laten werken, moet de webpagina actief zijn.",
             "noscript-message": "JavaScript is uitgeschakeld. Schakel JavaScript in."
         },
         "pl": {
@@ -1579,8 +1579,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Dodaj media.",
             "no-repeat-message": "Włącz powtarzanie.",
             "not-supported-media-message": "To media nie może zostać odtworzone.",
-            "wake-up-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
-            "wake-up-timer-requires-active-page": "Aby budzik działał poprawnie, strona internetowa musi być aktywna.",
+            "wakeup-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
+            "wakeup-timer-requires-active-page": "Aby budzik działał poprawnie, strona internetowa musi być aktywna.",
             "noscript-message": "JavaScript jest wyłączony. Proszę włączyć JavaScript."
         },
         "pt": {
@@ -1679,8 +1679,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "no-media-message": "Por favor, adicione mídia.",
             "no-repeat-message": "Por favor, ative a repetição.",
             "not-supported-media-message": "Esta mídia não pode ser reproduzida.",
-            "wake-up-timer-not-working": "O timer de despertar provavelmente não funcionará corretamente neste dispositivo.",
-            "wake-up-timer-requires-active-page": "Para que o timer de despertar funcione corretamente, a página web deve estar ativa.",
+            "wakeup-timer-not-working": "O timer de despertar provavelmente não funcionará corretamente neste dispositivo.",
+            "wakeup-timer-requires-active-page": "Para que o timer de despertar funcione corretamente, a página web deve estar ativa.",
             "noscript-message": "JavaScript está desativado. Por favor, ative o JavaScript."
         }
     };
@@ -1883,7 +1883,7 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
                 this.isInTimer = function () { return undefined !== _this.timer; };
                 this.timer = undefined;
             }
-            ToggleClassForWhileTimer.prototype.start = function (element, token, span) {
+            ToggleClassForWhileTimer.prototype.start = function (element, token, span, onEnd) {
                 var _this = this;
                 if (this.isInTimer()) {
                     clearTimeout(this.timer);
@@ -1895,6 +1895,7 @@ define("script/library/ui", ["require", "exports", "resource/config", "script/to
                     }
                     _this.timer = undefined;
                     element.classList.toggle(token, false);
+                    onEnd === null || onEnd === void 0 ? void 0 : onEnd();
                 }, span);
             };
             return ToggleClassForWhileTimer;
@@ -4163,13 +4164,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 if (visibility === void 0) { visibility = true; }
                 this.clearHideTimer();
                 if (visibility) {
-                    this.element.style.setProperty("display", "");
+                    this.element.style.removeProperty("display");
                     this.element.setAttribute("aria-hidden", "false");
                 }
                 else {
                     this.hideTimer = setTimeout(function () {
                         _this.hideTimer = null;
-                        _this.clearHideTimer();
+                        _this.immediateHide();
                     }, this.delay);
                 }
             };
@@ -4190,6 +4191,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return VisibilityApplier;
         }());
         UI.VisibilityApplier = VisibilityApplier;
+        var MessagePanel;
+        (function (MessagePanel) {
+            MessagePanel.noMediaPanelVisibilityApplier = new VisibilityApplier(_library_2.Library.UI.getElementById("div", "no-media-panel"));
+            MessagePanel.notSupportedMediaPanelVisibilityApplier = new VisibilityApplier(_library_2.Library.UI.getElementById("div", "not-supported-media-panel"));
+            MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier = new VisibilityApplier(_library_2.Library.UI.getElementById("div", "wakeup-timer-not-working-panel"));
+            MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier = new VisibilityApplier(_library_2.Library.UI.getElementById("div", "wakeup-timer-requires-active-page-panel"));
+        })(MessagePanel = UI.MessagePanel || (UI.MessagePanel = {}));
         var ControlPanel;
         (function (ControlPanel) {
             ControlPanel.panel = _library_2.Library.UI.getElementById("div", "control-panel");
@@ -4242,6 +4250,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.minutesNiddle = _library_2.Library.UI.getElementById("div", "minutes-niddle");
             AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
             AnalogClock.milliSecondsNiddle = _library_2.Library.UI.getElementById("div", "milli-seconds-niddle");
+            AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
         })(AnalogClock = UI.AnalogClock || (UI.AnalogClock = {}));
         ;
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
@@ -4396,6 +4405,11 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
                 SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
+            AnalogClock.visibilityApplier.immediateHide();
+            MessagePanel.noMediaPanelVisibilityApplier.immediateHide();
+            MessagePanel.notSupportedMediaPanelVisibilityApplier.immediateHide();
+            MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.immediateHide();
+            MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.immediateHide();
             ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
             ControlPanel.volumePanelVisibilityApplier.immediateHide();
             ControlPanel.settingsPanelVisibilityApplier.immediateHide();
@@ -7914,6 +7928,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         document.body.classList.toggle("play", true);
                         document.body.classList.toggle("show-paused-media", false);
                         ui_9.UI.screenBody.classList.toggle("paused", false);
+                        if (ui_9.UI.SettingsPanel.analogClockCheckbox.get()) {
+                            ui_9.UI.AnalogClock.visibilityApplier.show();
+                        }
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
                                 image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
                                 audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
@@ -7936,7 +7953,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         });
                         navigator.mediaSession.playbackState = "playing";
                         if (media_2.Media.mediaList.length <= 0) {
-                            noMediaTimer.start(document.body, "no-media", 5000);
+                            ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
+                            noMediaTimer.start(document.body, "no-media", 5000, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
                         if (history_1.History.isCleared()) {
                             CrossFade.clear();
@@ -7970,6 +7988,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
             document.body.classList.toggle("play", false);
+            ui_9.UI.AnalogClock.visibilityApplier.hide();
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
@@ -8437,7 +8456,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan);
+                        ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.show();
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan, function () { return ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide(); });
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -8749,6 +8769,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.wakeUpToggle.toggle(false, "preventOnChange");
             }
         };
+        var wakeUpTimerNotWorkingTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
+        var wakeUpTimerRequiresActivePageTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         Events.updateWakeUp = function () {
             var isOn = ui_12.UI.wakeUpToggle.get();
             var value = ui_12.UI.wakeUpSelect.get();
@@ -8757,8 +8779,14 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Timer.setWakeUpTimer(timespan);
             Events.wakeUpCountDownTimerLoop();
             Events.updateNoMediaLabel();
-            document.body.classList.toggle("wake-up-timer-not-working", isOn && !_tools_8.Tools.Environment.canAutoplay());
-            document.body.classList.toggle("wake-up-timer-requires-active-page", isOn);
+            if (isOn && !_tools_8.Tools.Environment.canAutoplay()) {
+                ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.show();
+                wakeUpTimerNotWorkingTimer.start(document.body, "wakeup-timer-not-working", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide(); });
+            }
+            if (isOn) {
+                ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.show();
+                wakeUpTimerRequiresActivePageTimer.start(document.body, "wakeup-timer-requires-active-page", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide(); });
+            }
         };
         Events.updateWakeUpSelect = function () {
             var value = ui_12.UI.wakeUpSelect.get();
@@ -9134,7 +9162,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () {
+                if (_features_2.Features.Player.isPlaying()) {
+                    ui_12.UI.AnalogClock.visibilityApplier.show(ui_12.UI.SettingsPanel.analogClockCheckbox.get());
+                }
+            });
             ui_12.UI.SettingsPanel.dayHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);

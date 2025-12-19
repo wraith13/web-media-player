@@ -98,18 +98,18 @@ DUMMYSTYLE
 </div>
 <div id="element-pool" style="display:none;" aria-hidden="true"></div>
 <div id="progress-circle" role="progressbar" aria-live="polite" data-aria-lang-key="loading-media"></div>
-<div id="message-panel">
+<div id="message-panel" role="presentation">
     <div id="no-media-panel" role="presentation">
         <span data-lang-key="no-media-message"></span>
     </div>
     <div id="not-supported-media-panel" role="presentation">
         <span data-lang-key="not-supported-media-message"></span>
     </div>
-    <div id="wake-up-timer-not-working-panel" role="presentation">
-        <span data-lang-key="wake-up-timer-not-working"></span>
+    <div id="wakeup-timer-not-working-panel" role="presentation">
+        <span data-lang-key="wakeup-timer-not-working"></span>
     </div>
-    <div id="wake-up-timer-requires-active-page-panel" role="presentation">
-        <span data-lang-key="wake-up-timer-requires-active-page"></span>
+    <div id="wakeup-timer-requires-active-page-panel" role="presentation">
+        <span data-lang-key="wakeup-timer-requires-active-page"></span>
     </div>
 </div>
 <div id="fps" aria-hidden="true"></div>

@@ -94,7 +94,7 @@
     "no-media-message": "Dodaj media.",
     "no-repeat-message": "Włącz powtarzanie.",
     "not-supported-media-message": "To media nie może zostać odtworzone.",
-    "wake-up-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
-    "wake-up-timer-requires-active-page": "Aby budzik działał poprawnie, strona internetowa musi być aktywna.",
+    "wakeup-timer-not-working": "Budzik może nie działać poprawnie na tym urządzeniu.",
+    "wakeup-timer-requires-active-page": "Aby budzik działał poprawnie, strona internetowa musi być aktywna.",
     "noscript-message": "JavaScript jest wyłączony. Proszę włączyć JavaScript."
 }

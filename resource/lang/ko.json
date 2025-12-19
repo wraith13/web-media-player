@@ -94,7 +94,7 @@
     "no-media-message": "미디어를 추가하세요.",
     "no-repeat-message": "반복을 활성화하세요.",
     "not-supported-media-message": "이 미디어는 재생할 수 없습니다.",
-    "wake-up-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
-    "wake-up-timer-requires-active-page": "알람 타이머가 제대로 작동하려면 웹 페이지가 활성 상태여야 합니다.",
+    "wakeup-timer-not-working": "이 기기에서는 알람 타이머가 제대로 작동하지 않을 수 있습니다.",
+    "wakeup-timer-requires-active-page": "알람 타이머가 제대로 작동하려면 웹 페이지가 활성 상태여야 합니다.",
     "noscript-message": "JavaScript가 비활성화되어 있습니다. JavaScript를 활성화하세요."
 }

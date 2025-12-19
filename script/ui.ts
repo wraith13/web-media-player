@@ -29,7 +29,7 @@ export namespace UI
             this.clearHideTimer();
             if (visibility)
             {
-                this.element.style.setProperty("display", "");
+                this.element.style.removeProperty("display");
                 this.element.setAttribute("aria-hidden", "false");
             }
             else
@@ -39,7 +39,7 @@ export namespace UI
                     () =>
                     {
                         this.hideTimer = null;
-                        this.clearHideTimer();
+                        this.immediateHide();
                     },
                     this.delay
                 );
@@ -63,6 +63,17 @@ export namespace UI
             this.element.style.setProperty("display", "none");
             this.element.setAttribute("aria-hidden", "true");
         }
+    }
+    export namespace MessagePanel
+    {
+        export const noMediaPanelVisibilityApplier =
+            new VisibilityApplier(Library.UI.getElementById("div", "no-media-panel"));
+        export const notSupportedMediaPanelVisibilityApplier =
+            new VisibilityApplier(Library.UI.getElementById("div", "not-supported-media-panel"));
+        export const wakeUpTimerNotWorkingPanelVisibilityApplier =
+            new VisibilityApplier(Library.UI.getElementById("div", "wakeup-timer-not-working-panel"));
+        export const wakeUpTimerRequiresActivePagePanelVisibilityApplier =
+            new VisibilityApplier(Library.UI.getElementById("div", "wakeup-timer-requires-active-page-panel"));
     }
     export namespace ControlPanel
     {
@@ -138,6 +149,7 @@ export namespace UI
         export const minutesNiddle = Library.UI.getElementById("div", "minutes-niddle");
         export const secondsNiddle = Library.UI.getElementById("div", "seconds-niddle");
         export const milliSecondsNiddle = Library.UI.getElementById("div", "milli-seconds-niddle");
+        export const visibilityApplier = new VisibilityApplier(panel);
     };
     export const addMediaButton =
         new Library.Control.Button({ id: "add-media", });
@@ -390,6 +402,11 @@ export namespace UI
         {
             SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
+        AnalogClock.visibilityApplier.immediateHide();
+        MessagePanel.noMediaPanelVisibilityApplier.immediateHide();
+        MessagePanel.notSupportedMediaPanelVisibilityApplier.immediateHide();
+        MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.immediateHide();
+        MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.immediateHide();
         ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
         ControlPanel.volumePanelVisibilityApplier.immediateHide();
         ControlPanel.settingsPanelVisibilityApplier.immediateHide();
@@ -433,7 +450,6 @@ export namespace UI
         setLabel(element, label);
         updateLabel(element);
     };
-
     export const popupCheckboxList =
     [
         {

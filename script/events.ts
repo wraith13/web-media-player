@@ -147,6 +147,8 @@ export namespace Events
             UI.wakeUpToggle.toggle(false, "preventOnChange");
         }
     };
+    const wakeUpTimerNotWorkingTimer = new Library.UI.ToggleClassForWhileTimer();
+    const wakeUpTimerRequiresActivePageTimer = new Library.UI.ToggleClassForWhileTimer();
     export const updateWakeUp = (): void =>
     {
         const isOn = UI.wakeUpToggle.get();
@@ -156,16 +158,28 @@ export namespace Events
         Features.Timer.setWakeUpTimer(timespan);
         wakeUpCountDownTimerLoop();
         updateNoMediaLabel();
-        document.body.classList.toggle
-        (
-            "wake-up-timer-not-working",
-            isOn && ! Tools.Environment.canAutoplay()
-        );
-        document.body.classList.toggle
-        (
-            "wake-up-timer-requires-active-page",
-            isOn
-        );
+        if (isOn && ! Tools.Environment.canAutoplay())
+        {
+            UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.show();
+            wakeUpTimerNotWorkingTimer.start
+            (
+                document.body,
+                "wakeup-timer-not-working",
+                15000,
+                () => UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide()
+            );
+        }
+        if (isOn)
+        {
+            UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.show();
+            wakeUpTimerRequiresActivePageTimer.start
+            (
+                document.body,
+                "wakeup-timer-requires-active-page",
+                15000,
+                () => UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide()
+            );
+        }
     };
     export const updateWakeUpSelect = (): void =>
     {
@@ -659,7 +673,16 @@ export namespace Events
         UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam).setChange
+        (
+            () =>
+            {
+                if (Features.Player.isPlaying())
+                {
+                    UI.AnalogClock.visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
+                }
+            }
+        );
         UI.SettingsPanel.dayHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params, applyParam);

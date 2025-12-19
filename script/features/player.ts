@@ -127,6 +127,10 @@ export namespace Player
         document.body.classList.toggle("play", true);
         document.body.classList.toggle("show-paused-media", false);
         UI.screenBody.classList.toggle("paused", false);
+        if (UI.SettingsPanel.analogClockCheckbox.get())
+        {
+            UI.AnalogClock.visibilityApplier.show();
+        }
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -151,7 +155,14 @@ export namespace Player
         navigator.mediaSession.playbackState = "playing";
         if (Media.mediaList.length <= 0)
         {
-            noMediaTimer.start(document.body, "no-media", 5000);
+            UI.MessagePanel.noMediaPanelVisibilityApplier.show();
+            noMediaTimer.start
+            (
+                document.body,
+                "no-media",
+                5000,
+                () => UI.MessagePanel.noMediaPanelVisibilityApplier.hide()
+            );
         }
         if (History.isCleared())
         {
@@ -190,6 +201,7 @@ export namespace Player
         navigator.mediaSession.playbackState = "paused";
         document.body.classList.toggle("list", true);
         document.body.classList.toggle("play", false);
+        UI.AnalogClock.visibilityApplier.hide();
         currentTrack?.pause();
         fadeoutingTrack?.pause();
         CrossFade.pause();
