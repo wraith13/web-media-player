@@ -708,26 +708,30 @@ body:not(.progress-circle)
         display: none;
     }
 }
-#no-media-panel,
-#not-supported-media-panel,
-#wake-up-timer-not-working-panel,
-#wake-up-timer-requires-active-page-panel
+#message-panel
 {
-    @include black-pop-panel-style();
-    & { @include font(); }
-    &
+    @include flex(column, center);
+    position: fixed;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    gap: 1rem;
+    z-index: 100;
+    pointer-events: none;
+    & > div
     {
-        font-size: 1.25rem;
-        position: fixed;
-        inset-block-start: 50%;
-        inset-inline-start: 50%;
-        transform: translate(-50%, -50%);
-        padding: 1rem;
-        border-radius: 2rem;
-        min-width: 18rem;
-        max-width: 95%;
-        max-width: calc(100% - 2rem);
-        z-index: 100;
+        @include black-pop-panel-style();
+        & { @include font(); }
+        &
+        {
+            font-size: 1.25rem;
+            padding: 1rem;
+            border-radius: 2rem;
+            min-width: 18rem;
+            max-width: 95%;
+            max-width: calc(100% - 2rem);
+            z-index: 100;
+        }
     }
 }
 #no-media-panel
