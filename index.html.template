@@ -120,7 +120,7 @@ DUMMYSTYLE
             <div id="wakeup-progress-circle" role="timer"></div>
             __SUN_ICON__
         </label>
-        <div id="wakeup-panel" class="popup-panel">
+        <div id="wakeup-panel" class="popup-panel" role="presentation">
             <label id="wakeup-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="wakeup-toggle-label-span">
                 <span id="wakeup-toggle-label-span" data-lang-key="wakeup"></span>
                 <span data-lang-key="on" class="value-label"></span>
@@ -157,14 +157,14 @@ DUMMYSTYLE
             <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
             <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
         </label>
-        <div id="volume-panel">
+        <div id="volume-panel" role="presentation">
             <input id="volume" type="range" data-aria-lang-key="Volume" />
         </div>
         <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
             <input id="settings-button" type="checkbox">
             __COG_ICON__
         </label>
-        <div id="settings-panel" class="popup-panel">
+        <div id="settings-panel" class="popup-panel" role="presentation">
             <label for="media-count" class="information" aria-labelledby="media-count-label-span">
                 <span id="media-count-label-span" data-lang-key="media-count"></span>
                 <span id="media-count" class="value-text"></span>
@@ -281,7 +281,7 @@ DUMMYSTYLE
             <div id="sleep-progress-circle" role="timer"></div>
             __MOON_ICON__
         </label>
-        <div id="sleep-panel" class="popup-panel">
+        <div id="sleep-panel" class="popup-panel" role="presentation">
             <label id="sleep-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="sleep-toggle-label-span">
                 <span id="sleep-toggle-label-span" data-lang-key="sleep"></span>
                 <span data-lang-key="on" class="value-label"></span>

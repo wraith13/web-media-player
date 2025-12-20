@@ -201,6 +201,7 @@ export namespace MediaList
     {
         const hasNoMedia = UI.wakeUpToggle.get() && Media.mediaList.length <= 0;
         UI.noMediaLabel.classList.toggle("hide", ! hasNoMedia);
+        UI.noMediaLabelVisibilityApplier.show(hasNoMedia);
     };
     export const initialize = (params: Record<string, string>): void =>
     {

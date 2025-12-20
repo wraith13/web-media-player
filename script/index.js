@@ -2297,11 +2297,14 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     return _this.options = __assign(__assign({}, _this.options), { change: change });
                 };
                 this.toggle = function (checked, preventOnChange) {
-                    var _a, _b;
-                    if (checked !== _this.get() || "forceOnChange" === preventOnChange) {
-                        _this.dom.classList.toggle("on", checked !== null && checked !== void 0 ? checked : !_this.get());
+                    var _a, _b, _c, _d;
+                    var newChecked = checked !== null && checked !== void 0 ? checked : !_this.get();
+                    if (newChecked !== _this.get() || "forceOnChange" === preventOnChange) {
+                        _this.dom.classList.toggle("on", newChecked);
+                        (_a = _this.dom.querySelector("span[data-lang-key='on']")) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-hidden", newChecked ? "false" : "true");
+                        (_b = _this.dom.querySelector("span[data-lang-key='off']")) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-hidden", newChecked ? "true" : "false");
                         if (undefined === preventOnChange) {
-                            (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this);
+                            (_d = (_c = _this.options) === null || _c === void 0 ? void 0 : _c.change) === null || _d === void 0 ? void 0 : _d.call(_c, null, _this);
                         }
                     }
                 };
@@ -4430,6 +4433,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         };
         UI.wakeUpProgressCircle = _library_2.Library.UI.getElementById("div", "wakeup-progress-circle");
         UI.wakeUpTimerLabel = _library_2.Library.UI.getElementById("label", "wakeup-timer");
+        UI.wakeUpTimerLabelVisibilityApplier = new VisibilityApplier(UI.wakeUpTimerLabel);
         UI.wakeUpToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.wakeUpToggle);
         UI.wakeUpSelect = new _library_2.Library.Control.Select(control_json_1.default.wakeUpTime, {
             makeLabel: function (value) { var _a; return _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale); }
@@ -4443,8 +4447,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             }
         });
         UI.noMediaLabel = _library_2.Library.UI.getElementById("label", "no-media");
+        UI.noMediaLabelVisibilityApplier = new VisibilityApplier(UI.noMediaLabel);
         UI.sleepProgressCircle = _library_2.Library.UI.getElementById("div", "sleep-progress-circle");
         UI.sleepTimerLabel = _library_2.Library.UI.getElementById("label", "sleep-timer");
+        UI.sleepTimerLabelVisibilityApplier = new VisibilityApplier(UI.sleepTimerLabel);
         UI.sleepToggle = new _library_2.Library.Control.ToggleLabel(control_json_1.default.sleepToggle);
         UI.sleepSelect = new _library_2.Library.Control.Select(control_json_1.default.sleepTime, {
             makeLabel: function (value) { var _a; return _tools_2.Tools.Timespan.toHumanizedString((_a = _tools_2.Tools.Timespan.parse(value)) !== null && _a !== void 0 ? _a : 0, undefined, UI.locale); }
@@ -4458,6 +4464,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             }
         });
         UI.noRepeatLabel = _library_2.Library.UI.getElementById("label", "no-repeat");
+        UI.noRepeatLabelVisibilityApplier = new VisibilityApplier(UI.noRepeatLabel);
         UI.initialize = function (params) {
             UI.locale = params["locale"];
             UI.noscript.style.setProperty("display", "none");
@@ -4481,6 +4488,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 ControlPanel.volumePanelVisibilityApplier,
                 ControlPanel.settingsPanelVisibilityApplier,
                 ControlPanel.sleepPanelVisibilityApplier,
+                UI.wakeUpTimerLabelVisibilityApplier,
+                UI.sleepTimerLabelVisibilityApplier,
+                UI.noMediaLabelVisibilityApplier,
+                UI.noRepeatLabelVisibilityApplier,
                 TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.immediateHide(); });
@@ -8742,6 +8753,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         MediaList.updateNoMediaLabel = function () {
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
+            ui_11.UI.noMediaLabelVisibilityApplier.show(hasNoMedia);
         };
         MediaList.initialize = function (params) {
             MediaList.locale = params["locale"];
@@ -8827,7 +8839,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateWakeUpTimer = function (remainingTime) {
             var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
+            var labelText = Events.makeTimerLabel(remainingTime, Events.locale);
+            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, labelText);
+            ui_12.UI.wakeUpTimerLabelVisibilityApplier.show("" !== labelText);
             if (_features_2.Features.Timer.isWakeUpFading()) {
                 ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
                 ui_12.UI.wakeUpProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilFadeInComplete()) !== null && _a !== void 0 ? _a : 1));
@@ -8840,7 +8854,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateSleepTimer = function (remainingTime) {
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
-            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, Events.makeTimerLabel(remainingTime, Events.locale));
+            var labelText = Events.makeTimerLabel(remainingTime, Events.locale);
+            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, labelText);
+            ui_12.UI.sleepTimerLabelVisibilityApplier.show("" !== labelText);
             ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1));
         };
         var wakeUpCountDownTimer = null;
@@ -8925,6 +8941,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.updateNoRepeatLabel = function () {
             var noRepeat = ui_12.UI.sleepToggle.get() && !ui_12.UI.ControlPanel.repeat.get();
             ui_12.UI.noRepeatLabel.classList.toggle("hide", !noRepeat);
+            ui_12.UI.noRepeatLabelVisibilityApplier.show(noRepeat);
         };
         var sleepCountDownTimer = null;
         Events.sleepCountDownTimerLoop = function () {

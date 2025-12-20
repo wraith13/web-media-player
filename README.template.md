@@ -3,7 +3,13 @@
 [![pages-build-deployment](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment)
 [![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](./LICENSE_1_0.txt)
 
-▶️ Live site: <https://wraith13.github.io/web-media-player/>
+## Live site
+
+<a href="https://wraith13.github.io/web-media-player/">
+<div style="postion:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:1rem;">
+<span>https://wraith13.github.io/web-media-player/</span><img src="./play-now-button.svg" alt="Open live site" width="160" height="32"/>
+</div>
+</a>
 
 ## Feature
 
@@ -23,6 +29,8 @@
 - ✅ Full offline support for all features except weather display (weather requires an Internet connection)
 - ✅ For practical browser compatibility, everything that doesn't need to be split into a separate file is embedded in index.html. This reduces requests and enables very fast loading, so the single index.html file provides nearly all functionality with minimal issues.
 - ✅ FPS display
+- ✅ Full keyboard navigation support
+- ✅ Conforms to WAI-ARIA
 - ✅ Multi-language support: __LANG_LABEL_LIST__
 
 ## Screenshot
@@ -76,15 +84,26 @@ The following options cannot be set via the UI.
    npm run-script "build all"
    ```
 
-More information: see [./BUILD.md — Build commands](./BUILD.md#build-commands)
+More information: see [`./BUILD.md` — Build commands](./BUILD.md#build-commands)
 
 ## Files
 
-see [./FILES.md](./FILES.md)
+Detailed file reference: [FILES.md](./FILES.md)
+
+- [Template files](./FILES.md#template-files)
+- [Source files](./FILES.md#source-files)
+- [Generated files (do not edit)](./FILES.md#generated-files-do-not-edit)
+- [Runtime files](./FILES.md#runtime-files)
+- [Other](./FILES.md#other)
 
 ## How to add a supported language
 
-Create a JSON file for the language you want by copying one of the existing language JSON files in the [./resouce/lang/](./resouce/lang/) directory, then run the build. The Web Manifest, README.md, and other necessary files will be generated automatically and the language will be added.
+Create a JSON file for the language you want by copying one of the existing language JSON files in the [`./resouce/lang/`](./resouce/lang/) directory, then run the build. The Web Manifest, README.md, and other necessary files will be generated automatically and the language will be added.
+
+## How to publish
+
+1. Fork [this repository](https://github.com/wraith13/web-media-player/) on GitHub.
+2. Go `Settings`(→`Options`)→`GitHub Pages` or `Pages`, select `master` branch and `/(root)` folder from drop down list, and click `Save`.
 
 ## Powered by
 

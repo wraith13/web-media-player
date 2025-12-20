@@ -357,9 +357,12 @@ export namespace Control
             this.options = { ...this.options, change };
         toggle = (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") =>
         {
-            if (checked !== this.get() || "forceOnChange" === preventOnChange)
+            const newChecked = checked ?? ! this.get();
+            if (newChecked !== this.get() || "forceOnChange" === preventOnChange)
             {
-                this.dom.classList.toggle("on", checked ?? ! this.get());
+                this.dom.classList.toggle("on", newChecked);
+                this.dom.querySelector("span[data-lang-key='on']")?.setAttribute("aria-hidden", newChecked ? "false": "true");
+                this.dom.querySelector("span[data-lang-key='off']")?.setAttribute("aria-hidden", newChecked ? "true": "false");
                 if (undefined === preventOnChange)
                 {
                     this.options?.change?.(null, this);

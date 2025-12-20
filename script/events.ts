@@ -96,7 +96,9 @@ export namespace Events
     };
     export const updateWakeUpTimer = (remainingTime = Features.Timer.getTimeUntilWakeUp()) =>
     {
-        Library.UI.setTextContent(UI.wakeUpTimerLabel, makeTimerLabel(remainingTime, locale));
+        const labelText = makeTimerLabel(remainingTime, locale);
+        Library.UI.setTextContent(UI.wakeUpTimerLabel, labelText);
+        UI.wakeUpTimerLabelVisibilityApplier.show("" !== labelText);
         if (Features.Timer.isWakeUpFading())
         {
             UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
@@ -110,7 +112,9 @@ export namespace Events
     };
     export const updateSleepTimer = (remainingTime = Features.Timer.getTimeUntilSleep()) =>
     {
-        Library.UI.setTextContent(UI.sleepTimerLabel, makeTimerLabel(remainingTime, locale));
+        const labelText = makeTimerLabel(remainingTime, locale);
+        Library.UI.setTextContent(UI.sleepTimerLabel, labelText);
+        UI.sleepTimerLabelVisibilityApplier.show("" !== labelText);
         UI.sleepProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilSleep() ?? 1}`);
     };
     let wakeUpCountDownTimer: ReturnType<typeof setTimeout> | null = null;
@@ -227,6 +231,7 @@ export namespace Events
     {
         const noRepeat = UI.sleepToggle.get() && ! UI.ControlPanel.repeat.get();
         UI.noRepeatLabel.classList.toggle("hide", ! noRepeat);
+        UI.noRepeatLabelVisibilityApplier.show(noRepeat);
     };
     let sleepCountDownTimer: ReturnType<typeof setTimeout> | null = null;
     export const sleepCountDownTimerLoop = (): void =>

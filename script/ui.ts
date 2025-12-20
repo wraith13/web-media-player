@@ -421,6 +421,8 @@ export namespace UI
         Library.UI.getElementById("div", "wakeup-progress-circle");
     export const wakeUpTimerLabel =
         Library.UI.getElementById("label", "wakeup-timer");
+    export const wakeUpTimerLabelVisibilityApplier =
+        new VisibilityApplier(wakeUpTimerLabel);
     export const wakeUpToggle =
         new Library.Control.ToggleLabel(control.wakeUpToggle);
     export const wakeUpSelect =
@@ -443,10 +445,14 @@ export namespace UI
         );
     export const noMediaLabel =
         Library.UI.getElementById("label", "no-media");
+    export const noMediaLabelVisibilityApplier =
+        new VisibilityApplier(noMediaLabel);
     export const sleepProgressCircle =
         Library.UI.getElementById("div", "sleep-progress-circle");
     export const sleepTimerLabel =
         Library.UI.getElementById("label", "sleep-timer");
+    export const sleepTimerLabelVisibilityApplier =
+        new VisibilityApplier(sleepTimerLabel);
     export const sleepToggle =
         new Library.Control.ToggleLabel(control.sleepToggle);
     export const sleepSelect =
@@ -469,6 +475,8 @@ export namespace UI
         );
     export const noRepeatLabel =
         Library.UI.getElementById("label", "no-repeat");
+    export const noRepeatLabelVisibilityApplier =
+        new VisibilityApplier(noRepeatLabel);
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];
@@ -494,6 +502,10 @@ export namespace UI
             ControlPanel.volumePanelVisibilityApplier,
             ControlPanel.settingsPanelVisibilityApplier,
             ControlPanel.sleepPanelVisibilityApplier,
+            wakeUpTimerLabelVisibilityApplier,
+            sleepTimerLabelVisibilityApplier,
+            noMediaLabelVisibilityApplier,
+            noRepeatLabelVisibilityApplier,
             TransportPanel.visibilityApplier,
         ]
         .forEach(i => i.immediateHide());
