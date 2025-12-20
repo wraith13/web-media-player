@@ -134,7 +134,7 @@ export namespace Overlay
         );
     export const updateLayout = (date: Date): void =>
     {
-        if (UI.overlay.classList.contains("rotate"))
+        if (UI.OverlayPanel.panel.classList.contains("rotate"))
         {
             const direction = ((date.getHours() %12) /3) |0;
             [
@@ -143,7 +143,7 @@ export namespace Overlay
                 "bottom-left",
                 "top-left",
             ]
-            .forEach((i, ix) => UI.overlay.classList.toggle(i, direction === ix));
+            .forEach((i, ix) => UI.OverlayPanel.panel.classList.toggle(i, direction === ix));
         }
     };
     export const updateWeather = (): void =>
@@ -151,16 +151,16 @@ export namespace Overlay
         if (UI.SettingsPanel.withWeatherCheckbox.get())
         {
             const weather = Weather.get();
-            if (UI.weather.attributes.getNamedItem("data-weather")?.value !== weather)
+            if (UI.OverlayPanel.weather.attributes.getNamedItem("data-weather")?.value !== weather)
             {
                 const attribute = document.createAttribute("data-weather");
                 attribute.value = weather;
-                UI.weather.attributes.setNamedItem(attribute);
+                UI.OverlayPanel.weather.attributes.setNamedItem(attribute);
                 const firstLetter = weather.match(/\S+/)?.[0] ?? "";
                 const tail = weather.slice(firstLetter.length).trim();
                 Library.UI.replaceChildren
                 (
-                    UI.weather,
+                    UI.OverlayPanel.weather,
                     [
                         {
                             tag: "span",
@@ -178,46 +178,46 @@ export namespace Overlay
         }
         else
         {
-            Library.UI.setTextContent(UI.weather, "");
+            Library.UI.setTextContent(UI.OverlayPanel.weather, "");
         }
     };
     export const updateTime = (date: Date): void =>
     {
         if (UI.SettingsPanel.withClockCheckbox.get())
         {
-            Library.UI.setTextContent(UI.time, title ?? makeTime(date, locale));
-            Library.UI.setAttribute(UI.time, "datatime", makeTime(date, "ja-JP"));
+            Library.UI.setTextContent(UI.OverlayPanel.time, title ?? makeTime(date, locale));
+            Library.UI.setAttribute(UI.OverlayPanel.time, "datatime", makeTime(date, "ja-JP"));
         }
         else
         {
-            Library.UI.setTextContent(UI.time, "");
-            Library.UI.setAttribute(UI.time, "datatime", undefined);
+            Library.UI.setTextContent(UI.OverlayPanel.time, "");
+            Library.UI.setAttribute(UI.OverlayPanel.time, "datatime", undefined);
         }
     };
     export const updateDate = (date: Date): void =>
     {
         if (UI.SettingsPanel.withDateCheckbox.get())
         {
-            Library.UI.setTextContent(UI.date, subtitle ?? makeDate(date, locale));
-            Library.UI.setAttribute(UI.date, "datatime", date.toISOString().slice(0, 10));
+            Library.UI.setTextContent(UI.OverlayPanel.date, subtitle ?? makeDate(date, locale));
+            Library.UI.setAttribute(UI.OverlayPanel.date, "datatime", date.toISOString().slice(0, 10));
         }
         else
         {
-            Library.UI.setTextContent(UI.date, "");
-            Library.UI.setAttribute(UI.date, "datatime", undefined);
+            Library.UI.setTextContent(UI.OverlayPanel.date, "");
+            Library.UI.setAttribute(UI.OverlayPanel.date, "datatime", undefined);
         }
     };
     export const updateCalendar = (date: Date): void =>
     {
         const dateDate = UI.SettingsPanel.withCalenderCheckbox.get() ? makeDate(date, locale): "";
-        if (UI.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
+        if (UI.OverlayPanel.calendar.attributes.getNamedItem("data-date")?.value !== dateDate)
         {
             const attribute = document.createAttribute("data-date");
             attribute.value = dateDate;
-            UI.calendar.attributes.setNamedItem(attribute);
+            UI.OverlayPanel.calendar.attributes.setNamedItem(attribute);
             if ("" === dateDate)
             {
-                Library.UI.removeAllChildren(UI.calendar);
+                Library.UI.removeAllChildren(UI.OverlayPanel.calendar);
             }
             else
             {
@@ -250,7 +250,7 @@ export namespace Overlay
                 }
                 Library.UI.replaceChildren
                 (
-                    UI.calendar,
+                    UI.OverlayPanel.calendar,
                     weeks,
                 );
             }
@@ -258,10 +258,10 @@ export namespace Overlay
     };
     export const setColor = (color: string | undefined): void =>
     {
-        Library.UI.setStyle(UI.calendar, "color", color);
-        Library.UI.setStyle(UI.weather, "color", color);
-        Library.UI.setStyle(UI.date, "color", color);
-        Library.UI.setStyle(UI.time, "color", color);
+        Library.UI.setStyle(UI.OverlayPanel.calendar, "color", color);
+        Library.UI.setStyle(UI.OverlayPanel.weather, "color", color);
+        Library.UI.setStyle(UI.OverlayPanel.date, "color", color);
+        Library.UI.setStyle(UI.OverlayPanel.time, "color", color);
     };
     export const update = (now: number) =>
     {
@@ -279,8 +279,8 @@ export namespace Overlay
             {
             case "alternate":
                 const isWhite = (new Date().getTime() /config.clock.alternate.span) %2 < 1.0;
-                UI.overlay.classList.toggle("white", isWhite);
-                UI.overlay.classList.toggle("black", ! isWhite);
+                UI.OverlayPanel.panel.classList.toggle("white", isWhite);
+                UI.OverlayPanel.panel.classList.toggle("black", ! isWhite);
                 setColor(undefined);
                 break;
             case "rainbow":
@@ -298,6 +298,6 @@ export namespace Overlay
         locale = params["locale"];
         title = params["title"];
         subtitle = params["subtitle"];
-        UI.time.classList.toggle("text", undefined !== title);
+        UI.OverlayPanel.time.classList.toggle("text", undefined !== title);
     }
 }

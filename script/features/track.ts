@@ -238,13 +238,13 @@ export class Track
         {
             if (this.playerElement instanceof HTMLVideoElement && UI.SettingsPanel.withVisualizerCheckbox.get())
             {
-                UI.visualizer.classList.toggle("on", true);
-                UI.visualizer.classList.toggle("odd", 0 !== (this.index %2));
-                Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
+                UI.OverlayPanel.visualizer.classList.toggle("on", true);
+                UI.OverlayPanel.visualizer.classList.toggle("odd", 0 !== (this.index %2));
+                Visualizer.step(this.media, this.playerElement, UI.OverlayPanel.visualizer, this.analyser);
             }
             else
             {
-                UI.visualizer.classList.toggle("on", false);
+                UI.OverlayPanel.visualizer.classList.toggle("on", false);
             }
         }
         if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
@@ -405,14 +405,14 @@ export class Track
             {
                 if (this.playerElement instanceof HTMLVideoElement && UI.SettingsPanel.withVisualizerCheckbox.get())
                 {
-                    Visualizer.updateStretch(UI.visualizer);
-                    Visualizer.step(this.media, this.playerElement, UI.visualizer, this.analyser);
+                    Visualizer.updateStretch(UI.OverlayPanel.visualizer);
+                    Visualizer.step(this.media, this.playerElement, UI.OverlayPanel.visualizer, this.analyser);
                 }
             }
         }
         if ("current" === truckType)
         {
-            Visualizer.updateStretch(UI.visualizer);
+            Visualizer.updateStretch(UI.OverlayPanel.visualizer);
         }
     }
     updateLoopShortMedia(isPlaying: boolean): void

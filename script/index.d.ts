@@ -3509,6 +3509,7 @@ declare module "script/ui" {
         const mediaList: HTMLDivElement;
         const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;
+        const progressCircleVisibilityApplier: VisibilityApplier;
         namespace AnalogClock {
             const panel: HTMLTimeElement;
             const background: HTMLDivElement;
@@ -3522,6 +3523,21 @@ declare module "script/ui" {
             const secondsNiddle: HTMLDivElement;
             const milliSecondsNiddle: HTMLDivElement;
             const visibilityApplier: VisibilityApplier;
+            const updateVisibility: () => void;
+        }
+        namespace OverlayPanel {
+            const panel: HTMLDivElement;
+            const weather: HTMLDivElement;
+            const weatherVisibilityApplier: VisibilityApplier;
+            const date: HTMLTimeElement;
+            const dateVisibilityApplier: VisibilityApplier;
+            const time: HTMLTimeElement;
+            const timeVisibilityApplier: VisibilityApplier;
+            const calendar: HTMLDivElement;
+            const visualizer: HTMLDivElement;
+            const updateWeatherVisibility: () => void;
+            const updateDateVisibility: () => void;
+            const updateTimeVisibility: () => void;
         }
         const addMediaButton: Library.Control.Button<HTMLElement>;
         const addMediaButtonHeight = 84;
@@ -3551,17 +3567,13 @@ declare module "script/ui" {
             const withCalenderCheckbox: Library.Control.Checkbox;
             const withVisualizerCheckbox: Library.Control.Checkbox;
             const showFpsCheckbox: Library.Control.Checkbox;
+            const updateShowFps: () => void;
             const shortcutsSelect: Library.Control.Select<string>;
             const languageSelect: Library.Control.Select<string>;
             const urlAnchor: HTMLAnchorElement;
         }
         const fpsDisplay: HTMLDivElement;
-        const overlay: HTMLDivElement;
-        const visualizer: HTMLDivElement;
-        const calendar: HTMLDivElement;
-        const weather: HTMLDivElement;
-        const date: HTMLTimeElement;
-        const time: HTMLTimeElement;
+        const fpsVisibilityApplier: VisibilityApplier;
         const keyboardShortcut: HTMLDivElement;
         const pressedKey: HTMLDivElement;
         const updateShortcuts: () => void;
@@ -3579,6 +3591,10 @@ declare module "script/ui" {
         const fadeOutSelect: Library.Control.Select<string>;
         const noRepeatLabel: HTMLLabelElement;
         const initialize: (params: Record<string, string>) => void;
+        const isPlaying: () => boolean;
+        const isSeeking: () => boolean;
+        const onPlaybackStarted: () => void;
+        const onPlaybackPaused: () => void;
         const getDataLangKey: (element: HTMLSpanElement) => Library.Locale.Label;
         const updateLabel: (element: HTMLSpanElement) => void;
         const updateAriaLabel: (element: HTMLElement) => void;

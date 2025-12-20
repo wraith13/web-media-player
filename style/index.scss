@@ -764,19 +764,11 @@ body:not(.not-supported-media)
     @include fade-transition("body:not(.wakeup-timer-not-working)");
     color: $warning-color;
 }
-// body:not(.play):not(.mousemove).sleeped.wakeup-timer-not-working #wakeup-timer-not-working-panel
-// {
-//     opacity: 0.4;
-// }
 #wakeup-timer-requires-active-page-panel
 {
     @include fade-transition("body:not(.wakeup-timer-requires-active-page)");
     color: $warning-color;
 }
-// body:not(.play):not(.mousemove).sleeped.wakeup-timer-requires-active-page #wakeup-timer-requires-active-page-panel
-// {
-//     opacity: 0.4;
-// }
 .toggle-label
 {
     &.on

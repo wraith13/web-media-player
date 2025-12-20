@@ -4158,6 +4158,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 this.element = element;
                 this.delay = delay;
                 this.hideTimer = null;
+                // This class serves two purposes:
+                // 1. Prevent hidden UI from receiving input focus via the Tab key by correctly toggling
+                //    visibility before and after UI element transitions.
+                // 2. Ensure the aria-hidden attribute is set appropriately according to the element's
+                //    visibility so screen readers do not announce hidden UI.
+                // To accomplish this correctly, visibility is applied at the start of the transition,
+                // while hiding is performed after the transition has finished.
             }
             VisibilityApplier.prototype.show = function (visibility) {
                 var _this = this;
@@ -4237,6 +4244,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
         };
         UI.progressCircle = _library_2.Library.UI.getElementById("div", "progress-circle");
+        UI.progressCircleVisibilityApplier = new VisibilityApplier(UI.progressCircle);
         var AnalogClock;
         (function (AnalogClock) {
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
@@ -4251,8 +4259,58 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
             AnalogClock.milliSecondsNiddle = _library_2.Library.UI.getElementById("div", "milli-seconds-niddle");
             AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
+            AnalogClock.updateVisibility = function () {
+                if (UI.isPlaying()) {
+                    AnalogClock.visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
+                }
+            };
         })(AnalogClock = UI.AnalogClock || (UI.AnalogClock = {}));
         ;
+        var OverlayPanel;
+        (function (OverlayPanel) {
+            OverlayPanel.panel = _library_2.Library.UI.getElementById("div", "overlay-panel");
+            OverlayPanel.weather = _library_2.Library.UI.getElementById("div", "weather");
+            OverlayPanel.weatherVisibilityApplier = new VisibilityApplier(OverlayPanel.weather);
+            OverlayPanel.date = _library_2.Library.UI.getElementById("time", "date");
+            OverlayPanel.dateVisibilityApplier = new VisibilityApplier(OverlayPanel.date);
+            OverlayPanel.time = _library_2.Library.UI.getElementById("time", "time");
+            OverlayPanel.timeVisibilityApplier = new VisibilityApplier(OverlayPanel.time);
+            OverlayPanel.calendar = _library_2.Library.UI.getElementById("div", "calendar");
+            // export const calendarVisibilityApplier =
+            //     new VisibilityApplier(calendar);
+            OverlayPanel.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
+            // export const visualizerVisibilityApplier =
+            //     new VisibilityApplier(visualizer);
+            OverlayPanel.updateWeatherVisibility = function () {
+                if (UI.isPlaying()) {
+                    OverlayPanel.weatherVisibilityApplier.show(UI.SettingsPanel.withWeatherCheckbox.get());
+                }
+            };
+            OverlayPanel.updateDateVisibility = function () {
+                if (UI.isPlaying()) {
+                    OverlayPanel.dateVisibilityApplier.show(UI.SettingsPanel.withDateCheckbox.get());
+                }
+            };
+            OverlayPanel.updateTimeVisibility = function () {
+                if (UI.isPlaying()) {
+                    OverlayPanel.timeVisibilityApplier.show(UI.SettingsPanel.withClockCheckbox.get());
+                }
+            };
+            // export const updateCalendarVisibility = () =>
+            // {
+            //     if (isPlaying())
+            //     {
+            //         calendarVisibilityApplier.show(UI.SettingsPanel.withCalenderCheckbox.get());
+            //     }
+            // };
+            // export const updateVisualizerVisibility = () =>
+            // {
+            //     if (isPlaying())
+            //     {
+            //         visualizerVisibilityApplier.show(UI.SettingsPanel.withVisualizerCheckbox.get());
+            //     }
+            // };
+        })(OverlayPanel = UI.OverlayPanel || (UI.OverlayPanel = {}));
         UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
@@ -4291,6 +4349,12 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.withCalenderCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withCalendar);
             SettingsPanel.withVisualizerCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.withVisualizer);
             SettingsPanel.showFpsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.showFps);
+            SettingsPanel.updateShowFps = function () {
+                if (UI.isPlaying()) {
+                    UI.fpsDisplay.classList.toggle("hide", !UI.SettingsPanel.showFpsCheckbox.get());
+                    UI.fpsVisibilityApplier.show(UI.SettingsPanel.showFpsCheckbox.get());
+                }
+            };
             SettingsPanel.shortcutsSelect = new _library_2.Library.Control.Select({
                 id: "shortcuts",
                 enum: Object.keys(shortcuts_json_2.default),
@@ -4311,12 +4375,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             SettingsPanel.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
         })(SettingsPanel = UI.SettingsPanel || (UI.SettingsPanel = {}));
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
-        UI.overlay = _library_2.Library.UI.getElementById("div", "overlay-panel");
-        UI.visualizer = _library_2.Library.UI.getElementById("div", "visualizer");
-        UI.calendar = _library_2.Library.UI.getElementById("div", "calendar");
-        UI.weather = _library_2.Library.UI.getElementById("div", "weather");
-        UI.date = _library_2.Library.UI.getElementById("time", "date");
-        UI.time = _library_2.Library.UI.getElementById("time", "time");
+        UI.fpsVisibilityApplier = new VisibilityApplier(UI.fpsDisplay);
         UI.keyboardShortcut = _library_2.Library.UI.getElementById("div", "keyboard-shortcut");
         UI.pressedKey = _library_2.Library.UI.getElementById("div", "pressed-key");
         UI.updateShortcuts = function () {
@@ -4405,16 +4464,64 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             if (!_library_2.Library.UI.fullscreenEnabled && SettingsPanel.withFullscreenCheckbox.dom.parentElement) {
                 SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
             }
-            AnalogClock.visibilityApplier.immediateHide();
-            MessagePanel.noMediaPanelVisibilityApplier.immediateHide();
-            MessagePanel.notSupportedMediaPanelVisibilityApplier.immediateHide();
-            MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.immediateHide();
-            MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.immediateHide();
-            ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
-            ControlPanel.volumePanelVisibilityApplier.immediateHide();
-            ControlPanel.settingsPanelVisibilityApplier.immediateHide();
-            ControlPanel.sleepPanelVisibilityApplier.immediateHide();
-            TransportPanel.visibilityApplier.immediateHide();
+            [
+                UI.progressCircleVisibilityApplier,
+                AnalogClock.visibilityApplier,
+                OverlayPanel.weatherVisibilityApplier,
+                OverlayPanel.dateVisibilityApplier,
+                OverlayPanel.timeVisibilityApplier,
+                // OverlayPanel.calendarVisibilityApplier,
+                // OverlayPanel.visualizerVisibilityApplier,
+                MessagePanel.noMediaPanelVisibilityApplier,
+                MessagePanel.notSupportedMediaPanelVisibilityApplier,
+                MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier,
+                MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier,
+                UI.fpsVisibilityApplier,
+                ControlPanel.wakeupPanelVisibilityApplier,
+                ControlPanel.volumePanelVisibilityApplier,
+                ControlPanel.settingsPanelVisibilityApplier,
+                ControlPanel.sleepPanelVisibilityApplier,
+                TransportPanel.visibilityApplier,
+            ]
+                .forEach(function (i) { return i.immediateHide(); });
+        };
+        UI.isPlaying = function () {
+            return document.body.classList.contains("play");
+        };
+        UI.isSeeking = function () {
+            return document.body.classList.contains("is-seeking");
+        };
+        UI.onPlaybackStarted = function () {
+            TransportPanel.visibilityApplier.show();
+            document.body.classList.toggle("show-ui", false);
+            document.body.classList.toggle("list", false);
+            document.body.classList.toggle("play", true);
+            document.body.classList.toggle("show-paused-media", false);
+            UI.screenBody.classList.toggle("paused", false);
+            AnalogClock.updateVisibility();
+            OverlayPanel.updateWeatherVisibility();
+            OverlayPanel.updateDateVisibility();
+            OverlayPanel.updateTimeVisibility();
+            // OverlayPanel.updateCalendarVisibility();
+            // OverlayPanel.updateVisualizerVisibility();
+            SettingsPanel.updateShowFps();
+        };
+        UI.onPlaybackPaused = function () {
+            OverlayPanel.panel.style.removeProperty("opacity");
+            //updateFullscreenState(false);
+            navigator.mediaSession.playbackState = "paused";
+            document.body.classList.toggle("list", true);
+            document.body.classList.toggle("play", false);
+            [
+                AnalogClock.visibilityApplier,
+                OverlayPanel.weatherVisibilityApplier,
+                OverlayPanel.dateVisibilityApplier,
+                OverlayPanel.timeVisibilityApplier,
+                // OverlayPanel.calendarVisibilityApplier,
+                // OverlayPanel.visualizerVisibilityApplier,
+                UI.fpsVisibilityApplier
+            ]
+                .forEach(function (i) { return i.hide(); });
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -4749,7 +4856,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             return date.toLocaleTimeString(locale, config_json_4.default.clock.timeFormat);
         };
         Overlay.updateLayout = function (date) {
-            if (ui_4.UI.overlay.classList.contains("rotate")) {
+            if (ui_4.UI.OverlayPanel.panel.classList.contains("rotate")) {
                 var direction_1 = ((date.getHours() % 12) / 3) | 0;
                 [
                     "top-right",
@@ -4757,20 +4864,20 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     "bottom-left",
                     "top-left",
                 ]
-                    .forEach(function (i, ix) { return ui_4.UI.overlay.classList.toggle(i, direction_1 === ix); });
+                    .forEach(function (i, ix) { return ui_4.UI.OverlayPanel.panel.classList.toggle(i, direction_1 === ix); });
             }
         };
         Overlay.updateWeather = function () {
             var _a, _b, _c;
             if (ui_4.UI.SettingsPanel.withWeatherCheckbox.get()) {
                 var weather = weather_1.Weather.get();
-                if (((_a = ui_4.UI.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
+                if (((_a = ui_4.UI.OverlayPanel.weather.attributes.getNamedItem("data-weather")) === null || _a === void 0 ? void 0 : _a.value) !== weather) {
                     var attribute = document.createAttribute("data-weather");
                     attribute.value = weather;
-                    ui_4.UI.weather.attributes.setNamedItem(attribute);
+                    ui_4.UI.OverlayPanel.weather.attributes.setNamedItem(attribute);
                     var firstLetter = (_c = (_b = weather.match(/\S+/)) === null || _b === void 0 ? void 0 : _b[0]) !== null && _c !== void 0 ? _c : "";
                     var tail = weather.slice(firstLetter.length).trim();
-                    library_1.Library.UI.replaceChildren(ui_4.UI.weather, [
+                    library_1.Library.UI.replaceChildren(ui_4.UI.OverlayPanel.weather, [
                         {
                             tag: "span",
                             className: "first-letter",
@@ -4785,38 +4892,38 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 }
             }
             else {
-                library_1.Library.UI.setTextContent(ui_4.UI.weather, "");
+                library_1.Library.UI.setTextContent(ui_4.UI.OverlayPanel.weather, "");
             }
         };
         Overlay.updateTime = function (date) {
             if (ui_4.UI.SettingsPanel.withClockCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_4.UI.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
-                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", Overlay.makeTime(date, "ja-JP"));
+                library_1.Library.UI.setTextContent(ui_4.UI.OverlayPanel.time, Overlay.title !== null && Overlay.title !== void 0 ? Overlay.title : Overlay.makeTime(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.OverlayPanel.time, "datatime", Overlay.makeTime(date, "ja-JP"));
             }
             else {
-                library_1.Library.UI.setTextContent(ui_4.UI.time, "");
-                library_1.Library.UI.setAttribute(ui_4.UI.time, "datatime", undefined);
+                library_1.Library.UI.setTextContent(ui_4.UI.OverlayPanel.time, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.OverlayPanel.time, "datatime", undefined);
             }
         };
         Overlay.updateDate = function (date) {
             if (ui_4.UI.SettingsPanel.withDateCheckbox.get()) {
-                library_1.Library.UI.setTextContent(ui_4.UI.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
-                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", date.toISOString().slice(0, 10));
+                library_1.Library.UI.setTextContent(ui_4.UI.OverlayPanel.date, Overlay.subtitle !== null && Overlay.subtitle !== void 0 ? Overlay.subtitle : Overlay.makeDate(date, Overlay.locale));
+                library_1.Library.UI.setAttribute(ui_4.UI.OverlayPanel.date, "datatime", date.toISOString().slice(0, 10));
             }
             else {
-                library_1.Library.UI.setTextContent(ui_4.UI.date, "");
-                library_1.Library.UI.setAttribute(ui_4.UI.date, "datatime", undefined);
+                library_1.Library.UI.setTextContent(ui_4.UI.OverlayPanel.date, "");
+                library_1.Library.UI.setAttribute(ui_4.UI.OverlayPanel.date, "datatime", undefined);
             }
         };
         Overlay.updateCalendar = function (date) {
             var _a;
             var dateDate = ui_4.UI.SettingsPanel.withCalenderCheckbox.get() ? Overlay.makeDate(date, Overlay.locale) : "";
-            if (((_a = ui_4.UI.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
+            if (((_a = ui_4.UI.OverlayPanel.calendar.attributes.getNamedItem("data-date")) === null || _a === void 0 ? void 0 : _a.value) !== dateDate) {
                 var attribute = document.createAttribute("data-date");
                 attribute.value = dateDate;
-                ui_4.UI.calendar.attributes.setNamedItem(attribute);
+                ui_4.UI.OverlayPanel.calendar.attributes.setNamedItem(attribute);
                 if ("" === dateDate) {
-                    library_1.Library.UI.removeAllChildren(ui_4.UI.calendar);
+                    library_1.Library.UI.removeAllChildren(ui_4.UI.OverlayPanel.calendar);
                 }
                 else {
                     var weeks = [];
@@ -4842,15 +4949,15 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                             children: weekDays,
                         });
                     }
-                    library_1.Library.UI.replaceChildren(ui_4.UI.calendar, weeks);
+                    library_1.Library.UI.replaceChildren(ui_4.UI.OverlayPanel.calendar, weeks);
                 }
             }
         };
         Overlay.setColor = function (color) {
-            library_1.Library.UI.setStyle(ui_4.UI.calendar, "color", color);
-            library_1.Library.UI.setStyle(ui_4.UI.weather, "color", color);
-            library_1.Library.UI.setStyle(ui_4.UI.date, "color", color);
-            library_1.Library.UI.setStyle(ui_4.UI.time, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.OverlayPanel.calendar, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.OverlayPanel.weather, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.OverlayPanel.date, "color", color);
+            library_1.Library.UI.setStyle(ui_4.UI.OverlayPanel.time, "color", color);
         };
         Overlay.update = function (now) {
             var overlayOption = ui_4.UI.SettingsPanel.overlayStyleSelect.get();
@@ -4865,8 +4972,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 switch (overlayOption) {
                     case "alternate":
                         var isWhite = (new Date().getTime() / config_json_4.default.clock.alternate.span) % 2 < 1.0;
-                        ui_4.UI.overlay.classList.toggle("white", isWhite);
-                        ui_4.UI.overlay.classList.toggle("black", !isWhite);
+                        ui_4.UI.OverlayPanel.panel.classList.toggle("white", isWhite);
+                        ui_4.UI.OverlayPanel.panel.classList.toggle("black", !isWhite);
                         Overlay.setColor(undefined);
                         break;
                     case "rainbow":
@@ -4884,7 +4991,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             Overlay.locale = params["locale"];
             Overlay.title = params["title"];
             Overlay.subtitle = params["subtitle"];
-            ui_4.UI.time.classList.toggle("text", undefined !== Overlay.title);
+            ui_4.UI.OverlayPanel.time.classList.toggle("text", undefined !== Overlay.title);
         };
     })(Overlay || (exports.Overlay = Overlay = {}));
 });
@@ -7289,12 +7396,12 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             }
             if ("current" === truckType) {
                 if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.SettingsPanel.withVisualizerCheckbox.get()) {
-                    ui_8.UI.visualizer.classList.toggle("on", true);
-                    ui_8.UI.visualizer.classList.toggle("odd", 0 !== (this.index % 2));
-                    visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
+                    ui_8.UI.OverlayPanel.visualizer.classList.toggle("on", true);
+                    ui_8.UI.OverlayPanel.visualizer.classList.toggle("odd", 0 !== (this.index % 2));
+                    visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.OverlayPanel.visualizer, this.analyser);
                 }
                 else {
-                    ui_8.UI.visualizer.classList.toggle("on", false);
+                    ui_8.UI.OverlayPanel.visualizer.classList.toggle("on", false);
                 }
             }
             if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
@@ -7420,13 +7527,13 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 }
                 if ("current" === truckType) {
                     if (this.playerElement instanceof HTMLVideoElement && ui_8.UI.SettingsPanel.withVisualizerCheckbox.get()) {
-                        visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
-                        visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.visualizer, this.analyser);
+                        visualizer_1.Visualizer.updateStretch(ui_8.UI.OverlayPanel.visualizer);
+                        visualizer_1.Visualizer.step(this.media, this.playerElement, ui_8.UI.OverlayPanel.visualizer, this.analyser);
                     }
                 }
             }
             if ("current" === truckType) {
-                visualizer_1.Visualizer.updateStretch(ui_8.UI.visualizer);
+                visualizer_1.Visualizer.updateStretch(ui_8.UI.OverlayPanel.visualizer);
             }
         };
         Track.prototype.updateLoopShortMedia = function (isPlaying) {
@@ -7905,10 +8012,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         var currentTrack = null;
         var fadeoutingTrack = null;
         Player.isPlaying = function () {
-            return document.body.classList.contains("play");
+            return ui_9.UI.isPlaying();
         };
         Player.isSeeking = function () {
-            return document.body.classList.contains("is-seeking");
+            return ui_9.UI.isSeeking();
         };
         Player.startAnimationFrameLoop = function () {
             if (null !== loopHandle) {
@@ -7922,15 +8029,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        ui_9.UI.TransportPanel.visibilityApplier.show();
-                        document.body.classList.toggle("show-ui", false);
-                        document.body.classList.toggle("list", false);
-                        document.body.classList.toggle("play", true);
-                        document.body.classList.toggle("show-paused-media", false);
-                        ui_9.UI.screenBody.classList.toggle("paused", false);
-                        if (ui_9.UI.SettingsPanel.analogClockCheckbox.get()) {
-                            ui_9.UI.AnalogClock.visibilityApplier.show();
-                        }
+                        ui_9.UI.onPlaybackStarted();
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
                                 image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
                                 audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
@@ -7983,12 +8082,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (null !== loopHandle) {
                 window.cancelAnimationFrame(loopHandle);
             }
-            ui_9.UI.overlay.style.removeProperty("opacity");
-            //updateFullscreenState(false);
+            ui_9.UI.onPlaybackPaused();
             navigator.mediaSession.playbackState = "paused";
-            document.body.classList.toggle("list", true);
-            document.body.classList.toggle("play", false);
-            ui_9.UI.AnalogClock.visibilityApplier.hide();
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
             CrossFade.pause();
@@ -8408,7 +8503,9 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
             Progress.updateProgress();
         };
         Progress.updateProgress = function () {
-            document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
+            var isProgressValid = 0 < totalTasks && completedTasks < totalTasks;
+            ui_10.UI.progressCircleVisibilityApplier.show(isProgressValid);
+            document.body.classList.toggle("progress-circle", isProgressValid);
             ui_10.UI.progressCircle.style.setProperty("--progress", "".concat(completedTasks / totalTasks));
             ui_10.UI.progressCircle.setAttribute("aria-volumemin", "0");
             ui_10.UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
@@ -8681,9 +8778,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             _features_2.Features.Player.updateVolume();
             Events.mousemove();
         };
-        var updateShowFps = function () {
-            ui_12.UI.fpsDisplay.classList.toggle("hide", !ui_12.UI.SettingsPanel.showFpsCheckbox.get());
-        };
         Events.updateBrightness = function (disableLog) {
             var value = ui_12.UI.SettingsPanel.brightnessRange.get();
             if ("disableLog" !== disableLog) {
@@ -8700,10 +8794,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             control_json_2.default.visualizer.enum.forEach(function (i) { return ui_12.UI.mediaScreen.classList.toggle(i, i === value); });
         };
         var updateOverlayStyle = function () {
-            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayStyleSelect.get()); });
+            control_json_2.default.overlayStyle.enum.forEach(function (i) { return ui_12.UI.OverlayPanel.panel.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayStyleSelect.get()); });
         };
         var updateOverlayPosition = function () {
-            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_12.UI.overlay.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayPositionSelect.get()); });
+            control_json_2.default.overlayPosition.enum.forEach(function (i) { return ui_12.UI.OverlayPanel.panel.classList.toggle(i, i === ui_12.UI.SettingsPanel.overlayPositionSelect.get()); });
         };
         var updateWeatherLocation = function () {
             if ("geolocation" === ui_12.UI.SettingsPanel.weatherLocationSelect.get()) {
@@ -9162,23 +9256,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(function () {
-                if (_features_2.Features.Player.isPlaying()) {
-                    ui_12.UI.AnalogClock.visibilityApplier.show(ui_12.UI.SettingsPanel.analogClockCheckbox.get());
-                }
-            });
+            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.AnalogClock.updateVisibility);
             ui_12.UI.SettingsPanel.dayHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.overlayStyleSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayStyle);
             ui_12.UI.SettingsPanel.overlayPositionSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateOverlayPosition);
-            ui_12.UI.SettingsPanel.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam);
+            ui_12.UI.SettingsPanel.withWeatherCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.OverlayPanel.updateWeatherVisibility);
             ui_12.UI.SettingsPanel.weatherLocationSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateWeatherLocation);
-            ui_12.UI.SettingsPanel.withClockCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.withDateCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.withCalenderCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.withVisualizerCheckbox.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(updateShowFps);
+            ui_12.UI.SettingsPanel.withClockCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.OverlayPanel.updateTimeVisibility);
+            ui_12.UI.SettingsPanel.withDateCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.OverlayPanel.updateDateVisibility);
+            ui_12.UI.SettingsPanel.withCalenderCheckbox.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.OverlayPanel.updateCalendarVisibility);
+            ui_12.UI.SettingsPanel.withVisualizerCheckbox.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.OverlayPanel.updateVisualizerVisibility);
+            ui_12.UI.SettingsPanel.showFpsCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.SettingsPanel.updateShowFps);
             ui_12.UI.SettingsPanel.shortcutsSelect.loadParameter(url_4.Url.params, applyParam).setChange(function () { return updateShortcuts(); });
             ui_12.UI.SettingsPanel.languageSelect.loadParameter(url_4.Url.params, applyParam).setChange(Events.updateLanguage);
             ui_12.UI.wakeUpToggle.setChange(Events.updateWakeUp);

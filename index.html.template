@@ -47,18 +47,18 @@ DUMMYSTYLE
 </style>
 </head>
 <body>
-<noscript id="noscript">
-    <div class="panel">
-        <div class="section">
+<noscript id="noscript" role="presentation">
+    <div class="panel" role="presentation">
+        <div class="section" role="presentation">
             <h2>NOSCRIPT</h2>
             __NOSCRIPT_MESSAGE__
         </div>
     </div>
 </noscript>
-<div id="screen-body">
+<div id="screen-body" role="presentation">
     <div id="media-screen" role="presentation" aria-hidden="true">
     </div>
-    <div id="overlay-screen">
+    <div id="overlay-screen" role="presentation">
         <div id="analog-clock-background" class="hide" role="presentation" aria-hidden="true"></div>
         <time id="analog-clock-panel" class="hide">
             <div id="milli-seconds-niddle" class="hide" role="presentation" aria-hidden="true"></div>
@@ -77,20 +77,20 @@ DUMMYSTYLE
             <div id="year-panel" role="presentation" aria-hidden="true"></div>
             <div id="center-circle" role="presentation" aria-hidden="true"></div>
         </time>
-        <div id="overlay-panel" dir="ltr">
+        <div id="overlay-panel" role="presentation" dir="ltr">
             <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
             <time id="time" role="timer" aria-live="polite" aria-atomic="true"></time>
             <time id="date" aria-live="polite" aria-atomic="true"></time>
-            <div id="calendar" aria-hidden="true"></div>
-            <div id="visualizer" class="visualizer"></div>
+            <div id="calendar" role="presentation" aria-hidden="true"></div>
+            <div id="visualizer" class="visualizer" role="presentation" aria-hidden="true"></div>
         </div>
     </div>
-    <div id="background-screen">
+    <div id="background-screen" role="presentation">
         <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
     </div>
-    <div id="dark-curtain"></div>
+    <div id="dark-curtain" role="presentation" aria-hidden="true"></div>
     <div id="media-list" data-aria-lang-key="media-list" role="list">
-        <div class="item add">
+        <div class="item add" role="presentation">
             <button id="add-media" data-aria-lang-key="add-media">__ADD_ICON__</button>
             <input id="add-file" type="file" multiple />
         </div>
@@ -113,7 +113,7 @@ DUMMYSTYLE
     </div>
 </div>
 <div id="fps" aria-hidden="true"></div>
-<div id="control-panel">
+<div id="control-panel" role="presentation">
     <form>
         <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
             <input id="wakeup-button" type="checkbox">
@@ -300,7 +300,7 @@ DUMMYSTYLE
         <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
     </form>
 </div>
-<div id="transport-panel">
+<div id="transport-panel" role="presentation">
     <form>
         <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
         <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>

@@ -27,10 +27,6 @@ export namespace Events
         Features.Player.updateVolume();
         mousemove();
     };
-    const updateShowFps = () =>
-    {
-        UI.fpsDisplay.classList.toggle("hide", ! UI.SettingsPanel.showFpsCheckbox.get());
-    }
     export const updateBrightness = (disableLog?: "disableLog") =>
     {
         const value = UI.SettingsPanel.brightnessRange.get();
@@ -57,14 +53,14 @@ export namespace Events
     {
         control.overlayStyle.enum.forEach
         (
-            i => UI.overlay.classList.toggle(i, i === UI.SettingsPanel.overlayStyleSelect.get())
+            i => UI.OverlayPanel.panel.classList.toggle(i, i === UI.SettingsPanel.overlayStyleSelect.get())
         );
     };
     const updateOverlayPosition = () =>
     {
         control.overlayPosition.enum.forEach
         (
-            i => UI.overlay.classList.toggle(i, i === UI.SettingsPanel.overlayPositionSelect.get())
+            i => UI.OverlayPanel.panel.classList.toggle(i, i === UI.SettingsPanel.overlayPositionSelect.get())
         );
     };
     const updateWeatherLocation = () =>
@@ -673,28 +669,19 @@ export namespace Events
         UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam).setChange
-        (
-            () =>
-            {
-                if (Features.Player.isPlaying())
-                {
-                    UI.AnalogClock.visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
-                }
-            }
-        );
+        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam).setChange(UI.AnalogClock.updateVisibility);
         UI.SettingsPanel.dayHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.overlayStyleSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayStyle);
         UI.SettingsPanel.overlayPositionSelect.loadParameter(Url.params, applyParam).setChange(updateOverlayPosition);
-        UI.SettingsPanel.withWeatherCheckbox.loadParameter(Url.params, applyParam);
+        UI.SettingsPanel.withWeatherCheckbox.loadParameter(Url.params, applyParam).setChange(UI.OverlayPanel.updateWeatherVisibility)
         UI.SettingsPanel.weatherLocationSelect.loadParameter(Url.params, applyParam).setChange(updateWeatherLocation);
-        UI.SettingsPanel.withClockCheckbox.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.withDateCheckbox.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.withCalenderCheckbox.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.withVisualizerCheckbox.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(updateShowFps);
+        UI.SettingsPanel.withClockCheckbox.loadParameter(Url.params, applyParam).setChange(UI.OverlayPanel.updateTimeVisibility);
+        UI.SettingsPanel.withDateCheckbox.loadParameter(Url.params, applyParam).setChange(UI.OverlayPanel.updateDateVisibility);
+        UI.SettingsPanel.withCalenderCheckbox.loadParameter(Url.params, applyParam); //.setChange(UI.OverlayPanel.updateCalendarVisibility);
+        UI.SettingsPanel.withVisualizerCheckbox.loadParameter(Url.params, applyParam); //.setChange(UI.OverlayPanel.updateVisualizerVisibility);
+        UI.SettingsPanel.showFpsCheckbox.loadParameter(Url.params, applyParam).setChange(UI.SettingsPanel.updateShowFps);
         UI.SettingsPanel.shortcutsSelect.loadParameter(Url.params, applyParam).setChange(() => updateShortcuts());
         UI.SettingsPanel.languageSelect.loadParameter(Url.params, applyParam).setChange(updateLanguage);
         UI.wakeUpToggle.setChange(updateWakeUp);

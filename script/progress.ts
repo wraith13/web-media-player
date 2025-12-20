@@ -15,7 +15,9 @@ export namespace Progress
     }
     export const updateProgress = (): void =>
     {
-        document.body.classList.toggle("progress-circle", 0 < totalTasks && completedTasks < totalTasks);
+        const isProgressValid = 0 < totalTasks && completedTasks < totalTasks;
+        UI.progressCircleVisibilityApplier.show(isProgressValid);
+        document.body.classList.toggle("progress-circle", isProgressValid);
         UI.progressCircle.style.setProperty("--progress", `${completedTasks / totalTasks}`);
         UI.progressCircle.setAttribute("aria-volumemin", "0");
         UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());

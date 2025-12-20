@@ -23,6 +23,13 @@ export namespace UI
         hideTimer: ReturnType<typeof setTimeout> | null = null;
         constructor(public element: HTMLElement, public delay: number = 750)
         {
+            // This class serves two purposes:
+            // 1. Prevent hidden UI from receiving input focus via the Tab key by correctly toggling
+            //    visibility before and after UI element transitions.
+            // 2. Ensure the aria-hidden attribute is set appropriately according to the element's
+            //    visibility so screen readers do not announce hidden UI.
+            // To accomplish this correctly, visibility is applied at the start of the transition,
+            // while hiding is performed after the transition has finished.
         }
         show(visibility: boolean = true): void
         {
@@ -136,6 +143,8 @@ export namespace UI
         UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight *1) +(UI.addMediaButtonHeight *0.3);
     export const progressCircle =
         Library.UI.getElementById("div", "progress-circle");
+    export const progressCircleVisibilityApplier =
+        new VisibilityApplier(progressCircle);
     export namespace AnalogClock
     {
         export const panel = Library.UI.getElementById("time", "analog-clock-panel");
@@ -149,8 +158,76 @@ export namespace UI
         export const minutesNiddle = Library.UI.getElementById("div", "minutes-niddle");
         export const secondsNiddle = Library.UI.getElementById("div", "seconds-niddle");
         export const milliSecondsNiddle = Library.UI.getElementById("div", "milli-seconds-niddle");
-        export const visibilityApplier = new VisibilityApplier(panel);
+        export const visibilityApplier =
+            new VisibilityApplier(panel);
+        export const updateVisibility = () =>
+        {
+            if (isPlaying())
+            {
+                visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
+            }
+        };
     };
+    export namespace OverlayPanel
+    {
+        export const panel =
+            Library.UI.getElementById("div", "overlay-panel");
+        export const weather =
+            Library.UI.getElementById("div", "weather");
+        export const weatherVisibilityApplier =
+            new VisibilityApplier(weather);
+        export const date =
+            Library.UI.getElementById("time", "date");
+        export const dateVisibilityApplier =
+            new VisibilityApplier(date);
+        export const time =
+            Library.UI.getElementById("time", "time");
+        export const timeVisibilityApplier =
+            new VisibilityApplier(time);
+        export const calendar =
+            Library.UI.getElementById("div", "calendar");
+        // export const calendarVisibilityApplier =
+        //     new VisibilityApplier(calendar);
+        export const visualizer =
+            Library.UI.getElementById("div", "visualizer");
+        // export const visualizerVisibilityApplier =
+        //     new VisibilityApplier(visualizer);
+        export const updateWeatherVisibility = () =>
+        {
+            if (isPlaying())
+            {
+                weatherVisibilityApplier.show(UI.SettingsPanel.withWeatherCheckbox.get());
+            }
+        };
+        export const updateDateVisibility = () =>
+        {
+            if (isPlaying())
+            {
+                dateVisibilityApplier.show(UI.SettingsPanel.withDateCheckbox.get());
+            }
+        };
+        export const updateTimeVisibility = () =>
+        {
+            if (isPlaying())
+            {
+                timeVisibilityApplier.show(UI.SettingsPanel.withClockCheckbox.get());
+            }
+        };
+        // export const updateCalendarVisibility = () =>
+        // {
+        //     if (isPlaying())
+        //     {
+        //         calendarVisibilityApplier.show(UI.SettingsPanel.withCalenderCheckbox.get());
+        //     }
+        // };
+        // export const updateVisualizerVisibility = () =>
+        // {
+        //     if (isPlaying())
+        //     {
+        //         visualizerVisibilityApplier.show(UI.SettingsPanel.withVisualizerCheckbox.get());
+        //     }
+        // };
+    }
     export const addMediaButton =
         new Library.Control.Button({ id: "add-media", });
     export const addMediaButtonHeight = 84;
@@ -219,6 +296,14 @@ export namespace UI
             new Library.Control.Checkbox(control.withVisualizer);
         export const showFpsCheckbox =
             new Library.Control.Checkbox(control.showFps);
+        export const updateShowFps = () =>
+        {
+            if (isPlaying())
+            {
+                UI.fpsDisplay.classList.toggle("hide", ! UI.SettingsPanel.showFpsCheckbox.get());
+                UI.fpsVisibilityApplier.show(UI.SettingsPanel.showFpsCheckbox.get());
+            }
+        };
         export const shortcutsSelect = new Library.Control.Select
         (
             {
@@ -256,18 +341,8 @@ export namespace UI
     }
     export const fpsDisplay =
         Library.UI.getElementById("div", "fps");
-    export const overlay =
-        Library.UI.getElementById("div", "overlay-panel");
-    export const visualizer =
-        Library.UI.getElementById("div", "visualizer");
-    export const calendar =
-        Library.UI.getElementById("div", "calendar");
-    export const weather =
-        Library.UI.getElementById("div", "weather");
-    export const date =
-        Library.UI.getElementById("time", "date");
-    export const time =
-        Library.UI.getElementById("time", "time");
+    export const fpsVisibilityApplier =
+        new VisibilityApplier(fpsDisplay);
     export const keyboardShortcut =
         Library.UI.getElementById("div", "keyboard-shortcut");
     export const pressedKey =
@@ -402,16 +477,64 @@ export namespace UI
         {
             SettingsPanel.withFullscreenCheckbox.dom.parentElement.style.setProperty("display", "none");
         }
-        AnalogClock.visibilityApplier.immediateHide();
-        MessagePanel.noMediaPanelVisibilityApplier.immediateHide();
-        MessagePanel.notSupportedMediaPanelVisibilityApplier.immediateHide();
-        MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.immediateHide();
-        MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.immediateHide();
-        ControlPanel.wakeupPanelVisibilityApplier.immediateHide();
-        ControlPanel.volumePanelVisibilityApplier.immediateHide();
-        ControlPanel.settingsPanelVisibilityApplier.immediateHide();
-        ControlPanel.sleepPanelVisibilityApplier.immediateHide();
-        TransportPanel.visibilityApplier.immediateHide();
+        [
+            progressCircleVisibilityApplier,
+            AnalogClock.visibilityApplier,
+            OverlayPanel.weatherVisibilityApplier,
+            OverlayPanel.dateVisibilityApplier,
+            OverlayPanel.timeVisibilityApplier,
+            // OverlayPanel.calendarVisibilityApplier,
+            // OverlayPanel.visualizerVisibilityApplier,
+            MessagePanel.noMediaPanelVisibilityApplier,
+            MessagePanel.notSupportedMediaPanelVisibilityApplier,
+            MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier,
+            MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier,
+            fpsVisibilityApplier,
+            ControlPanel.wakeupPanelVisibilityApplier,
+            ControlPanel.volumePanelVisibilityApplier,
+            ControlPanel.settingsPanelVisibilityApplier,
+            ControlPanel.sleepPanelVisibilityApplier,
+            TransportPanel.visibilityApplier,
+        ]
+        .forEach(i => i.immediateHide());
+    };
+    export const isPlaying = (): boolean =>
+        document.body.classList.contains("play");
+    export const isSeeking = (): boolean =>
+        document.body.classList.contains("is-seeking");
+    export const onPlaybackStarted = () =>
+    {
+        TransportPanel.visibilityApplier.show();
+        document.body.classList.toggle("show-ui", false);
+        document.body.classList.toggle("list", false);
+        document.body.classList.toggle("play", true);
+        document.body.classList.toggle("show-paused-media", false);
+        screenBody.classList.toggle("paused", false);
+        AnalogClock.updateVisibility();
+        OverlayPanel.updateWeatherVisibility();
+        OverlayPanel.updateDateVisibility();
+        OverlayPanel.updateTimeVisibility();
+        // OverlayPanel.updateCalendarVisibility();
+        // OverlayPanel.updateVisualizerVisibility();
+        SettingsPanel.updateShowFps();
+    };
+    export const onPlaybackPaused = () =>
+    {
+        OverlayPanel.panel.style.removeProperty("opacity");
+        //updateFullscreenState(false);
+        navigator.mediaSession.playbackState = "paused";
+        document.body.classList.toggle("list", true);
+        document.body.classList.toggle("play", false);
+        [
+            AnalogClock.visibilityApplier,
+            OverlayPanel.weatherVisibilityApplier,
+            OverlayPanel.dateVisibilityApplier,
+            OverlayPanel.timeVisibilityApplier,
+            // OverlayPanel.calendarVisibilityApplier,
+            // OverlayPanel.visualizerVisibilityApplier,
+            fpsVisibilityApplier
+        ]
+        .forEach(i => i.hide());
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;

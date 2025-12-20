@@ -108,9 +108,9 @@ export namespace Player
     let currentTrack: Track | null = null;
     let fadeoutingTrack: Track | null = null;
     export const isPlaying = (): boolean =>
-        document.body.classList.contains("play");
+        UI.isPlaying();
     export const isSeeking = (): boolean =>
-        document.body.classList.contains("is-seeking");
+        UI.isSeeking();
     export const startAnimationFrameLoop = (): void =>
     {
         if (null !== loopHandle)
@@ -121,16 +121,7 @@ export namespace Player
     };
     export const play = async (media?: Media.Entry) =>
     {
-        UI.TransportPanel.visibilityApplier.show();
-        document.body.classList.toggle("show-ui", false);
-        document.body.classList.toggle("list", false);
-        document.body.classList.toggle("play", true);
-        document.body.classList.toggle("show-paused-media", false);
-        UI.screenBody.classList.toggle("paused", false);
-        if (UI.SettingsPanel.analogClockCheckbox.get())
-        {
-            UI.AnalogClock.visibilityApplier.show();
-        }
+        UI.onPlaybackStarted();
         await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
@@ -196,12 +187,8 @@ export namespace Player
         {
             window.cancelAnimationFrame(loopHandle);
         }
-        UI.overlay.style.removeProperty("opacity");
-        //updateFullscreenState(false);
+        UI.onPlaybackPaused();
         navigator.mediaSession.playbackState = "paused";
-        document.body.classList.toggle("list", true);
-        document.body.classList.toggle("play", false);
-        UI.AnalogClock.visibilityApplier.hide();
         currentTrack?.pause();
         fadeoutingTrack?.pause();
         CrossFade.pause();

@@ -1,6 +1,9 @@
 # Web Media Player
 
-▶️ live site: <https://wraith13.github.io/web-media-player/>
+[![pages-build-deployment](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment)
+[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](./LICENSE_1_0.txt)
+
+▶️ Live site: <https://wraith13.github.io/web-media-player/>
 
 ## Feature
 
@@ -19,6 +22,7 @@
 - ✅ Generally, when small images (such as pixel art) are enlarged in a web browser, they become blurry, but this player displays them sharply using pixelated rendering.
 - ✅ Full offline support for all features except weather display (weather requires an Internet connection)
 - ✅ For practical browser compatibility, everything that doesn't need to be split into a separate file is embedded in index.html. This reduces requests and enables very fast loading, so the single index.html file provides nearly all functionality with minimal issues.
+- ✅ FPS display
 - ✅ Multi-language support: __LANG_LABEL_LIST__
 
 ## Screenshot
@@ -65,123 +69,22 @@ The following options cannot be set via the UI.
 1. Install dependencies:
    ```sh
    npm install
+   git submodule update --recursive --merge --init
    ```
 2. Build the project:
    ```sh
    npm run-script "build all"
    ```
 
-## Build commands
-
-```mermaid
-graph TB;
-    subgraph ./locale
-        direction TB;
-        subgraph ./locale/generated
-            direction TB;
-            lmt[[./locale/generated/master.ts]];
-            lmls[[./locale/generated/manifest.langs.json]];
-            lwma[[./locale/generated/web-manifest-assets.json]];
-            lh[[./locale/generated/*.html]];
-        end
-        ./locale/index.ts;
-        ./locale/index.js;
-        bls([build locale script]);
-        bl([build locale]);
-    end
-    subgraph ./image
-        direction TB;
-        ./image/*.svg
-    end
-    subgraph ./resource
-        direction TB;
-        subgraph ./resource/lang
-            direction TB;
-            ./resource/lang/*.json;
-        end
-        ./resource/*.json;
-    end
-    subgraph ./style
-        direction TB;
-        sts[[./style/*.scss]];
-        stc[[./style/index.css]];
-        bst([build style]);
-    end
-    subgraph ./script
-        direction TB;
-        st[[./script/*.ts]];
-        sj[[./script/index.js]];
-        bs([build script]);
-    end
-    subgraph ./web.manifest
-        direction TB;
-        subgraph ./web.manifest/generated
-            direction TB;
-            wmj[[./web.manifest/generated/*.json]];
-        end
-        ./web.manifest/template.json;
-        bwm([build web.manifest]);
-    end
-    subgraph category
-        direction TB;
-        bc([build commands]);
-        sf[source files];
-        gf[[generated files]];
-    end
-    ./locale/index.ts-->bls([build locale script]);
-    bls([build locale script])-->./locale/index.js;
-    ./resource/lang/*.json-->bl([build locale]);
-    ./locale/index.js-->bl([build locale]);
-    ./resource/*.json-->bs([build script]);
-    lmls[[./locale/generated/manifest.langs.json]]-->bwm([build web.manifest])
-    ./resource/lang/*.json-->bwm([build web.manifest])
-    bl([build locale])-->lmt[[./locale/generated/master.ts]];
-    bl([build locale])-->lmls[[./locale/generated/manifest.langs.json]];
-    bl([build locale])-->lwma[[./locale/generated/web-manifest-assets.json]];
-    bl([build locale])-->lh[[./locale/generated/*.html]];
-    sts[[./style/*.scss]]-->bst([build style])-->stc[[./style/index.css]];
-    lmt[[./locale/generated/master.ts]]-->bs([build script]);
-    st[[./script/*.ts]]-->bs([build script])-->sj[[./script/index.js]];
-    ./web.manifest/template.json-->bwm([build web.manifest])
-    bwm([build web.manifest])-->wmj[[./web.manifest/generated/*.json]];
-    ./resource/*.json-->bh([build html]);
-    lh[[./locale/generated/*.html]]-->bh([build html]);
-    stc[[./style/index.css]]-->bh([build html]);
-    sj[[./script/index.js]]-->bh([build html]);
-    ./image/*.svg-->bh([build html]);
-    ./index.html.template-->bh([build html]);
-    bh([build html])-->ih[[./index.html]];
-    ./README.template.md-->bl([build locale]);
-    bl([build locale])-->rdm[[./README.md]];
-    ./resource/*.json-->bsw([build service-worker]);
-    lwma[[./locale/generated/web-manifest-assets.json]]-->bsw([build service-worker]);
-    ./sw.js.template-->bsw([build service-worker]);
-    bsw([build service-worker])-->sw[[./sw.js]];
-```
-( You can see this diagram in VS code with [Markdown Preview Mermaid Support extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). )
-
-- `npm run-script "build all"`
-- `npm run-script "build locale script"`
-- `npm run-script "build locale"`
-- `npm run-script "build web.manifest"`
-- `npm run-script "build service-worker"`
-- `npm run-script "build style"`
-- `npm run-script "build script"`
-- `npm run-script "build html"`
+More information: see [./BUILD.md — Build commands](./BUILD.md#build-commands)
 
 ## Files
 
-|path|description|
-|---|---|
-|[`./README.md`](./README.md)|Generated file|
-|[`./README.template.md`](./README.template.md)|README template|
-|[`./build.json`](./build.json)|Build settings|
-|[`./index.html`](./index.html)|Generated file for GitHub Pages deployment|
-|[`./index.html.template`](./index.html.template)|HTML template|
-|[`./resource/*.json`](./resource/)|JSON files for configuration or data|
-|[`./style/*.scss`](./style/)|Style source files|
-|[`./script/*.ts`](./script/)|Script source files|
-|[`./image/*.*`](./image/)|Image files used in the project|
+see [./FILES.md](./FILES.md)
+
+## How to add a supported language
+
+Create a JSON file for the language you want by copying one of the existing language JSON files in the [./resouce/lang/](./resouce/lang/) directory, then run the build. The Web Manifest, README.md, and other necessary files will be generated automatically and the language will be added.
 
 ## Powered by
 
