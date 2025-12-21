@@ -16,7 +16,7 @@
    npm run-script "build all"
    ```
 
-# Build commands
+# Build Workflow Diagram
 
 ```mermaid
 graph TB;
@@ -104,6 +104,8 @@ graph TB;
     bsw([build service-worker])-->sw[[./sw.js]];
 ```
 ( You can see this diagram in VS code with [Markdown Preview Mermaid Support extension](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid). )
+
+# Build Commands
 
 - `npm run-script "build all"`
 - `npm run-script "build locale script"`

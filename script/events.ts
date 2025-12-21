@@ -98,6 +98,14 @@ export namespace Events
     {
         const labelText = makeTimerLabel(remainingTime, locale);
         Library.UI.setTextContent(UI.wakeUpTimerLabel, labelText);
+        Library.UI.setAttribute
+        (
+            UI.wakeUpTimerLabel,
+            "aria-label",
+            "" !== labelText ?
+                `${Library.Locale.map("wakeup")}${Library.Locale.map("lang-colon-suffix")} ${labelText}`:
+                undefined
+        );
         UI.wakeUpTimerLabelVisibilityApplier.show("" !== labelText);
         if (Features.Timer.isWakeUpFading())
         {
@@ -114,6 +122,14 @@ export namespace Events
     {
         const labelText = makeTimerLabel(remainingTime, locale);
         Library.UI.setTextContent(UI.sleepTimerLabel, labelText);
+        Library.UI.setAttribute
+        (
+            UI.sleepTimerLabel,
+            "aria-label",
+            "" !== labelText ?
+                `${Library.Locale.map("sleep")}${Library.Locale.map("lang-colon-suffix")} ${labelText}`:
+                undefined
+        );
         UI.sleepTimerLabelVisibilityApplier.show("" !== labelText);
         UI.sleepProgressCircle.style.setProperty("--progress", `${Features.Timer.getProgressUntilSleep() ?? 1}`);
     };
@@ -281,7 +297,7 @@ export namespace Events
             {
                 event.preventDefault();
                 event.dataTransfer.dropEffect = "copy";
-                UI.addMediaButton.dom.classList.add("dragover");
+                UI.addMediaButton.classList.add("dragover");
             }
             else
             {
@@ -475,12 +491,12 @@ export namespace Events
                 UI.screenBody.classList.contains("paused") && UI.isScrolledToMediaListBottom()
             )
         )
-        UI.addMediaButton.data.click = (event, button) =>
-        {
-            event?.stopPropagation();
-            button.dom.blur();
-            UI.inputFile.click();
-        };
+        // UI.addMediaButton.data.click = (event, button) =>
+        // {
+        //     event?.stopPropagation();
+        //     button.dom.blur();
+        //     UI.inputFile.click();
+        // };
         UI.inputFile.addEventListener("click", event => event.stopPropagation());
         UI.inputFile.addEventListener
         (

@@ -7,6 +7,8 @@
     "loading-media": "Media laden...",
     "Auto": "Automatisch",
     "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
+    "control-panel": "Bedieningspaneel",
+    "transport-panel": "Transportpaneel",
     "media-list": "Medialijst",
     "media-count": "Aantal media",
     "media-length": "Mediaduur",

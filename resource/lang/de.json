@@ -7,6 +7,8 @@
     "loading-media": "Medien werden geladen...",
     "Auto": "Automatisch",
     "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
+    "control-panel": "Bedienfeld",
+    "transport-panel": "Transportfeld",
     "media-list": "Medienliste",
     "media-count": "Medienanzahl",
     "media-length": "Mediendauer",

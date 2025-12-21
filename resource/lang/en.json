@@ -7,6 +7,8 @@
     "loading-media": "Loading media...",
     "Auto": "Auto",
     "description": "Web-based media player that runs in a web browser",
+    "control-panel": "Control Panel",
+    "transport-panel": "Transport Panel",
     "media-list": "Media List",
     "media-count": "Media Count",
     "media-length": "Media Length",

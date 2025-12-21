@@ -19,7 +19,7 @@ export namespace MediaList
             Media.mediaList.push(entry);
             updateInformationDisplay();
             updateNoMediaLabel();
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.parentElement);
             if (Features.Player.isPlaying())
             {
                 Features.Player.pause();
@@ -187,7 +187,7 @@ export namespace MediaList
         );
         for (const entry of Media.mediaList)
         {
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.parentElement);
         }
     };
     export const updateInformationDisplay = (): void =>

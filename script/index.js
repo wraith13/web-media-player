@@ -192,6 +192,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "جارٍ تحميل الوسائط...",
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
+            "control-panel": "لوحة التحكم",
+            "transport-panel": "لوحة النقل",
             "media-list": "قائمة الوسائط",
             "media-count": "عدد الوسائط",
             "media-length": "طول الوسائط",
@@ -292,6 +294,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Medien werden geladen...",
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
+            "control-panel": "Bedienfeld",
+            "transport-panel": "Transportfeld",
             "media-list": "Medienliste",
             "media-count": "Medienanzahl",
             "media-length": "Mediendauer",
@@ -392,6 +396,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Φόρτωση μέσων...",
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
+            "control-panel": "Πίνακας ελέγχου",
+            "transport-panel": "Πίνακας μεταφοράς",
             "media-list": "Λίστα μέσων",
             "media-count": "Αριθμός μέσων",
             "media-length": "Διάρκεια μέσων",
@@ -492,6 +498,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Loading media...",
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
+            "control-panel": "Control Panel",
+            "transport-panel": "Transport Panel",
             "media-list": "Media List",
             "media-count": "Media Count",
             "media-length": "Media Length",
@@ -592,6 +600,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Cargando medios...",
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
+            "control-panel": "Panel de control",
+            "transport-panel": "Panel de transporte",
             "media-list": "Lista de medios",
             "media-count": "Cantidad de medios",
             "media-length": "Duración de los medios",
@@ -692,6 +702,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "در حال بارگذاری رسانه...",
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
+            "control-panel": "پنل کنترل",
+            "transport-panel": "پنل انتقال",
             "media-list": "فهرست رسانه‌ها",
             "media-count": "تعداد رسانه",
             "media-length": "مدت رسانه",
@@ -792,6 +804,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Chargement des médias...",
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
+            "control-panel": "Panneau de contrôle",
+            "transport-panel": "Panneau de transport",
             "media-list": "Liste des médias",
             "media-count": "Nombre de médias",
             "media-length": "Durée des médias",
@@ -892,6 +906,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "मीडिया लोड हो रहा है...",
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
+            "control-panel": "कंट्रोल पैनल",
+            "transport-panel": "ट्रांसपोर्ट पैनल",
             "media-list": "मीडिया सूची",
             "media-count": "मीडिया गिनती",
             "media-length": "मीडिया अवधि",
@@ -992,6 +1008,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Memuat media...",
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
+            "control-panel": "Panel Kontrol",
+            "transport-panel": "Panel Transportasi",
             "media-list": "Daftar Media",
             "media-count": "Jumlah Media",
             "media-length": "Durasi Media",
@@ -1092,6 +1110,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Caricamento media...",
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
+            "control-panel": "Pannello di controllo",
+            "transport-panel": "Pannello di trasporto",
             "media-list": "Elenco media",
             "media-count": "Conteggio media",
             "media-length": "Durata media",
@@ -1192,6 +1212,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "メディアを読み込み中...",
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
+            "control-panel": "コントロールパネル",
+            "transport-panel": "トランスポートパネル",
             "media-list": "メディアリスト",
             "media-count": "メディア数",
             "media-length": "メディア長",
@@ -1292,6 +1314,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "미디어 로드 중...",
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
+            "control-panel": "제어판",
+            "transport-panel": "전송판",
             "media-list": "미디어 목록",
             "media-count": "미디어 수",
             "media-length": "미디어 길이",
@@ -1392,6 +1416,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Media laden...",
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
+            "control-panel": "Bedieningspaneel",
+            "transport-panel": "Transportpaneel",
             "media-list": "Medialijst",
             "media-count": "Aantal media",
             "media-length": "Mediaduur",
@@ -1492,6 +1518,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Ładowanie multimediów...",
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
+            "control-panel": "Panel sterowania",
+            "transport-panel": "Panel transportu",
             "media-list": "Lista mediów",
             "media-count": "Liczba mediów",
             "media-length": "Długość mediów",
@@ -1592,6 +1620,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "loading-media": "Carregando mídia...",
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
+            "control-panel": "Painel de controle",
+            "transport-panel": "Painel de transporte",
             "media-list": "Lista de mídia",
             "media-count": "Contagem de mídias",
             "media-length": "Duração da mídia",
@@ -4314,7 +4344,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             //     }
             // };
         })(OverlayPanel = UI.OverlayPanel || (UI.OverlayPanel = {}));
-        UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
+        UI.addMediaButton = _library_2.Library.UI.getElementById("label", "add-media");
+        //new Library.Control.Button({ id: "add-media", });
         UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         var SettingsPanel;
@@ -7414,12 +7445,19 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 else {
                     ui_8.UI.OverlayPanel.visualizer.classList.toggle("on", false);
                 }
-            }
-            if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
-                ui_8.UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
-            }
-            else {
-                ui_8.UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+                //const valueMin = 0;
+                var valueMax = this.getDuration();
+                var valueNow = this.getElapsedTime();
+                //Library.UI.setAttribute(UI.TransportPanel.seekRange, "aria-valuemin", valueMin);
+                _library_6.Library.UI.setAttribute(ui_8.UI.TransportPanel.seekRange, "aria-valuemax", "".concat(valueMax));
+                _library_6.Library.UI.setAttribute(ui_8.UI.TransportPanel.seekRange, "aria-valuenow", "".concat(valueNow));
+                _library_6.Library.UI.setAttribute(ui_8.UI.TransportPanel.seekRange, "aria-valuetext", "".concat(_tools_5.Tools.Timespan.toMediaTimeString(valueNow, Track.locale), " / ").concat(_tools_5.Tools.Timespan.toMediaTimeString(valueMax, Track.locale)));
+                if (this.playerElement instanceof HTMLMediaElement && !this.isLoop()) {
+                    ui_8.UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime * 1000) / this.getDuration();
+                }
+                else {
+                    ui_8.UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+                }
             }
         };
         Track.prototype.isLoop = function () {
@@ -7745,6 +7783,7 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             elementpool_1.ElementPool.release(this.playerElement);
             elementpool_1.ElementPool.release(this.paddingElement);
         };
+        Track.locale = undefined;
         return Track;
     }());
     exports.Track = Track;
@@ -8451,7 +8490,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.initialize = function (params) {
-            Player.locale = params["locale"];
+            track_1.Track.locale = Player.locale = params["locale"];
         };
     })(Player || (exports.Player = Player = {}));
 });
@@ -8495,7 +8534,7 @@ define("resource/evil-commonjs.config", [], {
 define("resource/evil-timer.js.config", [], {
     "debug": true
 });
-define("script/progress", ["require", "exports", "script/ui"], function (require, exports, ui_10) {
+define("script/progress", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_8, ui_10) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Progress = void 0;
@@ -8521,6 +8560,9 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
             ui_10.UI.progressCircle.setAttribute("aria-volumemin", "0");
             ui_10.UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
             ui_10.UI.progressCircle.setAttribute("aria-valuenow", completedTasks.toString());
+            _library_8.Library.UI.setAttribute(ui_10.UI.progressCircle, "aria-valuetext", isProgressValid ?
+                "".concat(_library_8.Library.Locale.map("loading-media")).concat(_library_8.Library.Locale.map("lang-colon-suffix"), " ").concat(completedTasks.toString(), " / ").concat(totalTasks.toString()) :
+                undefined);
             if (totalTasks <= completedTasks) {
                 totalTasks = 0;
                 completedTasks = 0;
@@ -8528,7 +8570,7 @@ define("script/progress", ["require", "exports", "script/ui"], function (require
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_8, _features_1, media_3, ui_11, progress_1, config_json_9) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_9, _features_1, media_3, ui_11, progress_1, config_json_9) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -8537,7 +8579,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
     (function (MediaList) {
         var _this = this;
         MediaList.locale = undefined;
-        var notSupportedMediaTimer = new _library_8.Library.UI.ToggleClassForWhileTimer();
+        var notSupportedMediaTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
         MediaList.addMedia = function (file) { return __awaiter(_this, void 0, void 0, function () {
             var entry, _a, _b;
             return __generator(this, function (_c) {
@@ -8555,7 +8597,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _b = (_a = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -8588,10 +8630,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             attributes: {
                                 tabindex: "0",
                                 "data-aria-lang-key": "remove-media",
-                                "aria-label": _library_8.Library.Locale.map("remove-media"),
+                                "aria-label": _library_9.Library.Locale.map("remove-media"),
                             }
                         };
-                        return [4 /*yield*/, _library_8.Library.Svg.getSvg("SVG:close")];
+                        return [4 /*yield*/, _library_9.Library.Svg.getSvg("SVG:close")];
                     case 1: return [2 /*return*/, (_a.children = [
                             _b.sent()
                         ],
@@ -8633,7 +8675,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                 switch (_e.label) {
                     case 0:
                         ix = media_3.Media.mediaList.indexOf(entry);
-                        _b = (_a = _library_8.Library.UI).createElement;
+                        _b = (_a = _library_9.Library.UI).createElement;
                         _d = {
                             tag: "div",
                             className: "item",
@@ -8734,7 +8776,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _c = (_b = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -8745,10 +8787,10 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         }); };
         MediaList.updateInformationDisplay = function () {
             var _a;
-            _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
+            _library_9.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
             var imageSpan = (_a = _tools_7.Tools.Timespan.parse(ui_11.UI.SettingsPanel.imageSpanSelect.get())) !== null && _a !== void 0 ? _a : 0;
             var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
-            _library_8.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
+            _library_9.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };
         MediaList.updateNoMediaLabel = function () {
             var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
@@ -8765,7 +8807,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_9, _features_2, media_4, medialist_1, ui_12, url_4, config_json_10, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_10, _features_2, media_4, medialist_1, ui_12, url_4, config_json_10, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -8821,7 +8863,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("⌨️ Keyboard Shortcuts style changed:", value);
             }
-            _library_9.Library.Shortcuts.setStyle(value);
+            _library_10.Library.Shortcuts.setStyle(value);
             ui_12.UI.updateShortcuts();
         };
         var updateUrlAnchor = function (params) {
@@ -8840,7 +8882,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             var _a, _b;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilWakeUp(); }
             var labelText = Events.makeTimerLabel(remainingTime, Events.locale);
-            _library_9.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, labelText);
+            _library_10.Library.UI.setTextContent(ui_12.UI.wakeUpTimerLabel, labelText);
+            _library_10.Library.UI.setAttribute(ui_12.UI.wakeUpTimerLabel, "aria-label", "" !== labelText ?
+                "".concat(_library_10.Library.Locale.map("wakeup")).concat(_library_10.Library.Locale.map("lang-colon-suffix"), " ").concat(labelText) :
+                undefined);
             ui_12.UI.wakeUpTimerLabelVisibilityApplier.show("" !== labelText);
             if (_features_2.Features.Timer.isWakeUpFading()) {
                 ui_12.UI.wakeUpProgressCircle.classList.toggle("fading-in", true);
@@ -8855,7 +8900,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             var _a;
             if (remainingTime === void 0) { remainingTime = _features_2.Features.Timer.getTimeUntilSleep(); }
             var labelText = Events.makeTimerLabel(remainingTime, Events.locale);
-            _library_9.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, labelText);
+            _library_10.Library.UI.setTextContent(ui_12.UI.sleepTimerLabel, labelText);
+            _library_10.Library.UI.setAttribute(ui_12.UI.sleepTimerLabel, "aria-label", "" !== labelText ?
+                "".concat(_library_10.Library.Locale.map("sleep")).concat(_library_10.Library.Locale.map("lang-colon-suffix"), " ").concat(labelText) :
+                undefined);
             ui_12.UI.sleepTimerLabelVisibilityApplier.show("" !== labelText);
             ui_12.UI.sleepProgressCircle.style.setProperty("--progress", "".concat((_a = _features_2.Features.Timer.getProgressUntilSleep()) !== null && _a !== void 0 ? _a : 1));
         };
@@ -8879,8 +8927,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 ui_12.UI.wakeUpToggle.toggle(false, "preventOnChange");
             }
         };
-        var wakeUpTimerNotWorkingTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
-        var wakeUpTimerRequiresActivePageTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
+        var wakeUpTimerNotWorkingTimer = new _library_10.Library.UI.ToggleClassForWhileTimer();
+        var wakeUpTimerRequiresActivePageTimer = new _library_10.Library.UI.ToggleClassForWhileTimer();
         Events.updateWakeUp = function () {
             var isOn = ui_12.UI.wakeUpToggle.get();
             var value = ui_12.UI.wakeUpSelect.get();
@@ -8978,7 +9026,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_12.UI.addMediaButton.dom.classList.add("dragover");
+                    ui_12.UI.addMediaButton.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -9016,7 +9064,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             isSeekingTimer.kick();
             _features_2.Features.Player.seek(ui_12.UI.TransportPanel.seekRange.valueAsNumber);
         };
-        var mouseMoveTimer = new _library_9.Library.UI.ToggleClassForWhileTimer();
+        var mouseMoveTimer = new _library_10.Library.UI.ToggleClassForWhileTimer();
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", config_json_10.default.ui.mousemoveTimeout);
         };
@@ -9044,7 +9092,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             Array.from(document.getElementsByTagName("form")).forEach(function (i) { return i.addEventListener("submit", function (event) { return event.preventDefault(); }); });
-            _library_9.Library.Shortcuts.setCommandMap({
+            _library_10.Library.Shortcuts.setCommandMap({
                 "toggleShuffle": {
                     control: ui_12.UI.ControlPanel.shuffle.dom,
                     fire: function () { return ui_12.UI.ControlPanel.shuffle.toggle(); }
@@ -9104,7 +9152,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 "toggleFullscreen": {
                     control: ui_12.UI.SettingsPanel.withFullscreenCheckbox.dom,
                     fire: function () {
-                        if (_library_9.Library.UI.fullscreenEnabled) {
+                        if (_library_10.Library.UI.fullscreenEnabled) {
                             ui_12.UI.SettingsPanel.withFullscreenCheckbox.toggle();
                             _features_2.Features.Player.updateFullscreenState();
                         }
@@ -9125,11 +9173,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
-            ui_12.UI.addMediaButton.data.click = function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_12.UI.inputFile.click();
-            };
+            // UI.addMediaButton.data.click = (event, button) =>
+            // {
+            //     event?.stopPropagation();
+            //     button.dom.blur();
+            //     UI.inputFile.click();
+            // };
             ui_12.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
@@ -9211,7 +9260,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             (_a = ui_12.UI.SettingsPanel.withFullscreenCheckbox).options || (_a.options = {});
             ui_12.UI.SettingsPanel.withFullscreenCheckbox.options.change = function (_event, _checkbox) {
                 if (document.body.classList.contains("play")) {
-                    if (_library_9.Library.UI.fullscreenEnabled) {
+                    if (_library_10.Library.UI.fullscreenEnabled) {
                         _features_2.Features.Player.updateFullscreenState();
                     }
                 }
@@ -9255,7 +9304,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.sleepButton);
             });
-            _library_9.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
+            _library_10.Library.Shortcuts.setPressedKeyDiv(ui_12.UI.pressedKey);
             ui_12.UI.TransportPanel.seekRange.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.TransportPanel.seekRange.addEventListener("change", updateSeek);
             ui_12.UI.TransportPanel.seekRange.addEventListener("input", updateSeek);
@@ -9300,8 +9349,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 Events.mousemove();
             });
-            _library_9.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)"])
-                .forEach(function (label) { return _library_9.Library.UI.showPickerOnLabel(label); });
+            _library_10.Library.UI.querySelectorAllWithFallback("label", ["label[for]:has(select):not(.icon-button)", "label[for]:not(.icon-button)"])
+                .forEach(function (label) { return _library_10.Library.UI.showPickerOnLabel(label); });
             [
                 // UI.withFullscreen,
                 ui_12.UI.SettingsPanel.showFpsCheckbox,
@@ -9363,16 +9412,16 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             });
             window.addEventListener("languagechange", function () {
                 console.log("🌐 languagechange:", navigator.language, navigator.languages);
-                var old = _library_9.Library.Locale.getLocale();
-                _library_9.Library.Locale.setLocale(ui_12.UI.SettingsPanel.languageSelect.get());
-                if (old !== _library_9.Library.Locale.getLocale()) {
+                var old = _library_10.Library.Locale.getLocale();
+                _library_10.Library.Locale.setLocale(ui_12.UI.SettingsPanel.languageSelect.get());
+                if (old !== _library_10.Library.Locale.getLocale()) {
                     Events.updateLanguage();
                 }
             });
         };
     })(Events || (exports.Events = Events = {}));
 });
-define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_10, ui_13) {
+define("script/screenshot", ["require", "exports", "script/library/index", "script/ui"], function (require, exports, _library_11, ui_13) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Screenshot = void 0;
@@ -9384,7 +9433,7 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
                 case "favicon":
                     Screenshot.fixCanvasSize("1024px", "1024px");
                     Screenshot.toCenterControlPanel(10);
-                    _library_10.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
+                    _library_11.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
                     Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=shuffle]", "label[for=repeat]", "label[for=volume-button]", "label[for=settings-button]", "label[for=wakeup-button]", "label[for=sleep-button]",]);
                     break;
                 case "twitter-card":
@@ -9415,13 +9464,13 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
             ["min-height", "max-height",].forEach(function (i) { return ui_13.UI.mediaList.style.setProperty(i, height); });
         };
         Screenshot.toCenterControlPanel = function (rate) {
-            var controlPanel = _library_10.Library.UI.getElementById("div", "control-panel");
+            var controlPanel = _library_11.Library.UI.getElementById("div", "control-panel");
             controlPanel.style.setProperty("inset-block-end", "50%");
             controlPanel.style.setProperty("transform", "translate(-50%, 50%) scale(".concat(rate, ")"));
         };
     })(Screenshot || (exports.Screenshot = Screenshot = {}));
 });
-define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_11, _features_3, config_json_11, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_5, ui_14, medialist_2, events_1, screenshot_1) {
+define("script/index", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "resource/config", "resource/control", "resource/evil-commonjs.config", "resource/evil-timer.js.config", "resource/images", "script/url", "script/ui", "script/medialist", "script/events", "script/screenshot"], function (require, exports, _tools_9, _library_12, _features_3, config_json_11, control_json_3, evil_commonjs_config_json_1, evil_timer_js_config_json_1, images_json_1, url_5, ui_14, medialist_2, events_1, screenshot_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     config_json_11 = __importDefault(config_json_11);
@@ -9429,11 +9478,11 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_11.Library.Locale.map("ago"), " )"));
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     url_5.Url.initialize();
     ui_14.UI.initialize(url_5.Url.params);
     events_1.Events.initialize(url_5.Url.params);
-    _library_11.Library.Shortcuts.initialize();
+    _library_12.Library.Shortcuts.initialize();
     medialist_2.MediaList.initialize(url_5.Url.params);
     _features_3.Features.Player.initialize(url_5.Url.params);
     _features_3.Features.Overlay.initialize(url_5.Url.params);
@@ -9459,11 +9508,11 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         evilCommonJsConfig: evil_commonjs_config_json_1.default,
         evilTimerJsConfig: evil_timer_js_config_json_1.default,
         images: images_json_1.default,
-        locale: _library_11.Library.Locale.master,
+        locale: _library_12.Library.Locale.master,
     };
     var modules = {
         Tools: _tools_9.Tools,
-        Library: _library_11.Library,
+        Library: _library_12.Library,
         Features: _features_3.Features,
         Url: url_5.Url,
         UI: ui_14.UI,

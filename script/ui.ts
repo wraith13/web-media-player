@@ -229,7 +229,8 @@ export namespace UI
         // };
     }
     export const addMediaButton =
-        new Library.Control.Button({ id: "add-media", });
+        Library.UI.getElementById("label", "add-media");
+        //new Library.Control.Button({ id: "add-media", });
     export const addMediaButtonHeight = 84;
     export const inputFile =
         Library.UI.getElementById("input", "add-file");

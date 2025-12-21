@@ -7,6 +7,8 @@
     "loading-media": "Ładowanie multimediów...",
     "Auto": "Automatycznie",
     "description": "Odtwarzacz multimedialny działający w przeglądarce",
+    "control-panel": "Panel sterowania",
+    "transport-panel": "Panel transportu",
     "media-list": "Lista mediów",
     "media-count": "Liczba mediów",
     "media-length": "Długość mediów",

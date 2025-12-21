@@ -40,6 +40,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -140,6 +142,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -240,6 +244,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -340,6 +346,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -440,6 +448,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -540,6 +550,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -640,6 +652,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -740,6 +754,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -840,6 +856,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -940,6 +958,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1040,6 +1060,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1140,6 +1162,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1240,6 +1264,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1340,6 +1366,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1440,6 +1468,8 @@ declare module "locale/generated/master" {
             "loading-media": string;
             Auto: string;
             description: string;
+            "control-panel": string;
+            "transport-panel": string;
             "media-list": string;
             "media-count": string;
             "media-length": string;
@@ -1545,6 +1575,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -1645,6 +1677,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -1745,6 +1779,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -1845,6 +1881,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -1945,6 +1983,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2045,6 +2085,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2145,6 +2187,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2245,6 +2289,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2345,6 +2391,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2445,6 +2493,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2545,6 +2595,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2645,6 +2697,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2745,6 +2799,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2845,6 +2901,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -2945,6 +3003,8 @@ declare module "script/library/locale" {
                 "loading-media": string;
                 Auto: string;
                 description: string;
+                "control-panel": string;
+                "transport-panel": string;
                 "media-list": string;
                 "media-count": string;
                 "media-length": string;
@@ -3539,7 +3599,7 @@ declare module "script/ui" {
             const updateDateVisibility: () => void;
             const updateTimeVisibility: () => void;
         }
-        const addMediaButton: Library.Control.Button<HTMLElement>;
+        const addMediaButton: HTMLLabelElement;
         const addMediaButtonHeight = 84;
         const inputFile: HTMLInputElement;
         namespace SettingsPanel {
@@ -4118,6 +4178,7 @@ declare module "script/features/track" {
         };
     };
     export class Track {
+        static locale: string | undefined;
         playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         paddingElement: HTMLImageElement | HTMLVideoElement | null;
         visualElement: HTMLDivElement | Visualizer.VisualizerDom | null;

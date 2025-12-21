@@ -5,11 +5,12 @@
 
 ## Live site
 
+<p align="center" style="padding:1rem;">
 <a href="https://wraith13.github.io/web-media-player/">
-<div style="postion:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:1rem;">
-<span>https://wraith13.github.io/web-media-player/</span><img src="./play-now-button.svg" alt="Open live site" width="160" height="32"/>
-</div>
+<img src="./play-now-button.svg" alt="Open live site" width="240" height="48"/><br/>
+https://wraith13.github.io/web-media-player/
 </a>
+</p>
 
 ## Feature
 

@@ -7,6 +7,8 @@
     "loading-media": "جارٍ تحميل الوسائط...",
     "Auto": "تلقائي",
     "description": "مشغل وسائط يعمل في متصفح الويب",
+    "control-panel": "لوحة التحكم",
+    "transport-panel": "لوحة النقل",
     "media-list": "قائمة الوسائط",
     "media-count": "عدد الوسائط",
     "media-length": "طول الوسائط",

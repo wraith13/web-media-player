@@ -7,6 +7,8 @@
     "loading-media": "Chargement des médias...",
     "Auto": "Automatique",
     "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
+    "control-panel": "Panneau de contrôle",
+    "transport-panel": "Panneau de transport",
     "media-list": "Liste des médias",
     "media-count": "Nombre de médias",
     "media-length": "Durée des médias",

@@ -617,6 +617,6 @@ export namespace Player
     }
     export const initialize = (params: Record<string, string>): void =>
     {
-        locale = params["locale"];
+        Track.locale = locale = params["locale"];
     };
 }

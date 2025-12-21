@@ -89,12 +89,14 @@ DUMMYSTYLE
         <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
     </div>
     <div id="dark-curtain" role="presentation" aria-hidden="true"></div>
-    <div id="media-list" data-aria-lang-key="media-list" role="list">
-        <div class="item add" role="presentation">
-            <button id="add-media" data-aria-lang-key="add-media">__ADD_ICON__</button>
-            <input id="add-file" type="file" multiple />
+    <form data-aria-lang-key="media-list">
+        <div id="media-list" role="list">
+            <div class="item add" role="listitem">
+                <label id="add-media" data-aria-lang-key="add-media" for="add-file">__ADD_ICON__</label>
+                <input id="add-file" type="file" tabindex="-1" multiple />
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 <div id="element-pool" style="display:none;" aria-hidden="true"></div>
 <div id="progress-circle" role="progressbar" aria-live="polite" data-aria-lang-key="loading-media"></div>
@@ -114,10 +116,10 @@ DUMMYSTYLE
 </div>
 <div id="fps" aria-hidden="true"></div>
 <div id="control-panel" role="presentation">
-    <form>
+    <form data-aria-lang-key="control-panel">
         <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
             <input id="wakeup-button" type="checkbox">
-            <div id="wakeup-progress-circle" role="timer"></div>
+            <div id="wakeup-progress-circle" role="presentation"></div>
             __SUN_ICON__
         </label>
         <div id="wakeup-panel" class="popup-panel" role="presentation">
@@ -209,8 +211,8 @@ DUMMYSTYLE
                 <span id="cross-fade-transition-label-span" data-lang-key="cross-fade-transition"></span>
                 <select id="cross-fade-transition"></select>
             </label>
-            <label for="analog-clock" aria-labelledby="stretch-label-span">
-                <span id="stretch-label-span" data-lang-key="analog-clock"></span>
+            <label for="analog-clock" aria-labelledby="analog-clock-label-span">
+                <span id="analog-clock-label-span" data-lang-key="analog-clock"></span>
                 <input id="analog-clock" type="checkbox" />
             </label>
             <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
@@ -278,7 +280,7 @@ DUMMYSTYLE
         </div>
         <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
             <input id="sleep-button" type="checkbox">
-            <div id="sleep-progress-circle" role="timer"></div>
+            <div id="sleep-progress-circle" role="presentation"></div>
             __MOON_ICON__
         </label>
         <div id="sleep-panel" class="popup-panel" role="presentation">
@@ -301,13 +303,13 @@ DUMMYSTYLE
     </form>
 </div>
 <div id="transport-panel" role="presentation">
-    <form>
+    <form data-aria-lang-key="transport-panel">
         <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
         <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
-        <div id="media-time-frame">
+        <div id="media-time-frame" role="presentation">
             <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
-            <div id="seek-panel">
-                <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" />
+            <div id="seek-panel" role="presentation">
+                <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" aria-valuemin="0" />
             </div>
         </div>
         <button id="back-button" data-aria-lang-key="Go to Previous Media">

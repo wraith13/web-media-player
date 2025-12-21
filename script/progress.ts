@@ -1,3 +1,4 @@
+import { Library } from "@library";
 import { UI } from "./ui";
 export namespace Progress
 {
@@ -22,6 +23,14 @@ export namespace Progress
         UI.progressCircle.setAttribute("aria-volumemin", "0");
         UI.progressCircle.setAttribute("aria-volumemax", totalTasks.toString());
         UI.progressCircle.setAttribute("aria-valuenow", completedTasks.toString());
+        Library.UI.setAttribute
+        (
+            UI.progressCircle,
+            "aria-valuetext",
+            isProgressValid ?
+                `${Library.Locale.map("loading-media")}${Library.Locale.map("lang-colon-suffix")} ${completedTasks.toString()} / ${totalTasks.toString()}`:
+                undefined
+        );
         if (totalTasks <= completedTasks)
         {
             totalTasks = 0;

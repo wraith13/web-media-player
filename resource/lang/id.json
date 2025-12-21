@@ -7,6 +7,8 @@
     "loading-media": "Memuat media...",
     "Auto": "Otomatis",
     "description": "Pemutar media berbasis web yang berjalan di peramban",
+    "control-panel": "Panel Kontrol",
+    "transport-panel": "Panel Transportasi",
     "media-list": "Daftar Media",
     "media-count": "Jumlah Media",
     "media-length": "Durasi Media",

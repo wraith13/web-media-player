@@ -5,7 +5,7 @@ import { ElementPool } from "./elementpool";
 import { Media } from "./media";
 import { Analyser } from "./analyser";
 import { Visualizer } from "./visualizer";
-import {FlounderStyle } from "flounder.style.js";
+import { FlounderStyle } from "flounder.style.js";
 import config from "@resource/config.json";
 export const hasValidGainNode = (track: Track): track is Track & { analyser: Analyser.Entry & { gainNode: GainNode } } =>
 {
@@ -13,6 +13,7 @@ export const hasValidGainNode = (track: Track): track is Track & { analyser: Ana
 }
 export class Track
 {
+    static locale: string | undefined = undefined;
     playerElement: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
     paddingElement: HTMLImageElement | HTMLVideoElement | null = null;
     visualElement: HTMLDivElement | Visualizer.VisualizerDom | null;
@@ -246,14 +247,21 @@ export class Track
             {
                 UI.OverlayPanel.visualizer.classList.toggle("on", false);
             }
-        }
-        if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
-        {
-            UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
-        }
-        else
-        {
-            UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+            //const valueMin = 0;
+            const valueMax = this.getDuration();
+            const valueNow = this.getElapsedTime();
+            //Library.UI.setAttribute(UI.TransportPanel.seekRange, "aria-valuemin", valueMin);
+            Library.UI.setAttribute(UI.TransportPanel.seekRange, "aria-valuemax", `${valueMax}`);
+            Library.UI.setAttribute(UI.TransportPanel.seekRange, "aria-valuenow", `${valueNow}`);
+            Library.UI.setAttribute(UI.TransportPanel.seekRange, "aria-valuetext", `${Tools.Timespan.toMediaTimeString(valueNow, Track.locale)} / ${Tools.Timespan.toMediaTimeString(valueMax, Track.locale)}`);
+            if (this.playerElement instanceof HTMLMediaElement && ! this.isLoop())
+            {
+                UI.TransportPanel.seekRange.valueAsNumber = (this.playerElement.currentTime *1000) / this.getDuration();
+            }
+            else
+            {
+                UI.TransportPanel.seekRange.valueAsNumber = this.getElapsedTime() / this.getDuration();
+            }
         }
     }
     isLoop(): boolean

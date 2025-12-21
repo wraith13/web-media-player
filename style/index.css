@@ -11,7 +11,7 @@
 @property --progress {
   syntax: "<number>";
   inherits: false;
-  initial-value: 0deg;
+  initial-value: 0;
 }
 @property --blur {
   syntax: "<length>";
@@ -815,6 +815,8 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   pointer-events: none;
 }
 #screen-body #media-list .item.add #add-media {
+  display: inline-block;
+  position: absolute;
   border-width: 2px;
   border-radius: 2.25rem;
   border-color: white;
@@ -840,7 +842,10 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   }
 }
 #screen-body #media-list .item.add #add-file {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 1rem;
 }
 #screen-body #media-list.dragging {
   cursor: grabbing;

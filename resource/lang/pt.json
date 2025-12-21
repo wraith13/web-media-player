@@ -7,6 +7,8 @@
     "loading-media": "Carregando mídia...",
     "Auto": "Automático",
     "description": "Reprodutor de mídia baseado na web que roda em um navegador",
+    "control-panel": "Painel de controle",
+    "transport-panel": "Painel de transporte",
     "media-list": "Lista de mídia",
     "media-count": "Contagem de mídias",
     "media-length": "Duração da mídia",
