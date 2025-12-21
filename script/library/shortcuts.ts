@@ -170,13 +170,25 @@ export namespace Shortcuts
         }
         updatePressedKeyDiv();
     };
+    export const isMoveTabIndexEvent = (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
+    {
+        if (currentCommandMap?.["moveTabIndex"] && "Tab" === event.key)
+        {
+            return true;
+        }
+        return false;
+    };
     export const isLabelEvent = (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) =>
     {
-        if ("label" === (document.activeElement?.tagName?.toLowerCase() ?? ""))
+        const activeElement = document.activeElement;
+        if (activeElement)
         {
-            if (" " === event.key || "Enter" === event.key || "Escape" === event.key)
+            if ("label" === (activeElement.tagName?.toLowerCase() ?? "") || "pseudo-label" === (activeElement.className ?? ""))
             {
-                return true;
+                if (" " === event.key || "Enter" === event.key || "Escape" === event.key)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -189,6 +201,12 @@ export namespace Shortcuts
         const commandMap = currentCommandMap;
         if (null !== commandMap)
         {
+            if (isMoveTabIndexEvent(type, event))
+            {
+                //console.log("↔️ MoveTabIndex:", pressedKeys);
+                commandMap["moveTabIndex"]?.fire();
+            }
+            else
             if (isLabelEvent(type, event))
             {
                 if ("onKeyDown" === type)

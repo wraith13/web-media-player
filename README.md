@@ -3,7 +3,7 @@
 [![pages-build-deployment](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment)
 [![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](./LICENSE_1_0.txt)
 
-## Live site
+## ▶️ Live Site
 
 <p align="center" style="padding:1rem;">
 <a href="https://wraith13.github.io/web-media-player/">
@@ -12,12 +12,10 @@ https://wraith13.github.io/web-media-player/
 </a>
 </p>
 
-## Feature
+## 🎯 Feature
 
 - ✅ Supports image, audio, and video media that can be played in your web browser! (Supported media types depend entirely on your environment.)
 - ✅ Because it's web-based, you can run multiple instances (multi-window support), use it on smartphones and tablets, and even install it as an app!
-- 🚫 Because it's web-based, playlists cannot be saved. (Technically possible, but not practical, so it's not implemented.)
-- 🚫 Because it's web-based, background playback and timers do not work reliably.
 - ✅ Safe shuffle playback (prevents issues such as media that never gets played or a just-played item playing again immediately.)
 - ✅ Stretch settings to control how much content can exceed the screen size, preventing excessive enlargement.
 - ✅ Padding settings to fill extra space with enlarged content.
@@ -33,8 +31,10 @@ https://wraith13.github.io/web-media-player/
 - ✅ Full keyboard navigation support
 - ✅ Conforms to WAI-ARIA
 - ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt)
+- 🚫 Because it's web-based, playlists cannot be saved. (Technically possible, but not practical, so it's not implemented.)
+- 🚫 Because it's web-based, background playback and timers do not work reliably.
 
-## Screenshot
+## 📷 Screenshot
 
 UI
 ![UI](./screenshot/ui.png)
@@ -57,7 +57,7 @@ Wipe transition
 Stylish analog clock
 ![Stylish analog clock](./screenshot/stylish-analog-clock.png)
 
-## Options Available via URL Parameters
+## 🔗 Options Available via URL Parameters
 
 The following options cannot be set via the UI.
 
@@ -66,10 +66,11 @@ The following options cannot be set via the UI.
 - `subtitle`: Text displayed in place of the date. (Example: [`#subtitle=Have+a+nice+day!`](https://wraith13.github.io/web-media-player/#subtitle=Have+a+nice+day!&with-clock=true&with-date=true&overlay-position=center))
 - `screenshot`: Specifies the screenshot mode. Accepts one of `favicon` or `twitter-card`. (Example: [`#screenshot=twitter-card`](https://wraith13.github.io/web-media-player/#screenshot=twitter-card))
 
-## How to build
+## 🛠️ How to build
 
 ### Prerequisites
 
+- Git
 - Node.js (version 16 or higher recommended)
 - npm (Node Package Manager)
 
@@ -77,17 +78,17 @@ The following options cannot be set via the UI.
 
 1. Install dependencies:
    ```sh
-   npm install
    git submodule update --recursive --merge --init
+   npm install
    ```
 2. Build the project:
    ```sh
    npm run-script "build all"
    ```
 
-More information: see [`./BUILD.md` — Build commands](./BUILD.md#build-commands)
+More information: see [`./BUILD.md`](./BUILD.md#build-commands)
 
-## Files
+## 📁 Files
 
 Detailed file reference: [FILES.md](./FILES.md)
 
@@ -97,16 +98,16 @@ Detailed file reference: [FILES.md](./FILES.md)
 - [Runtime files](./FILES.md#runtime-files)
 - [Other](./FILES.md#other)
 
-## How to add a supported language
+## 🗣️ How to add a supported language
 
 Create a JSON file for the language you want by copying one of the existing language JSON files in the [`./resouce/lang/`](./resouce/lang/) directory, then run the build. The Web Manifest, README.md, and other necessary files will be generated automatically and the language will be added.
 
-## How to publish
+## 🌐 How to publish
 
 1. Fork [this repository](https://github.com/wraith13/web-media-player/) on GitHub.
 2. Go `Settings`(→`Options`)→`GitHub Pages` or `Pages`, select `master` branch and `/(root)` folder from drop down list, and click `Save`.
 
-## Powered by
+## 💪 Powered by
 
 - [build.js](https://github.com/wraith13/build.js)
 - [evil-commonjs](https://github.com/wraith13/evil-commonjs)
@@ -114,6 +115,6 @@ Create a JSON file for the language you want by copying one of the existing lang
 - [flounder.style.js](https://github.com/wraith13/flounder.style.js)
 - [wttr.in](https://github.com/chubin/wttr.in)
 
-## License
+## ⚖️ License
 
 [Boost Software License](./LICENSE_1_0.txt)

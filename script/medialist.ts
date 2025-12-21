@@ -19,7 +19,7 @@ export namespace MediaList
             Media.mediaList.push(entry);
             updateInformationDisplay();
             updateNoMediaLabel();
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.parentElement);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
             if (Features.Player.isPlaying())
             {
                 Features.Player.pause();
@@ -35,7 +35,7 @@ export namespace MediaList
             (
                 document.body,
                 "not-supported-media",
-                config.player.notSupportedMediaMessageSpan,
+                config.messages.notSupportedMediaMessageDuration,
                 () => UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide()
             );
         }
@@ -187,7 +187,7 @@ export namespace MediaList
         );
         for (const entry of Media.mediaList)
         {
-            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.parentElement);
+            UI.mediaList.insertBefore(await makeMediaEntryDom(entry), UI.addMediaButton.dom.parentElement);
         }
     };
     export const updateInformationDisplay = (): void =>

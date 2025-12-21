@@ -377,8 +377,8 @@
                 }
                 #add-media
                 {
-                    display: inline-block;
-                    position: absolute;
+                    // display: inline-block;
+                    // position: absolute;
                     border-width: 2px;
                     border-radius: 2.25rem;
                     border-color: white;
@@ -408,10 +408,7 @@
                 }
                 #add-file
                 {
-                    position: absolute;
-                    width: 1px;
-                    height: 1px;
-                    border-radius: 1rem;
+                    display: none;
                 }
             }
         }
@@ -798,7 +795,7 @@ body:not(.not-supported-media)
 #control-panel form
 {
     @include black-pop-panel-style();
-    @include fade-transition("body.play:not(.show-ui)", "body:not(.play):not(.mousemove).sleeped");
+    @include fade-transition("body.play:not(.show-ui):not(.keyinput)", "body:not(.play):not(.mousemove):not(.keyinput).sleeped");
     &
     {
         @include flex(row, center);
@@ -943,7 +940,7 @@ body:not(.not-supported-media)
         }
     }
 }
-body:not(.play):not(.mousemove).sleeped
+body:not(.play):not(.mousemove):not(keyinput).sleeped
 {
     //#media-screen,
     //#media-list,
@@ -981,103 +978,270 @@ body:not(.play):not(.mousemove).sleeped
 {
     @include progress-circle(white, transparent);
 }
-#media-index,
-#media-title,
-#media-time
+#transport-panel
 {
-    @include black-pop-panel-style();
-    & { @include font(); }
-    &
+    #media-index,
+    #media-title,
+    #media-time,
+    #media-time-frame,
+    #next-button,
+    #back-button,
+    #fast-forward-button,
+    #rewind-button
     {
-        padding: 0.25rem 0.75rem;
-        z-index: 50;
-        color: $white-color;
-        border-radius: 1rem;
-        &:empty
+        @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui):not(.keyinput)");
+        // @include fade-transition("body.play:not(.show-ui)");
+    }
+    #media-index,
+    #media-title,
+    #media-time
+    {
+        @include black-pop-panel-style();
+        & { @include font(); }
+        &
         {
-            display: none;
+            padding: 0.25rem 0.75rem;
+            z-index: 50;
+            color: $white-color;
+            border-radius: 1rem;
+            &:empty
+            {
+                display: none;
+            }
         }
     }
-}
-#media-index,
-#media-title
-{
-    position: fixed;
-    top: 0.5rem;
-    top: calc(0.5rem + env(safe-area-inset-top));
-}
-#media-index
-{
-    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)", "body.show-seek-bar");
-    @include monospace-font();
-    &
-    {
-        unicode-bidi: embed;
-        direction: ltr;
-        @at-root html:not([dir="rtl"]) &
-        {
-            left: 0.5rem;
-            left: calc(0.5rem + env(safe-area-inset-left));
-        }
-        @at-root html[dir="rtl"] &
-        {
-            right: 0.5rem;
-            right: calc(0.5rem + env(safe-area-inset-left));
-        }
-    }
-}
-#media-title
-{
-    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)", "body.show-seek-bar");
-    & { @include font(); }
-    &
-    {
-        left: 50%;
-        transform: translate(-50%, 0%);
-    }
-}
-#media-time-frame
-{
-    @include flex(row-reverse, end);
-    &
+    #media-index,
+    #media-title
     {
         position: fixed;
         top: 0.5rem;
         top: calc(0.5rem + env(safe-area-inset-top));
-        right: 0.5rem;
-        right: calc(0.5rem + env(safe-area-inset-right));
-        left: 0.5rem;
-        left: calc(0.5rem + env(safe-area-inset-left));
-        z-index: 50;
-        gap: 0.25rem;;
-        #media-time
+    }
+    #media-index
+    {
+        @include fade-transition("body.show-seek-bar");
+        @include monospace-font();
+        &
         {
-            @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)");
-            @include monospace-font();
-            &
+            unicode-bidi: embed;
+            direction: ltr;
+            @at-root html:not([dir="rtl"]) &
             {
-                border-style: solid;
-                border-width: 0px;
-                border-color: $white-color;
-                cursor: pointer;
-                unicode-bidi: embed;
-                direction: ltr;
+                left: 0.5rem;
+                left: calc(0.5rem + env(safe-area-inset-left));
+            }
+            @at-root html[dir="rtl"] &
+            {
+                right: 0.5rem;
+                right: calc(0.5rem + env(safe-area-inset-left));
             }
         }
-        #seek-panel
+    }
+    #media-title
+    {
+        @include fade-transition("body.show-seek-bar");
+        & { @include font(); }
+        &
         {
-            @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)", "body:not(.show-seek-bar)");
-            @include black-pop-panel-style();
-            @include flex(column, center, stretch);
-            &
+            left: 50%;
+            transform: translate(-50%, 0%);
+        }
+    }
+    #media-time-frame
+    {
+        @include flex(row-reverse, end);
+        &
+        {
+            position: fixed;
+            top: 0.5rem;
+            top: calc(0.5rem + env(safe-area-inset-top));
+            right: 0.5rem;
+            right: calc(0.5rem + env(safe-area-inset-right));
+            left: 0.5rem;
+            left: calc(0.5rem + env(safe-area-inset-left));
+            z-index: 50;
+            gap: 0.25rem;;
+            #media-time
             {
-                transition: transform 500ms, opacity 500ms, filter 500ms;
-                border-radius: 1rem;
-                z-index: 60;
-                padding: 0.25rem 0.5rem;
-                line-height: 0rem;
-                flex-grow: 1;
+                @include monospace-font();
+                &
+                {
+                    border-style: solid;
+                    border-width: 0px;
+                    border-color: $white-color;
+                    cursor: pointer;
+                    unicode-bidi: embed;
+                    direction: ltr;
+                }
             }
+            #seek-panel
+            {
+                @include fade-transition("body:not(.show-seek-bar)");
+                @include black-pop-panel-style();
+                @include flex(column, center, stretch);
+                &
+                {
+                    transition: transform 500ms, opacity 500ms, filter 500ms;
+                    border-radius: 1rem;
+                    z-index: 60;
+                    padding: 0.25rem 0.5rem;
+                    line-height: 0rem;
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+    #next-button, #back-button
+    {
+        @include black-pop-panel-style();
+        &
+        {
+            position: fixed;
+            inset-block-start: 50%;
+            transform: translate(0%, -50%);
+            z-index: 50;
+            border-style: solid;
+            border-width: 0px;
+            border-color: $white-color;
+            border-radius: 3.0rem;
+            padding-block: 0.75rem;
+            padding-inline: 0.75rem;
+            transition: opacity 1500ms, filter 125ms;
+            width: 8.0rem;
+            height: 3.0rem;
+            background-color: black-color(0.6);
+            &:active
+            {
+                border-width: 1px;
+            }
+        }
+        svg
+        {
+            @include svg-color($white-color);
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        @media (hover: hover)
+        {
+            &:hover
+            {
+                z-index: 100;
+                filter: drop-shadow($white-color 0px 0px 0.5rem);
+            }
+        }
+    }
+    #back-button
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+        @at-root html:not([dir="rtl"]) &
+        {
+            left: -5.75rem;
+            left: calc(-5.75rem + env(safe-area-inset-left));
+            padding-left: 6rem;
+        }
+        @at-root html[dir="rtl"] &
+        {
+            right: -5.75rem;
+            right: calc(-5.75rem + env(safe-area-inset-right));
+            padding-right: 6rem;
+        }
+    }
+    #next-button
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        @at-root html:not([dir="rtl"]) &
+        {
+            right: -5.75rem;
+            right: calc(-5.75rem + env(safe-area-inset-right));
+            padding-right: 6rem;
+        }
+        @at-root html[dir="rtl"] &
+        {
+            left: -5.75rem;
+            left: calc(-5.75rem + env(safe-area-inset-left));
+            padding-left: 6rem;
+        }
+    }
+    #fast-forward-button, #rewind-button
+    {
+        @include black-pop-panel-style();
+        @include black-pop-panel-style();
+        &
+        {
+            position: fixed;
+            bottom: 1.75rem;
+            bottom: calc(1.75rem + env(safe-area-inset-bottom));
+            z-index: 50;
+            border-style: solid;
+            border-width: 0px;
+            &:active
+            {
+                border-width: 1px;
+            }
+            border-color: $white-color;
+            border-radius: 1.5rem;
+            padding-block: 0.75rem;
+            padding-inline: 0.75rem;
+            transition: opacity 750ms, filter 125ms;
+            width: 3.0rem;
+            height: 3.0rem;
+            background-color: black-color(0.6);
+        }
+        svg
+        {
+            @include svg-color($white-color);
+            width: 100%;
+            height: 100%;
+        }
+        @media (hover: hover)
+        {
+            &:hover
+            {
+                z-index: 100;
+                filter: drop-shadow($white-color 0px 0px 0.5rem);
+            }
+        }
+    }
+    #rewind-button
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @at-root html:not([dir="rtl"]) &
+        {
+            left: 1.75rem;
+            left: calc(1.75rem + env(safe-area-inset-left));
+            align-items: end;
+        }
+        @at-root html[dir="rtl"] &
+        {
+            right: 1.75rem;
+            right: calc(1.75rem + env(safe-area-inset-right));
+            align-items: start;
+        }
+    }
+    #fast-forward-button
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @at-root html:not([dir="rtl"]) &
+        {
+            right: 1.75rem;
+            right: calc(1.75rem + env(safe-area-inset-right));
+            align-items: start;
+        }
+        @at-root html[dir="rtl"] &
+        {
+            left: 1.75rem;
+            left: calc(1.75rem + env(safe-area-inset-left));
+            align-items: end;
         }
     }
 }
@@ -1110,172 +1274,10 @@ body.show-seek-bar #media-time-frame
         }
     }
 }
-#next-button, #back-button
-{
-    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)");
-    // @include fade-transition("body.play:not(.show-ui)");
-    @include black-pop-panel-style();
-    &
-    {
-        position: fixed;
-        inset-block-start: 50%;
-        transform: translate(0%, -50%);
-        z-index: 50;
-        border-style: solid;
-        border-width: 0px;
-        border-color: $white-color;
-        border-radius: 3.0rem;
-        padding-block: 0.75rem;
-        padding-inline: 0.75rem;
-        transition: opacity 1500ms, filter 125ms;
-        width: 8.0rem;
-        height: 3.0rem;
-        background-color: black-color(0.6);
-        &:active
-        {
-            border-width: 1px;
-        }
-    }
-    svg
-    {
-        @include svg-color($white-color);
-        width: 1.5rem;
-        height: 1.5rem;
-    }
-    @media (hover: hover)
-    {
-        &:hover
-        {
-            z-index: 100;
-            filter: drop-shadow($white-color 0px 0px 0.5rem);
-        }
-    }
-}
-#back-button
-{
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: center;
-    @at-root html:not([dir="rtl"]) &
-    {
-        left: -5.75rem;
-        left: calc(-5.75rem + env(safe-area-inset-left));
-        padding-left: 6rem;
-    }
-    @at-root html[dir="rtl"] &
-    {
-        right: -5.75rem;
-        right: calc(-5.75rem + env(safe-area-inset-right));
-        padding-right: 6rem;
-    }
-}
-#next-button
-{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    @at-root html:not([dir="rtl"]) &
-    {
-        right: -5.75rem;
-        right: calc(-5.75rem + env(safe-area-inset-right));
-        padding-right: 6rem;
-    }
-    @at-root html[dir="rtl"] &
-    {
-        left: -5.75rem;
-        left: calc(-5.75rem + env(safe-area-inset-left));
-        padding-left: 6rem;
-    }
-}
 body.no-media
 {
-    #next-button, #back-button
-    {
-        opacity: 0.3;
-    }
-}
-#fast-forward-button, #rewind-button
-{
-    @include fade-transition("body:not(.play):not(.show-paused-media)", "body:not(.show-ui)");
-    // @include fade-transition("body.play:not(.show-ui)");
-    @include black-pop-panel-style();
-    @include black-pop-panel-style();
-    &
-    {
-        position: fixed;
-        bottom: 1.75rem;
-        bottom: calc(1.75rem + env(safe-area-inset-bottom));
-        z-index: 50;
-        border-style: solid;
-        border-width: 0px;
-        &:active
-        {
-            border-width: 1px;
-        }
-        border-color: $white-color;
-        border-radius: 1.5rem;
-        padding-block: 0.75rem;
-        padding-inline: 0.75rem;
-        transition: opacity 750ms, filter 125ms;
-        width: 3.0rem;
-        height: 3.0rem;
-        background-color: black-color(0.6);
-    }
-    svg
-    {
-        @include svg-color($white-color);
-        width: 100%;
-        height: 100%;
-    }
-    @media (hover: hover)
-    {
-        &:hover
-        {
-            z-index: 100;
-            filter: drop-shadow($white-color 0px 0px 0.5rem);
-        }
-    }
-}
-#rewind-button
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    @at-root html:not([dir="rtl"]) &
-    {
-        left: 1.75rem;
-        left: calc(1.75rem + env(safe-area-inset-left));
-        align-items: end;
-    }
-    @at-root html[dir="rtl"] &
-    {
-        right: 1.75rem;
-        right: calc(1.75rem + env(safe-area-inset-right));
-        align-items: start;
-    }
-}
-#fast-forward-button
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    @at-root html:not([dir="rtl"]) &
-    {
-        right: 1.75rem;
-        right: calc(1.75rem + env(safe-area-inset-right));
-        align-items: start;
-    }
-    @at-root html[dir="rtl"] &
-    {
-        left: 1.75rem;
-        left: calc(1.75rem + env(safe-area-inset-left));
-        align-items: end;
-    }
-}
-body.no-media
-{
+    #next-button,
+    #back-button,
     #fast-forward-button,
     #rewind-button
     {
@@ -1988,9 +1990,13 @@ label:not(.icon-button)
         height: 0px;
     }
 }
+#add-media:focus-within,
+#media-list > .item:not(.add):focus,
 label:focus,
 button:focus,
 #volume-panel:focus-within,
+#media-title:focus,
+#media-time:focus,
 #seek-panel:focus-within,
 .popup-panel > label:focus-within
 {

@@ -132,6 +132,19 @@ export namespace UI
             new Library.Control.Button({ id: "rewind-button", });
         export const visibilityApplier =
             new VisibilityApplier(panel);
+        // export const mediaIndexVisibilityApplier =
+        //     new VisibilityApplier(mediaIndex);
+        // export const mediaTitleVisibilityApplier =
+        //     new VisibilityApplier(mediaTitle);
+        export const seekRangeVisibilityApplier =
+            new VisibilityApplier(seekRange);
+        export const updateSeekRangeVisibility = () =>
+        {
+            const isShowSeekBar = document.body.classList.contains("show-seek-bar");
+            // UI.TransportPanel.mediaIndexVisibilityApplier.show( ! isShowSeekBar);
+            // UI.TransportPanel.mediaTitleVisibilityApplier.show( ! isShowSeekBar);
+            UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
+        }
     }
     export const volumeLabel =
         Library.UI.querySelector("label", "label[for='volume-button']");
@@ -139,6 +152,8 @@ export namespace UI
         new Library.Control.Range(control.volume);
     export const mediaList =
         Library.UI.getElementById("div", "media-list");
+    export const mediaListVisibilityApplier =
+        new VisibilityApplier(mediaList);
     export const isScrolledToMediaListBottom = () =>
         UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight *1) +(UI.addMediaButtonHeight *0.3);
     export const progressCircle =
@@ -229,8 +244,7 @@ export namespace UI
         // };
     }
     export const addMediaButton =
-        Library.UI.getElementById("label", "add-media");
-        //new Library.Control.Button({ id: "add-media", });
+        new Library.Control.Button({ id: "add-media", });
     export const addMediaButtonHeight = 84;
     export const inputFile =
         Library.UI.getElementById("input", "add-file");
@@ -510,6 +524,7 @@ export namespace UI
             TransportPanel.visibilityApplier,
         ]
         .forEach(i => i.immediateHide());
+        TransportPanel.updateSeekRangeVisibility();
     };
     export const isPlaying = (): boolean =>
         document.body.classList.contains("play");
@@ -517,6 +532,7 @@ export namespace UI
         document.body.classList.contains("is-seeking");
     export const onPlaybackStarted = () =>
     {
+        mediaListVisibilityApplier.hide();
         TransportPanel.visibilityApplier.show();
         document.body.classList.toggle("show-ui", false);
         document.body.classList.toggle("list", false);
@@ -538,6 +554,7 @@ export namespace UI
         navigator.mediaSession.playbackState = "paused";
         document.body.classList.toggle("list", true);
         document.body.classList.toggle("play", false);
+        mediaListVisibilityApplier.show();
         [
             AnalogClock.visibilityApplier,
             OverlayPanel.weatherVisibilityApplier,
@@ -545,7 +562,8 @@ export namespace UI
             OverlayPanel.timeVisibilityApplier,
             // OverlayPanel.calendarVisibilityApplier,
             // OverlayPanel.visualizerVisibilityApplier,
-            fpsVisibilityApplier
+            fpsVisibilityApplier,
+            TransportPanel.visibilityApplier,
         ]
         .forEach(i => i.hide());
     };

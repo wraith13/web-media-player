@@ -151,7 +151,7 @@ export namespace Player
             (
                 document.body,
                 "no-media",
-                5000,
+                Config.messages.noMediaMessageDuration,
                 () => UI.MessagePanel.noMediaPanelVisibilityApplier.hide()
             );
         }

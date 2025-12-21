@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sat Dec 20 2025 22:27:03 GMT+0900 (日本標準時)
+    build at: Sun Dec 21 2025 17:19:00 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -907,8 +907,6 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   pointer-events: none;
 }
 #screen-body #media-list .item.add #add-media {
-  display: inline-block;
-  position: absolute;
   border-width: 2px;
   border-radius: 2.25rem;
   border-color: white;
@@ -934,10 +932,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   }
 }
 #screen-body #media-list .item.add #add-file {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  border-radius: 1rem;
+  display: none;
 }
 #screen-body #media-list.dragging {
   cursor: grabbing;
@@ -1605,13 +1600,13 @@ body:not(.wakeup-timer-requires-active-page) #wakeup-timer-requires-active-page-
   background-color: rgba(32, 28, 38, 0.6);
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body.play:not(.show-ui) #control-panel form:not(.show) {
+body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play:not(.show-ui) #control-panel form:not(.show)::before {
+body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1624,13 +1619,13 @@ body.play:not(.show-ui) #control-panel form:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.play):not(.mousemove).sleeped #control-panel form:not(.show) {
+body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.mousemove).sleeped #control-panel form:not(.show)::before {
+body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1764,18 +1759,18 @@ body:not(.play) #control-panel form #play-button #pause-icon {
   display: none;
 }
 
-body:not(.play):not(.mousemove).sleeped #media-index,
-body:not(.play):not(.mousemove).sleeped #media-title,
-body:not(.play):not(.mousemove).sleeped #media-time-frame,
-body:not(.play):not(.mousemove).sleeped #control-panel,
-body:not(.play):not(.mousemove).sleeped #next-button,
-body:not(.play):not(.mousemove).sleeped #back-button,
-body:not(.play):not(.mousemove).sleeped #fast-forward-button,
-body:not(.play):not(.mousemove).sleeped #rewind-button {
+body:not(.play):not(.mousemove):not(keyinput).sleeped #media-index,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #media-title,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #media-time-frame,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #control-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #next-button,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #back-button,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #fast-forward-button,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #rewind-button {
   opacity: 0.2;
 }
-body:not(.play):not(.mousemove).sleeped #screen-body,
-body:not(.play):not(.mousemove).sleeped #screen-footer {
+body:not(.play):not(.mousemove):not(keyinput).sleeped #screen-body,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #screen-footer {
   opacity: 0;
 }
 
@@ -1798,109 +1793,145 @@ body:not(.play):not(.mousemove).sleeped #screen-footer {
   background: conic-gradient(white calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg));
 }
 
-#media-index,
-#media-title,
-#media-time {
+#transport-panel #media-index,
+#transport-panel #media-title,
+#transport-panel #media-time,
+#transport-panel #media-time-frame,
+#transport-panel #next-button,
+#transport-panel #back-button,
+#transport-panel #fast-forward-button,
+#transport-panel #rewind-button {
+  transition: display 750ms, opacity 750ms, filter 750ms;
+}
+body:not(.play):not(.show-paused-media) #transport-panel #media-index:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #media-title:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #media-time:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #media-time-frame:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #next-button:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #back-button:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #fast-forward-button:not(.show),
+body:not(.play):not(.show-paused-media) #transport-panel #rewind-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.play):not(.show-paused-media) #transport-panel #media-index:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #media-title:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #media-time:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #media-time-frame:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #next-button:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #back-button:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #fast-forward-button:not(.show)::before,
+body:not(.play):not(.show-paused-media) #transport-panel #rewind-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-ui):not(.keyinput) #transport-panel #media-index:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #media-title:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #media-time:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #media-time-frame:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #next-button:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #back-button:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #fast-forward-button:not(.show),
+body:not(.show-ui):not(.keyinput) #transport-panel #rewind-button:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-ui):not(.keyinput) #transport-panel #media-index:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #media-title:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #media-time:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #media-time-frame:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #next-button:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #back-button:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #fast-forward-button:not(.show)::before,
+body:not(.show-ui):not(.keyinput) #transport-panel #rewind-button:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+#transport-panel #media-index,
+#transport-panel #media-title,
+#transport-panel #media-time {
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
   background-color: rgba(32, 28, 38, 0.6);
 }
-#media-index,
-#media-title,
-#media-time {
+#transport-panel #media-index,
+#transport-panel #media-title,
+#transport-panel #media-time {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #media-index,
-  #media-title,
-  #media-time {
+  #transport-panel #media-index,
+  #transport-panel #media-title,
+  #transport-panel #media-time {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #media-index,
-  #media-title,
-  #media-time {
+  #transport-panel #media-index,
+  #transport-panel #media-title,
+  #transport-panel #media-time {
     font-size: 1rem;
   }
 }
-#media-index,
-#media-title,
-#media-time {
+#transport-panel #media-index,
+#transport-panel #media-title,
+#transport-panel #media-time {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
-#media-index,
-#media-title,
-#media-time {
+#transport-panel #media-index,
+#transport-panel #media-title,
+#transport-panel #media-time {
   padding: 0.25rem 0.75rem;
   z-index: 50;
   color: rgb(230, 237, 243);
   border-radius: 1rem;
 }
-#media-index:empty,
-#media-title:empty,
-#media-time:empty {
+#transport-panel #media-index:empty,
+#transport-panel #media-title:empty,
+#transport-panel #media-time:empty {
   display: none;
 }
-
-#media-index,
-#media-title {
+#transport-panel #media-index,
+#transport-panel #media-title {
   position: fixed;
   top: 0.5rem;
   top: calc(0.5rem + env(safe-area-inset-top));
 }
-
-#media-index {
+#transport-panel #media-index {
   transition: display 750ms, opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show) {
+body.show-seek-bar #transport-panel #media-index:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-index:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-ui) #media-index:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #media-index:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.show-seek-bar #media-index:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.show-seek-bar #media-index:not(.show)::before {
+body.show-seek-bar #transport-panel #media-index:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1914,42 +1945,42 @@ body.show-seek-bar #media-index:not(.show)::before {
 }
 
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #media-index {
+  #transport-panel #media-index {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #media-index {
+  #transport-panel #media-index {
     font-size: 1rem;
   }
 }
-#media-index {
+#transport-panel #media-index {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
-#media-index {
+#transport-panel #media-index {
   unicode-bidi: embed;
   direction: ltr;
 }
-html:not([dir=rtl]) #media-index {
+html:not([dir=rtl]) #transport-panel #media-index {
   left: 0.5rem;
   left: calc(0.5rem + env(safe-area-inset-left));
 }
 
-html[dir=rtl] #media-index {
+html[dir=rtl] #transport-panel #media-index {
   right: 0.5rem;
   right: calc(0.5rem + env(safe-area-inset-left));
 }
 
-#media-title {
+#transport-panel #media-title {
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show) {
+body.show-seek-bar #transport-panel #media-title:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
+body.show-seek-bar #transport-panel #media-title:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1962,73 +1993,34 @@ body:not(.play):not(.show-paused-media) #media-title:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-title:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #media-title:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body.show-seek-bar #media-title:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body.show-seek-bar #media-title:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#media-title {
+#transport-panel #media-title {
   font-size: 0.75rem;
   font-weight: 400;
 }
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #media-title {
+  #transport-panel #media-title {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #media-title {
+  #transport-panel #media-title {
     font-size: 1rem;
   }
 }
-#media-title {
+#transport-panel #media-title {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
-#media-title {
+#transport-panel #media-title {
   left: 50%;
   transform: translate(-50%, 0%);
 }
-
-#media-time-frame {
+#transport-panel #media-time-frame {
   display: flex;
   flex-direction: row-reverse;
   justify-content: end;
   align-items: center;
 }
-#media-time-frame {
+#transport-panel #media-time-frame {
   position: fixed;
   top: 0.5rem;
   top: calc(0.5rem + env(safe-area-inset-top));
@@ -2039,63 +2031,24 @@ body.show-seek-bar #media-title:not(.show)::before {
   z-index: 50;
   gap: 0.25rem;
 }
-#media-time-frame #media-time {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+#transport-panel #media-time-frame #media-time {
   font-size: 0.75rem;
   font-weight: 400;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.show-paused-media) #media-time-frame #media-time:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-ui) #media-time-frame #media-time:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
 @media (min-width: 1024px) and (max-width: 1599px) {
-  #media-time-frame #media-time {
+  #transport-panel #media-time-frame #media-time {
     font-size: 0.9rem;
   }
 }
 @media (min-width: 1600px) {
-  #media-time-frame #media-time {
+  #transport-panel #media-time-frame #media-time {
     font-size: 1rem;
   }
 }
-#media-time-frame #media-time {
+#transport-panel #media-time-frame #media-time {
   font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
 }
-#media-time-frame #media-time {
+#transport-panel #media-time-frame #media-time {
   border-style: solid;
   border-width: 0px;
   border-color: rgb(230, 237, 243);
@@ -2103,7 +2056,7 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   unicode-bidi: embed;
   direction: ltr;
 }
-#media-time-frame #seek-panel {
+#transport-panel #media-time-frame #seek-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgb(230, 237, 243);
@@ -2113,13 +2066,13 @@ body:not(.show-ui) #media-time-frame #media-time:not(.show)::before {
   justify-content: center;
   align-items: stretch;
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show) {
+body:not(.show-seek-bar) #transport-panel #media-time-frame #seek-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)::before {
+body:not(.show-seek-bar) #transport-panel #media-time-frame #seek-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2132,51 +2085,157 @@ body:not(.play):not(.show-paused-media) #media-time-frame #seek-panel:not(.show)
   transition: filter 750ms;
 }
 
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #media-time-frame #seek-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-seek-bar) #media-time-frame #seek-panel:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#media-time-frame #seek-panel {
+#transport-panel #media-time-frame #seek-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 1rem;
   z-index: 60;
   padding: 0.25rem 0.5rem;
   line-height: 0rem;
   flex-grow: 1;
+}
+#transport-panel #next-button, #transport-panel #back-button {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+}
+#transport-panel #next-button, #transport-panel #back-button {
+  position: fixed;
+  inset-block-start: 50%;
+  transform: translate(0%, -50%);
+  z-index: 50;
+  border-style: solid;
+  border-width: 0px;
+  border-color: rgb(230, 237, 243);
+  border-radius: 3rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
+  transition: opacity 1500ms, filter 125ms;
+  width: 8rem;
+  height: 3rem;
+  background-color: rgba(32, 28, 38, 0.6);
+}
+#transport-panel #next-button:active, #transport-panel #back-button:active {
+  border-width: 1px;
+}
+#transport-panel #next-button svg, #transport-panel #back-button svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+@media (hover: hover) {
+  #transport-panel #next-button:hover, #transport-panel #back-button:hover {
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+#transport-panel #back-button {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+html:not([dir=rtl]) #transport-panel #back-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
+}
+
+html[dir=rtl] #transport-panel #back-button {
+  right: -5.75rem;
+  right: calc(-5.75rem + env(safe-area-inset-right));
+  padding-right: 6rem;
+}
+
+#transport-panel #next-button {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+html:not([dir=rtl]) #transport-panel #next-button {
+  right: -5.75rem;
+  right: calc(-5.75rem + env(safe-area-inset-right));
+  padding-right: 6rem;
+}
+
+html[dir=rtl] #transport-panel #next-button {
+  left: -5.75rem;
+  left: calc(-5.75rem + env(safe-area-inset-left));
+  padding-left: 6rem;
+}
+
+#transport-panel #fast-forward-button, #transport-panel #rewind-button {
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+  backdrop-filter: blur(0.5rem);
+  color: rgb(230, 237, 243);
+  background-color: rgba(32, 28, 38, 0.6);
+}
+#transport-panel #fast-forward-button, #transport-panel #rewind-button {
+  position: fixed;
+  bottom: 1.75rem;
+  bottom: calc(1.75rem + env(safe-area-inset-bottom));
+  z-index: 50;
+  border-style: solid;
+  border-width: 0px;
+  border-color: rgb(230, 237, 243);
+  border-radius: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 0.75rem;
+  transition: opacity 750ms, filter 125ms;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(32, 28, 38, 0.6);
+}
+#transport-panel #fast-forward-button:active, #transport-panel #rewind-button:active {
+  border-width: 1px;
+}
+#transport-panel #fast-forward-button svg, #transport-panel #rewind-button svg {
+  color: rgb(230, 237, 243);
+  fill: rgb(230, 237, 243);
+  width: 100%;
+  height: 100%;
+}
+@media (hover: hover) {
+  #transport-panel #fast-forward-button:hover, #transport-panel #rewind-button:hover {
+    z-index: 100;
+    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  }
+}
+#transport-panel #rewind-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+html:not([dir=rtl]) #transport-panel #rewind-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
+}
+
+html[dir=rtl] #transport-panel #rewind-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
+}
+
+#transport-panel #fast-forward-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+html:not([dir=rtl]) #transport-panel #fast-forward-button {
+  right: 1.75rem;
+  right: calc(1.75rem + env(safe-area-inset-right));
+  align-items: start;
+}
+
+html[dir=rtl] #transport-panel #fast-forward-button {
+  left: 1.75rem;
+  left: calc(1.75rem + env(safe-area-inset-left));
+  align-items: end;
 }
 
 body:not(.play):not(.show-paused-media) #media-time-frame,
@@ -2196,235 +2255,8 @@ body.show-seek-bar #media-time-frame #media-time {
     display: none;
   }
 }
-#next-button, #back-button {
-  transition: display 750ms, opacity 750ms, filter 750ms;
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-}
-body:not(.play):not(.show-paused-media) #next-button:not(.show), body:not(.play):not(.show-paused-media) #back-button:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.show-paused-media) #next-button:not(.show)::before, body:not(.play):not(.show-paused-media) #back-button:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-ui) #next-button:not(.show), body:not(.show-ui) #back-button:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #next-button:not(.show)::before, body:not(.show-ui) #back-button:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#next-button, #back-button {
-  position: fixed;
-  inset-block-start: 50%;
-  transform: translate(0%, -50%);
-  z-index: 50;
-  border-style: solid;
-  border-width: 0px;
-  border-color: rgb(230, 237, 243);
-  border-radius: 3rem;
-  padding-block: 0.75rem;
-  padding-inline: 0.75rem;
-  transition: opacity 1500ms, filter 125ms;
-  width: 8rem;
-  height: 3rem;
-  background-color: rgba(32, 28, 38, 0.6);
-}
-#next-button:active, #back-button:active {
-  border-width: 1px;
-}
-#next-button svg, #back-button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
-  width: 1.5rem;
-  height: 1.5rem;
-}
-@media (hover: hover) {
-  #next-button:hover, #back-button:hover {
-    z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
-  }
-}
-
-#back-button {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: center;
-}
-html:not([dir=rtl]) #back-button {
-  left: -5.75rem;
-  left: calc(-5.75rem + env(safe-area-inset-left));
-  padding-left: 6rem;
-}
-
-html[dir=rtl] #back-button {
-  right: -5.75rem;
-  right: calc(-5.75rem + env(safe-area-inset-right));
-  padding-right: 6rem;
-}
-
-#next-button {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-}
-html:not([dir=rtl]) #next-button {
-  right: -5.75rem;
-  right: calc(-5.75rem + env(safe-area-inset-right));
-  padding-right: 6rem;
-}
-
-html[dir=rtl] #next-button {
-  left: -5.75rem;
-  left: calc(-5.75rem + env(safe-area-inset-left));
-  padding-left: 6rem;
-}
-
-body.no-media #next-button, body.no-media #back-button {
-  opacity: 0.3;
-}
-
-#fast-forward-button, #rewind-button {
-  transition: display 750ms, opacity 750ms, filter 750ms;
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-  backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
-  background-color: rgba(32, 28, 38, 0.6);
-}
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show), body:not(.play):not(.show-paused-media) #rewind-button:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.show-paused-media) #fast-forward-button:not(.show)::before, body:not(.play):not(.show-paused-media) #rewind-button:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-body:not(.show-ui) #fast-forward-button:not(.show), body:not(.show-ui) #rewind-button:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.show-ui) #fast-forward-button:not(.show)::before, body:not(.show-ui) #rewind-button:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
-#fast-forward-button, #rewind-button {
-  position: fixed;
-  bottom: 1.75rem;
-  bottom: calc(1.75rem + env(safe-area-inset-bottom));
-  z-index: 50;
-  border-style: solid;
-  border-width: 0px;
-  border-color: rgb(230, 237, 243);
-  border-radius: 1.5rem;
-  padding-block: 0.75rem;
-  padding-inline: 0.75rem;
-  transition: opacity 750ms, filter 125ms;
-  width: 3rem;
-  height: 3rem;
-  background-color: rgba(32, 28, 38, 0.6);
-}
-#fast-forward-button:active, #rewind-button:active {
-  border-width: 1px;
-}
-#fast-forward-button svg, #rewind-button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
-  width: 100%;
-  height: 100%;
-}
-@media (hover: hover) {
-  #fast-forward-button:hover, #rewind-button:hover {
-    z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
-  }
-}
-
-#rewind-button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-html:not([dir=rtl]) #rewind-button {
-  left: 1.75rem;
-  left: calc(1.75rem + env(safe-area-inset-left));
-  align-items: end;
-}
-
-html[dir=rtl] #rewind-button {
-  right: 1.75rem;
-  right: calc(1.75rem + env(safe-area-inset-right));
-  align-items: start;
-}
-
-#fast-forward-button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-html:not([dir=rtl]) #fast-forward-button {
-  right: 1.75rem;
-  right: calc(1.75rem + env(safe-area-inset-right));
-  align-items: start;
-}
-
-html[dir=rtl] #fast-forward-button {
-  left: 1.75rem;
-  left: calc(1.75rem + env(safe-area-inset-left));
-  align-items: end;
-}
-
+body.no-media #next-button,
+body.no-media #back-button,
 body.no-media #fast-forward-button,
 body.no-media #rewind-button {
   opacity: 0.3;
@@ -3675,9 +3507,13 @@ html[dir=rtl] #pressed-key {
   }
 }
 
+#add-media:focus-within,
+#media-list > .item:not(.add):focus,
 label:focus,
 button:focus,
 #volume-panel:focus-within,
+#media-title:focus,
+#media-time:focus,
 #seek-panel:focus-within,
 .popup-panel > label:focus-within {
   filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
@@ -3751,15 +3587,15 @@ DUMMYSTYLE
     <form data-aria-lang-key="media-list">
         <div id="media-list" role="list">
             <div class="item add" role="listitem">
-                <label id="add-media" data-aria-lang-key="add-media" for="add-file"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                <button id="add-media" data-aria-lang-key="add-media"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(2.4647,0,0,2.46901,-1528.77,-1533.04)">
         <path d="M828,664C918.514,664 992,737.486 992,828C992,918.514 918.514,992 828,992C737.486,992 664,918.514 664,828C664,737.486 737.486,664 828,664ZM806.133,806.458L729.534,806.458C717.502,806.458 707.733,816.209 707.733,828.221L707.733,828.352C707.733,840.363 717.502,850.115 729.534,850.115L806.133,850.115L806.133,926.58C806.133,938.591 815.902,948.343 827.934,948.343L828.066,948.343C840.098,948.343 849.867,938.591 849.867,926.58L849.867,850.115L926.466,850.115C938.498,850.115 948.267,840.363 948.267,828.352L948.267,828.221C948.267,816.209 938.498,806.458 926.466,806.458L849.867,806.458L849.867,729.992C849.867,717.981 840.098,708.229 828.066,708.229L827.934,708.229C815.902,708.229 806.133,717.981 806.133,729.992L806.133,806.458Z"/>
     </g>
 </svg>
-</label>
-                <input id="add-file" type="file" tabindex="-1" multiple />
+</button>
+                <input id="add-file" type="file" aria-hidden="true" tabindex="-1" multiple />
             </div>
         </div>
     </form>
@@ -4049,9 +3885,9 @@ DUMMYSTYLE
 <div id="transport-panel" role="presentation">
     <form data-aria-lang-key="transport-panel">
         <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
-        <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
+        <span id="media-title" role="status" aria-live="polite" aria-atomic="true"></span>
         <div id="media-time-frame" role="presentation">
-            <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
+            <span id="media-time" class="pseudo-label" role="status" aria-live="polite" tabindex="0"></span>
             <div id="seek-panel" role="presentation">
                 <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" aria-valuemin="0" />
             </div>
@@ -4125,8 +3961,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sat Dec 20 2025 22:27:03 GMT+0900 (日本標準時)",
-    tick: 1766237223177
+    at: "Sun Dec 21 2025 17:19:00 GMT+0900 (日本標準時)",
+    tick: 1766305140040
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8665,6 +8501,12 @@ define("resource/config", [], {
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "messages": {
+        "noMediaMessageDuration": 5000,
+        "notSupportedMediaMessageDuration": 5000,
+        "wakeUpTimerNotWorkingMessageDuration": 15000,
+        "wakeUpTimerRequiresActivePageMessageDuration": 15000
+    },
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
@@ -8680,7 +8522,8 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "mousemoveTimeout": 1500
+        "mousemoveTimeout": 1500,
+        "keyinputTimeout": 1500
     },
     "volume": {
         "step": 5
@@ -8712,7 +8555,6 @@ define("resource/config", [], {
     "player": {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
-        "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 2,
         "maxBlur": 25
     },
@@ -10115,23 +9957,36 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             }
             updatePressedKeyDiv();
         };
+        Shortcuts.isMoveTabIndexEvent = function (_type, event) {
+            if ((currentCommandMap === null || currentCommandMap === void 0 ? void 0 : currentCommandMap["moveTabIndex"]) && "Tab" === event.key) {
+                return true;
+            }
+            return false;
+        };
         Shortcuts.isLabelEvent = function (_type, event) {
             var _a, _b, _c;
-            if ("label" === ((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : "")) {
-                if (" " === event.key || "Enter" === event.key || "Escape" === event.key) {
-                    return true;
+            var activeElement = document.activeElement;
+            if (activeElement) {
+                if ("label" === ((_b = (_a = activeElement.tagName) === null || _a === void 0 ? void 0 : _a.toLowerCase()) !== null && _b !== void 0 ? _b : "") || "pseudo-label" === ((_c = activeElement.className) !== null && _c !== void 0 ? _c : "")) {
+                    if (" " === event.key || "Enter" === event.key || "Escape" === event.key) {
+                        return true;
+                    }
                 }
             }
             return false;
         };
         Shortcuts.handleKeyEvent = function (type, event) {
-            var _a;
+            var _a, _b;
             Shortcuts.pruneStaleKeys();
             var normalizedKey = normalizeKey(event.key, event.code);
             var shortcutKeys = getShortcutKeys(type, normalizedKey);
             var commandMap = currentCommandMap;
             if (null !== commandMap) {
-                if (Shortcuts.isLabelEvent(type, event)) {
+                if (Shortcuts.isMoveTabIndexEvent(type, event)) {
+                    //console.log("↔️ MoveTabIndex:", pressedKeys);
+                    (_a = commandMap["moveTabIndex"]) === null || _a === void 0 ? void 0 : _a.fire();
+                }
+                else if (Shortcuts.isLabelEvent(type, event)) {
                     if ("onKeyDown" === type) {
                         var label = document.activeElement;
                         if ("Escape" === event.key) {
@@ -10173,7 +10028,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                     });
                     if ("onKeyDown" === type && commandKeys.length <= 0 && !["Shift", "Control"].includes(normalizedKey)) {
                         console.log("💡 UnknownKeyDown:", pressedKeys);
-                        (_a = commandMap["unknownKeyDown"]) === null || _a === void 0 ? void 0 : _a.fire();
+                        (_b = commandMap["unknownKeyDown"]) === null || _b === void 0 ? void 0 : _b.fire();
                     }
                 }
             }
@@ -11151,10 +11006,22 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             TransportPanel.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
             TransportPanel.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
             TransportPanel.visibilityApplier = new VisibilityApplier(TransportPanel.panel);
+            // export const mediaIndexVisibilityApplier =
+            //     new VisibilityApplier(mediaIndex);
+            // export const mediaTitleVisibilityApplier =
+            //     new VisibilityApplier(mediaTitle);
+            TransportPanel.seekRangeVisibilityApplier = new VisibilityApplier(TransportPanel.seekRange);
+            TransportPanel.updateSeekRangeVisibility = function () {
+                var isShowSeekBar = document.body.classList.contains("show-seek-bar");
+                // UI.TransportPanel.mediaIndexVisibilityApplier.show( ! isShowSeekBar);
+                // UI.TransportPanel.mediaTitleVisibilityApplier.show( ! isShowSeekBar);
+                UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
+            };
         })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
+        UI.mediaListVisibilityApplier = new VisibilityApplier(UI.mediaList);
         UI.isScrolledToMediaListBottom = function () {
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
         };
@@ -11226,8 +11093,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             //     }
             // };
         })(OverlayPanel = UI.OverlayPanel || (UI.OverlayPanel = {}));
-        UI.addMediaButton = _library_2.Library.UI.getElementById("label", "add-media");
-        //new Library.Control.Button({ id: "add-media", });
+        UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         var SettingsPanel;
@@ -11408,6 +11274,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.immediateHide(); });
+            TransportPanel.updateSeekRangeVisibility();
         };
         UI.isPlaying = function () {
             return document.body.classList.contains("play");
@@ -11416,6 +11283,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return document.body.classList.contains("is-seeking");
         };
         UI.onPlaybackStarted = function () {
+            UI.mediaListVisibilityApplier.hide();
             TransportPanel.visibilityApplier.show();
             document.body.classList.toggle("show-ui", false);
             document.body.classList.toggle("list", false);
@@ -11436,6 +11304,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
             document.body.classList.toggle("play", false);
+            UI.mediaListVisibilityApplier.show();
             [
                 AnalogClock.visibilityApplier,
                 OverlayPanel.weatherVisibilityApplier,
@@ -11443,7 +11312,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 OverlayPanel.timeVisibilityApplier,
                 // OverlayPanel.calendarVisibilityApplier,
                 // OverlayPanel.visualizerVisibilityApplier,
-                UI.fpsVisibilityApplier
+                UI.fpsVisibilityApplier,
+                TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.hide(); });
         };
@@ -14985,7 +14855,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         navigator.mediaSession.playbackState = "playing";
                         if (media_2.Media.mediaList.length <= 0) {
                             ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
-                            noMediaTimer.start(document.body, "no-media", 5000, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
+                            noMediaTimer.start(document.body, "no-media", Config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
                         if (history_1.History.isCleared()) {
                             CrossFade.clear();
@@ -15479,7 +15349,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _b = (_a = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -15489,7 +15359,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
                         ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.show();
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan, function () { return ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide(); });
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.messages.notSupportedMediaMessageDuration, function () { return ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide(); });
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -15658,7 +15528,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _c = (_b = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -15821,11 +15691,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.updateNoMediaLabel();
             if (isOn && !_tools_8.Tools.Environment.canAutoplay()) {
                 ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.show();
-                wakeUpTimerNotWorkingTimer.start(document.body, "wakeup-timer-not-working", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide(); });
+                wakeUpTimerNotWorkingTimer.start(document.body, "wakeup-timer-not-working", config_json_10.default.messages.wakeUpTimerNotWorkingMessageDuration, function () { return ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide(); });
             }
             if (isOn) {
                 ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.show();
-                wakeUpTimerRequiresActivePageTimer.start(document.body, "wakeup-timer-requires-active-page", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide(); });
+                wakeUpTimerRequiresActivePageTimer.start(document.body, "wakeup-timer-requires-active-page", config_json_10.default.messages.wakeUpTimerRequiresActivePageMessageDuration, function () { return ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide(); });
             }
         };
         Events.updateWakeUpSelect = function () {
@@ -15908,7 +15778,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_12.UI.addMediaButton.classList.add("dragover");
+                    ui_12.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -15950,6 +15820,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", config_json_10.default.ui.mousemoveTimeout);
         };
+        var keyInputTimer = new _library_10.Library.UI.ToggleClassForWhileTimer();
+        Events.keyinput = function () {
+            return keyInputTimer.start(document.body, "keyinput", config_json_10.default.ui.keyinputTimeout);
+        };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
             if (undefined !== value) {
@@ -15975,6 +15849,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             Array.from(document.getElementsByTagName("form")).forEach(function (i) { return i.addEventListener("submit", function (event) { return event.preventDefault(); }); });
             _library_10.Library.Shortcuts.setCommandMap({
+                "moveTabIndex": {
+                    fire: Events.keyinput,
+                },
                 "toggleShuffle": {
                     control: ui_12.UI.ControlPanel.shuffle.dom,
                     fire: function () { return ui_12.UI.ControlPanel.shuffle.toggle(); }
@@ -16055,12 +15932,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
-            // UI.addMediaButton.data.click = (event, button) =>
-            // {
-            //     event?.stopPropagation();
-            //     button.dom.blur();
-            //     UI.inputFile.click();
-            // };
+            ui_12.UI.addMediaButton.data.click = function (event, _button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                //button.dom.blur();
+                ui_12.UI.inputFile.click();
+            };
             ui_12.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
@@ -16171,10 +16047,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.TransportPanel.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                ui_12.UI.TransportPanel.updateSeekRangeVisibility();
             });
             ui_12.UI.TransportPanel.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                ui_12.UI.TransportPanel.updateSeekRangeVisibility();
             });
             ui_12.UI.ControlPanel.wakeUpButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

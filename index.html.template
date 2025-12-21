@@ -92,8 +92,8 @@ DUMMYSTYLE
     <form data-aria-lang-key="media-list">
         <div id="media-list" role="list">
             <div class="item add" role="listitem">
-                <label id="add-media" data-aria-lang-key="add-media" for="add-file">__ADD_ICON__</label>
-                <input id="add-file" type="file" tabindex="-1" multiple />
+                <button id="add-media" data-aria-lang-key="add-media">__ADD_ICON__</button>
+                <input id="add-file" type="file" aria-hidden="true" tabindex="-1" multiple />
             </div>
         </div>
     </form>
@@ -305,9 +305,9 @@ DUMMYSTYLE
 <div id="transport-panel" role="presentation">
     <form data-aria-lang-key="transport-panel">
         <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
-        <span id="media-title" role="status" aria-live="polite" aria-atomic="true" tabindex="0"></span>
+        <span id="media-title" role="status" aria-live="polite" aria-atomic="true"></span>
         <div id="media-time-frame" role="presentation">
-            <span id="media-time" role="status" aria-live="polite" tabindex="0"></span>
+            <span id="media-time" class="pseudo-label" role="status" aria-live="polite" tabindex="0"></span>
             <div id="seek-panel" role="presentation">
                 <input id="seek" type="range" aria-live="polite" data-aria-lang-key="Seek" min="0" max="1" step="any" aria-valuemin="0" />
             </div>

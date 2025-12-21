@@ -181,7 +181,7 @@ export namespace Events
             (
                 document.body,
                 "wakeup-timer-not-working",
-                15000,
+                config.messages.wakeUpTimerNotWorkingMessageDuration,
                 () => UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide()
             );
         }
@@ -192,7 +192,7 @@ export namespace Events
             (
                 document.body,
                 "wakeup-timer-requires-active-page",
-                15000,
+                config.messages.wakeUpTimerRequiresActivePageMessageDuration,
                 () => UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide()
             );
         }
@@ -297,7 +297,7 @@ export namespace Events
             {
                 event.preventDefault();
                 event.dataTransfer.dropEffect = "copy";
-                UI.addMediaButton.classList.add("dragover");
+                UI.addMediaButton.dom.classList.add("dragover");
             }
             else
             {
@@ -347,6 +347,9 @@ export namespace Events
     const mouseMoveTimer = new Library.UI.ToggleClassForWhileTimer();
     export const mousemove = () =>
         mouseMoveTimer.start(document.body, "mousemove", config.ui.mousemoveTimeout);
+    const keyInputTimer = new Library.UI.ToggleClassForWhileTimer();
+    export const keyinput = () =>
+        keyInputTimer.start(document.body, "keyinput", config.ui.keyinputTimeout);
     export const loadToggleButtonParameter = <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) =>
     {
         const value = params[button.getId() as string];
@@ -378,6 +381,10 @@ export namespace Events
         Array.from(document.getElementsByTagName("form")).forEach(i => i.addEventListener("submit", event => event.preventDefault()));
         Library.Shortcuts.setCommandMap
         ({
+            "moveTabIndex":
+            {
+                fire: keyinput,
+            },
             "toggleShuffle":
             {
                 control: UI.ControlPanel.shuffle.dom,
@@ -491,12 +498,12 @@ export namespace Events
                 UI.screenBody.classList.contains("paused") && UI.isScrolledToMediaListBottom()
             )
         )
-        // UI.addMediaButton.data.click = (event, button) =>
-        // {
-        //     event?.stopPropagation();
-        //     button.dom.blur();
-        //     UI.inputFile.click();
-        // };
+        UI.addMediaButton.data.click = (event, _button) =>
+        {
+            event?.stopPropagation();
+            //button.dom.blur();
+            UI.inputFile.click();
+        };
         UI.inputFile.addEventListener("click", event => event.stopPropagation());
         UI.inputFile.addEventListener
         (
@@ -636,6 +643,7 @@ export namespace Events
             console.log("🔁 Loop short media changed:", UI.SettingsPanel.loopShortMediaCheckbox.get());
             updateLoopShortMedia();
         };
+
         UI.TransportPanel.mediaTitle.addEventListener
         (
             "click",
@@ -643,6 +651,7 @@ export namespace Events
             {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                UI.TransportPanel.updateSeekRangeVisibility();
             }
         );
         UI.TransportPanel.mediaTime.addEventListener
@@ -652,6 +661,7 @@ export namespace Events
             {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                UI.TransportPanel.updateSeekRangeVisibility();
             }
         );
         UI.ControlPanel.wakeUpButton.setChange

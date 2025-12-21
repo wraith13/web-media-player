@@ -1783,6 +1783,12 @@ define("resource/config", [], {
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "messages": {
+        "noMediaMessageDuration": 5000,
+        "notSupportedMediaMessageDuration": 5000,
+        "wakeUpTimerNotWorkingMessageDuration": 15000,
+        "wakeUpTimerRequiresActivePageMessageDuration": 15000
+    },
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
@@ -1798,7 +1804,8 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "mousemoveTimeout": 1500
+        "mousemoveTimeout": 1500,
+        "keyinputTimeout": 1500
     },
     "volume": {
         "step": 5
@@ -1830,7 +1837,6 @@ define("resource/config", [], {
     "player": {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
-        "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 2,
         "maxBlur": 25
     },
@@ -3233,23 +3239,36 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
             }
             updatePressedKeyDiv();
         };
+        Shortcuts.isMoveTabIndexEvent = function (_type, event) {
+            if ((currentCommandMap === null || currentCommandMap === void 0 ? void 0 : currentCommandMap["moveTabIndex"]) && "Tab" === event.key) {
+                return true;
+            }
+            return false;
+        };
         Shortcuts.isLabelEvent = function (_type, event) {
             var _a, _b, _c;
-            if ("label" === ((_c = (_b = (_a = document.activeElement) === null || _a === void 0 ? void 0 : _a.tagName) === null || _b === void 0 ? void 0 : _b.toLowerCase()) !== null && _c !== void 0 ? _c : "")) {
-                if (" " === event.key || "Enter" === event.key || "Escape" === event.key) {
-                    return true;
+            var activeElement = document.activeElement;
+            if (activeElement) {
+                if ("label" === ((_b = (_a = activeElement.tagName) === null || _a === void 0 ? void 0 : _a.toLowerCase()) !== null && _b !== void 0 ? _b : "") || "pseudo-label" === ((_c = activeElement.className) !== null && _c !== void 0 ? _c : "")) {
+                    if (" " === event.key || "Enter" === event.key || "Escape" === event.key) {
+                        return true;
+                    }
                 }
             }
             return false;
         };
         Shortcuts.handleKeyEvent = function (type, event) {
-            var _a;
+            var _a, _b;
             Shortcuts.pruneStaleKeys();
             var normalizedKey = normalizeKey(event.key, event.code);
             var shortcutKeys = getShortcutKeys(type, normalizedKey);
             var commandMap = currentCommandMap;
             if (null !== commandMap) {
-                if (Shortcuts.isLabelEvent(type, event)) {
+                if (Shortcuts.isMoveTabIndexEvent(type, event)) {
+                    //console.log("↔️ MoveTabIndex:", pressedKeys);
+                    (_a = commandMap["moveTabIndex"]) === null || _a === void 0 ? void 0 : _a.fire();
+                }
+                else if (Shortcuts.isLabelEvent(type, event)) {
                     if ("onKeyDown" === type) {
                         var label = document.activeElement;
                         if ("Escape" === event.key) {
@@ -3291,7 +3310,7 @@ define("script/library/shortcuts", ["require", "exports", "script/tools/comparer
                     });
                     if ("onKeyDown" === type && commandKeys.length <= 0 && !["Shift", "Control"].includes(normalizedKey)) {
                         console.log("💡 UnknownKeyDown:", pressedKeys);
-                        (_a = commandMap["unknownKeyDown"]) === null || _a === void 0 ? void 0 : _a.fire();
+                        (_b = commandMap["unknownKeyDown"]) === null || _b === void 0 ? void 0 : _b.fire();
                     }
                 }
             }
@@ -4269,10 +4288,22 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             TransportPanel.fastForwardButton = new _library_2.Library.Control.Button({ id: "fast-forward-button", });
             TransportPanel.rewindButton = new _library_2.Library.Control.Button({ id: "rewind-button", });
             TransportPanel.visibilityApplier = new VisibilityApplier(TransportPanel.panel);
+            // export const mediaIndexVisibilityApplier =
+            //     new VisibilityApplier(mediaIndex);
+            // export const mediaTitleVisibilityApplier =
+            //     new VisibilityApplier(mediaTitle);
+            TransportPanel.seekRangeVisibilityApplier = new VisibilityApplier(TransportPanel.seekRange);
+            TransportPanel.updateSeekRangeVisibility = function () {
+                var isShowSeekBar = document.body.classList.contains("show-seek-bar");
+                // UI.TransportPanel.mediaIndexVisibilityApplier.show( ! isShowSeekBar);
+                // UI.TransportPanel.mediaTitleVisibilityApplier.show( ! isShowSeekBar);
+                UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
+            };
         })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
         UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
+        UI.mediaListVisibilityApplier = new VisibilityApplier(UI.mediaList);
         UI.isScrolledToMediaListBottom = function () {
             return UI.mediaList.scrollHeight <= UI.mediaList.scrollTop + (UI.mediaList.clientHeight * 1) + (UI.addMediaButtonHeight * 0.3);
         };
@@ -4344,8 +4375,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             //     }
             // };
         })(OverlayPanel = UI.OverlayPanel || (UI.OverlayPanel = {}));
-        UI.addMediaButton = _library_2.Library.UI.getElementById("label", "add-media");
-        //new Library.Control.Button({ id: "add-media", });
+        UI.addMediaButton = new _library_2.Library.Control.Button({ id: "add-media", });
         UI.addMediaButtonHeight = 84;
         UI.inputFile = _library_2.Library.UI.getElementById("input", "add-file");
         var SettingsPanel;
@@ -4526,6 +4556,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.immediateHide(); });
+            TransportPanel.updateSeekRangeVisibility();
         };
         UI.isPlaying = function () {
             return document.body.classList.contains("play");
@@ -4534,6 +4565,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             return document.body.classList.contains("is-seeking");
         };
         UI.onPlaybackStarted = function () {
+            UI.mediaListVisibilityApplier.hide();
             TransportPanel.visibilityApplier.show();
             document.body.classList.toggle("show-ui", false);
             document.body.classList.toggle("list", false);
@@ -4554,6 +4586,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             navigator.mediaSession.playbackState = "paused";
             document.body.classList.toggle("list", true);
             document.body.classList.toggle("play", false);
+            UI.mediaListVisibilityApplier.show();
             [
                 AnalogClock.visibilityApplier,
                 OverlayPanel.weatherVisibilityApplier,
@@ -4561,7 +4594,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 OverlayPanel.timeVisibilityApplier,
                 // OverlayPanel.calendarVisibilityApplier,
                 // OverlayPanel.visualizerVisibilityApplier,
-                UI.fpsVisibilityApplier
+                UI.fpsVisibilityApplier,
+                TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.hide(); });
         };
@@ -8103,7 +8137,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         navigator.mediaSession.playbackState = "playing";
                         if (media_2.Media.mediaList.length <= 0) {
                             ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
-                            noMediaTimer.start(document.body, "no-media", 5000, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
+                            noMediaTimer.start(document.body, "no-media", Config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
                         if (history_1.History.isCleared()) {
                             CrossFade.clear();
@@ -8597,7 +8631,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _b = (_a = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.parentElement]);
+                        _b.apply(_a, [_c.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         if (_features_1.Features.Player.isPlaying()) {
                             _features_1.Features.Player.pause();
                         }
@@ -8607,7 +8641,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
                         ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.show();
-                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.player.notSupportedMediaMessageSpan, function () { return ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide(); });
+                        notSupportedMediaTimer.start(document.body, "not-supported-media", config_json_9.default.messages.notSupportedMediaMessageDuration, function () { return ui_11.UI.MessagePanel.notSupportedMediaPanelVisibilityApplier.hide(); });
                         _c.label = 4;
                     case 4: return [2 /*return*/];
                 }
@@ -8776,7 +8810,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                         _c = (_b = ui_11.UI.mediaList).insertBefore;
                         return [4 /*yield*/, MediaList.makeMediaEntryDom(entry)];
                     case 2:
-                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.parentElement]);
+                        _c.apply(_b, [_d.sent(), ui_11.UI.addMediaButton.dom.parentElement]);
                         _d.label = 3;
                     case 3:
                         _i++;
@@ -8939,11 +8973,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             Events.updateNoMediaLabel();
             if (isOn && !_tools_8.Tools.Environment.canAutoplay()) {
                 ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.show();
-                wakeUpTimerNotWorkingTimer.start(document.body, "wakeup-timer-not-working", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide(); });
+                wakeUpTimerNotWorkingTimer.start(document.body, "wakeup-timer-not-working", config_json_10.default.messages.wakeUpTimerNotWorkingMessageDuration, function () { return ui_12.UI.MessagePanel.wakeUpTimerNotWorkingPanelVisibilityApplier.hide(); });
             }
             if (isOn) {
                 ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.show();
-                wakeUpTimerRequiresActivePageTimer.start(document.body, "wakeup-timer-requires-active-page", 15000, function () { return ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide(); });
+                wakeUpTimerRequiresActivePageTimer.start(document.body, "wakeup-timer-requires-active-page", config_json_10.default.messages.wakeUpTimerRequiresActivePageMessageDuration, function () { return ui_12.UI.MessagePanel.wakeUpTimerRequiresActivePagePanelVisibilityApplier.hide(); });
             }
         };
         Events.updateWakeUpSelect = function () {
@@ -9026,7 +9060,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
-                    ui_12.UI.addMediaButton.classList.add("dragover");
+                    ui_12.UI.addMediaButton.dom.classList.add("dragover");
                 }
                 else {
                     event.dataTransfer.dropEffect = "none";
@@ -9068,6 +9102,10 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.mousemove = function () {
             return mouseMoveTimer.start(document.body, "mousemove", config_json_10.default.ui.mousemoveTimeout);
         };
+        var keyInputTimer = new _library_10.Library.UI.ToggleClassForWhileTimer();
+        Events.keyinput = function () {
+            return keyInputTimer.start(document.body, "keyinput", config_json_10.default.ui.keyinputTimeout);
+        };
         Events.loadToggleButtonParameter = function (button, params) {
             var value = params[button.getId()];
             if (undefined !== value) {
@@ -9093,6 +9131,9 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             window.addEventListener("orientationchange", function () { return _features_2.Features.Player.updateStretch(); });
             Array.from(document.getElementsByTagName("form")).forEach(function (i) { return i.addEventListener("submit", function (event) { return event.preventDefault(); }); });
             _library_10.Library.Shortcuts.setCommandMap({
+                "moveTabIndex": {
+                    fire: Events.keyinput,
+                },
                 "toggleShuffle": {
                     control: ui_12.UI.ControlPanel.shuffle.dom,
                     fire: function () { return ui_12.UI.ControlPanel.shuffle.toggle(); }
@@ -9173,12 +9214,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             navigator.mediaSession.setActionHandler("previoustrack", _features_2.Features.Player.previous);
             navigator.mediaSession.setActionHandler("nexttrack", _features_2.Features.Player.next);
             ui_12.UI.mediaList.addEventListener("scroll", function () { return document.body.classList.toggle("show-paused-media", ui_12.UI.screenBody.classList.contains("paused") && ui_12.UI.isScrolledToMediaListBottom()); });
-            // UI.addMediaButton.data.click = (event, button) =>
-            // {
-            //     event?.stopPropagation();
-            //     button.dom.blur();
-            //     UI.inputFile.click();
-            // };
+            ui_12.UI.addMediaButton.data.click = function (event, _button) {
+                event === null || event === void 0 ? void 0 : event.stopPropagation();
+                //button.dom.blur();
+                ui_12.UI.inputFile.click();
+            };
             ui_12.UI.inputFile.addEventListener("click", function (event) { return event.stopPropagation(); });
             ui_12.UI.inputFile.addEventListener("change", function () { return __awaiter(_this, void 0, void 0, function () {
                 var files, _i, _a, file;
@@ -9289,10 +9329,12 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.TransportPanel.mediaTitle.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                ui_12.UI.TransportPanel.updateSeekRangeVisibility();
             });
             ui_12.UI.TransportPanel.mediaTime.addEventListener("click", function (event) {
                 event.stopPropagation();
                 document.body.classList.toggle("show-seek-bar");
+                ui_12.UI.TransportPanel.updateSeekRangeVisibility();
             });
             ui_12.UI.ControlPanel.wakeUpButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();

@@ -3369,6 +3369,7 @@ declare module "script/library/shortcuts" {
         }[];
         const clearPressedKeys: () => void;
         const pruneStaleKeys: () => void;
+        const isMoveTabIndexEvent: (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => boolean;
         const isLabelEvent: (_type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => boolean;
         const handleKeyEvent: (type: "onKeyDown" | "onKeyUp", event: KeyboardEvent) => void;
         const initialize: () => void;
@@ -3563,10 +3564,13 @@ declare module "script/ui" {
             const fastForwardButton: Library.Control.Button<HTMLElement>;
             const rewindButton: Library.Control.Button<HTMLElement>;
             const visibilityApplier: VisibilityApplier;
+            const seekRangeVisibilityApplier: VisibilityApplier;
+            const updateSeekRangeVisibility: () => void;
         }
         const volumeLabel: HTMLLabelElement;
         const volumeRange: Library.Control.Range;
         const mediaList: HTMLDivElement;
+        const mediaListVisibilityApplier: VisibilityApplier;
         const isScrolledToMediaListBottom: () => boolean;
         const progressCircle: HTMLDivElement;
         const progressCircleVisibilityApplier: VisibilityApplier;
@@ -3599,7 +3603,7 @@ declare module "script/ui" {
             const updateDateVisibility: () => void;
             const updateTimeVisibility: () => void;
         }
-        const addMediaButton: HTMLLabelElement;
+        const addMediaButton: Library.Control.Button<HTMLElement>;
         const addMediaButtonHeight = 84;
         const inputFile: HTMLInputElement;
         namespace SettingsPanel {
@@ -4397,6 +4401,7 @@ declare module "script/events" {
         const onChangedSleepMode: (isSleeped: boolean) => void;
         const updateLanguage: () => void;
         const mousemove: () => void;
+        const keyinput: () => void;
         const loadToggleButtonParameter: <T extends HTMLElement>(button: Library.Control.Button<T>, params: Record<string, string>) => void;
         const toggleMute: () => void;
         const initialize: (params: Record<string, string>) => void;

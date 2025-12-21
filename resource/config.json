@@ -6,6 +6,12 @@
         "mousemove": false,
         "ToggleClassForWhileTimer.Timeout": false
     },
+    "messages": {
+        "noMediaMessageDuration": 5000,
+        "notSupportedMediaMessageDuration": 5000,
+        "wakeUpTimerNotWorkingMessageDuration": 15000,
+        "wakeUpTimerRequiresActivePageMessageDuration": 15000
+    },
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
@@ -21,7 +27,8 @@
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "mousemoveTimeout": 1500
+        "mousemoveTimeout": 1500,
+        "keyinputTimeout": 1500
     },
     "volume": {
         "step": 5
@@ -54,7 +61,6 @@
     "player": {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
-        "notSupportedMediaMessageSpan": 5000,
         "blurEasing": 2,
         "maxBlur": 25
     },

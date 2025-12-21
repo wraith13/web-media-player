@@ -107,7 +107,7 @@ graph TB;
 
 # Build Commands
 
-- `npm run-script "build all"`
+- `npm run-script "build all"` — Runs all build processes.
 - `npm run-script "build locale script"`
 - `npm run-script "build locale"`
 - `npm run-script "build web.manifest"`
