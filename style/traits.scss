@@ -165,7 +165,7 @@
 @mixin black-panel-style-base()
 {
     backdrop-filter: blur(0.5rem);
-    color: $white-color;
+    color: white-color();
 }
 @mixin black-line-panel-style()
 {

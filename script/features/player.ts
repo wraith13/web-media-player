@@ -8,7 +8,7 @@ import { Media } from "./media";
 import { History } from "./history";
 import { Track } from "./track";
 import { Timer } from "./timer";
-import * as Config from "@resource/config.json";
+import * as config from "@resource/config.json";
 export namespace Player
 {
     export let locale: string | undefined = undefined;
@@ -132,7 +132,7 @@ export namespace Player
         startAnimationFrameLoop();
         navigator.mediaSession.metadata = new MediaMetadata
         ({
-            title: Config.applicationTitle,
+            title: config.applicationTitle,
             artist: "Unknown Artist",
             album: "Temporary Media List",
             artwork:
@@ -151,7 +151,7 @@ export namespace Player
             (
                 document.body,
                 "no-media",
-                Config.messages.noMediaMessageDuration,
+                config.messages.noMediaMessageDuration,
                 () => UI.MessagePanel.noMediaPanelVisibilityApplier.hide()
             );
         }
@@ -440,8 +440,11 @@ export namespace Player
         `${Tools.Timespan.toMediaTimeString(track.getElapsedTime(), locale)} / ${Tools.Timespan.toMediaTimeString(track.getDuration(), locale)}`;
     export const updateDarkCurtainOpacity = () =>
     {
-        const brightness = UI.SettingsPanel.brightnessRange.get() *Timer.getTimerFade();;
+        const brightness = UI.SettingsPanel.brightnessRange.get() *Timer.getTimerFade();
         Library.UI.setStyle(UI.darkCurtain, "opacity", `${(100 -brightness).toFixed(2)}%`);
+        const whiteDepthBottom = config.ui.whiteDepthBottom;
+        const whiteDepth = whiteDepthBottom +((1 -whiteDepthBottom) *(brightness /100));
+        Library.UI.setStyle(document.documentElement, "--white-depth", whiteDepth.toFixed(3));
     };
     export const step = () =>
     {

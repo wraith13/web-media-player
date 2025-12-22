@@ -20,7 +20,7 @@ https://wraith13.github.io/web-media-player/
 - ✅ Stretch settings to control how much content can exceed the screen size, preventing excessive enlargement.
 - ✅ Padding settings to fill extra space with enlarged content.
 - ✅ Various visualizers based on volume, waveform, and frequency.
-- ✅ Stylish analog clock display
+- ✅ Stylish analog clock display ( ⚠️ This feature can be quite resource-intensive. )
 - ✅ Crossfade transitions: Alpha, Blur, Wipe, Random
 - ✅ Weather, clock, date, calendar, and visualizer can be overlaid.
 - ✅ Keyboard shortcut style presets: Apple Music, YouTube, Spotify, Windows Media Player
@@ -54,7 +54,7 @@ Playing a video on an iPhone Air (installed and running as a App)
 Wipe transition
 ![Wipe transition](./screenshot/wipe-transition.png)
 
-Stylish analog clock
+Stylish analog clock ( ⚠️ This feature can be quite resource-intensive. )
 ![Stylish analog clock](./screenshot/stylish-analog-clock.png)
 
 ## 🔗 Options Available via URL Parameters

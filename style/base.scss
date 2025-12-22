@@ -53,3 +53,8 @@ button
 {
     cursor: pointer;
 }
+input[type="checkbox"],
+input[type="range"]
+{
+    filter: brightness(var(--white-depth));
+}

@@ -1804,6 +1804,7 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
+        "whiteDepthBottom": 0.1,
         "mousemoveTimeout": 1500,
         "keyinputTimeout": 1500
     },
@@ -8013,11 +8014,11 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, Config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
-    Config = __importStar(Config);
+    config = __importStar(config);
     var Player;
     (function (Player) {
         var _this = this;
@@ -8124,7 +8125,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         Player.updateFullscreenState();
                         Player.startAnimationFrameLoop();
                         navigator.mediaSession.metadata = new MediaMetadata({
-                            title: Config.applicationTitle,
+                            title: config.applicationTitle,
                             artist: "Unknown Artist",
                             album: "Temporary Media List",
                             artwork: [
@@ -8137,7 +8138,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         navigator.mediaSession.playbackState = "playing";
                         if (media_2.Media.mediaList.length <= 0) {
                             ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
-                            noMediaTimer.start(document.body, "no-media", Config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
+                            noMediaTimer.start(document.body, "no-media", config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
                         if (history_1.History.isCleared()) {
                             CrossFade.clear();
@@ -8386,8 +8387,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.updateDarkCurtainOpacity = function () {
             var brightness = ui_9.UI.SettingsPanel.brightnessRange.get() * timer_1.Timer.getTimerFade();
-            ;
             _library_7.Library.UI.setStyle(ui_9.UI.darkCurtain, "opacity", "".concat((100 - brightness).toFixed(2), "%"));
+            var whiteDepthBottom = config.ui.whiteDepthBottom;
+            var whiteDepth = whiteDepthBottom + ((1 - whiteDepthBottom) * (brightness / 100));
+            _library_7.Library.UI.setStyle(document.documentElement, "--white-depth", whiteDepth.toFixed(3));
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {

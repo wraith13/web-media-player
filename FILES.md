@@ -49,6 +49,7 @@ Files required for the player to run in production (must be present in deployed 
 ## Other
 
 - [`./package.json`](./package.json)
+- [`./play-now-button.svg`](./play-now-button.svg) — A button image used in README only
 - [`./screenshot/*.*`](./screenshot/) — Images used in README only
 - [`./build.json`](./build.json) — Build settings
 - [`./LICENSE_1_0.txt`](./LICENSE_1_0.txt) — License text

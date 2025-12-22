@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Dec 21 2025 17:19:00 GMT+0900 (日本標準時)
+    build at: Mon Dec 22 2025 07:39:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -90,6 +90,11 @@ DEALINGS IN THE SOFTWARE.
 <meta property="og:locale" content="en_US" />
 <link rel="image_src" href="https://wraith13.github.io/web-media-player/image/twitter-card.png" />
 <style>
+@property --white-depth {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
 @property --short-side {
   syntax: "<length>";
   inherits: true;
@@ -194,6 +199,11 @@ body {
 
 button {
   cursor: pointer;
+}
+
+input[type=checkbox],
+input[type=range] {
+  filter: brightness(var(--white-depth));
 }
 
 #noscript *[lang] {
@@ -424,7 +434,7 @@ body.show-settings-panel #screen-body #background-screen:not(.show)::before {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #screen-body #background-screen {
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   z-index: 20;
   gap: 1.5rem 1.5rem;
   padding: 1.5rem;
@@ -524,7 +534,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   filter: blur(calc(0.5dvw + 0.5dvh));
 }
 #screen-body #media-screen > .visualizer {
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: black;
 }
 #screen-body #media-screen > .visualizer .visual-canvas {
@@ -545,7 +555,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   fill: black;
-  filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+  filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   z-index: 100;
 }
 #screen-body #media-screen > .visualizer.muted svg {
@@ -666,7 +676,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   margin: 0.25rem;
   border-radius: 0.5rem;
   background-color: rgba(32, 28, 38, 0.6);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   font-size: 1.25rem;
   text-align: center;
   cursor: pointer;
@@ -674,7 +684,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   transition: background-color 300ms, transform 300ms;
 }
 #screen-body #media-list .item:not(.add) {
-  border-color: rgba(230, 237, 243, 0.9);
+  border-color: rgba(230, 237, 243, calc(0.9 * var(--white-depth)));
   border-width: 1px;
   border-style: solid;
 }
@@ -701,7 +711,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   inset-block-start: 0.125rem;
   inset-inline-start: 0.125rem;
   font-size: 1rem;
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   z-index: 50;
   padding: 0.25rem;
@@ -723,7 +733,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   z-index: 10;
   width: 100%;
   height: 100%;
-  fill: rgba(230, 237, 243, 0.4);
+  fill: rgba(230, 237, 243, calc(0.4 * var(--white-depth)));
 }
 #screen-body #media-list .item > span {
   text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 1px 1px 0px black;
@@ -746,7 +756,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 #screen-body #media-list .item > span {
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 #screen-body #media-list .item > span.name {
   font-size: 1.25rem;
@@ -837,22 +847,22 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
 #screen-body #media-list .item > button.remove-button svg {
   height: 1.25rem;
   width: 1.25rem;
-  fill: rgba(230, 237, 243, 0.7);
+  fill: rgba(230, 237, 243, calc(0.7 * var(--white-depth)));
 }
 @media (hover: hover) {
   #screen-body #media-list .item > button.remove-button:hover {
     background-color: rgba(32, 28, 38, 0.9);
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
   #screen-body #media-list .item > button.remove-button:hover svg {
-    fill: rgba(230, 237, 243, 0.9);
+    fill: rgba(230, 237, 243, calc(0.9 * var(--white-depth)));
   }
 }
 @media (hover: hover) {
   #screen-body #media-list .item:not(.add):hover {
     z-index: 100;
     background-color: rgba(32, 28, 38, 0.95);
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 @media (min-width: 3000px) {
@@ -922,13 +932,13 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 #screen-body #media-list .item.add #add-media svg {
   width: 2.5rem;
   height: 2.5rem;
-  fill: rgb(230, 237, 243);
+  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 @media (hover: hover) {
   #screen-body #media-list .item.add #add-media:hover {
     z-index: 100;
     background-color: rgba(32, 28, 38, 0.95);
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 #screen-body #media-list .item.add #add-file {
@@ -944,7 +954,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
   opacity: 0.25;
 }
 #screen-body #media-list.dragging .item.drag-over:not(.dragging) {
-  background-color: rgba(230, 237, 243, 0.9);
+  background-color: rgba(230, 237, 243, calc(0.9 * var(--white-depth)));
 }
 #screen-body #media-list.dragging .item.drag-over.dragging {
   background-color: black;
@@ -1331,7 +1341,7 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
 
 #fps {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   display: flex;
   flex-direction: row;
@@ -1459,7 +1469,7 @@ body:not(.progress-circle) #progress-circle {
 }
 #message-panel > div {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 #message-panel > div {
@@ -1596,7 +1606,7 @@ body:not(.wakeup-timer-requires-active-page) #wakeup-timer-requires-active-page-
 
 #control-panel form {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   transition: display 750ms, opacity 750ms, filter 750ms;
 }
@@ -1675,11 +1685,11 @@ body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.
   display: none;
 }
 #control-panel form .icon-button.checked svg {
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 #control-panel form .icon-button > svg, #control-panel form .icon-button > div > svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
+  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   vertical-align: middle;
 }
 #control-panel form .icon-button > input[type=checkbox]:checked + div + label + label {
@@ -1693,7 +1703,7 @@ body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.
 #control-panel form label.icon-button svg,
 #control-panel form button {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 #control-panel form label.icon-button svg,
@@ -1711,12 +1721,12 @@ body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.
 }
 #control-panel form label.icon-button svg.on,
 #control-panel form button.on {
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 #control-panel form label.icon-button svg svg,
 #control-panel form button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
+  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   width: 100%;
   height: 100%;
 }
@@ -1724,23 +1734,23 @@ body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.
   #control-panel form label.icon-button svg:hover,
   #control-panel form button:hover {
     z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 @media (hover: hover) {
   #control-panel form label.icon-button:hover svg {
     z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 @media (hover: hover) {
   #control-panel form button:hover {
     z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 #control-panel form #play-button {
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   border-width: 2px;
   border-radius: 2.25rem;
   padding-block: calc(1rem - 2px);
@@ -1873,7 +1883,7 @@ body:not(.show-ui):not(.keyinput) #transport-panel #rewind-button:not(.show)::be
 #transport-panel #media-title,
 #transport-panel #media-time {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 #transport-panel #media-index,
@@ -1906,7 +1916,7 @@ body:not(.show-ui):not(.keyinput) #transport-panel #rewind-button:not(.show)::be
 #transport-panel #media-time {
   padding: 0.25rem 0.75rem;
   z-index: 50;
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   border-radius: 1rem;
 }
 #transport-panel #media-index:empty,
@@ -2051,7 +2061,7 @@ body.show-seek-bar #transport-panel #media-title:not(.show)::before {
 #transport-panel #media-time-frame #media-time {
   border-style: solid;
   border-width: 0px;
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   cursor: pointer;
   unicode-bidi: embed;
   direction: ltr;
@@ -2059,7 +2069,7 @@ body.show-seek-bar #transport-panel #media-title:not(.show)::before {
 #transport-panel #media-time-frame #seek-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   display: flex;
   flex-direction: column;
@@ -2095,7 +2105,7 @@ body:not(.show-seek-bar) #transport-panel #media-time-frame #seek-panel:not(.sho
 }
 #transport-panel #next-button, #transport-panel #back-button {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 #transport-panel #next-button, #transport-panel #back-button {
@@ -2105,7 +2115,7 @@ body:not(.show-seek-bar) #transport-panel #media-time-frame #seek-panel:not(.sho
   z-index: 50;
   border-style: solid;
   border-width: 0px;
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   border-radius: 3rem;
   padding-block: 0.75rem;
   padding-inline: 0.75rem;
@@ -2118,15 +2128,15 @@ body:not(.show-seek-bar) #transport-panel #media-time-frame #seek-panel:not(.sho
   border-width: 1px;
 }
 #transport-panel #next-button svg, #transport-panel #back-button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
+  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   width: 1.5rem;
   height: 1.5rem;
 }
 @media (hover: hover) {
   #transport-panel #next-button:hover, #transport-panel #back-button:hover {
     z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 #transport-panel #back-button {
@@ -2167,10 +2177,10 @@ html[dir=rtl] #transport-panel #next-button {
 
 #transport-panel #fast-forward-button, #transport-panel #rewind-button {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 #transport-panel #fast-forward-button, #transport-panel #rewind-button {
@@ -2180,7 +2190,7 @@ html[dir=rtl] #transport-panel #next-button {
   z-index: 50;
   border-style: solid;
   border-width: 0px;
-  border-color: rgb(230, 237, 243);
+  border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   border-radius: 1.5rem;
   padding-block: 0.75rem;
   padding-inline: 0.75rem;
@@ -2193,15 +2203,15 @@ html[dir=rtl] #transport-panel #next-button {
   border-width: 1px;
 }
 #transport-panel #fast-forward-button svg, #transport-panel #rewind-button svg {
-  color: rgb(230, 237, 243);
-  fill: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
+  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   width: 100%;
   height: 100%;
 }
 @media (hover: hover) {
   #transport-panel #fast-forward-button:hover, #transport-panel #rewind-button:hover {
     z-index: 100;
-    filter: drop-shadow(rgb(230, 237, 243) 0px 0px 0.5rem);
+    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
 }
 #transport-panel #rewind-button {
@@ -2451,7 +2461,7 @@ label[for=volume-button] #speaker-mute-icon svg {
 #volume-panel {
   transition: display 750ms, opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
 body label[for=volume-button]:not(.checked) + #volume-panel:not(.show) {
@@ -2693,7 +2703,7 @@ label[for=sleep-button].tip {
 
 label:not(.icon-button) {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   display: flex;
   flex-direction: row;
@@ -2736,7 +2746,7 @@ label:not(.icon-button).indent2 {
   padding-inline-start: 2.5rem;
 }
 label:not(.icon-button).information {
-  background-color: rgba(230, 237, 243, 0.8);
+  background-color: rgba(230, 237, 243, calc(0.8 * var(--white-depth)));
   color: rgba(32, 28, 38, 0.9);
   cursor: default;
   pointer-events: none;
@@ -2822,7 +2832,7 @@ label:not(.icon-button) select {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 label:not(.icon-button) select {
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: transparent;
   border: none;
   border-radius: 0.5rem;
@@ -3366,7 +3376,7 @@ body:not(.play) #overlay-panel:not(.show)::before {
 
 #pressed-key {
   backdrop-filter: blur(0.5rem);
-  color: rgb(230, 237, 243);
+  color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
   display: flex;
   flex-direction: row;
@@ -3961,8 +3971,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Sun Dec 21 2025 17:19:00 GMT+0900 (日本標準時)",
-    tick: 1766305140040
+    at: "Mon Dec 22 2025 07:39:28 GMT+0900 (日本標準時)",
+    tick: 1766356768557
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -8522,6 +8532,7 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
+        "whiteDepthBottom": 0.1,
         "mousemoveTimeout": 1500,
         "keyinputTimeout": 1500
     },
@@ -14731,11 +14742,11 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, Config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
-    Config = __importStar(Config);
+    config = __importStar(config);
     var Player;
     (function (Player) {
         var _this = this;
@@ -14842,7 +14853,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         Player.updateFullscreenState();
                         Player.startAnimationFrameLoop();
                         navigator.mediaSession.metadata = new MediaMetadata({
-                            title: Config.applicationTitle,
+                            title: config.applicationTitle,
                             artist: "Unknown Artist",
                             album: "Temporary Media List",
                             artwork: [
@@ -14855,7 +14866,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                         navigator.mediaSession.playbackState = "playing";
                         if (media_2.Media.mediaList.length <= 0) {
                             ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
-                            noMediaTimer.start(document.body, "no-media", Config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
+                            noMediaTimer.start(document.body, "no-media", config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
                         if (history_1.History.isCleared()) {
                             CrossFade.clear();
@@ -15104,8 +15115,10 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         };
         Player.updateDarkCurtainOpacity = function () {
             var brightness = ui_9.UI.SettingsPanel.brightnessRange.get() * timer_1.Timer.getTimerFade();
-            ;
             _library_7.Library.UI.setStyle(ui_9.UI.darkCurtain, "opacity", "".concat((100 - brightness).toFixed(2), "%"));
+            var whiteDepthBottom = config.ui.whiteDepthBottom;
+            var whiteDepth = whiteDepthBottom + ((1 - whiteDepthBottom) * (brightness / 100));
+            _library_7.Library.UI.setStyle(document.documentElement, "--white-depth", whiteDepth.toFixed(3));
         };
         Player.step = function () {
             if (null !== fadeoutingTrack) {
