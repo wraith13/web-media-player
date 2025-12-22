@@ -508,7 +508,7 @@
         left: 50%;
         translate: -50% -50%;
         border-radius: 50%;
-        --major-line-angle: 1.5deg;
+        --major-line-angle: 2.25deg;
         --major-tick-width: calc(var(--short-side) * 0.45);
         --major-tick-color: rgba(0, 0, 0, 0.5);
         --minor-line-angle: 0.75deg;
@@ -1746,6 +1746,24 @@ label:not(.icon-button)
                     //color: Specified in JavaScript;
                     transition: color 300ms, text-shadow 3000ms;
                 }
+            }
+        }
+        & > *
+        {
+            position: relative;
+            &::before
+            {
+                content: "";
+                position: absolute;
+                border-radius: 1rem;
+                top: -0rem;
+                left: -0rem;
+                right: -0rem;
+                bottom: -0rem;
+                background: inherit;
+                z-index: -1;
+                opacity: 0.75;
+                backdrop-filter: blur(0.5rem);
             }
         }
         #time:not(.text)

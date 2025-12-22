@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Dec 22 2025 07:39:28 GMT+0900 (日本標準時)
+    build at: Mon Dec 22 2025 21:50:18 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1099,7 +1099,7 @@ body.list #analog-clock-panel:not(.show)::before {
   left: 50%;
   translate: -50% -50%;
   border-radius: 50%;
-  --major-line-angle: 1.5deg;
+  --major-line-angle: 2.25deg;
   --major-tick-width: calc(var(--short-side) * 0.45);
   --major-tick-color: rgba(0, 0, 0, 0.5);
   --minor-line-angle: 0.75deg;
@@ -3189,6 +3189,22 @@ body:not(.play) #overlay-panel:not(.show)::before {
 #overlay-panel.rainbow time {
   transition: color 300ms, text-shadow 3000ms;
 }
+#overlay-panel > * {
+  position: relative;
+}
+#overlay-panel > *::before {
+  content: "";
+  position: absolute;
+  border-radius: 1rem;
+  top: 0rem;
+  left: 0rem;
+  right: 0rem;
+  bottom: 0rem;
+  background: inherit;
+  z-index: -1;
+  opacity: 0.75;
+  backdrop-filter: blur(0.5rem);
+}
 #overlay-panel #time:not(.text) {
   font-size: 0.75rem;
   font-weight: 400;
@@ -3971,8 +3987,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Dec 22 2025 07:39:28 GMT+0900 (日本標準時)",
-    tick: 1766356768557
+    at: "Mon Dec 22 2025 21:50:18 GMT+0900 (日本標準時)",
+    tick: 1766407818531
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
