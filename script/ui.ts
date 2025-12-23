@@ -21,7 +21,7 @@ export namespace UI
     export class VisibilityApplier
     {
         hideTimer: ReturnType<typeof setTimeout> | null = null;
-        constructor(public element: HTMLElement, public delay: number = 750)
+        constructor(public element: HTMLElement, public options: { delay?: number, bodyClassToggle?: string } = {})
         {
             // This class serves two purposes:
             // 1. Prevent hidden UI from receiving input focus via the Tab key by correctly toggling
@@ -38,6 +38,10 @@ export namespace UI
             {
                 this.element.style.removeProperty("display");
                 this.element.setAttribute("aria-hidden", "false");
+                if (this.options.bodyClassToggle)
+                {
+                    document.body.classList.toggle(this.options.bodyClassToggle, true);
+                }
             }
             else
             {
@@ -48,8 +52,12 @@ export namespace UI
                         this.hideTimer = null;
                         this.immediateHide();
                     },
-                    this.delay
+                    this.options.delay ?? 750
                 );
+                if (this.options.bodyClassToggle)
+                {
+                    document.body.classList.toggle(this.options.bodyClassToggle, false);
+                }
             }
         }
         hide(): void
@@ -69,6 +77,10 @@ export namespace UI
             this.clearHideTimer();
             this.element.style.setProperty("display", "none");
             this.element.setAttribute("aria-hidden", "true");
+            if (this.options.bodyClassToggle)
+            {
+                document.body.classList.toggle(this.options.bodyClassToggle, false);
+            }
         }
     }
     export namespace MessagePanel
@@ -102,13 +114,13 @@ export namespace UI
         export const sleepPanel =
             Library.UI.getElementById("div", "sleep-panel");
         export const wakeupPanelVisibilityApplier =
-            new VisibilityApplier(wakeupPanel);
+            new VisibilityApplier(wakeupPanel, { bodyClassToggle: "show-wakeup-panel", });
         export const volumePanelVisibilityApplier =
             new VisibilityApplier(volumePanel);
         export const settingsPanelVisibilityApplier =
             new VisibilityApplier(settingsPanel);
         export const sleepPanelVisibilityApplier =
-            new VisibilityApplier(sleepPanel);
+            new VisibilityApplier(sleepPanel, { bodyClassToggle: "show-sleep-panel", });
     }
     export namespace TransportPanel
     {

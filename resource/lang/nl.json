@@ -8,6 +8,8 @@
     "Auto": "Automatisch",
     "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
     "control-panel": "Bedieningspaneel",
+    "wakeup-timer-panel": "Wekker-timer paneel",
+    "sleep-timer-panel": "Slaap-timer paneel",
     "transport-panel": "Transportpaneel",
     "media-list": "Medialijst",
     "media-count": "Aantal media",

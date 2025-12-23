@@ -8,6 +8,8 @@
     "Auto": "Automático",
     "description": "Reproductor multimedia web que se ejecuta en un navegador",
     "control-panel": "Panel de control",
+    "wakeup-timer-panel": "Panel de temporizador de despertador",
+    "sleep-timer-panel": "Panel de temporizador de suspensión",
     "transport-panel": "Panel de transporte",
     "media-list": "Lista de medios",
     "media-count": "Cantidad de medios",

@@ -8,6 +8,8 @@
     "Auto": "自動",
     "description": "Web ブラウザ上で動作するメディアプレイヤー",
     "control-panel": "コントロールパネル",
+    "wakeup-timer-panel": "起床タイマーパネル",
+    "sleep-timer-panel": "スリープタイマーパネル",
     "transport-panel": "トランスポートパネル",
     "media-list": "メディアリスト",
     "media-count": "メディア数",

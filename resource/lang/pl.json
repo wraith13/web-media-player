@@ -8,6 +8,8 @@
     "Auto": "Automatycznie",
     "description": "Odtwarzacz multimedialny działający w przeglądarce",
     "control-panel": "Panel sterowania",
+    "wakeup-timer-panel": "Panel timera budzika",
+    "sleep-timer-panel": "Panel timera uśpienia",
     "transport-panel": "Panel transportu",
     "media-list": "Lista mediów",
     "media-count": "Liczba mediów",

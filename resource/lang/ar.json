@@ -8,6 +8,8 @@
     "Auto": "تلقائي",
     "description": "مشغل وسائط يعمل في متصفح الويب",
     "control-panel": "لوحة التحكم",
+    "wakeup-timer-panel": "لوحة مؤقت الاستيقاظ",
+    "sleep-timer-panel": "لوحة مؤقت النوم",
     "transport-panel": "لوحة النقل",
     "media-list": "قائمة الوسائط",
     "media-count": "عدد الوسائط",

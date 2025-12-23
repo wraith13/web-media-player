@@ -8,6 +8,8 @@
     "Auto": "Automatique",
     "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
     "control-panel": "Panneau de contrôle",
+    "wakeup-timer-panel": "Panneau du minuteur de réveil",
+    "sleep-timer-panel": "Panneau du minuteur de mise en veille",
     "transport-panel": "Panneau de transport",
     "media-list": "Liste des médias",
     "media-count": "Nombre de médias",

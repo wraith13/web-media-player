@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Mon Dec 22 2025 21:50:18 GMT+0900 (日本標準時)
+    build at: Tue Dec 23 2025 07:34:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1629,25 +1629,6 @@ body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
 #control-panel form {
   display: flex;
   flex-direction: row;
@@ -1773,6 +1754,12 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped #media-index,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #media-title,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #media-time-frame,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #control-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #wakeup-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped label[for=wakeup-button].tip,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #no-media,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #sleep-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped label[for=sleep-button].tip,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #no-repeat,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #next-button,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #back-button,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #fast-forward-button,
@@ -2282,13 +2269,13 @@ body.no-media #rewind-button {
   transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show)::before {
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2300,13 +2287,16 @@ body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
+
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
   transform: translate(0px, 100%);
 }
+
 #wakeup-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 4.5rem;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12.5rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
@@ -2316,7 +2306,8 @@ body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
 }
 @media (max-width: 540px) {
   #wakeup-panel {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9.5rem);
   }
 }
@@ -2374,23 +2365,42 @@ label[for=wakeup-button].tip:empty:not(.show) {
   }
 }
 label[for=wakeup-button].tip {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
-  inset-block-end: 4.5rem;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-start 500ms;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
 }
 @media (max-width: 540px) {
   label[for=wakeup-button].tip {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   label[for=wakeup-button].tip {
-    inset-block-end: 0.9rem;
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% + 12.5rem);
     inset-inline-start: initial;
+  }
+}
+body.show-wakeup-panel label[for=wakeup-button].tip {
+  inset-block-end: 10.95rem;
+  inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-wakeup-panel label[for=wakeup-button].tip {
+    inset-block-end: 13.5rem;
+    inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-wakeup-panel label[for=wakeup-button].tip {
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2421,21 +2431,40 @@ label[for=wakeup-button].tip {
 }
 #no-media {
   transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-  inset-block-end: 6.25rem;
+  inset-block-end: 7.75rem;
+  inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
   color: red;
 }
 @media (max-width: 540px) {
   #no-media {
-    inset-block-end: 8.75rem;
+    inset-block-end: 10.25rem;
+    inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   #no-media {
-    inset-block-end: 4.5rem;
+    inset-block-end: 6rem;
+    inset-block-end: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
+body.show-wakeup-panel #no-media {
+  inset-block-end: 12.5rem;
+  inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-wakeup-panel #no-media {
+    inset-block-end: 15.1rem;
+    inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-wakeup-panel #no-media {
+    inset-block-end: 10.95rem;
+    inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2544,13 +2573,13 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
+body:not(.show-sleep-panel) #sleep-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show)::before {
+body:not(.show-sleep-panel) #sleep-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2562,13 +2591,16 @@ body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
+
+body:not(.show-sleep-panel) #sleep-panel:not(.show) {
   transform: translate(0px, 100%);
 }
+
 #sleep-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 4.5rem;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12.5rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
@@ -2578,7 +2610,8 @@ body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
 }
 @media (max-width: 540px) {
   #sleep-panel {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9.5rem);
   }
 }
@@ -2636,23 +2669,42 @@ label[for=sleep-button].tip:empty:not(.show) {
   }
 }
 label[for=sleep-button].tip {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
-  inset-block-end: 4.5rem;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-end 500ms;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
 }
 @media (max-width: 540px) {
   label[for=sleep-button].tip {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   label[for=sleep-button].tip {
-    inset-block-end: 0.9rem;
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% + 12.5rem);
     inset-inline-end: initial;
+  }
+}
+body.show-sleep-panel label[for=sleep-button].tip {
+  inset-block-end: 10.95rem;
+  inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-sleep-panel label[for=sleep-button].tip {
+    inset-block-end: 13.5rem;
+    inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-sleep-panel label[for=sleep-button].tip {
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2683,21 +2735,40 @@ label[for=sleep-button].tip {
 }
 #no-repeat {
   transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-  inset-block-end: 6.25rem;
+  inset-block-end: 7.75rem;
+  inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
   color: orange;
 }
 @media (max-width: 540px) {
   #no-repeat {
-    inset-block-end: 8.75rem;
+    inset-block-end: 10.25rem;
+    inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   #no-repeat {
-    inset-block-end: 4.5rem;
+    inset-block-end: 6rem;
+    inset-block-end: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
+body.show-sleep-panel #no-repeat {
+  inset-block-end: 12.5rem;
+  inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-sleep-panel #no-repeat {
+    inset-block-end: 15.1rem;
+    inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-sleep-panel #no-repeat {
+    inset-block-end: 10.95rem;
+    inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -3541,7 +3612,8 @@ button:focus,
 #media-title:focus,
 #media-time:focus,
 #seek-panel:focus-within,
-.popup-panel > label:focus-within {
+.popup-panel > label:focus-within,
+.popup-panel > form > label:focus-within {
   filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
 }
 
@@ -3655,23 +3727,6 @@ DUMMYSTYLE
 </svg>
 
         </label>
-        <div id="wakeup-panel" class="popup-panel" role="presentation">
-            <label id="wakeup-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="wakeup-toggle-label-span">
-                <span id="wakeup-toggle-label-span" data-lang-key="wakeup"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="wakeup-time" class="indent" aria-labelledby="wakeup-timer-select-label-span">
-                <span id="wakeup-timer-select-label-span" data-lang-key="timer"></span>
-                <select id="wakeup-time"></select>
-            </label>
-            <label for="fade-in" class="indent" aria-labelledby="fade-in-label-span">
-                <span id="fade-in-label-span" data-lang-key="fade-in"></span>
-                <select id="fade-in"></select>
-            </label>
-        </div>
-        <label id="wakeup-timer" for="wakeup-button" class="tip solid-label" role="status"></label>
-        <label id="no-media" for="add-file" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
         <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
             <input id="shuffle" type="checkbox">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -3889,25 +3944,46 @@ DUMMYSTYLE
 </svg>
 
         </label>
-        <div id="sleep-panel" class="popup-panel" role="presentation">
-            <label id="sleep-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="sleep-toggle-label-span">
-                <span id="sleep-toggle-label-span" data-lang-key="sleep"></span>
-                <span data-lang-key="on" class="value-label"></span>
-                <span data-lang-key="off" class="value-label"></span>
-            </label>
-            <label for="sleep-time" class="indent" aria-labelledby="sleep-timer-select-label-span">
-                <span id="sleep-timer-select-label-span" data-lang-key="timer"></span>
-                <select id="sleep-time"></select>
-            </label>
-            <label for="fade-out" class="indent" aria-labelledby="fade-out-label-span">
-                <span id="fade-out-label-span" data-lang-key="fade-out"></span>
-                <select id="fade-out"></select>
-            </label>
-        </div>
-        <label id="sleep-timer" for="sleep-button" class="tip solid-label" role="status"></label>
-        <label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
     </form>
 </div>
+<div id="wakeup-panel" class="popup-panel" role="presentation">
+    <form data-aria-lang-key="wakeup-timer-panel">
+        <label id="wakeup-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="wakeup-toggle-label-span">
+            <span id="wakeup-toggle-label-span" data-lang-key="wakeup"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="wakeup-time" class="indent" aria-labelledby="wakeup-timer-select-label-span">
+            <span id="wakeup-timer-select-label-span" data-lang-key="timer"></span>
+            <select id="wakeup-time"></select>
+        </label>
+        <label for="fade-in" class="indent" aria-labelledby="fade-in-label-span">
+            <span id="fade-in-label-span" data-lang-key="fade-in"></span>
+            <select id="fade-in"></select>
+        </label>
+    </form>
+</div>
+<label id="wakeup-timer" for="wakeup-button" class="tip solid-label" role="status"></label>
+<label id="no-media" for="add-file" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
+<div id="sleep-panel" class="popup-panel" role="presentation">
+    <form data-aria-lang-key="sleep-timer-panel">
+        <label id="sleep-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="sleep-toggle-label-span">
+            <span id="sleep-toggle-label-span" data-lang-key="sleep"></span>
+            <span data-lang-key="on" class="value-label"></span>
+            <span data-lang-key="off" class="value-label"></span>
+        </label>
+        <label for="sleep-time" class="indent" aria-labelledby="sleep-timer-select-label-span">
+            <span id="sleep-timer-select-label-span" data-lang-key="timer"></span>
+            <select id="sleep-time"></select>
+        </label>
+        <label for="fade-out" class="indent" aria-labelledby="fade-out-label-span">
+            <span id="fade-out-label-span" data-lang-key="fade-out"></span>
+            <select id="fade-out"></select>
+        </label>
+    </form>
+</div>
+<label id="sleep-timer" for="sleep-button" class="tip solid-label" role="status"></label>
+<label id="no-repeat" for="repeat" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-repeat-message"></span></label>
 <div id="transport-panel" role="presentation">
     <form data-aria-lang-key="transport-panel">
         <span id="media-index" role="status" aria-live="polite" aria-atomic="true"></span>
@@ -3987,8 +4063,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Mon Dec 22 2025 21:50:18 GMT+0900 (日本標準時)",
-    tick: 1766407818531
+    at: "Tue Dec 23 2025 07:34:28 GMT+0900 (日本標準時)",
+    tick: 1766442868206
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -6937,6 +7013,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
             "control-panel": "لوحة التحكم",
+            "wakeup-timer-panel": "لوحة مؤقت الاستيقاظ",
+            "sleep-timer-panel": "لوحة مؤقت النوم",
             "transport-panel": "لوحة النقل",
             "media-list": "قائمة الوسائط",
             "media-count": "عدد الوسائط",
@@ -7039,6 +7117,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
             "control-panel": "Bedienfeld",
+            "wakeup-timer-panel": "Wecktimer-Panel",
+            "sleep-timer-panel": "Schlaftimer-Panel",
             "transport-panel": "Transportfeld",
             "media-list": "Medienliste",
             "media-count": "Medienanzahl",
@@ -7141,6 +7221,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
             "control-panel": "Πίνακας ελέγχου",
+            "wakeup-timer-panel": "Πίνακας χρονοδιακόπτη αφύπνισης",
+            "sleep-timer-panel": "Πίνακας χρονοδιακόπτη ύπνου",
             "transport-panel": "Πίνακας μεταφοράς",
             "media-list": "Λίστα μέσων",
             "media-count": "Αριθμός μέσων",
@@ -7243,6 +7325,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
             "control-panel": "Control Panel",
+            "wakeup-timer-panel": "Wake-up Timer Panel",
+            "sleep-timer-panel": "Sleep Timer Panel",
             "transport-panel": "Transport Panel",
             "media-list": "Media List",
             "media-count": "Media Count",
@@ -7345,6 +7429,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
             "control-panel": "Panel de control",
+            "wakeup-timer-panel": "Panel de temporizador de despertador",
+            "sleep-timer-panel": "Panel de temporizador de suspensión",
             "transport-panel": "Panel de transporte",
             "media-list": "Lista de medios",
             "media-count": "Cantidad de medios",
@@ -7447,6 +7533,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
             "control-panel": "پنل کنترل",
+            "wakeup-timer-panel": "پنل تایمر بیدارباش",
+            "sleep-timer-panel": "پنل تایمر خواب",
             "transport-panel": "پنل انتقال",
             "media-list": "فهرست رسانه‌ها",
             "media-count": "تعداد رسانه",
@@ -7549,6 +7637,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
             "control-panel": "Panneau de contrôle",
+            "wakeup-timer-panel": "Panneau du minuteur de réveil",
+            "sleep-timer-panel": "Panneau du minuteur de mise en veille",
             "transport-panel": "Panneau de transport",
             "media-list": "Liste des médias",
             "media-count": "Nombre de médias",
@@ -7651,6 +7741,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
             "control-panel": "कंट्रोल पैनल",
+            "wakeup-timer-panel": "वेक-अप टाइमर पैनल",
+            "sleep-timer-panel": "स्लीप टाइमर पैनल",
             "transport-panel": "ट्रांसपोर्ट पैनल",
             "media-list": "मीडिया सूची",
             "media-count": "मीडिया गिनती",
@@ -7753,6 +7845,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
             "control-panel": "Panel Kontrol",
+            "wakeup-timer-panel": "Panel Timer Bangun",
+            "sleep-timer-panel": "Panel Timer Tidur",
             "transport-panel": "Panel Transportasi",
             "media-list": "Daftar Media",
             "media-count": "Jumlah Media",
@@ -7855,6 +7949,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
             "control-panel": "Pannello di controllo",
+            "wakeup-timer-panel": "Pannello timer di risveglio",
+            "sleep-timer-panel": "Pannello timer di sospensione",
             "transport-panel": "Pannello di trasporto",
             "media-list": "Elenco media",
             "media-count": "Conteggio media",
@@ -7957,6 +8053,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "control-panel": "コントロールパネル",
+            "wakeup-timer-panel": "起床タイマーパネル",
+            "sleep-timer-panel": "スリープタイマーパネル",
             "transport-panel": "トランスポートパネル",
             "media-list": "メディアリスト",
             "media-count": "メディア数",
@@ -8059,6 +8157,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
             "control-panel": "제어판",
+            "wakeup-timer-panel": "알람 타이머 판넬",
+            "sleep-timer-panel": "슬립 타이머 판넬",
             "transport-panel": "전송판",
             "media-list": "미디어 목록",
             "media-count": "미디어 수",
@@ -8161,6 +8261,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
             "control-panel": "Bedieningspaneel",
+            "wakeup-timer-panel": "Wekker-timer paneel",
+            "sleep-timer-panel": "Slaap-timer paneel",
             "transport-panel": "Transportpaneel",
             "media-list": "Medialijst",
             "media-count": "Aantal media",
@@ -8263,6 +8365,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
             "control-panel": "Panel sterowania",
+            "wakeup-timer-panel": "Panel timera budzika",
+            "sleep-timer-panel": "Panel timera uśpienia",
             "transport-panel": "Panel transportu",
             "media-list": "Lista mediów",
             "media-count": "Liczba mediów",
@@ -8365,6 +8469,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
             "control-panel": "Painel de controle",
+            "wakeup-timer-panel": "Painel do temporizador de despertar",
+            "sleep-timer-panel": "Painel do temporizador de suspensão",
             "transport-panel": "Painel de transporte",
             "media-list": "Lista de mídia",
             "media-count": "Contagem de mídias",
@@ -10950,10 +11056,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.darkCurtain = _library_2.Library.UI.getElementById("div", "dark-curtain");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
         var VisibilityApplier = /** @class */ (function () {
-            function VisibilityApplier(element, delay) {
-                if (delay === void 0) { delay = 750; }
+            function VisibilityApplier(element, options) {
+                if (options === void 0) { options = {}; }
                 this.element = element;
-                this.delay = delay;
+                this.options = options;
                 this.hideTimer = null;
                 // This class serves two purposes:
                 // 1. Prevent hidden UI from receiving input focus via the Tab key by correctly toggling
@@ -10965,17 +11071,24 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             }
             VisibilityApplier.prototype.show = function (visibility) {
                 var _this = this;
+                var _a;
                 if (visibility === void 0) { visibility = true; }
                 this.clearHideTimer();
                 if (visibility) {
                     this.element.style.removeProperty("display");
                     this.element.setAttribute("aria-hidden", "false");
+                    if (this.options.bodyClassToggle) {
+                        document.body.classList.toggle(this.options.bodyClassToggle, true);
+                    }
                 }
                 else {
                     this.hideTimer = setTimeout(function () {
                         _this.hideTimer = null;
                         _this.immediateHide();
-                    }, this.delay);
+                    }, (_a = this.options.delay) !== null && _a !== void 0 ? _a : 750);
+                    if (this.options.bodyClassToggle) {
+                        document.body.classList.toggle(this.options.bodyClassToggle, false);
+                    }
                 }
             };
             VisibilityApplier.prototype.hide = function () {
@@ -10991,6 +11104,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 this.clearHideTimer();
                 this.element.style.setProperty("display", "none");
                 this.element.setAttribute("aria-hidden", "true");
+                if (this.options.bodyClassToggle) {
+                    document.body.classList.toggle(this.options.bodyClassToggle, false);
+                }
             };
             return VisibilityApplier;
         }());
@@ -11016,10 +11132,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
             ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
             ControlPanel.sleepPanel = _library_2.Library.UI.getElementById("div", "sleep-panel");
-            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel);
+            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel, { bodyClassToggle: "show-wakeup-panel", });
             ControlPanel.volumePanelVisibilityApplier = new VisibilityApplier(ControlPanel.volumePanel);
             ControlPanel.settingsPanelVisibilityApplier = new VisibilityApplier(ControlPanel.settingsPanel);
-            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel);
+            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel, { bodyClassToggle: "show-sleep-panel", });
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         var TransportPanel;
         (function (TransportPanel) {

@@ -193,6 +193,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "تلقائي",
             "description": "مشغل وسائط يعمل في متصفح الويب",
             "control-panel": "لوحة التحكم",
+            "wakeup-timer-panel": "لوحة مؤقت الاستيقاظ",
+            "sleep-timer-panel": "لوحة مؤقت النوم",
             "transport-panel": "لوحة النقل",
             "media-list": "قائمة الوسائط",
             "media-count": "عدد الوسائط",
@@ -295,6 +297,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatisch",
             "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
             "control-panel": "Bedienfeld",
+            "wakeup-timer-panel": "Wecktimer-Panel",
+            "sleep-timer-panel": "Schlaftimer-Panel",
             "transport-panel": "Transportfeld",
             "media-list": "Medienliste",
             "media-count": "Medienanzahl",
@@ -397,6 +401,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Αυτόματο",
             "description": "Πρόγραμμα αναπαραγωγής πολυμέσων που τρέχει σε πρόγραμμα περιήγησης ιστού",
             "control-panel": "Πίνακας ελέγχου",
+            "wakeup-timer-panel": "Πίνακας χρονοδιακόπτη αφύπνισης",
+            "sleep-timer-panel": "Πίνακας χρονοδιακόπτη ύπνου",
             "transport-panel": "Πίνακας μεταφοράς",
             "media-list": "Λίστα μέσων",
             "media-count": "Αριθμός μέσων",
@@ -499,6 +505,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Auto",
             "description": "Web-based media player that runs in a web browser",
             "control-panel": "Control Panel",
+            "wakeup-timer-panel": "Wake-up Timer Panel",
+            "sleep-timer-panel": "Sleep Timer Panel",
             "transport-panel": "Transport Panel",
             "media-list": "Media List",
             "media-count": "Media Count",
@@ -601,6 +609,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automático",
             "description": "Reproductor multimedia web que se ejecuta en un navegador",
             "control-panel": "Panel de control",
+            "wakeup-timer-panel": "Panel de temporizador de despertador",
+            "sleep-timer-panel": "Panel de temporizador de suspensión",
             "transport-panel": "Panel de transporte",
             "media-list": "Lista de medios",
             "media-count": "Cantidad de medios",
@@ -703,6 +713,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "خودکار",
             "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
             "control-panel": "پنل کنترل",
+            "wakeup-timer-panel": "پنل تایمر بیدارباش",
+            "sleep-timer-panel": "پنل تایمر خواب",
             "transport-panel": "پنل انتقال",
             "media-list": "فهرست رسانه‌ها",
             "media-count": "تعداد رسانه",
@@ -805,6 +817,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatique",
             "description": "Lecteur multimédia basé sur le web qui s'exécute dans un navigateur",
             "control-panel": "Panneau de contrôle",
+            "wakeup-timer-panel": "Panneau du minuteur de réveil",
+            "sleep-timer-panel": "Panneau du minuteur de mise en veille",
             "transport-panel": "Panneau de transport",
             "media-list": "Liste des médias",
             "media-count": "Nombre de médias",
@@ -907,6 +921,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "स्वचालित",
             "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
             "control-panel": "कंट्रोल पैनल",
+            "wakeup-timer-panel": "वेक-अप टाइमर पैनल",
+            "sleep-timer-panel": "स्लीप टाइमर पैनल",
             "transport-panel": "ट्रांसपोर्ट पैनल",
             "media-list": "मीडिया सूची",
             "media-count": "मीडिया गिनती",
@@ -1009,6 +1025,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Otomatis",
             "description": "Pemutar media berbasis web yang berjalan di peramban",
             "control-panel": "Panel Kontrol",
+            "wakeup-timer-panel": "Panel Timer Bangun",
+            "sleep-timer-panel": "Panel Timer Tidur",
             "transport-panel": "Panel Transportasi",
             "media-list": "Daftar Media",
             "media-count": "Jumlah Media",
@@ -1111,6 +1129,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatico",
             "description": "Lettore multimediale web che viene eseguito nel browser",
             "control-panel": "Pannello di controllo",
+            "wakeup-timer-panel": "Pannello timer di risveglio",
+            "sleep-timer-panel": "Pannello timer di sospensione",
             "transport-panel": "Pannello di trasporto",
             "media-list": "Elenco media",
             "media-count": "Conteggio media",
@@ -1213,6 +1233,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "自動",
             "description": "Web ブラウザ上で動作するメディアプレイヤー",
             "control-panel": "コントロールパネル",
+            "wakeup-timer-panel": "起床タイマーパネル",
+            "sleep-timer-panel": "スリープタイマーパネル",
             "transport-panel": "トランスポートパネル",
             "media-list": "メディアリスト",
             "media-count": "メディア数",
@@ -1315,6 +1337,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "자동",
             "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
             "control-panel": "제어판",
+            "wakeup-timer-panel": "알람 타이머 판넬",
+            "sleep-timer-panel": "슬립 타이머 판넬",
             "transport-panel": "전송판",
             "media-list": "미디어 목록",
             "media-count": "미디어 수",
@@ -1417,6 +1441,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatisch",
             "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
             "control-panel": "Bedieningspaneel",
+            "wakeup-timer-panel": "Wekker-timer paneel",
+            "sleep-timer-panel": "Slaap-timer paneel",
             "transport-panel": "Transportpaneel",
             "media-list": "Medialijst",
             "media-count": "Aantal media",
@@ -1519,6 +1545,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automatycznie",
             "description": "Odtwarzacz multimedialny działający w przeglądarce",
             "control-panel": "Panel sterowania",
+            "wakeup-timer-panel": "Panel timera budzika",
+            "sleep-timer-panel": "Panel timera uśpienia",
             "transport-panel": "Panel transportu",
             "media-list": "Lista mediów",
             "media-count": "Liczba mediów",
@@ -1621,6 +1649,8 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "Auto": "Automático",
             "description": "Reprodutor de mídia baseado na web que roda em um navegador",
             "control-panel": "Painel de controle",
+            "wakeup-timer-panel": "Painel do temporizador de despertar",
+            "sleep-timer-panel": "Painel do temporizador de suspensão",
             "transport-panel": "Painel de transporte",
             "media-list": "Lista de mídia",
             "media-count": "Contagem de mídias",
@@ -4206,10 +4236,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.darkCurtain = _library_2.Library.UI.getElementById("div", "dark-curtain");
         UI.elementPool = _library_2.Library.UI.getElementById("div", "element-pool");
         var VisibilityApplier = /** @class */ (function () {
-            function VisibilityApplier(element, delay) {
-                if (delay === void 0) { delay = 750; }
+            function VisibilityApplier(element, options) {
+                if (options === void 0) { options = {}; }
                 this.element = element;
-                this.delay = delay;
+                this.options = options;
                 this.hideTimer = null;
                 // This class serves two purposes:
                 // 1. Prevent hidden UI from receiving input focus via the Tab key by correctly toggling
@@ -4221,17 +4251,24 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             }
             VisibilityApplier.prototype.show = function (visibility) {
                 var _this = this;
+                var _a;
                 if (visibility === void 0) { visibility = true; }
                 this.clearHideTimer();
                 if (visibility) {
                     this.element.style.removeProperty("display");
                     this.element.setAttribute("aria-hidden", "false");
+                    if (this.options.bodyClassToggle) {
+                        document.body.classList.toggle(this.options.bodyClassToggle, true);
+                    }
                 }
                 else {
                     this.hideTimer = setTimeout(function () {
                         _this.hideTimer = null;
                         _this.immediateHide();
-                    }, this.delay);
+                    }, (_a = this.options.delay) !== null && _a !== void 0 ? _a : 750);
+                    if (this.options.bodyClassToggle) {
+                        document.body.classList.toggle(this.options.bodyClassToggle, false);
+                    }
                 }
             };
             VisibilityApplier.prototype.hide = function () {
@@ -4247,6 +4284,9 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 this.clearHideTimer();
                 this.element.style.setProperty("display", "none");
                 this.element.setAttribute("aria-hidden", "true");
+                if (this.options.bodyClassToggle) {
+                    document.body.classList.toggle(this.options.bodyClassToggle, false);
+                }
             };
             return VisibilityApplier;
         }());
@@ -4272,10 +4312,10 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
             ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
             ControlPanel.sleepPanel = _library_2.Library.UI.getElementById("div", "sleep-panel");
-            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel);
+            ControlPanel.wakeupPanelVisibilityApplier = new VisibilityApplier(ControlPanel.wakeupPanel, { bodyClassToggle: "show-wakeup-panel", });
             ControlPanel.volumePanelVisibilityApplier = new VisibilityApplier(ControlPanel.volumePanel);
             ControlPanel.settingsPanelVisibilityApplier = new VisibilityApplier(ControlPanel.settingsPanel);
-            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel);
+            ControlPanel.sleepPanelVisibilityApplier = new VisibilityApplier(ControlPanel.sleepPanel, { bodyClassToggle: "show-sleep-panel", });
         })(ControlPanel = UI.ControlPanel || (UI.ControlPanel = {}));
         var TransportPanel;
         (function (TransportPanel) {

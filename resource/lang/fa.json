@@ -8,6 +8,8 @@
     "Auto": "خودکار",
     "description": "پخش‌کننده رسانه مبتنی بر وب که در مرورگر اجرا می‌شود",
     "control-panel": "پنل کنترل",
+    "wakeup-timer-panel": "پنل تایمر بیدارباش",
+    "sleep-timer-panel": "پنل تایمر خواب",
     "transport-panel": "پنل انتقال",
     "media-list": "فهرست رسانه‌ها",
     "media-count": "تعداد رسانه",

@@ -795,7 +795,8 @@ body:not(.not-supported-media)
 #control-panel form
 {
     @include black-pop-panel-style();
-    @include fade-transition("body.play:not(.show-ui):not(.keyinput)", "body:not(.play):not(.mousemove):not(.keyinput).sleeped");
+    //@include fade-transition("body.play:not(.show-ui):not(.keyinput)", "body:not(.play):not(.mousemove):not(.keyinput).sleeped");
+    @include fade-transition("body.play:not(.show-ui):not(.keyinput)");
     &
     {
         @include flex(row, center);
@@ -948,6 +949,12 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped
     #media-title,
     #media-time-frame,
     #control-panel,
+    #wakeup-panel,
+    label[for="wakeup-button"].tip,
+    #no-media,
+    #sleep-panel,
+    label[for="sleep-button"].tip,
+    #no-repeat,
     #next-button,
     #back-button,
     #fast-forward-button,
@@ -1294,14 +1301,15 @@ body.no-media
 }
 #wakeup-panel
 {
-    @include fade-transition("body label[for=wakeup-button]:not(.checked) + &");
-    @include slide-down-transition("body label[for=wakeup-button]:not(.checked) + &");
+    @include fade-transition("body:not(.show-wakeup-panel)");
+    @include slide-down-transition("body:not(.show-wakeup-panel)");
     //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
-        inset-block-end: 4.5rem;
+        inset-block-end: 6.0rem;
+        inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
         inset-inline-start: calc(50% - 12.5rem);
         backdrop-filter: blur(0.5rem);
         position: fixed;
@@ -1310,7 +1318,8 @@ body.no-media
         gap: 0.25rem;
         @media (max-width: 540px)
         {
-            inset-block-end: 7rem;
+            inset-block-end: 8.5rem;
+            inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
             inset-inline-start: calc(50% - 9.5rem);
         }
     }
@@ -1329,21 +1338,39 @@ label[for="wakeup-button"].tip
     //@include black-pop-panel-style();
     &
     {
-        transition: transform 500ms, opacity 500ms, filter 500ms;
-        inset-block-end: 4.5rem;
+        transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-start 500ms;
+        inset-block-end: 6.0rem;
+        inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
         inset-inline-start: calc(50% - 12rem);
         position: fixed;
-        z-index: 30;
+        z-index: 70;
         @media (max-width: 540px)
         {
-            inset-block-end: 7rem;
+            inset-block-end: 8.5rem;
+            inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
             inset-inline-start: calc(50% - 9rem);
         }
         @media (min-width: 720px)
         {
-            inset-block-end: 0.9rem;
+            inset-block-end: 2.4rem;
+            inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
             inset-inline-end: calc(50% + 12.5rem);
             inset-inline-start: initial;
+        }
+        @at-root body.show-wakeup-panel &
+        {
+            inset-block-end: 10.95rem;
+            inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+            @media (max-width: 540px)
+            {
+                inset-block-end: 13.5rem;
+                inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+            }
+            @media (min-width: 720px)
+            {
+                inset-block-end: 2.4rem;
+                inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
+            }
         }
     }
 }
@@ -1357,19 +1384,37 @@ label[for="wakeup-button"].tip
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-        inset-block-end: 6.25rem;
+        inset-block-end: 7.75rem;
+        inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
         inset-inline-start: calc(50% - 12rem);
         position: fixed;
-        z-index: 30;
+        z-index: 70;
         color: $error-color;
         @media (max-width: 540px)
         {
-            inset-block-end: 8.75rem;
+            inset-block-end: 10.25rem;
+            inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
             inset-inline-start: calc(50% - 9rem);
         }
         @media (min-width: 720px)
         {
-            inset-block-end: 4.5rem;
+            inset-block-end: 6.0rem;
+            inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
+        }
+        @at-root body.show-wakeup-panel &
+        {
+            inset-block-end: 12.5rem;
+            inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+            @media (max-width: 540px)
+            {
+                inset-block-end: 15.1rem;
+                inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+            }
+            @media (min-width: 720px)
+            {
+                inset-block-end: 10.95rem;
+                inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+            }
         }
     }
 }
@@ -1451,14 +1496,15 @@ label[for="volume-button"]
 }
 #sleep-panel
 {
-    @include fade-transition("body label[for=sleep-button]:not(.checked) + &");
-    @include slide-down-transition("body label[for=sleep-button]:not(.checked) + &");
+    @include fade-transition("body:not(.show-sleep-panel)");
+    @include slide-down-transition("body:not(.show-sleep-panel)");
     //@include black-pop-panel-style();
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms;
         border-radius: 0.5rem;
-        inset-block-end: 4.5rem;
+        inset-block-end: 6.0rem;
+        inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
         inset-inline-end: calc(50% - 12.5rem);
         backdrop-filter: blur(0.5rem);
         position: fixed;
@@ -1467,7 +1513,8 @@ label[for="volume-button"]
         gap: 0.25rem;
         @media (max-width: 540px)
         {
-            inset-block-end: 7rem;
+            inset-block-end: 8.5rem;
+            inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
             inset-inline-end: calc(50% - 9.5rem);
         }
     }
@@ -1486,21 +1533,39 @@ label[for="sleep-button"].tip
     //@include black-pop-panel-style();
     &
     {
-        transition: transform 500ms, opacity 500ms, filter 500ms;
-        inset-block-end: 4.5rem;
+        transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-end 500ms;
+        inset-block-end: 6.0rem;
+        inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
         inset-inline-end: calc(50% - 12rem);
         position: fixed;
-        z-index: 30;
+        z-index: 70;
         @media (max-width: 540px)
         {
-            inset-block-end: 7rem;
+            inset-block-end: 8.5rem;
+            inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
             inset-inline-end: calc(50% - 9rem);
         }
         @media (min-width: 720px)
         {
-            inset-block-end: 0.9rem;
+            inset-block-end: 2.4rem;
+            inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
             inset-inline-start: calc(50% + 12.5rem);
             inset-inline-end: initial;
+        }
+        @at-root body.show-sleep-panel &
+        {
+            inset-block-end: 10.95rem;
+            inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+            @media (max-width: 540px)
+            {
+                inset-block-end: 13.5rem;
+                inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+            }
+            @media (min-width: 720px)
+            {
+                inset-block-end: 2.4rem;
+                inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
+            }
         }
     }
 }
@@ -1514,19 +1579,37 @@ label[for="sleep-button"].tip
     &
     {
         transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-        inset-block-end: 6.25rem;
+        inset-block-end: 7.75rem;
+        inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
         inset-inline-end: calc(50% - 12rem);
         position: fixed;
-        z-index: 30;
+        z-index: 70;
         color: $warning-color;
         @media (max-width: 540px)
         {
-            inset-block-end: 8.75rem;
+            inset-block-end: 10.25rem;
+            inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
             inset-inline-end: calc(50% - 9rem);
         }
         @media (min-width: 720px)
         {
-            inset-block-end: 4.5rem;
+            inset-block-end: 6.0rem;
+            inset-block-end: calc(6.0rem + env(safe-area-inset-bottom));
+        }
+        @at-root body.show-sleep-panel &
+        {
+            inset-block-end: 12.5rem;
+            inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+            @media (max-width: 540px)
+            {
+                inset-block-end: 15.1rem;
+                inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+            }
+            @media (min-width: 720px)
+            {
+                inset-block-end: 10.95rem;
+                inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+            }
         }
     }
 }
@@ -2016,7 +2099,8 @@ button:focus,
 #media-title:focus,
 #media-time:focus,
 #seek-panel:focus-within,
-.popup-panel > label:focus-within
+.popup-panel > label:focus-within, // こっちは後で消す！
+.popup-panel > form > label:focus-within
 {
     @include focus-halo();
 }

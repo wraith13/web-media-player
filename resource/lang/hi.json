@@ -8,6 +8,8 @@
     "Auto": "स्वचालित",
     "description": "वेब ब्राउज़र में चलने वाला वेब-आधारित मीडिया प्लेयर",
     "control-panel": "कंट्रोल पैनल",
+    "wakeup-timer-panel": "वेक-अप टाइमर पैनल",
+    "sleep-timer-panel": "स्लीप टाइमर पैनल",
     "transport-panel": "ट्रांसपोर्ट पैनल",
     "media-list": "मीडिया सूची",
     "media-count": "मीडिया गिनती",

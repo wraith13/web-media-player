@@ -1537,25 +1537,6 @@ body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
   transition: filter 750ms;
 }
 
-body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show) {
-  opacity: 0;
-  cursor: none;
-  pointer-events: none;
-  filter: blur(1em);
-}
-body:not(.play):not(.mousemove):not(.keyinput).sleeped #control-panel form:not(.show)::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  left: -1em;
-  right: -1em;
-  bottom: -1em;
-  background: inherit;
-  filter: blur(1em);
-  z-index: -1;
-  transition: filter 750ms;
-}
-
 #control-panel form {
   display: flex;
   flex-direction: row;
@@ -1681,6 +1662,12 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped #media-index,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #media-title,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #media-time-frame,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #control-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #wakeup-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped label[for=wakeup-button].tip,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #no-media,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #sleep-panel,
+body:not(.play):not(.mousemove):not(keyinput).sleeped label[for=sleep-button].tip,
+body:not(.play):not(.mousemove):not(keyinput).sleeped #no-repeat,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #next-button,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #back-button,
 body:not(.play):not(.mousemove):not(keyinput).sleeped #fast-forward-button,
@@ -2190,13 +2177,13 @@ body.no-media #rewind-button {
   transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show)::before {
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2208,13 +2195,16 @@ body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
+
+body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
   transform: translate(0px, 100%);
 }
+
 #wakeup-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 4.5rem;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12.5rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
@@ -2224,7 +2214,8 @@ body label[for=wakeup-button]:not(.checked) + #wakeup-panel:not(.show) {
 }
 @media (max-width: 540px) {
   #wakeup-panel {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9.5rem);
   }
 }
@@ -2282,23 +2273,42 @@ label[for=wakeup-button].tip:empty:not(.show) {
   }
 }
 label[for=wakeup-button].tip {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
-  inset-block-end: 4.5rem;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-start 500ms;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
 }
 @media (max-width: 540px) {
   label[for=wakeup-button].tip {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   label[for=wakeup-button].tip {
-    inset-block-end: 0.9rem;
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% + 12.5rem);
     inset-inline-start: initial;
+  }
+}
+body.show-wakeup-panel label[for=wakeup-button].tip {
+  inset-block-end: 10.95rem;
+  inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-wakeup-panel label[for=wakeup-button].tip {
+    inset-block-end: 13.5rem;
+    inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-wakeup-panel label[for=wakeup-button].tip {
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2329,21 +2339,40 @@ label[for=wakeup-button].tip {
 }
 #no-media {
   transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-  inset-block-end: 6.25rem;
+  inset-block-end: 7.75rem;
+  inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
   color: red;
 }
 @media (max-width: 540px) {
   #no-media {
-    inset-block-end: 8.75rem;
+    inset-block-end: 10.25rem;
+    inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   #no-media {
-    inset-block-end: 4.5rem;
+    inset-block-end: 6rem;
+    inset-block-end: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
+body.show-wakeup-panel #no-media {
+  inset-block-end: 12.5rem;
+  inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-wakeup-panel #no-media {
+    inset-block-end: 15.1rem;
+    inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-wakeup-panel #no-media {
+    inset-block-end: 10.95rem;
+    inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2452,13 +2481,13 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   transition: display 750ms, opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
+body:not(.show-sleep-panel) #sleep-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show)::before {
+body:not(.show-sleep-panel) #sleep-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2470,13 +2499,16 @@ body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
+
+body:not(.show-sleep-panel) #sleep-panel:not(.show) {
   transform: translate(0px, 100%);
 }
+
 #sleep-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 4.5rem;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12.5rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
@@ -2486,7 +2518,8 @@ body label[for=sleep-button]:not(.checked) + #sleep-panel:not(.show) {
 }
 @media (max-width: 540px) {
   #sleep-panel {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9.5rem);
   }
 }
@@ -2544,23 +2577,42 @@ label[for=sleep-button].tip:empty:not(.show) {
   }
 }
 label[for=sleep-button].tip {
-  transition: transform 500ms, opacity 500ms, filter 500ms;
-  inset-block-end: 4.5rem;
+  transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms, inset-inline-end 500ms;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
 }
 @media (max-width: 540px) {
   label[for=sleep-button].tip {
-    inset-block-end: 7rem;
+    inset-block-end: 8.5rem;
+    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   label[for=sleep-button].tip {
-    inset-block-end: 0.9rem;
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
     inset-inline-start: calc(50% + 12.5rem);
     inset-inline-end: initial;
+  }
+}
+body.show-sleep-panel label[for=sleep-button].tip {
+  inset-block-end: 10.95rem;
+  inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-sleep-panel label[for=sleep-button].tip {
+    inset-block-end: 13.5rem;
+    inset-block-end: calc(13.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-sleep-panel label[for=sleep-button].tip {
+    inset-block-end: 2.4rem;
+    inset-block-end: calc(2.4rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -2591,21 +2643,40 @@ label[for=sleep-button].tip {
 }
 #no-repeat {
   transition: transform 500ms, opacity 500ms, filter 500ms, inset-block-end 500ms;
-  inset-block-end: 6.25rem;
+  inset-block-end: 7.75rem;
+  inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 30;
+  z-index: 70;
   color: orange;
 }
 @media (max-width: 540px) {
   #no-repeat {
-    inset-block-end: 8.75rem;
+    inset-block-end: 10.25rem;
+    inset-block-end: calc(10.25rem + env(safe-area-inset-bottom));
     inset-inline-end: calc(50% - 9rem);
   }
 }
 @media (min-width: 720px) {
   #no-repeat {
-    inset-block-end: 4.5rem;
+    inset-block-end: 6rem;
+    inset-block-end: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
+body.show-sleep-panel #no-repeat {
+  inset-block-end: 12.5rem;
+  inset-block-end: calc(12.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 540px) {
+  body.show-sleep-panel #no-repeat {
+    inset-block-end: 15.1rem;
+    inset-block-end: calc(15.1rem + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 720px) {
+  body.show-sleep-panel #no-repeat {
+    inset-block-end: 10.95rem;
+    inset-block-end: calc(10.95rem + env(safe-area-inset-bottom));
   }
 }
 
@@ -3449,7 +3520,8 @@ button:focus,
 #media-title:focus,
 #media-time:focus,
 #seek-panel:focus-within,
-.popup-panel > label:focus-within {
+.popup-panel > label:focus-within,
+.popup-panel > form > label:focus-within {
   filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
 }
 

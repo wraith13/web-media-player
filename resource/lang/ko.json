@@ -8,6 +8,8 @@
     "Auto": "자동",
     "description": "웹 브라우저에서 실행되는 웹 기반 미디어 플레이어",
     "control-panel": "제어판",
+    "wakeup-timer-panel": "알람 타이머 판넬",
+    "sleep-timer-panel": "슬립 타이머 판넬",
     "transport-panel": "전송판",
     "media-list": "미디어 목록",
     "media-count": "미디어 수",

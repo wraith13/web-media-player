@@ -8,6 +8,8 @@
     "Auto": "Automatisch",
     "description": "Webbasierter Mediaplayer, der im Webbrowser läuft",
     "control-panel": "Bedienfeld",
+    "wakeup-timer-panel": "Wecktimer-Panel",
+    "sleep-timer-panel": "Schlaftimer-Panel",
     "transport-panel": "Transportfeld",
     "media-list": "Medienliste",
     "media-count": "Medienanzahl",

@@ -8,6 +8,8 @@
     "Auto": "Otomatis",
     "description": "Pemutar media berbasis web yang berjalan di peramban",
     "control-panel": "Panel Kontrol",
+    "wakeup-timer-panel": "Panel Timer Bangun",
+    "sleep-timer-panel": "Panel Timer Tidur",
     "transport-panel": "Panel Transportasi",
     "media-list": "Daftar Media",
     "media-count": "Jumlah Media",
