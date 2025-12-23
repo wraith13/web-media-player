@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Tue Dec 23 2025 07:34:28 GMT+0900 (日本標準時)
+    build at: Tue Dec 23 2025 20:17:19 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -4063,8 +4063,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Tue Dec 23 2025 07:34:28 GMT+0900 (日本標準時)",
-    tick: 1766442868206
+    at: "Tue Dec 23 2025 20:17:19 GMT+0900 (日本標準時)",
+    tick: 1766488639155
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -11717,6 +11717,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         var angleFractionDigits = Overlay.getEnoughAngleFractionDigits();
         Overlay.updateStretch = function () {
+            library_1.Library.UI.setStyle // Manually update --short-side for legacy browser compatibility
+            (document.documentElement, "--short-side", "".concat((Math.min(window.innerWidth, window.innerHeight) / 100).toFixed(3), "px"));
             var newAngleFractionDigits = Overlay.getEnoughAngleFractionDigits();
             if (angleFractionDigits !== newAngleFractionDigits) {
                 angleFractionDigits = newAngleFractionDigits;

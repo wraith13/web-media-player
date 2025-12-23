@@ -4897,6 +4897,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         var angleFractionDigits = Overlay.getEnoughAngleFractionDigits();
         Overlay.updateStretch = function () {
+            library_1.Library.UI.setStyle // Manually update --short-side for legacy browser compatibility
+            (document.documentElement, "--short-side", "".concat((Math.min(window.innerWidth, window.innerHeight) / 100).toFixed(3), "px"));
             var newAngleFractionDigits = Overlay.getEnoughAngleFractionDigits();
             if (angleFractionDigits !== newAngleFractionDigits) {
                 angleFractionDigits = newAngleFractionDigits;

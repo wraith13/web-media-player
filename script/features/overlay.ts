@@ -33,6 +33,12 @@ export namespace Overlay
     let angleFractionDigits = getEnoughAngleFractionDigits();
     export const updateStretch = () =>
     {
+        Library.UI.setStyle // Manually update --short-side for legacy browser compatibility
+        (
+            document.documentElement,
+            "--short-side",
+            `${(Math.min(window.innerWidth, window.innerHeight) /100).toFixed(3)}px`
+        );
         const newAngleFractionDigits = getEnoughAngleFractionDigits();
         if (angleFractionDigits !== newAngleFractionDigits)
         {
