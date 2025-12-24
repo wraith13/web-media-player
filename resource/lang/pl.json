@@ -9,6 +9,8 @@
     "description": "Odtwarzacz multimedialny działający w przeglądarce",
     "control-panel": "Panel sterowania",
     "wakeup-timer-panel": "Panel timera budzika",
+    "volume-panel": "Panel głośności",
+    "settings-panel": "Panel ustawień",
     "sleep-timer-panel": "Panel timera uśpienia",
     "transport-panel": "Panel transportu",
     "media-list": "Lista mediów",

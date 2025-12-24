@@ -249,7 +249,7 @@ body.play:not(.mousemove) #screen-body {
 }
 
 #screen-body #background-screen {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -494,7 +494,7 @@ body.list #screen-body #media-screen:not(.show)::before {
   pointer-events: none;
 }
 #screen-body #media-list {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   display: block;
   margin: 0px;
   padding: 0px;
@@ -589,7 +589,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   text-align: center;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 300ms, transform 300ms;
+  transition: background-color 300ms, transform 300ms, opacity 1000ms, filter 1000ms;
 }
 #screen-body #media-list .item:not(.add) {
   border-color: rgba(230, 237, 243, calc(0.9 * var(--white-depth)));
@@ -780,7 +780,7 @@ body:not(.play):not(.mousemove).sleeped #screen-body #media-list:not(.show)::bef
   }
 }
 #screen-body #media-list .item.add {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   background-color: transparent;
   padding: 0px;
   cursor: default;
@@ -905,7 +905,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 }
 
 #analog-clock-background {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -954,7 +954,7 @@ body.list #analog-clock-background:not(.show)::before {
 }
 
 #analog-clock-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   margin: 0px;
   inset-block-start: 0px;
   inset-block-end: 0px;
@@ -1227,21 +1227,6 @@ body.show-paused-media #screen-body #media-screen {
 body.show-paused-media #screen-body #background-screen {
   opacity: 0;
 }
-body.show-paused-media #screen-body #media-list .item.add {
-  opacity: 0.7;
-  filter: blur(0.1rem);
-  transition: opacity 1000ms, filter 1000ms;
-}
-@media (hover: hover) {
-  body.show-paused-media #screen-body #media-list .item.add:hover {
-    opacity: 1;
-    filter: none;
-  }
-}
-body.show-paused-media #screen-body #media-list .item:not(.add) {
-  opacity: 0.3;
-  transition: opacity 1000ms, filter 1000ms;
-}
 
 #element-pool {
   display: none;
@@ -1282,7 +1267,7 @@ body.show-paused-media #screen-body #media-list .item:not(.add) {
   text-align: end;
   white-space: pre;
   will-change: contents opacity filter;
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 html:not([dir=rtl]) #fps {
   inset-inline-end: 0.5rem;
@@ -1405,7 +1390,7 @@ body:not(.progress-circle) #progress-circle {
 }
 
 #no-media-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 body:not(.no-media) #no-media-panel:not(.show) {
   opacity: 0;
@@ -1431,7 +1416,7 @@ body:not(.no-media) #no-media-panel {
 }
 
 #not-supported-media-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 body:not(.not-supported-media) #not-supported-media-panel:not(.show) {
   opacity: 0;
@@ -1457,7 +1442,7 @@ body:not(.not-supported-media) #not-supported-media-panel {
 }
 
 #wakeup-timer-not-working-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   color: orange;
 }
 body:not(.wakeup-timer-not-working) #wakeup-timer-not-working-panel:not(.show) {
@@ -1480,7 +1465,7 @@ body:not(.wakeup-timer-not-working) #wakeup-timer-not-working-panel:not(.show)::
 }
 
 #wakeup-timer-requires-active-page-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   color: orange;
 }
 body:not(.wakeup-timer-requires-active-page) #wakeup-timer-requires-active-page-panel:not(.show) {
@@ -1512,19 +1497,19 @@ body:not(.wakeup-timer-requires-active-page) #wakeup-timer-requires-active-page-
   padding-inline: 0.25rem;
 }
 
-#control-panel form {
+#control-panel {
   backdrop-filter: blur(0.5rem);
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
-body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show) {
+body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
+body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -1537,11 +1522,7 @@ body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
   transition: filter 750ms;
 }
 
-#control-panel form {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+#control-panel {
   border-radius: 4.5rem;
   inset-block-end: 1.5rem;
   inset-block-end: calc(1.5rem + env(safe-area-inset-bottom));
@@ -1550,6 +1531,12 @@ body.play:not(.show-ui):not(.keyinput) #control-panel form:not(.show)::before {
   position: fixed;
   z-index: 60;
   padding: 0.25rem 0.25rem;
+}
+#control-panel form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   gap: 0.25rem;
 }
 #control-panel form label[for=wakeup-button].icon-button {
@@ -1706,7 +1693,7 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped #screen-footer {
 #transport-panel #back-button,
 #transport-panel #fast-forward-button,
 #transport-panel #rewind-button {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 body:not(.play):not(.show-paused-media) #transport-panel #media-index:not(.show),
 body:not(.play):not(.show-paused-media) #transport-panel #media-title:not(.show),
@@ -1826,7 +1813,7 @@ body:not(.show-ui):not(.keyinput) #transport-panel #rewind-button:not(.show)::be
   top: calc(0.5rem + env(safe-area-inset-top));
 }
 #transport-panel #media-index {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   font-size: 0.75rem;
   font-weight: 400;
 }
@@ -1877,7 +1864,7 @@ html[dir=rtl] #transport-panel #media-index {
 }
 
 #transport-panel #media-title {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 body.show-seek-bar #transport-panel #media-title:not(.show) {
   opacity: 0;
@@ -1962,7 +1949,7 @@ body.show-seek-bar #transport-panel #media-title:not(.show)::before {
   direction: ltr;
 }
 #transport-panel #media-time-frame #seek-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
@@ -2174,9 +2161,28 @@ body.no-media #rewind-button {
   }
 }
 #wakeup-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) #wakeup-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) #wakeup-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2203,27 +2209,47 @@ body:not(.show-wakeup-panel) #wakeup-panel:not(.show) {
 #wakeup-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 6rem;
-  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
-  inset-inline-start: calc(50% - 12.5rem);
+  inset-block-end: 6.25rem;
+  inset-block-end: calc(6.25rem + env(safe-area-inset-bottom));
+  inset-inline-start: calc(50% - 12rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
+}
+#wakeup-panel form {
   gap: 0.25rem;
 }
 @media (max-width: 540px) {
   #wakeup-panel {
-    inset-block-end: 8.5rem;
-    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
-    inset-inline-start: calc(50% - 9.5rem);
+    inset-block-end: 8.75rem;
+    inset-block-end: calc(8.75rem + env(safe-area-inset-bottom));
+    inset-inline-start: calc(50% - 9rem);
   }
 }
 
 label[for=wakeup-button].tip {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) label[for=wakeup-button].tip:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) label[for=wakeup-button].tip:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 label[for=wakeup-button].tip:empty:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2247,7 +2273,7 @@ label[for=wakeup-button].tip:empty:not(.show) {
 }
 @media (max-width: 719.99px) {
   label[for=wakeup-button].tip {
-    transition: display 750ms, opacity 750ms, filter 750ms;
+    transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
   body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
@@ -2278,7 +2304,7 @@ label[for=wakeup-button].tip {
   inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 70;
+  z-index: 50;
 }
 @media (max-width: 540px) {
   label[for=wakeup-button].tip {
@@ -2313,9 +2339,28 @@ body.show-wakeup-panel label[for=wakeup-button].tip {
 }
 
 #no-media {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) #no-media:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) #no-media:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 #no-media.hide:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2343,7 +2388,7 @@ body.show-wakeup-panel label[for=wakeup-button].tip {
   inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-start: calc(50% - 12rem);
   position: fixed;
-  z-index: 70;
+  z-index: 50;
   color: red;
 }
 @media (max-width: 540px) {
@@ -2396,18 +2441,18 @@ label[for=volume-button] #speaker-mute-icon svg {
 }
 
 #volume-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   backdrop-filter: blur(0.5rem);
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
-body label[for=volume-button]:not(.checked) + #volume-panel:not(.show) {
+body.play:not(.show-ui):not(.keyinput) #volume-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=volume-button]:not(.checked) + #volume-panel:not(.show)::before {
+body.play:not(.show-ui):not(.keyinput) #volume-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2419,10 +2464,31 @@ body label[for=volume-button]:not(.checked) + #volume-panel:not(.show)::before {
   z-index: -1;
   transition: filter 750ms;
 }
+
+body:not(.show-volume-panel) #volume-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-volume-panel) #volume-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 #volume-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 7.5rem;
+  inset-block-end: 9rem;
+  inset-block-end: calc(9rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 8.625rem);
   position: fixed;
   z-index: 60;
@@ -2436,16 +2502,16 @@ html[dir=rtl] #volume-panel {
 }
 
 #settings-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
-body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
+body.play:not(.show-ui):not(.keyinput) #settings-panel:not(.show) {
   opacity: 0;
   cursor: none;
   pointer-events: none;
   filter: blur(1em);
 }
-body label[for=settings-button]:not(.checked) + #settings-panel:not(.show)::before {
+body.play:not(.show-ui):not(.keyinput) #settings-panel:not(.show)::before {
   content: "";
   position: absolute;
   top: -1em;
@@ -2457,13 +2523,35 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show)::befo
   z-index: -1;
   transition: filter 750ms;
 }
-body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
+
+body:not(.show-settings-panel) #settings-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body:not(.show-settings-panel) #settings-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
+body:not(.show-settings-panel) #settings-panel:not(.show) {
   transform: translate(0px, 100%);
 }
+
 #settings-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 4.5rem;
+  inset-block-end: 6rem;
+  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   left: 50%;
   translate: -50% 0%;
   max-height: calc(100vh - 6.5rem);
@@ -2473,14 +2561,34 @@ body label[for=settings-button]:not(.checked) + #settings-panel:not(.show) {
   backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
+}
+#settings-panel form {
   gap: 0.25rem;
 }
 
 #sleep-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) #sleep-panel:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) #sleep-panel:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 body:not(.show-sleep-panel) #sleep-panel:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2507,27 +2615,47 @@ body:not(.show-sleep-panel) #sleep-panel:not(.show) {
 #sleep-panel {
   transition: transform 500ms, opacity 500ms, filter 500ms;
   border-radius: 0.5rem;
-  inset-block-end: 6rem;
-  inset-block-end: calc(6rem + env(safe-area-inset-bottom));
-  inset-inline-end: calc(50% - 12.5rem);
+  inset-block-end: 6.25rem;
+  inset-block-end: calc(6.25rem + env(safe-area-inset-bottom));
+  inset-inline-end: calc(50% - 12rem);
   backdrop-filter: blur(0.5rem);
   position: fixed;
   z-index: 60;
-  padding: 0.25rem 0.5rem;
+}
+#sleep-panel form {
   gap: 0.25rem;
 }
 @media (max-width: 540px) {
   #sleep-panel {
-    inset-block-end: 8.5rem;
-    inset-block-end: calc(8.5rem + env(safe-area-inset-bottom));
-    inset-inline-end: calc(50% - 9.5rem);
+    inset-block-end: 8.75rem;
+    inset-block-end: calc(8.75rem + env(safe-area-inset-bottom));
+    inset-inline-end: calc(50% - 9rem);
   }
 }
 
 label[for=sleep-button].tip {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) label[for=sleep-button].tip:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) label[for=sleep-button].tip:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 label[for=sleep-button].tip:empty:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2551,7 +2679,7 @@ label[for=sleep-button].tip:empty:not(.show) {
 }
 @media (max-width: 719.99px) {
   label[for=sleep-button].tip {
-    transition: display 750ms, opacity 750ms, filter 750ms;
+    transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
   body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
@@ -2582,7 +2710,7 @@ label[for=sleep-button].tip {
   inset-block-end: calc(6rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 70;
+  z-index: 50;
 }
 @media (max-width: 540px) {
   label[for=sleep-button].tip {
@@ -2617,9 +2745,28 @@ body.show-sleep-panel label[for=sleep-button].tip {
 }
 
 #no-repeat {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
   transition: transform 500ms;
 }
+body.play:not(.show-ui):not(.keyinput) #no-repeat:not(.show) {
+  opacity: 0;
+  cursor: none;
+  pointer-events: none;
+  filter: blur(1em);
+}
+body.play:not(.show-ui):not(.keyinput) #no-repeat:not(.show)::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  background: inherit;
+  filter: blur(1em);
+  z-index: -1;
+  transition: filter 750ms;
+}
+
 #no-repeat.hide:not(.show) {
   opacity: 0;
   cursor: none;
@@ -2647,7 +2794,7 @@ body.show-sleep-panel label[for=sleep-button].tip {
   inset-block-end: calc(7.75rem + env(safe-area-inset-bottom));
   inset-inline-end: calc(50% - 12rem);
   position: fixed;
-  z-index: 70;
+  z-index: 50;
   color: orange;
 }
 @media (max-width: 540px) {
@@ -2832,7 +2979,7 @@ label:not(.icon-button).link-label:not(:hover) a {
 }
 
 #overlay-panel {
-  transition: display 750ms, opacity 750ms, filter 750ms;
+  transition: opacity 750ms, filter 750ms;
 }
 body:not(.play) #overlay-panel:not(.show) {
   opacity: 0;
@@ -3520,9 +3667,8 @@ button:focus,
 #media-title:focus,
 #media-time:focus,
 #seek-panel:focus-within,
-.popup-panel > label:focus-within,
-.popup-panel > form > label:focus-within {
-  filter: drop-shadow(hsl(100, 100%, 50%) 0px 0px 0.25rem) drop-shadow(hsl(200, 100%, 50%) 0px 0px 1rem);
+.popup-panel label:focus-within {
+  filter: drop-shadow(0px 0px 0.25rem hsl(100, 100%, 50%)) drop-shadow(0px 0px 1rem hsl(200, 100%, 50%));
 }
 
 /*# sourceMappingURL=index.css.map */

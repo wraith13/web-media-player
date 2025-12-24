@@ -9,6 +9,8 @@
     "description": "Reprodutor de mídia baseado na web que roda em um navegador",
     "control-panel": "Painel de controle",
     "wakeup-timer-panel": "Painel do temporizador de despertar",
+    "volume-panel": "Painel de volume",
+    "settings-panel": "Painel de configurações",
     "sleep-timer-panel": "Painel do temporizador de suspensão",
     "transport-panel": "Painel de transporte",
     "media-list": "Lista de mídia",

@@ -9,6 +9,8 @@
     "description": "Web ブラウザ上で動作するメディアプレイヤー",
     "control-panel": "コントロールパネル",
     "wakeup-timer-panel": "起床タイマーパネル",
+    "volume-panel": "ボリュームパネル",
+    "settings-panel": "設定パネル",
     "sleep-timer-panel": "スリープタイマーパネル",
     "transport-panel": "トランスポートパネル",
     "media-list": "メディアリスト",

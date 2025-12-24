@@ -9,6 +9,8 @@
     "description": "Web-based media player that runs in a web browser",
     "control-panel": "Control Panel",
     "wakeup-timer-panel": "Wake-up Timer Panel",
+    "volume-panel": "Volume Panel",
+    "settings-panel": "Settings Panel",
     "sleep-timer-panel": "Sleep Timer Panel",
     "transport-panel": "Transport Panel",
     "media-list": "Media List",

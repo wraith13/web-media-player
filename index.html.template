@@ -142,125 +142,10 @@ DUMMYSTYLE
             <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
             <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
         </label>
-        <div id="volume-panel" role="presentation">
-            <input id="volume" type="range" data-aria-lang-key="Volume" />
-        </div>
         <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
             <input id="settings-button" type="checkbox">
             __COG_ICON__
         </label>
-        <div id="settings-panel" class="popup-panel" role="presentation">
-            <label for="media-count" class="information" aria-labelledby="media-count-label-span">
-                <span id="media-count-label-span" data-lang-key="media-count"></span>
-                <span id="media-count" class="value-text"></span>
-            </label>
-            <label for="media-length" class="information" aria-labelledby="media-length-label-span">
-                <span id="media-length-label-span" data-lang-key="media-length"></span>
-                <span id="media-length" class="value-text"></span>
-            </label>
-            <label for="with-fullscreen" aria-labelledby="with-fullscreen-label-span">
-                <span id="with-fullscreen-label-span" data-lang-key="with-fullscreen"></span>
-                <input id="with-fullscreen" type="checkbox" />
-            </label>
-            <label for="brightness" aria-labelledby="brightness-label-span">
-                <span id="brightness-label-span" data-lang-key="brightness"></span>
-                <input id="brightness" type="range" />
-            </label>
-            <label for="stretch" aria-labelledby="stretch-label-span">
-                <span id="stretch-label-span" data-lang-key="stretch"></span>
-                <input id="stretch" type="range" />
-            </label>
-            <label for="padding" aria-labelledby="padding-label-span">
-                <span id="padding-label-span" data-lang-key="padding"></span>
-                <input id="padding" type="checkbox" />
-            </label>
-            <label for="image-span" aria-labelledby="image-span-label-span">
-                <span id="image-span-label-span" data-lang-key="image-span"></span>
-                <select id="image-span"></select>
-            </label>
-            <label for="loop-short-media" aria-labelledby="loop-short-media-label-span">
-                <span id="loop-short-media-label-span" data-lang-key="loop-short-media"></span>
-                <input id="loop-short-media" type="checkbox" />
-            </label>
-            <label for="visualizer-type" aria-labelledby="visualizer-type-label-span">
-                <span id="visualizer-type-label-span" data-lang-key="visualizer"></span>
-                <select id="visualizer-type"></select>
-            </label>
-            <label for="cross-fade" aria-labelledby="cross-fade-label-span">
-                <span id="cross-fade-label-span" data-lang-key="cross-fade"></span>
-                <select id="cross-fade"></select>
-            </label>
-            <label for="cross-fade-transition" class="indent" aria-labelledby="cross-fade-transition-label-span">
-                <span id="cross-fade-transition-label-span" data-lang-key="cross-fade-transition"></span>
-                <select id="cross-fade-transition"></select>
-            </label>
-            <label for="analog-clock" aria-labelledby="analog-clock-label-span">
-                <span id="analog-clock-label-span" data-lang-key="analog-clock"></span>
-                <input id="analog-clock" type="checkbox" />
-            </label>
-            <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
-                <span id="24hours-hand-label-span" data-lang-key="24hours-hand"></span>
-                <input id="24hours-hand" type="checkbox" />
-            </label>
-            <label for="date-hands" class="indent" aria-labelledby="date-hands-label-span">
-                <span id="date-hands-label-span" data-lang-key="date-hands"></span>
-                <input id="date-hands" type="checkbox" />
-            </label>
-            <label for="millisecond-hand" class="indent" aria-labelledby="millisecond-hand-label-span">
-                <span id="millisecond-hand-label-span" data-lang-key="millisecond-hand"></span>
-                <input id="millisecond-hand" type="checkbox" />
-            </label>
-            <label for="overlay-style" aria-labelledby="overlay-style-label-span">
-                <span id="overlay-style-label-span" data-lang-key="overlay-style"></span>
-                <select id="overlay-style"></select>
-            </label>
-            <label for="overlay-position" class="indent" aria-labelledby="overlay-position-label-span">
-                <span id="overlay-position-label-span" data-lang-key="overlay-position"></span>
-                <select id="overlay-position"></select>
-            </label>
-            <label for="with-weather" class="indent" aria-labelledby="with-weather-label-span">
-                <span id="with-weather-label-span" data-lang-key="with-weather"></span>
-                <input id="with-weather" type="checkbox" />
-            </label>
-            <label for="weather-location" class="indent2" aria-labelledby="weather-location-label-span">
-                <span id="weather-location-label-span" data-lang-key="weather-location"></span>
-                <select id="weather-location"></select>
-            </label>
-            <label for="with-clock" class="indent" aria-labelledby="with-clock-label-span">
-                <span id="with-clock-label-span" data-lang-key="with-clock"></span>
-                <input id="with-clock" type="checkbox" />
-            </label>
-            <label for="with-date" class="indent" aria-labelledby="with-date-label-span">
-                <span id="with-date-label-span" data-lang-key="with-date"></span>
-                <input id="with-date" type="checkbox" />
-            </label>
-            <label for="with-calendar" class="indent" aria-labelledby="with-calendar-label-span">
-                <span id="with-calendar-label-span" data-lang-key="with-calendar"></span>
-                <input id="with-calendar" type="checkbox" />
-            </label>
-            <label for="with-visualizer" class="indent" aria-labelledby="with-visualizer-label-span">
-                <span id="with-visualizer-label-span" data-lang-key="with-visualizer"></span>
-                <input id="with-visualizer" type="checkbox" />
-            </label>
-            <label for="show-fps" aria-labelledby="show-fps-label-span">
-                <span id="show-fps-label-span" data-lang-key="show-fps"></span>
-                <input id="show-fps" type="checkbox" />
-            </label>
-            <label for="shortcuts" aria-labelledby="shortcuts-label-span">
-                <span id="shortcuts-label-span" data-lang-key="shortcuts"></span>
-                <select id="shortcuts"></select>
-            </label>
-            <label for="language" aria-labelledby="language-label-span">
-                <span id="language-label-span" data-lang-key="language"></span>
-                <select id="language"></select>
-            </label>
-            <label for="url" class="link-label" aria-labelledby="url">
-                <a id="url" href="?"><span data-lang-key="url"></span></a>
-            </label>
-            <label for="repository" class="link-label" aria-labelledby="repository">
-                <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository"></span></a>
-            </label>
-        </div>
         <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
             <input id="sleep-button" type="checkbox">
             <div id="sleep-progress-circle" role="presentation"></div>
@@ -287,6 +172,125 @@ DUMMYSTYLE
 </div>
 <label id="wakeup-timer" for="wakeup-button" class="tip solid-label" role="status"></label>
 <label id="no-media" for="add-file" class="tip solid-label hide" role="tooltip"><span data-lang-key="no-media-message"></span></label>
+<div id="volume-panel" class="popup-panel" role="presentation">
+    <form data-aria-lang-key="volume-panel">
+        <input id="volume" type="range" data-aria-lang-key="Volume" />
+    </form>
+</div>
+<div id="settings-panel" class="popup-panel" role="presentation">
+    <form data-aria-lang-key="settings-panel">
+        <label for="media-count" class="information" aria-labelledby="media-count-label-span">
+            <span id="media-count-label-span" data-lang-key="media-count"></span>
+            <span id="media-count" class="value-text"></span>
+        </label>
+        <label for="media-length" class="information" aria-labelledby="media-length-label-span">
+            <span id="media-length-label-span" data-lang-key="media-length"></span>
+            <span id="media-length" class="value-text"></span>
+        </label>
+        <label for="with-fullscreen" aria-labelledby="with-fullscreen-label-span">
+            <span id="with-fullscreen-label-span" data-lang-key="with-fullscreen"></span>
+            <input id="with-fullscreen" type="checkbox" />
+        </label>
+        <label for="brightness" aria-labelledby="brightness-label-span">
+            <span id="brightness-label-span" data-lang-key="brightness"></span>
+            <input id="brightness" type="range" />
+        </label>
+        <label for="stretch" aria-labelledby="stretch-label-span">
+            <span id="stretch-label-span" data-lang-key="stretch"></span>
+            <input id="stretch" type="range" />
+        </label>
+        <label for="padding" aria-labelledby="padding-label-span">
+            <span id="padding-label-span" data-lang-key="padding"></span>
+            <input id="padding" type="checkbox" />
+        </label>
+        <label for="image-span" aria-labelledby="image-span-label-span">
+            <span id="image-span-label-span" data-lang-key="image-span"></span>
+            <select id="image-span"></select>
+        </label>
+        <label for="loop-short-media" aria-labelledby="loop-short-media-label-span">
+            <span id="loop-short-media-label-span" data-lang-key="loop-short-media"></span>
+            <input id="loop-short-media" type="checkbox" />
+        </label>
+        <label for="visualizer-type" aria-labelledby="visualizer-type-label-span">
+            <span id="visualizer-type-label-span" data-lang-key="visualizer"></span>
+            <select id="visualizer-type"></select>
+        </label>
+        <label for="cross-fade" aria-labelledby="cross-fade-label-span">
+            <span id="cross-fade-label-span" data-lang-key="cross-fade"></span>
+            <select id="cross-fade"></select>
+        </label>
+        <label for="cross-fade-transition" class="indent" aria-labelledby="cross-fade-transition-label-span">
+            <span id="cross-fade-transition-label-span" data-lang-key="cross-fade-transition"></span>
+            <select id="cross-fade-transition"></select>
+        </label>
+        <label for="analog-clock" aria-labelledby="analog-clock-label-span">
+            <span id="analog-clock-label-span" data-lang-key="analog-clock"></span>
+            <input id="analog-clock" type="checkbox" />
+        </label>
+        <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
+            <span id="24hours-hand-label-span" data-lang-key="24hours-hand"></span>
+            <input id="24hours-hand" type="checkbox" />
+        </label>
+        <label for="date-hands" class="indent" aria-labelledby="date-hands-label-span">
+            <span id="date-hands-label-span" data-lang-key="date-hands"></span>
+            <input id="date-hands" type="checkbox" />
+        </label>
+        <label for="millisecond-hand" class="indent" aria-labelledby="millisecond-hand-label-span">
+            <span id="millisecond-hand-label-span" data-lang-key="millisecond-hand"></span>
+            <input id="millisecond-hand" type="checkbox" />
+        </label>
+        <label for="overlay-style" aria-labelledby="overlay-style-label-span">
+            <span id="overlay-style-label-span" data-lang-key="overlay-style"></span>
+            <select id="overlay-style"></select>
+        </label>
+        <label for="overlay-position" class="indent" aria-labelledby="overlay-position-label-span">
+            <span id="overlay-position-label-span" data-lang-key="overlay-position"></span>
+            <select id="overlay-position"></select>
+        </label>
+        <label for="with-weather" class="indent" aria-labelledby="with-weather-label-span">
+            <span id="with-weather-label-span" data-lang-key="with-weather"></span>
+            <input id="with-weather" type="checkbox" />
+        </label>
+        <label for="weather-location" class="indent2" aria-labelledby="weather-location-label-span">
+            <span id="weather-location-label-span" data-lang-key="weather-location"></span>
+            <select id="weather-location"></select>
+        </label>
+        <label for="with-clock" class="indent" aria-labelledby="with-clock-label-span">
+            <span id="with-clock-label-span" data-lang-key="with-clock"></span>
+            <input id="with-clock" type="checkbox" />
+        </label>
+        <label for="with-date" class="indent" aria-labelledby="with-date-label-span">
+            <span id="with-date-label-span" data-lang-key="with-date"></span>
+            <input id="with-date" type="checkbox" />
+        </label>
+        <label for="with-calendar" class="indent" aria-labelledby="with-calendar-label-span">
+            <span id="with-calendar-label-span" data-lang-key="with-calendar"></span>
+            <input id="with-calendar" type="checkbox" />
+        </label>
+        <label for="with-visualizer" class="indent" aria-labelledby="with-visualizer-label-span">
+            <span id="with-visualizer-label-span" data-lang-key="with-visualizer"></span>
+            <input id="with-visualizer" type="checkbox" />
+        </label>
+        <label for="show-fps" aria-labelledby="show-fps-label-span">
+            <span id="show-fps-label-span" data-lang-key="show-fps"></span>
+            <input id="show-fps" type="checkbox" />
+        </label>
+        <label for="shortcuts" aria-labelledby="shortcuts-label-span">
+            <span id="shortcuts-label-span" data-lang-key="shortcuts"></span>
+            <select id="shortcuts"></select>
+        </label>
+        <label for="language" aria-labelledby="language-label-span">
+            <span id="language-label-span" data-lang-key="language"></span>
+            <select id="language"></select>
+        </label>
+        <label for="url" class="link-label" aria-labelledby="url">
+            <a id="url" href="?"><span data-lang-key="url"></span></a>
+        </label>
+        <label for="repository" class="link-label" aria-labelledby="repository">
+            <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository"></span></a>
+        </label>
+    </form>
+</div>
 <div id="sleep-panel" class="popup-panel" role="presentation">
     <form data-aria-lang-key="sleep-timer-panel">
         <label id="sleep-toggle-label" class="toggle-label" tabindex="0" aria-labelledby="sleep-toggle-label-span">

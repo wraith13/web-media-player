@@ -51,17 +51,9 @@
         transition: filter 750ms;
     }
 }
-@mixin fade-transition-without-vanish($modes...)
-{
-    transition: opacity 750ms, filter 750ms;
-    @include apply-transition-effect($modes...)
-    {
-        @include fade-effect();
-    }
-}
 @mixin fade-transition($modes...)
 {
-    transition: display 750ms, opacity 750ms, filter 750ms;
+    transition: opacity 750ms, filter 750ms;
     @include apply-transition-effect($modes...)
     {
         //@include vanish-animation(750ms);
@@ -329,7 +321,7 @@
 }
 @mixin focus-halo()
 {
-    filter: drop-shadow($second-accent-color 0px 0px 0.25rem) drop-shadow($accent-color 0px 0px 1rem);
+    filter: drop-shadow(0px 0px 0.25rem $second-accent-color) drop-shadow(0px 0px 1rem $accent-color);
 }
 @mixin even-clock-ticks($count) {
     $half-count: math.div($count, 2);

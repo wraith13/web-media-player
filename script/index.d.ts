@@ -42,6 +42,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -146,6 +148,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -250,6 +254,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -354,6 +360,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -458,6 +466,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -562,6 +572,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -666,6 +678,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -770,6 +784,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -874,6 +890,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -978,6 +996,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1082,6 +1102,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1186,6 +1208,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1290,6 +1314,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1394,6 +1420,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1498,6 +1526,8 @@ declare module "locale/generated/master" {
             description: string;
             "control-panel": string;
             "wakeup-timer-panel": string;
+            "volume-panel": string;
+            "settings-panel": string;
             "sleep-timer-panel": string;
             "transport-panel": string;
             "media-list": string;
@@ -1607,6 +1637,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -1711,6 +1743,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -1815,6 +1849,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -1919,6 +1955,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2023,6 +2061,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2127,6 +2167,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2231,6 +2273,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2335,6 +2379,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2439,6 +2485,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2543,6 +2591,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2647,6 +2697,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2751,6 +2803,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2855,6 +2909,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -2959,6 +3015,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -3063,6 +3121,8 @@ declare module "script/library/locale" {
                 description: string;
                 "control-panel": string;
                 "wakeup-timer-panel": string;
+                "volume-panel": string;
+                "settings-panel": string;
                 "sleep-timer-panel": string;
                 "transport-panel": string;
                 "media-list": string;
@@ -3586,6 +3646,7 @@ declare module "script/ui" {
                 bodyClassToggle?: string;
             };
             hideTimer: ReturnType<typeof setTimeout> | null;
+            form: HTMLFormElement | null;
             constructor(element: HTMLElement, options?: {
                 delay?: number;
                 bodyClassToggle?: string;

@@ -21,6 +21,7 @@ export namespace UI
     export class VisibilityApplier
     {
         hideTimer: ReturnType<typeof setTimeout> | null = null;
+        form: HTMLFormElement | null = null;;
         constructor(public element: HTMLElement, public options: { delay?: number, bodyClassToggle?: string } = {})
         {
             // This class serves two purposes:
@@ -30,18 +31,25 @@ export namespace UI
             //    visibility so screen readers do not announce hidden UI.
             // To accomplish this correctly, visibility is applied at the start of the transition,
             // while hiding is performed after the transition has finished.
+            const singleChildElement = this.element.children.item(0);
+            if (singleChildElement && singleChildElement instanceof HTMLFormElement)
+            {
+                this.form = singleChildElement;
+            }
         }
         show(visibility: boolean = true): void
         {
             this.clearHideTimer();
             if (visibility)
             {
-                this.element.style.removeProperty("display");
+                ;
                 this.element.setAttribute("aria-hidden", "false");
-                if (this.options.bodyClassToggle)
+                const bodyClassToggle = this.options.bodyClassToggle;
+                if (bodyClassToggle)
                 {
-                    document.body.classList.toggle(this.options.bodyClassToggle, true);
+                    document.body.classList.toggle(bodyClassToggle, true);
                 }
+                (this.form ?? this.element).style.removeProperty("display");
             }
             else
             {
@@ -75,7 +83,7 @@ export namespace UI
         immediateHide(): void
         {
             this.clearHideTimer();
-            this.element.style.setProperty("display", "none");
+            (this.form ?? this.element).style.setProperty("display", "none");
             this.element.setAttribute("aria-hidden", "true");
             if (this.options.bodyClassToggle)
             {
@@ -116,9 +124,9 @@ export namespace UI
         export const wakeupPanelVisibilityApplier =
             new VisibilityApplier(wakeupPanel, { bodyClassToggle: "show-wakeup-panel", });
         export const volumePanelVisibilityApplier =
-            new VisibilityApplier(volumePanel);
+            new VisibilityApplier(volumePanel, { bodyClassToggle: "show-volume-panel", });
         export const settingsPanelVisibilityApplier =
-            new VisibilityApplier(settingsPanel);
+            new VisibilityApplier(settingsPanel, { bodyClassToggle: "show-settings-panel", });
         export const sleepPanelVisibilityApplier =
             new VisibilityApplier(sleepPanel, { bodyClassToggle: "show-sleep-panel", });
     }
@@ -650,15 +658,8 @@ export namespace UI
                 {
                     i.checkbox.toggle(false, "preventOnChange");
                 }
+                updateParentClassBasedOnCheckbox(i.checkbox);
                 const checked = i.checkbox.get();
-                setTimeout
-                (
-                    () =>
-                    {
-                        updateParentClassBasedOnCheckbox(i.checkbox);
-                    },
-                    0
-                );
                 i.visibilityApplier.show(checked);
             }
         );

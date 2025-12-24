@@ -9,6 +9,8 @@
     "description": "Pemutar media berbasis web yang berjalan di peramban",
     "control-panel": "Panel Kontrol",
     "wakeup-timer-panel": "Panel Timer Bangun",
+    "volume-panel": "Panel Volume",
+    "settings-panel": "Panel Pengaturan",
     "sleep-timer-panel": "Panel Timer Tidur",
     "transport-panel": "Panel Transportasi",
     "media-list": "Daftar Media",

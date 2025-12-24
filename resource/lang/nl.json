@@ -9,6 +9,8 @@
     "description": "Webgebaseerde mediaspeler die in een webbrowser draait",
     "control-panel": "Bedieningspaneel",
     "wakeup-timer-panel": "Wekker-timer paneel",
+    "volume-panel": "Volumepaneel",
+    "settings-panel": "Instellingenpaneel",
     "sleep-timer-panel": "Slaap-timer paneel",
     "transport-panel": "Transportpaneel",
     "media-list": "Medialijst",

@@ -9,6 +9,8 @@
     "description": "Lettore multimediale web che viene eseguito nel browser",
     "control-panel": "Pannello di controllo",
     "wakeup-timer-panel": "Pannello timer di risveglio",
+    "volume-panel": "Pannello del volume",
+    "settings-panel": "Pannello delle impostazioni",
     "sleep-timer-panel": "Pannello timer di sospensione",
     "transport-panel": "Pannello di trasporto",
     "media-list": "Elenco media",
