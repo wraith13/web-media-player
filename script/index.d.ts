@@ -3849,14 +3849,14 @@ declare module "script/ui" {
             const panel: HTMLTimeElement;
             const background: HTMLDivElement;
             const monthPanel: HTMLDivElement;
-            const yearNiddle: HTMLDivElement;
-            const monthNiddle: HTMLDivElement;
-            const weekNiddle: HTMLDivElement;
-            const dayNiddle: HTMLDivElement;
-            const hoursNiddle: HTMLDivElement;
-            const minutesNiddle: HTMLDivElement;
-            const secondsNiddle: HTMLDivElement;
-            const milliSecondsNiddle: HTMLDivElement;
+            const yearNeedle: HTMLDivElement;
+            const monthNeedle: HTMLDivElement;
+            const weekNeedle: HTMLDivElement;
+            const dayNeedle: HTMLDivElement;
+            const hoursNeedle: HTMLDivElement;
+            const minutesNeedle: HTMLDivElement;
+            const secondsNeedle: HTMLDivElement;
+            const milliSecondsNeedle: HTMLDivElement;
             const visibilityApplier: VisibilityApplier;
             const updateVisibility: () => void;
         }
@@ -3978,7 +3978,7 @@ declare module "script/features/overlay" {
         let locale: string | undefined;
         let title: string | undefined;
         let subtitle: string | undefined;
-        const setAnalogClockNiddleAngle: (niddle: HTMLDivElement, angle: number) => boolean;
+        const setAnalogClockNeedleAngle: (needle: HTMLDivElement, angle: number) => boolean;
         const getEnoughAngleFractionDigits: () => number;
         const updateStretch: () => void;
         const getAnalogClockSize: () => number | null;
@@ -4115,7 +4115,7 @@ declare module "script/features/visualizer" {
         const isStereoArcFrequencyMode: () => boolean;
         const isStereoArcWaveformMode: () => boolean;
         const isStereoDoubleArcMode: () => boolean;
-        const make: (media: Media.Entry, index: number) => VisualizerDom;
+        const make: (_media: Media.Entry, index: number) => VisualizerDom;
         const makeSureIcon: (cssClass: string, icon: Library.Svg.KeyType) => (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureAudioIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
         const makeSureMuteIcon: (visualDom: VisualizerDom) => Promise<SVGElement>;
@@ -4656,6 +4656,7 @@ declare module "script/events" {
         let locale: string | undefined;
         const updateVolume: (disableLog?: "disableLog") => void;
         const updateBrightness: (disableLog?: "disableLog") => void;
+        const updateStretch: (disableLog?: "disableLog") => void;
         const makeTimerLabel: (remainingTime: number | null, locale?: Intl.LocalesArgument) => string;
         const updateWakeUpTimer: (remainingTime?: number | null) => void;
         const updateSleepTimer: (remainingTime?: number | null) => void;

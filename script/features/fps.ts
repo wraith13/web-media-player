@@ -42,7 +42,7 @@ export namespace Fps
     export let currentMinFps: FpsHistoryEntry;
     export let fuseFps: number;
     export let isValid: boolean;
-    export let averageFps: number = NaN; // 直近1秒間の平均FPSを格納する変数
+    export let averageFps: number = NaN; // Stores the average FPS over the most recent 1 second
     const makeInvalidFpsHistoryEntry = (): FpsHistoryEntry =>
         ({
             fps: NaN,

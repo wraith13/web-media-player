@@ -21,8 +21,6 @@ export namespace Weather
             `https://${site}/?format=${encodeURIComponent(format)}${getTemperatureParam(locale)}${separator}%l`;
     let lastRequestTimestamp: number = 0;
     let isLastRequestWithGeolocation: boolean = false;
-    // export const enforceMonocromeFont = (text: string): string =>
-    //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
     export const fetch = async (location?: string): Promise<string | undefined> =>
     {
         let result: Awaited<ReturnType<typeof fetch>> = undefined;
@@ -32,7 +30,6 @@ export namespace Weather
             const response = await window.fetch(makeRequestUrl(location));
             if (response.ok)
             {
-                //result = enforceMonocromeFont(await response.text())
                 result = (await response.text())
                     .replace(/\s+/g, " ")
                     .trim();

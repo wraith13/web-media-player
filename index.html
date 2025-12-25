@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Thu Dec 25 2025 12:25:59 GMT+0900 (日本標準時)
+    build at: Thu Dec 25 2025 20:34:27 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -119,11 +119,6 @@ DEALINGS IN THE SOFTWARE.
   syntax: "<number>";
   inherits: true;
   initial-value: 1;
-}
-@keyframes vanish {
-  100% {
-    display: none;
-  }
 }
 .pixelated {
   image-rendering: pixelated;
@@ -489,7 +484,7 @@ body.list #screen-body #media-screen:not(.show)::before {
 }
 #screen-body #media-screen .track-frame,
 #screen-body #media-screen .visualizer {
-  will-change: --blur, opacity, mask-image, mask-position, mask-size;
+  will-change: --blur, opacity, mask-image, mask-position, mask-size, filter;
   filter: blur(var(--blur));
 }
 #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe), #screen-body #media-screen .track-frame:first-child:not(.reverse-wipe),
@@ -937,7 +932,7 @@ body.progress-circle #screen-body #media-list .item.add:not(.show)::before {
 #screen-body #media-list .item.add #add-media svg {
   width: 2.5rem;
   height: 2.5rem;
-  fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
+  fill: rgb(230, 237, 243);
 }
 @media (hover: hover) {
   #screen-body #media-list .item.add #add-media:hover {
@@ -1059,7 +1054,7 @@ body.list #analog-clock-background:not(.show)::before {
   inset-inline-end: 0px;
   mix-blend-mode: difference;
   position: fixed;
-  --niddle-color: white;
+  --needle-color: white;
 }
 body.list #analog-clock-panel:not(.show) {
   opacity: 0;
@@ -1111,29 +1106,29 @@ body.list #analog-clock-panel:not(.show)::before {
   --minor-tick-width: calc(var(--analog-clock-size) * var(--short-side) * 0.15);
   --minor-tick-color: rgba(0, 0, 0, 0.5);
 }
-#analog-clock-panel div#milli-seconds-niddle {
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+#analog-clock-panel div#milliseconds-needle {
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   transition: background-image 750ms, background-color 750ms;
   width: calc(var(--short-side) * var(--analog-clock-size) * 96);
   height: calc(var(--short-side) * var(--analog-clock-size) * 96);
   border-radius: 50%;
 }
-#analog-clock-panel div#milli-seconds-niddle.hide:not(.show) {
+#analog-clock-panel div#milliseconds-needle.hide:not(.show) {
   background-image: none;
   background-color: black;
   cursor: none;
   pointer-events: none;
 }
-#analog-clock-panel div#seconds-niddle {
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+#analog-clock-panel div#seconds-needle {
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 95);
   height: calc(var(--short-side) * var(--analog-clock-size) * 95);
   border-radius: 50%;
 }
-#analog-clock-panel div#minutes-niddle {
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+#analog-clock-panel div#minutes-needle {
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 85);
   height: calc(var(--short-side) * var(--analog-clock-size) * 85);
@@ -1145,8 +1140,8 @@ body.list #analog-clock-panel:not(.show)::before {
   border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(6deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(12deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(18deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(24deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(36deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(42deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(48deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(54deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(66deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(72deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(78deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(84deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(96deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(102deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(108deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(114deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(126deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(132deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(138deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(144deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(156deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(162deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(168deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(174deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
-#analog-clock-panel div#hours-niddle {
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+#analog-clock-panel div#hours-needle {
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 70);
   height: calc(var(--short-side) * var(--analog-clock-size) * 70);
@@ -1160,15 +1155,15 @@ body.list #analog-clock-panel:not(.show)::before {
   border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
 }
-#analog-clock-panel div#day-niddle {
+#analog-clock-panel div#day-needle {
   transition: background-image 750ms, background-color 750ms;
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 55);
   height: calc(var(--short-side) * var(--analog-clock-size) * 55);
   border-radius: 50%;
 }
-#analog-clock-panel div#day-niddle.hide:not(.show) {
+#analog-clock-panel div#day-needle.hide:not(.show) {
   background-image: none;
   background-color: black;
   cursor: none;
@@ -1180,15 +1175,15 @@ body.list #analog-clock-panel:not(.show)::before {
   border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(15deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(45deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(75deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(105deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(135deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(165deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
-#analog-clock-panel div#week-niddle {
+#analog-clock-panel div#week-needle {
   transition: background-image 750ms, background-color 750ms;
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 50);
   height: calc(var(--short-side) * var(--analog-clock-size) * 50);
   border-radius: 50%;
 }
-#analog-clock-panel div#week-niddle.hide:not(.show) {
+#analog-clock-panel div#week-needle.hide:not(.show) {
   background-image: none;
   background-color: black;
   cursor: none;
@@ -1205,15 +1200,15 @@ body.list #analog-clock-panel:not(.show)::before {
   background-position: center;
   background-size: cover;
 }
-#analog-clock-panel div#month-niddle {
+#analog-clock-panel div#month-needle {
   transition: background-image 750ms, background-color 750ms;
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 45);
   height: calc(var(--short-side) * var(--analog-clock-size) * 45);
   border-radius: 50%;
 }
-#analog-clock-panel div#month-niddle.hide:not(.show) {
+#analog-clock-panel div#month-needle.hide:not(.show) {
   background-image: none;
   background-color: black;
   cursor: none;
@@ -1284,15 +1279,15 @@ body.list #analog-clock-panel:not(.show)::before {
   background-position: center;
   background-size: cover;
 }
-#analog-clock-panel div#year-niddle {
+#analog-clock-panel div#year-needle {
   transition: background-image 750ms, background-color 750ms;
-  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--niddle-color) 360deg);
+  background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   width: calc(var(--short-side) * var(--analog-clock-size) * 35);
   height: calc(var(--short-side) * var(--analog-clock-size) * 35);
   border-radius: 50%;
 }
-#analog-clock-panel div#year-niddle.hide:not(.show) {
+#analog-clock-panel div#year-needle.hide:not(.show) {
   background-image: none;
   background-color: black;
   cursor: none;
@@ -3664,6 +3659,7 @@ html[dir=rtl] #pressed-key {
   gap: 0.5rem 0.5rem;
   align-items: center;
   pointer-events: none;
+  color: rgb(230, 237, 243);
 }
 #keyboard-shortcut span {
   white-space: nowrap;
@@ -3783,24 +3779,24 @@ DUMMYSTYLE
     <div id="overlay-screen" role="presentation">
         <div id="analog-clock-background" class="hide" role="presentation" aria-hidden="true"></div>
         <time id="analog-clock-panel" class="hide">
-            <div id="milli-seconds-niddle" class="hide" role="presentation" aria-hidden="true"></div>
-            <div id="seconds-niddle" role="presentation" aria-hidden="true"></div>
-            <div id="minutes-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="milliseconds-needle" class="hide" role="presentation" aria-hidden="true"></div>
+            <div id="seconds-needle" role="presentation" aria-hidden="true"></div>
+            <div id="minutes-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale60-panel" role="presentation" aria-hidden="true"></div>
-            <div id="hours-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="hours-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale12-panel" role="presentation" aria-hidden="true"></div>
-            <div id="day-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="day-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale24-panel" role="presentation" aria-hidden="true"></div>
-            <div id="week-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="week-needle" role="presentation" aria-hidden="true"></div>
             <div id="week-panel" role="presentation" aria-hidden="true"></div>
-            <div id="month-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="month-needle" role="presentation" aria-hidden="true"></div>
             <div id="month-panel" role="presentation" aria-hidden="true"></div>
-            <div id="year-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="year-needle" role="presentation" aria-hidden="true"></div>
             <div id="year-panel" role="presentation" aria-hidden="true"></div>
             <div id="center-circle" role="presentation" aria-hidden="true"></div>
         </time>
         <div id="overlay-panel" role="presentation" dir="ltr">
-            <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
+            <div id="weather" role="status" aria-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
             <time id="time" role="timer" aria-live="polite" aria-atomic="true"></time>
             <time id="date" aria-live="polite" aria-atomic="true"></time>
             <div id="calendar" role="presentation" aria-hidden="true"></div>
@@ -3808,7 +3804,7 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen" role="presentation">
-        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
+        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts" role="region"></div>
     </div>
     <div id="dark-curtain" role="presentation" aria-hidden="true"></div>
     <form data-aria-lang-key="media-list">
@@ -4186,15 +4182,12 @@ DUMMYSTYLE
     </g>
 </svg>
 </div></div>
-</body>
 <script type="text/javascript">
-const build =
-{
-    at: "Thu Dec 25 2025 12:25:59 GMT+0900 (日本標準時)",
-    tick: 1766633159517
+const build = {
+    at: "Thu Dec 25 2025 20:34:27 GMT+0900 (日本標準時)",
+    tick: 1766662467254
 };
-const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
-{
+const evilCommonjsConfig = {
     "log": {
         "config": false,
         "load": false,
@@ -4204,12 +4197,11 @@ const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
     },
     "loadingTimeout": 500
 }
-;
-const evilTimerConfig = // "./resource/evil-timer.js.config.json"
-{
+; // "./resource/evil-commonjs.config.json"
+const evilTimerConfig = {
     "debug": true
 }
-;
+; // "./resource/evil-timer.js.config.json"
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8871,7 +8863,7 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "whiteDepthBottom": 0.1,
+        "whiteDepthBottom": 0.5,
         "mousemoveTimeout": 1500,
         "keyinputTimeout": 1500
     },
@@ -10805,7 +10797,7 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
         var fpsWindow = 1000; // ms
         var frameTimings = [];
         var fpsHistory = [];
-        Fps.averageFps = NaN; // 直近1秒間の平均FPSを格納する変数
+        Fps.averageFps = NaN; // Stores the average FPS over the most recent 1 second
         var makeInvalidFpsHistoryEntry = function () {
             return ({
                 fps: NaN,
@@ -10895,7 +10887,6 @@ define("script/url", ["require", "exports"], function (require, exports) {
             return result;
         };
         Url.make = function (params) {
-            //const url = new URL(config.canonicalUrl || window.location.href);
             var url = new URL(window.location.href.replace(/#/g, "?"));
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
@@ -10903,8 +10894,6 @@ define("script/url", ["require", "exports"], function (require, exports) {
             }
             return url.toString().replace(/\?/g, "#");
         };
-        // export const update = (params: Record<string, string>): void =>
-        //     window.history.replaceState({}, "", make(params));
         Url.addParameter = function (params, key, value) {
             params[key] = value;
             return params;
@@ -11476,14 +11465,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
             AnalogClock.background = _library_2.Library.UI.getElementById("div", "analog-clock-background");
             AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
-            AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
-            AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
-            AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
-            AnalogClock.dayNiddle = _library_2.Library.UI.getElementById("div", "day-niddle");
-            AnalogClock.hoursNiddle = _library_2.Library.UI.getElementById("div", "hours-niddle");
-            AnalogClock.minutesNiddle = _library_2.Library.UI.getElementById("div", "minutes-niddle");
-            AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
-            AnalogClock.milliSecondsNiddle = _library_2.Library.UI.getElementById("div", "milli-seconds-niddle");
+            AnalogClock.yearNeedle = _library_2.Library.UI.getElementById("div", "year-needle");
+            AnalogClock.monthNeedle = _library_2.Library.UI.getElementById("div", "month-needle");
+            AnalogClock.weekNeedle = _library_2.Library.UI.getElementById("div", "week-needle");
+            AnalogClock.dayNeedle = _library_2.Library.UI.getElementById("div", "day-needle");
+            AnalogClock.hoursNeedle = _library_2.Library.UI.getElementById("div", "hours-needle");
+            AnalogClock.minutesNeedle = _library_2.Library.UI.getElementById("div", "minutes-needle");
+            AnalogClock.secondsNeedle = _library_2.Library.UI.getElementById("div", "seconds-needle");
+            AnalogClock.milliSecondsNeedle = _library_2.Library.UI.getElementById("div", "milliseconds-needle");
             AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
             AnalogClock.updateVisibility = function () {
                 if (UI.isPlaying()) {
@@ -11640,6 +11629,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
+            UI.SettingsPanel.analogClockCheckbox.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
             UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -11741,6 +11731,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             // OverlayPanel.updateCalendarVisibility();
             // OverlayPanel.updateVisualizerVisibility();
             SettingsPanel.updateShowFps();
+            UI.keyboardShortcut.setAttribute("aria-hidden", "true");
         };
         UI.onPlaybackPaused = function () {
             OverlayPanel.panel.style.removeProperty("opacity");
@@ -11760,6 +11751,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.hide(); });
+            UI.keyboardShortcut.setAttribute("aria-hidden", "false");
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -11810,17 +11802,11 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 toggleButton: ControlPanel.sleepButton
             },
         ];
-        // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
-        // {
-        //     const parent: HTMLElement = toggleButton.dom.parentElement!;
-        //     parent.classList.toggle("checked", checked);
-        // };
         UI.closeOtherPopups = function (except) {
             UI.popupCheckboxList.forEach(function (i) {
                 if (except !== i.toggleButton) {
                     i.toggleButton.toggle(false, "preventOnChange");
                 }
-                //updateParentClassBasedOnCheckbox(i.toggleButton);
                 var checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             });
@@ -11891,8 +11877,6 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         };
         var lastRequestTimestamp = 0;
         var isLastRequestWithGeolocation = false;
-        // export const enforceMonocromeFont = (text: string): string =>
-        //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
         Weather.fetch = function (location) { return __awaiter(_this, void 0, void 0, function () {
             var result, response, parts, error_1;
             return __generator(this, function (_a) {
@@ -11909,7 +11893,6 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                         if (!response.ok) return [3 /*break*/, 4];
                         return [4 /*yield*/, response.text()];
                     case 3:
-                        //result = enforceMonocromeFont(await response.text())
                         result = (_a.sent())
                             .replace(/\s+/g, " ")
                             .trim();
@@ -11996,8 +11979,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
-        Overlay.setAnalogClockNiddleAngle = function (niddle, angle) {
-            return library_1.Library.UI.setStyle(niddle, "--progress", angle.toFixed(angleFractionDigits));
+        Overlay.setAnalogClockNeedleAngle = function (needle, angle) {
+            return library_1.Library.UI.setStyle(needle, "--progress", angle.toFixed(angleFractionDigits));
         };
         Overlay.getEnoughAngleFractionDigits = function () {
             var innerWidth = window.innerWidth, innerHeight = window.innerHeight, devicePixelRatio = window.devicePixelRatio;
@@ -12049,11 +12032,11 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 var is24HoursHandEnabled = ui_4.UI.SettingsPanel.dayHandCheckbox.get();
                 var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
                 var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
-                ui_4.UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
-                ui_4.UI.AnalogClock.dayNiddle.classList.toggle("hide", !is24HoursHandEnabled);
-                ui_4.UI.AnalogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
-                ui_4.UI.AnalogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
-                ui_4.UI.AnalogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.milliSecondsNeedle.classList.toggle("hide", !isMillisecondHandEnabled);
+                ui_4.UI.AnalogClock.dayNeedle.classList.toggle("hide", !is24HoursHandEnabled);
+                ui_4.UI.AnalogClock.yearNeedle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.monthNeedle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.weekNeedle.classList.toggle("hide", !isDateHandsEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
@@ -12070,7 +12053,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var weekAngle = week / 7;
                     var monthAngle = month / daysOfThisMonth;
                     var yearAngle = year / 12;
-                    if (!((_a = ui_4.UI.AnalogClock.monthNiddle.style.getPropertyValue("--progress")) !== null && _a !== void 0 ? _a : "").startsWith(monthAngle.toFixed(1))) {
+                    if (!((_a = ui_4.UI.AnalogClock.monthNeedle.style.getPropertyValue("--progress")) !== null && _a !== void 0 ? _a : "").startsWith(monthAngle.toFixed(1))) {
                         if (monthAngle < 0.5) {
                             // Case where the trace crosses a month boundary
                             var daysOfLastMonth = new Date(0 === date.getMonth() ? date.getFullYear() - 1 : date.getFullYear(), date.getMonth(), 0).getDate();
@@ -12081,18 +12064,18 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                             library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.monthPanel, "data-days", "".concat(daysOfThisMonth).concat(daysOfThisMonth));
                         }
                     }
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle);
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.yearNiddle, yearAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.weekNeedle, weekAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.monthNeedle, monthAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.yearNeedle, yearAngle);
                 }
                 if (is24HoursHandEnabled) {
                     var dayAngle = hours / 24;
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.dayNiddle, dayAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.dayNeedle, dayAngle);
                 }
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.secondsNiddle, secondsAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.milliSecondsNeedle, milliSecondsAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.secondsNeedle, secondsAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.minutesNeedle, minutesAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.hoursNeedle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
                 library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
                 library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-inner-size", isDateHandsEnabled ? "25" :
@@ -12288,15 +12271,6 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
                 this.frequencyDataArray = { left: null, right: null, mono: null, };
                 this.timeDomainDataArray = { left: null, right: null, mono: null, };
-                // if (mediaElement instanceof HTMLVideoElement)
-                // {
-                //     this.gainNode = audioContext.createGain();
-                //     this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
-                //     this.mediaElementAudioSourceNode.connect(this.gainNode);
-                //     this.gainNode.connect(audioContext.destination);
-                // }
-                // else
-                // {
                 this.splitter = Analyser.audioContext.createChannelSplitter(2);
                 this.analyserNodes =
                     {
@@ -12314,9 +12288,6 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
                 this.mediaElementAudioSourceNode.connect(this.gainNode);
                 this.gainNode.connect(Analyser.audioContext.destination);
-                //this.analyserNode.connect(audioContext.destination);
-                //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
-                // }
             }
             Entry.prototype.destroy = function () {
                 var _a, _b, _c, _d, _e, _f, _g;
@@ -12726,13 +12697,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isStereoDoubleArcMode = function () {
             return ui_5.UI.mediaScreen.classList.contains("stereo-double-arc");
         };
-        Visualizer.make = function (media, index) {
+        Visualizer.make = function (_media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
-            switch (media.type) {
-                case "audio":
-                    //visualDom.classList.add("audio");
-                    break;
-            }
             visualDom.classList.toggle("odd", 0 !== (index % 2));
             return visualDom;
         };
@@ -14777,11 +14743,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         }
                     }
                 }
-                // else
-                // {
-                //     Library.UI.setStyle(this.visualElement, "width", `100%`);
-                //     Library.UI.setStyle(this.visualElement, "height", `100%`);
-                // }
                 if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                     visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
@@ -14888,7 +14849,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (null === this.transtionPattern) {
                 var foregroundColor_1 = "white";
-                //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
                 var randomSelect_1 = _tools_5.Tools.Random.select;
                 var makeRandomSpotArguments_1 = function (type, intervalSize) {
                     return ({
@@ -16042,7 +16002,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
-            //Media.setVolume(value);
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
             _features_2.Features.Player.updateVolume();
             Events.mousemove();
         };
@@ -16051,7 +16012,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.SettingsPanel.brightnessRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
             _features_2.Features.Player.updateDarkCurtainOpacity();
+            Events.mousemove();
+        };
+        Events.updateStretch = function (disableLog) {
+            var value = ui_12.UI.SettingsPanel.stretchRange.get();
+            if ("disableLog" !== disableLog) {
+                console.log("📏 Stretch changed:", value);
+            }
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.SettingsPanel.stretchRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
+            _features_2.Features.Player.updateStretch();
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {
@@ -16445,21 +16418,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            // UI.ControlPanel.shuffle.setChange
-            // (
-            //     (event, button) =>
-            //     {
-            //         event?.stopPropagation();
-            //         button.dom.blur();
-            //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
-            //     }
-            // );
-            ui_12.UI.ControlPanel.repeat.setChange(function (_event, _button) {
-                // event?.stopPropagation();
-                // button.dom.blur();
-                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
-                Events.updateNoRepeatLabel();
-            });
+            ui_12.UI.ControlPanel.repeat.setChange(function () { return Events.updateNoRepeatLabel(); });
             ui_12.UI.ControlPanel.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -16469,8 +16428,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.volumeButton);
             });
-            // UI.volumeRange.options ||= { }
-            // UI.volumeRange.options.change = () => updateVolume();
             ui_12.UI.ControlPanel.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -16492,13 +16449,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             (_b = ui_12.UI.SettingsPanel.brightnessRange).options || (_b.options = {});
             ui_12.UI.SettingsPanel.brightnessRange.options.change = function () { return Events.updateBrightness(); };
             (_c = ui_12.UI.SettingsPanel.stretchRange).options || (_c.options = {});
-            ui_12.UI.SettingsPanel.stretchRange.options.change = function (_event, range) {
-                var value = range.get();
-                console.log("📏 Stretch changed:", value);
-                //Features.Media.setStretch(value / 100);
-                _features_2.Features.Player.updateStretch();
-                Events.mousemove();
-            };
+            ui_12.UI.SettingsPanel.stretchRange.options.change = function () { return Events.updateStretch(); };
             (_d = ui_12.UI.SettingsPanel.imageSpanSelect).options || (_d.options = {});
             ui_12.UI.SettingsPanel.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
@@ -16590,6 +16541,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             });
             Events.updateVolume("disableLog");
             Events.updateBrightness("disableLog");
+            Events.updateStretch("disableLog");
             _features_2.Features.Player.updateStretch();
             updateVisualizer();
             updateOverlayStyle();
@@ -16766,4 +16718,5 @@ if ("serviceWorker" in navigator)
     );
 }
 </script>
+</body>
 </html>

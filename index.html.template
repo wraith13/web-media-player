@@ -61,24 +61,24 @@ DUMMYSTYLE
     <div id="overlay-screen" role="presentation">
         <div id="analog-clock-background" class="hide" role="presentation" aria-hidden="true"></div>
         <time id="analog-clock-panel" class="hide">
-            <div id="milli-seconds-niddle" class="hide" role="presentation" aria-hidden="true"></div>
-            <div id="seconds-niddle" role="presentation" aria-hidden="true"></div>
-            <div id="minutes-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="milliseconds-needle" class="hide" role="presentation" aria-hidden="true"></div>
+            <div id="seconds-needle" role="presentation" aria-hidden="true"></div>
+            <div id="minutes-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale60-panel" role="presentation" aria-hidden="true"></div>
-            <div id="hours-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="hours-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale12-panel" role="presentation" aria-hidden="true"></div>
-            <div id="day-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="day-needle" role="presentation" aria-hidden="true"></div>
             <div id="scale24-panel" role="presentation" aria-hidden="true"></div>
-            <div id="week-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="week-needle" role="presentation" aria-hidden="true"></div>
             <div id="week-panel" role="presentation" aria-hidden="true"></div>
-            <div id="month-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="month-needle" role="presentation" aria-hidden="true"></div>
             <div id="month-panel" role="presentation" aria-hidden="true"></div>
-            <div id="year-niddle" role="presentation" aria-hidden="true"></div>
+            <div id="year-needle" role="presentation" aria-hidden="true"></div>
             <div id="year-panel" role="presentation" aria-hidden="true"></div>
             <div id="center-circle" role="presentation" aria-hidden="true"></div>
         </time>
         <div id="overlay-panel" role="presentation" dir="ltr">
-            <div id="weather" role="status" alira-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
+            <div id="weather" role="status" aria-live="polite" aria-atomic="true" data-aria-lang-key="with-weather"></div>
             <time id="time" role="timer" aria-live="polite" aria-atomic="true"></time>
             <time id="date" aria-live="polite" aria-atomic="true"></time>
             <div id="calendar" role="presentation" aria-hidden="true"></div>
@@ -86,7 +86,7 @@ DUMMYSTYLE
         </div>
     </div>
     <div id="background-screen" role="presentation">
-        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts"></div>
+        <div id="keyboard-shortcut" data-aria-lang-key="shortcuts" role="region"></div>
     </div>
     <div id="dark-curtain" role="presentation" aria-hidden="true"></div>
     <form data-aria-lang-key="media-list">
@@ -330,17 +330,13 @@ DUMMYSTYLE
 </div>
 <div id="pressed-key" role="status" aria-live="polite" aria-atomic="true"></div>
 <div id="images" style="display:none;" aria-hidden="true">__IMAGES__</div>
-</body>
 <script type="text/javascript">
-const build =
-{
+const build = {
     at: "__BUILD_TIMESTAMP__",
     tick: __BUILD_TIMESTAMP_TICK__
 };
-const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
-__EVIL_COMMONJS_CONFIG__;
-const evilTimerConfig = // "./resource/evil-timer.js.config.json"
-__EVIL_TIMER_CONFIG__;
+const evilCommonjsConfig = __EVIL_COMMONJS_CONFIG__; // "./resource/evil-commonjs.config.json"
+const evilTimerConfig = __EVIL_TIMER_CONFIG__; // "./resource/evil-timer.js.config.json"
 __EVIL_COMMONJS__
 __EVIL_TIMER__
 __FLOUNDER_STYLE__
@@ -359,4 +355,5 @@ if ("serviceWorker" in navigator)
     );
 }
 </script>
+</body>
 </html>

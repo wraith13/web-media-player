@@ -399,11 +399,6 @@ export class Track
                     }
                 }
             }
-            // else
-            // {
-            //     Library.UI.setStyle(this.visualElement, "width", `100%`);
-            //     Library.UI.setStyle(this.visualElement, "height", `100%`);
-            // }
             if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof Visualizer.VisualizerDom)
             {
                 Visualizer.updateStretch(this.visualElement);
@@ -559,7 +554,6 @@ export class Track
         if (null === this.transtionPattern)
         {
             const foregroundColor = "white";
-            //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
             const randomSelect = Tools.Random.select;
             const makeRandomSpotArguments = (type: FlounderStyle.Type.SpotArguments["type"], intervalSize: number): FlounderStyle.Type.Arguments =>
             ({

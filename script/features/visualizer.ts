@@ -141,15 +141,9 @@ export namespace Visualizer
         UI.mediaScreen.classList.contains("stereo-arc-waveform");
     export const isStereoDoubleArcMode = (): boolean =>
         UI.mediaScreen.classList.contains("stereo-double-arc");
-    export const make = (media: Media.Entry, index: number): VisualizerDom =>
+    export const make = (_media: Media.Entry, index: number): VisualizerDom =>
     {
         const visualDom = Library.UI.createElement({ tag: "div", className: "visualizer" });
-        switch(media.type)
-        {
-        case "audio":
-            //visualDom.classList.add("audio");
-            break;
-        }
         visualDom.classList.toggle("odd", 0 !== (index %2));
         return visualDom;
     };

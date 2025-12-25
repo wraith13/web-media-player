@@ -56,26 +56,7 @@
     transition: opacity 750ms, filter 750ms;
     @include apply-transition-effect($modes...)
     {
-        //@include vanish-animation(750ms);
         @include fade-effect();
-    }
-}
-@mixin vanish-animation($duration: 750ms, $delay: 0ms)
-{
-    animation-name: vanish;
-    animation-duration: $duration;
-    animation-timing-function: ease-in;
-    animation-delay: $delay;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-play-state: running;
-}
-@keyframes vanish
-{
-    100%
-    {
-        display: none;
     }
 }
 @mixin blackout-transition($modes...)
@@ -130,20 +111,6 @@
 {
     margin: 0px;
     inset-block-start: 0px;
-    inset-block-end: 0px;
-    inset-inline-start: 0px;
-    inset-inline-end: 0px;
-}
-@mixin top-stretch-box()
-{
-    margin: 0px;
-    inset-block-start: 0px;
-    inset-inline-start: 0px;
-    inset-inline-end: 0px;
-}
-@mixin bottom-stretch-box()
-{
-    margin: 0px;
     inset-block-end: 0px;
     inset-inline-start: 0px;
     inset-inline-end: 0px;
@@ -306,11 +273,11 @@
     border-radius: 50%;
     background: conic-gradient($color calc(var(--progress) * 360deg), $color calc(var(--progress) * 360deg), $background-color calc(var(--progress) * 360deg));
 }
-@mixin clock-niddle($niddle-color)
+@mixin clock-needle($needle-color)
 {
     $trailer-rate: 0.25;
     $void-rate: 1.0 - $trailer-rate;
-    background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black calc($void-rate * 360deg), $niddle-color 360deg);
+    background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black calc($void-rate * 360deg), $needle-color 360deg);
     will-change: --progress, background-image;
 }
 @mixin circle-size($size)

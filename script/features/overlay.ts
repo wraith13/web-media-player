@@ -10,8 +10,8 @@ export namespace Overlay
     export let locale: string | undefined = undefined;
     export let title: string | undefined = undefined;
     export let subtitle: string | undefined = undefined;
-    export const setAnalogClockNiddleAngle = (niddle: HTMLDivElement, angle: number) =>
-        Library.UI.setStyle(niddle, "--progress", angle.toFixed(angleFractionDigits));
+    export const setAnalogClockNeedleAngle = (needle: HTMLDivElement, angle: number) =>
+        Library.UI.setStyle(needle, "--progress", angle.toFixed(angleFractionDigits));
     export const getEnoughAngleFractionDigits = (): number =>
     {
         const { innerWidth, innerHeight, devicePixelRatio } = window;
@@ -83,11 +83,11 @@ export namespace Overlay
             const is24HoursHandEnabled = UI.SettingsPanel.dayHandCheckbox.get();
             const isDateHandsEnabled = UI.SettingsPanel.dateHandsCheckbox.get();
             const isMillisecondHandEnabled = UI.SettingsPanel.millisecondHandCheckbox.get();
-            UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", ! isMillisecondHandEnabled);
-            UI.AnalogClock.dayNiddle.classList.toggle("hide", ! is24HoursHandEnabled);
-            UI.AnalogClock.yearNiddle.classList.toggle("hide", ! isDateHandsEnabled);
-            UI.AnalogClock.monthNiddle.classList.toggle("hide", ! isDateHandsEnabled);
-            UI.AnalogClock.weekNiddle.classList.toggle("hide", ! isDateHandsEnabled);
+            UI.AnalogClock.milliSecondsNeedle.classList.toggle("hide", ! isMillisecondHandEnabled);
+            UI.AnalogClock.dayNeedle.classList.toggle("hide", ! is24HoursHandEnabled);
+            UI.AnalogClock.yearNeedle.classList.toggle("hide", ! isDateHandsEnabled);
+            UI.AnalogClock.monthNeedle.classList.toggle("hide", ! isDateHandsEnabled);
+            UI.AnalogClock.weekNeedle.classList.toggle("hide", ! isDateHandsEnabled);
             const milliSeconds = date.getMilliseconds();
             const seconds = date.getSeconds() + (milliSeconds /1000);
             const minutes = date.getMinutes() + (seconds /60);
@@ -105,7 +105,7 @@ export namespace Overlay
                 const weekAngle = week /7;
                 const monthAngle = month /daysOfThisMonth;
                 const yearAngle = year /12;
-                if (! (UI.AnalogClock.monthNiddle.style.getPropertyValue("--progress") ?? "").startsWith(monthAngle.toFixed(1)))
+                if (! (UI.AnalogClock.monthNeedle.style.getPropertyValue("--progress") ?? "").startsWith(monthAngle.toFixed(1)))
                 {
                     if (monthAngle < 0.5)
                     {
@@ -124,19 +124,19 @@ export namespace Overlay
                         Library.UI.setAttribute(UI.AnalogClock.monthPanel, "data-days", `${daysOfThisMonth}${daysOfThisMonth}`);
                     }
                 }
-                setAnalogClockNiddleAngle(UI.AnalogClock.weekNiddle, weekAngle);
-                setAnalogClockNiddleAngle(UI.AnalogClock.monthNiddle, monthAngle);
-                setAnalogClockNiddleAngle(UI.AnalogClock.yearNiddle, yearAngle);
+                setAnalogClockNeedleAngle(UI.AnalogClock.weekNeedle, weekAngle);
+                setAnalogClockNeedleAngle(UI.AnalogClock.monthNeedle, monthAngle);
+                setAnalogClockNeedleAngle(UI.AnalogClock.yearNeedle, yearAngle);
             }
             if (is24HoursHandEnabled)
             {
                 const dayAngle = hours /24;
-                setAnalogClockNiddleAngle(UI.AnalogClock.dayNiddle, dayAngle);
+                setAnalogClockNeedleAngle(UI.AnalogClock.dayNeedle, dayAngle);
             }
-            setAnalogClockNiddleAngle(UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
-            setAnalogClockNiddleAngle(UI.AnalogClock.secondsNiddle, secondsAngle);
-            setAnalogClockNiddleAngle(UI.AnalogClock.minutesNiddle, minutesAngle);
-            setAnalogClockNiddleAngle(UI.AnalogClock.hoursNiddle, hoursAngle);
+            setAnalogClockNeedleAngle(UI.AnalogClock.milliSecondsNeedle, milliSecondsAngle);
+            setAnalogClockNeedleAngle(UI.AnalogClock.secondsNeedle, secondsAngle);
+            setAnalogClockNeedleAngle(UI.AnalogClock.minutesNeedle, minutesAngle);
+            setAnalogClockNeedleAngle(UI.AnalogClock.hoursNeedle, hoursAngle);
             Library.UI.setAttribute(UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
             Library.UI.setStyle(UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96": "95");
             Library.UI.setStyle

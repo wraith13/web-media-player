@@ -14,7 +14,6 @@ export namespace Url
     };
     export const make = (params: Record<string, string>) =>
     {
-        //const url = new URL(config.canonicalUrl || window.location.href);
         const url = new URL(window.location.href.replace(/#/g, "?"));
         for (const [ key, value ] of Object.entries(params))
         {
@@ -22,8 +21,6 @@ export namespace Url
         }
         return url.toString().replace(/\?/g, "#");
     };
-    // export const update = (params: Record<string, string>): void =>
-    //     window.history.replaceState({}, "", make(params));
     export const addParameter = (params: Record<string, string>, key: string, value: string): Record<string, string> =>
     {
         params[key] = value;

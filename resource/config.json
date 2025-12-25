@@ -27,7 +27,7 @@
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "whiteDepthBottom": 0.1,
+        "whiteDepthBottom": 0.5,
         "mousemoveTimeout": 1500,
         "keyinputTimeout": 1500
     },

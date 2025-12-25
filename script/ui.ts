@@ -183,14 +183,14 @@ export namespace UI
         export const panel = Library.UI.getElementById("time", "analog-clock-panel");
         export const background = Library.UI.getElementById("div", "analog-clock-background");
         export const monthPanel = Library.UI.getElementById("div", "month-panel");
-        export const yearNiddle = Library.UI.getElementById("div", "year-niddle");
-        export const monthNiddle = Library.UI.getElementById("div", "month-niddle");
-        export const weekNiddle = Library.UI.getElementById("div", "week-niddle");
-        export const dayNiddle = Library.UI.getElementById("div", "day-niddle");
-        export const hoursNiddle = Library.UI.getElementById("div", "hours-niddle");
-        export const minutesNiddle = Library.UI.getElementById("div", "minutes-niddle");
-        export const secondsNiddle = Library.UI.getElementById("div", "seconds-niddle");
-        export const milliSecondsNiddle = Library.UI.getElementById("div", "milli-seconds-niddle");
+        export const yearNeedle = Library.UI.getElementById("div", "year-needle");
+        export const monthNeedle = Library.UI.getElementById("div", "month-needle");
+        export const weekNeedle = Library.UI.getElementById("div", "week-needle");
+        export const dayNeedle = Library.UI.getElementById("div", "day-needle");
+        export const hoursNeedle = Library.UI.getElementById("div", "hours-needle");
+        export const minutesNeedle = Library.UI.getElementById("div", "minutes-needle");
+        export const secondsNeedle = Library.UI.getElementById("div", "seconds-needle");
+        export const milliSecondsNeedle = Library.UI.getElementById("div", "milliseconds-needle");
         export const visibilityApplier =
             new VisibilityApplier(panel);
         export const updateVisibility = () =>
@@ -436,6 +436,7 @@ export namespace UI
         UI.SettingsPanel.visualizerSelect.reloadOptions();
         UI.SettingsPanel.crossFadeSelect.reloadOptions();
         UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
+        UI.SettingsPanel.analogClockCheckbox.reloadOptions();
         UI.SettingsPanel.overlayStyleSelect.reloadOptions();
         UI.SettingsPanel.overlayPositionSelect.reloadOptions();
         UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -564,6 +565,7 @@ export namespace UI
         // OverlayPanel.updateCalendarVisibility();
         // OverlayPanel.updateVisualizerVisibility();
         SettingsPanel.updateShowFps();
+        keyboardShortcut.setAttribute("aria-hidden", "true");
     };
     export const onPlaybackPaused = () =>
     {
@@ -584,6 +586,7 @@ export namespace UI
             TransportPanel.visibilityApplier,
         ]
         .forEach(i => i.hide());
+        keyboardShortcut.setAttribute("aria-hidden", "false");
     };
     export const getDataLangKey = (element: HTMLSpanElement) =>
         element.getAttribute("data-lang-key") as Library.Locale.Label;
@@ -641,11 +644,6 @@ export namespace UI
             toggleButton: ControlPanel.sleepButton
         },
     ];
-    // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
-    // {
-    //     const parent: HTMLElement = toggleButton.dom.parentElement!;
-    //     parent.classList.toggle("checked", checked);
-    // };
     export const closeOtherPopups = (except: Library.Control.ToggleButton) =>
     {
         popupCheckboxList.forEach
@@ -656,7 +654,6 @@ export namespace UI
                 {
                     i.toggleButton.toggle(false, "preventOnChange");
                 }
-                //updateParentClassBasedOnCheckbox(i.toggleButton);
                 const checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             }

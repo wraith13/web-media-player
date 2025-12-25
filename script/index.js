@@ -1924,7 +1924,7 @@ define("resource/config", [], {
         "shuffleForbiddenRate": 0.333
     },
     "ui": {
-        "whiteDepthBottom": 0.1,
+        "whiteDepthBottom": 0.5,
         "mousemoveTimeout": 1500,
         "keyinputTimeout": 1500
     },
@@ -3858,7 +3858,7 @@ define("script/features/fps", ["require", "exports", "script/tools/index"], func
         var fpsWindow = 1000; // ms
         var frameTimings = [];
         var fpsHistory = [];
-        Fps.averageFps = NaN; // 直近1秒間の平均FPSを格納する変数
+        Fps.averageFps = NaN; // Stores the average FPS over the most recent 1 second
         var makeInvalidFpsHistoryEntry = function () {
             return ({
                 fps: NaN,
@@ -3948,7 +3948,6 @@ define("script/url", ["require", "exports"], function (require, exports) {
             return result;
         };
         Url.make = function (params) {
-            //const url = new URL(config.canonicalUrl || window.location.href);
             var url = new URL(window.location.href.replace(/#/g, "?"));
             for (var _i = 0, _a = Object.entries(params); _i < _a.length; _i++) {
                 var _b = _a[_i], key = _b[0], value = _b[1];
@@ -3956,8 +3955,6 @@ define("script/url", ["require", "exports"], function (require, exports) {
             }
             return url.toString().replace(/\?/g, "#");
         };
-        // export const update = (params: Record<string, string>): void =>
-        //     window.history.replaceState({}, "", make(params));
         Url.addParameter = function (params, key, value) {
             params[key] = value;
             return params;
@@ -4529,14 +4526,14 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.panel = _library_2.Library.UI.getElementById("time", "analog-clock-panel");
             AnalogClock.background = _library_2.Library.UI.getElementById("div", "analog-clock-background");
             AnalogClock.monthPanel = _library_2.Library.UI.getElementById("div", "month-panel");
-            AnalogClock.yearNiddle = _library_2.Library.UI.getElementById("div", "year-niddle");
-            AnalogClock.monthNiddle = _library_2.Library.UI.getElementById("div", "month-niddle");
-            AnalogClock.weekNiddle = _library_2.Library.UI.getElementById("div", "week-niddle");
-            AnalogClock.dayNiddle = _library_2.Library.UI.getElementById("div", "day-niddle");
-            AnalogClock.hoursNiddle = _library_2.Library.UI.getElementById("div", "hours-niddle");
-            AnalogClock.minutesNiddle = _library_2.Library.UI.getElementById("div", "minutes-niddle");
-            AnalogClock.secondsNiddle = _library_2.Library.UI.getElementById("div", "seconds-niddle");
-            AnalogClock.milliSecondsNiddle = _library_2.Library.UI.getElementById("div", "milli-seconds-niddle");
+            AnalogClock.yearNeedle = _library_2.Library.UI.getElementById("div", "year-needle");
+            AnalogClock.monthNeedle = _library_2.Library.UI.getElementById("div", "month-needle");
+            AnalogClock.weekNeedle = _library_2.Library.UI.getElementById("div", "week-needle");
+            AnalogClock.dayNeedle = _library_2.Library.UI.getElementById("div", "day-needle");
+            AnalogClock.hoursNeedle = _library_2.Library.UI.getElementById("div", "hours-needle");
+            AnalogClock.minutesNeedle = _library_2.Library.UI.getElementById("div", "minutes-needle");
+            AnalogClock.secondsNeedle = _library_2.Library.UI.getElementById("div", "seconds-needle");
+            AnalogClock.milliSecondsNeedle = _library_2.Library.UI.getElementById("div", "milliseconds-needle");
             AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
             AnalogClock.updateVisibility = function () {
                 if (UI.isPlaying()) {
@@ -4693,6 +4690,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
+            UI.SettingsPanel.analogClockCheckbox.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
             UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -4794,6 +4792,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             // OverlayPanel.updateCalendarVisibility();
             // OverlayPanel.updateVisualizerVisibility();
             SettingsPanel.updateShowFps();
+            UI.keyboardShortcut.setAttribute("aria-hidden", "true");
         };
         UI.onPlaybackPaused = function () {
             OverlayPanel.panel.style.removeProperty("opacity");
@@ -4813,6 +4812,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 TransportPanel.visibilityApplier,
             ]
                 .forEach(function (i) { return i.hide(); });
+            UI.keyboardShortcut.setAttribute("aria-hidden", "false");
         };
         UI.getDataLangKey = function (element) {
             return element.getAttribute("data-lang-key");
@@ -4863,17 +4863,11 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 toggleButton: ControlPanel.sleepButton
             },
         ];
-        // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
-        // {
-        //     const parent: HTMLElement = toggleButton.dom.parentElement!;
-        //     parent.classList.toggle("checked", checked);
-        // };
         UI.closeOtherPopups = function (except) {
             UI.popupCheckboxList.forEach(function (i) {
                 if (except !== i.toggleButton) {
                     i.toggleButton.toggle(false, "preventOnChange");
                 }
-                //updateParentClassBasedOnCheckbox(i.toggleButton);
                 var checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             });
@@ -4944,8 +4938,6 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
         };
         var lastRequestTimestamp = 0;
         var isLastRequestWithGeolocation = false;
-        // export const enforceMonocromeFont = (text: string): string =>
-        //     text.replace(/[\u2600-\u26FF\u1F300-\u1F5FF]/g, m => `${m}\uFE0E`);
         Weather.fetch = function (location) { return __awaiter(_this, void 0, void 0, function () {
             var result, response, parts, error_1;
             return __generator(this, function (_a) {
@@ -4962,7 +4954,6 @@ define("script/features/weather", ["require", "exports", "script/tools/index", "
                         if (!response.ok) return [3 /*break*/, 4];
                         return [4 /*yield*/, response.text()];
                     case 3:
-                        //result = enforceMonocromeFont(await response.text())
                         result = (_a.sent())
                             .replace(/\s+/g, " ")
                             .trim();
@@ -5049,8 +5040,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         Overlay.locale = undefined;
         Overlay.title = undefined;
         Overlay.subtitle = undefined;
-        Overlay.setAnalogClockNiddleAngle = function (niddle, angle) {
-            return library_1.Library.UI.setStyle(niddle, "--progress", angle.toFixed(angleFractionDigits));
+        Overlay.setAnalogClockNeedleAngle = function (needle, angle) {
+            return library_1.Library.UI.setStyle(needle, "--progress", angle.toFixed(angleFractionDigits));
         };
         Overlay.getEnoughAngleFractionDigits = function () {
             var innerWidth = window.innerWidth, innerHeight = window.innerHeight, devicePixelRatio = window.devicePixelRatio;
@@ -5102,11 +5093,11 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 var is24HoursHandEnabled = ui_4.UI.SettingsPanel.dayHandCheckbox.get();
                 var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
                 var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
-                ui_4.UI.AnalogClock.milliSecondsNiddle.classList.toggle("hide", !isMillisecondHandEnabled);
-                ui_4.UI.AnalogClock.dayNiddle.classList.toggle("hide", !is24HoursHandEnabled);
-                ui_4.UI.AnalogClock.yearNiddle.classList.toggle("hide", !isDateHandsEnabled);
-                ui_4.UI.AnalogClock.monthNiddle.classList.toggle("hide", !isDateHandsEnabled);
-                ui_4.UI.AnalogClock.weekNiddle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.milliSecondsNeedle.classList.toggle("hide", !isMillisecondHandEnabled);
+                ui_4.UI.AnalogClock.dayNeedle.classList.toggle("hide", !is24HoursHandEnabled);
+                ui_4.UI.AnalogClock.yearNeedle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.monthNeedle.classList.toggle("hide", !isDateHandsEnabled);
+                ui_4.UI.AnalogClock.weekNeedle.classList.toggle("hide", !isDateHandsEnabled);
                 var milliSeconds = date.getMilliseconds();
                 var seconds = date.getSeconds() + (milliSeconds / 1000);
                 var minutes = date.getMinutes() + (seconds / 60);
@@ -5123,7 +5114,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                     var weekAngle = week / 7;
                     var monthAngle = month / daysOfThisMonth;
                     var yearAngle = year / 12;
-                    if (!((_a = ui_4.UI.AnalogClock.monthNiddle.style.getPropertyValue("--progress")) !== null && _a !== void 0 ? _a : "").startsWith(monthAngle.toFixed(1))) {
+                    if (!((_a = ui_4.UI.AnalogClock.monthNeedle.style.getPropertyValue("--progress")) !== null && _a !== void 0 ? _a : "").startsWith(monthAngle.toFixed(1))) {
                         if (monthAngle < 0.5) {
                             // Case where the trace crosses a month boundary
                             var daysOfLastMonth = new Date(0 === date.getMonth() ? date.getFullYear() - 1 : date.getFullYear(), date.getMonth(), 0).getDate();
@@ -5134,18 +5125,18 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                             library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.monthPanel, "data-days", "".concat(daysOfThisMonth).concat(daysOfThisMonth));
                         }
                     }
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.weekNiddle, weekAngle);
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.monthNiddle, monthAngle);
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.yearNiddle, yearAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.weekNeedle, weekAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.monthNeedle, monthAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.yearNeedle, yearAngle);
                 }
                 if (is24HoursHandEnabled) {
                     var dayAngle = hours / 24;
-                    Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.dayNiddle, dayAngle);
+                    Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.dayNeedle, dayAngle);
                 }
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.milliSecondsNiddle, milliSecondsAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.secondsNiddle, secondsAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.minutesNiddle, minutesAngle);
-                Overlay.setAnalogClockNiddleAngle(ui_4.UI.AnalogClock.hoursNiddle, hoursAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.milliSecondsNeedle, milliSecondsAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.secondsNeedle, secondsAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.minutesNeedle, minutesAngle);
+                Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.hoursNeedle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
                 library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
                 library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-inner-size", isDateHandsEnabled ? "25" :
@@ -5341,15 +5332,6 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.isValidTimeDomainData = { left: false, right: false, mono: false };
                 this.frequencyDataArray = { left: null, right: null, mono: null, };
                 this.timeDomainDataArray = { left: null, right: null, mono: null, };
-                // if (mediaElement instanceof HTMLVideoElement)
-                // {
-                //     this.gainNode = audioContext.createGain();
-                //     this.mediaElementAudioSourceNode = audioContext.createMediaElementSource(mediaElement);
-                //     this.mediaElementAudioSourceNode.connect(this.gainNode);
-                //     this.gainNode.connect(audioContext.destination);
-                // }
-                // else
-                // {
                 this.splitter = Analyser.audioContext.createChannelSplitter(2);
                 this.analyserNodes =
                     {
@@ -5367,9 +5349,6 @@ define("script/features/analyser", ["require", "exports", "resource/config"], fu
                 this.mediaElementAudioSourceNode.connect(this.analyserNodes.mono);
                 this.mediaElementAudioSourceNode.connect(this.gainNode);
                 this.gainNode.connect(Analyser.audioContext.destination);
-                //this.analyserNode.connect(audioContext.destination);
-                //this.frequencyDataArray = new Uint8Array(this.analyserNode.frequencyBinCount);
-                // }
             }
             Entry.prototype.destroy = function () {
                 var _a, _b, _c, _d, _e, _f, _g;
@@ -5779,13 +5758,8 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         Visualizer.isStereoDoubleArcMode = function () {
             return ui_5.UI.mediaScreen.classList.contains("stereo-double-arc");
         };
-        Visualizer.make = function (media, index) {
+        Visualizer.make = function (_media, index) {
             var visualDom = _library_4.Library.UI.createElement({ tag: "div", className: "visualizer" });
-            switch (media.type) {
-                case "audio":
-                    //visualDom.classList.add("audio");
-                    break;
-            }
             visualDom.classList.toggle("odd", 0 !== (index % 2));
             return visualDom;
         };
@@ -7830,11 +7804,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         }
                     }
                 }
-                // else
-                // {
-                //     Library.UI.setStyle(this.visualElement, "width", `100%`);
-                //     Library.UI.setStyle(this.visualElement, "height", `100%`);
-                // }
                 if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof visualizer_1.Visualizer.VisualizerDom) {
                     visualizer_1.Visualizer.updateStretch(this.visualElement);
                     visualizer_1.Visualizer.step(this.media, this.playerElement, this.visualElement, this.analyser);
@@ -7941,7 +7910,6 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
             var _this = this;
             if (null === this.transtionPattern) {
                 var foregroundColor_1 = "white";
-                //const randomSelect = <T>(list: T[]) => list[makeRandomInteger(list.length)];
                 var randomSelect_1 = _tools_5.Tools.Random.select;
                 var makeRandomSpotArguments_1 = function (type, intervalSize) {
                     return ({
@@ -9095,7 +9063,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
             ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
-            //Media.setVolume(value);
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
             _features_2.Features.Player.updateVolume();
             Events.mousemove();
         };
@@ -9104,7 +9073,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("💡 Brightness changed:", value);
             }
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.SettingsPanel.brightnessRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
             _features_2.Features.Player.updateDarkCurtainOpacity();
+            Events.mousemove();
+        };
+        Events.updateStretch = function (disableLog) {
+            var value = ui_12.UI.SettingsPanel.stretchRange.get();
+            if ("disableLog" !== disableLog) {
+                console.log("📏 Stretch changed:", value);
+            }
+            _library_10.Library.UI.setAttribute(ui_12.UI.volumeRange.dom, "aria-valuenow", "".concat(value));
+            _library_10.Library.UI.setAttribute(ui_12.UI.SettingsPanel.stretchRange.dom, "aria-valuetext", "".concat(_tools_8.Tools.Number.toString(value, 0, Events.locale), " / ").concat(_tools_8.Tools.Number.toString(100, 0, Events.locale)));
+            _features_2.Features.Player.updateStretch();
             Events.mousemove();
         };
         var updateLoopShortMedia = function () {
@@ -9498,21 +9479,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            // UI.ControlPanel.shuffle.setChange
-            // (
-            //     (event, button) =>
-            //     {
-            //         event?.stopPropagation();
-            //         button.dom.blur();
-            //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
-            //     }
-            // );
-            ui_12.UI.ControlPanel.repeat.setChange(function (_event, _button) {
-                // event?.stopPropagation();
-                // button.dom.blur();
-                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
-                Events.updateNoRepeatLabel();
-            });
+            ui_12.UI.ControlPanel.repeat.setChange(function () { return Events.updateNoRepeatLabel(); });
             ui_12.UI.ControlPanel.volumeButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -9522,8 +9489,6 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 }
                 ui_12.UI.closeOtherPopups(ui_12.UI.ControlPanel.volumeButton);
             });
-            // UI.volumeRange.options ||= { }
-            // UI.volumeRange.options.change = () => updateVolume();
             ui_12.UI.ControlPanel.settingsButton.setChange(function (event, button) {
                 event === null || event === void 0 ? void 0 : event.stopPropagation();
                 button.dom.blur();
@@ -9545,13 +9510,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             (_b = ui_12.UI.SettingsPanel.brightnessRange).options || (_b.options = {});
             ui_12.UI.SettingsPanel.brightnessRange.options.change = function () { return Events.updateBrightness(); };
             (_c = ui_12.UI.SettingsPanel.stretchRange).options || (_c.options = {});
-            ui_12.UI.SettingsPanel.stretchRange.options.change = function (_event, range) {
-                var value = range.get();
-                console.log("📏 Stretch changed:", value);
-                //Features.Media.setStretch(value / 100);
-                _features_2.Features.Player.updateStretch();
-                Events.mousemove();
-            };
+            ui_12.UI.SettingsPanel.stretchRange.options.change = function () { return Events.updateStretch(); };
             (_d = ui_12.UI.SettingsPanel.imageSpanSelect).options || (_d.options = {});
             ui_12.UI.SettingsPanel.imageSpanSelect.options.change = function (_event, select) {
                 var value = select.get();
@@ -9643,6 +9602,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             });
             Events.updateVolume("disableLog");
             Events.updateBrightness("disableLog");
+            Events.updateStretch("disableLog");
             _features_2.Features.Player.updateStretch();
             updateVisualizer();
             updateOverlayStyle();

@@ -23,7 +23,8 @@ export namespace Events
         UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
         UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
         UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
-        //Media.setVolume(value);
+        Library.UI.setAttribute(UI.volumeRange.dom, "aria-valuenow", `${value}`);
+        Library.UI.setAttribute(UI.volumeRange.dom, "aria-valuetext", `${Tools.Number.toString(value, 0, locale)} / ${Tools.Number.toString(100, 0, locale)}`);
         Features.Player.updateVolume();
         mousemove();
     };
@@ -34,7 +35,21 @@ export namespace Events
         {
             console.log("💡 Brightness changed:", value);
         }
+        Library.UI.setAttribute(UI.volumeRange.dom, "aria-valuenow", `${value}`);
+        Library.UI.setAttribute(UI.SettingsPanel.brightnessRange.dom, "aria-valuetext", `${Tools.Number.toString(value, 0, locale)} / ${Tools.Number.toString(100, 0, locale)}`);
         Features.Player.updateDarkCurtainOpacity();
+        mousemove();
+    };
+    export const updateStretch = (disableLog?: "disableLog") =>
+    {
+        const value = UI.SettingsPanel.stretchRange.get();
+        if ("disableLog" !== disableLog)
+        {
+            console.log("📏 Stretch changed:", value);
+        }
+        Library.UI.setAttribute(UI.volumeRange.dom, "aria-valuenow", `${value}`);
+        Library.UI.setAttribute(UI.SettingsPanel.stretchRange.dom, "aria-valuetext", `${Tools.Number.toString(value, 0, locale)} / ${Tools.Number.toString(100, 0, locale)}`);
+        Features.Player.updateStretch();
         mousemove();
     };
     const updateLoopShortMedia = () =>
@@ -558,25 +573,7 @@ export namespace Events
             button.dom.blur();
             Features.Player.rewind();
         };
-        // UI.ControlPanel.shuffle.setChange
-        // (
-        //     (event, button) =>
-        //     {
-        //         event?.stopPropagation();
-        //         button.dom.blur();
-        //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
-        //     }
-        // );
-        UI.ControlPanel.repeat.setChange
-        (
-            (_event, _button) =>
-            {
-                // event?.stopPropagation();
-                // button.dom.blur();
-                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
-                updateNoRepeatLabel();
-            }
-        );
+        UI.ControlPanel.repeat.setChange(() => updateNoRepeatLabel());
         UI.ControlPanel.volumeButton.setChange
         (
             (event, button) =>
@@ -591,8 +588,6 @@ export namespace Events
                 UI.closeOtherPopups(UI.ControlPanel.volumeButton);
             }
         );
-        // UI.volumeRange.options ||= { }
-        // UI.volumeRange.options.change = () => updateVolume();
         UI.ControlPanel.settingsButton.setChange
         (
             (event, button) =>
@@ -622,14 +617,7 @@ export namespace Events
         UI.SettingsPanel.brightnessRange.options ||= { }
         UI.SettingsPanel.brightnessRange.options.change = () => updateBrightness();
         UI.SettingsPanel.stretchRange.options ||= { }
-        UI.SettingsPanel.stretchRange.options.change = (_event, range) =>
-        {
-            const value = range.get();
-            console.log("📏 Stretch changed:", value);
-            //Features.Media.setStretch(value / 100);
-            Features.Player.updateStretch();
-            mousemove();
-        };
+        UI.SettingsPanel.stretchRange.options.change = () => updateStretch();
         UI.SettingsPanel.imageSpanSelect.options ||= { }
         UI.SettingsPanel.imageSpanSelect.options.change = (_event, select) =>
         {
@@ -753,6 +741,7 @@ export namespace Events
         );
         updateVolume("disableLog");
         updateBrightness("disableLog");
+        updateStretch("disableLog");
         Features.Player.updateStretch();
         updateVisualizer();
         updateOverlayStyle();
