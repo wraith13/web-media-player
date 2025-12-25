@@ -18,11 +18,11 @@ export namespace Events
         {
             console.log("🔊 Volume changed:", value, rank);
         }
-        UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-        UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-        UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-        UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-        UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+        UI.ControlPanel.volumeButton.dom.classList.toggle("volume-mute", rank <= 0);
+        UI.ControlPanel.volumeButton.dom.classList.toggle("volume-0", 1 === rank);
+        UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
+        UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
+        UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
         //Media.setVolume(value);
         Features.Player.updateVolume();
         mousemove();
@@ -558,22 +558,22 @@ export namespace Events
             button.dom.blur();
             Features.Player.rewind();
         };
-        UI.ControlPanel.shuffle.setChange
-        (
-            (event, button) =>
-            {
-                event?.stopPropagation();
-                button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
-            }
-        );
+        // UI.ControlPanel.shuffle.setChange
+        // (
+        //     (event, button) =>
+        //     {
+        //         event?.stopPropagation();
+        //         button.dom.blur();
+        //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
+        //     }
+        // );
         UI.ControlPanel.repeat.setChange
         (
-            (event, button) =>
+            (_event, _button) =>
             {
-                event?.stopPropagation();
-                button.dom.blur();
-                UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
+                // event?.stopPropagation();
+                // button.dom.blur();
+                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
                 updateNoRepeatLabel();
             }
         );

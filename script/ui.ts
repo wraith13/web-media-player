@@ -106,13 +106,13 @@ export namespace UI
     {
         export const panel =
             Library.UI.getElementById("div", "control-panel");
-        export const wakeUpButton = new Library.Control.Checkbox(control.wakeUpButton);
-        export const shuffle = new Library.Control.Checkbox(control.shuffle);
-        export const repeat = new Library.Control.Checkbox(control.repeat);
+        export const wakeUpButton = new Library.Control.ToggleButton(control.wakeUpButton);
+        export const shuffle = new Library.Control.ToggleButton(control.shuffle);
+        export const repeat = new Library.Control.ToggleButton(control.repeat);
         export const playButton = new Library.Control.Button({ id: "play-button", });
-        export const volumeButton = new Library.Control.Checkbox(control.volumeButton);
-        export const settingsButton = new Library.Control.Checkbox(control.settingsButton);
-        export const sleepButton = new Library.Control.Checkbox(control.sleepButton);
+        export const volumeButton = new Library.Control.ToggleButton(control.volumeButton);
+        export const settingsButton = new Library.Control.ToggleButton(control.settingsButton);
+        export const sleepButton = new Library.Control.ToggleButton(control.sleepButton);
         export const wakeupPanel =
             Library.UI.getElementById("div", "wakeup-panel");
         export const volumePanel =
@@ -166,8 +166,6 @@ export namespace UI
             UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
         }
     }
-    export const volumeLabel =
-        Library.UI.querySelector("label", "label[for='volume-button']");
     export const volumeRange =
         new Library.Control.Range(control.volume);
     export const mediaList =
@@ -628,38 +626,38 @@ export namespace UI
     [
         {
             visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
-            checkbox: ControlPanel.wakeUpButton
+            toggleButton: ControlPanel.wakeUpButton
         },
         {
             visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
-            checkbox: ControlPanel.volumeButton
+            toggleButton: ControlPanel.volumeButton
         },
         {
             visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
-            checkbox: ControlPanel.settingsButton
+            toggleButton: ControlPanel.settingsButton
         },
         {
             visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
-            checkbox: ControlPanel.sleepButton
+            toggleButton: ControlPanel.sleepButton
         },
     ];
-    export const updateParentClassBasedOnCheckbox = (checkbox: Library.Control.Checkbox, checked: boolean = checkbox.get()): void =>
-    {
-        const parent: HTMLElement = checkbox.dom.parentElement!;
-        parent.classList.toggle("checked", checked);
-    };
-    export const closeOtherPopups = (except: Library.Control.Checkbox) =>
+    // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
+    // {
+    //     const parent: HTMLElement = toggleButton.dom.parentElement!;
+    //     parent.classList.toggle("checked", checked);
+    // };
+    export const closeOtherPopups = (except: Library.Control.ToggleButton) =>
     {
         popupCheckboxList.forEach
         (
             i =>
             {
-                if (except !== i.checkbox)
+                if (except !== i.toggleButton)
                 {
-                    i.checkbox.toggle(false, "preventOnChange");
+                    i.toggleButton.toggle(false, "preventOnChange");
                 }
-                updateParentClassBasedOnCheckbox(i.checkbox);
-                const checked = i.checkbox.get();
+                //updateParentClassBasedOnCheckbox(i.toggleButton);
+                const checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             }
         );

@@ -1539,28 +1539,25 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   align-items: center;
   gap: 0.25rem;
 }
-#control-panel form label[for=wakeup-button].icon-button {
+#control-panel form #wakeup-button.icon-button {
   margin-inline-start: -3.25rem;
 }
-#control-panel form label[for=sleep-button].icon-button {
+#control-panel form #sleep-button.icon-button {
   margin-inline-end: -3.25rem;
 }
 @media (max-width: 540px) {
-  #control-panel form label[for=wakeup-button].icon-button {
-    margin-top: -7rem;
-    margin-right: -3.25rem;
-    margin-left: 0rem;
+  #control-panel form #wakeup-button.icon-button {
+    margin-block-start: -7rem;
+    margin-inline-start: 0rem;
+    margin-inline-end: -3.25rem;
   }
-  #control-panel form label[for=sleep-button].icon-button {
-    margin-top: -7rem;
-    margin-right: 0rem;
-    margin-left: -3.25rem;
+  #control-panel form #sleep-button.icon-button {
+    margin-block-start: -7rem;
+    margin-inline-start: -3.25rem;
+    margin-inline-end: 0rem;
   }
 }
-#control-panel form .icon-button > input[type=checkbox] {
-  display: none;
-}
-#control-panel form .icon-button.checked svg {
+#control-panel form .icon-button.on svg {
   border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 #control-panel form .icon-button > svg, #control-panel form .icon-button > div > svg {
@@ -1568,21 +1565,11 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   vertical-align: middle;
 }
-#control-panel form .icon-button > input[type=checkbox]:checked + div + label + label {
-  inset-block-end: 9.5rem;
-}
-@media (max-width: 420px) {
-  #control-panel form .icon-button > input[type=checkbox]:checked + div + label + label {
-    inset-block-end: 12rem;
-  }
-}
-#control-panel form label.icon-button svg,
 #control-panel form button {
   backdrop-filter: blur(0.5rem);
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
-#control-panel form label.icon-button svg,
 #control-panel form button {
   border-style: solid;
   border-width: 2px;
@@ -1595,11 +1582,9 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   height: 3rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
-#control-panel form label.icon-button svg.on,
 #control-panel form button.on {
   border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
-#control-panel form label.icon-button svg svg,
 #control-panel form button svg {
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
@@ -1607,14 +1592,7 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   height: 100%;
 }
 @media (hover: hover) {
-  #control-panel form label.icon-button svg:hover,
   #control-panel form button:hover {
-    z-index: 100;
-    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
-  }
-}
-@media (hover: hover) {
-  #control-panel form label.icon-button:hover svg {
     z-index: 100;
     filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
@@ -1671,8 +1649,8 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped #screen-footer {
   border-radius: 50%;
   background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg));
   position: absolute;
+  inset: 0px;
   border-width: 2px;
-  margin: 2px;
   border-color: transparent;
   width: calc(3rem - 4px);
   height: calc(3rem - 4px);
@@ -2276,13 +2254,13 @@ label[for=wakeup-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2294,7 +2272,7 @@ label[for=wakeup-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }
@@ -2421,22 +2399,22 @@ body.show-wakeup-panel #no-media {
   }
 }
 
-label[for=volume-button]:not(.volume-mute) #speaker-mute-icon {
+#volume-button:not(.volume-mute) #speaker-mute-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-0) #speaker-0-icon {
+#volume-button:not(.volume-0) #speaker-0-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-1) #speaker-1-icon {
+#volume-button:not(.volume-1) #speaker-1-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-2) #speaker-2-icon {
+#volume-button:not(.volume-2) #speaker-2-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-3) #speaker-3-icon {
+#volume-button:not(.volume-3) #speaker-3-icon {
   display: none;
 }
-label[for=volume-button] #speaker-mute-icon svg {
+#volume-button #speaker-mute-icon svg {
   fill: red;
 }
 
@@ -2682,13 +2660,13 @@ label[for=sleep-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2700,7 +2678,7 @@ label[for=sleep-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }

@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Wed Dec 24 2025 07:11:12 GMT+0900 (日本標準時)
+    build at: Wed Dec 24 2025 20:07:49 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -1631,28 +1631,25 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   align-items: center;
   gap: 0.25rem;
 }
-#control-panel form label[for=wakeup-button].icon-button {
+#control-panel form #wakeup-button.icon-button {
   margin-inline-start: -3.25rem;
 }
-#control-panel form label[for=sleep-button].icon-button {
+#control-panel form #sleep-button.icon-button {
   margin-inline-end: -3.25rem;
 }
 @media (max-width: 540px) {
-  #control-panel form label[for=wakeup-button].icon-button {
-    margin-top: -7rem;
-    margin-right: -3.25rem;
-    margin-left: 0rem;
+  #control-panel form #wakeup-button.icon-button {
+    margin-block-start: -7rem;
+    margin-inline-start: 0rem;
+    margin-inline-end: -3.25rem;
   }
-  #control-panel form label[for=sleep-button].icon-button {
-    margin-top: -7rem;
-    margin-right: 0rem;
-    margin-left: -3.25rem;
+  #control-panel form #sleep-button.icon-button {
+    margin-block-start: -7rem;
+    margin-inline-start: -3.25rem;
+    margin-inline-end: 0rem;
   }
 }
-#control-panel form .icon-button > input[type=checkbox] {
-  display: none;
-}
-#control-panel form .icon-button.checked svg {
+#control-panel form .icon-button.on svg {
   border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
 #control-panel form .icon-button > svg, #control-panel form .icon-button > div > svg {
@@ -1660,21 +1657,11 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   vertical-align: middle;
 }
-#control-panel form .icon-button > input[type=checkbox]:checked + div + label + label {
-  inset-block-end: 9.5rem;
-}
-@media (max-width: 420px) {
-  #control-panel form .icon-button > input[type=checkbox]:checked + div + label + label {
-    inset-block-end: 12rem;
-  }
-}
-#control-panel form label.icon-button svg,
 #control-panel form button {
   backdrop-filter: blur(0.5rem);
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   background-color: rgba(32, 28, 38, 0.6);
 }
-#control-panel form label.icon-button svg,
 #control-panel form button {
   border-style: solid;
   border-width: 2px;
@@ -1687,11 +1674,9 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   height: 3rem;
   background-color: rgba(32, 28, 38, 0.9);
 }
-#control-panel form label.icon-button svg.on,
 #control-panel form button.on {
   border-color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
 }
-#control-panel form label.icon-button svg svg,
 #control-panel form button svg {
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
@@ -1699,14 +1684,7 @@ body.play:not(.show-ui):not(.keyinput) #control-panel:not(.show)::before {
   height: 100%;
 }
 @media (hover: hover) {
-  #control-panel form label.icon-button svg:hover,
   #control-panel form button:hover {
-    z-index: 100;
-    filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
-  }
-}
-@media (hover: hover) {
-  #control-panel form label.icon-button:hover svg {
     z-index: 100;
     filter: drop-shadow(rgba(230, 237, 243, calc(1 * var(--white-depth))) 0px 0px 0.5rem);
   }
@@ -1763,8 +1741,8 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped #screen-footer {
   border-radius: 50%;
   background: conic-gradient(transparent calc(var(--progress) * 360deg), transparent calc(var(--progress) * 360deg), white calc(var(--progress) * 360deg));
   position: absolute;
+  inset: 0px;
   border-width: 2px;
-  margin: 2px;
   border-color: transparent;
   width: calc(3rem - 4px);
   height: calc(3rem - 4px);
@@ -2368,13 +2346,13 @@ label[for=wakeup-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show)::before {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2386,7 +2364,7 @@ label[for=wakeup-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #wakeup-button:checked + div + label[for=wakeup-button].tip:not(.show) {
+  body #wakeup-button:on + div + label[for=wakeup-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }
@@ -2513,22 +2491,22 @@ body.show-wakeup-panel #no-media {
   }
 }
 
-label[for=volume-button]:not(.volume-mute) #speaker-mute-icon {
+#volume-button:not(.volume-mute) #speaker-mute-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-0) #speaker-0-icon {
+#volume-button:not(.volume-0) #speaker-0-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-1) #speaker-1-icon {
+#volume-button:not(.volume-1) #speaker-1-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-2) #speaker-2-icon {
+#volume-button:not(.volume-2) #speaker-2-icon {
   display: none;
 }
-label[for=volume-button]:not(.volume-3) #speaker-3-icon {
+#volume-button:not(.volume-3) #speaker-3-icon {
   display: none;
 }
-label[for=volume-button] #speaker-mute-icon svg {
+#volume-button #speaker-mute-icon svg {
   fill: red;
 }
 
@@ -2774,13 +2752,13 @@ label[for=sleep-button].tip:empty:not(.show) {
     transition: opacity 750ms, filter 750ms;
     transition: transform 500ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show) {
     opacity: 0;
     cursor: none;
     pointer-events: none;
     filter: blur(1em);
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show)::before {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show)::before {
     content: "";
     position: absolute;
     top: -1em;
@@ -2792,7 +2770,7 @@ label[for=sleep-button].tip:empty:not(.show) {
     z-index: -1;
     transition: filter 750ms;
   }
-  body #sleep-button:checked + div + label[for=sleep-button].tip:not(.show) {
+  body #sleep-button:on + div + label[for=sleep-button].tip:not(.show) {
     transform: translate(0px, 100%);
   }
 }
@@ -3863,8 +3841,7 @@ DUMMYSTYLE
 <div id="fps" aria-hidden="true"></div>
 <div id="control-panel" role="presentation">
     <form data-aria-lang-key="control-panel">
-        <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
-            <input id="wakeup-button" type="checkbox">
+        <button id="wakeup-button" class="icon-button" data-aria-lang-key="wakeup">
             <div id="wakeup-progress-circle" role="presentation"></div>
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3872,9 +3849,8 @@ DUMMYSTYLE
     <path d="M560,879.636C560,853.345 538.655,832 512.364,832L511.636,832C485.345,832 464,853.345 464,879.636L464,944.364C464,970.655 485.345,992 511.636,992L512.364,992C538.655,992 560,970.655 560,944.364L560,879.636ZM369.751,854.382C382.897,831.613 375.084,802.456 352.315,789.31L351.685,788.946C328.916,775.801 299.758,783.613 286.613,806.382L254.249,862.438C241.103,885.207 248.916,914.365 271.685,927.51L272.315,927.874C295.084,941.02 324.242,933.207 337.387,910.438L369.751,854.382ZM686.613,910.438C699.758,933.207 728.916,941.02 751.685,927.874L752.315,927.51C775.084,914.365 782.897,885.207 769.751,862.438L737.387,806.382C724.242,783.613 695.084,775.801 672.315,788.946L671.685,789.31C648.916,802.456 641.103,831.613 654.249,854.382L686.613,910.438ZM512,224C670.952,224 800,353.048 800,512C800,670.952 670.952,800 512,800C353.048,800 224,670.952 224,512C224,353.048 353.048,224 512,224ZM217.618,737.387C240.387,724.242 248.199,695.084 235.054,672.315L234.69,671.685C221.544,648.916 192.387,641.103 169.618,654.249L113.562,686.613C90.793,699.758 82.98,728.916 96.126,751.685L96.49,752.315C109.635,775.084 138.793,782.897 161.562,769.751L217.618,737.387ZM862.438,769.751C885.207,782.897 914.365,775.084 927.51,752.315L927.874,751.685C941.02,728.916 933.207,699.758 910.438,686.613L854.382,654.249C831.613,641.103 802.456,648.916 789.31,671.685L788.946,672.315C775.801,695.084 783.613,724.242 806.382,737.387L862.438,769.751ZM144.364,560C170.655,560 192,538.655 192,512.364L192,511.636C192,485.345 170.655,464 144.364,464L79.636,464C53.345,464 32,485.345 32,511.636L32,512.364C32,538.655 53.345,560 79.636,560L144.364,560ZM944.364,560C970.655,560 992,538.655 992,512.364L992,511.636C992,485.345 970.655,464 944.364,464L879.636,464C853.345,464 832,485.345 832,511.636L832,512.364C832,538.655 853.345,560 879.636,560L944.364,560ZM169.618,369.751C192.387,382.897 221.544,375.084 234.69,352.315L235.054,351.685C248.199,328.916 240.387,299.758 217.618,286.613L161.562,254.249C138.793,241.103 109.635,248.916 96.49,271.685L96.126,272.315C82.98,295.084 90.793,324.242 113.562,337.387L169.618,369.751ZM910.438,337.387C933.207,324.242 941.02,295.084 927.874,272.315L927.51,271.685C914.365,248.916 885.207,241.103 862.438,254.249L806.382,286.613C783.613,299.758 775.801,328.916 788.946,351.685L789.31,352.315C802.456,375.084 831.613,382.897 854.382,369.751L910.438,337.387ZM286.613,217.618C299.758,240.387 328.916,248.199 351.685,235.054L352.315,234.69C375.084,221.544 382.897,192.387 369.751,169.618L337.387,113.562C324.242,90.793 295.084,82.98 272.315,96.126L271.685,96.49C248.916,109.635 241.103,138.793 254.249,161.562L286.613,217.618ZM769.751,161.562C782.897,138.793 775.084,109.635 752.315,96.49L751.685,96.126C728.916,82.98 699.758,90.793 686.613,113.562L654.249,169.618C641.103,192.387 648.916,221.544 671.685,234.69L672.315,235.054C695.084,248.199 724.242,240.387 737.387,217.618L769.751,161.562ZM560,79.636C560,53.345 538.655,32 512.364,32L511.636,32C485.345,32 464,53.345 464,79.636L464,144.364C464,170.655 485.345,192 511.636,192L512.364,192C538.655,192 560,170.655 560,144.364L560,79.636Z"/>
 </svg>
 
-        </label>
-        <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
-            <input id="shuffle" type="checkbox">
+        </butto>
+        <button id="shuffle" class="icon-button" data-aria-lang-key="Shuffle">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3883,9 +3859,8 @@ DUMMYSTYLE
     </g>
 </svg>
 
-        </label>
-        <label for="repeat" class="icon-button" tabindex="0" data-aria-lang-key="Repeat">
-            <input id="repeat" type="checkbox">
+        </button>
+        <button id="repeat" class="icon-button" data-aria-lang-key="Repeat">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3894,8 +3869,8 @@ DUMMYSTYLE
     </g>
 </svg>
 
-        </label>
-        <button id="play-button" tabindex="0" data-aria-lang-key="Play / Pause">
+        </button>
+        <button id="play-button" data-aria-lang-key="Play / Pause">
             <div id="play-icon" role="presentation" aria-hidden="true"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3913,8 +3888,7 @@ DUMMYSTYLE
 </svg>
 </div>
         </button>
-        <label for="volume-button" class="icon-button" tabindex="0" data-aria-lang-key="Volume">
-            <input id="volume-button" type="checkbox">
+        <button id="volume-button" class="icon-button" data-aria-lang-key="Volume">
             <div id="speaker-mute-icon"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
@@ -3955,18 +3929,16 @@ DUMMYSTYLE
     </g>
 </svg>
 </div>
-        </label>
-        <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
-            <input id="settings-button" type="checkbox">
+        </button>
+        <button id="settings-button" class="icon-button" data-aria-lang-key="Settings">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg role="presentation" aria-hidden="true" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <path d="M579.681,101.543C534.863,94.152 489.137,94.152 444.319,101.543L422.868,255.329C390.367,266.615 360.306,283.97 334.282,306.473L190.374,248.158C161.565,283.276 138.702,322.876 122.693,365.385L245.15,460.855C238.674,494.644 238.674,529.356 245.15,563.145L122.693,658.615C138.702,701.124 161.565,740.724 190.374,775.842L334.282,717.527C360.306,740.03 390.367,757.385 422.868,768.671L444.319,922.457C489.137,929.848 534.863,929.848 579.681,922.457L601.132,768.671C633.633,757.385 663.694,740.03 689.718,717.527L833.626,775.842C862.435,740.724 885.298,701.124 901.307,658.615L778.85,563.145C785.326,529.356 785.326,494.644 778.85,460.855L901.307,365.385C885.298,322.876 862.435,283.276 833.626,248.158L689.718,306.473C663.694,283.97 633.633,266.615 601.132,255.329L579.681,101.543ZM512,350.491C601.139,350.491 673.509,422.861 673.509,512C673.509,601.139 601.139,673.509 512,673.509C422.861,673.509 350.491,601.139 350.491,512C350.491,422.861 422.861,350.491 512,350.491Z"/>
 </svg>
 
-        </label>
-        <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
-            <input id="sleep-button" type="checkbox">
+        </button>
+        <button id="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
             <div id="sleep-progress-circle" role="presentation"></div>
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -3974,7 +3946,7 @@ DUMMYSTYLE
     <path d="M938.575,450.949C941.411,470.913 942.876,491.287 942.876,512C942.876,749.807 749.807,942.876 512,942.876C274.193,942.876 81.124,749.807 81.124,512C81.124,274.193 274.193,81.124 512,81.124C530.715,81.124 549.154,82.32 567.264,84.642C414.729,109.929 298.252,242.614 298.252,402.288C298.252,580 442.532,724.28 620.244,724.28C781.411,724.28 915.081,605.615 938.575,450.949Z"/>
 </svg>
 
-        </label>
+        </button>
     </form>
 </div>
 <div id="wakeup-panel" class="popup-panel" role="presentation">
@@ -4213,8 +4185,8 @@ DUMMYSTYLE
 <script type="text/javascript">
 const build =
 {
-    at: "Wed Dec 24 2025 07:11:12 GMT+0900 (日本標準時)",
-    tick: 1766527872357
+    at: "Wed Dec 24 2025 20:07:49 GMT+0900 (日本標準時)",
+    tick: 1766574469049
 };
 const evilCommonjsConfig = // "./resource/evil-commonjs.config.json"
 {
@@ -9403,6 +9375,67 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             return ToggleLabel;
         }());
         Control.ToggleLabel = ToggleLabel;
+        var ToggleButton = /** @class */ (function () {
+            function ToggleButton(data, options) {
+                var _this = this;
+                var _a;
+                this.data = data;
+                this.options = options;
+                this.catchUpRestore = function (params) {
+                    var _a, _b, _c, _d;
+                    var urlParam = params === null || params === void 0 ? void 0 : params[_this.dom.id];
+                    if ((undefined !== urlParam ?
+                        "true" === urlParam :
+                        ((_a = _this.data.default) !== null && _a !== void 0 ? _a : false)) !== _this.get()) {
+                        Control.eventLog({ control: _this, event: "catchUpRestore", message: "👆 Checkbox.Change:", value: _this.get() });
+                        (_c = (_b = _this.options) === null || _b === void 0 ? void 0 : _b.change) === null || _c === void 0 ? void 0 : _c.call(_b, null, _this);
+                        (_d = _this.saveParameter) === null || _d === void 0 ? void 0 : _d.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                    }
+                };
+                this.getId = function () { return Control.getDomId(_this.data); };
+                this.setChange = function (change) {
+                    return _this.options = __assign(__assign({}, _this.options), { change: change });
+                };
+                this.toggle = function (checked, preventOnChange) {
+                    var _a, _b, _c, _d;
+                    var newChecked = checked !== null && checked !== void 0 ? checked : !_this.get();
+                    if (newChecked !== _this.get() || "forceOnChange" === preventOnChange) {
+                        _this.dom.classList.toggle("on", newChecked);
+                        (_a = _this.dom.querySelector("span[data-lang-key='on']")) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-hidden", newChecked ? "false" : "true");
+                        (_b = _this.dom.querySelector("span[data-lang-key='off']")) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-hidden", newChecked ? "true" : "false");
+                        if (undefined === preventOnChange) {
+                            (_d = (_c = _this.options) === null || _c === void 0 ? void 0 : _c.change) === null || _d === void 0 ? void 0 : _d.call(_c, null, _this);
+                        }
+                    }
+                };
+                this.get = function () { return _this.dom.classList.contains("on"); };
+                this.fire = function () { var _a, _b; return (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this); };
+                this.loadParameter = function (params, saveParameter) {
+                    var value = params[_this.dom.id];
+                    if (undefined !== value) {
+                        _this.toggle("true" === value);
+                    }
+                    _this.saveParameter = saveParameter;
+                    return _this;
+                };
+                this.dom = Control.getDom(data);
+                if (!(this.dom instanceof HTMLButtonElement) || "button" !== this.dom.tagName.toLowerCase()) {
+                    console.error("🦋 FIXME: Contorl.ToggleButton.InvalidDom", data, this.dom);
+                }
+                if (undefined !== this.data.default) {
+                    this.toggle(this.data.default, [Control.preventOnChange][false !== ((_a = this.options) === null || _a === void 0 ? void 0 : _a.preventOnChangeWhenNew) ? 0 : 1]);
+                }
+                this.dom.addEventListener("click", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 ToggleButton.Click:", value: !_this.get() });
+                    _this.toggle();
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                });
+            }
+            return ToggleButton;
+        }());
+        Control.ToggleButton = ToggleButton;
         var Range = /** @class */ (function () {
             function Range(data, options) {
                 var _this = this;
@@ -11310,13 +11343,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         var ControlPanel;
         (function (ControlPanel) {
             ControlPanel.panel = _library_2.Library.UI.getElementById("div", "control-panel");
-            ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
-            ControlPanel.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
-            ControlPanel.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
+            ControlPanel.wakeUpButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.wakeUpButton);
+            ControlPanel.shuffle = new _library_2.Library.Control.ToggleButton(control_json_1.default.shuffle);
+            ControlPanel.repeat = new _library_2.Library.Control.ToggleButton(control_json_1.default.repeat);
             ControlPanel.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
-            ControlPanel.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
-            ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
-            ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+            ControlPanel.volumeButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.volumeButton);
+            ControlPanel.settingsButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.settingsButton);
+            ControlPanel.sleepButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.sleepButton);
             ControlPanel.wakeupPanel = _library_2.Library.UI.getElementById("div", "wakeup-panel");
             ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
             ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
@@ -11350,7 +11383,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
             };
         })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
-        UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.mediaListVisibilityApplier = new VisibilityApplier(UI.mediaList);
@@ -11683,33 +11715,33 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.popupCheckboxList = [
             {
                 visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
-                checkbox: ControlPanel.wakeUpButton
+                toggleButton: ControlPanel.wakeUpButton
             },
             {
                 visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
-                checkbox: ControlPanel.volumeButton
+                toggleButton: ControlPanel.volumeButton
             },
             {
                 visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
-                checkbox: ControlPanel.settingsButton
+                toggleButton: ControlPanel.settingsButton
             },
             {
                 visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
-                checkbox: ControlPanel.sleepButton
+                toggleButton: ControlPanel.sleepButton
             },
         ];
-        UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
-            if (checked === void 0) { checked = checkbox.get(); }
-            var parent = checkbox.dom.parentElement;
-            parent.classList.toggle("checked", checked);
-        };
+        // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
+        // {
+        //     const parent: HTMLElement = toggleButton.dom.parentElement!;
+        //     parent.classList.toggle("checked", checked);
+        // };
         UI.closeOtherPopups = function (except) {
             UI.popupCheckboxList.forEach(function (i) {
-                if (except !== i.checkbox) {
-                    i.checkbox.toggle(false, "preventOnChange");
+                if (except !== i.toggleButton) {
+                    i.toggleButton.toggle(false, "preventOnChange");
                 }
-                UI.updateParentClassBasedOnCheckbox(i.checkbox);
-                var checked = i.checkbox.get();
+                //updateParentClassBasedOnCheckbox(i.toggleButton);
+                var checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             });
         };
@@ -15909,11 +15941,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("🔊 Volume changed:", value, rank);
             }
-            ui_12.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-            ui_12.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-mute", rank <= 0);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-0", 1 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
             //Media.setVolume(value);
             _features_2.Features.Player.updateVolume();
             Events.mousemove();
@@ -16317,15 +16349,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_12.UI.ControlPanel.shuffle.setChange(function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.shuffle);
-            });
-            ui_12.UI.ControlPanel.repeat.setChange(function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.repeat);
+            // UI.ControlPanel.shuffle.setChange
+            // (
+            //     (event, button) =>
+            //     {
+            //         event?.stopPropagation();
+            //         button.dom.blur();
+            //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
+            //     }
+            // );
+            ui_12.UI.ControlPanel.repeat.setChange(function (_event, _button) {
+                // event?.stopPropagation();
+                // button.dom.blur();
+                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
                 Events.updateNoRepeatLabel();
             });
             ui_12.UI.ControlPanel.volumeButton.setChange(function (event, button) {
@@ -16528,12 +16564,12 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
                     Screenshot.fixCanvasSize("1024px", "1024px");
                     Screenshot.toCenterControlPanel(10);
                     _library_11.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=shuffle]", "label[for=repeat]", "label[for=volume-button]", "label[for=settings-button]", "label[for=wakeup-button]", "label[for=sleep-button]",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle", "#repeat", "#volume-button", "#settings-button", "#wakeup-button", "#sleep-button",]);
                     break;
                 case "twitter-card":
                     Screenshot.fixCanvasSize("1200px", "630px");
                     Screenshot.toCenterControlPanel(3.5);
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=wakeup-button]", "label[for=sleep-button]",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#wakeup-button", "#sleep-button",]);
                     break;
             }
         };

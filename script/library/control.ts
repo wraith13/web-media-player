@@ -382,6 +382,94 @@ export namespace Control
             return this;
         }
     }
+    export interface ToggleButtonArgumentsBase
+    {
+        default?: boolean;
+    }
+    export interface ToggleButtonOptions
+    {
+        change?: (event: Event | null, toggleButton: ToggleButton) => unknown;
+        preventOnChangeWhenNew?: boolean;
+    }
+    export type ToggleButtonArguments = ArgumentsBase<HTMLButtonElement> & ToggleButtonArgumentsBase;
+    export class ToggleButton
+    {
+        public dom: HTMLButtonElement;
+        public saveParameter?: (key: string, value: string) => unknown;
+        constructor(public data: ToggleButtonArguments, public options?: ToggleButtonOptions)
+        {
+            this.dom = getDom(data);
+            if ( ! (this.dom instanceof HTMLButtonElement) || "button" !== this.dom.tagName.toLowerCase())
+            {
+                console.error("🦋 FIXME: Contorl.ToggleButton.InvalidDom", data, this.dom);
+            }
+            if (undefined !== this.data.default)
+            {
+                this.toggle
+                (
+                    this.data.default,
+                    [preventOnChange][false !== this.options?.preventOnChangeWhenNew ? 0: 1]
+                );
+            }
+            this.dom.addEventListener
+            (
+                "click",
+                event =>
+                {
+                    eventLog({ control: this, event, message: "👆 ToggleButton.Click:", value: ! this.get() });
+                    this.toggle();
+                    this.options?.change?.(event, this);
+                    this.saveParameter?.(this.getId() as string, this.get() ? "true": "false");
+                }
+            );
+        }
+        catchUpRestore = (params?: Record<string, string>) =>
+        {
+            const urlParam = params?.[this.dom.id];
+            if
+            (
+                (
+                    undefined !== urlParam ?
+                        "true" === urlParam:
+                        (this.data.default ?? false)
+                ) !== this.get()
+            )
+            {
+                eventLog({ control: this, event: "catchUpRestore", message: "👆 Checkbox.Change:", value: this.get() });
+                this.options?.change?.(null, this);
+                this.saveParameter?.(this.getId() as string, this.get() ? "true": "false");
+            }
+        };
+        getId = () => getDomId(this.data);
+        setChange = (change: (event: Event | null, toggleButton: ToggleButton) => unknown) =>
+            this.options = { ...this.options, change };
+        toggle = (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") =>
+        {
+            const newChecked = checked ?? ! this.get();
+            if (newChecked !== this.get() || "forceOnChange" === preventOnChange)
+            {
+                this.dom.classList.toggle("on", newChecked);
+                this.dom.querySelector("span[data-lang-key='on']")?.setAttribute("aria-hidden", newChecked ? "false": "true");
+                this.dom.querySelector("span[data-lang-key='off']")?.setAttribute("aria-hidden", newChecked ? "true": "false");
+                if (undefined === preventOnChange)
+                {
+                    this.options?.change?.(null, this);
+                }
+            }
+        };
+        get = () => this.dom.classList.contains("on");
+        fire = () => this.options?.change?.(null, this);
+        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        {
+            const value = params[this.dom.id];
+            if (undefined !== value)
+            {
+                this.toggle("true" === value);
+            }
+            this.saveParameter = saveParameter;
+            return this;
+        }
+    }
     export interface RangeArgumentsBase
     {
         min?: number;

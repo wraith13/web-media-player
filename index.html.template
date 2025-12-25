@@ -117,40 +117,34 @@ DUMMYSTYLE
 <div id="fps" aria-hidden="true"></div>
 <div id="control-panel" role="presentation">
     <form data-aria-lang-key="control-panel">
-        <label for="wakeup-button" class="icon-button" tabindex="0" data-aria-lang-key="wakeup">
-            <input id="wakeup-button" type="checkbox">
+        <button id="wakeup-button" class="icon-button" data-aria-lang-key="wakeup">
             <div id="wakeup-progress-circle" role="presentation"></div>
             __SUN_ICON__
-        </label>
-        <label for="shuffle" class="icon-button" tabindex="0" data-aria-lang-key="Shuffle">
-            <input id="shuffle" type="checkbox">
+        </butto>
+        <button id="shuffle" class="icon-button" data-aria-lang-key="Shuffle">
             __SHUFFLE_ICON__
-        </label>
-        <label for="repeat" class="icon-button" tabindex="0" data-aria-lang-key="Repeat">
-            <input id="repeat" type="checkbox">
+        </button>
+        <button id="repeat" class="icon-button" data-aria-lang-key="Repeat">
             __REPEAT_ICON__
-        </label>
-        <button id="play-button" tabindex="0" data-aria-lang-key="Play / Pause">
+        </button>
+        <button id="play-button" data-aria-lang-key="Play / Pause">
             <div id="play-icon" role="presentation" aria-hidden="true">__PLAY_ICON__</div>
             <div id="pause-icon" role="presentation" aria-hidden="true">__PAUSE_ICON__</div>
         </button>
-        <label for="volume-button" class="icon-button" tabindex="0" data-aria-lang-key="Volume">
-            <input id="volume-button" type="checkbox">
+        <button id="volume-button" class="icon-button" data-aria-lang-key="Volume">
             <div id="speaker-mute-icon">__SPEAKER_MUTE_ICON__</div>
             <div id="speaker-0-icon">__SPEAKER_0_ICON__</div>
             <div id="speaker-1-icon">__SPEAKER_1_ICON__</div>
             <div id="speaker-2-icon">__SPEAKER_2_ICON__</div>
             <div id="speaker-3-icon">__SPEAKER_3_ICON__</div>
-        </label>
-        <label for="settings-button" class="icon-button" tabindex="0" data-aria-lang-key="Settings">
-            <input id="settings-button" type="checkbox">
+        </button>
+        <button id="settings-button" class="icon-button" data-aria-lang-key="Settings">
             __COG_ICON__
-        </label>
-        <label for="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
-            <input id="sleep-button" type="checkbox">
+        </button>
+        <button id="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
             <div id="sleep-progress-circle" role="presentation"></div>
             __MOON_ICON__
-        </label>
+        </button>
     </form>
 </div>
 <div id="wakeup-panel" class="popup-panel" role="presentation">

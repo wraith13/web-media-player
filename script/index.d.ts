@@ -3396,6 +3396,31 @@ declare module "script/library/control" {
             fire: () => unknown;
             loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
         }
+        interface ToggleButtonArgumentsBase {
+            default?: boolean;
+        }
+        interface ToggleButtonOptions {
+            change?: (event: Event | null, toggleButton: ToggleButton) => unknown;
+            preventOnChangeWhenNew?: boolean;
+        }
+        type ToggleButtonArguments = ArgumentsBase<HTMLButtonElement> & ToggleButtonArgumentsBase;
+        class ToggleButton {
+            data: ToggleButtonArguments;
+            options?: ToggleButtonOptions | undefined;
+            dom: HTMLButtonElement;
+            saveParameter?: (key: string, value: string) => unknown;
+            constructor(data: ToggleButtonArguments, options?: ToggleButtonOptions | undefined);
+            catchUpRestore: (params?: Record<string, string>) => void;
+            getId: () => string | undefined;
+            setChange: (change: (event: Event | null, toggleButton: ToggleButton) => unknown) => {
+                change: (event: Event | null, toggleButton: ToggleButton) => unknown;
+                preventOnChangeWhenNew?: boolean;
+            };
+            toggle: (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => void;
+            get: () => boolean;
+            fire: () => unknown;
+            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+        }
         interface RangeArgumentsBase {
             min?: number;
             max?: number;
@@ -3664,13 +3689,13 @@ declare module "script/ui" {
         }
         namespace ControlPanel {
             const panel: HTMLDivElement;
-            const wakeUpButton: Library.Control.Checkbox;
-            const shuffle: Library.Control.Checkbox;
-            const repeat: Library.Control.Checkbox;
+            const wakeUpButton: Library.Control.ToggleButton;
+            const shuffle: Library.Control.ToggleButton;
+            const repeat: Library.Control.ToggleButton;
             const playButton: Library.Control.Button<HTMLElement>;
-            const volumeButton: Library.Control.Checkbox;
-            const settingsButton: Library.Control.Checkbox;
-            const sleepButton: Library.Control.Checkbox;
+            const volumeButton: Library.Control.ToggleButton;
+            const settingsButton: Library.Control.ToggleButton;
+            const sleepButton: Library.Control.ToggleButton;
             const wakeupPanel: HTMLDivElement;
             const volumePanel: HTMLDivElement;
             const settingsPanel: HTMLDivElement;
@@ -3694,7 +3719,6 @@ declare module "script/ui" {
             const seekRangeVisibilityApplier: VisibilityApplier;
             const updateSeekRangeVisibility: () => void;
         }
-        const volumeLabel: HTMLLabelElement;
         const volumeRange: Library.Control.Range;
         const mediaList: HTMLDivElement;
         const mediaListVisibilityApplier: VisibilityApplier;
@@ -3797,10 +3821,9 @@ declare module "script/ui" {
         const setAndUpdateLabel: (element: HTMLSpanElement, label: Library.Locale.Label) => void;
         const popupCheckboxList: {
             visibilityApplier: VisibilityApplier;
-            checkbox: Library.Control.Checkbox;
+            toggleButton: Library.Control.ToggleButton;
         }[];
-        const updateParentClassBasedOnCheckbox: (checkbox: Library.Control.Checkbox, checked?: boolean) => void;
-        const closeOtherPopups: (except: Library.Control.Checkbox) => void;
+        const closeOtherPopups: (except: Library.Control.ToggleButton) => void;
     }
 }
 declare module "script/features/location" {

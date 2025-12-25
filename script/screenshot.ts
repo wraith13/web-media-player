@@ -11,12 +11,12 @@ export namespace Screenshot
             fixCanvasSize("1024px", "1024px");
             toCenterControlPanel(10);
             Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "label[for=shuffle]", "label[for=repeat]", "label[for=volume-button]", "label[for=settings-button]", "label[for=wakeup-button]", "label[for=sleep-button]", ]);
+            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "#shuffle", "#repeat", "#volume-button", "#settings-button", "#wakeup-button", "#sleep-button", ]);
             break;
         case "twitter-card":
             fixCanvasSize("1200px", "630px");
             toCenterControlPanel(3.5);
-            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "label[for=wakeup-button]", "label[for=sleep-button]", ]);
+            setDisplayNone([ "#media-screen", "#background-screen", ".item.add", "#wakeup-button", "#sleep-button", ]);
             break;
         }
     };

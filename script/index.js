@@ -2433,6 +2433,67 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
             return ToggleLabel;
         }());
         Control.ToggleLabel = ToggleLabel;
+        var ToggleButton = /** @class */ (function () {
+            function ToggleButton(data, options) {
+                var _this = this;
+                var _a;
+                this.data = data;
+                this.options = options;
+                this.catchUpRestore = function (params) {
+                    var _a, _b, _c, _d;
+                    var urlParam = params === null || params === void 0 ? void 0 : params[_this.dom.id];
+                    if ((undefined !== urlParam ?
+                        "true" === urlParam :
+                        ((_a = _this.data.default) !== null && _a !== void 0 ? _a : false)) !== _this.get()) {
+                        Control.eventLog({ control: _this, event: "catchUpRestore", message: "👆 Checkbox.Change:", value: _this.get() });
+                        (_c = (_b = _this.options) === null || _b === void 0 ? void 0 : _b.change) === null || _c === void 0 ? void 0 : _c.call(_b, null, _this);
+                        (_d = _this.saveParameter) === null || _d === void 0 ? void 0 : _d.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                    }
+                };
+                this.getId = function () { return Control.getDomId(_this.data); };
+                this.setChange = function (change) {
+                    return _this.options = __assign(__assign({}, _this.options), { change: change });
+                };
+                this.toggle = function (checked, preventOnChange) {
+                    var _a, _b, _c, _d;
+                    var newChecked = checked !== null && checked !== void 0 ? checked : !_this.get();
+                    if (newChecked !== _this.get() || "forceOnChange" === preventOnChange) {
+                        _this.dom.classList.toggle("on", newChecked);
+                        (_a = _this.dom.querySelector("span[data-lang-key='on']")) === null || _a === void 0 ? void 0 : _a.setAttribute("aria-hidden", newChecked ? "false" : "true");
+                        (_b = _this.dom.querySelector("span[data-lang-key='off']")) === null || _b === void 0 ? void 0 : _b.setAttribute("aria-hidden", newChecked ? "true" : "false");
+                        if (undefined === preventOnChange) {
+                            (_d = (_c = _this.options) === null || _c === void 0 ? void 0 : _c.change) === null || _d === void 0 ? void 0 : _d.call(_c, null, _this);
+                        }
+                    }
+                };
+                this.get = function () { return _this.dom.classList.contains("on"); };
+                this.fire = function () { var _a, _b; return (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, null, _this); };
+                this.loadParameter = function (params, saveParameter) {
+                    var value = params[_this.dom.id];
+                    if (undefined !== value) {
+                        _this.toggle("true" === value);
+                    }
+                    _this.saveParameter = saveParameter;
+                    return _this;
+                };
+                this.dom = Control.getDom(data);
+                if (!(this.dom instanceof HTMLButtonElement) || "button" !== this.dom.tagName.toLowerCase()) {
+                    console.error("🦋 FIXME: Contorl.ToggleButton.InvalidDom", data, this.dom);
+                }
+                if (undefined !== this.data.default) {
+                    this.toggle(this.data.default, [Control.preventOnChange][false !== ((_a = this.options) === null || _a === void 0 ? void 0 : _a.preventOnChangeWhenNew) ? 0 : 1]);
+                }
+                this.dom.addEventListener("click", function (event) {
+                    var _a, _b, _c;
+                    Control.eventLog({ control: _this, event: event, message: "👆 ToggleButton.Click:", value: !_this.get() });
+                    _this.toggle();
+                    (_b = (_a = _this.options) === null || _a === void 0 ? void 0 : _a.change) === null || _b === void 0 ? void 0 : _b.call(_a, event, _this);
+                    (_c = _this.saveParameter) === null || _c === void 0 ? void 0 : _c.call(_this, _this.getId(), _this.get() ? "true" : "false");
+                });
+            }
+            return ToggleButton;
+        }());
+        Control.ToggleButton = ToggleButton;
         var Range = /** @class */ (function () {
             function Range(data, options) {
                 var _this = this;
@@ -4340,13 +4401,13 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         var ControlPanel;
         (function (ControlPanel) {
             ControlPanel.panel = _library_2.Library.UI.getElementById("div", "control-panel");
-            ControlPanel.wakeUpButton = new _library_2.Library.Control.Checkbox(control_json_1.default.wakeUpButton);
-            ControlPanel.shuffle = new _library_2.Library.Control.Checkbox(control_json_1.default.shuffle);
-            ControlPanel.repeat = new _library_2.Library.Control.Checkbox(control_json_1.default.repeat);
+            ControlPanel.wakeUpButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.wakeUpButton);
+            ControlPanel.shuffle = new _library_2.Library.Control.ToggleButton(control_json_1.default.shuffle);
+            ControlPanel.repeat = new _library_2.Library.Control.ToggleButton(control_json_1.default.repeat);
             ControlPanel.playButton = new _library_2.Library.Control.Button({ id: "play-button", });
-            ControlPanel.volumeButton = new _library_2.Library.Control.Checkbox(control_json_1.default.volumeButton);
-            ControlPanel.settingsButton = new _library_2.Library.Control.Checkbox(control_json_1.default.settingsButton);
-            ControlPanel.sleepButton = new _library_2.Library.Control.Checkbox(control_json_1.default.sleepButton);
+            ControlPanel.volumeButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.volumeButton);
+            ControlPanel.settingsButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.settingsButton);
+            ControlPanel.sleepButton = new _library_2.Library.Control.ToggleButton(control_json_1.default.sleepButton);
             ControlPanel.wakeupPanel = _library_2.Library.UI.getElementById("div", "wakeup-panel");
             ControlPanel.volumePanel = _library_2.Library.UI.getElementById("div", "volume-panel");
             ControlPanel.settingsPanel = _library_2.Library.UI.getElementById("div", "settings-panel");
@@ -4380,7 +4441,6 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 UI.TransportPanel.seekRangeVisibilityApplier.show(isShowSeekBar);
             };
         })(TransportPanel = UI.TransportPanel || (UI.TransportPanel = {}));
-        UI.volumeLabel = _library_2.Library.UI.querySelector("label", "label[for='volume-button']");
         UI.volumeRange = new _library_2.Library.Control.Range(control_json_1.default.volume);
         UI.mediaList = _library_2.Library.UI.getElementById("div", "media-list");
         UI.mediaListVisibilityApplier = new VisibilityApplier(UI.mediaList);
@@ -4713,33 +4773,33 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
         UI.popupCheckboxList = [
             {
                 visibilityApplier: ControlPanel.wakeupPanelVisibilityApplier,
-                checkbox: ControlPanel.wakeUpButton
+                toggleButton: ControlPanel.wakeUpButton
             },
             {
                 visibilityApplier: ControlPanel.volumePanelVisibilityApplier,
-                checkbox: ControlPanel.volumeButton
+                toggleButton: ControlPanel.volumeButton
             },
             {
                 visibilityApplier: ControlPanel.settingsPanelVisibilityApplier,
-                checkbox: ControlPanel.settingsButton
+                toggleButton: ControlPanel.settingsButton
             },
             {
                 visibilityApplier: ControlPanel.sleepPanelVisibilityApplier,
-                checkbox: ControlPanel.sleepButton
+                toggleButton: ControlPanel.sleepButton
             },
         ];
-        UI.updateParentClassBasedOnCheckbox = function (checkbox, checked) {
-            if (checked === void 0) { checked = checkbox.get(); }
-            var parent = checkbox.dom.parentElement;
-            parent.classList.toggle("checked", checked);
-        };
+        // export const updateParentClassBasedOnCheckbox = (toggleButton: Library.Control.ToggleButton, checked: boolean = toggleButton.get()): void =>
+        // {
+        //     const parent: HTMLElement = toggleButton.dom.parentElement!;
+        //     parent.classList.toggle("checked", checked);
+        // };
         UI.closeOtherPopups = function (except) {
             UI.popupCheckboxList.forEach(function (i) {
-                if (except !== i.checkbox) {
-                    i.checkbox.toggle(false, "preventOnChange");
+                if (except !== i.toggleButton) {
+                    i.toggleButton.toggle(false, "preventOnChange");
                 }
-                UI.updateParentClassBasedOnCheckbox(i.checkbox);
-                var checked = i.checkbox.get();
+                //updateParentClassBasedOnCheckbox(i.toggleButton);
+                var checked = i.toggleButton.get();
                 i.visibilityApplier.show(checked);
             });
         };
@@ -8939,11 +8999,11 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             if ("disableLog" !== disableLog) {
                 console.log("🔊 Volume changed:", value, rank);
             }
-            ui_12.UI.volumeLabel.classList.toggle("volume-mute", rank <= 0);
-            ui_12.UI.volumeLabel.classList.toggle("volume-0", 1 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-1", 2 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-2", 3 === rank);
-            ui_12.UI.volumeLabel.classList.toggle("volume-3", 4 <= rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-mute", rank <= 0);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-0", 1 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-1", 2 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-2", 3 === rank);
+            ui_12.UI.ControlPanel.volumeButton.dom.classList.toggle("volume-3", 4 <= rank);
             //Media.setVolume(value);
             _features_2.Features.Player.updateVolume();
             Events.mousemove();
@@ -9347,15 +9407,19 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                 button.dom.blur();
                 _features_2.Features.Player.rewind();
             };
-            ui_12.UI.ControlPanel.shuffle.setChange(function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.shuffle);
-            });
-            ui_12.UI.ControlPanel.repeat.setChange(function (event, button) {
-                event === null || event === void 0 ? void 0 : event.stopPropagation();
-                button.dom.blur();
-                ui_12.UI.updateParentClassBasedOnCheckbox(ui_12.UI.ControlPanel.repeat);
+            // UI.ControlPanel.shuffle.setChange
+            // (
+            //     (event, button) =>
+            //     {
+            //         event?.stopPropagation();
+            //         button.dom.blur();
+            //         UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.shuffle);
+            //     }
+            // );
+            ui_12.UI.ControlPanel.repeat.setChange(function (_event, _button) {
+                // event?.stopPropagation();
+                // button.dom.blur();
+                // UI.updateParentClassBasedOnCheckbox(UI.ControlPanel.repeat);
                 Events.updateNoRepeatLabel();
             });
             ui_12.UI.ControlPanel.volumeButton.setChange(function (event, button) {
@@ -9558,12 +9622,12 @@ define("script/screenshot", ["require", "exports", "script/library/index", "scri
                     Screenshot.fixCanvasSize("1024px", "1024px");
                     Screenshot.toCenterControlPanel(10);
                     _library_11.Library.UI.getElementById("div", "control-panel").style.setProperty("padding", "0px");
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=shuffle]", "label[for=repeat]", "label[for=volume-button]", "label[for=settings-button]", "label[for=wakeup-button]", "label[for=sleep-button]",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#shuffle", "#repeat", "#volume-button", "#settings-button", "#wakeup-button", "#sleep-button",]);
                     break;
                 case "twitter-card":
                     Screenshot.fixCanvasSize("1200px", "630px");
                     Screenshot.toCenterControlPanel(3.5);
-                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "label[for=wakeup-button]", "label[for=sleep-button]",]);
+                    Screenshot.setDisplayNone(["#media-screen", "#background-screen", ".item.add", "#wakeup-button", "#sleep-button",]);
                     break;
             }
         };
