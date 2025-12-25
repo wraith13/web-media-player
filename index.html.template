@@ -120,7 +120,7 @@ DUMMYSTYLE
         <button id="wakeup-button" class="icon-button" data-aria-lang-key="wakeup">
             <div id="wakeup-progress-circle" role="presentation"></div>
             __SUN_ICON__
-        </butto>
+        </button>
         <button id="shuffle" class="icon-button" data-aria-lang-key="Shuffle">
             __SHUFFLE_ICON__
         </button>
@@ -219,7 +219,7 @@ DUMMYSTYLE
         </label>
         <label for="analog-clock" aria-labelledby="analog-clock-label-span">
             <span id="analog-clock-label-span" data-lang-key="analog-clock"></span>
-            <input id="analog-clock" type="checkbox" />
+            <select id="analog-clock"></select>
         </label>
         <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
             <span id="24hours-hand-label-span" data-lang-key="24hours-hand"></span>
@@ -315,16 +315,16 @@ DUMMYSTYLE
             </div>
         </div>
         <button id="back-button" data-aria-lang-key="Go to Previous Media">
-            <div id="back-icon" role="presentation" aria-hidden="true">__BACK_ICON__<div>
+            <div id="back-icon" role="presentation" aria-hidden="true">__BACK_ICON__</div>
         </button>
         <button id="next-button" data-aria-lang-key="Go to Next Media">
-            <div id="next-icon" role="presentation" aria-hidden="true">__NEXT_ICON__<div>
+            <div id="next-icon" role="presentation" aria-hidden="true">__NEXT_ICON__</div>
         </button>
         <button id="rewind-button" data-aria-lang-key="Seek Backward">
-            <div id="rewind-icon" role="presentation" aria-hidden="true">__REWIND_ICON__<div>
+            <div id="rewind-icon" role="presentation" aria-hidden="true">__REWIND_ICON__</div>
         </button>
         <button id="fast-forward-button" data-aria-lang-key="Seek Forward">
-            <div id="fast-forward-icon" role="presentation" aria-hidden="true">__FAST_FORWARD_ICON__<div>
+            <div id="fast-forward-icon" role="presentation" aria-hidden="true">__FAST_FORWARD_ICON__</div>
         </button>
     </form>
 </div>

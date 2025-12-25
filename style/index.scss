@@ -486,10 +486,10 @@
     mask-image: radial-gradient(
         circle at center,
         transparent 0%,
-        transparent calc((var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
-        #000000CC calc((var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
-        #000000CC calc((var(--short-side) * var(--clock-outer-size, 96) * 0.5)),
-        transparent calc((var(--short-side) * var(--clock-outer-size, 96) * 0.5))
+        transparent calc((var(--analog-clock-size) * var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
+        #000000CC calc((var(--analog-clock-size) * var(--short-side) * var(--clock-inner-size, 25) * 0.5)),
+        #000000CC calc((var(--analog-clock-size) * var(--short-side) * var(--clock-outer-size, 96) * 0.5)),
+        transparent calc((var(--analog-clock-size) * var(--short-side) * var(--clock-outer-size, 96) * 0.5))
     );
     backdrop-filter: blur(0.5rem);
     //backdrop-filter: blur(calc(var(--short-side) * 1));
@@ -509,10 +509,10 @@
         translate: -50% -50%;
         border-radius: 50%;
         --major-line-angle: 2.25deg;
-        --major-tick-width: calc(var(--short-side) * 0.45);
+        --major-tick-width: calc(var(--analog-clock-size) * var(--short-side) * 0.45);
         --major-tick-color: rgba(0, 0, 0, 0.5);
         --minor-line-angle: 0.75deg;
-        --minor-tick-width: calc(var(--short-side) * 0.15);
+        --minor-tick-width: calc(var(--analog-clock-size) * var(--short-side) * 0.15);
         --minor-tick-color: rgba(0, 0, 0, 0.5);
         // Even this alone has a fairly significant impact on runtime performance...
         // border-width: calc(var(--short-side) * 0.25);
@@ -522,68 +522,68 @@
         {
             @include clock-niddle(var(--niddle-color));
             @include blackout-transition("&.hide");
-            @include circle-size(96);
+            @include circle-size(calc(var(--analog-clock-size) * 96));
         }
         &#seconds-niddle
         {
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(95);
+            @include circle-size(calc(var(--analog-clock-size) * 95));
         }
         &#minutes-niddle
         {
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(85);
+            @include circle-size(calc(var(--analog-clock-size) * 85));
         }
         &#scale60-panel
         {
-            @include circle-size(95);
+            @include circle-size(calc(var(--analog-clock-size) * 95));
             @include clock-60-ticks();
         }
         &#hours-niddle
         {
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(70);
+            @include circle-size(calc(var(--analog-clock-size) * 70));
         }
         &#scale12-panel
         {
             --tick-width: var(--major-tick-width);
             --tick-color: var(--major-tick-color);
-            @include circle-size(70);
+            @include circle-size(calc(var(--analog-clock-size) * 70));
             @include even-clock-ticks(12);
         }
         &#day-niddle
         {
             @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(55);
+            @include circle-size(calc(var(--analog-clock-size) * 55));
         }
         &#scale24-panel
         {
-            @include circle-size(55);
+            @include circle-size(calc(var(--analog-clock-size) * 55));
             @include clock-24-ticks();
         }
         &#week-niddle
         {
             @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(50);
+            @include circle-size(calc(var(--analog-clock-size) * 50));
         }
         &#week-panel
         {
             --line-angle: var(--major-line-angle);
             --tick-color: var(--major-tick-color);
-            @include circle-size(50);
+            @include circle-size(calc(var(--analog-clock-size) * 50));
             @include odd-clock-ticks(7);
         }
         &#month-niddle
         {
             @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(45);
+            @include circle-size(calc(var(--analog-clock-size) * 45));
         }
         &#month-panel
         {
-            @include circle-size(45);
+            @include circle-size(calc(var(--analog-clock-size) * 45));
             &[data-days="2828"] { @include month-clock-ticks(28, 28); }
             &[data-days="2831"] { @include month-clock-ticks(28, 31); }
             &[data-days="2929"] { @include month-clock-ticks(29, 29); }
@@ -599,19 +599,19 @@
         {
             @include blackout-transition("&.hide");
             @include clock-niddle(var(--niddle-color));
-            @include circle-size(35);
+            @include circle-size(calc(var(--analog-clock-size) * 35));
         }
         &#year-panel
         {
             --tick-width: var(--major-tick-width);
             --tick-color: var(--major-tick-color);
-            @include circle-size(35);
+            @include circle-size(calc(var(--analog-clock-size) * 35));
             @include even-clock-ticks(12);
         }
         &#center-circle
         {
             background-color: black;
-            @include circle-size(25);
+            @include circle-size(calc(var(--analog-clock-size) * 25));
         }
     }
 }

@@ -49,3 +49,9 @@ $warning-color: orange;
     inherits: false;
     initial-value: 0px;
 }
+@property --analog-clock-size
+{
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1;
+}

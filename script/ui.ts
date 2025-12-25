@@ -197,7 +197,7 @@ export namespace UI
         {
             if (isPlaying())
             {
-                visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
+                visibilityApplier.show("off" !== UI.SettingsPanel.analogClockCheckbox.get());
             }
         };
     };
@@ -304,7 +304,7 @@ export namespace UI
         export const crossFadeTransitionSelect =
             new Library.Control.Select(control.crossFadeTransition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
         export const analogClockCheckbox =
-            new Library.Control.Checkbox(control.analogClock);
+            new Library.Control.Select(control.analogClock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
         export const dayHandCheckbox =
             new Library.Control.Checkbox(control.dayHand);
         export const dateHandsCheckbox =

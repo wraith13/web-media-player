@@ -65,6 +65,16 @@
         "blurEasing": 2,
         "maxBlur": 25
     },
+    "analogClock":
+    {
+        "sizeMap":
+        {
+            "oversize": 1.6,
+            "regular": 1.0,
+            "half": 0.5,
+            "petit": 0.2
+        }
+    },
     "clock":
     {
         "alternate":

@@ -46,13 +46,40 @@ export namespace Overlay
             console.log(`📈 Updated angleFractionDigits to ${newAngleFractionDigits}`);
         }
     };
+    export const getAnalogClockSize = (): number | null =>
+    {
+        const analogClockOption = UI.SettingsPanel.analogClockCheckbox.get();
+        switch(analogClockOption)
+        {
+        case "oversize":
+        case "regular":
+        case "half":
+        case "petit":
+            return config.analogClock.sizeMap[analogClockOption] ?? null;
+        default:
+            return null;
+        }
+    };
     export const updateAnalogClock = (date: Date): void =>
     {
-        const isAnalogClockEnabled = UI.SettingsPanel.analogClockCheckbox.get();
+        const analogClockSize = getAnalogClockSize();
+        const isAnalogClockEnabled = null !== analogClockSize;
         UI.AnalogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
         UI.AnalogClock.background.classList.toggle("hide", ! isAnalogClockEnabled);
-        if (isAnalogClockEnabled)
+        if (analogClockSize)
         {
+            Library.UI.setStyle
+            (
+                UI.AnalogClock.panel,
+                "--analog-clock-size",
+                `${(analogClockSize).toFixed(3)}`
+            );
+            Library.UI.setStyle
+            (
+                UI.AnalogClock.background,
+                "--analog-clock-size",
+                `${(analogClockSize).toFixed(3)}`
+            );
             const is24HoursHandEnabled = UI.SettingsPanel.dayHandCheckbox.get();
             const isDateHandsEnabled = UI.SettingsPanel.dateHandsCheckbox.get();
             const isMillisecondHandEnabled = UI.SettingsPanel.millisecondHandCheckbox.get();

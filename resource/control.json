@@ -144,7 +144,14 @@
     },
     "analogClock": {
         "id": "analog-clock",
-        "default": false
+        "enum": [
+            "oversize",
+            "regular",
+            "half",
+            "petit",
+            "off"
+        ],
+        "default": "off"
     },
     "dayHand": {
         "id": "24hours-hand",

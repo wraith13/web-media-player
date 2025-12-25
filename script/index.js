@@ -224,6 +224,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "شكل موجة قوس ستيريو",
             "visualizer-stereo-double-arc": "قوس ستيريو مزدوج",
             "analog-clock": "الساعة التناظرية",
+            "oversize": "كبير جدًا",
+            "regular": "عادي",
+            "half": "نصف",
+            "petit": "صغير",
             "24hours-hand": "عقرب 24 ساعة",
             "date-hands": "عقارب التاريخ",
             "millisecond-hand": "عقرب الملِّيثانية",
@@ -330,6 +334,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo-Bogenwellenform",
             "visualizer-stereo-double-arc": "Stereo Doppelter Bogen",
             "analog-clock": "Analoge Uhr",
+            "oversize": "Übergroß",
+            "regular": "Regulär",
+            "half": "Halb",
+            "petit": "Klein",
             "24hours-hand": "24-Stunden-Zeiger",
             "date-hands": "Datumszeiger",
             "millisecond-hand": "Millisekundenzeiger",
@@ -436,6 +444,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Στερεο Καμπυλωτή Κυματομορφή",
             "visualizer-stereo-double-arc": "Στερεο Διπλή Καμπύλη",
             "analog-clock": "Αναλογικό Ρολόι",
+            "oversize": "Υπερμεγέθης",
+            "regular": "Κανονικό",
+            "half": "Μισό",
+            "petit": "Μικρό",
             "24hours-hand": "Δείκτης 24 Ωρών",
             "date-hands": "Δείκτες Ημερομηνίας",
             "millisecond-hand": "Δείκτης Χιλιοστών του δευτερολέπτου",
@@ -542,6 +554,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo Arc Waveform",
             "visualizer-stereo-double-arc": "Stereo Double Arc",
             "analog-clock": "Analog Clock",
+            "oversize": "Oversize",
+            "regular": "Regular",
+            "half": "Half",
+            "petit": "Petit",
             "24hours-hand": "24 Hours Hand",
             "date-hands": "Date Hands",
             "millisecond-hand": "Millisecond Hand",
@@ -648,6 +664,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo doble",
             "analog-clock": "Reloj analógico",
+            "oversize": "Sobredimensionado",
+            "regular": "Regular",
+            "half": "Mitad",
+            "petit": "Pequeño",
             "24hours-hand": "Manecilla de 24 horas",
             "date-hands": "Manecillas de fecha",
             "millisecond-hand": "Manecilla de milisegundos",
@@ -754,6 +774,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "موج‌نمای قوس استریو",
             "visualizer-stereo-double-arc": "قوس دوگانه استریو",
             "analog-clock": "ساعت آنالوگ",
+            "oversize": "بزرگ‌نما",
+            "regular": "معمولی",
+            "half": "نیمه",
+            "petit": "کوچک",
             "24hours-hand": "عقربه ۲۴ ساعته",
             "date-hands": "عقربه‌های تاریخ",
             "millisecond-hand": "ثانیه‌شمار میلی‌ثانیه",
@@ -860,6 +884,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forme d'onde d'arc stéréo",
             "visualizer-stereo-double-arc": "Arc stéréo double",
             "analog-clock": "Horloge analogique",
+            "oversize": "Surdimensionné",
+            "regular": "Régulier",
+            "half": "Demi",
+            "petit": "Petit",
             "24hours-hand": "Aiguille 24 heures",
             "date-hands": "Aiguilles de la date",
             "millisecond-hand": "Aiguille des millisecondes",
@@ -966,6 +994,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "स्टीरियो आर्क तरंगरूप",
             "visualizer-stereo-double-arc": "स्टीरियो डबल आर्क",
             "analog-clock": "एनालॉग घड़ी",
+            "oversize": "अति-विस्तृत",
+            "regular": "नियमित",
+            "half": "आधा",
+            "petit": "छोटा",
             "24hours-hand": "24 घंटे का सूचक",
             "date-hands": "तारीख के सूचक",
             "millisecond-hand": "मिलीसेकंड हैंड",
@@ -1072,6 +1104,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Bentuk Gelombang Busur Stereo",
             "visualizer-stereo-double-arc": "Busur Stereo Ganda",
             "analog-clock": "Jam Analog",
+            "oversize": "Oversize",
+            "regular": "Regular",
+            "half": "Half",
+            "petit": "Petit",
             "24hours-hand": "Jarum 24 Jam",
             "date-hands": "Jarum Tanggal",
             "millisecond-hand": "Jarum Milidetik",
@@ -1178,6 +1214,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma d'onda arco stereo",
             "visualizer-stereo-double-arc": "Arco stereo doppio",
             "analog-clock": "Orologio analogico",
+            "oversize": "Sovradimensionato",
+            "regular": "Regolare",
+            "half": "Metà",
+            "petit": "Piccolo",
             "24hours-hand": "Lancetta delle 24 ore",
             "date-hands": "Lancette della data",
             "millisecond-hand": "Lancetta dei millisecondi",
@@ -1284,6 +1324,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "ステレオアーク波形",
             "visualizer-stereo-double-arc": "ステレオダブルアーク",
             "analog-clock": "アナログ時計",
+            "oversize": "オーバーサイズ",
+            "regular": "レギュラー",
+            "half": "ハーフ",
+            "petit": "プチ",
             "24hours-hand": "24時間針",
             "date-hands": "日付針",
             "millisecond-hand": "ミリ秒針",
@@ -1390,6 +1434,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "스테레오 아크 파형",
             "visualizer-stereo-double-arc": "스테레오 더블 아크",
             "analog-clock": "아날로그 시계",
+            "oversize": "오버사이즈",
+            "regular": "레귤러",
+            "half": "하프",
+            "petit": "쁘띠",
             "24hours-hand": "24시간 바늘",
             "date-hands": "날짜 바늘",
             "millisecond-hand": "밀리초 바늘",
@@ -1496,6 +1544,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo boog golfvorm",
             "visualizer-stereo-double-arc": "Stereo dubbele boog",
             "analog-clock": "Analoge klok",
+            "oversize": "Oversize",
+            "regular": "Regulier",
+            "half": "Half",
+            "petit": "Petit",
             "24hours-hand": "24-uurs wijzer",
             "date-hands": "Datumwijzers",
             "millisecond-hand": "Milliseconde wijzer",
@@ -1602,6 +1654,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Stereo łuk przebiegu",
             "visualizer-stereo-double-arc": "Stereo podwójny łuk",
             "analog-clock": "Zegar analogowy",
+            "oversize": "Nadmierny rozmiar",
+            "regular": "Regularny",
+            "half": "Połowa",
+            "petit": "Mały",
             "24hours-hand": "Wskazówka 24 godzin",
             "date-hands": "Wskazówki daty",
             "millisecond-hand": "Wskazówka milisekund",
@@ -1708,6 +1764,10 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "visualizer-stereo-arc-waveform": "Forma de onda de arco estéreo",
             "visualizer-stereo-double-arc": "Arco estéreo duplo",
             "analog-clock": "Relógio analógico",
+            "oversize": "Oversize",
+            "regular": "Regular",
+            "half": "Half",
+            "petit": "Petit",
             "24hours-hand": "Ponteiro de 24 horas",
             "date-hands": "Ponteiros de data",
             "millisecond-hand": "Ponteiro de milissegundos",
@@ -1900,6 +1960,14 @@ define("resource/config", [], {
         "rewindSpan": 5000,
         "blurEasing": 2,
         "maxBlur": 25
+    },
+    "analogClock": {
+        "sizeMap": {
+            "oversize": 1.6,
+            "regular": 1.0,
+            "half": 0.5,
+            "petit": 0.2
+        }
     },
     "clock": {
         "alternate": {
@@ -4045,7 +4113,14 @@ define("resource/control", [], {
     },
     "analogClock": {
         "id": "analog-clock",
-        "default": false
+        "enum": [
+            "oversize",
+            "regular",
+            "half",
+            "petit",
+            "off"
+        ],
+        "default": "off"
     },
     "dayHand": {
         "id": "24hours-hand",
@@ -4465,7 +4540,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
             AnalogClock.updateVisibility = function () {
                 if (UI.isPlaying()) {
-                    AnalogClock.visibilityApplier.show(UI.SettingsPanel.analogClockCheckbox.get());
+                    AnalogClock.visibilityApplier.show("off" !== UI.SettingsPanel.analogClockCheckbox.get());
                 }
             };
         })(AnalogClock = UI.AnalogClock || (UI.AnalogClock = {}));
@@ -4540,7 +4615,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 }
             });
             SettingsPanel.crossFadeTransitionSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFadeTransition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-            SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClock);
+            SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Select(control_json_1.default.analogClock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
             SettingsPanel.dayHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dayHand);
             SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
             SettingsPanel.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
@@ -5002,12 +5077,28 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 console.log("\uD83D\uDCC8 Updated angleFractionDigits to ".concat(newAngleFractionDigits));
             }
         };
+        Overlay.getAnalogClockSize = function () {
+            var _a;
+            var analogClockOption = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
+            switch (analogClockOption) {
+                case "oversize":
+                case "regular":
+                case "half":
+                case "petit":
+                    return (_a = config_json_4.default.analogClock.sizeMap[analogClockOption]) !== null && _a !== void 0 ? _a : null;
+                default:
+                    return null;
+            }
+        };
         Overlay.updateAnalogClock = function (date) {
             var _a;
-            var isAnalogClockEnabled = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
+            var analogClockSize = Overlay.getAnalogClockSize();
+            var isAnalogClockEnabled = null !== analogClockSize;
             ui_4.UI.AnalogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
             ui_4.UI.AnalogClock.background.classList.toggle("hide", !isAnalogClockEnabled);
-            if (isAnalogClockEnabled) {
+            if (analogClockSize) {
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.panel, "--analog-clock-size", "".concat((analogClockSize).toFixed(3)));
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--analog-clock-size", "".concat((analogClockSize).toFixed(3)));
                 var is24HoursHandEnabled = ui_4.UI.SettingsPanel.dayHandCheckbox.get();
                 var isDateHandsEnabled = ui_4.UI.SettingsPanel.dateHandsCheckbox.get();
                 var isMillisecondHandEnabled = ui_4.UI.SettingsPanel.millisecondHandCheckbox.get();
