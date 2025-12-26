@@ -12,6 +12,12 @@ https://wraith13.github.io/web-media-player/
 </a>
 </p>
 
+> [!NOTE]
+> Please make sure your operating system and web browser are up to date.
+
+> [!NOTE]
+> If media playback on an iPhone or iPad is not working correctly, please restart the device.
+
 ## 🎯 Feature
 
 - ✅ Supports image, audio, and video media that can be played in your web browser! (Supported media types depend entirely on your environment.)

@@ -13,5 +13,6 @@
     "./web.manifest/generated/ko.json",
     "./web.manifest/generated/nl.json",
     "./web.manifest/generated/pl.json",
-    "./web.manifest/generated/pt.json"
+    "./web.manifest/generated/pt.json",
+    "./web.manifest/generated/ru.json"
 ]

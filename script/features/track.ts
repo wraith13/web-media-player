@@ -228,7 +228,7 @@ export class Track
             position: this.getElapsedTime() /1000,
         });
     }
-    step(truckType: "current" | "fadeouting"): void
+    step(truckType: "current" | "fadingout"): void
     {
         this.analyser?.step();
         if (this.playerElement instanceof HTMLAudioElement && this.visualElement instanceof Visualizer.VisualizerDom)
@@ -344,7 +344,7 @@ export class Track
         }
         return false;
     }
-    updateStretch(truckType: "current" | "fadeouting"): void
+    updateStretch(truckType: "current" | "fadingout"): void
     {
         if (this.visualElement)
         {
@@ -627,7 +627,8 @@ export class Track
             {
                 const target = isReverseWipe ? opposite?.visualElement!: this.visualElement;
                 const data = this.makeSureTranstionPattern();
-                data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
+                // In flounder.style.js, when depth is 0 or 1 only the background-color is produced and no pattern is generated, so avoid 0.
+                data.depth = Math.max(config.rendering.minPatternDepth, this.patternEasing(isReverseWipe ? (1 - rate) : rate));
                 FlounderStyle.setStyle(target!, this.backgroundToMask(FlounderStyle.makeStyle(data)));
                 if (isReverseWipe)
                 {

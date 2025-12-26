@@ -15,7 +15,8 @@
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
-        "patternEasingExponent": 2
+        "patternEasingExponent": 2,
+        "minPatternDepth": 0.000000001
     },
     "thumbnail": {
         "maxSize": 320,

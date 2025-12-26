@@ -1832,6 +1832,116 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-not-working": "O timer de despertar provavelmente não funcionará corretamente neste dispositivo.",
             "wakeup-timer-requires-active-page": "Para que o timer de despertar funcione corretamente, a página web deve estar ativa.",
             "noscript-message": "JavaScript está desativado. Por favor, ative o JavaScript."
+        },
+        "ru": {
+            "lang-label": "Русский",
+            "lang-direction": "ltr",
+            "lang-colon-suffix": ":",
+            "add-media": "Добавить медиа",
+            "remove-media": "Удалить медиа",
+            "loading-media": "Загрузка медиа...",
+            "Auto": "Авто",
+            "description": "Веб-плеер для воспроизведения медиа в браузере",
+            "control-panel": "Панель управления",
+            "wakeup-timer-panel": "Панель будильника",
+            "volume-panel": "Панель громкости",
+            "settings-panel": "Панель настроек",
+            "sleep-timer-panel": "Панель таймера сна",
+            "transport-panel": "Панель транспорта",
+            "media-list": "Список медиа",
+            "media-count": "Количество медиа",
+            "media-length": "Длительность медиа",
+            "with-fullscreen": "Полноэкранный режим",
+            "brightness": "Яркость",
+            "stretch": "Растяжение",
+            "padding": "Отступ",
+            "cross-fade": "Кроссфейд",
+            "cross-fade-transition": "Переход кроссфейда",
+            "alpha": "Альфа",
+            "blur": "Размытие",
+            "wipe": "Затирание",
+            "random": "Случайно",
+            "image-span": "Время отображения изображения",
+            "loop-short-media": "Зацикливать короткие медиа",
+            "visualizer": "Визуализатор",
+            "visualizer-simple": "Простой",
+            "visualizer-plane-frequency": "Плоскостная частота",
+            "visualizer-plane-waveform": "Плоскостная форма волны",
+            "visualizer-arc-frequency": "Дуговая частота",
+            "visualizer-arc-waveform": "Дуговая форма волны",
+            "visualizer-double-arc": "Двойная дуга",
+            "visualizer-stereo-arc-frequency": "Стерео-дуговая частота",
+            "visualizer-stereo-arc-waveform": "Стерео-дуговая форма волны",
+            "visualizer-stereo-double-arc": "Стерео двойная дуга",
+            "analog-clock": "Аналоговые часы",
+            "oversize": "Увеличенный размер",
+            "regular": "Обычный",
+            "half": "Половина",
+            "petit": "Маленький",
+            "24hours-hand": "Стрелка 24 часа",
+            "date-hands": "Стрелки даты",
+            "millisecond-hand": "Стрелка миллисекунд",
+            "overlay-style": "Стиль наложения",
+            "hide": "Скрыть",
+            "blend": "Смешивание",
+            "white": "Белый",
+            "black": "Чёрный",
+            "system": "Система",
+            "alternate": "Альтернатива",
+            "rainbow": "Радуга",
+            "overlay-position": "Позиция наложения",
+            "center": "По центру",
+            "top-right": "Вверху справа",
+            "bottom-right": "Внизу справа",
+            "bottom-left": "Внизу слева",
+            "top-left": "Вверху слева",
+            "rotate": "Поворот",
+            "with-weather": "Погода",
+            "weather-location": "Место для погоды",
+            "ip-address": "IP-адрес(низкая точность)",
+            "geolocation": "Геолокация(высокая точность)",
+            "with-clock": "Часы",
+            "with-date": "Дата",
+            "with-calendar": "Календарь",
+            "with-visualizer": "Визуализатор(наложение)",
+            "show-fps": "Показать FPS",
+            "shortcuts": "Сочетания клавиш",
+            "language": "Язык",
+            "url": "Ссылка на эти настройки",
+            "repository": "Репозиторий",
+            "on": "Вкл",
+            "off": "Выкл",
+            "wakeup": "Будильник",
+            "timer": "Таймер",
+            "fade-in": "Время появления",
+            "sleep": "Таймер сна",
+            "fade-out": "Время исчезновения",
+            "timeUnitMs": "мс",
+            "timeUnitS": "с",
+            "timeUnitM": "м",
+            "timeUnitH": "ч",
+            "timeUnitD": "д",
+            "ago": "назад",
+            "Shuffle": "Перемешать",
+            "Repeat": "Повтор",
+            "Play / Pause": "Воспроизвести / Пауза",
+            "Volume": "Громкость",
+            "Mute / Unmute": "Отключить звук / Включить звук",
+            "Volume Up / Down": "Увеличить/Уменьшить громкость",
+            "Settings": "Настройки",
+            "Seek": "Перемотка",
+            "Seek Backward": "Перемотать назад",
+            "Seek Forward": "Перемотать вперёд",
+            "Go to Previous/Next Media": "Перейти к предыдущему/следующему медиа",
+            "Go to Previous Media": "Перейти к предыдущему медиа",
+            "Go to Next Media": "Перейти к следующему медиа",
+            "FullScreen": "Полноэкранный режим",
+            "no-media-message": "Пожалуйста, добавьте медиа.",
+            "no-repeat-message": "Пожалуйста, включите повтор.",
+            "not-supported-media-message": "Это медиа не может быть воспроизведено.",
+            "wakeup-timer-not-working": "Будильник, вероятно, не будет корректно работать на этом устройстве.",
+            "wakeup-timer-requires-active-page": "Чтобы будильник работал корректно, веб-страница должна быть активной.",
+            "noscript-message": "JavaScript отключён. Пожалуйста, включите JavaScript."
         }
     };
 });
@@ -1912,7 +2022,8 @@ define("resource/config", [], {
     "rendering": {
         "opacitiyFractionalDigits": 7,
         "viewportFractionalDigits": 4,
-        "patternEasingExponent": 2
+        "patternEasingExponent": 2,
+        "minPatternDepth": 0.000000001
     },
     "thumbnail": {
         "maxSize": 320,
@@ -7982,7 +8093,8 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                 if (rate < 1) {
                     var target = isReverseWipe ? opposite === null || opposite === void 0 ? void 0 : opposite.visualElement : this.visualElement;
                     var data = this.makeSureTranstionPattern();
-                    data.depth = this.patternEasing(isReverseWipe ? (1 - rate) : rate);
+                    // In flounder.style.js, when depth is 0 or 1 only the background-color is produced and no pattern is generated, so avoid 0.
+                    data.depth = Math.max(config_json_8.default.rendering.minPatternDepth, this.patternEasing(isReverseWipe ? (1 - rate) : rate));
                     flounder_style_js_1.FlounderStyle.setStyle(target, this.backgroundToMask(flounder_style_js_1.FlounderStyle.makeStyle(data)));
                     if (isReverseWipe) {
                         this.clearPattern();
@@ -8293,7 +8405,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         var currentTrack = null;
-        var fadeoutingTrack = null;
+        var fadingOutTrack = null;
         Player.isPlaying = function () {
             return ui_9.UI.isPlaying();
         };
@@ -8368,7 +8480,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             ui_9.UI.onPlaybackPaused();
             navigator.mediaSession.playbackState = "paused";
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
-            fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.pause();
+            fadingOutTrack === null || fadingOutTrack === void 0 ? void 0 : fadingOutTrack.pause();
             CrossFade.pause();
             var isResumable = 0 < media_2.Media.mediaList.length && null !== currentTrack;
             ui_9.UI.screenBody.classList.toggle("paused", isResumable);
@@ -8408,7 +8520,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     currentTrack.setVolume(currentVolume);
                     currentTrack.setOpacity(1);
                     currentTrack.setBlur(1);
-                    currentTrack.setPattern(1, fadeoutingTrack);
+                    currentTrack.setPattern(1, fadingOutTrack);
                 }
             }
         };
@@ -8495,7 +8607,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             });
         }); };
         var getTrack = function (trackType) {
-            return "current" === trackType ? currentTrack : fadeoutingTrack;
+            return "current" === trackType ? currentTrack : fadingOutTrack;
         };
         var updateTrackPropertiesBase = function (trackType) {
             var track = getTrack(trackType);
@@ -8504,7 +8616,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 track.setOpacity(Player.getOpacity(trackType));
                 track.setBlur(Player.getBlur(trackType));
                 if ("current" === trackType) {
-                    track.setPattern(Player.getPattern(trackType), fadeoutingTrack);
+                    track.setPattern(Player.getPattern(trackType), fadingOutTrack);
                 }
                 else {
                     if ("wipe" !== Player.getTransitionType() || !(currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.isReverseWipe)) {
@@ -8516,12 +8628,12 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
         var updateCurrentTrackProperties = function () {
             return updateTrackPropertiesBase("current");
         };
-        var updateFadeoutingTrackProperties = function () {
-            return updateTrackPropertiesBase("fadeouting");
+        var updateFadingOutTrackProperties = function () {
+            return updateTrackPropertiesBase("fadingout");
         };
         Player.updateTrackProperties = function () {
             updateCurrentTrackProperties();
-            updateFadeoutingTrackProperties();
+            updateFadingOutTrackProperties();
         };
         Player.getBrightness = function () {
             return timer_1.Timer.getTimerFade();
@@ -8537,7 +8649,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 switch (trackType) {
                     case "current":
                         return "fadeIn";
-                    case "fadeouting":
+                    case "fadingout":
                         return "fadeOut";
                 }
             }
@@ -8591,8 +8703,8 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             _library_7.Library.UI.setStyle(document.documentElement, "--white-depth", whiteDepth.toFixed(3));
         };
         Player.step = function () {
-            if (null !== fadeoutingTrack) {
-                fadeoutingTrack.step("fadeouting");
+            if (null !== fadingOutTrack) {
+                fadingOutTrack.step("fadingout");
             }
             if (null !== currentTrack) {
                 _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTime, Player.makeTimeText(currentTrack));
@@ -8642,29 +8754,28 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             if (resume && currentTrack && entry === currentTrack.media) {
                 currentTrack.updateStretch("current");
                 currentTrack.play();
-                fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
-                fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.play();
+                fadingOutTrack === null || fadingOutTrack === void 0 ? void 0 : fadingOutTrack.updateStretch("fadingout");
+                fadingOutTrack === null || fadingOutTrack === void 0 ? void 0 : fadingOutTrack.play();
             }
             else {
                 Player.removeFadeoutTrack();
-                fadeoutingTrack = currentTrack;
+                fadingOutTrack = currentTrack;
                 currentTrack = new track_1.Track(entry, history_1.History.getCurrentIndex());
-                updateCurrentTrackProperties();
                 _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaIndex, Player.makeIndexText(currentTrack));
                 _library_7.Library.UI.setTextContent(ui_9.UI.TransportPanel.mediaTitle, Player.makeTitleText(currentTrack));
                 if ("off" !== ui_9.UI.SettingsPanel.crossFadeSelect.get()) {
                     CrossFade.start();
-                    Player.updateTrackProperties(); // チラつき防止の為、、、とりあえずこれでしばらく様子見
                     if (CrossFade.isHotCrossFadeTarget(currentTrack)) {
                         currentTrack.play();
                     }
                 }
                 else {
-                    if (fadeoutingTrack) {
+                    if (fadingOutTrack) {
                         Player.removeFadeoutTrack();
                     }
                     currentTrack.play();
                 }
+                updateCurrentTrackProperties();
                 if (currentTrack.visualElement) {
                     ui_9.UI.mediaScreen.appendChild(currentTrack.visualElement);
                     currentTrack.updateStretch("current");
@@ -8681,20 +8792,20 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             }
         };
         Player.removeFadeoutTrack = function () {
-            Player.removeTrack(fadeoutingTrack);
-            fadeoutingTrack = null;
+            Player.removeTrack(fadingOutTrack);
+            fadingOutTrack = null;
         };
         Player.updateStretch = function () {
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.updateStretch("current");
-            fadeoutingTrack === null || fadeoutingTrack === void 0 ? void 0 : fadeoutingTrack.updateStretch("fadeouting");
+            fadingOutTrack === null || fadingOutTrack === void 0 ? void 0 : fadingOutTrack.updateStretch("fadingout");
             overlay_1.Overlay.updateStretch();
         };
         Player.updateVolume = function () {
             if (null !== currentTrack) {
                 currentTrack.setVolume(Player.getVolume("current"), Player.getVolumeRate("current"), Player.getVolumeFade("current"));
             }
-            if (null !== fadeoutingTrack) {
-                fadeoutingTrack.setVolume(Player.getVolume("fadeouting"), Player.getVolumeRate("fadeouting"), Player.getVolumeFade("fadeouting"));
+            if (null !== fadingOutTrack) {
+                fadingOutTrack.setVolume(Player.getVolume("fadingout"), Player.getVolumeRate("fadingout"), Player.getVolumeFade("fadingout"));
             }
         };
         Player.updateLoopShortMedia = function () {
@@ -8711,14 +8822,14 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             CrossFade.clear();
             Player.removeFadeoutTrack();
             if (null !== currentTrack) {
-                var clearedTrack_1 = fadeoutingTrack = currentTrack;
+                var clearedTrack_1 = fadingOutTrack = currentTrack;
                 currentTrack = null;
-                if (fadeoutingTrack.visualElement) {
-                    _library_7.Library.UI.setStyle(fadeoutingTrack.visualElement, "opacity", undefined);
-                    fadeoutingTrack.visualElement.classList.add("fade-out");
+                if (fadingOutTrack.visualElement) {
+                    _library_7.Library.UI.setStyle(fadingOutTrack.visualElement, "opacity", undefined);
+                    fadingOutTrack.visualElement.classList.add("fade-out");
                 }
                 setTimeout(function () {
-                    if (clearedTrack_1 === fadeoutingTrack) {
+                    if (clearedTrack_1 === fadingOutTrack) {
                         Player.removeFadeoutTrack();
                     }
                 }, 3000);
@@ -9339,6 +9450,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
             Events.locale = params["locale"];
+            window.addEventListener("dragenter", function (event) { return event.preventDefault(); });
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });
             window.addEventListener("resize", function () { return _features_2.Features.Player.updateStretch(); });

@@ -116,7 +116,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 67.5s infinite;
+  animation: noscript-langs-fade 72s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -163,18 +163,21 @@ input[type=range] {
 #noscript *[lang=pt] {
   animation-delay: 64s;
 }
+#noscript *[lang=ru] {
+  animation-delay: 68.5s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.3333333333333335% {
+  1.25% {
     opacity: 1;
   }
-  6.666666666666667% {
+  6.25% {
     opacity: 1;
   }
-  8% {
+  7.5% {
     opacity: 0;
   }
   100% {

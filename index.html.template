@@ -141,7 +141,7 @@ DUMMYSTYLE
         <button id="settings-button" class="icon-button" data-aria-lang-key="Settings">
             __COG_ICON__
         </button>
-        <button id="sleep-button" class="icon-button" tabindex="0" data-aria-lang-key="sleep">
+        <button id="sleep-button" class="icon-button" data-aria-lang-key="sleep">
             <div id="sleep-progress-circle" role="presentation"></div>
             __MOON_ICON__
         </button>

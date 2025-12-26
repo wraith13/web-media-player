@@ -389,6 +389,7 @@ export namespace Events
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];
+        window.addEventListener("dragenter", event => event.preventDefault());
         window.addEventListener("dragover", event => event.preventDefault());
         window.addEventListener("drop", event => event.preventDefault());
         window.addEventListener("resize", () => Features.Player.updateStretch());

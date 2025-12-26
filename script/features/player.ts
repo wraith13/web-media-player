@@ -12,7 +12,7 @@ import * as config from "@resource/config.json";
 export namespace Player
 {
     export let locale: string | undefined = undefined;
-    export type TrackType = "current" | "fadeouting";
+    export type TrackType = "current" | "fadingout";
     export namespace CrossFade
     {
         export let startAt: number | null = null;
@@ -106,7 +106,7 @@ export namespace Player
         }
     };
     let currentTrack: Track | null = null;
-    let fadeoutingTrack: Track | null = null;
+    let fadingOutTrack: Track | null = null;
     export const isPlaying = (): boolean =>
         UI.isPlaying();
     export const isSeeking = (): boolean =>
@@ -190,7 +190,7 @@ export namespace Player
         UI.onPlaybackPaused();
         navigator.mediaSession.playbackState = "paused";
         currentTrack?.pause();
-        fadeoutingTrack?.pause();
+        fadingOutTrack?.pause();
         CrossFade.pause();
         const isResumable = 0 < Media.mediaList.length && null !== currentTrack;
         UI.screenBody.classList.toggle("paused", isResumable);
@@ -241,7 +241,7 @@ export namespace Player
                 currentTrack.setVolume(currentVolume);
                 currentTrack.setOpacity(1);
                 currentTrack.setBlur(1);
-                currentTrack.setPattern(1, fadeoutingTrack);
+                currentTrack.setPattern(1, fadingOutTrack);
             }
         }
     };
@@ -349,7 +349,7 @@ export namespace Player
         }
     };
     const getTrack = (trackType: TrackType): Track | null =>
-        "current" === trackType ? currentTrack : fadeoutingTrack;
+        "current" === trackType ? currentTrack : fadingOutTrack;
     const updateTrackPropertiesBase = (trackType: TrackType) =>
     {
         const track = getTrack(trackType);
@@ -360,7 +360,7 @@ export namespace Player
             track.setBlur(getBlur(trackType));
             if ("current" === trackType)
             {
-                track.setPattern(getPattern(trackType), fadeoutingTrack);
+                track.setPattern(getPattern(trackType), fadingOutTrack);
             }
             else
             {
@@ -373,12 +373,12 @@ export namespace Player
     };
     const updateCurrentTrackProperties = () =>
         updateTrackPropertiesBase("current");
-    const updateFadeoutingTrackProperties = () =>
-        updateTrackPropertiesBase("fadeouting");
+    const updateFadingOutTrackProperties = () =>
+        updateTrackPropertiesBase("fadingout");
     export const updateTrackProperties = () =>
     {
         updateCurrentTrackProperties();
-        updateFadeoutingTrackProperties();
+        updateFadingOutTrackProperties();
     };
     export const getBrightness = (): number =>
         Timer.getTimerFade();
@@ -394,7 +394,7 @@ export namespace Player
             {
             case "current":
                 return "fadeIn";
-            case "fadeouting":
+            case "fadingout":
                 return "fadeOut";
             }
         }
@@ -448,9 +448,9 @@ export namespace Player
     };
     export const step = () =>
     {
-        if (null !== fadeoutingTrack)
+        if (null !== fadingOutTrack)
         {
-            fadeoutingTrack.step("fadeouting");
+            fadingOutTrack.step("fadingout");
         }
         if (null !== currentTrack)
         {
@@ -511,21 +511,19 @@ export namespace Player
         {
             currentTrack.updateStretch("current");
             currentTrack.play();
-            fadeoutingTrack?.updateStretch("fadeouting");
-            fadeoutingTrack?.play();
+            fadingOutTrack?.updateStretch("fadingout");
+            fadingOutTrack?.play();
         }
         else
         {
             removeFadeoutTrack();
-            fadeoutingTrack = currentTrack;
+            fadingOutTrack = currentTrack;
             currentTrack = new Track(entry, History.getCurrentIndex());
-            updateCurrentTrackProperties();
             Library.UI.setTextContent(UI.TransportPanel.mediaIndex, makeIndexText(currentTrack));
             Library.UI.setTextContent(UI.TransportPanel.mediaTitle, makeTitleText(currentTrack));
             if ("off" !== UI.SettingsPanel.crossFadeSelect.get())
             {
                 CrossFade.start();
-                updateTrackProperties(); // チラつき防止の為、、、とりあえずこれでしばらく様子見
                 if (CrossFade.isHotCrossFadeTarget(currentTrack))
                 {
                     currentTrack.play();
@@ -533,12 +531,13 @@ export namespace Player
             }
             else
             {
-                if (fadeoutingTrack)
+                if (fadingOutTrack)
                 {
                     removeFadeoutTrack();
                 }
                 currentTrack.play();
             }
+            updateCurrentTrackProperties();
             if (currentTrack.visualElement)
             {
                 UI.mediaScreen.appendChild(currentTrack.visualElement);
@@ -560,13 +559,13 @@ export namespace Player
     }
     export const removeFadeoutTrack = () =>
     {
-        removeTrack(fadeoutingTrack);
-        fadeoutingTrack = null;
+        removeTrack(fadingOutTrack);
+        fadingOutTrack = null;
     }
     export const updateStretch = () =>
     {
         currentTrack?.updateStretch("current");
-        fadeoutingTrack?.updateStretch("fadeouting");
+        fadingOutTrack?.updateStretch("fadingout");
         Overlay.updateStretch();
     }
     export const updateVolume = () =>
@@ -575,9 +574,9 @@ export namespace Player
         {
             currentTrack.setVolume(getVolume("current"), getVolumeRate("current"), getVolumeFade("current"));
         }
-        if (null !== fadeoutingTrack)
+        if (null !== fadingOutTrack)
         {
-            fadeoutingTrack.setVolume(getVolume("fadeouting"), getVolumeRate("fadeouting"), getVolumeFade("fadeouting"));
+            fadingOutTrack.setVolume(getVolume("fadingout"), getVolumeRate("fadingout"), getVolumeFade("fadingout"));
         }
     };
     export const updateLoopShortMedia = () =>
@@ -598,18 +597,18 @@ export namespace Player
         removeFadeoutTrack();
         if (null !== currentTrack)
         {
-            const clearedTrack = fadeoutingTrack = currentTrack;
+            const clearedTrack = fadingOutTrack = currentTrack;
             currentTrack = null;
-            if (fadeoutingTrack.visualElement)
+            if (fadingOutTrack.visualElement)
             {
-                Library.UI.setStyle(fadeoutingTrack.visualElement, "opacity", undefined);
-                fadeoutingTrack.visualElement.classList.add("fade-out");
+                Library.UI.setStyle(fadingOutTrack.visualElement, "opacity", undefined);
+                fadingOutTrack.visualElement.classList.add("fade-out");
             }
             setTimeout
             (
                 () =>
                 {
-                    if (clearedTrack === fadeoutingTrack)
+                    if (clearedTrack === fadingOutTrack)
                     {
                         removeFadeoutTrack();
                     }
