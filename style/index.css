@@ -116,7 +116,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 76.5s infinite;
+  animation: noscript-langs-fade 81s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -169,18 +169,21 @@ input[type=range] {
 #noscript *[lang=th] {
   animation-delay: 73s;
 }
+#noscript *[lang=tr] {
+  animation-delay: 77.5s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.1764705882352942% {
+  1.1111111111111112% {
     opacity: 1;
   }
-  5.882352941176471% {
+  5.555555555555555% {
     opacity: 1;
   }
-  7.058823529411765% {
+  6.666666666666666% {
     opacity: 0;
   }
   100% {

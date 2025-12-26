@@ -63,5 +63,7 @@ const modules =
     Resource
 };
 Object.entries(modules).forEach(([ name, module ]) => consoleInterface[name] = module);
-console.log(`📦 BUILD AT: ${new Date(build.tick).toLocaleString(Url.params["locale"])} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
+const buildAt = new Date(build.tick).toLocaleString(Url.params["locale"]);
+console.log(`📦 BUILD AT: ${buildAt} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 console.log(`📦 Available modules: ${Object.keys(modules).join(", ")}`);
+Library.UI.setTextContent(UI.SettingsPanel.buildAt, buildAt);

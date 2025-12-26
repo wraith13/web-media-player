@@ -74,6 +74,7 @@
     "language": "Language",
     "url": "Link to this setting",
     "repository": "repository",
+    "build-at": "Build at",
     "on": "On",
     "off": "Off",
     "wakeup": "Wake-up Timer",

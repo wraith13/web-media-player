@@ -74,6 +74,7 @@
     "language": "Idioma",
     "url": "Enlace a esta configuración",
     "repository": "repositorio",
+    "build-at": "Construido en",
     "on": "Activado",
     "off": "Desactivado",
     "wakeup": "Temporizador de despertador",

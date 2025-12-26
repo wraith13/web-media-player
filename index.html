@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Dec 26 2025 17:53:52 GMT+0900 (日本標準時)
+    build at: Fri Dec 26 2025 18:43:28 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -56,6 +56,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
 <meta name="description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
+<meta name="description" lang="tr" content="Web tarayıcısında çalışan web tabanlı medya oynatıcı">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -82,6 +83,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="twitter:description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
 <meta name="twitter:description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
+<meta name="twitter:description" lang="tr" content="Web tarayıcısında çalışan web tabanlı medya oynatıcı">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
 <meta property="og:description" content="Web-based media player that runs in a web browser" />
@@ -212,7 +214,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 76.5s infinite;
+  animation: noscript-langs-fade 81s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -265,18 +267,21 @@ input[type=range] {
 #noscript *[lang=th] {
   animation-delay: 73s;
 }
+#noscript *[lang=tr] {
+  animation-delay: 77.5s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.1764705882352942% {
+  1.1111111111111112% {
     opacity: 1;
   }
-  5.882352941176471% {
+  5.555555555555555% {
     opacity: 1;
   }
-  7.058823529411765% {
+  6.666666666666666% {
     opacity: 0;
   }
   100% {
@@ -3788,6 +3793,7 @@ DUMMYSTYLE
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
 <div lang="ru" dir="ltr">JavaScript отключён. Пожалуйста, включите JavaScript.</div>
 <div lang="th" dir="ltr">JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript</div>
+<div lang="tr" dir="ltr">JavaScript devre dışı. Lütfen JavaScript'i etkinleştirin.</div>
         </div>
     </div>
 </noscript>
@@ -4105,6 +4111,10 @@ DUMMYSTYLE
         <label for="repository" class="link-label" aria-labelledby="repository">
             <a id="repository" href="https://github.com/wraith13/web-media-player/"><span data-lang-key="repository"></span></a>
         </label>
+        <label for="build-at" class="information" aria-labelledby="build-at-label-span">
+            <span id="build-at-label-span" data-lang-key="build-at"></span>
+            <span id="build-at" class="value-text"></span>
+        </label>
     </form>
 </div>
 <div id="sleep-panel" class="popup-panel" role="presentation">
@@ -4203,8 +4213,8 @@ DUMMYSTYLE
 </div></div>
 <script type="text/javascript">
 const build = {
-    at: "Fri Dec 26 2025 17:53:52 GMT+0900 (日本標準時)",
-    tick: 1766739232729
+    at: "Fri Dec 26 2025 18:43:28 GMT+0900 (日本標準時)",
+    tick: 1766742208019
 };
 const evilCommonjsConfig = {
     "log": {
@@ -7217,6 +7227,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "اللغة",
             "url": "رابط لهذا الإعداد",
             "repository": "المستودع",
+            "build-at": "تم البناء في",
             "on": "تشغيل",
             "off": "إيقاف",
             "wakeup": "مؤقت الاستيقاظ",
@@ -7327,6 +7338,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Sprache",
             "url": "Link zu dieser Einstellung",
             "repository": "Repository",
+            "build-at": "Erstellt am",
             "on": "An",
             "off": "Aus",
             "wakeup": "Wecktimer",
@@ -7437,6 +7449,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Γλώσσα",
             "url": "Σύνδεσμος σε αυτή τη ρύθμιση",
             "repository": "αποθετήριο",
+            "build-at": "Χτισμένο στις",
             "on": "Ενεργοποιημένο",
             "off": "Απενεργοποιημένο",
             "wakeup": "Χρονοδιακόπτης αφύπνισης",
@@ -7547,6 +7560,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Language",
             "url": "Link to this setting",
             "repository": "repository",
+            "build-at": "Build at",
             "on": "On",
             "off": "Off",
             "wakeup": "Wake-up Timer",
@@ -7657,6 +7671,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Idioma",
             "url": "Enlace a esta configuración",
             "repository": "repositorio",
+            "build-at": "Construido en",
             "on": "Activado",
             "off": "Desactivado",
             "wakeup": "Temporizador de despertador",
@@ -7767,6 +7782,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "زبان",
             "url": "پیوند به این تنظیم",
             "repository": "مخزن",
+            "build-at": "ساخته شده در",
             "on": "روشن",
             "off": "خاموش",
             "wakeup": "تایمر بیدارباش",
@@ -7877,6 +7893,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Langue",
             "url": "Lien vers ce réglage",
             "repository": "Dépôt",
+            "build-at": "Construit le",
             "on": "Activé",
             "off": "Désactivé",
             "wakeup": "Minuterie de réveil",
@@ -7987,6 +8004,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "भाषा",
             "url": "इस सेटिंग का लिंक",
             "repository": "रिपॉज़िटरी",
+            "build-at": "निर्मित स्थान",
             "on": "चालू",
             "off": "बंद",
             "wakeup": "वेक-अप टाइमर",
@@ -8097,6 +8115,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Bahasa",
             "url": "Tautkan ke pengaturan ini",
             "repository": "repositori",
+            "build-at": "Dibangun di",
             "on": "Hidup",
             "off": "Mati",
             "wakeup": "Timer Bangun",
@@ -8207,6 +8226,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Lingua",
             "url": "Link a questa impostazione",
             "repository": "Repository",
+            "build-at": "Costruito il",
             "on": "On",
             "off": "Off",
             "wakeup": "Timer di risveglio",
@@ -8317,6 +8337,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "言語",
             "url": "この設定のリンク",
             "repository": "リポジトリ",
+            "build-at": "ビルド日時",
             "on": "オン",
             "off": "オフ",
             "wakeup": "起床タイマー",
@@ -8427,6 +8448,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "언어",
             "url": "이 설정으로 링크",
             "repository": "저장소",
+            "build-at": "빌드 날짜",
             "on": "켬",
             "off": "끔",
             "wakeup": "알람 타이머",
@@ -8537,6 +8559,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Taal",
             "url": "Link naar deze instelling",
             "repository": "repository",
+            "build-at": "Gebouwd op",
             "on": "Aan",
             "off": "Uit",
             "wakeup": "Wekker",
@@ -8647,6 +8670,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Język",
             "url": "Link do tego ustawienia",
             "repository": "repozytorium",
+            "build-at": "Zbudowano  w",
             "on": "Włącz",
             "off": "Wyłącz",
             "wakeup": "Budzik",
@@ -8757,6 +8781,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Idioma",
             "url": "Link para esta configuração",
             "repository": "repositório",
+            "build-at": "Construído em",
             "on": "Ligado",
             "off": "Desligado",
             "wakeup": "Timer de despertar",
@@ -8867,6 +8892,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "Язык",
             "url": "Ссылка на эти настройки",
             "repository": "Репозиторий",
+            "build-at": "Собрано в",
             "on": "Вкл",
             "off": "Выкл",
             "wakeup": "Будильник",
@@ -8977,6 +9003,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "language": "ภาษา",
             "url": "ลิงก์ไปยังการตั้งค่านี้",
             "repository": "ที่เก็บ",
+            "build-at": "สร้างเมื่อ",
             "on": "เปิด",
             "off": "ปิด",
             "wakeup": "จับเวลาแจ้งเตือนตื่น",
@@ -9010,6 +9037,117 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-not-working": "จับเวลาแจ้งเตือนตื่นอาจไม่ทำงานอย่างถูกต้องบนอุปกรณ์นี้",
             "wakeup-timer-requires-active-page": "เพื่อให้จับเวลาแจ้งเตือนตื่นทำงานอย่างถูกต้อง หน้าเว็บต้องอยู่ในสถานะแอคทีฟ",
             "noscript-message": "JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript"
+        },
+        "tr": {
+            "lang-label": "Türkçe",
+            "lang-direction": "ltr",
+            "lang-colon-suffix": ":",
+            "add-media": "Medya Ekle",
+            "remove-media": "Medya Kaldır",
+            "loading-media": "Medya yükleniyor...",
+            "Auto": "Otomatik",
+            "description": "Web tarayıcısında çalışan web tabanlı medya oynatıcı",
+            "control-panel": "Kontrol Paneli",
+            "wakeup-timer-panel": "Uyanma Zamanlayıcı Paneli",
+            "volume-panel": "Ses Paneli",
+            "settings-panel": "Ayarlar Paneli",
+            "sleep-timer-panel": "Uyku Zamanlayıcı Paneli",
+            "transport-panel": "Taşıma Paneli",
+            "media-list": "Medya Listesi",
+            "media-count": "Medya Sayısı",
+            "media-length": "Medya Süresi",
+            "with-fullscreen": "Tam Ekran",
+            "brightness": "Parlaklık",
+            "stretch": "Genişletme",
+            "padding": "Dolgu",
+            "cross-fade": "Çapraz Geçiş",
+            "cross-fade-transition": "Çapraz Solma Geçişi",
+            "alpha": "Alfa",
+            "blur": "Bulanıklık",
+            "wipe": "Silme",
+            "random": "Rastgele",
+            "image-span": "Görüntü Gösterim Süresi",
+            "loop-short-media": "Kısa Medyayı Döngüle",
+            "visualizer": "Görselleştirici",
+            "visualizer-simple": "Basit",
+            "visualizer-plane-frequency": "Düzlem Frekansı",
+            "visualizer-plane-waveform": "Düzlem Dalga Biçimi",
+            "visualizer-arc-frequency": "Yay Frekansı",
+            "visualizer-arc-waveform": "Yay Dalga Biçimi",
+            "visualizer-double-arc": "Çift Yay",
+            "visualizer-stereo-arc-frequency": "Stereo Yay Frekansı",
+            "visualizer-stereo-arc-waveform": "Stereo Yay Dalga Biçimi",
+            "visualizer-stereo-double-arc": "Stereo Çift Yay",
+            "analog-clock": "Analog Saat",
+            "oversize": "Büyük",
+            "regular": "Normal",
+            "half": "Yarım",
+            "petit": "Küçük",
+            "24hours-hand": "24 Saatlik İbre",
+            "date-hands": "Tarih İbreleri",
+            "millisecond-hand": "Milisaniye İbre",
+            "overlay-style": "Bindirme Stili",
+            "hide": "Gizle",
+            "blend": "Karıştır",
+            "white": "Beyaz",
+            "black": "Siyah",
+            "system": "Sistem",
+            "alternate": "Alternatif",
+            "rainbow": "Gökkuşağı",
+            "overlay-position": "Bindirme Konumu",
+            "center": "Merkez",
+            "top-right": "Sağ Üst",
+            "bottom-right": "Sağ Alt",
+            "bottom-left": "Sol Alt",
+            "top-left": "Sol Üst",
+            "rotate": "Döndür",
+            "with-weather": "Hava Durumu",
+            "weather-location": "Hava Durumu Konumu",
+            "ip-address": "IP Adresi (Düşük Hassasiyet)",
+            "geolocation": "Coğrafi Konum (Yüksek Hassasiyet)",
+            "with-clock": "Saat",
+            "with-date": "Tarih",
+            "with-calendar": "Takvim",
+            "with-visualizer": "Görselleştirici (Bindirme)",
+            "show-fps": "FPS Göster",
+            "shortcuts": "Klavye Kısayolları",
+            "language": "Dil",
+            "url": "Bu ayara bağlantı",
+            "repository": "Depo",
+            "build-at": "Oluşturulma zamanı",
+            "on": "Açık",
+            "off": "Kapalı",
+            "wakeup": "Uyanma Zamanlayıcısı",
+            "timer": "Zamanlayıcı",
+            "fade-in": "Giriş Solması Süresi",
+            "sleep": "Uyku Zamanlayıcısı",
+            "fade-out": "Çıkış Solması Süresi",
+            "timeUnitMs": "ms",
+            "timeUnitS": "s",
+            "timeUnitM": "m",
+            "timeUnitH": "sa",
+            "timeUnitD": "g",
+            "ago": "önce",
+            "Shuffle": "Karıştır",
+            "Repeat": "Tekrarla",
+            "Play / Pause": "Oynat / Duraklat",
+            "Volume": "Ses",
+            "Mute / Unmute": "Sessiz / Aç",
+            "Volume Up / Down": "Sesi Aç / Kıs",
+            "Settings": "Ayarlar",
+            "Seek": "Konuma Git",
+            "Seek Backward": "Geri Sar",
+            "Seek Forward": "İleri Sar",
+            "Go to Previous/Next Media": "Önceki/Sonraki Medyaya Git",
+            "Go to Previous Media": "Önceki Medyaya Git",
+            "Go to Next Media": "Sonraki Medyaya Git",
+            "FullScreen": "Tam Ekran",
+            "no-media-message": "Lütfen medya ekleyin.",
+            "no-repeat-message": "Lütfen tekrar etmeyi etkinleştirin.",
+            "not-supported-media-message": "Bu medya oynatılamıyor.",
+            "wakeup-timer-not-working": "Uyanma zamanlayıcısı bu cihazda düzgün çalışmayabilir.",
+            "wakeup-timer-requires-active-page": "Uyanma zamanlayıcısının düzgün çalışması için web sayfasının etkin olması gerekir.",
+            "noscript-message": "JavaScript devre dışı. Lütfen JavaScript'i etkinleştirin."
         }
     };
 });
@@ -11828,6 +11966,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                         + _library_2.Library.Locale.toRtl(_library_2.Library.Locale.map("lang-label", i), _library_2.Library.Locale.isRtl() && _library_2.Library.Locale.isLtr(i))); },
             });
             SettingsPanel.urlAnchor = _library_2.Library.UI.getElementById("a", "url");
+            SettingsPanel.buildAt = _library_2.Library.UI.getElementById("span", "build-at");
         })(SettingsPanel = UI.SettingsPanel || (UI.SettingsPanel = {}));
         UI.fpsDisplay = _library_2.Library.UI.getElementById("div", "fps");
         UI.fpsVisibilityApplier = new VisibilityApplier(UI.fpsDisplay);
@@ -16941,8 +17080,10 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         var name = _a[0], module = _a[1];
         return consoleInterface[name] = module;
     });
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(new Date(build.tick).toLocaleString(url_5.Url.params["locale"]), " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
+    var buildAt = new Date(build.tick).toLocaleString(url_5.Url.params["locale"]);
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(buildAt, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     console.log("\uD83D\uDCE6 Available modules: ".concat(Object.keys(modules).join(", ")));
+    _library_12.Library.UI.setTextContent(ui_14.UI.SettingsPanel.buildAt, buildAt);
 });
 //# sourceMappingURL=script/index.js.map
 if ("serviceWorker" in navigator)

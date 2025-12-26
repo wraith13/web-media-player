@@ -284,6 +284,10 @@ DUMMYSTYLE
         <label for="repository" class="link-label" aria-labelledby="repository">
             <a id="repository" href="__REPOSITORY_URL__"><span data-lang-key="repository"></span></a>
         </label>
+        <label for="build-at" class="information" aria-labelledby="build-at-label-span">
+            <span id="build-at-label-span" data-lang-key="build-at"></span>
+            <span id="build-at" class="value-text"></span>
+        </label>
     </form>
 </div>
 <div id="sleep-panel" class="popup-panel" role="presentation">

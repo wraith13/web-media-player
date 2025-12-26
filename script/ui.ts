@@ -371,6 +371,8 @@ export namespace UI
             );
         export const urlAnchor =
             Library.UI.getElementById("a", "url");
+        export const buildAt =
+            Library.UI.getElementById("span", "build-at");
     }
     export const fpsDisplay =
         Library.UI.getElementById("div", "fps");
