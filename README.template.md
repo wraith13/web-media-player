@@ -16,7 +16,7 @@ https://wraith13.github.io/web-media-player/
 > Please make sure your operating system and web browser are up to date.
 
 > [!NOTE]
-> If media playback on an iPhone or iPad is not working correctly, please restart the device.
+> If media playback on your iPhone or iPad isn't working correctly, try restarting your device.
 
 ## 🎯 Feature
 

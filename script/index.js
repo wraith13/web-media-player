@@ -1942,6 +1942,116 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-not-working": "Будильник, вероятно, не будет корректно работать на этом устройстве.",
             "wakeup-timer-requires-active-page": "Чтобы будильник работал корректно, веб-страница должна быть активной.",
             "noscript-message": "JavaScript отключён. Пожалуйста, включите JavaScript."
+        },
+        "th": {
+            "lang-label": "ไทย",
+            "lang-direction": "ltr",
+            "lang-colon-suffix": ":",
+            "add-media": "เพิ่มสื่อ",
+            "remove-media": "ลบสื่อ",
+            "loading-media": "กำลังโหลดสื่อ...",
+            "Auto": "อัตโนมัติ",
+            "description": "เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์",
+            "control-panel": "แผงควบคุม",
+            "wakeup-timer-panel": "แผงจับเวลาแจ้งเตือนตื่น",
+            "volume-panel": "แผงควบคุมระดับเสียง",
+            "settings-panel": "แผงการตั้งค่า",
+            "sleep-timer-panel": "แผงจับเวลาสลีป",
+            "transport-panel": "แผงควบคุมการเล่น",
+            "media-list": "รายการสื่อ",
+            "media-count": "จำนวนสื่อ",
+            "media-length": "ความยาวสื่อ",
+            "with-fullscreen": "แบบเต็มจอ",
+            "brightness": "ความสว่าง",
+            "stretch": "ยืด",
+            "padding": "ช่องว่าง",
+            "cross-fade": "ครอสเฟด",
+            "cross-fade-transition": "การเปลี่ยนแบบครอสเฟด",
+            "alpha": "แอลฟา",
+            "blur": "เบลอ",
+            "wipe": "ปัด",
+            "random": "สุ่ม",
+            "image-span": "ระยะเวลาการแสดงภาพ",
+            "loop-short-media": "วนซ้ำสื่อสั้น",
+            "visualizer": "เครื่องแสดงผลเสียง",
+            "visualizer-simple": "เรียบง่าย",
+            "visualizer-plane-frequency": "ความถี่แบบระนาบ",
+            "visualizer-plane-waveform": "รูปคลื่นแบบระนาบ",
+            "visualizer-arc-frequency": "ความถี่แบบโค้ง",
+            "visualizer-arc-waveform": "รูปคลื่นแบบโค้ง",
+            "visualizer-double-arc": "โค้งคู่",
+            "visualizer-stereo-arc-frequency": "ความถี่โค้งสเตอริโอ",
+            "visualizer-stereo-arc-waveform": "รูปคลื่นโค้งสเตอริโอ",
+            "visualizer-stereo-double-arc": "โค้งคู่สเตอริโอ",
+            "analog-clock": "นาฬิกาอนาล็อก",
+            "oversize": "ขนาดใหญ่",
+            "regular": "ปกติ",
+            "half": "ครึ่ง",
+            "petit": "ขนาดเล็ก",
+            "24hours-hand": "เข็ม 24 ชั่วโมง",
+            "date-hands": "เข็มวันที่",
+            "millisecond-hand": "เข็มมิลลิวินาที",
+            "overlay-style": "สไตล์โอเวอร์เลย์",
+            "hide": "ซ่อน",
+            "blend": "ผสม",
+            "white": "ขาว",
+            "black": "ดำ",
+            "system": "ระบบ",
+            "alternate": "สลับ",
+            "rainbow": "รุ้ง",
+            "overlay-position": "ตำแหน่งโอเวอร์เลย์",
+            "center": "กึ่งกลาง",
+            "top-right": "มุมบนขวา",
+            "bottom-right": "มุมล่างขวา",
+            "bottom-left": "มุมล่างซ้าย",
+            "top-left": "มุมบนซ้าย",
+            "rotate": "หมุน",
+            "with-weather": "สภาพอากาศ",
+            "weather-location": "ตำแหน่งสภาพอากาศ",
+            "ip-address": "ที่อยู่ IP (ความแม่นยำน้อย)",
+            "geolocation": "ตำแหน่งทางภูมิศาสตร์ (ความแม่นยำสูง)",
+            "with-clock": "นาฬิกา",
+            "with-date": "วันที่",
+            "with-calendar": "ปฏิทิน",
+            "with-visualizer": "เครื่องแสดงผลเสียง (โอเวอร์เลย์)",
+            "show-fps": "แสดง FPS",
+            "shortcuts": "ทางลัดคีย์บอร์ด",
+            "language": "ภาษา",
+            "url": "ลิงก์ไปยังการตั้งค่านี้",
+            "repository": "ที่เก็บ",
+            "on": "เปิด",
+            "off": "ปิด",
+            "wakeup": "จับเวลาแจ้งเตือนตื่น",
+            "timer": "ตัวจับเวลา",
+            "fade-in": "เวลาฟีดอิน",
+            "sleep": "จับเวลาสลีป",
+            "fade-out": "เวลาฟีดเอาต์",
+            "timeUnitMs": "มิลลิวินาที",
+            "timeUnitS": "วินาที",
+            "timeUnitM": "นาที",
+            "timeUnitH": "ชั่วโมง",
+            "timeUnitD": "วัน",
+            "ago": "ที่ผ่านมา",
+            "Shuffle": "สลับ",
+            "Repeat": "ทำซ้ำ",
+            "Play / Pause": "เล่น / หยุดชั่วคราว",
+            "Volume": "ระดับเสียง",
+            "Mute / Unmute": "ปิดเสียง / เปิดเสียง",
+            "Volume Up / Down": "เพิ่ม / ลดระดับเสียง",
+            "Settings": "การตั้งค่า",
+            "Seek": "เลื่อนตำแหน่ง",
+            "Seek Backward": "เลื่อนถอยหลัง",
+            "Seek Forward": "เลื่อนไปข้างหน้า",
+            "Go to Previous/Next Media": "ไปยังสื่อก่อนหน้า/ถัดไป",
+            "Go to Previous Media": "ไปยังสื่อก่อนหน้า",
+            "Go to Next Media": "ไปยังสื่อถัดไป",
+            "FullScreen": "เต็มจอ",
+            "no-media-message": "กรุณาเพิ่มสื่อ",
+            "no-repeat-message": "กรุณาเปิดใช้งานการทำซ้ำ",
+            "not-supported-media-message": "สื่อนี้ไม่สามารถเล่นได้",
+            "wakeup-timer-not-working": "จับเวลาแจ้งเตือนตื่นอาจไม่ทำงานอย่างถูกต้องบนอุปกรณ์นี้",
+            "wakeup-timer-requires-active-page": "เพื่อให้จับเวลาแจ้งเตือนตื่นทำงานอย่างถูกต้อง หน้าเว็บต้องอยู่ในสถานะแอคทีฟ",
+            "noscript-message": "JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript"
         }
     };
 });
@@ -5970,7 +6080,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.beginPath(config_json_6.default.visualizer.waveform);
                 if (rect.height <= rect.width) {
                     var sliceWidth = rect.width / maxIndex;
-                    context.moveTo(Visualizer.offsetPointY(rect, rect.height / 2));
+                    context.moveTo(Visualizer.makePoint(rect.width, rect.height / 2));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = rect.width - i * sliceWidth;
@@ -5981,7 +6091,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
                 else {
                     var sliceHeight = rect.height / maxIndex;
-                    context.moveTo(Visualizer.offsetPointX(rect, rect.width / 2));
+                    context.moveTo(Visualizer.makePoint(rect.width / 2, rect.height));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = scale * value * rect.width;
@@ -9829,7 +9939,6 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     url_5.Url.initialize();
     ui_14.UI.initialize(url_5.Url.params);
     events_1.Events.initialize(url_5.Url.params);
@@ -9874,6 +9983,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         var name = _a[0], module = _a[1];
         return consoleInterface[name] = module;
     });
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(new Date(build.tick).toLocaleString(url_5.Url.params["locale"]), " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     console.log("\uD83D\uDCE6 Available modules: ".concat(Object.keys(modules).join(", ")));
 });
 //# sourceMappingURL=index.js.map

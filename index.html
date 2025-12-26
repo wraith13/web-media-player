@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Fri Dec 26 2025 09:54:42 GMT+0900 (日本標準時)
+    build at: Fri Dec 26 2025 17:53:52 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -55,6 +55,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="pl" content="Odtwarzacz multimedialny działający w przeglądarce">
 <meta name="description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
+<meta name="description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
 <link id="manifest" rel="manifest" href="web.manifest/generated/en.json" />
 <meta name="apple-mobile-web-app-title" content="Web Media Player">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -80,6 +81,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="pl" content="Odtwarzacz multimedialny działający w przeglądarce">
 <meta name="twitter:description" lang="pt" content="Reprodutor de mídia baseado na web que roda em um navegador">
 <meta name="twitter:description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
+<meta name="twitter:description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
 <meta name="twitter:image" content="https://wraith13.github.io/web-media-player/image/twitter-card.png">
 <meta property="og:title" content="Web Media Player" />
 <meta property="og:description" content="Web-based media player that runs in a web browser" />
@@ -210,7 +212,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 72s infinite;
+  animation: noscript-langs-fade 76.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -260,18 +262,21 @@ input[type=range] {
 #noscript *[lang=ru] {
   animation-delay: 68.5s;
 }
+#noscript *[lang=th] {
+  animation-delay: 73s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.25% {
+  1.1764705882352942% {
     opacity: 1;
   }
-  6.25% {
+  5.882352941176471% {
     opacity: 1;
   }
-  7.5% {
+  7.058823529411765% {
     opacity: 0;
   }
   100% {
@@ -2159,6 +2164,12 @@ html[dir=rtl] #transport-panel #next-button {
 #transport-panel #fast-forward-button:active, #transport-panel #rewind-button:active {
   border-width: 1px;
 }
+@media (max-width: 440px) {
+  #transport-panel #fast-forward-button, #transport-panel #rewind-button {
+    bottom: 8.5rem;
+    bottom: calc(8.5rem + env(safe-area-inset-bottom));
+  }
+}
 #transport-panel #fast-forward-button svg, #transport-panel #rewind-button svg {
   color: rgba(230, 237, 243, calc(1 * var(--white-depth)));
   fill: rgba(230, 237, 243, calc(1 * var(--white-depth)));
@@ -2219,7 +2230,7 @@ body.show-seek-bar #media-time-frame #media-time {
     display: none;
   }
   body:not(.show-seek-bar) #media-time-frame {
-    display: none;
+    display: none !important;
   }
 }
 body.no-media #next-button,
@@ -3776,6 +3787,7 @@ DUMMYSTYLE
 <div lang="pl" dir="ltr">JavaScript jest wyłączony. Proszę włączyć JavaScript.</div>
 <div lang="pt" dir="ltr">JavaScript está desativado. Por favor, ative o JavaScript.</div>
 <div lang="ru" dir="ltr">JavaScript отключён. Пожалуйста, включите JavaScript.</div>
+<div lang="th" dir="ltr">JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript</div>
         </div>
     </div>
 </noscript>
@@ -3980,7 +3992,8 @@ DUMMYSTYLE
         <input id="volume" type="range" data-aria-lang-key="Volume" />
     </form>
 </div>
-<div id="settings-panel" class="popup-panel" role="presentation">
+<!-- The tabindex="-1" on div#settings-panel shouldn't be necessary, but without it a baffling issue occurs where the panel becomes focusable while it's hidden. -->
+<div id="settings-panel" class="popup-panel" role="presentation" tabindex="-1">
     <form data-aria-lang-key="settings-panel">
         <label for="media-count" class="information" aria-labelledby="media-count-label-span">
             <span id="media-count-label-span" data-lang-key="media-count"></span>
@@ -4190,8 +4203,8 @@ DUMMYSTYLE
 </div></div>
 <script type="text/javascript">
 const build = {
-    at: "Fri Dec 26 2025 09:54:42 GMT+0900 (日本標準時)",
-    tick: 1766710482801
+    at: "Fri Dec 26 2025 17:53:52 GMT+0900 (日本標準時)",
+    tick: 1766739232729
 };
 const evilCommonjsConfig = {
     "log": {
@@ -8887,6 +8900,116 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-not-working": "Будильник, вероятно, не будет корректно работать на этом устройстве.",
             "wakeup-timer-requires-active-page": "Чтобы будильник работал корректно, веб-страница должна быть активной.",
             "noscript-message": "JavaScript отключён. Пожалуйста, включите JavaScript."
+        },
+        "th": {
+            "lang-label": "ไทย",
+            "lang-direction": "ltr",
+            "lang-colon-suffix": ":",
+            "add-media": "เพิ่มสื่อ",
+            "remove-media": "ลบสื่อ",
+            "loading-media": "กำลังโหลดสื่อ...",
+            "Auto": "อัตโนมัติ",
+            "description": "เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์",
+            "control-panel": "แผงควบคุม",
+            "wakeup-timer-panel": "แผงจับเวลาแจ้งเตือนตื่น",
+            "volume-panel": "แผงควบคุมระดับเสียง",
+            "settings-panel": "แผงการตั้งค่า",
+            "sleep-timer-panel": "แผงจับเวลาสลีป",
+            "transport-panel": "แผงควบคุมการเล่น",
+            "media-list": "รายการสื่อ",
+            "media-count": "จำนวนสื่อ",
+            "media-length": "ความยาวสื่อ",
+            "with-fullscreen": "แบบเต็มจอ",
+            "brightness": "ความสว่าง",
+            "stretch": "ยืด",
+            "padding": "ช่องว่าง",
+            "cross-fade": "ครอสเฟด",
+            "cross-fade-transition": "การเปลี่ยนแบบครอสเฟด",
+            "alpha": "แอลฟา",
+            "blur": "เบลอ",
+            "wipe": "ปัด",
+            "random": "สุ่ม",
+            "image-span": "ระยะเวลาการแสดงภาพ",
+            "loop-short-media": "วนซ้ำสื่อสั้น",
+            "visualizer": "เครื่องแสดงผลเสียง",
+            "visualizer-simple": "เรียบง่าย",
+            "visualizer-plane-frequency": "ความถี่แบบระนาบ",
+            "visualizer-plane-waveform": "รูปคลื่นแบบระนาบ",
+            "visualizer-arc-frequency": "ความถี่แบบโค้ง",
+            "visualizer-arc-waveform": "รูปคลื่นแบบโค้ง",
+            "visualizer-double-arc": "โค้งคู่",
+            "visualizer-stereo-arc-frequency": "ความถี่โค้งสเตอริโอ",
+            "visualizer-stereo-arc-waveform": "รูปคลื่นโค้งสเตอริโอ",
+            "visualizer-stereo-double-arc": "โค้งคู่สเตอริโอ",
+            "analog-clock": "นาฬิกาอนาล็อก",
+            "oversize": "ขนาดใหญ่",
+            "regular": "ปกติ",
+            "half": "ครึ่ง",
+            "petit": "ขนาดเล็ก",
+            "24hours-hand": "เข็ม 24 ชั่วโมง",
+            "date-hands": "เข็มวันที่",
+            "millisecond-hand": "เข็มมิลลิวินาที",
+            "overlay-style": "สไตล์โอเวอร์เลย์",
+            "hide": "ซ่อน",
+            "blend": "ผสม",
+            "white": "ขาว",
+            "black": "ดำ",
+            "system": "ระบบ",
+            "alternate": "สลับ",
+            "rainbow": "รุ้ง",
+            "overlay-position": "ตำแหน่งโอเวอร์เลย์",
+            "center": "กึ่งกลาง",
+            "top-right": "มุมบนขวา",
+            "bottom-right": "มุมล่างขวา",
+            "bottom-left": "มุมล่างซ้าย",
+            "top-left": "มุมบนซ้าย",
+            "rotate": "หมุน",
+            "with-weather": "สภาพอากาศ",
+            "weather-location": "ตำแหน่งสภาพอากาศ",
+            "ip-address": "ที่อยู่ IP (ความแม่นยำน้อย)",
+            "geolocation": "ตำแหน่งทางภูมิศาสตร์ (ความแม่นยำสูง)",
+            "with-clock": "นาฬิกา",
+            "with-date": "วันที่",
+            "with-calendar": "ปฏิทิน",
+            "with-visualizer": "เครื่องแสดงผลเสียง (โอเวอร์เลย์)",
+            "show-fps": "แสดง FPS",
+            "shortcuts": "ทางลัดคีย์บอร์ด",
+            "language": "ภาษา",
+            "url": "ลิงก์ไปยังการตั้งค่านี้",
+            "repository": "ที่เก็บ",
+            "on": "เปิด",
+            "off": "ปิด",
+            "wakeup": "จับเวลาแจ้งเตือนตื่น",
+            "timer": "ตัวจับเวลา",
+            "fade-in": "เวลาฟีดอิน",
+            "sleep": "จับเวลาสลีป",
+            "fade-out": "เวลาฟีดเอาต์",
+            "timeUnitMs": "มิลลิวินาที",
+            "timeUnitS": "วินาที",
+            "timeUnitM": "นาที",
+            "timeUnitH": "ชั่วโมง",
+            "timeUnitD": "วัน",
+            "ago": "ที่ผ่านมา",
+            "Shuffle": "สลับ",
+            "Repeat": "ทำซ้ำ",
+            "Play / Pause": "เล่น / หยุดชั่วคราว",
+            "Volume": "ระดับเสียง",
+            "Mute / Unmute": "ปิดเสียง / เปิดเสียง",
+            "Volume Up / Down": "เพิ่ม / ลดระดับเสียง",
+            "Settings": "การตั้งค่า",
+            "Seek": "เลื่อนตำแหน่ง",
+            "Seek Backward": "เลื่อนถอยหลัง",
+            "Seek Forward": "เลื่อนไปข้างหน้า",
+            "Go to Previous/Next Media": "ไปยังสื่อก่อนหน้า/ถัดไป",
+            "Go to Previous Media": "ไปยังสื่อก่อนหน้า",
+            "Go to Next Media": "ไปยังสื่อถัดไป",
+            "FullScreen": "เต็มจอ",
+            "no-media-message": "กรุณาเพิ่มสื่อ",
+            "no-repeat-message": "กรุณาเปิดใช้งานการทำซ้ำ",
+            "not-supported-media-message": "สื่อนี้ไม่สามารถเล่นได้",
+            "wakeup-timer-not-working": "จับเวลาแจ้งเตือนตื่นอาจไม่ทำงานอย่างถูกต้องบนอุปกรณ์นี้",
+            "wakeup-timer-requires-active-page": "เพื่อให้จับเวลาแจ้งเตือนตื่นทำงานอย่างถูกต้อง หน้าเว็บต้องอยู่ในสถานะแอคทีฟ",
+            "noscript-message": "JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript"
         }
     };
 });
@@ -12915,7 +13038,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 context.beginPath(config_json_6.default.visualizer.waveform);
                 if (rect.height <= rect.width) {
                     var sliceWidth = rect.width / maxIndex;
-                    context.moveTo(Visualizer.offsetPointY(rect, rect.height / 2));
+                    context.moveTo(Visualizer.makePoint(rect.width, rect.height / 2));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = rect.width - i * sliceWidth;
@@ -12926,7 +13049,7 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
                 }
                 else {
                     var sliceHeight = rect.height / maxIndex;
-                    context.moveTo(Visualizer.offsetPointX(rect, rect.width / 2));
+                    context.moveTo(Visualizer.makePoint(rect.width / 2, rect.height));
                     for (var i = 0; i < maxIndex; ++i) {
                         var value = timeDomainDataArray[i] / 255.0;
                         var x = scale * value * rect.width;
@@ -16774,7 +16897,6 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
     evil_commonjs_config_json_1 = __importDefault(evil_commonjs_config_json_1);
     evil_timer_js_config_json_1 = __importDefault(evil_timer_js_config_json_1);
     images_json_1 = __importDefault(images_json_1);
-    console.log("\uD83D\uDCE6 BUILD AT: ".concat(build.at, " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     url_5.Url.initialize();
     ui_14.UI.initialize(url_5.Url.params);
     events_1.Events.initialize(url_5.Url.params);
@@ -16819,6 +16941,7 @@ define("script/index", ["require", "exports", "script/tools/index", "script/libr
         var name = _a[0], module = _a[1];
         return consoleInterface[name] = module;
     });
+    console.log("\uD83D\uDCE6 BUILD AT: ".concat(new Date(build.tick).toLocaleString(url_5.Url.params["locale"]), " ( ").concat(_tools_9.Tools.Timespan.toHumanizedString(new Date().getTime() - build.tick, 1), " ").concat(_library_12.Library.Locale.map("ago"), " )"));
     console.log("\uD83D\uDCE6 Available modules: ".concat(Object.keys(modules).join(", ")));
 });
 //# sourceMappingURL=script/index.js.map

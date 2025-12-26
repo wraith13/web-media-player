@@ -171,7 +171,8 @@ DUMMYSTYLE
         <input id="volume" type="range" data-aria-lang-key="Volume" />
     </form>
 </div>
-<div id="settings-panel" class="popup-panel" role="presentation">
+<!-- The tabindex="-1" on div#settings-panel shouldn't be necessary, but without it a baffling issue occurs where the panel becomes focusable while it's hidden. -->
+<div id="settings-panel" class="popup-panel" role="presentation" tabindex="-1">
     <form data-aria-lang-key="settings-panel">
         <label for="media-count" class="information" aria-labelledby="media-count-label-span">
             <span id="media-count-label-span" data-lang-key="media-count"></span>

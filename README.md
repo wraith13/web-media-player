@@ -16,7 +16,7 @@ https://wraith13.github.io/web-media-player/
 > Please make sure your operating system and web browser are up to date.
 
 > [!NOTE]
-> If media playback on an iPhone or iPad is not working correctly, please restart the device.
+> If media playback on your iPhone or iPad isn't working correctly, try restarting your device.
 
 ## 🎯 Feature
 
@@ -36,7 +36,7 @@ https://wraith13.github.io/web-media-player/
 - ✅ FPS display
 - ✅ Full keyboard navigation support
 - ✅ Conforms to WAI-ARIA
-- ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt), Русский(ru)
+- ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt), Русский(ru), ไทย(th)
 - 🚫 Because it's web-based, playlists cannot be saved. (Technically possible, but not practical, so it's not implemented.)
 - 🚫 Because it's web-based, background playback and timers do not work reliably.
 

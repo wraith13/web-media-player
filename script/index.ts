@@ -17,7 +17,6 @@ interface BuildInformation
     tick: number;
 }
 declare var build: BuildInformation;
-console.log(`📦 BUILD AT: ${build.at} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 Url.initialize();
 UI.initialize(Url.params);
 Events.initialize(Url.params);
@@ -64,4 +63,5 @@ const modules =
     Resource
 };
 Object.entries(modules).forEach(([ name, module ]) => consoleInterface[name] = module);
+console.log(`📦 BUILD AT: ${new Date(build.tick).toLocaleString(Url.params["locale"])} ( ${Tools.Timespan.toHumanizedString(new Date().getTime() -build.tick, 1)} ${Library.Locale.map("ago")} )`);
 console.log(`📦 Available modules: ${Object.keys(modules).join(", ")}`);

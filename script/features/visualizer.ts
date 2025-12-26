@@ -269,7 +269,7 @@ export namespace Visualizer
             if (rect.height <= rect.width)
             {
                 const sliceWidth = rect.width /maxIndex;
-                context.moveTo(offsetPointY(rect, rect.height /2));
+                context.moveTo(makePoint(rect.width, rect.height /2));
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;
@@ -282,7 +282,7 @@ export namespace Visualizer
             else
             {
                 const sliceHeight = rect.height /maxIndex;
-                context.moveTo(offsetPointX(rect, rect.width /2));
+                context.moveTo(makePoint(rect.width /2, rect.height));
                 for (let i = 0; i < maxIndex; ++i)
                 {
                     const value = timeDomainDataArray[i] /255.0;

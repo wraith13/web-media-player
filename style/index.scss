@@ -1143,6 +1143,11 @@ body:not(.play):not(.mousemove):not(keyinput).sleeped
             width: 3.0rem;
             height: 3.0rem;
             background-color: black-color(0.6);
+            @media (max-width: 440px)
+            {
+                bottom: 8.5rem;
+                bottom: calc(8.5rem + env(safe-area-inset-bottom));
+            }
         }
         svg
         {
@@ -1221,7 +1226,7 @@ body.show-seek-bar #media-time-frame
     {
         #media-time-frame
         {
-            display: none;
+            display: none !important;
         }
     }
 }
