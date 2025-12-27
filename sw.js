@@ -1,4 +1,4 @@
-const CACHE_NAME = "web-media-player-20251227112105";
+const CACHE_NAME = "web-media-player-20251227123016";
 const REGULAR_ASSETS = // embeded from ./resouce/regular-assets.json
 [
     "./",
@@ -25,7 +25,9 @@ const WEB_MANIFEST_ASSETS =// embeded from ./locale/generated/web-manifest-asset
     "./web.manifest/generated/ru.json",
     "./web.manifest/generated/th.json",
     "./web.manifest/generated/tr.json",
-    "./web.manifest/generated/vi.json"
+    "./web.manifest/generated/vi.json",
+    "./web.manifest/generated/zh-cn.json",
+    "./web.manifest/generated/zh-tw.json"
 ];
 const ASSETS = REGULAR_ASSETS.concat(WEB_MANIFEST_ASSETS);
 self.addEventListener

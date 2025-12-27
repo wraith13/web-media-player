@@ -116,7 +116,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 85.5s infinite;
+  animation: noscript-langs-fade 94.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -175,18 +175,24 @@ input[type=range] {
 #noscript *[lang=vi] {
   animation-delay: 82s;
 }
+#noscript *[lang=zh-cn] {
+  animation-delay: 86.5s;
+}
+#noscript *[lang=zh-tw] {
+  animation-delay: 91s;
+}
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  1.0526315789473686% {
+  0.9523809523809524% {
     opacity: 1;
   }
-  5.2631578947368425% {
+  4.761904761904762% {
     opacity: 1;
   }
-  6.315789473684211% {
+  5.714285714285714% {
     opacity: 0;
   }
   100% {

@@ -55,5 +55,11 @@
     },
     {
         "__LOCALE__": "vi"
+    },
+    {
+        "__LOCALE__": "zh-cn"
+    },
+    {
+        "__LOCALE__": "zh-tw"
     }
 ]
