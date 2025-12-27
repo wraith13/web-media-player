@@ -689,7 +689,8 @@ export namespace Events
         UI.SettingsPanel.visualizerSelect.loadParameter(Url.params, applyParam).setChange(updateVisualizer);
         UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
         UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(Url.params, applyParam);
-        UI.SettingsPanel.analogClockCheckbox.loadParameter(Url.params, applyParam).setChange(UI.AnalogClock.updateVisibility);
+        UI.SettingsPanel.analogClockSelect.loadParameter(Url.params, applyParam).setChange(UI.AnalogClock.updateVisibility);
+        UI.SettingsPanel.analogClockSlimCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dayHandCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params, applyParam);
         UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params, applyParam);
@@ -773,7 +774,8 @@ export namespace Events
                         UI.SettingsPanel.visualizerSelect,
                         UI.SettingsPanel.crossFadeSelect,
                         UI.SettingsPanel.crossFadeTransitionSelect,
-                        UI.SettingsPanel.analogClockCheckbox,
+                        UI.SettingsPanel.analogClockSelect,
+                        UI.SettingsPanel.analogClockSlimCheckbox,
                         UI.SettingsPanel.dayHandCheckbox,
                         UI.SettingsPanel.dateHandsCheckbox,
                         UI.SettingsPanel.millisecondHandCheckbox,

@@ -3,35 +3,36 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 94.5s infinite;
+        animation: noscript-langs-fade 99s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
-    *[lang="de"] { animation-delay: 5.5s; }
-    *[lang="el"] { animation-delay: 10s; }
-    *[lang="en"] { animation-delay: 14.5s; }
-    *[lang="es"] { animation-delay: 19s; }
-    *[lang="fa"] { animation-delay: 23.5s; }
-    *[lang="fr"] { animation-delay: 28s; }
-    *[lang="hi"] { animation-delay: 32.5s; }
-    *[lang="id"] { animation-delay: 37s; }
-    *[lang="it"] { animation-delay: 41.5s; }
-    *[lang="ja"] { animation-delay: 46s; }
-    *[lang="ko"] { animation-delay: 50.5s; }
-    *[lang="nl"] { animation-delay: 55s; }
-    *[lang="pl"] { animation-delay: 59.5s; }
-    *[lang="pt"] { animation-delay: 64s; }
-    *[lang="ru"] { animation-delay: 68.5s; }
-    *[lang="th"] { animation-delay: 73s; }
-    *[lang="tr"] { animation-delay: 77.5s; }
-    *[lang="vi"] { animation-delay: 82s; }
-    *[lang="zh-cn"] { animation-delay: 86.5s; }
-    *[lang="zh-tw"] { animation-delay: 91s; }
+    *[lang="bn"] { animation-delay: 5.5s; }
+    *[lang="de"] { animation-delay: 10s; }
+    *[lang="el"] { animation-delay: 14.5s; }
+    *[lang="en"] { animation-delay: 19s; }
+    *[lang="es"] { animation-delay: 23.5s; }
+    *[lang="fa"] { animation-delay: 28s; }
+    *[lang="fr"] { animation-delay: 32.5s; }
+    *[lang="hi"] { animation-delay: 37s; }
+    *[lang="id"] { animation-delay: 41.5s; }
+    *[lang="it"] { animation-delay: 46s; }
+    *[lang="ja"] { animation-delay: 50.5s; }
+    *[lang="ko"] { animation-delay: 55s; }
+    *[lang="nl"] { animation-delay: 59.5s; }
+    *[lang="pl"] { animation-delay: 64s; }
+    *[lang="pt"] { animation-delay: 68.5s; }
+    *[lang="ru"] { animation-delay: 73s; }
+    *[lang="th"] { animation-delay: 77.5s; }
+    *[lang="tr"] { animation-delay: 82s; }
+    *[lang="vi"] { animation-delay: 86.5s; }
+    *[lang="zh-cn"] { animation-delay: 91s; }
+    *[lang="zh-tw"] { animation-delay: 95.5s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    0.9523809523809524% { opacity: 1; }
-    4.761904761904762% { opacity: 1; }
-    5.714285714285714% { opacity: 0; }
+    0.9090909090909092% { opacity: 1; }
+    4.545454545454546% { opacity: 1; }
+    5.454545454545455% { opacity: 0; }
     100% { opacity: 0; }
 }

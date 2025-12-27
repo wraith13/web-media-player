@@ -197,7 +197,7 @@ export namespace UI
         {
             if (isPlaying())
             {
-                visibilityApplier.show("off" !== UI.SettingsPanel.analogClockCheckbox.get());
+                visibilityApplier.show("off" !== UI.SettingsPanel.analogClockSelect.get());
             }
         };
     };
@@ -303,8 +303,10 @@ export namespace UI
         );
         export const crossFadeTransitionSelect =
             new Library.Control.Select(control.crossFadeTransition, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
-        export const analogClockCheckbox =
+        export const analogClockSelect =
             new Library.Control.Select(control.analogClock, { makeLabel: i => Library.Locale.map(i as Library.Locale.Label), });
+        export const analogClockSlimCheckbox =
+            new Library.Control.Checkbox(control.analogClockSlim);
         export const dayHandCheckbox =
             new Library.Control.Checkbox(control.dayHand);
         export const dateHandsCheckbox =
@@ -438,7 +440,7 @@ export namespace UI
         UI.SettingsPanel.visualizerSelect.reloadOptions();
         UI.SettingsPanel.crossFadeSelect.reloadOptions();
         UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
-        UI.SettingsPanel.analogClockCheckbox.reloadOptions();
+        UI.SettingsPanel.analogClockSelect.reloadOptions();
         UI.SettingsPanel.overlayStyleSelect.reloadOptions();
         UI.SettingsPanel.overlayPositionSelect.reloadOptions();
         UI.SettingsPanel.weatherLocationSelect.reloadOptions();

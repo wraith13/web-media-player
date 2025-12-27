@@ -1,4 +1,4 @@
-const CACHE_NAME = "web-media-player-20251227123016";
+const CACHE_NAME = "web-media-player-20251228032135";
 const REGULAR_ASSETS = // embeded from ./resouce/regular-assets.json
 [
     "./",
@@ -8,6 +8,7 @@ const REGULAR_ASSETS = // embeded from ./resouce/regular-assets.json
 const WEB_MANIFEST_ASSETS =// embeded from ./locale/generated/web-manifest-assets.json
 [
     "./web.manifest/generated/ar.json",
+    "./web.manifest/generated/bn.json",
     "./web.manifest/generated/de.json",
     "./web.manifest/generated/el.json",
     "./web.manifest/generated/en.json",

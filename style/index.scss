@@ -607,10 +607,69 @@
             @include circle-size(calc(var(--analog-clock-size) * 25));
         }
     }
-}
-body #screen-body.paused
-{
-    background-color: $body-background-color;
+    &.slim div
+    {
+        &#milliseconds-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 96));
+        }
+        &#seconds-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 95));
+        }
+        &#minutes-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 90));
+        }
+        &#scale60-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 95));
+        }
+        &#hours-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 82.5));
+        }
+        &#scale12-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 82.5));
+        }
+        &#day-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 75));
+        }
+        &#scale24-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 75));
+        }
+        &#week-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 72.5));
+        }
+        &#week-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 72.5));
+        }
+        &#month-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 70));
+        }
+        &#month-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 70));
+        }
+        &#year-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 65));
+        }
+        &#year-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 65));
+        }
+        &#center-circle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 60));
+        }
+    }
 }
 body.show-paused-media #screen-body
 {

@@ -116,83 +116,86 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 94.5s infinite;
+  animation: noscript-langs-fade 99s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
 }
-#noscript *[lang=de] {
+#noscript *[lang=bn] {
   animation-delay: 5.5s;
 }
-#noscript *[lang=el] {
+#noscript *[lang=de] {
   animation-delay: 10s;
 }
-#noscript *[lang=en] {
+#noscript *[lang=el] {
   animation-delay: 14.5s;
 }
-#noscript *[lang=es] {
+#noscript *[lang=en] {
   animation-delay: 19s;
 }
-#noscript *[lang=fa] {
+#noscript *[lang=es] {
   animation-delay: 23.5s;
 }
-#noscript *[lang=fr] {
+#noscript *[lang=fa] {
   animation-delay: 28s;
 }
-#noscript *[lang=hi] {
+#noscript *[lang=fr] {
   animation-delay: 32.5s;
 }
-#noscript *[lang=id] {
+#noscript *[lang=hi] {
   animation-delay: 37s;
 }
-#noscript *[lang=it] {
+#noscript *[lang=id] {
   animation-delay: 41.5s;
 }
-#noscript *[lang=ja] {
+#noscript *[lang=it] {
   animation-delay: 46s;
 }
-#noscript *[lang=ko] {
+#noscript *[lang=ja] {
   animation-delay: 50.5s;
 }
-#noscript *[lang=nl] {
+#noscript *[lang=ko] {
   animation-delay: 55s;
 }
-#noscript *[lang=pl] {
+#noscript *[lang=nl] {
   animation-delay: 59.5s;
 }
-#noscript *[lang=pt] {
+#noscript *[lang=pl] {
   animation-delay: 64s;
 }
-#noscript *[lang=ru] {
+#noscript *[lang=pt] {
   animation-delay: 68.5s;
 }
-#noscript *[lang=th] {
+#noscript *[lang=ru] {
   animation-delay: 73s;
 }
-#noscript *[lang=tr] {
+#noscript *[lang=th] {
   animation-delay: 77.5s;
 }
-#noscript *[lang=vi] {
+#noscript *[lang=tr] {
   animation-delay: 82s;
 }
-#noscript *[lang=zh-cn] {
+#noscript *[lang=vi] {
   animation-delay: 86.5s;
 }
-#noscript *[lang=zh-tw] {
+#noscript *[lang=zh-cn] {
   animation-delay: 91s;
+}
+#noscript *[lang=zh-tw] {
+  animation-delay: 95.5s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  0.9523809523809524% {
+  0.9090909090909092% {
     opacity: 1;
   }
-  4.761904761904762% {
+  4.545454545454546% {
     opacity: 1;
   }
-  5.714285714285714% {
+  5.454545454545455% {
     opacity: 0;
   }
   100% {
@@ -1233,9 +1236,80 @@ body.list #analog-clock-panel:not(.show)::before {
   height: calc(var(--short-side) * var(--analog-clock-size) * 25);
   border-radius: 50%;
 }
-
-body #screen-body.paused {
-  background-color: black;
+#analog-clock-panel.slim div#milliseconds-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 96);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 96);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#seconds-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#minutes-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 90);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 90);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#scale60-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#hours-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 82.5);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 82.5);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#scale12-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 82.5);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 82.5);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#day-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 75);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 75);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#scale24-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 75);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 75);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#week-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 72.5);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 72.5);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#week-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 72.5);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 72.5);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#month-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#month-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#year-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 65);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 65);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#year-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 65);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 65);
+  border-radius: 50%;
+}
+#analog-clock-panel.slim div#center-circle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 60);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 60);
+  border-radius: 50%;
 }
 
 body.show-paused-media #screen-body #media-screen {

@@ -228,6 +228,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "عادي",
             "half": "نصف",
             "petit": "صغير",
+            "analog-clock-slim": "نحيف",
             "24hours-hand": "عقرب 24 ساعة",
             "date-hands": "عقارب التاريخ",
             "millisecond-hand": "عقرب الملِّيثانية",
@@ -294,6 +295,118 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-requires-active-page": "لكي يعمل مؤقت الاستيقاظ بشكل صحيح، يجب أن تكون صفحة الويب نشطة.",
             "noscript-message": "تم تعطيل JavaScript. الرجاء تمكين JavaScript."
         },
+        "bn": {
+            "lang-label": "বাংলা",
+            "lang-direction": "ltr",
+            "lang-colon-suffix": ":",
+            "add-media": "মিডিয়া যোগ করুন",
+            "remove-media": "মিডিয়া অপসারণ",
+            "loading-media": "মিডিয়া লোড হচ্ছে...",
+            "Auto": "স্বয়ংক্রিয়",
+            "description": "ওয়েব ব্রাউজারে চলমান ওয়েব-ভিত্তিক মিডিয়া প্লেয়ার",
+            "control-panel": "কন্ট্রোল প্যানেল",
+            "wakeup-timer-panel": "ওয়েক-আপ টাইমার প্যানেল",
+            "volume-panel": "ভলিউম প্যানেল",
+            "settings-panel": "সেটিংস প্যানেল",
+            "sleep-timer-panel": "স্লিপ টাইমার প্যানেল",
+            "transport-panel": "ট্রান্সপোর্ট প্যানেল",
+            "media-list": "মিডিয়া তালিকা",
+            "media-count": "মিডিয়া সংখ্যা",
+            "media-length": "মিডিয়া দৈর্ঘ্য",
+            "with-fullscreen": "পূর্ণপর্দা",
+            "brightness": "উজ্জ্বলতা",
+            "stretch": "বিস্তৃতি",
+            "padding": "প্যাডিং",
+            "cross-fade": "ক্রস ফেড",
+            "cross-fade-transition": "ক্রস ফেড ট্রানজিশন",
+            "alpha": "আলফা",
+            "blur": "ব্লার",
+            "wipe": "ওয়াইপ",
+            "random": "র‍্যান্ডম",
+            "image-span": "ছবির প্রদর্শন সময়",
+            "loop-short-media": "সংক্ষিপ্ত মিডিয়া লুপ করুন",
+            "visualizer": "ভিজুয়ালাইজার",
+            "visualizer-simple": "সহজ",
+            "visualizer-plane-frequency": "প্লেন ফ্রিকোয়েন্সি",
+            "visualizer-plane-waveform": "প্লেন ওয়েভফর্ম",
+            "visualizer-arc-frequency": "আর্ক ফ্রিকোয়েন্সি",
+            "visualizer-arc-waveform": "আর্ক ওয়েভফর্ম",
+            "visualizer-double-arc": "ডাবল আর্ক",
+            "visualizer-stereo-arc-frequency": "স্টেরিও আর্ক ফ্রিকোয়েন্সি",
+            "visualizer-stereo-arc-waveform": "স্টেরিও আর্ক ওয়েভফর্ম",
+            "visualizer-stereo-double-arc": "স্টেরিও ডাবল আর্ক",
+            "analog-clock": "অ্যানালগ ঘড়ি",
+            "oversize": "অতিরিক্ত বড়",
+            "regular": "নিয়মিত",
+            "half": "আধা",
+            "petit": "ছোট",
+            "analog-clock-slim": "স্লিম",
+            "24hours-hand": "২৪-ঘন্টার কাঁটা",
+            "date-hands": "তারিখের কাঁটা",
+            "millisecond-hand": "মিলিসেকেন্ড কাঁটা",
+            "overlay-style": "ওভারলে স্টাইল",
+            "hide": "লুকান",
+            "blend": "ব্লেন্ড",
+            "white": "সাদা",
+            "black": "কালো",
+            "system": "সিস্টেম",
+            "alternate": "বিকল্প",
+            "rainbow": "রেইনবো",
+            "overlay-position": "ওভারলে অবস্থান",
+            "center": "কেন্দ্র",
+            "top-right": "উপর-ডান",
+            "bottom-right": "নিচে-ডান",
+            "bottom-left": "নিচে-বাম",
+            "top-left": "উপর-বাম",
+            "rotate": "ঘুরান",
+            "with-weather": "আবহাওয়া",
+            "weather-location": "আবহাওয়ার অবস্থান",
+            "ip-address": "IP ঠিকানা(কম নির্ভুল)",
+            "geolocation": "জিওলোকেশন(উচ্চ নির্ভুলতা)",
+            "with-clock": "ঘড়ি",
+            "with-date": "তারিখ",
+            "with-calendar": "ক্যালেন্ডার",
+            "with-visualizer": "ভিজুয়ালাইজার(ওভারলে)",
+            "show-fps": "FPS দেখান",
+            "shortcuts": "কীবোর্ড শর্টকাট",
+            "language": "ভাষা",
+            "url": "এই সেটিংসের লিঙ্ক",
+            "repository": "রিপোজিটরি",
+            "build-at": "বিল্ড সময়",
+            "on": "চালু",
+            "off": "বন্ধ",
+            "wakeup": "ওয়েক-আপ টাইমার",
+            "timer": "টাইমার",
+            "fade-in": "ফেড-ইন সময়",
+            "sleep": "স্লিপ টাইমার",
+            "fade-out": "ফেড-আউট সময়",
+            "timeUnitMs": "মিলিসেকেন্ড",
+            "timeUnitS": "সেকেন্ড",
+            "timeUnitM": "মিনিট",
+            "timeUnitH": "ঘন্টা",
+            "timeUnitD": "দিন",
+            "ago": "পূর্বে",
+            "Shuffle": "শাফল",
+            "Repeat": "রিপিট",
+            "Play / Pause": "প্লে / বিরতি",
+            "Volume": "ভলিউম",
+            "Mute / Unmute": "মিউট / আনমিউট",
+            "Volume Up / Down": "ভলিউম বাড়ান / কমান",
+            "Settings": "সেটিংস",
+            "Seek": "পজিশন পরিবর্তন",
+            "Seek Backward": "পেছনে খোঁজা",
+            "Seek Forward": "সামনে খোঁজা",
+            "Go to Previous/Next Media": "আগের/পরের মিডিয়ায় যান",
+            "Go to Previous Media": "আগের মিডিয়ায় যান",
+            "Go to Next Media": "পরের মিডিয়ায় যান",
+            "FullScreen": "পূর্ণ পর্দা",
+            "no-media-message": "মিডিয়া যোগ করুন।",
+            "no-repeat-message": "দয়া করে রিপিট সক্রিয় করুন।",
+            "not-supported-media-message": "এই মিডিয়া প্লে করা যাবে না।",
+            "wakeup-timer-not-working": "ওয়েক-আপ টাইমারটি এই ডিভাইসে সঠিকভাবে কাজ নাও করতে পারে।",
+            "wakeup-timer-requires-active-page": "ওয়েক-আপ টাইমার সঠিকভাবে কাজ করার জন্য ওয়েব পেজটি সক্রিয় থাকা প্রয়োজন।",
+            "noscript-message": "JavaScript অক্ষম। অনুগ্রহ করে JavaScript সক্ষম করুন।"
+        },
         "de": {
             "lang-label": "Deutsch",
             "lang-direction": "ltr",
@@ -339,6 +452,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regulär",
             "half": "Halb",
             "petit": "Klein",
+            "analog-clock-slim": "Schlank",
             "24hours-hand": "24-Stunden-Zeiger",
             "date-hands": "Datumszeiger",
             "millisecond-hand": "Millisekundenzeiger",
@@ -450,6 +564,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Κανονικό",
             "half": "Μισό",
             "petit": "Μικρό",
+            "analog-clock-slim": "Λεπτό",
             "24hours-hand": "Δείκτης 24 Ωρών",
             "date-hands": "Δείκτες Ημερομηνίας",
             "millisecond-hand": "Δείκτης Χιλιοστών του δευτερολέπτου",
@@ -561,6 +676,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regular",
             "half": "Half",
             "petit": "Petit",
+            "analog-clock-slim": "Slim",
             "24hours-hand": "24 Hours Hand",
             "date-hands": "Date Hands",
             "millisecond-hand": "Millisecond Hand",
@@ -672,6 +788,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regular",
             "half": "Mitad",
             "petit": "Pequeño",
+            "analog-clock-slim": "Delgado",
             "24hours-hand": "Manecilla de 24 horas",
             "date-hands": "Manecillas de fecha",
             "millisecond-hand": "Manecilla de milisegundos",
@@ -783,6 +900,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "معمولی",
             "half": "نیمه",
             "petit": "کوچک",
+            "analog-clock-slim": "باریک",
             "24hours-hand": "عقربه ۲۴ ساعته",
             "date-hands": "عقربه‌های تاریخ",
             "millisecond-hand": "ثانیه‌شمار میلی‌ثانیه",
@@ -894,6 +1012,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Régulier",
             "half": "Demi",
             "petit": "Petit",
+            "analog-clock-slim": "Mince",
             "24hours-hand": "Aiguille 24 heures",
             "date-hands": "Aiguilles de la date",
             "millisecond-hand": "Aiguille des millisecondes",
@@ -1005,6 +1124,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "नियमित",
             "half": "आधा",
             "petit": "छोटा",
+            "analog-clock-slim": "पतला",
             "24hours-hand": "24 घंटे का सूचक",
             "date-hands": "तारीख के सूचक",
             "millisecond-hand": "मिलीसेकंड हैंड",
@@ -1116,6 +1236,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regular",
             "half": "Half",
             "petit": "Petit",
+            "analog-clock-slim": "Slim",
             "24hours-hand": "Jarum 24 Jam",
             "date-hands": "Jarum Tanggal",
             "millisecond-hand": "Jarum Milidetik",
@@ -1227,6 +1348,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regolare",
             "half": "Metà",
             "petit": "Piccolo",
+            "analog-clock-slim": "Sottile",
             "24hours-hand": "Lancetta delle 24 ore",
             "date-hands": "Lancette della data",
             "millisecond-hand": "Lancetta dei millisecondi",
@@ -1338,6 +1460,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "レギュラー",
             "half": "ハーフ",
             "petit": "プチ",
+            "analog-clock-slim": "スリム",
             "24hours-hand": "24時間針",
             "date-hands": "日付針",
             "millisecond-hand": "ミリ秒針",
@@ -1449,6 +1572,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "레귤러",
             "half": "하프",
             "petit": "쁘띠",
+            "analog-clock-slim": "슬림",
             "24hours-hand": "24시간 바늘",
             "date-hands": "날짜 바늘",
             "millisecond-hand": "밀리초 바늘",
@@ -1560,6 +1684,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regulier",
             "half": "Half",
             "petit": "Petit",
+            "analog-clock-slim": "Slank",
             "24hours-hand": "24-uurs wijzer",
             "date-hands": "Datumwijzers",
             "millisecond-hand": "Milliseconde wijzer",
@@ -1671,6 +1796,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regularny",
             "half": "Połowa",
             "petit": "Mały",
+            "analog-clock-slim": "Smukły",
             "24hours-hand": "Wskazówka 24 godzin",
             "date-hands": "Wskazówki daty",
             "millisecond-hand": "Wskazówka milisekund",
@@ -1782,6 +1908,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Regular",
             "half": "Half",
             "petit": "Petit",
+            "analog-clock-slim": "Slim",
             "24hours-hand": "Ponteiro de 24 horas",
             "date-hands": "Ponteiros de data",
             "millisecond-hand": "Ponteiro de milissegundos",
@@ -1893,6 +2020,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Обычный",
             "half": "Половина",
             "petit": "Маленький",
+            "analog-clock-slim": "Тонкий",
             "24hours-hand": "Стрелка 24 часа",
             "date-hands": "Стрелки даты",
             "millisecond-hand": "Стрелка миллисекунд",
@@ -2004,6 +2132,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "ปกติ",
             "half": "ครึ่ง",
             "petit": "ขนาดเล็ก",
+            "analog-clock-slim": "บาง",
             "24hours-hand": "เข็ม 24 ชั่วโมง",
             "date-hands": "เข็มวันที่",
             "millisecond-hand": "เข็มมิลลิวินาที",
@@ -2115,6 +2244,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Normal",
             "half": "Yarım",
             "petit": "Küçük",
+            "analog-clock-slim": "İnce",
             "24hours-hand": "24 Saatlik İbre",
             "date-hands": "Tarih İbreleri",
             "millisecond-hand": "Milisaniye İbre",
@@ -2226,6 +2356,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "Thường",
             "half": "Một nửa",
             "petit": "Nhỏ",
+            "analog-clock-slim": "Mảnh mai",
             "24hours-hand": "Kim 24 giờ",
             "date-hands": "Kim ngày",
             "millisecond-hand": "Kim mili giây",
@@ -2337,6 +2468,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "常规",
             "half": "一半",
             "petit": "小",
+            "analog-clock-slim": "纤细",
             "24hours-hand": "24小时指针",
             "date-hands": "日期指针",
             "millisecond-hand": "毫秒指针",
@@ -2448,6 +2580,7 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "regular": "常規",
             "half": "一半",
             "petit": "小",
+            "analog-clock-slim": "纖細",
             "24hours-hand": "24 小時指針",
             "date-hands": "日期指針",
             "millisecond-hand": "毫秒指針",
@@ -4801,6 +4934,10 @@ define("resource/control", [], {
         ],
         "default": "off"
     },
+    "analogClockSlim": {
+        "id": "analog-clock-slim",
+        "default": false
+    },
     "dayHand": {
         "id": "24hours-hand",
         "default": false
@@ -5219,7 +5356,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             AnalogClock.visibilityApplier = new VisibilityApplier(AnalogClock.panel);
             AnalogClock.updateVisibility = function () {
                 if (UI.isPlaying()) {
-                    AnalogClock.visibilityApplier.show("off" !== UI.SettingsPanel.analogClockCheckbox.get());
+                    AnalogClock.visibilityApplier.show("off" !== UI.SettingsPanel.analogClockSelect.get());
                 }
             };
         })(AnalogClock = UI.AnalogClock || (UI.AnalogClock = {}));
@@ -5294,7 +5431,8 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
                 }
             });
             SettingsPanel.crossFadeTransitionSelect = new _library_2.Library.Control.Select(control_json_1.default.crossFadeTransition, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
-            SettingsPanel.analogClockCheckbox = new _library_2.Library.Control.Select(control_json_1.default.analogClock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+            SettingsPanel.analogClockSelect = new _library_2.Library.Control.Select(control_json_1.default.analogClock, { makeLabel: function (i) { return _library_2.Library.Locale.map(i); }, });
+            SettingsPanel.analogClockSlimCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.analogClockSlim);
             SettingsPanel.dayHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dayHand);
             SettingsPanel.dateHandsCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.dateHands);
             SettingsPanel.millisecondHandCheckbox = new _library_2.Library.Control.Checkbox(control_json_1.default.millisecondHand);
@@ -5373,7 +5511,7 @@ define("script/ui", ["require", "exports", "script/tools/index", "script/library
             UI.SettingsPanel.visualizerSelect.reloadOptions();
             UI.SettingsPanel.crossFadeSelect.reloadOptions();
             UI.SettingsPanel.crossFadeTransitionSelect.reloadOptions();
-            UI.SettingsPanel.analogClockCheckbox.reloadOptions();
+            UI.SettingsPanel.analogClockSelect.reloadOptions();
             UI.SettingsPanel.overlayStyleSelect.reloadOptions();
             UI.SettingsPanel.overlayPositionSelect.reloadOptions();
             UI.SettingsPanel.weatherLocationSelect.reloadOptions();
@@ -5753,7 +5891,7 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
         };
         Overlay.getAnalogClockSize = function () {
             var _a;
-            var analogClockOption = ui_4.UI.SettingsPanel.analogClockCheckbox.get();
+            var analogClockOption = ui_4.UI.SettingsPanel.analogClockSelect.get();
             switch (analogClockOption) {
                 case "oversize":
                 case "regular":
@@ -5768,6 +5906,8 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
             var _a;
             var analogClockSize = Overlay.getAnalogClockSize();
             var isAnalogClockEnabled = null !== analogClockSize;
+            var isSlimClockEnabled = ui_4.UI.SettingsPanel.analogClockSlimCheckbox.get();
+            ui_4.UI.AnalogClock.panel.classList.toggle("slim", isSlimClockEnabled);
             ui_4.UI.AnalogClock.panel.classList.toggle("hide", !isAnalogClockEnabled);
             ui_4.UI.AnalogClock.background.classList.toggle("hide", !isAnalogClockEnabled);
             if (analogClockSize) {
@@ -5822,9 +5962,9 @@ define("script/features/overlay", ["require", "exports", "script/library/index",
                 Overlay.setAnalogClockNeedleAngle(ui_4.UI.AnalogClock.hoursNeedle, hoursAngle);
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", date.toISOString().replace(/\.\d{3}Z$/, "Z"));
                 library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-outer-size", isMillisecondHandEnabled ? "96" : "95");
-                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-inner-size", isDateHandsEnabled ? "25" :
-                    is24HoursHandEnabled ? "50" :
-                        "55");
+                library_1.Library.UI.setStyle(ui_4.UI.AnalogClock.background, "--clock-inner-size", isDateHandsEnabled ? (isSlimClockEnabled ? "60" : "25") :
+                    is24HoursHandEnabled ? (isSlimClockEnabled ? "72.5" : "50") :
+                        (isSlimClockEnabled ? "75" : "55"));
             }
             else {
                 library_1.Library.UI.setAttribute(ui_4.UI.AnalogClock.panel, "datatime", undefined);
@@ -10244,7 +10384,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params, applyParam).setChange(updateVisualizer);
             ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params, applyParam); //.setChange(UI.transitionCheckbox.options.change);
             ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params, applyParam);
-            ui_12.UI.SettingsPanel.analogClockCheckbox.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.AnalogClock.updateVisibility);
+            ui_12.UI.SettingsPanel.analogClockSelect.loadParameter(url_4.Url.params, applyParam).setChange(ui_12.UI.AnalogClock.updateVisibility);
+            ui_12.UI.SettingsPanel.analogClockSlimCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dayHandCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params, applyParam);
             ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params, applyParam);
@@ -10311,7 +10452,8 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
                         ui_12.UI.SettingsPanel.visualizerSelect,
                         ui_12.UI.SettingsPanel.crossFadeSelect,
                         ui_12.UI.SettingsPanel.crossFadeTransitionSelect,
-                        ui_12.UI.SettingsPanel.analogClockCheckbox,
+                        ui_12.UI.SettingsPanel.analogClockSelect,
+                        ui_12.UI.SettingsPanel.analogClockSlimCheckbox,
                         ui_12.UI.SettingsPanel.dayHandCheckbox,
                         ui_12.UI.SettingsPanel.dateHandsCheckbox,
                         ui_12.UI.SettingsPanel.millisecondHandCheckbox,

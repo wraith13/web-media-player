@@ -153,6 +153,10 @@
         ],
         "default": "off"
     },
+    "analogClockSlim": {
+        "id": "analog-clock-slim",
+        "default": false
+    },
     "dayHand": {
         "id": "24hours-hand",
         "default": false

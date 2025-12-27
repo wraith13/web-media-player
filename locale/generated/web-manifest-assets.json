@@ -1,5 +1,6 @@
 [
     "./web.manifest/generated/ar.json",
+    "./web.manifest/generated/bn.json",
     "./web.manifest/generated/de.json",
     "./web.manifest/generated/el.json",
     "./web.manifest/generated/en.json",

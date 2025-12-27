@@ -222,6 +222,10 @@ DUMMYSTYLE
             <span id="analog-clock-label-span" data-lang-key="analog-clock"></span>
             <select id="analog-clock"></select>
         </label>
+        <label for="analog-clock-slim" class="indent" aria-labelledby="analog-clock-slim-label-span">
+            <span id="analog-clock-slim-label-span" data-lang-key="analog-clock-slim"></span>
+            <input id="analog-clock-slim" type="checkbox" />
+        </label>
         <label for="24hours-hand" class="indent" aria-labelledby="24hours-hand-label-span">
             <span id="24hours-hand-label-span" data-lang-key="24hours-hand"></span>
             <input id="24hours-hand" type="checkbox" />

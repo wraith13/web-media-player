@@ -48,7 +48,7 @@ export namespace Overlay
     };
     export const getAnalogClockSize = (): number | null =>
     {
-        const analogClockOption = UI.SettingsPanel.analogClockCheckbox.get();
+        const analogClockOption = UI.SettingsPanel.analogClockSelect.get();
         switch(analogClockOption)
         {
         case "oversize":
@@ -64,6 +64,8 @@ export namespace Overlay
     {
         const analogClockSize = getAnalogClockSize();
         const isAnalogClockEnabled = null !== analogClockSize;
+        const isSlimClockEnabled = UI.SettingsPanel.analogClockSlimCheckbox.get();
+        UI.AnalogClock.panel.classList.toggle("slim", isSlimClockEnabled);
         UI.AnalogClock.panel.classList.toggle("hide", ! isAnalogClockEnabled);
         UI.AnalogClock.background.classList.toggle("hide", ! isAnalogClockEnabled);
         if (analogClockSize)
@@ -143,9 +145,9 @@ export namespace Overlay
             (
                 UI.AnalogClock.background,
                 "--clock-inner-size",
-                isDateHandsEnabled ? "25":
-                is24HoursHandEnabled ? "50":
-                    "55"
+                isDateHandsEnabled ? (isSlimClockEnabled ? "60": "25"):
+                is24HoursHandEnabled ? (isSlimClockEnabled ? "72.5": "50"):
+                    (isSlimClockEnabled ? "75": "55")
             );
         }
         else
