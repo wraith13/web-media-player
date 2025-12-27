@@ -1,6 +1,8 @@
 # Web Media Player
 
 [![pages-build-deployment](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%E2%9C%93-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+![SCSS](https://img.shields.io/badge/SCSS-%E2%9C%93-CC6699?logo=sass&logoColor=white)
 [![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](./LICENSE_1_0.txt)
 
 ## ▶️ Live Site

@@ -383,7 +383,7 @@ export namespace Player
     export const getBrightness = (): number =>
         Timer.getTimerFade();
     export const getVolume = (trackType: TrackType): number =>
-        (UI.volumeRange.get() /100) *CrossFade.getProgress(trackType);
+        (UI.volumeRange.get() /100) *CrossFade.getProgress(trackType) *Timer.getTimerFade();
     export const getVolumeRate = (trackType: TrackType): number =>
         CrossFade.getProgress(trackType);
     export const getVolumeFade = (trackType: TrackType): "fadeIn" | "fadeOut" | undefined =>

@@ -1,6 +1,8 @@
 # Web Media Player
 
 [![pages-build-deployment](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/wraith13/web-media-player/actions/workflows/pages/pages-build-deployment)
+[![TypeScript](https://img.shields.io/badge/TypeScript-%E2%9C%93-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+![SCSS](https://img.shields.io/badge/SCSS-%E2%9C%93-CC6699?logo=sass&logoColor=white)
 [![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](./LICENSE_1_0.txt)
 
 ## ▶️ Live Site
@@ -36,7 +38,7 @@ https://wraith13.github.io/web-media-player/
 - ✅ FPS display
 - ✅ Full keyboard navigation support
 - ✅ Conforms to WAI-ARIA
-- ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt), Русский(ru), ไทย(th), Türkçe(tr)
+- ✅ Multi-language support: العربية(ar), Deutsch(de), Ελληνικά(el), English(en), Español(es), فارسی(fa), Français(fr), हिन्दी(hi), Bahasa Indonesia(id), Italiano(it), 日本語(ja), 한국어(ko), Nederlands(nl), Polski(pl), Português(pt), Русский(ru), ไทย(th), Türkçe(tr), Tiếng Việt(vi)
 - 🚫 Because it's web-based, playlists cannot be saved. (Technically possible, but not practical, so it's not implemented.)
 - 🚫 Because it's web-based, background playback and timers do not work reliably.
 
