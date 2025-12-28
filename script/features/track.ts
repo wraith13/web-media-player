@@ -41,6 +41,10 @@ export class Track
                 className: "track-frame",
                 children: [ this.playerElement,]
             });
+            if (this.playerElement && Media.isPixelatedImage(media))
+            {
+                this.playerElement.classList.add("pixelated");
+            }
             break;
         case "audio":
             this.playerElement = this.makePlayerElement() as HTMLAudioElement;

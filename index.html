@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Dec 28 2025 12:39:22 GMT+0900 (日本標準時)
+    build at: Mon Dec 29 2025 03:55:32 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -4351,8 +4351,8 @@ DUMMYSTYLE
 </div></div>
 <script type="text/javascript">
 const build = {
-    at: "Sun Dec 28 2025 12:39:22 GMT+0900 (日本標準時)",
-    tick: 1766893162585
+    at: "Mon Dec 29 2025 03:55:32 GMT+0900 (日本標準時)",
+    tick: 1766948132124
 };
 const evilCommonjsConfig = {
     "log": {
@@ -15525,7 +15525,7 @@ define("flounder.style.js/index", ["require", "exports", "flounder.style.js/gene
         };
     })(FlounderStyle || (exports.FlounderStyle = FlounderStyle = {}));
 });
-define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/analyser", "script/features/visualizer", "flounder.style.js/index", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, analyser_2, visualizer_1, flounder_style_js_1, config_json_8) {
+define("script/features/track", ["require", "exports", "script/tools/index", "script/library/index", "script/ui", "script/features/elementpool", "script/features/media", "script/features/analyser", "script/features/visualizer", "flounder.style.js/index", "resource/config"], function (require, exports, _tools_5, _library_6, ui_8, elementpool_1, media_2, analyser_2, visualizer_1, flounder_style_js_1, config_json_8) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Track = exports.hasValidGainNode = void 0;
@@ -15568,6 +15568,9 @@ define("script/features/track", ["require", "exports", "script/tools/index", "sc
                         className: "track-frame",
                         children: [this.playerElement,]
                     });
+                    if (this.playerElement && media_2.Media.isPixelatedImage(media)) {
+                        this.playerElement.classList.add("pixelated");
+                    }
                     break;
                 case "audio":
                     this.playerElement = this.makePlayerElement();
@@ -16277,7 +16280,7 @@ define("script/features/timer", ["require", "exports", "resource/config"], funct
         };
     })(Timer || (exports.Timer = Timer = {}));
 });
-define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_2, history_1, track_1, timer_1, config) {
+define("script/features/player", ["require", "exports", "script/tools/index", "script/library/index", "script/features/fps", "script/features/overlay", "script/ui", "script/features/elementpool", "script/features/media", "script/features/history", "script/features/track", "script/features/timer", "resource/config"], function (require, exports, _tools_6, _library_7, fps_1, overlay_1, ui_9, elementpool_2, media_3, history_1, track_1, timer_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Player = void 0;
@@ -16379,9 +16382,9 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                     case 0:
                         ui_9.UI.onPlaybackStarted();
                         return [4 /*yield*/, elementpool_2.ElementPool.makeSure({
-                                image: (_a = media_2.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
-                                audio: (_b = media_2.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
-                                video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
+                                image: (_a = media_3.Media.mediaList.find(function (m) { return "image" === m.category; })) !== null && _a !== void 0 ? _a : null,
+                                audio: (_b = media_3.Media.mediaList.find(function (m) { return "audio" === m.category; })) !== null && _b !== void 0 ? _b : null,
+                                video: (_c = media_3.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
                             })];
                     case 1:
                         hasMade = _d.sent();
@@ -16405,7 +16408,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                             ],
                         });
                         navigator.mediaSession.playbackState = "playing";
-                        if (media_2.Media.mediaList.length <= 0) {
+                        if (media_3.Media.mediaList.length <= 0) {
                             ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.show();
                             noMediaTimer.start(document.body, "no-media", config.messages.noMediaMessageDuration, function () { return ui_9.UI.MessagePanel.noMediaPanelVisibilityApplier.hide(); });
                         }
@@ -16441,7 +16444,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             currentTrack === null || currentTrack === void 0 ? void 0 : currentTrack.pause();
             fadingOutTrack === null || fadingOutTrack === void 0 ? void 0 : fadingOutTrack.pause();
             CrossFade.pause();
-            var isResumable = 0 < media_2.Media.mediaList.length && null !== currentTrack;
+            var isResumable = 0 < media_3.Media.mediaList.length && null !== currentTrack;
             ui_9.UI.screenBody.classList.toggle("paused", isResumable);
             if (isResumable) {
                 ui_9.UI.mediaList.scrollTop = ui_9.UI.mediaList.scrollHeight;
@@ -16646,7 +16649,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                 1;
         };
         Player.makeIndexText = function (track) {
-            return "".concat((media_2.Media.mediaList.indexOf(track.media) + 1).toLocaleString(Player.locale), " / ").concat(media_2.Media.mediaList.length.toLocaleString(Player.locale));
+            return "".concat((media_3.Media.mediaList.indexOf(track.media) + 1).toLocaleString(Player.locale), " / ").concat(media_3.Media.mediaList.length.toLocaleString(Player.locale));
         };
         Player.makeTitleText = function (track) {
             return "".concat(track.media.name);
@@ -16875,7 +16878,7 @@ define("script/progress", ["require", "exports", "script/library/index", "script
         };
     })(Progress || (exports.Progress = Progress = {}));
 });
-define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_9, _features_1, media_3, ui_11, progress_1, config_json_9) {
+define("script/medialist", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/ui", "script/progress", "resource/config"], function (require, exports, _tools_7, _library_9, _features_1, media_4, ui_11, progress_1, config_json_9) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MediaList = void 0;
@@ -16891,12 +16894,12 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                 switch (_c.label) {
                     case 0:
                         console.log("📂 Adding media:", file);
-                        return [4 /*yield*/, media_3.Media.fileToEntry(file)];
+                        return [4 /*yield*/, media_4.Media.fileToEntry(file)];
                     case 1:
                         entry = _c.sent();
                         if (!(null !== entry)) return [3 /*break*/, 3];
                         console.log("✅ Valid media file:", file);
-                        media_3.Media.mediaList.push(entry);
+                        media_4.Media.mediaList.push(entry);
                         MediaList.updateInformationDisplay();
                         MediaList.updateNoMediaLabel();
                         _b = (_a = ui_11.UI.mediaList).insertBefore;
@@ -16907,7 +16910,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             _features_1.Features.Player.pause();
                         }
                         MediaList.clearPlayState();
-                        console.log("📂 Media added:", media_3.Media.mediaList[media_3.Media.mediaList.length - 1]);
+                        console.log("📂 Media added:", media_4.Media.mediaList[media_4.Media.mediaList.length - 1]);
                         return [3 /*break*/, 4];
                     case 3:
                         console.warn("🚫 Invalid media file:", file);
@@ -16951,11 +16954,11 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                             case 0:
                                                 event.stopPropagation();
                                                 (_a = event.target) === null || _a === void 0 ? void 0 : _a.blur();
-                                                index = media_3.Media.mediaList.indexOf(entry);
-                                                if (!(0 <= index && index < media_3.Media.mediaList.length)) return [3 /*break*/, 2];
-                                                console.log("🗑️ Removing media:", media_3.Media.mediaList[index]);
-                                                URL.revokeObjectURL(media_3.Media.mediaList[index].url);
-                                                media_3.Media.mediaList.splice(index, 1);
+                                                index = media_4.Media.mediaList.indexOf(entry);
+                                                if (!(0 <= index && index < media_4.Media.mediaList.length)) return [3 /*break*/, 2];
+                                                console.log("🗑️ Removing media:", media_4.Media.mediaList[index]);
+                                                URL.revokeObjectURL(media_4.Media.mediaList[index].url);
+                                                media_4.Media.mediaList.splice(index, 1);
                                                 MediaList.clearPlayState();
                                                 MediaList.updateInformationDisplay();
                                                 MediaList.updateNoMediaLabel();
@@ -16979,7 +16982,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
-                        ix = media_3.Media.mediaList.indexOf(entry);
+                        ix = media_4.Media.mediaList.indexOf(entry);
                         _b = (_a = _library_9.Library.UI).createElement;
                         _d = {
                             tag: "div",
@@ -16992,7 +16995,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                 "aria-label": entry.name,
                             }
                         };
-                        return [4 /*yield*/, media_3.Media.makeThumbnailElement(entry)];
+                        return [4 /*yield*/, media_4.Media.makeThumbnailElement(entry)];
                     case 1:
                         _c = [
                             _e.sent(),
@@ -17044,8 +17047,8 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                                         fromIndex = Number((_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain"));
                                         toIndex = ix;
                                         if (fromIndex !== null && fromIndex !== toIndex) {
-                                            moved = media_3.Media.mediaList.splice(fromIndex, 1)[0];
-                                            media_3.Media.mediaList.splice(toIndex, 0, moved);
+                                            moved = media_4.Media.mediaList.splice(fromIndex, 1)[0];
+                                            media_4.Media.mediaList.splice(toIndex, 0, moved);
                                             MediaList.clearPlayState();
                                         }
                                         return [4 /*yield*/, MediaList.updateMediaListDisplay()];
@@ -17073,7 +17076,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
                             }
                             ;
                         });
-                        _i = 0, _a = media_3.Media.mediaList;
+                        _i = 0, _a = media_4.Media.mediaList;
                         _d.label = 1;
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
@@ -17092,13 +17095,13 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         }); };
         MediaList.updateInformationDisplay = function () {
             var _a;
-            _library_9.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_3.Media.mediaList.length.toLocaleString(MediaList.locale));
+            _library_9.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaCount, media_4.Media.mediaList.length.toLocaleString(MediaList.locale));
             var imageSpan = (_a = _tools_7.Tools.Timespan.parse(ui_11.UI.SettingsPanel.imageSpanSelect.get())) !== null && _a !== void 0 ? _a : 0;
-            var totalDuration = media_3.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
+            var totalDuration = media_4.Media.mediaList.reduce(function (sum, entry) { var _a; return sum + ((_a = entry.duration) !== null && _a !== void 0 ? _a : imageSpan); }, 0);
             _library_9.Library.UI.setTextContent(ui_11.UI.SettingsPanel.mediaLength, _tools_7.Tools.Timespan.toMediaTimeString(totalDuration, MediaList.locale));
         };
         MediaList.updateNoMediaLabel = function () {
-            var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_3.Media.mediaList.length <= 0;
+            var hasNoMedia = ui_11.UI.wakeUpToggle.get() && media_4.Media.mediaList.length <= 0;
             ui_11.UI.noMediaLabel.classList.toggle("hide", !hasNoMedia);
             ui_11.UI.noMediaLabelVisibilityApplier.show(hasNoMedia);
         };
@@ -17112,7 +17115,7 @@ define("script/medialist", ["require", "exports", "script/tools/index", "script/
         };
     })(MediaList || (exports.MediaList = MediaList = {}));
 });
-define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_10, _features_2, media_4, medialist_1, ui_12, url_4, config_json_10, control_json_2) {
+define("script/events", ["require", "exports", "script/tools/index", "script/library/index", "script/features/index", "script/features/media", "script/medialist", "script/ui", "script/url", "resource/config", "resource/control"], function (require, exports, _tools_8, _library_10, _features_2, media_5, medialist_1, ui_12, url_4, config_json_10, control_json_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Events = void 0;
@@ -17340,7 +17343,7 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
             var _a;
             var files = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.files;
             if (files && 0 < files.length) {
-                var hasMedia = Array.from(files).some(function (file) { return media_4.Media.isMediaFile(file); });
+                var hasMedia = Array.from(files).some(function (file) { return media_5.Media.isMediaFile(file); });
                 if (hasMedia) {
                     event.preventDefault();
                     event.dataTransfer.dropEffect = "copy";
