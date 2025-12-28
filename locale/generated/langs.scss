@@ -3,7 +3,7 @@
     *[lang]
     {
         opacity: 0;
-        animation: noscript-langs-fade 99s infinite;
+        animation: noscript-langs-fade 103.5s infinite;
     }
     *[lang="ar"] { animation-delay: 1s; }
     *[lang="bn"] { animation-delay: 5.5s; }
@@ -24,15 +24,16 @@
     *[lang="ru"] { animation-delay: 73s; }
     *[lang="th"] { animation-delay: 77.5s; }
     *[lang="tr"] { animation-delay: 82s; }
-    *[lang="vi"] { animation-delay: 86.5s; }
-    *[lang="zh-cn"] { animation-delay: 91s; }
-    *[lang="zh-tw"] { animation-delay: 95.5s; }
+    *[lang="ur"] { animation-delay: 86.5s; }
+    *[lang="vi"] { animation-delay: 91s; }
+    *[lang="zh-cn"] { animation-delay: 95.5s; }
+    *[lang="zh-tw"] { animation-delay: 100s; }
 }
 @keyframes noscript-langs-fade
 {
     0% { opacity: 0; }
-    0.9090909090909092% { opacity: 1; }
-    4.545454545454546% { opacity: 1; }
-    5.454545454545455% { opacity: 0; }
+    0.8695652173913043% { opacity: 1; }
+    4.3478260869565215% { opacity: 1; }
+    5.217391304347826% { opacity: 0; }
     100% { opacity: 0; }
 }

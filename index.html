@@ -2,7 +2,7 @@
 <!--
     This file is genereted by build.js. このファイルは build.js によって生成されました。
     build options: ../build.json all
-    build at: Sun Dec 28 2025 03:21:35 GMT+0900 (日本標準時)
+    build at: Sun Dec 28 2025 03:54:57 GMT+0900 (日本標準時)
     repository: https://github.com/wraith13/web-media-player/
 -->
 <!-- license:
@@ -58,6 +58,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
 <meta name="description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
 <meta name="description" lang="tr" content="Web tarayıcısında çalışan web tabanlı medya oynatıcı">
+<meta name="description" lang="ur" content="ویب براؤزر میں چلنے والا میڈیا پلیئر">
 <meta name="description" lang="vi" content="Trình phát phương tiện trên web chạy trong trình duyệt">
 <meta name="description" lang="zh-cn" content="在网页浏览器中运行的网页媒体播放器">
 <meta name="description" lang="zh-tw" content="在網頁瀏覽器中執行的網路媒體播放器">
@@ -89,6 +90,7 @@ DEALINGS IN THE SOFTWARE.
 <meta name="twitter:description" lang="ru" content="Веб-плеер для воспроизведения медиа в браузере">
 <meta name="twitter:description" lang="th" content="เครื่องเล่นสื่อบนเว็บที่ทำงานในเว็บเบราว์เซอร์">
 <meta name="twitter:description" lang="tr" content="Web tarayıcısında çalışan web tabanlı medya oynatıcı">
+<meta name="twitter:description" lang="ur" content="ویب براؤزر میں چلنے والا میڈیا پلیئر">
 <meta name="twitter:description" lang="vi" content="Trình phát phương tiện trên web chạy trong trình duyệt">
 <meta name="twitter:description" lang="zh-cn" content="在网页浏览器中运行的网页媒体播放器">
 <meta name="twitter:description" lang="zh-tw" content="在網頁瀏覽器中執行的網路媒體播放器">
@@ -222,7 +224,7 @@ input[type=range] {
 
 #noscript *[lang] {
   opacity: 0;
-  animation: noscript-langs-fade 99s infinite;
+  animation: noscript-langs-fade 103.5s infinite;
 }
 #noscript *[lang=ar] {
   animation-delay: 1s;
@@ -281,27 +283,30 @@ input[type=range] {
 #noscript *[lang=tr] {
   animation-delay: 82s;
 }
-#noscript *[lang=vi] {
+#noscript *[lang=ur] {
   animation-delay: 86.5s;
 }
-#noscript *[lang=zh-cn] {
+#noscript *[lang=vi] {
   animation-delay: 91s;
 }
-#noscript *[lang=zh-tw] {
+#noscript *[lang=zh-cn] {
   animation-delay: 95.5s;
+}
+#noscript *[lang=zh-tw] {
+  animation-delay: 100s;
 }
 
 @keyframes noscript-langs-fade {
   0% {
     opacity: 0;
   }
-  0.9090909090909092% {
+  0.8695652173913043% {
     opacity: 1;
   }
-  4.545454545454546% {
+  4.3478260869565215% {
     opacity: 1;
   }
-  5.454545454545455% {
+  5.217391304347826% {
     opacity: 0;
   }
   100% {
@@ -1145,9 +1150,6 @@ body.list #analog-clock-panel:not(.show)::before {
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
   transition: background-image 750ms, background-color 750ms;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 96);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 96);
-  border-radius: 50%;
 }
 #analog-clock-panel div#milliseconds-needle.hide:not(.show) {
   background-image: none;
@@ -1158,45 +1160,27 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#seconds-needle {
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
-  border-radius: 50%;
 }
 #analog-clock-panel div#minutes-needle {
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 85);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 85);
-  border-radius: 50%;
 }
 #analog-clock-panel div#scale60-panel {
-  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
-  border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(6deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(12deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(18deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(24deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(36deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(42deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(48deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(54deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(66deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(72deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(78deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(84deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(96deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(102deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(108deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(114deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(126deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(132deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(138deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(144deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(156deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(162deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(168deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(174deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
 #analog-clock-panel div#hours-needle {
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
-  border-radius: 50%;
 }
 #analog-clock-panel div#scale12-panel {
   --tick-width: var(--major-tick-width);
   --tick-color: var(--major-tick-color);
-  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
-  border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
 }
 #analog-clock-panel div#day-needle {
   transition: background-image 750ms, background-color 750ms;
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 55);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 55);
-  border-radius: 50%;
 }
 #analog-clock-panel div#day-needle.hide:not(.show) {
   background-image: none;
@@ -1205,18 +1189,12 @@ body.list #analog-clock-panel:not(.show)::before {
   pointer-events: none;
 }
 #analog-clock-panel div#scale24-panel {
-  width: calc(var(--short-side) * var(--analog-clock-size) * 55);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 55);
-  border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(15deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(30deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(45deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(60deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(75deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(90deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(105deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(120deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(135deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width))), linear-gradient(150deg, transparent calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% - var(--major-tick-width)), var(--major-tick-color) calc(50% + var(--major-tick-width)), transparent calc(50% + var(--major-tick-width))), linear-gradient(165deg, transparent calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% - var(--minor-tick-width)), var(--minor-tick-color) calc(50% + var(--minor-tick-width)), transparent calc(50% + var(--minor-tick-width)));
 }
 #analog-clock-panel div#week-needle {
   transition: background-image 750ms, background-color 750ms;
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 50);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 50);
-  border-radius: 50%;
 }
 #analog-clock-panel div#week-needle.hide:not(.show) {
   background-image: none;
@@ -1227,9 +1205,6 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#week-panel {
   --line-angle: var(--major-line-angle);
   --tick-color: var(--major-tick-color);
-  width: calc(var(--short-side) * var(--analog-clock-size) * 50);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 50);
-  border-radius: 50%;
   background: conic-gradient(from calc(0deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(51.4285714286deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(102.8571428571deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(154.2857142857deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(205.7142857143deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(257.1428571429deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg), conic-gradient(from calc(308.5714285714deg - var(--line-angle) / 2), var(--tick-color) 0deg calc(var(--line-angle)), transparent calc(var(--line-angle)) 360deg);
   background-repeat: no-repeat;
   background-position: center;
@@ -1239,9 +1214,6 @@ body.list #analog-clock-panel:not(.show)::before {
   transition: background-image 750ms, background-color 750ms;
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 45);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 45);
-  border-radius: 50%;
 }
 #analog-clock-panel div#month-needle.hide:not(.show) {
   background-image: none;
@@ -1318,9 +1290,6 @@ body.list #analog-clock-panel:not(.show)::before {
   transition: background-image 750ms, background-color 750ms;
   background-image: conic-gradient(from calc(var(--progress) * 360deg), black 0deg, black 270deg, var(--needle-color) 360deg);
   will-change: --progress, background-image;
-  width: calc(var(--short-side) * var(--analog-clock-size) * 35);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 35);
-  border-radius: 50%;
 }
 #analog-clock-panel div#year-needle.hide:not(.show) {
   background-image: none;
@@ -1331,13 +1300,82 @@ body.list #analog-clock-panel:not(.show)::before {
 #analog-clock-panel div#year-panel {
   --tick-width: var(--major-tick-width);
   --tick-color: var(--major-tick-color);
-  width: calc(var(--short-side) * var(--analog-clock-size) * 35);
-  height: calc(var(--short-side) * var(--analog-clock-size) * 35);
-  border-radius: 50%;
   background: linear-gradient(0deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(30deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(60deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(90deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(120deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width))), linear-gradient(150deg, transparent calc(50% - var(--tick-width)), var(--tick-color) calc(50% - var(--tick-width)), var(--tick-color) calc(50% + var(--tick-width)), transparent calc(50% + var(--tick-width)));
 }
 #analog-clock-panel div#center-circle {
   background-color: black;
+}
+#analog-clock-panel:not(.slim) div#milliseconds-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 96);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 96);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#seconds-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#minutes-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 85);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 85);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#scale60-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 95);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#hours-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#scale12-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 70);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#day-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 55);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 55);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#scale24-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 55);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 55);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#week-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 50);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 50);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#week-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 50);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 50);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#month-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 45);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 45);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#month-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 45);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 45);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#year-needle {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 35);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 35);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#year-panel {
+  width: calc(var(--short-side) * var(--analog-clock-size) * 35);
+  height: calc(var(--short-side) * var(--analog-clock-size) * 35);
+  border-radius: 50%;
+}
+#analog-clock-panel:not(.slim) div#center-circle {
   width: calc(var(--short-side) * var(--analog-clock-size) * 25);
   height: calc(var(--short-side) * var(--analog-clock-size) * 25);
   border-radius: 50%;
@@ -3886,6 +3924,7 @@ DUMMYSTYLE
 <div lang="ru" dir="ltr">JavaScript отключён. Пожалуйста, включите JavaScript.</div>
 <div lang="th" dir="ltr">JavaScript ถูกปิดใช้งาน กรุณาเปิดใช้ JavaScript</div>
 <div lang="tr" dir="ltr">JavaScript devre dışı. Lütfen JavaScript'i etkinleştirin.</div>
+<div lang="ur" dir="rtl">جاوا اسکرپٹ غیر فعال ہے۔ براہ کرم جاوا اسکرپٹ فعال کریں۔</div>
 <div lang="vi" dir="ltr">JavaScript bị vô hiệu hóa. Vui lòng bật JavaScript.</div>
 <div lang="zh-cn" dir="ltr">JavaScript 已被禁用。请启用 JavaScript。</div>
 <div lang="zh-tw" dir="ltr">已停用 JavaScript。請啟用 JavaScript。</div>
@@ -4312,8 +4351,8 @@ DUMMYSTYLE
 </div></div>
 <script type="text/javascript">
 const build = {
-    at: "Sun Dec 28 2025 03:21:35 GMT+0900 (日本標準時)",
-    tick: 1766859695842
+    at: "Sun Dec 28 2025 03:54:57 GMT+0900 (日本標準時)",
+    tick: 1766861697092
 };
 const evilCommonjsConfig = {
     "log": {
@@ -9377,6 +9416,118 @@ define("locale/generated/master", ["require", "exports"], function (require, exp
             "wakeup-timer-not-working": "Uyanma zamanlayıcısı bu cihazda düzgün çalışmayabilir.",
             "wakeup-timer-requires-active-page": "Uyanma zamanlayıcısının düzgün çalışması için web sayfasının etkin olması gerekir.",
             "noscript-message": "JavaScript devre dışı. Lütfen JavaScript'i etkinleştirin."
+        },
+        "ur": {
+            "lang-label": "اردو",
+            "lang-direction": "rtl",
+            "lang-colon-suffix": ":",
+            "add-media": "میڈیا شامل کریں",
+            "remove-media": "میڈیا ہٹائیں",
+            "loading-media": "میڈیا لوڈ ہو رہا ہے...",
+            "Auto": "خودکار",
+            "description": "ویب براؤزر میں چلنے والا میڈیا پلیئر",
+            "control-panel": "کنٹرول پینل",
+            "wakeup-timer-panel": "ویک اپ ٹائمر پینل",
+            "volume-panel": "والیوم پینل",
+            "settings-panel": "سیٹنگز پینل",
+            "sleep-timer-panel": "سلیپ ٹائمر پینل",
+            "transport-panel": "ٹرانسپورٹ پینل",
+            "media-list": "میڈیا فہرست",
+            "media-count": "میڈیا گنتی",
+            "media-length": "میڈیا مدت",
+            "with-fullscreen": "فل اسکرین کے ساتھ",
+            "brightness": "روشنائی",
+            "stretch": "توسیع",
+            "padding": "پیڈنگ",
+            "cross-fade": "کراس فیڈ",
+            "cross-fade-transition": "کراس فیڈ ٹرانزیشن",
+            "alpha": "الفا",
+            "blur": "دھندلاپن",
+            "wipe": "وائپ",
+            "random": "تصادفی",
+            "image-span": "تصویر دکھانے کا وقت",
+            "loop-short-media": "مختصر میڈیا کو لوپ کریں",
+            "visualizer": "ویژولائزر",
+            "visualizer-simple": "سادہ",
+            "visualizer-plane-frequency": "پلین فریکوئنسی",
+            "visualizer-plane-waveform": "پلین ویوفارم",
+            "visualizer-arc-frequency": "آرک فریکوئنسی",
+            "visualizer-arc-waveform": "آرک ویوفارم",
+            "visualizer-double-arc": "ڈبل آرک",
+            "visualizer-stereo-arc-frequency": "اسٹیریو آرک فریکوئنسی",
+            "visualizer-stereo-arc-waveform": "اسٹیریو آرک ویوفارم",
+            "visualizer-stereo-double-arc": "اسٹیریو ڈبل آرک",
+            "analog-clock": "اینالوگ گھڑی",
+            "oversize": "بڑا سائز",
+            "regular": "معمول",
+            "half": "نصف",
+            "petit": "چھوٹا",
+            "analog-clock-slim": "سلِم",
+            "24hours-hand": "24 گھنٹے کی سوئی",
+            "date-hands": "تاریخ کی سوئیاں",
+            "millisecond-hand": "ملی سیکنڈ کی سوئی",
+            "overlay-style": "اوورلے سٹائل",
+            "hide": "چھپائیں",
+            "blend": "ملائیں",
+            "white": "سفید",
+            "black": "کالا",
+            "system": "سسٹم",
+            "alternate": "متبادل",
+            "rainbow": "رینبو",
+            "overlay-position": "اوورلے پوزیشن",
+            "center": "وسط",
+            "top-right": "اوپر دائیں",
+            "bottom-right": "نیچے دائیں",
+            "bottom-left": "نیچے بائیں",
+            "top-left": "اوپر بائیں",
+            "rotate": "گھمائیں",
+            "with-weather": "موسم کے ساتھ",
+            "weather-location": "موسم کی جگہ",
+            "ip-address": "IP پتہ (کم درستگی)",
+            "geolocation": "جیو لوکیشن (زیادہ درستگی)",
+            "with-clock": "گھڑی کے ساتھ",
+            "with-date": "تاریخ کے ساتھ",
+            "with-calendar": "کیلنڈر کے ساتھ",
+            "with-visualizer": "ویژولائزر (اوورلے)",
+            "show-fps": "FPS دکھائیں",
+            "shortcuts": "کی بورڈ شارٹ کٹس",
+            "language": "زبان",
+            "url": "اس سیٹنگ کا لنک",
+            "repository": "ریپوزیٹری",
+            "build-at": "بلڈ وقت",
+            "on": "آن",
+            "off": "بند",
+            "wakeup": "ویک اپ ٹائمر",
+            "timer": "ٹائمر",
+            "fade-in": "فیڈ اِن وقت",
+            "sleep": "نیند ٹائمر",
+            "fade-out": "فیڈ آؤٹ وقت",
+            "timeUnitMs": "ملی سیکنڈ",
+            "timeUnitS": "سیکنڈ",
+            "timeUnitM": "منٹ",
+            "timeUnitH": "گھنٹہ",
+            "timeUnitD": "دن",
+            "ago": "پہلے",
+            "Shuffle": "شفل",
+            "Repeat": "دہرائیں",
+            "Play / Pause": "پلے / وقفہ",
+            "Volume": "والیوم",
+            "Mute / Unmute": "خاموش کریں / خاموشی ختم کریں",
+            "Volume Up / Down": "والیوم اوپر / نیچے",
+            "Settings": "سیٹنگز",
+            "Seek": "پلے پوزیشن",
+            "Seek Backward": "واپس جائیں",
+            "Seek Forward": "آگے جائیں",
+            "Go to Previous/Next Media": "پچھلے/اگلے میڈیا پر جائیں",
+            "Go to Previous Media": "پچھلے میڈیا پر جائیں",
+            "Go to Next Media": "اگلے میڈیا پر جائیں",
+            "FullScreen": "فل اسکرین",
+            "no-media-message": "براہ کرم میڈیا شامل کریں۔",
+            "no-repeat-message": "براہ کرم ری پیٹ فعال کریں۔",
+            "not-supported-media-message": "یہ میڈیا چلایا نہیں جا سکتا۔",
+            "wakeup-timer-not-working": "اس ڈیوائس پر ویک اپ ٹائمر درست طریقے سے کام نہیں کر سکتا۔",
+            "wakeup-timer-requires-active-page": "ویک اپ ٹائمر کے صحیح کام کے لیے ویب صفحہ فعال ہونا ضروری ہے۔",
+            "noscript-message": "جاوا اسکرپٹ غیر فعال ہے۔ براہ کرم جاوا اسکرپٹ فعال کریں۔"
         },
         "vi": {
             "lang-label": "Tiếng Việt",

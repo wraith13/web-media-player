@@ -515,64 +515,53 @@
         {
             @include clock-needle(var(--needle-color));
             @include blackout-transition("&.hide");
-            @include circle-size(calc(var(--analog-clock-size) * 96));
         }
         &#seconds-needle
         {
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 95));
         }
         &#minutes-needle
         {
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 85));
         }
         &#scale60-panel
         {
-            @include circle-size(calc(var(--analog-clock-size) * 95));
             @include clock-60-ticks();
         }
         &#hours-needle
         {
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 70));
         }
         &#scale12-panel
         {
             --tick-width: var(--major-tick-width);
             --tick-color: var(--major-tick-color);
-            @include circle-size(calc(var(--analog-clock-size) * 70));
             @include even-clock-ticks(12);
         }
         &#day-needle
         {
             @include blackout-transition("&.hide");
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 55));
         }
         &#scale24-panel
         {
-            @include circle-size(calc(var(--analog-clock-size) * 55));
             @include clock-24-ticks();
         }
         &#week-needle
         {
             @include blackout-transition("&.hide");
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 50));
         }
         &#week-panel
         {
             --line-angle: var(--major-line-angle);
             --tick-color: var(--major-tick-color);
-            @include circle-size(calc(var(--analog-clock-size) * 50));
             @include odd-clock-ticks(7);
         }
         &#month-needle
         {
             @include blackout-transition("&.hide");
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 45));
         }
         &#month-panel
         {
@@ -592,18 +581,78 @@
         {
             @include blackout-transition("&.hide");
             @include clock-needle(var(--needle-color));
-            @include circle-size(calc(var(--analog-clock-size) * 35));
         }
         &#year-panel
         {
             --tick-width: var(--major-tick-width);
             --tick-color: var(--major-tick-color);
-            @include circle-size(calc(var(--analog-clock-size) * 35));
             @include even-clock-ticks(12);
         }
         &#center-circle
         {
             background-color: black;
+        }
+    }
+    &:not(.slim) div
+    {
+        &#milliseconds-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 96));
+        }
+        &#seconds-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 95));
+        }
+        &#minutes-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 85));
+        }
+        &#scale60-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 95));
+        }
+        &#hours-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 70));
+        }
+        &#scale12-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 70));
+        }
+        &#day-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 55));
+        }
+        &#scale24-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 55));
+        }
+        &#week-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 50));
+        }
+        &#week-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 50));
+        }
+        &#month-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 45));
+        }
+        &#month-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 45));
+        }
+        &#year-needle
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 35));
+        }
+        &#year-panel
+        {
+            @include circle-size(calc(var(--analog-clock-size) * 35));
+        }
+        &#center-circle
+        {
             @include circle-size(calc(var(--analog-clock-size) * 25));
         }
     }
