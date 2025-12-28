@@ -6000,7 +6000,8 @@ declare module "script/features/elementpool" {
             image: Media.Entry | null;
             audio: Media.Entry | null;
             video: Media.Entry | null;
-        }) => Promise<void>;
+        }) => Promise<boolean>;
+        const makeSurePauseAll: () => Promise<void>;
         const makeSureAnalyser: (element: HTMLAudioElement | HTMLVideoElement) => Promise<Analyser.Entry | null>;
         const get: (media: Media.Entry) => HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null;
         const release: (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) => void;

@@ -64,7 +64,8 @@
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
         "blurEasing": 2,
-        "maxBlur": 25
+        "maxBlur": 25,
+        "makeSurePauseAllTimeout": 50
     },
     "analogClock":
     {

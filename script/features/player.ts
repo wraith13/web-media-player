@@ -122,12 +122,16 @@ export namespace Player
     export const play = async (media?: Media.Entry) =>
     {
         UI.onPlaybackStarted();
-        await ElementPool.makeSure
+        const hasMade = await ElementPool.makeSure
         ({
             image: Media.mediaList.find(m => "image" === m.category) ?? null,
             audio: Media.mediaList.find(m => "audio" === m.category) ?? null,
             video: Media.mediaList.find(m => "video" === m.category) ?? null,
         });
+        if (hasMade)
+        {
+            await ElementPool.makeSurePauseAll();
+        }
         updateFullscreenState();
         startAnimationFrameLoop();
         navigator.mediaSession.metadata = new MediaMetadata

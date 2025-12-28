@@ -2,16 +2,19 @@ import { Library } from "@library";
 import { UI } from "../ui";
 import { Media } from "./media";
 import { Analyser } from "./analyser";
+import * as config from "@resource/config.json";
 export namespace ElementPool
 {
     const analyserPool: Map<HTMLMediaElement, Analyser.Entry> = new Map();
-    export const makeSure = (data: { image: Media.Entry | null; audio: Media.Entry | null; video: Media.Entry | null; }): Promise<void> =>
+    export const makeSure = async (data: { image: Media.Entry | null; audio: Media.Entry | null; video: Media.Entry | null; }): Promise<boolean> =>
     {
+        let hasMade = false;
         let result: Promise<void> = Promise.resolve();
         if (data.image)
         {
             while(UI.elementPool.getElementsByTagName("img").length < 4)
             {
+                hasMade = true;
                 const imgElement = Library.UI.createElement
                 ({
                         tag: "img",
@@ -31,6 +34,7 @@ export namespace ElementPool
             let count = UI.elementPool.getElementsByTagName("audio").length;
             while(count++ < 2)
             {
+                hasMade = true;
                 result = result.then
                 (
                     () =>
@@ -60,6 +64,7 @@ export namespace ElementPool
             let count = UI.elementPool.getElementsByTagName("video").length;
             while(count++ < 4)
             {
+                hasMade = true;
                 result = result.then
                 (
                     () =>
@@ -85,8 +90,24 @@ export namespace ElementPool
                 );
             }
         }
-        return result.then(() => undefined);
-    }
+        await result;
+        return hasMade;
+    };
+    export const makeSurePauseAll = () => new Promise<void>
+    (
+        // Ensure all elements are paused as a fallback because stopping via makeSure()
+        // may not reliably work on iPhone.
+        resolve => setTimeout
+        (
+            () =>
+            {
+                Array.from(UI.elementPool.getElementsByTagName("audio")).forEach((audioElement) => audioElement.pause());
+                Array.from(UI.elementPool.getElementsByTagName("video")).forEach((videoElement) => videoElement.pause());
+                resolve();
+            },
+            config.player.makeSurePauseAllTimeout
+        )
+    );
     export const makeSureAnalyser = async (element: HTMLAudioElement | HTMLVideoElement): Promise<Analyser.Entry | null> =>
     {
         if (Analyser.isSupported())
@@ -101,7 +122,7 @@ export namespace ElementPool
             return result;
         }
         return null;
-    }
+    };
     export const get = (media: Media.Entry): HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null =>
     {
         switch(media.category)
@@ -146,7 +167,7 @@ export namespace ElementPool
         }
         console.error("🦋 No element found in the pool for media:", media);
         return null;
-    }
+    };
     export const release = (element: HTMLImageElement | HTMLAudioElement | HTMLVideoElement | null) =>
     {
         if (element)
@@ -154,5 +175,5 @@ export namespace ElementPool
             element.className = "player";
             UI.elementPool.appendChild(element);
         }
-    }
+    };
 }

@@ -2886,7 +2886,8 @@ define("resource/config", [], {
         "fastFowardSpan": 5000,
         "rewindSpan": 5000,
         "blurEasing": 2,
-        "maxBlur": 25
+        "maxBlur": 25,
+        "makeSurePauseAllTimeout": 50
     },
     "analogClock": {
         "sizeMap": {
@@ -6946,75 +6947,97 @@ define("script/features/visualizer", ["require", "exports", "script/library/inde
         };
     })(Visualizer || (exports.Visualizer = Visualizer = {}));
 });
-define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser"], function (require, exports, _library_5, ui_6, analyser_1) {
+define("script/features/elementpool", ["require", "exports", "script/library/index", "script/ui", "script/features/analyser", "resource/config"], function (require, exports, _library_5, ui_6, analyser_1, config) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ElementPool = void 0;
+    config = __importStar(config);
     var ElementPool;
     (function (ElementPool) {
         var _this = this;
         var analyserPool = new Map();
-        ElementPool.makeSure = function (data) {
-            var result = Promise.resolve();
-            if (data.image) {
-                while (ui_6.UI.elementPool.getElementsByTagName("img").length < 4) {
-                    var imgElement = _library_5.Library.UI.createElement({
-                        tag: "img",
-                        className: "player",
-                        attributes: {
-                            src: data.image.url,
-                            alt: data.image.name,
-                        },
-                    });
-                    ui_6.UI.elementPool.appendChild(imgElement);
+        ElementPool.makeSure = function (data) { return __awaiter(_this, void 0, void 0, function () {
+            var hasMade, result, imgElement, url_2, count, url_3, count;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        hasMade = false;
+                        result = Promise.resolve();
+                        if (data.image) {
+                            while (ui_6.UI.elementPool.getElementsByTagName("img").length < 4) {
+                                hasMade = true;
+                                imgElement = _library_5.Library.UI.createElement({
+                                    tag: "img",
+                                    className: "player",
+                                    attributes: {
+                                        src: data.image.url,
+                                        alt: data.image.name,
+                                    },
+                                });
+                                ui_6.UI.elementPool.appendChild(imgElement);
+                            }
+                        }
+                        if (data.audio) {
+                            url_2 = data.audio.url;
+                            count = ui_6.UI.elementPool.getElementsByTagName("audio").length;
+                            while (count++ < 2) {
+                                hasMade = true;
+                                result = result.then(function () {
+                                    var audioElement = _library_5.Library.UI.createElement({
+                                        tag: "audio",
+                                        className: "player",
+                                        attributes: {
+                                            src: url_2,
+                                            //controls: false,
+                                            autoplay: false,
+                                        },
+                                    });
+                                    ui_6.UI.elementPool.appendChild(audioElement);
+                                    audioElement.volume = 0;
+                                    audioElement.muted = false;
+                                    return audioElement.play().then(function () { audioElement.pause(); audioElement.currentTime = 0; });
+                                });
+                            }
+                        }
+                        if (data.video) {
+                            url_3 = data.video.url;
+                            count = ui_6.UI.elementPool.getElementsByTagName("video").length;
+                            while (count++ < 4) {
+                                hasMade = true;
+                                result = result.then(function () {
+                                    var videoElement = _library_5.Library.UI.createElement({
+                                        tag: "video",
+                                        className: "player",
+                                        attributes: {
+                                            src: url_3,
+                                            //controls: false,
+                                            autoplay: false,
+                                            playsinline: true,
+                                            webkitPlaysinline: true,
+                                        },
+                                    });
+                                    ui_6.UI.elementPool.appendChild(videoElement);
+                                    videoElement.volume = 0;
+                                    videoElement.muted = false;
+                                    return videoElement.play().then(function () { videoElement.pause(); videoElement.currentTime = 0; });
+                                });
+                            }
+                        }
+                        return [4 /*yield*/, result];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, hasMade];
                 }
-            }
-            if (data.audio) {
-                var url_2 = data.audio.url;
-                var count = ui_6.UI.elementPool.getElementsByTagName("audio").length;
-                while (count++ < 2) {
-                    result = result.then(function () {
-                        var audioElement = _library_5.Library.UI.createElement({
-                            tag: "audio",
-                            className: "player",
-                            attributes: {
-                                src: url_2,
-                                //controls: false,
-                                autoplay: false,
-                            },
-                        });
-                        ui_6.UI.elementPool.appendChild(audioElement);
-                        audioElement.volume = 0;
-                        audioElement.muted = false;
-                        return audioElement.play().then(function () { audioElement.pause(); audioElement.currentTime = 0; });
-                    });
-                }
-            }
-            if (data.video) {
-                var url_3 = data.video.url;
-                var count = ui_6.UI.elementPool.getElementsByTagName("video").length;
-                while (count++ < 4) {
-                    result = result.then(function () {
-                        var videoElement = _library_5.Library.UI.createElement({
-                            tag: "video",
-                            className: "player",
-                            attributes: {
-                                src: url_3,
-                                //controls: false,
-                                autoplay: false,
-                                playsinline: true,
-                                webkitPlaysinline: true,
-                            },
-                        });
-                        ui_6.UI.elementPool.appendChild(videoElement);
-                        videoElement.volume = 0;
-                        videoElement.muted = false;
-                        return videoElement.play().then(function () { videoElement.pause(); videoElement.currentTime = 0; });
-                    });
-                }
-            }
-            return result.then(function () { return undefined; });
-        };
+            });
+        }); };
+        ElementPool.makeSurePauseAll = function () { return new Promise(
+        // Ensure all elements are paused as a fallback because stopping via makeSure()
+        // may not reliably work on iPhone.
+        function (resolve) { return setTimeout(function () {
+            Array.from(ui_6.UI.elementPool.getElementsByTagName("audio")).forEach(function (audioElement) { return audioElement.pause(); });
+            Array.from(ui_6.UI.elementPool.getElementsByTagName("video")).forEach(function (videoElement) { return videoElement.pause(); });
+            resolve();
+        }, config.player.makeSurePauseAllTimeout); }); };
         ElementPool.makeSureAnalyser = function (element) { return __awaiter(_this, void 0, void 0, function () {
             var result;
             return __generator(this, function (_a) {
@@ -9243,7 +9266,7 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
             loopHandle = window.requestAnimationFrame(Player.loop);
         };
         Player.play = function (media) { return __awaiter(_this, void 0, void 0, function () {
-            var currentMedia;
+            var hasMade, currentMedia;
             var _a, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
@@ -9255,7 +9278,13 @@ define("script/features/player", ["require", "exports", "script/tools/index", "s
                                 video: (_c = media_2.Media.mediaList.find(function (m) { return "video" === m.category; })) !== null && _c !== void 0 ? _c : null,
                             })];
                     case 1:
+                        hasMade = _d.sent();
+                        if (!hasMade) return [3 /*break*/, 3];
+                        return [4 /*yield*/, elementpool_2.ElementPool.makeSurePauseAll()];
+                    case 2:
                         _d.sent();
+                        _d.label = 3;
+                    case 3:
                         Player.updateFullscreenState();
                         Player.startAnimationFrameLoop();
                         navigator.mediaSession.metadata = new MediaMetadata({
