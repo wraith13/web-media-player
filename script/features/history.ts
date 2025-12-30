@@ -121,7 +121,7 @@ export namespace History
             }
         }
         return true;
-    }
+    };
     export const back = (): Media.Entry | undefined =>
     {
         if (0 <= Media.mediaList.length)
@@ -159,5 +159,5 @@ export namespace History
             const canonicals = unplayedList.filter(i => ! forbidens.includes(i));
             return canonicals[Tools.Random.makeInteger(canonicals.length)];
         }
-    }
+    };
 }

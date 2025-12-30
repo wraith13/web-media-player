@@ -13,7 +13,7 @@ export namespace Analyser
         {
             await audioContext.resume();
         }
-    }
+    };
     export interface Channels<T>
     {
         left: T;
@@ -91,4 +91,5 @@ export namespace Analyser
             }
             return this.timeDomainDataArray[channel];
         }
-    }}
+    }
+}
