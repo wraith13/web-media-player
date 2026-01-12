@@ -15,6 +15,6 @@
     "lang": "zh-cn",
     "prefer_related_applications": false,
     "related_applications": [],
-    "scope": "/",
+    "scope": "https://wraith13.github.io/web-media-player/",
     "offline_access": true
 }

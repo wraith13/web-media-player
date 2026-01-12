@@ -2,7 +2,7 @@
     "$schema": "https://json.schemastore.org/web-manifest-combined.json",
     "name": "__APPLICATION_TITLE__",
     "short_name": "__APPLICATION_TITLE__",
-    "start_url": "https://wraith13.github.io/web-media-player/",
+    "start_url": "__CANONICAL_URL__",
     "display": "standalone",
     "background_color": "__BACKGROUND_COLOR__",
     "theme_color": "__THEME_COLOR__",
@@ -15,6 +15,6 @@
     "lang": "__LANG__",
     "prefer_related_applications": false,
     "related_applications": [],
-    "scope": "/",
+    "scope": "__CANONICAL_URL__",
     "offline_access": true
 }
