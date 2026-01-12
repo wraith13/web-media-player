@@ -1,4 +1,4 @@
-const CACHE_NAME = "web-media-player-20251230115627";
+const CACHE_NAME = "web-media-player-20260112121817";
 const REGULAR_ASSETS = // embeded from ./resouce/regular-assets.json
 [
     "./",
@@ -50,7 +50,7 @@ self.addEventListener
         (
             caches.keys().then
             (
-                keys => Promise.all(keys.map(k => (k !== CACHE_NAME ? caches.delete(k) : Promise.resolve())))
+                keys => Promise.all(keys.map(k => (k !== CACHE_NAME ? caches.delete(k): Promise.resolve())))
             )
         );
         self.clients.claim();
@@ -61,35 +61,27 @@ self.addEventListener
     "fetch",
     event =>
     {
-        if ("navigate" === event.request.mode)
-        {
-            event.respondWith
+        event.respondWith
+        (
+            Promise.race
+            ([
+                fetch(event.request),
+                new Promise((_, reject) => setTimeout(() => reject(new Error("fetch timeout")), 5000))
+            ])
+            .then
             (
-                fetch(event.request).catch(() => caches.match("./"))
-            );
-        }
-        else
-        {
-            event.respondWith
-            (
-                caches.match(event.request).then
-                (
-                    resp => resp || fetch(event.request).then
-                    (
-                        r =>
-                        {
-                            return caches.open(CACHE_NAME).then
-                            (
-                                cache =>
-                                {
-                                    cache.put(event.request, r.clone());
-                                    return r;
-                                }
-                            );
-                        }
-                    )
-                )
-            );
-        }
+                response =>
+                {
+                    if (response && 200 === response.status)
+                    {
+                        const responseToCache = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.put(event.request, responseToCache));
+                    }
+                    return response;
+                }
+            )
+            .catch(() => caches.match(event.request))
+        );
     }
 );
