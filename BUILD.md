@@ -87,7 +87,7 @@ graph TB;
     sts[[./style/*.scss]]-->bst([build style])-->stc[[./style/index.css]];
     lmt[[./locale/generated/master.ts]]-->bs([build script]);
     st[[./script/*.ts]]-->bs([build script])-->sj[[./script/index.js]];
-    ./web.manifest/template.json-->bwm([build web.manifest])
+    ./web.manifest/template.json-->bwm([build web.manifest]);
     bwm([build web.manifest])-->wmj[[./web.manifest/generated/*.json]];
     ./resource/*.json-->bh([build html]);
     lh[[./locale/generated/*.html]]-->bh([build html]);
