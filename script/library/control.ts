@@ -192,7 +192,7 @@ export namespace Control
         );
         get = () => this.dom.value;
         fire = () => this.options?.change?.(null, this);
-        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        loadParameter = (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) =>
         {
             const value = params[this.dom.id];
             if (undefined !== value)
@@ -206,7 +206,10 @@ export namespace Control
                     console.warn("🚫 Select.loadParameter: Unknown option value:", this.dom.id, value, this);
                 }
             }
-            this.saveParameter = saveParameter;
+            if (undefined !== saveParameter)
+            {
+                this.saveParameter = saveParameter;
+            }
             return this;
         }
     }
@@ -283,14 +286,17 @@ export namespace Control
         };
         get = () => this.dom.checked;
         fire = () => this.options?.change?.(null, this);
-        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        loadParameter = (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) =>
         {
             const value = params[this.dom.id];
             if (undefined !== value)
             {
                 this.toggle("true" === value);
             }
-            this.saveParameter = saveParameter;
+            if (undefined !== saveParameter)
+            {
+                this.saveParameter = saveParameter;
+            }
             return this;
         }
     }
@@ -371,14 +377,17 @@ export namespace Control
         };
         get = () => this.dom.classList.contains("on");
         fire = () => this.options?.change?.(null, this);
-        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        loadParameter = (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) =>
         {
             const value = params[this.dom.id];
             if (undefined !== value)
             {
                 this.toggle("true" === value);
             }
-            this.saveParameter = saveParameter;
+            if (undefined !== saveParameter)
+            {
+                this.saveParameter = saveParameter;
+            }
             return this;
         }
     }
@@ -459,14 +468,17 @@ export namespace Control
         };
         get = () => this.dom.classList.contains("on");
         fire = () => this.options?.change?.(null, this);
-        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        loadParameter = (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) =>
         {
             const value = params[this.dom.id];
             if (undefined !== value)
             {
                 this.toggle("true" === value);
             }
-            this.saveParameter = saveParameter;
+            if (undefined !== saveParameter)
+            {
+                this.saveParameter = saveParameter;
+            }
             return this;
         }
     }
@@ -545,14 +557,17 @@ export namespace Control
         };
         get = () => parseFloat(this.dom.value);
         fire = () => this.options?.change?.(null, this);
-        loadParameter = (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) =>
+        loadParameter = (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) =>
         {
             const value = params[this.dom.id];
             if (undefined !== value)
             {
                 this.set(parseFloat(value));
             }
-            this.saveParameter = saveParameter;
+            if (undefined !== saveParameter)
+            {
+                this.saveParameter = saveParameter;
+            }
             return this;
         }
     }

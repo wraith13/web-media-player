@@ -29,5 +29,7 @@ export namespace Url
     export const initialize = () =>
     {
     };
-    export const params = parseParameter(window.location.href);
+    export let params = parseParameter(window.location.href);
+    export const reloadParameters = () =>
+        params = parseParameter(window.location.href);
 }

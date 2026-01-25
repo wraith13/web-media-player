@@ -389,6 +389,46 @@ export namespace Events
     export const initialize = (params: Record<string, string>) =>
     {
         locale = params["locale"];
+        window.addEventListener
+        (
+            "hashchange",
+            () =>
+            {
+                Url.reloadParameters();
+                UI.ControlPanel.shuffle.loadParameter(Url.params);
+                UI.ControlPanel.repeat.loadParameter(Url.params);
+                UI.volumeRange.loadParameter(Url.params);
+                UI.SettingsPanel.withFullscreenCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.brightnessRange.loadParameter(Url.params);
+                UI.SettingsPanel.stretchRange.loadParameter(Url.params);
+                UI.SettingsPanel.paddingCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.imageSpanSelect.loadParameter(Url.params);
+                UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.visualizerSelect.loadParameter(Url.params);
+                UI.SettingsPanel.crossFadeSelect.loadParameter(Url.params);
+                UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(Url.params);
+                UI.SettingsPanel.analogClockSelect.loadParameter(Url.params);
+                UI.SettingsPanel.analogClockSlimCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.dayHandCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.dateHandsCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.millisecondHandCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.overlayStyleSelect.loadParameter(Url.params);
+                UI.SettingsPanel.overlayPositionSelect.loadParameter(Url.params);
+                UI.SettingsPanel.withWeatherCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.weatherLocationSelect.loadParameter(Url.params);
+                UI.SettingsPanel.withClockCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.withDateCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.withCalenderCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.withVisualizerCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.showFpsCheckbox.loadParameter(Url.params);
+                UI.SettingsPanel.shortcutsSelect.loadParameter(Url.params);
+                UI.SettingsPanel.languageSelect.loadParameter(Url.params);
+                UI.wakeUpSelect.loadParameter(Url.params);
+                UI.fadeInSelect.loadParameter(Url.params);
+                UI.sleepSelect.loadParameter(Url.params);
+                UI.fadeOutSelect.loadParameter(Url.params);
+            }
+        );
         window.addEventListener("dragenter", event => event.preventDefault());
         window.addEventListener("dragover", event => event.preventDefault());
         window.addEventListener("drop", event => event.preventDefault());

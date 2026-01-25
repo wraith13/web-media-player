@@ -3290,7 +3290,9 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                             console.warn("🚫 Select.loadParameter: Unknown option value:", _this.dom.id, value, _this);
                         }
                     }
-                    _this.saveParameter = saveParameter;
+                    if (undefined !== saveParameter) {
+                        _this.saveParameter = saveParameter;
+                    }
                     return _this;
                 };
                 this.dom = Control.getDom(data);
@@ -3348,7 +3350,9 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     if (undefined !== value) {
                         _this.toggle("true" === value);
                     }
-                    _this.saveParameter = saveParameter;
+                    if (undefined !== saveParameter) {
+                        _this.saveParameter = saveParameter;
+                    }
                     return _this;
                 };
                 this.dom = Control.getDom(data);
@@ -3408,7 +3412,9 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     if (undefined !== value) {
                         _this.toggle("true" === value);
                     }
-                    _this.saveParameter = saveParameter;
+                    if (undefined !== saveParameter) {
+                        _this.saveParameter = saveParameter;
+                    }
                     return _this;
                 };
                 this.dom = Control.getDom(data);
@@ -3469,7 +3475,9 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     if (undefined !== value) {
                         _this.toggle("true" === value);
                     }
-                    _this.saveParameter = saveParameter;
+                    if (undefined !== saveParameter) {
+                        _this.saveParameter = saveParameter;
+                    }
                     return _this;
                 };
                 this.dom = Control.getDom(data);
@@ -3523,7 +3531,9 @@ define("script/library/control", ["require", "exports", "script/tools/array", "s
                     if (undefined !== value) {
                         _this.set(parseFloat(value));
                     }
-                    _this.saveParameter = saveParameter;
+                    if (undefined !== saveParameter) {
+                        _this.saveParameter = saveParameter;
+                    }
                     return _this;
                 };
                 this.dom = Control.getDom(data);
@@ -4890,6 +4900,9 @@ define("script/url", ["require", "exports"], function (require, exports) {
         Url.initialize = function () {
         };
         Url.params = Url.parseParameter(window.location.href);
+        Url.reloadParameters = function () {
+            return Url.params = Url.parseParameter(window.location.href);
+        };
     })(Url || (exports.Url = Url = {}));
 });
 define("resource/control", [], {
@@ -10306,6 +10319,41 @@ define("script/events", ["require", "exports", "script/tools/index", "script/lib
         Events.initialize = function (params) {
             var _a, _b, _c, _d, _e;
             Events.locale = params["locale"];
+            window.addEventListener("hashchange", function () {
+                url_4.Url.reloadParameters();
+                ui_12.UI.ControlPanel.shuffle.loadParameter(url_4.Url.params);
+                ui_12.UI.ControlPanel.repeat.loadParameter(url_4.Url.params);
+                ui_12.UI.volumeRange.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withFullscreenCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.brightnessRange.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.stretchRange.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.paddingCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.imageSpanSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.loopShortMediaCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.visualizerSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.crossFadeSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.crossFadeTransitionSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.analogClockSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.analogClockSlimCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.dayHandCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.dateHandsCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.millisecondHandCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.overlayStyleSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.overlayPositionSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withWeatherCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.weatherLocationSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withClockCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withDateCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withCalenderCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.withVisualizerCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.showFpsCheckbox.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.shortcutsSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.SettingsPanel.languageSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.wakeUpSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.fadeInSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.sleepSelect.loadParameter(url_4.Url.params);
+                ui_12.UI.fadeOutSelect.loadParameter(url_4.Url.params);
+            });
             window.addEventListener("dragenter", function (event) { return event.preventDefault(); });
             window.addEventListener("dragover", function (event) { return event.preventDefault(); });
             window.addEventListener("drop", function (event) { return event.preventDefault(); });

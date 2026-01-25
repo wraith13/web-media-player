@@ -5316,7 +5316,7 @@ declare module "script/library/control" {
             cycle: (direction: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => void;
             get: () => string;
             fire: () => unknown;
-            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+            loadParameter: (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) => this;
         }
         interface CheckboxArgumentsBase {
             default?: boolean;
@@ -5341,7 +5341,7 @@ declare module "script/library/control" {
             toggle: (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => void;
             get: () => boolean;
             fire: () => unknown;
-            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+            loadParameter: (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) => this;
         }
         interface ToggleLabelArgumentsBase {
             default?: boolean;
@@ -5366,7 +5366,7 @@ declare module "script/library/control" {
             toggle: (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => void;
             get: () => boolean;
             fire: () => unknown;
-            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+            loadParameter: (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) => this;
         }
         interface ToggleButtonArgumentsBase {
             default?: boolean;
@@ -5391,7 +5391,7 @@ declare module "script/library/control" {
             toggle: (checked?: boolean, preventOnChange?: "preventOnChange" | "forceOnChange") => void;
             get: () => boolean;
             fire: () => unknown;
-            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+            loadParameter: (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) => this;
         }
         interface RangeArgumentsBase {
             min?: number;
@@ -5419,7 +5419,7 @@ declare module "script/library/control" {
             set: (value: number, preventOnChange?: "preventOnChange") => void;
             get: () => number;
             fire: () => unknown;
-            loadParameter: (params: Record<string, string>, saveParameter: (key: string, value: string) => unknown) => this;
+            loadParameter: (params: Record<string, string>, saveParameter?: (key: string, value: string) => unknown) => this;
         }
     }
 }
@@ -5623,7 +5623,8 @@ declare module "script/url" {
         const make: (params: Record<string, string>) => string;
         const addParameter: (params: Record<string, string>, key: string, value: string) => Record<string, string>;
         const initialize: () => void;
-        const params: Record<string, string>;
+        let params: Record<string, string>;
+        const reloadParameters: () => Record<string, string>;
     }
 }
 declare module "script/ui" {
